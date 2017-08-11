@@ -10,6 +10,7 @@
 TARGET = Vremenar
 
 # Common configuration
+include($$top_srcdir/config/version.pri)
 include($$top_srcdir/config/dependencies.pri)
 include($$top_srcdir/config/compiler.pri)
 include($$top_srcdir/config/platform.pri)
@@ -23,5 +24,4 @@ SOURCES += main.cpp
 RESOURCES += qml/qml.qrc
 
 # Default rules for deployment.
-unix:!android: target.path = /opt/$${TARGET}/bin
-!isEmpty(target.path): INSTALLS += target
+DESTDIR = ../../
