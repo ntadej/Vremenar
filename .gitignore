@@ -1,6 +1,5 @@
 *.pro.user
 
 # Temp
-resources
 i18n
 src/qml

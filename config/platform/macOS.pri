@@ -8,3 +8,4 @@
 #
 
 QMAKE_INFO_PLIST = $$top_srcdir/resources/macOS/Info.plist
+ICON = $$top_srcdir/resources/Vremenar.icns
