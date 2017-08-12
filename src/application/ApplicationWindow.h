@@ -13,6 +13,8 @@
 #include <QtGui/QCloseEvent>
 #include <QtQml/QQmlApplicationEngine>
 
+class QQuickWindow;
+
 class LocaleManager;
 class SettingsDialog;
 
@@ -28,9 +30,10 @@ public slots:
     void dockClicked();
     void processUrl(const QString &url);
 
+private slots:
+    void writeSettingsStartup();
+
 private:
-    void createSettings();
-    void createSettingsStartup();
     void createModels();
     void createWidgets();
 
@@ -45,7 +48,7 @@ private:
     LocaleManager *_localeManager;
 
     // QML
-    QObject *_qmlMainWindow;
+    QQuickWindow *_qmlMainWindow;
 
     // Widgets
     SettingsDialog *_settingsDialog;

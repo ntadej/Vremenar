@@ -12,7 +12,16 @@
 // Locale
 const QString Settings::KEY_LOCALE = "locale";
 
+// GUI
+const QString Settings::KEY_SHOW_IN_TRAY = "gui/tray";
+#if defined(Q_OS_MAC)
+const QString Settings::KEY_SHOW_IN_DOCK = "gui/dock";
+#endif
+
 // GUI - start
+const QString Settings::KEY_REMEMBER_POSITION = "gui/remember-position";
+const QString Settings::KEY_REMEMBER_SIZE = "gui/remember-size";
+
 const QString Settings::KEY_WIDTH = "gui/width";
 const QString Settings::KEY_HEIGHT = "gui/height";
 const QString Settings::KEY_POS_X = "gui/posx";

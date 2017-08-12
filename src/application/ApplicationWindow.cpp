@@ -10,8 +10,10 @@
 #include <QtCore/QDebug>
 #include <QtCore/QString>
 #include <QtQml/QQmlContext>
+#include <QtQuick/QQuickWindow>
 
 #include "common/LocaleManager.h"
+#include "qml/Qml.h"
 #include "settings/Settings.h"
 #include "settings/SettingsDialog.h"
 
@@ -21,52 +23,50 @@ ApplicationWindow::ApplicationWindow(QObject *parent)
     : QQmlApplicationEngine(parent),
       _localeManager(new LocaleManager(this))
 {
-    createSettings();
-    createSettingsStartup();
     createModels();
     createWidgets();
 
     addImportPath("qrc:/");
 
+    Vremenar::Qml::registerTypes();
+
     load(QUrl(QStringLiteral("qrc:/Vremenar/main.qml")));
 
-    _qmlMainWindow = rootObjects().first();
+    _qmlMainWindow = qobject_cast<QQuickWindow *>(rootObjects().first());
+
+    connect(qApp, &QCoreApplication::aboutToQuit, this, &ApplicationWindow::writeSettingsStartup);
 }
 
 ApplicationWindow::~ApplicationWindow() {}
 
 void ApplicationWindow::activate()
 {
-    QMetaObject::invokeMethod(_qmlMainWindow, "show");
-    QMetaObject::invokeMethod(_qmlMainWindow, "raise");
-    QMetaObject::invokeMethod(_qmlMainWindow, "requestActivate");
+    _qmlMainWindow->show();
+    _qmlMainWindow->raise();
+    _qmlMainWindow->requestActivate();
 }
 
 void ApplicationWindow::dockClicked()
 {
-    QMetaObject::invokeMethod(_qmlMainWindow, "show");
+    _qmlMainWindow->show();
 }
 
-void ApplicationWindow::createSettings()
+void ApplicationWindow::writeSettingsStartup()
 {
-    //QScopedPointer<Settings> settings(new Settings(this));
+    if (_qmlMainWindow->visibility() == QWindow::Maximized
+        || _qmlMainWindow->visibility() == QWindow::FullScreen)
+        return;
 
-    //qDebug() << "Initialised: Settings";
-}
-
-void ApplicationWindow::createSettingsStartup()
-{
     QScopedPointer<Settings> settings(new Settings(this));
-    _width = settings->width();
-    _height = settings->height();
-    _posX = settings->posX();
-    _posY = settings->posY();
-
-    if (_rememberGui) {
-        //resize(_width, _height);
+    if (settings->rememberPosition()) {
+        settings->setPosX(_qmlMainWindow->x());
+        settings->setPosY(_qmlMainWindow->y());
     }
-
-    qDebug() << "Initialised: Startup settings";
+    if (settings->rememberSize()) {
+        settings->setWidth(_qmlMainWindow->width());
+        settings->setHeight(_qmlMainWindow->height());
+    }
+    settings->writeSettings();
 }
 
 void ApplicationWindow::createModels()

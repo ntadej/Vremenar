@@ -42,6 +42,8 @@ SOURCES += \
     src/common/Log.cpp \
     src/common/Resources.cpp \
     src/common/Output.cpp \
+    src/qml/Globals.cpp \
+    src/qml/Qml.cpp \
     src/settings/Settings.cpp \
     src/settings/SettingsDefaults.cpp \
     src/settings/SettingsDialog.cpp \
@@ -61,6 +63,8 @@ HEADERS += \
     src/common/Log.h \
     src/common/Resources.h \
     src/common/Output.h \
+    src/qml/Globals.h \
+    src/qml/Qml.h \
     src/settings/Settings.h \
     src/settings/SettingsDialog.h
 
@@ -71,6 +75,7 @@ FORMS += \
 RESOURCES += \
     $$top_builddir/i18n.qrc \
     src/qml/qml.qrc \
+    src/qml/Vremenar/vremenar.qrc \
     src/qml/Vremenar/Common/common.qrc \
     src/qml/Vremenar/Maps/maps.qrc \
     src/qml/Vremenar/Navigation/navigation.qrc \

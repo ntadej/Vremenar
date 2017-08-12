@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/Vremenar">
+        <file>qmldir</file>
+    </qresource>
+</RCC>

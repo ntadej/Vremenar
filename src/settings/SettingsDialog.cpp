@@ -31,10 +31,18 @@ SettingsDialog::SettingsDialog(QWidget *parent)
 
 #if defined(Q_OS_MAC) && MAC_NATIVE_TOOLBAR
     initializeMacOS();
+
+    connect(ui->checkShowInDock, &QCheckBox::toggled, this, &SettingsDialog::showInDockChangedSlot);
 #else
+    ui->checkShowInDock->hide();
+
     connect(ui->actionGeneral, &QAction::toggled, this, &SettingsDialog::actionToggled);
     connect(ui->actionInterface, &QAction::toggled, this, &SettingsDialog::actionToggled);
 #endif
+
+    connect(ui->checkShowInTray, &QCheckBox::toggled, this, &SettingsDialog::showInTrayChangedSlot);
+    connect(ui->checkRememberPosition, &QCheckBox::toggled, this, &SettingsDialog::rememberPositionChangedSlot);
+    connect(ui->checkRememberSize, &QCheckBox::toggled, this, &SettingsDialog::rememberSizeChangedSlot);
 
     loadLocales();
 }
@@ -109,4 +117,45 @@ void SettingsDialog::loadLocales()
     }
 
     connect(ui->comboLocale, &QComboBox::currentTextChanged, this, &SettingsDialog::localeChangedSlot);
+}
+
+void SettingsDialog::showInTrayChangedSlot(bool checked)
+{
+    QScopedPointer<Settings> settings(new Settings(this));
+    settings->setShowInTray(checked);
+    settings->writeSettings();
+
+    emit showInTrayChanged(checked);
+
+#if defined(Q_OS_MAC)
+    ui->checkShowInDock->setEnabled(checked);
+    if (!checked) {
+        ui->checkShowInDock->setChecked(true);
+    }
+#endif
+}
+
+#if defined(Q_OS_MAC)
+void SettingsDialog::showInDockChangedSlot(bool checked)
+{
+    QScopedPointer<Settings> settings(new Settings(this));
+    settings->setShowInDock(checked);
+    settings->writeSettings();
+
+    emit showInDockChanged(checked);
+}
+#endif
+
+void SettingsDialog::rememberPositionChangedSlot(bool checked)
+{
+    QScopedPointer<Settings> settings(new Settings(this));
+    settings->setRememberPosition(checked);
+    settings->writeSettings();
+}
+
+void SettingsDialog::rememberSizeChangedSlot(bool checked)
+{
+    QScopedPointer<Settings> settings(new Settings(this));
+    settings->setRememberSize(checked);
+    settings->writeSettings();
 }

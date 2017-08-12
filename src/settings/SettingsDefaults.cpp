@@ -12,7 +12,16 @@
 // Locale
 const QString Settings::DEFAULT_LOCALE = "";
 
+// GUI
+const bool Settings::DEFAULT_SHOW_IN_TRAY = false;
+#if defined(Q_OS_MAC)
+const bool Settings::DEFAULT_SHOW_IN_DOCK = true;
+#endif
+
 // GUI - start
+const bool Settings::DEFAULT_REMEMBER_POSITION = false;
+const bool Settings::DEFAULT_REMEMBER_SIZE = false;
+
 const int Settings::DEFAULT_WIDTH = 650;
 const int Settings::DEFAULT_HEIGHT = 300;
 const int Settings::DEFAULT_POS_X = 0;

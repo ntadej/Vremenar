@@ -9,14 +9,35 @@
 import QtQuick 2.7
 import QtQuick.Controls 1.0
 
+import Vremenar 1.0
 import Vremenar.Common 1.0
 
 ApplicationWindow {
+    title: Globals.name
+    width: 640
+    height: 480
+
     menuBar: MainMenu {
     }
 
     onClosing: {
         hide()
         close.accepted = false
+    }
+
+    Component.onCompleted: {
+        if (Settings.rememberSize) {
+            console.log("Restoring size:", Settings.width, Settings.height)
+
+            width = Settings.width
+            height = Settings.height
+        }
+
+        if (Settings.rememberPosition) {
+            console.log("Restoring position:", Settings.posX, Settings.posY)
+
+            x = Settings.posX
+            y = Settings.posY
+        }
     }
 }

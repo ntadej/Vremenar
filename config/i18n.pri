@@ -32,5 +32,3 @@ lrelease.commands = $$LRELEASE ${QMAKE_FILE_IN} -qm ${QMAKE_FILE_BASE}.qm
 lrelease.CONFIG += no_link target_predeps
 
 QMAKE_EXTRA_COMPILERS += lcopyqrc lrelease
-
-PRE_TARGETDEPS += compiler_lcopyqrc_make_all compiler_lrelease_make_all

@@ -36,10 +36,21 @@ protected:
 
 signals:
     void localeChanged();
+    void showInTrayChanged(bool checked);
+#if defined(Q_OS_MAC)
+    void showInDockChanged(bool checked);
+#endif
 
 private slots:
     void actionToggled();
+
     void localeChangedSlot();
+    void showInTrayChangedSlot(bool checked);
+#if defined(Q_OS_MAC)
+    void showInDockChangedSlot(bool checked);
+#endif
+    void rememberPositionChangedSlot(bool checked);
+    void rememberSizeChangedSlot(bool checked);
 
 private:
     Ui::SettingsDialog *ui;

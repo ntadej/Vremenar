@@ -13,6 +13,12 @@ Settings::Settings(QObject *parent)
     : QSettings(parent)
 {
     _map[KEY_LOCALE] = DEFAULT_LOCALE;
+    _map[KEY_SHOW_IN_TRAY] = DEFAULT_SHOW_IN_TRAY;
+#if defined(Q_OS_MAC)
+    _map[KEY_SHOW_IN_DOCK] = DEFAULT_SHOW_IN_DOCK;
+#endif
+    _map[KEY_REMEMBER_POSITION] = DEFAULT_REMEMBER_POSITION;
+    _map[KEY_REMEMBER_SIZE] = DEFAULT_REMEMBER_SIZE;
     _map[KEY_WIDTH] = DEFAULT_WIDTH;
     _map[KEY_HEIGHT] = DEFAULT_HEIGHT;
     _map[KEY_POS_X] = DEFAULT_POS_X;
@@ -27,6 +33,13 @@ void Settings::writeSettings()
 {
     setValue(KEY_LOCALE, locale());
 
+    setValue(KEY_SHOW_IN_TRAY, showInTray());
+#if defined(Q_OS_MAC)
+    setValue(KEY_SHOW_IN_DOCK, showInDock());
+#endif
+
+    setValue(KEY_REMEMBER_POSITION, rememberPosition());
+    setValue(KEY_REMEMBER_SIZE, rememberSize());
     setValue(KEY_WIDTH, width());
     setValue(KEY_HEIGHT, height());
     setValue(KEY_POS_X, posX());
@@ -39,10 +52,19 @@ void Settings::readSettings()
 {
     setLocale(value(KEY_LOCALE, defaultValue(KEY_LOCALE)).toString());
 
+    setShowInTray(value(KEY_SHOW_IN_TRAY, defaultValue(KEY_SHOW_IN_TRAY)).toBool());
+#if defined(Q_OS_MAC)
+    setShowInDock(value(KEY_SHOW_IN_DOCK, defaultValue(KEY_SHOW_IN_DOCK)).toBool());
+#endif
+
+    setRememberPosition(value(KEY_REMEMBER_POSITION, defaultValue(KEY_REMEMBER_POSITION)).toBool());
+    setRememberSize(value(KEY_REMEMBER_SIZE, defaultValue(KEY_REMEMBER_SIZE)).toBool());
     setWidth(value(KEY_WIDTH, defaultValue(KEY_WIDTH)).toInt());
     setHeight(value(KEY_HEIGHT, defaultValue(KEY_HEIGHT)).toInt());
     setPosX(value(KEY_POS_X, defaultValue(KEY_POS_X)).toInt());
     setPosY(value(KEY_POS_Y, defaultValue(KEY_POS_Y)).toInt());
+
+    emit settingsReloaded();
 }
 
 QVariant Settings::defaultValue(const QString &key) const
