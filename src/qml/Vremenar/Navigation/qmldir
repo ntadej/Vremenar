@@ -1,0 +1,6 @@
+module Vremenar.Navigation
+
+ApplicationWindow 1.0 ApplicationWindow.qml
+CentralSwipeView 1.0 CentralSwipeView.qml
+CentralPageIndicator 1.0 CentralPageIndicator.qml
+

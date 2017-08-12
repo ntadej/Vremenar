@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/Vremenar/Navigation">
+        <file>qmldir</file>
+        <file>ApplicationWindow.qml</file>
+        <file>CentralSwipeView.qml</file>
+        <file>CentralPageIndicator.qml</file>
+    </qresource>
+</RCC>

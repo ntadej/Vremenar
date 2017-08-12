@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/Vremenar/Maps">
+        <file>MapsPage.qml</file>
+        <file>qmldir</file>
+    </qresource>
+</RCC>
