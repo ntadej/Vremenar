@@ -10,4 +10,8 @@ import QtQuick 2.7
 import QtQuick.Controls 1.0
 
 ApplicationWindow {
+    onClosing: {
+        hide()
+        close.accepted = false
+    }
 }

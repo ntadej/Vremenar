@@ -8,3 +8,9 @@
 #
 
 QT += qml quick
+QT += widgets
+
+mac {
+    QT += macextras
+    LIBS += -framework Cocoa
+}

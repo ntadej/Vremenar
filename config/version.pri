@@ -7,7 +7,8 @@
 # Refer to the LICENSE.md file for details.
 #
 
-IN_VERSION=$$cat(../VERSION)
-VERSION=$$IN_VERSION
+IN_VERSION = $$cat(../VERSION)
+VERSION = $$IN_VERSION
 
-message("Building version: $$VERSION")
+DEFINES += VERSION=\\\"$$VERSION\\\"
+DEFINES += VERSION_BUILD=1
