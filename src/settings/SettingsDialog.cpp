@@ -31,11 +31,7 @@ SettingsDialog::SettingsDialog(QWidget *parent)
 
 #if defined(Q_OS_MAC) && MAC_NATIVE_TOOLBAR
     initializeMacOS();
-
-    connect(ui->checkShowInDock, &QCheckBox::toggled, this, &SettingsDialog::showInDockChangedSlot);
 #else
-    ui->checkShowInDock->hide();
-
     connect(ui->actionGeneral, &QAction::toggled, this, &SettingsDialog::actionToggled);
     connect(ui->actionInterface, &QAction::toggled, this, &SettingsDialog::actionToggled);
 #endif
@@ -44,6 +40,13 @@ SettingsDialog::SettingsDialog(QWidget *parent)
     connect(ui->checkRememberPosition, &QCheckBox::toggled, this, &SettingsDialog::rememberPositionChangedSlot);
     connect(ui->checkRememberSize, &QCheckBox::toggled, this, &SettingsDialog::rememberSizeChangedSlot);
 
+#ifdef Q_OS_MAC
+    connect(ui->checkShowInDock, &QCheckBox::toggled, this, &SettingsDialog::showInDockChangedSlot);
+#else
+    ui->checkShowInDock->hide();
+#endif
+
+    readSettings();
     loadLocales();
 }
 
@@ -84,6 +87,18 @@ void SettingsDialog::actionToggled()
         ui->stackedWidget->setCurrentWidget(ui->pageInterface);
     }
 #endif
+}
+
+void SettingsDialog::readSettings()
+{
+    QScopedPointer<Settings> settings(new Settings(this));
+
+    ui->checkShowInTray->setChecked(settings->showInTray());
+#ifdef Q_OS_MAC
+    ui->checkShowInDock->setChecked(settings->showInDock());
+#endif
+    ui->checkRememberPosition->setChecked(settings->rememberPosition());
+    ui->checkRememberSize->setChecked(settings->rememberSize());
 }
 
 void SettingsDialog::localeChangedSlot()
@@ -127,7 +142,7 @@ void SettingsDialog::showInTrayChangedSlot(bool checked)
 
     emit showInTrayChanged(checked);
 
-#if defined(Q_OS_MAC)
+#ifdef Q_OS_MAC
     ui->checkShowInDock->setEnabled(checked);
     if (!checked) {
         ui->checkShowInDock->setChecked(true);
@@ -135,7 +150,7 @@ void SettingsDialog::showInTrayChangedSlot(bool checked)
 #endif
 }
 
-#if defined(Q_OS_MAC)
+#ifdef Q_OS_MAC
 void SettingsDialog::showInDockChangedSlot(bool checked)
 {
     QScopedPointer<Settings> settings(new Settings(this));

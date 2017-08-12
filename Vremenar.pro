@@ -51,7 +51,9 @@ SOURCES += \
     src/settings/SettingsKeys.cpp
 
 mac {
-    OBJECTIVE_SOURCES += src/settings/SettingsDialogMacOS.mm
+    OBJECTIVE_SOURCES += \
+        src/application/DesktopApplicationMacOS.mm \
+        src/settings/SettingsDialogMacOS.mm
 }
 
 HEADERS += \

@@ -39,5 +39,7 @@ ApplicationWindow {
             x = Settings.posX
             y = Settings.posY
         }
+
+        Vremenar.startCompleted()
     }
 }

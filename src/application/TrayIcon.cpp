@@ -16,6 +16,20 @@ TrayIcon::TrayIcon(QObject *parent)
     icon.setIsMask(true);
 
     setIcon(icon);
+
+    connect(this, &TrayIcon::activated, this, &TrayIcon::activatedCallback);
 }
 
 TrayIcon::~TrayIcon() {}
+
+void TrayIcon::activatedCallback(QSystemTrayIcon::ActivationReason reason)
+{
+    switch (reason) {
+    case QSystemTrayIcon::Trigger:
+    case QSystemTrayIcon::DoubleClick:
+        emit clicked();
+        break;
+    default:
+        break;
+    }
+}

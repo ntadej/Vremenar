@@ -62,7 +62,7 @@ QString LocaleManager::localeName(const QString &file)
 void LocaleManager::setLocale()
 {
     QString locale;
-    QScopedPointer<Settings> settings(new Settings());
+    QScopedPointer<Settings> settings(new Settings(this));
     if (settings->locale().isEmpty()) {
         locale = QLocale::system().name();
     } else {

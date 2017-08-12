@@ -10,7 +10,7 @@
 #ifndef VREMENAR_APPLICATIONWINDOW_H_
 #define VREMENAR_APPLICATIONWINDOW_H_
 
-#include <QtGui/QCloseEvent>
+#include <QtGui/QWindow>
 #include <QtQml/QQmlApplicationEngine>
 
 class QQuickWindow;
@@ -28,8 +28,15 @@ public:
 
 public slots:
     void activate();
-    void dockClicked();
     void processUrl(const QString &url);
+    void startCompleted();
+
+#ifdef Q_OS_MAC
+    void dockClicked();
+
+signals:
+    void dockVisibilityChanged(bool);
+#endif
 
 private slots:
     void writeSettingsStartup();

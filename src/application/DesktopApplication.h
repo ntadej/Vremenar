@@ -12,6 +12,8 @@
 
 #include "SingleApplication.h"
 
+class QWindow;
+
 class DesktopApplication : public SingleApplication
 {
     Q_OBJECT
@@ -28,14 +30,22 @@ public:
 
 #ifdef Q_OS_MAC
     void setupDockHandler();
-#endif
 
 public slots:
-    void onClickOnDock();
+    void dockClickedCallback();
+    void dockSetVisibility(bool visible);
+#endif
 
 signals:
-    void dockClicked();
     void urlOpened(const QString &);
+
+#ifdef Q_OS_MAC
+    void dockClicked();
+
+private:
+    void dockShow();
+    void dockHide();
+#endif
 };
 
 #endif // VREMENAR_DESKTOPAPPLICATION_H_

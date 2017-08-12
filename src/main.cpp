@@ -23,9 +23,5 @@ int main(int argc, char *argv[])
 
     ApplicationWindow main;
 
-    QObject::connect(&instance, &DesktopApplication::activate, &main, &ApplicationWindow::activate);
-    QObject::connect(&instance, &DesktopApplication::dockClicked, &main, &ApplicationWindow::dockClicked);
-    QObject::connect(&instance, &DesktopApplication::urlOpened, &main, &ApplicationWindow::processUrl);
-
     return instance.exec();
 }

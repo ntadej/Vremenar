@@ -12,6 +12,7 @@
 #include <QtQml/QQmlContext>
 #include <QtQuick/QQuickWindow>
 
+#include "application/DesktopApplication.h"
 #include "application/TrayIcon.h"
 #include "common/LocaleManager.h"
 #include "qml/Qml.h"
@@ -31,11 +32,21 @@ ApplicationWindow::ApplicationWindow(QObject *parent)
 
     Vremenar::Qml::registerTypes();
 
+    connect(qApp, &QCoreApplication::aboutToQuit, this, &ApplicationWindow::writeSettingsStartup);
+
+    DesktopApplication *application = qobject_cast<DesktopApplication *>(qApp);
+    connect(application, &DesktopApplication::activate, this, &ApplicationWindow::activate);
+    connect(application, &DesktopApplication::urlOpened, this, &ApplicationWindow::processUrl);
+
+#ifdef Q_OS_MAC
+    connect(application, &DesktopApplication::dockClicked, this, &ApplicationWindow::dockClicked);
+    connect(this, &ApplicationWindow::dockVisibilityChanged, application, &DesktopApplication::dockSetVisibility);
+#endif
+
+    // Load main QML
     load(QUrl(QStringLiteral("qrc:/Vremenar/main.qml")));
 
     _qmlMainWindow = qobject_cast<QQuickWindow *>(rootObjects().first());
-
-    connect(qApp, &QCoreApplication::aboutToQuit, this, &ApplicationWindow::writeSettingsStartup);
 }
 
 ApplicationWindow::~ApplicationWindow() {}
@@ -47,10 +58,12 @@ void ApplicationWindow::activate()
     _qmlMainWindow->requestActivate();
 }
 
+#ifdef Q_OS_MAC
 void ApplicationWindow::dockClicked()
 {
     _qmlMainWindow->show();
 }
+#endif
 
 void ApplicationWindow::writeSettingsStartup()
 {
@@ -86,6 +99,11 @@ void ApplicationWindow::createWidgets()
 
     connect(_settingsDialog, &SettingsDialog::localeChanged, _localeManager, &LocaleManager::setLocale);
     connect(_settingsDialog, &SettingsDialog::showInTrayChanged, _trayIcon, &TrayIcon::setVisible);
+    connect(_trayIcon, &TrayIcon::clicked, this, &ApplicationWindow::activate);
+
+#ifdef Q_OS_MAC
+    connect(_settingsDialog, &SettingsDialog::showInDockChanged, this, &ApplicationWindow::dockVisibilityChanged);
+#endif
 
     rootContext()->setContextProperty("VremenarSettings", _settingsDialog);
 }
@@ -99,4 +117,14 @@ void ApplicationWindow::processUrl(const QString &url)
         return;
 
     qDebug() << "Opened URL:" << url;
+}
+
+void ApplicationWindow::startCompleted()
+{
+#ifdef Q_OS_MAC
+    QScopedPointer<Settings> settings(new Settings(this));
+    emit dockVisibilityChanged(settings->showInDock());
+#endif
+
+    qDebug() << "Initialization completed";
 }

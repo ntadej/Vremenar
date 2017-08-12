@@ -14,9 +14,16 @@
 
 class TrayIcon : public QSystemTrayIcon
 {
+    Q_OBJECT
 public:
     explicit TrayIcon(QObject *parent = 0);
     virtual ~TrayIcon();
+
+signals:
+    void clicked();
+
+private slots:
+    void activatedCallback(QSystemTrayIcon::ActivationReason reason);
 };
 
 #endif // VREMENAR_TRAYICON_H_

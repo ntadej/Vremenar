@@ -57,6 +57,7 @@ private:
 
     QActionGroup *_group;
 
+    void readSettings();
     void loadLocales();
     QStringList _locales;
 

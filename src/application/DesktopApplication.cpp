@@ -8,8 +8,6 @@
 */
 
 #include <QtCore/QDebug>
-#include <QtCore/QDir>
-#include <QtCore/QTextCodec>
 #include <QtGui/QFileOpenEvent>
 
 #include "common/Common.h"
@@ -29,7 +27,7 @@ bool dockClickHandler(id self,
     Q_UNUSED(self)
     Q_UNUSED(cmd)
 
-    ((DesktopApplication *)qApp)->onClickOnDock();
+    ((DesktopApplication *)qApp)->dockClickedCallback();
 
     return true;
 }
@@ -79,11 +77,6 @@ bool DesktopApplication::eventFilter(QObject *object,
     } else {
         return QObject::eventFilter(object, event);
     }
-}
-
-void DesktopApplication::onClickOnDock()
-{
-    emit dockClicked();
 }
 
 #ifdef Q_OS_MAC
