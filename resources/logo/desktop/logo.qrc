@@ -14,5 +14,7 @@
         <file>48x48/logo@2x.png</file>
         <file>256x256/logo.png</file>
         <file>256x256/logo@2x.png</file>
+        <file>logo_tray.png</file>
+        <file>logo_tray@2x.png</file>
     </qresource>
 </RCC>

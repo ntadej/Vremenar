@@ -12,6 +12,7 @@
 #include <QtQml/QQmlContext>
 #include <QtQuick/QQuickWindow>
 
+#include "application/TrayIcon.h"
 #include "common/LocaleManager.h"
 #include "qml/Qml.h"
 #include "settings/Settings.h"
@@ -77,9 +78,14 @@ void ApplicationWindow::createModels()
 
 void ApplicationWindow::createWidgets()
 {
+    QScopedPointer<Settings> settings(new Settings(this));
+
     _settingsDialog = new SettingsDialog();
+    _trayIcon = new TrayIcon(this);
+    _trayIcon->setVisible(settings->showInTray());
 
     connect(_settingsDialog, &SettingsDialog::localeChanged, _localeManager, &LocaleManager::setLocale);
+    connect(_settingsDialog, &SettingsDialog::showInTrayChanged, _trayIcon, &TrayIcon::setVisible);
 
     rootContext()->setContextProperty("VremenarSettings", _settingsDialog);
 }

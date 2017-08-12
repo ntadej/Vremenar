@@ -36,6 +36,7 @@ SOURCES += \
     src/application/ApplicationWindow.cpp \
     src/application/DesktopApplication.cpp \
     src/application/SingleApplication.cpp \
+    src/application/TrayIcon.cpp \
     src/common/Common.cpp \
     src/common/LocaleManager.cpp \
     src/common/LocalServer.cpp \
@@ -57,6 +58,7 @@ HEADERS += \
     src/application/ApplicationWindow.h \
     src/application/DesktopApplication.h \
     src/application/SingleApplication.h \
+    src/application/TrayIcon.h \
     src/common/Common.h \
     src/common/LocaleManager.h \
     src/common/LocalServer.h \
@@ -80,3 +82,4 @@ RESOURCES += \
     src/qml/Vremenar/Maps/maps.qrc \
     src/qml/Vremenar/Navigation/navigation.qrc \
     resources/icons/icons.qrc \
+    resources/logo/desktop/logo.qrc

@@ -17,6 +17,7 @@ class QQuickWindow;
 
 class LocaleManager;
 class SettingsDialog;
+class TrayIcon;
 
 class ApplicationWindow : public QQmlApplicationEngine
 {
@@ -52,6 +53,7 @@ private:
 
     // Widgets
     SettingsDialog *_settingsDialog;
+    TrayIcon *_trayIcon;
 };
 
 #endif // VREMENAR_APPLICATIONWINDOW_H_
