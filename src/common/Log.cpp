@@ -19,8 +19,8 @@
 #include "common/Output.h"
 #include "common/Resources.h"
 
-QTextStream *out;
-QMutex *outMutex;
+static QTextStream *out;
+static QMutex *outMutex;
 
 void Vremenar::Log::output(QtMsgType type,
                            const QMessageLogContext &context,

@@ -12,5 +12,5 @@ QT += widgets
 
 mac {
     QT += macextras
-    LIBS += -framework Cocoa
+    LIBS += -weak_framework ApplicationServices -weak_framework Cocoa
 }

@@ -11,10 +11,15 @@
 #include <QtCore/QString>
 #include <QtQml/QQmlContext>
 
+#include "common/LocaleManager.h"
+#include "settings/Settings.h"
+#include "settings/SettingsDialog.h"
+
 #include "ApplicationWindow.h"
 
 ApplicationWindow::ApplicationWindow(QObject *parent)
-    : QQmlApplicationEngine(parent)
+    : QQmlApplicationEngine(parent),
+      _localeManager(new LocaleManager(this))
 {
     createSettings();
     createSettingsStartup();
@@ -23,7 +28,7 @@ ApplicationWindow::ApplicationWindow(QObject *parent)
 
     addImportPath("qrc:/");
 
-    load(QUrl(QStringLiteral("qrc:/main.qml")));
+    load(QUrl(QStringLiteral("qrc:/Vremenar/main.qml")));
 
     _qmlMainWindow = rootObjects().first();
 }
@@ -44,18 +49,39 @@ void ApplicationWindow::dockClicked()
 
 void ApplicationWindow::createSettings()
 {
+    //QScopedPointer<Settings> settings(new Settings(this));
+
+    //qDebug() << "Initialised: Settings";
 }
 
 void ApplicationWindow::createSettingsStartup()
 {
+    QScopedPointer<Settings> settings(new Settings(this));
+    _width = settings->width();
+    _height = settings->height();
+    _posX = settings->posX();
+    _posY = settings->posY();
+
+    if (_rememberGui) {
+        //resize(_width, _height);
+    }
+
+    qDebug() << "Initialised: Startup settings";
 }
 
 void ApplicationWindow::createModels()
 {
+    rootContext()->setContextProperty("Vremenar", this);
+    rootContext()->setContextProperty("TNL", _localeManager);
 }
 
 void ApplicationWindow::createWidgets()
 {
+    _settingsDialog = new SettingsDialog();
+
+    connect(_settingsDialog, &SettingsDialog::localeChanged, _localeManager, &LocaleManager::setLocale);
+
+    rootContext()->setContextProperty("VremenarSettings", _settingsDialog);
 }
 
 void ApplicationWindow::processUrl(const QString &url)

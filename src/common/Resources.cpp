@@ -32,6 +32,10 @@ QString Vremenar::Resources::resource(const QString &file)
     if (QFileInfo(file).exists())
         path = QFileInfo(file).absoluteFilePath();
 
+    // Try resources application path
+    else if (QFileInfo(":/Vremenar/" + file).exists())
+        path = QFileInfo(":/Vremenar/" + file).absoluteFilePath();
+
     // Try application exe working path
     else if (QFileInfo(QDir::currentPath() + "/" + file).exists())
         path = QFileInfo(QDir::currentPath() + "/" + file).absoluteFilePath();

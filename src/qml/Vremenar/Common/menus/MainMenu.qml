@@ -6,17 +6,11 @@
 * Version 3 or later as well as Mozilla Public License Version 2.
 * Refer to the LICENSE.md file for details.
 */
-import QtQuick 2.7
-import QtQuick.Controls 1.0
+import QtQuick.Controls 1.2
 
-import Vremenar.Common 1.0
-
-ApplicationWindow {
-    menuBar: MainMenu {
+MenuBar {
+    File {
     }
-
-    onClosing: {
-        hide()
-        close.accepted = false
+    Help {
     }
 }

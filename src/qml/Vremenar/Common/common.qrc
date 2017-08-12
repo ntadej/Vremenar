@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/Vremenar/Common">
+        <file>qmldir</file>
+        <file>menus/File.qml</file>
+        <file>menus/Help.qml</file>
+        <file>menus/MainMenu.qml</file>
+    </qresource>
+</RCC>

@@ -19,7 +19,7 @@ SwipeView {
 
     Page {
         Label {
-            text: qsTr("First page")
+            text: "First page"
             anchors.centerIn: parent
         }
     }

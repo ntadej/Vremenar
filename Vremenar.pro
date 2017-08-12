@@ -8,12 +8,14 @@
 #
 
 TARGET = Vremenar
+CONFIG += qt
 
 # Common configuration
 include($$top_srcdir/config/version.pri)
 include($$top_srcdir/config/dependencies.pri)
 include($$top_srcdir/config/compiler.pri)
 include($$top_srcdir/config/platform.pri)
+include($$top_srcdir/config/i18n.pri)
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -35,23 +37,41 @@ SOURCES += \
     src/application/DesktopApplication.cpp \
     src/application/SingleApplication.cpp \
     src/common/Common.cpp \
+    src/common/LocaleManager.cpp \
     src/common/LocalServer.cpp \
     src/common/Log.cpp \
     src/common/Resources.cpp \
-    src/common/Output.cpp
+    src/common/Output.cpp \
+    src/settings/Settings.cpp \
+    src/settings/SettingsDefaults.cpp \
+    src/settings/SettingsDialog.cpp \
+    src/settings/SettingsKeys.cpp
+
+mac {
+    OBJECTIVE_SOURCES += src/settings/SettingsDialogMacOS.mm
+}
 
 HEADERS += \
     src/application/ApplicationWindow.h \
     src/application/DesktopApplication.h \
     src/application/SingleApplication.h \
     src/common/Common.h \
+    src/common/LocaleManager.h \
     src/common/LocalServer.h \
     src/common/Log.h \
     src/common/Resources.h \
-    src/common/Output.h
+    src/common/Output.h \
+    src/settings/Settings.h \
+    src/settings/SettingsDialog.h
+
+FORMS += \
+    src/settings/SettingsDialog.ui
 
 # Define resources
 RESOURCES += \
+    $$top_builddir/i18n.qrc \
     src/qml/qml.qrc \
+    src/qml/Vremenar/Common/common.qrc \
+    src/qml/Vremenar/Maps/maps.qrc \
     src/qml/Vremenar/Navigation/navigation.qrc \
-    src/qml/Vremenar/Maps/maps.qrc
+    resources/icons/icons.qrc \

@@ -13,6 +13,9 @@
 #include <QtGui/QCloseEvent>
 #include <QtQml/QQmlApplicationEngine>
 
+class LocaleManager;
+class SettingsDialog;
+
 class ApplicationWindow : public QQmlApplicationEngine
 {
     Q_OBJECT
@@ -38,8 +41,14 @@ private:
     int _posX;
     int _posY;
 
+    // Application
+    LocaleManager *_localeManager;
+
     // QML
     QObject *_qmlMainWindow;
+
+    // Widgets
+    SettingsDialog *_settingsDialog;
 };
 
 #endif // VREMENAR_APPLICATIONWINDOW_H_

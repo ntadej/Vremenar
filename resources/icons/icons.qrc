@@ -1,0 +1,44 @@
+<RCC>
+    <qresource prefix="/Vremenar/Icons">
+        <file>16x16/preferences-desktop-keyboard.png</file>
+        <file>16x16/preferences-desktop-keyboard@2x.png</file>
+        <file>16x16/preferences-desktop-notification.png</file>
+        <file>16x16/preferences-desktop-notification@2x.png</file>
+        <file>16x16/preferences-system-windows-actions.png</file>
+        <file>16x16/preferences-system-windows-actions@2x.png</file>
+        <file>16x16/preferences-system.png</file>
+        <file>16x16/preferences-system@2x.png</file>
+        <file>24x24/preferences-desktop-keyboard.png</file>
+        <file>24x24/preferences-desktop-keyboard@2x.png</file>
+        <file>24x24/preferences-desktop-notification.png</file>
+        <file>24x24/preferences-desktop-notification@2x.png</file>
+        <file>24x24/preferences-system-windows-actions.png</file>
+        <file>24x24/preferences-system-windows-actions@2x.png</file>
+        <file>24x24/preferences-system.png</file>
+        <file>24x24/preferences-system@2x.png</file>
+        <file>32x32/preferences-desktop-keyboard.png</file>
+        <file>32x32/preferences-desktop-keyboard@2x.png</file>
+        <file>32x32/preferences-desktop-notification.png</file>
+        <file>32x32/preferences-desktop-notification@2x.png</file>
+        <file>32x32/preferences-system-windows-actions.png</file>
+        <file>32x32/preferences-system-windows-actions@2x.png</file>
+        <file>32x32/preferences-system.png</file>
+        <file>32x32/preferences-system@2x.png</file>
+        <file>48x48/preferences-desktop-keyboard.png</file>
+        <file>48x48/preferences-desktop-keyboard@2x.png</file>
+        <file>48x48/preferences-desktop-notification.png</file>
+        <file>48x48/preferences-desktop-notification@2x.png</file>
+        <file>48x48/preferences-system-windows-actions.png</file>
+        <file>48x48/preferences-system-windows-actions@2x.png</file>
+        <file>48x48/preferences-system.png</file>
+        <file>48x48/preferences-system@2x.png</file>
+        <file>64x64/preferences-desktop-keyboard.png</file>
+        <file>64x64/preferences-desktop-keyboard@2x.png</file>
+        <file>64x64/preferences-desktop-notification.png</file>
+        <file>64x64/preferences-desktop-notification@2x.png</file>
+        <file>64x64/preferences-system-windows-actions.png</file>
+        <file>64x64/preferences-system-windows-actions@2x.png</file>
+        <file>64x64/preferences-system.png</file>
+        <file>64x64/preferences-system@2x.png</file>
+    </qresource>
+</RCC>
