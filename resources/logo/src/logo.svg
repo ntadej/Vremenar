@@ -14,7 +14,7 @@
    height="600"
    id="svg2"
    version="1.1"
-   inkscape:version="0.91 r13725"
+   inkscape:version="0.92.2 5c3e80d, 2017-08-06"
    sodipodi:docname="logo.svg"
    enable-background="new">
   <defs
@@ -268,79 +268,6 @@
          offset="1"
          id="stop3780-6" />
     </linearGradient>
-    <filter
-       inkscape:label="Drop Shadow"
-       inkscape:menu="Shadows and Glows"
-       inkscape:menu-tooltip="Adds a colorizable glow inside"
-       color-interpolation-filters="sRGB"
-       id="filter2996-5">
-      <feGaussianBlur
-         stdDeviation="0.5"
-         result="result8"
-         id="feGaussianBlur2998-1" />
-      <feComposite
-         result="result6"
-         in="SourceGraphic"
-         operator="in"
-         in2="result8"
-         id="feComposite3000-9" />
-      <feComposite
-         operator="in"
-         result="result11"
-         in2="result6"
-         id="feComposite3002-1"
-         stdDeviation="5" />
-      <feFlood
-         result="result10"
-         in="result11"
-         flood-opacity="0.80000000000000004"
-         flood-color="rgb(255,255,255)"
-         id="feFlood3004-0" />
-      <feBlend
-         mode="normal"
-         in="result11"
-         in2="result10"
-         result="result12"
-         id="feBlend3006-9" />
-      <feComposite
-         result="fbSourceGraphic"
-         operator="in"
-         in2="SourceGraphic"
-         in="result12"
-         id="feComposite3008-8" />
-      <feColorMatrix
-         result="fbSourceGraphicAlpha"
-         in="fbSourceGraphic"
-         values="0 0 0 -1 0 0 0 0 -1 0 0 0 0 -1 0 0 0 0 1 0"
-         id="feColorMatrix3012-6" />
-      <feFlood
-         id="feFlood3014-2"
-         flood-opacity="0.5"
-         flood-color="rgb(0,0,0)"
-         result="flood"
-         in="fbSourceGraphic" />
-      <feComposite
-         id="feComposite3016-8"
-         in2="fbSourceGraphic"
-         in="flood"
-         operator="in"
-         result="composite1" />
-      <feGaussianBlur
-         id="feGaussianBlur3018-6"
-         stdDeviation="1"
-         result="blur" />
-      <feOffset
-         id="feOffset3020-0"
-         dx="0"
-         dy="0"
-         result="offset" />
-      <feComposite
-         id="feComposite3022-8"
-         in2="offset"
-         in="fbSourceGraphic"
-         operator="over"
-         result="composite2" />
-    </filter>
     <linearGradient
        y2="261.09381"
        x2="392.94934"

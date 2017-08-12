@@ -16,5 +16,6 @@
         <file>256x256/logo@2x.png</file>
         <file>logo_tray.png</file>
         <file>logo_tray@2x.png</file>
+        <file>logo_tray.svg</file>
     </qresource>
 </RCC>
