@@ -15,7 +15,7 @@
 
 #define MAC_NATIVE_TOOLBAR 1
 
-#if defined(Q_OS_MAC) && MAC_NATIVE_TOOLBAR
+#if defined(Q_OS_MACOS) && MAC_NATIVE_TOOLBAR
 #include <QtMacExtras>
 #endif
 
@@ -37,7 +37,7 @@ protected:
 signals:
     void localeChanged();
     void showInTrayChanged(bool checked);
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_MACOS)
     void showInDockChanged(bool checked);
 #endif
 
@@ -46,7 +46,7 @@ private slots:
 
     void localeChangedSlot();
     void showInTrayChangedSlot(bool checked);
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_MACOS)
     void showInDockChangedSlot(bool checked);
 #endif
     void rememberPositionChangedSlot(bool checked);
@@ -61,7 +61,7 @@ private:
     void loadLocales();
     QStringList _locales;
 
-#if defined(Q_OS_MAC) && MAC_NATIVE_TOOLBAR
+#if defined(Q_OS_MACOS) && MAC_NATIVE_TOOLBAR
     void initializeMacOS();
     void retranslateMacOS();
     void actionToggledMacOS();

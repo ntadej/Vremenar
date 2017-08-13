@@ -7,4 +7,4 @@
 # Refer to the LICENSE.md file for details.
 #
 
-mac: include(platform/macOS.pri)
+macx: include(platform/macOS.pri)

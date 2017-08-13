@@ -34,7 +34,7 @@ public slots:
     void processUrl(const QString &url);
     void startCompleted();
 
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
     void dockClicked();
 
 signals:
@@ -46,7 +46,9 @@ private slots:
 
 private:
     void createModels();
+#ifndef VREMENAR_MOBILE
     void createWidgets();
+#endif
 
     // Settings
     bool _rememberGui;
@@ -64,9 +66,11 @@ private:
     // QML
     QQuickWindow *_qmlMainWindow;
 
-    // Widgets
+// Widgets
+#ifndef VREMENAR_MOBILE
     SettingsDialog *_settingsDialog;
     TrayIcon *_trayIcon;
+#endif
 };
 
 #endif // VREMENAR_APPLICATIONWINDOW_H_

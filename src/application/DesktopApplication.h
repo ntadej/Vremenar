@@ -28,7 +28,7 @@ public:
     bool eventFilter(QObject *object,
                      QEvent *event);
 
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
     void setupDockHandler();
     void setupTitleBarLessWindow(WId winId);
 
@@ -40,7 +40,7 @@ public slots:
 signals:
     void urlOpened(const QString &);
 
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
     void dockClicked();
 
 private:

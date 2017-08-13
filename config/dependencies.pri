@@ -9,9 +9,13 @@
 
 QT += qml quick
 QT += location positioning
-QT += widgets
 
-mac {
+macx {
+    QT += widgets
     QT += macextras
     LIBS += -weak_framework ApplicationServices -weak_framework Cocoa
+}
+
+ios {
+    QTPLUGIN += qsqlite
 }

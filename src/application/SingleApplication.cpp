@@ -9,7 +9,7 @@
 
 #include "SingleApplication.h"
 
-#ifndef Q_OS_MAC
+#ifndef Q_OS_MACOS
 #include <QtNetwork/QLocalSocket>
 
 #include "common/Common.h"
@@ -19,13 +19,13 @@
 SingleApplication::SingleApplication(int &argc,
                                      char **argv)
     : QApplication(argc, argv),
-#ifndef Q_OS_MAC
+#ifndef Q_OS_MACOS
       _shouldContinue(false) // By default this is not the main process
 #else
       _shouldContinue(true) // It is default on OS X
 #endif
 {
-#ifndef Q_OS_MAC
+#ifndef Q_OS_MACOS
     QScopedPointer<QLocalSocket> socket(new QLocalSocket(this));
 
     // Attempt to connect to the LocalServer

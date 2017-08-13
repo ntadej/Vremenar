@@ -16,7 +16,7 @@
 
 #include "DesktopApplication.h"
 
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
 #include <objc/objc.h>
 #include <objc/message.h>
 
@@ -39,7 +39,7 @@ DesktopApplication::DesktopApplication(int &argc,
 {
     installEventFilter(this);
 
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
     setupDockHandler();
 #endif
 }
@@ -79,7 +79,7 @@ bool DesktopApplication::eventFilter(QObject *object,
     }
 }
 
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
 void DesktopApplication::setupDockHandler()
 {
     Class cls = objc_getClass("NSApplication");

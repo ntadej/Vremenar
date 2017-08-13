@@ -14,7 +14,7 @@ const QString Settings::DEFAULT_LOCALE = "";
 
 // GUI
 const bool Settings::DEFAULT_SHOW_IN_TRAY = false;
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_MACOS)
 const bool Settings::DEFAULT_SHOW_IN_DOCK = true;
 #endif
 

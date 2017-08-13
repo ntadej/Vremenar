@@ -29,7 +29,7 @@ SettingsDialog::SettingsDialog(QWidget *parent)
                    | Qt::WindowCloseButtonHint
                    | Qt::CustomizeWindowHint);
 
-#if defined(Q_OS_MAC) && MAC_NATIVE_TOOLBAR
+#if defined(Q_OS_MACOS) && MAC_NATIVE_TOOLBAR
     initializeMacOS();
 #else
     connect(ui->actionGeneral, &QAction::toggled, this, &SettingsDialog::actionToggled);
@@ -40,7 +40,7 @@ SettingsDialog::SettingsDialog(QWidget *parent)
     connect(ui->checkRememberPosition, &QCheckBox::toggled, this, &SettingsDialog::rememberPositionChangedSlot);
     connect(ui->checkRememberSize, &QCheckBox::toggled, this, &SettingsDialog::rememberSizeChangedSlot);
 
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
     connect(ui->checkShowInDock, &QCheckBox::toggled, this, &SettingsDialog::showInDockChangedSlot);
 #else
     ui->checkShowInDock->hide();
@@ -63,7 +63,7 @@ void SettingsDialog::changeEvent(QEvent *e)
     switch (e->type()) {
     case QEvent::LanguageChange:
         ui->retranslateUi(this);
-#if defined(Q_OS_MAC) && MAC_NATIVE_TOOLBAR
+#if defined(Q_OS_MACOS) && MAC_NATIVE_TOOLBAR
         retranslateMacOS();
 #endif
         loadLocales();
@@ -75,7 +75,7 @@ void SettingsDialog::changeEvent(QEvent *e)
 
 void SettingsDialog::actionToggled()
 {
-#if defined(Q_OS_MAC) && MAC_NATIVE_TOOLBAR
+#if defined(Q_OS_MACOS) && MAC_NATIVE_TOOLBAR
     actionToggledMacOS();
 #else
     QAction *action = qobject_cast<QAction *>(sender());
@@ -94,7 +94,7 @@ void SettingsDialog::readSettings()
     QScopedPointer<Settings> settings(new Settings(this));
 
     ui->checkShowInTray->setChecked(settings->showInTray());
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
     ui->checkShowInDock->setChecked(settings->showInDock());
 #endif
     ui->checkRememberPosition->setChecked(settings->rememberPosition());
@@ -142,7 +142,7 @@ void SettingsDialog::showInTrayChangedSlot(bool checked)
 
     emit showInTrayChanged(checked);
 
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
     ui->checkShowInDock->setEnabled(checked);
     if (!checked) {
         ui->checkShowInDock->setChecked(true);
@@ -150,7 +150,7 @@ void SettingsDialog::showInTrayChangedSlot(bool checked)
 #endif
 }
 
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
 void SettingsDialog::showInDockChangedSlot(bool checked)
 {
     QScopedPointer<Settings> settings(new Settings(this));

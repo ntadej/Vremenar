@@ -12,21 +12,14 @@ CONFIG += qt
 
 # Common configuration
 include($$top_srcdir/config/version.pri)
+include($$top_srcdir/config/config.pri)
 include($$top_srcdir/config/dependencies.pri)
-include($$top_srcdir/config/compiler.pri)
 include($$top_srcdir/config/platform.pri)
-include($$top_srcdir/config/i18n.pri)
 
-# The following define makes your compiler emit warnings if you use
-# any feature of Qt which as been marked deprecated (the exact warnings
-# depend on your compiler).
-DEFINES += QT_DEPRECATED_WARNINGS
-
-# Enable logging
-DEFINES += LOGGING=$$LOGGING
-
-# Mapbox config
-DEFINES += MAPBOX_API_TOKEN=\\\"$$MAPBOX_API_TOKEN\\\"
+# Disabled for mobile for now
+!ios {
+    include($$top_srcdir/config/i18n.pri)
+}
 
 # Add QML imports
 QML_IMPORT_PATH = src/qml
@@ -37,9 +30,6 @@ INCLUDEPATH += src
 SOURCES += \
     src/main.cpp \
     src/application/ApplicationWindow.cpp \
-    src/application/DesktopApplication.cpp \
-    src/application/SingleApplication.cpp \
-    src/application/TrayIcon.cpp \
     src/common/Common.cpp \
     src/common/ListModel.cpp \
     src/common/LocaleManager.cpp \
@@ -55,20 +45,10 @@ SOURCES += \
     src/qml/Qml.cpp \
     src/settings/Settings.cpp \
     src/settings/SettingsDefaults.cpp \
-    src/settings/SettingsDialog.cpp \
     src/settings/SettingsKeys.cpp
-
-mac {
-    OBJECTIVE_SOURCES += \
-        src/application/DesktopApplicationMacOS.mm \
-        src/settings/SettingsDialogMacOS.mm
-}
 
 HEADERS += \
     src/application/ApplicationWindow.h \
-    src/application/DesktopApplication.h \
-    src/application/SingleApplication.h \
-    src/application/TrayIcon.h \
     src/common/Common.h \
     src/common/ListItem.h \
     src/common/ListModel.h \
@@ -83,15 +63,44 @@ HEADERS += \
     src/qml/Colors.h \
     src/qml/Globals.h \
     src/qml/Qml.h \
-    src/settings/Settings.h \
-    src/settings/SettingsDialog.h
+    src/settings/Settings.h
 
-FORMS += \
-    src/settings/SettingsDialog.ui
+# Desktop specific
+macx {
+    SOURCES += \
+        src/application/DesktopApplication.cpp \
+        src/application/SingleApplication.cpp \
+        src/application/TrayIcon.cpp \
+        src/settings/SettingsDialog.cpp
+
+    HEADERS += \
+        src/application/DesktopApplication.h \
+        src/application/SingleApplication.h \
+        src/application/TrayIcon.h \
+        src/settings/SettingsDialog.h
+
+    FORMS += \
+        src/settings/SettingsDialog.ui
+}
+
+# Mobile specific
+ios {
+    SOURCES += \
+        src/application/MobileApplication.cpp
+
+    HEADERS += \
+        src/application/MobileApplication.h
+}
+
+# macOS specific
+macx {
+    OBJECTIVE_SOURCES += \
+        src/application/DesktopApplicationMacOS.mm \
+        src/settings/SettingsDialogMacOS.mm
+}
 
 # Define resources
 RESOURCES += \
-    $$top_builddir/i18n.qrc \
     src/qml/qml.qrc \
     src/qml/Vremenar/vremenar.qrc \
     src/qml/Vremenar/Common/common.qrc \
@@ -100,3 +109,9 @@ RESOURCES += \
     src/qml/Vremenar/Weather/weather.qrc \
     resources/icons/icons.qrc \
     resources/logo/desktop/logo.qrc
+
+# Disabled on mobile for now
+!ios {
+    RESOURCES += \
+        $$top_builddir/i18n.qrc
+}

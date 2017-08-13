@@ -4,5 +4,7 @@
         <file>ApplicationWindow.qml</file>
         <file>CentralSwipeView.qml</file>
         <file>CentralPageIndicator.qml</file>
+        <file>ApplicationWindowMobile.qml</file>
+        <file>+ios/ApplicationWindow.qml</file>
     </qresource>
 </RCC>

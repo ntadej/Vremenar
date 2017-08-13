@@ -12,7 +12,7 @@
 
 #include <QtWidgets/QApplication>
 
-#ifndef Q_OS_MAC
+#ifndef Q_OS_MACOS
 class LocalServer;
 #endif
 
@@ -30,7 +30,7 @@ signals:
     void activate();
 
 private:
-#ifndef Q_OS_MAC
+#ifndef Q_OS_MACOS
     LocalServer *_server;
 #endif
     bool _shouldContinue;

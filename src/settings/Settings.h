@@ -43,7 +43,7 @@ public:
     static const QString KEY_SHOW_IN_TRAY;
     static const bool DEFAULT_SHOW_IN_TRAY;
 
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_MACOS)
     // macOS special
     inline bool showInDock() const { return _showInDock; }
     inline void setShowInDock(bool b) { _showInDock = b; }
@@ -93,7 +93,7 @@ private:
 
     // GUI
     bool _showInTray;
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_MACOS)
     bool _showInDock;
 #endif
 

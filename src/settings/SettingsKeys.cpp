@@ -14,7 +14,7 @@ const QString Settings::KEY_LOCALE = "locale";
 
 // GUI
 const QString Settings::KEY_SHOW_IN_TRAY = "gui/tray";
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_MACOS)
 const QString Settings::KEY_SHOW_IN_DOCK = "gui/dock";
 #endif
 

@@ -53,7 +53,7 @@ QString Vremenar::Resources::resource(const QString &file)
         path = QFileInfo("/usr/bin/" + file).absoluteFilePath();
 #endif
 
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_MACOS)
     else if (QFileInfo(QCoreApplication::applicationDirPath().replace("MacOS", "Resources") + "/" + file).exists())
         path = QFileInfo(QCoreApplication::applicationDirPath().replace("MacOS", "Resources") + "/" + file).absoluteFilePath();
 #endif

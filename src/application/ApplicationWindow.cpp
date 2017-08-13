@@ -12,15 +12,18 @@
 #include <QtQml/QQmlContext>
 #include <QtQuick/QQuickWindow>
 
-#include "application/DesktopApplication.h"
-#include "application/TrayIcon.h"
 #include "common/LocaleManager.h"
 #include "common/NetworkManager.h"
 #include "common/NetworkManagerFactory.h"
 #include "location/LocationProvider.h"
 #include "qml/Qml.h"
 #include "settings/Settings.h"
+
+#ifndef VREMENAR_MOBILE
+#include "application/DesktopApplication.h"
+#include "application/TrayIcon.h"
 #include "settings/SettingsDialog.h"
+#endif
 
 #include "ApplicationWindow.h"
 
@@ -31,19 +34,23 @@ ApplicationWindow::ApplicationWindow(QObject *parent)
       _networkFactory(new NetworkManagerFactory(this))
 {
     createModels();
+#ifndef VREMENAR_MOBILE
     createWidgets();
+#endif
 
     addImportPath("qrc:/");
 
     Vremenar::Qml::registerTypes();
 
+#ifndef VREMENAR_MOBILE
     connect(qApp, &QCoreApplication::aboutToQuit, this, &ApplicationWindow::writeSettingsStartup);
 
     DesktopApplication *application = qobject_cast<DesktopApplication *>(qApp);
     connect(application, &DesktopApplication::activate, this, &ApplicationWindow::activate);
     connect(application, &DesktopApplication::urlOpened, this, &ApplicationWindow::processUrl);
+#endif
 
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
     connect(application, &DesktopApplication::dockClicked, this, &ApplicationWindow::dockClicked);
     connect(this, &ApplicationWindow::dockVisibilityChanged, application, &DesktopApplication::dockSetVisibility);
 #endif
@@ -53,7 +60,7 @@ ApplicationWindow::ApplicationWindow(QObject *parent)
     load(QUrl(QStringLiteral("qrc:/Vremenar/main.qml")));
 
     _qmlMainWindow = qobject_cast<QQuickWindow *>(rootObjects().first());
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
     application->setupTitleBarLessWindow(_qmlMainWindow->winId());
 #endif
 }
@@ -67,7 +74,7 @@ void ApplicationWindow::activate()
     _qmlMainWindow->requestActivate();
 }
 
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
 void ApplicationWindow::dockClicked()
 {
     _qmlMainWindow->show();
@@ -102,6 +109,7 @@ void ApplicationWindow::createModels()
     rootContext()->setContextProperty("VLocation", _location);
 }
 
+#ifndef VREMENAR_MOBILE
 void ApplicationWindow::createWidgets()
 {
     QScopedPointer<Settings> settings(new Settings(this));
@@ -114,12 +122,13 @@ void ApplicationWindow::createWidgets()
     connect(_settingsDialog, &SettingsDialog::showInTrayChanged, _trayIcon, &TrayIcon::setVisible);
     connect(_trayIcon, &TrayIcon::clicked, this, &ApplicationWindow::activate);
 
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
     connect(_settingsDialog, &SettingsDialog::showInDockChanged, this, &ApplicationWindow::dockVisibilityChanged);
 #endif
 
     rootContext()->setContextProperty("VremenarSettings", _settingsDialog);
 }
+#endif
 
 void ApplicationWindow::processUrl(const QString &url)
 {
@@ -134,7 +143,7 @@ void ApplicationWindow::processUrl(const QString &url)
 
 void ApplicationWindow::startCompleted()
 {
-#ifdef Q_OS_MAC
+#ifdef Q_OS_MACOS
     QScopedPointer<Settings> settings(new Settings(this));
     emit dockVisibilityChanged(settings->showInDock());
 #endif

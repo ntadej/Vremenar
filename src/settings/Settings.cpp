@@ -14,7 +14,7 @@ Settings::Settings(QObject *parent)
 {
     _map[KEY_LOCALE] = DEFAULT_LOCALE;
     _map[KEY_SHOW_IN_TRAY] = DEFAULT_SHOW_IN_TRAY;
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_MACOS)
     _map[KEY_SHOW_IN_DOCK] = DEFAULT_SHOW_IN_DOCK;
 #endif
     _map[KEY_REMEMBER_POSITION] = DEFAULT_REMEMBER_POSITION;
@@ -34,7 +34,7 @@ void Settings::writeSettings()
     setValue(KEY_LOCALE, locale());
 
     setValue(KEY_SHOW_IN_TRAY, showInTray());
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_MACOS)
     setValue(KEY_SHOW_IN_DOCK, showInDock());
 #endif
 
@@ -53,7 +53,7 @@ void Settings::readSettings()
     setLocale(value(KEY_LOCALE, defaultValue(KEY_LOCALE)).toString());
 
     setShowInTray(value(KEY_SHOW_IN_TRAY, defaultValue(KEY_SHOW_IN_TRAY)).toBool());
-#if defined(Q_OS_MAC)
+#if defined(Q_OS_MACOS)
     setShowInDock(value(KEY_SHOW_IN_DOCK, defaultValue(KEY_SHOW_IN_DOCK)).toBool());
 #endif
 
