@@ -11,29 +11,44 @@
 #define VREMENAR_LOCATIONPROVIDER_H_
 
 #include <QtCore/QObject>
+#include <QtLocation/QGeoCodeReply>
 #include <QtLocation/QGeoServiceProvider>
 #include <QtPositioning/QGeoPositionInfoSource>
 
 class LocationProvider : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(QString providerAppId READ providerAppId CONSTANT)
-    Q_PROPERTY(QString providerAppToken READ providerAppToken CONSTANT)
+    Q_PROPERTY(QGeoCoordinate position READ currentPosition NOTIFY positionChanged)
+    Q_PROPERTY(QString location READ currentLocation NOTIFY locationChanged)
 public:
     explicit LocationProvider(QObject *parent = nullptr);
     virtual ~LocationProvider();
 
-    static QString providerAppId();
-    static QString providerAppToken();
+    static QString mapboxAPIToken();
+
+    QGeoCoordinate currentPosition() const;
+    QString currentLocation() const;
+
+signals:
+    void positionChanged();
+    void locationChanged();
 
 private slots:
     void positionUpdated(const QGeoPositionInfo &info);
     void positionError(QGeoPositionInfoSource::Error error);
     void positionTimeout();
 
+    void reverseGeocodingFinished(QGeoCodeReply *reply);
+    void reverseGeocodingError(QGeoCodeReply *reply,
+                               QGeoCodeReply::Error error,
+                               const QString &errorString);
+
 private:
     QGeoPositionInfoSource *_position;
     QGeoServiceProvider *_provider;
+
+    QGeoPositionInfo _currentPosition;
+    QGeoLocation _currentLocation;
 };
 
 #endif // VREMENAR_LOCATIONPROVIDER_H_

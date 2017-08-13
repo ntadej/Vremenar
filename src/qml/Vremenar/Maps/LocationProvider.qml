@@ -12,19 +12,15 @@ import QtLocation 5.6
 import Vremenar 1.0
 
 Plugin {
-    id: mapPlugin
-    name: "here"
+    // required: Plugin.AnyMappingFeatures
+    preferred: ["mapboxgl", "mapbox"]
 
     PluginParameter {
-        name: "here.app_id"
+        name: "mapbox.access_token"
         value: ""
     }
     PluginParameter {
-        name: "here.token"
+        name: "mapboxgl.access_token"
         value: ""
-    }
-    PluginParameter {
-        name: "here.mapping.highdpi_tiles"
-        value: true
     }
 }

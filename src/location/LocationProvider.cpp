@@ -8,17 +8,26 @@
 */
 
 #include <QtCore/QDebug>
+#include <QtLocation/QGeoCodingManager>
+#include <QtPositioning/QGeoAddress>
 
+#include "common/Common.h"
 #include "location/LocationProvider.h"
 
 LocationProvider::LocationProvider(QObject *parent)
     : QObject(parent)
 {
     QMap<QString, QVariant> params;
-    params["here.app_id"] = providerAppId();
-    params["here.token"] = providerAppToken();
+    params["osm.useragent"] = Vremenar::name() + " " + Vremenar::version();
 
-    _provider = new QGeoServiceProvider("here", params);
+    _provider = new QGeoServiceProvider("osm", params);
+    if (_provider->geocodingManager()) {
+        connect(_provider->geocodingManager(), SIGNAL(finished(QGeoCodeReply *)),
+                this, SLOT(reverseGeocodingFinished(QGeoCodeReply *)));
+        connect(_provider->geocodingManager(), SIGNAL(error(QGeoCodeReply *, QGeoCodeReply::Error, QString)),
+                this, SLOT(reverseGeocodingError(QGeoCodeReply *, QGeoCodeReply::Error, QString)));
+    }
+
     _position = QGeoPositionInfoSource::createDefaultSource(this);
     if (_position) {
         connect(_position, SIGNAL(positionUpdated(QGeoPositionInfo)),
@@ -34,9 +43,30 @@ LocationProvider::LocationProvider(QObject *parent)
 
 LocationProvider::~LocationProvider() {}
 
+QGeoCoordinate LocationProvider::currentPosition() const
+{
+    return _currentPosition.coordinate();
+}
+
+QString LocationProvider::currentLocation() const
+{
+    return _currentLocation.address().street();
+}
+
 void LocationProvider::positionUpdated(const QGeoPositionInfo &info)
 {
     qDebug() << "Position updated:" << info;
+
+    _currentPosition = info;
+
+    // Request location info about position
+    if (_provider->geocodingManager()) {
+        _provider->geocodingManager()->reverseGeocode(info.coordinate());
+    } else {
+        qWarning() << "No geocoding provider available.";
+    }
+
+    emit positionChanged();
 }
 
 void LocationProvider::positionError(QGeoPositionInfoSource::Error error)
@@ -59,19 +89,37 @@ void LocationProvider::positionTimeout()
     qWarning() << "Positioning has timed-out.";
 }
 
-QString LocationProvider::providerAppId()
+void LocationProvider::reverseGeocodingFinished(QGeoCodeReply *reply)
 {
-#ifdef HERE_APP_ID
-    return QString(HERE_APP_ID);
-#else
-    return QString();
-#endif
+    if (!reply->isFinished() || reply->error() != QGeoCodeReply::NoError)
+        return;
+
+    if (reply->locations().isEmpty()) {
+        _currentLocation = QGeoLocation();
+        return;
+    }
+
+    _currentLocation = reply->locations().first();
+    qDebug() << "Location updated:"
+             << _currentLocation.address().street()
+             << _currentLocation.address().city();
+
+    emit locationChanged();
 }
 
-QString LocationProvider::providerAppToken()
+void LocationProvider::reverseGeocodingError(QGeoCodeReply *reply,
+                                             QGeoCodeReply::Error error,
+                                             const QString &errorString)
 {
-#ifdef HERE_APP_TOKEN
-    return QString(HERE_APP_TOKEN);
+    Q_UNUSED(reply)
+
+    qWarning() << "Reverse Geocoding Error:" << error << errorString;
+}
+
+QString LocationProvider::mapboxAPIToken()
+{
+#ifdef MAPBOX_API_TOKEN
+    return QString(MAPBOX_API_TOKEN);
 #else
     return QString();
 #endif

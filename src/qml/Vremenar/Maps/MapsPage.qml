@@ -13,16 +13,16 @@ import QtLocation 5.6
 Page {
     title: qsTr("Maps") + VL.R
 
+    LocationProvider {
+        id: mapPlugin
+    }
+
     Map {
         id: map
         anchors.fill: parent
-        plugin: LocationProvider {
-        }
+        activeMapType: supportedMapTypes[5]
+        plugin: mapPlugin
         zoomLevel: (maximumZoomLevel - minimumZoomLevel) / 2
-        center {
-            // The Qt Company in Oslo
-            latitude: 59.9485
-            longitude: 10.7686
-        }
+        center: VLocation.position
     }
 }

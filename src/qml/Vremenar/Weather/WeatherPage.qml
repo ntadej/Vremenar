@@ -28,4 +28,11 @@ Page {
             }
         }
     }
+
+    Label {
+        text: VLocation.location ? VLocation.location : "Locating you ..."
+        font.pointSize: 48
+        color: "white"
+        anchors.centerIn: parent
+    }
 }

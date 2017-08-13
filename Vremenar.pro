@@ -25,10 +25,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # Enable logging
 DEFINES += LOGGING=$$LOGGING
 
-# HERE config
-DEFINES += \
-    HERE_APP_ID=\\\"$$HERE_APP_ID\\\" \
-    HERE_APP_TOKEN=\\\"$$HERE_APP_TOKEN\\\"
+# Mapbox config
+DEFINES += MAPBOX_API_TOKEN=\\\"$$MAPBOX_API_TOKEN\\\"
 
 # Add QML imports
 QML_IMPORT_PATH = src/qml

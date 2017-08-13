@@ -21,16 +21,14 @@ class Globals : public QObject
     Q_PROPERTY(QString version READ version CONSTANT)
     Q_PROPERTY(int build READ build CONSTANT)
 
-    Q_PROPERTY(QString locationProviderAppId READ locationProviderAppId CONSTANT)
-    Q_PROPERTY(QString locationProviderAppToken READ locationProviderAppToken CONSTANT)
+    Q_PROPERTY(QString mapboxAPIToken READ mapboxAPIToken CONSTANT)
 
 public:
     QString name() const;
     QString version() const;
     int build() const;
 
-    QString locationProviderAppId() const;
-    QString locationProviderAppToken() const;
+    QString mapboxAPIToken() const;
 
     static QObject *provider(QQmlEngine *engine,
                              QJSEngine *scriptEngine);
