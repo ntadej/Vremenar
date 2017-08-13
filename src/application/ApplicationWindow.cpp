@@ -15,6 +15,8 @@
 #include "application/DesktopApplication.h"
 #include "application/TrayIcon.h"
 #include "common/LocaleManager.h"
+#include "common/NetworkManager.h"
+#include "common/NetworkManagerFactory.h"
 #include "qml/Qml.h"
 #include "settings/Settings.h"
 #include "settings/SettingsDialog.h"
@@ -23,7 +25,9 @@
 
 ApplicationWindow::ApplicationWindow(QObject *parent)
     : QQmlApplicationEngine(parent),
-      _localeManager(new LocaleManager(this))
+      _localeManager(new LocaleManager(this)),
+      _network(new NetworkManager(this)),
+      _networkFactory(new NetworkManagerFactory(this))
 {
     createModels();
     createWidgets();
@@ -43,7 +47,8 @@ ApplicationWindow::ApplicationWindow(QObject *parent)
     connect(this, &ApplicationWindow::dockVisibilityChanged, application, &DesktopApplication::dockSetVisibility);
 #endif
 
-    // Load main QML
+    // Setup and load main QML
+    setNetworkAccessManagerFactory(_networkFactory);
     load(QUrl(QStringLiteral("qrc:/Vremenar/main.qml")));
 
     _qmlMainWindow = qobject_cast<QQuickWindow *>(rootObjects().first());

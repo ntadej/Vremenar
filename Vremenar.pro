@@ -42,6 +42,8 @@ SOURCES += \
     src/common/LocaleManager.cpp \
     src/common/LocalServer.cpp \
     src/common/Log.cpp \
+    src/common/NetworkManager.cpp \
+    src/common/NetworkManagerFactory.cpp \
     src/common/Resources.cpp \
     src/common/Output.cpp \
     src/qml/Colors.cpp \
@@ -69,6 +71,8 @@ HEADERS += \
     src/common/LocaleManager.h \
     src/common/LocalServer.h \
     src/common/Log.h \
+    src/common/NetworkManager.h \
+    src/common/NetworkManagerFactory.h \
     src/common/Resources.h \
     src/common/Output.h \
     src/qml/Colors.h \

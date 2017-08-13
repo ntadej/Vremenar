@@ -16,6 +16,8 @@
 class QQuickWindow;
 
 class LocaleManager;
+class NetworkManager;
+class NetworkManagerFactory;
 class SettingsDialog;
 class TrayIcon;
 
@@ -54,6 +56,8 @@ private:
 
     // Application
     LocaleManager *_localeManager;
+    NetworkManager *_network;
+    NetworkManagerFactory *_networkFactory;
 
     // QML
     QQuickWindow *_qmlMainWindow;
