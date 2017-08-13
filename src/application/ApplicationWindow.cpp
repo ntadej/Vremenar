@@ -17,6 +17,7 @@
 #include "common/LocaleManager.h"
 #include "common/NetworkManager.h"
 #include "common/NetworkManagerFactory.h"
+#include "location/LocationProvider.h"
 #include "qml/Qml.h"
 #include "settings/Settings.h"
 #include "settings/SettingsDialog.h"
@@ -93,8 +94,12 @@ void ApplicationWindow::writeSettingsStartup()
 
 void ApplicationWindow::createModels()
 {
+    _location = new LocationProvider(this);
+
     rootContext()->setContextProperty("Vremenar", this);
-    rootContext()->setContextProperty("TNL", _localeManager);
+    rootContext()->setContextProperty("VL", _localeManager);
+
+    rootContext()->setContextProperty("VLocation", _location);
 }
 
 void ApplicationWindow::createWidgets()

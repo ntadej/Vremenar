@@ -10,17 +10,17 @@ import QtQuick 2.2
 import QtQuick.Controls 1.2
 
 Menu {
-    title: qsTr("&File") + TNL.R
+    title: qsTr("&File") + VL.R
 
     MenuItem {
-        text: Qt.platform.os === "osx" ? "E&xit" : qsTr("E&xit") + TNL.R
+        text: Qt.platform.os === "osx" ? "E&xit" : qsTr("E&xit") + VL.R
         shortcut: StandardKey.Quit
         onTriggered: Qt.quit()
     }
 
     MenuItem {
         text: Qt.platform.os === "osx" ? "Preferences" : qsTr(
-                                             "Settings") + TNL.R
+                                             "Settings") + VL.R
         onTriggered: VremenarSettings.show()
     }
 }

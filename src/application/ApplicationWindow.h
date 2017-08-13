@@ -16,6 +16,7 @@
 class QQuickWindow;
 
 class LocaleManager;
+class LocationProvider;
 class NetworkManager;
 class NetworkManagerFactory;
 class SettingsDialog;
@@ -56,6 +57,7 @@ private:
 
     // Application
     LocaleManager *_localeManager;
+    LocationProvider *_location;
     NetworkManager *_network;
     NetworkManagerFactory *_networkFactory;
 

@@ -8,6 +8,7 @@
 #
 
 QT += qml quick
+QT += location
 QT += widgets
 
 mac {

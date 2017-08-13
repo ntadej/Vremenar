@@ -11,22 +11,13 @@ import QtQuick.Controls 2.0
 import QtLocation 5.6
 
 Page {
-    title: qsTr("Maps")
-
-    Plugin {
-        id: mapPlugin
-        name: "osm" // "mapboxgl", "esri", ...
-        // specify plugin parameters if necessary
-        // PluginParameter {
-        //     name:
-        //     value:
-        // }
-    }
+    title: qsTr("Maps") + VL.R
 
     Map {
         id: map
         anchors.fill: parent
-        plugin: mapPlugin
+        plugin: LocationProvider {
+        }
         zoomLevel: (maximumZoomLevel - minimumZoomLevel) / 2
         center {
             // The Qt Company in Oslo

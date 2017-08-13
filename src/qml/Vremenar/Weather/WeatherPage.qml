@@ -13,7 +13,7 @@ import QtGraphicalEffects 1.0
 import Vremenar 1.0
 
 Page {
-    title: qsTr("Current Weather") + TNL.R
+    title: qsTr("Current Weather") + VL.R
 
     LinearGradient {
         anchors.fill: parent

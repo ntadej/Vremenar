@@ -10,5 +10,5 @@ import QtQuick 2.0
 import QtQuick.Controls 1.2
 
 Menu {
-    title: Qt.platform.os === "osx" ? "&Help" : qsTr("&Help") + TNL.R
+    title: Qt.platform.os === "osx" ? "&Help" : qsTr("&Help") + VL.R
 }

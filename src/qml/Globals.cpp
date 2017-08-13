@@ -8,12 +8,16 @@
 */
 
 #include "common/Common.h"
+#include "location/LocationProvider.h"
 #include "qml/Globals.h"
 #include "settings/Settings.h"
 
 QString Globals::name() const { return "Vremenar"; }
 QString Globals::version() const { return Vremenar::version(); }
 int Globals::build() const { return Vremenar::build(); }
+
+QString Globals::locationProviderAppId() const { return LocationProvider::providerAppId(); }
+QString Globals::locationProviderAppToken() const { return LocationProvider::providerAppToken(); }
 
 QObject *Globals::provider(QQmlEngine *engine,
                            QJSEngine *scriptEngine)

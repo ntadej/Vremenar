@@ -25,6 +25,11 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # Enable logging
 DEFINES += LOGGING=$$LOGGING
 
+# HERE config
+DEFINES += \
+    HERE_APP_ID=\\\"$$HERE_APP_ID\\\" \
+    HERE_APP_TOKEN=\\\"$$HERE_APP_TOKEN\\\"
+
 # Add QML imports
 QML_IMPORT_PATH = src/qml
 
@@ -46,6 +51,7 @@ SOURCES += \
     src/common/NetworkManagerFactory.cpp \
     src/common/Resources.cpp \
     src/common/Output.cpp \
+    src/location/LocationProvider.cpp \
     src/qml/Colors.cpp \
     src/qml/Globals.cpp \
     src/qml/Qml.cpp \
@@ -75,6 +81,7 @@ HEADERS += \
     src/common/NetworkManagerFactory.h \
     src/common/Resources.h \
     src/common/Output.h \
+    src/location/LocationProvider.h \
     src/qml/Colors.h \
     src/qml/Globals.h \
     src/qml/Qml.h \
