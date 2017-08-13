@@ -1,0 +1,3 @@
+module Vremenar.Weather
+
+WeatherPage 1.0 WeatherPage.qml

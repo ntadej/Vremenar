@@ -8,9 +8,12 @@
 */
 import QtQuick 2.7
 
+import Vremenar 1.0
 import Vremenar.Navigation 1.0
 
 ApplicationWindow {
+    title: centralSwipeView.currentItem.title ? centralSwipeView.currentItem.title
+                                                + " - " + Globals.name : Globals.name
     visible: true
 
     CentralSwipeView {

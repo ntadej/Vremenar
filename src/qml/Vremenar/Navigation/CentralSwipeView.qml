@@ -11,17 +11,14 @@ import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.3
 
 import Vremenar.Maps 1.0
+import Vremenar.Weather 1.0
 
 SwipeView {
     property PageIndicator indicator
 
     currentIndex: indicator.currentIndex
 
-    Page {
-        Label {
-            text: "First page"
-            anchors.centerIn: parent
-        }
+    WeatherPage {
     }
 
     MapsPage {

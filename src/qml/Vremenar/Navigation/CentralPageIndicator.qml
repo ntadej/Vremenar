@@ -18,4 +18,20 @@ PageIndicator {
 
     anchors.bottom: parent.bottom
     anchors.horizontalCenter: parent.horizontalCenter
+
+    delegate: Rectangle {
+        implicitWidth: 8
+        implicitHeight: 8
+
+        radius: width / 2
+        color: "white"
+
+        opacity: index === currentIndex ? 0.95 : pressed ? 0.7 : 0.45
+
+        Behavior on opacity {
+            OpacityAnimator {
+                duration: 100
+            }
+        }
+    }
 }

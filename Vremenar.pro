@@ -43,6 +43,7 @@ SOURCES += \
     src/common/Log.cpp \
     src/common/Resources.cpp \
     src/common/Output.cpp \
+    src/qml/Colors.cpp \
     src/qml/Globals.cpp \
     src/qml/Qml.cpp \
     src/settings/Settings.cpp \
@@ -67,6 +68,7 @@ HEADERS += \
     src/common/Log.h \
     src/common/Resources.h \
     src/common/Output.h \
+    src/qml/Colors.h \
     src/qml/Globals.h \
     src/qml/Qml.h \
     src/settings/Settings.h \
@@ -83,5 +85,6 @@ RESOURCES += \
     src/qml/Vremenar/Common/common.qrc \
     src/qml/Vremenar/Maps/maps.qrc \
     src/qml/Vremenar/Navigation/navigation.qrc \
+    src/qml/Vremenar/Weather/weather.qrc \
     resources/icons/icons.qrc \
     resources/logo/desktop/logo.qrc
