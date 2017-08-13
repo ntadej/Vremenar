@@ -30,6 +30,7 @@ public:
 
 #ifdef Q_OS_MAC
     void setupDockHandler();
+    void setupTitleBarLessWindow(WId winId);
 
 public slots:
     void dockClickedCallback();

@@ -67,6 +67,20 @@ void DesktopApplication::dockHide()
     qDebug() << "Dock icon hidden";
 }
 
+void DesktopApplication::setupTitleBarLessWindow(WId winId)
+{
+    if (!winId)
+        return;
+
+    NSView *nativeView = reinterpret_cast<NSView *>(winId);
+    NSWindow *nativeWindow = [nativeView window];
+
+    // Disabled due to resizing repaint bug
+    // [nativeWindow setStyleMask:[nativeWindow styleMask] | NSFullSizeContentViewWindowMask | NSWindowTitleHidden];
+    [nativeWindow setTitlebarAppearsTransparent:YES];
+    [nativeWindow setMovableByWindowBackground:YES];
+}
+
 void DesktopApplication::dockClickedCallback()
 {
     emit dockClicked();

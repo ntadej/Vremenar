@@ -47,6 +47,9 @@ ApplicationWindow::ApplicationWindow(QObject *parent)
     load(QUrl(QStringLiteral("qrc:/Vremenar/main.qml")));
 
     _qmlMainWindow = qobject_cast<QQuickWindow *>(rootObjects().first());
+#ifdef Q_OS_MAC
+    application->setupTitleBarLessWindow(_qmlMainWindow->winId());
+#endif
 }
 
 ApplicationWindow::~ApplicationWindow() {}
