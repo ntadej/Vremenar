@@ -38,6 +38,7 @@ SOURCES += \
     src/application/SingleApplication.cpp \
     src/application/TrayIcon.cpp \
     src/common/Common.cpp \
+    src/common/ListModel.cpp \
     src/common/LocaleManager.cpp \
     src/common/LocalServer.cpp \
     src/common/Log.cpp \
@@ -63,6 +64,8 @@ HEADERS += \
     src/application/SingleApplication.h \
     src/application/TrayIcon.h \
     src/common/Common.h \
+    src/common/ListItem.h \
+    src/common/ListModel.h \
     src/common/LocaleManager.h \
     src/common/LocalServer.h \
     src/common/Log.h \
