@@ -12,6 +12,7 @@
 
 #include <QtCore/QObject>
 #include <QtLocation/QGeoServiceProvider>
+#include <QtPositioning/QGeoPositionInfoSource>
 
 class LocationProvider : public QObject
 {
@@ -25,7 +26,13 @@ public:
     static QString providerAppId();
     static QString providerAppToken();
 
+private slots:
+    void positionUpdated(const QGeoPositionInfo &info);
+    void positionError(QGeoPositionInfoSource::Error error);
+    void positionTimeout();
+
 private:
+    QGeoPositionInfoSource *_position;
     QGeoServiceProvider *_provider;
 };
 
