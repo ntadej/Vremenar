@@ -16,7 +16,7 @@ class LocalServer : public QObject
 {
     Q_OBJECT
 public:
-    explicit LocalServer(QObject *parent = 0);
+    explicit LocalServer(QObject *parent = nullptr);
     ~LocalServer();
 
 signals:

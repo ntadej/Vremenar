@@ -19,7 +19,7 @@ class LocaleManager : public QObject
     Q_PROPERTY(QString R READ retranslateQml NOTIFY localeChanged)
     Q_PROPERTY(QString locale READ locale NOTIFY localeChanged)
 public:
-    LocaleManager(QObject *parent = 0);
+    LocaleManager(QObject *parent = nullptr);
     ~LocaleManager();
 
     static QStringList loadLocales();

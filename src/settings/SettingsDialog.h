@@ -28,11 +28,11 @@ class SettingsDialog : public QMainWindow
 {
     Q_OBJECT
 public:
-    explicit SettingsDialog(QWidget *parent = 0);
+    explicit SettingsDialog(QWidget *parent = nullptr);
     ~SettingsDialog();
 
 protected:
-    void changeEvent(QEvent *e);
+    void changeEvent(QEvent *e) override;
 
 signals:
     void localeChanged();

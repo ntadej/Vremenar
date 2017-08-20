@@ -19,7 +19,7 @@ class NetworkManagerFactory : public QObject, public QQmlNetworkAccessManagerFac
 {
     Q_OBJECT
 public:
-    NetworkManagerFactory(QObject *parent = 0);
+    NetworkManagerFactory(QObject *parent = nullptr);
     ~NetworkManagerFactory();
 
     virtual QNetworkAccessManager *create(QObject *parent);

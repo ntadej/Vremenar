@@ -27,7 +27,7 @@ class ApplicationWindow : public QQmlApplicationEngine
 {
     Q_OBJECT
 public:
-    explicit ApplicationWindow(QObject *parent = 0);
+    explicit ApplicationWindow(QObject *parent = nullptr);
     virtual ~ApplicationWindow();
 
 public slots:
