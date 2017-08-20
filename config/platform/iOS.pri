@@ -7,5 +7,6 @@
 # Refer to the LICENSE.md file for details.
 #
 
-macx: include(platform/macOS.pri)
-ios: include(platform/iOS.pri)
+QMAKE_INFO_PLIST = $$top_srcdir/resources/iOS/Info.plist
+ios_icon.files = $$files($$top_srcdir/resources/iOS/logo/*.png)
+QMAKE_BUNDLE_DATA += ios_icon

@@ -9,7 +9,5 @@
 
 QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.10
 
-equals(TARGET, "Vremenar") {
-    QMAKE_INFO_PLIST = $$top_srcdir/resources/macOS/Info.plist
-    ICON = $$top_srcdir/resources/Vremenar.icns
-}
+QMAKE_INFO_PLIST = $$top_srcdir/resources/macOS/Info.plist
+ICON = $$top_srcdir/resources/macOS/Vremenar.icns
