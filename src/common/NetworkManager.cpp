@@ -26,6 +26,27 @@ NetworkManager::~NetworkManager()
     delete _cache;
 }
 
+QNetworkReply *NetworkManager::request(APIRequest &request)
+{
+    qDebug() << "Requesting:" << request.url();
+
+    QNetworkReply *reply;
+    switch (request.operation()) {
+    case QNetworkAccessManager::PostOperation:
+        reply = post(request, request.data());
+        break;
+    case QNetworkAccessManager::GetOperation:
+    default:
+        reply = get(request);
+        break;
+    }
+
+    connect(reply, qOverload<QNetworkReply::NetworkError>(&QNetworkReply::error), this, &NetworkManager::httpError);
+    connect(reply, &QNetworkReply::finished, this, &NetworkManager::httpRequestFinished);
+
+    return reply;
+}
+
 void NetworkManager::httpError(QNetworkReply::NetworkError err)
 {
     QNetworkReply *reply = qobject_cast<QNetworkReply *>(QObject::sender());

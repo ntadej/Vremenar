@@ -15,12 +15,16 @@
 #include <QtNetwork/QNetworkDiskCache>
 #include <QtNetwork/QNetworkReply>
 
+#include "weather/common/api/APIRequest.h"
+
 class NetworkManager : public QNetworkAccessManager
 {
     Q_OBJECT
 public:
-    NetworkManager(QObject *parent = 0);
+    NetworkManager(QObject *parent = nullptr);
     ~NetworkManager();
+
+    QNetworkReply *request(APIRequest &request);
 
 signals:
     void error(QNetworkReply *,

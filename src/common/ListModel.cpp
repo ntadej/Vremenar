@@ -48,7 +48,7 @@ void ListModel::appendRow(ListItem *item)
 void ListModel::appendRows(const QList<ListItem *> &items)
 {
     beginInsertRows(QModelIndex(), rowCount(), rowCount() + items.size() - 1);
-    foreach (ListItem *item, items) {
+    for (ListItem *item : items) {
         connect(item, &ListItem::dataChanged, this, &ListModel::handleItemChange);
         _list.append(item);
     }
@@ -73,7 +73,7 @@ void ListModel::handleItemChange()
 
 ListItem *ListModel::find(const QString &id) const
 {
-    foreach (ListItem *item, _list) {
+    for (ListItem *item : _list) {
         if (item->id() == id)
             return item;
     }

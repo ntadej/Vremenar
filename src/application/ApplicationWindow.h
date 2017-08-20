@@ -15,6 +15,7 @@
 
 class QQuickWindow;
 
+class ARSOWeatherProvider;
 class LocaleManager;
 class LocationProvider;
 class NetworkManager;
@@ -62,6 +63,9 @@ private:
     LocationProvider *_location;
     NetworkManager *_network;
     NetworkManagerFactory *_networkFactory;
+
+    // API
+    ARSOWeatherProvider *_arso;
 
     // QML
     QQuickWindow *_qmlMainWindow;

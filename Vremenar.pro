@@ -45,7 +45,20 @@ SOURCES += \
     src/qml/Qml.cpp \
     src/settings/Settings.cpp \
     src/settings/SettingsDefaults.cpp \
-    src/settings/SettingsKeys.cpp
+    src/settings/SettingsKeys.cpp \
+    src/weather/common/Weather.cpp \
+    src/weather/common/WeatherProvider.cpp \
+    src/weather/common/api/APIHelpers.cpp \
+    src/weather/common/api/APILoader.cpp \
+    src/weather/common/api/APIRequest.cpp \
+    src/weather/common/containers/MapLayer.cpp \
+    src/weather/common/models/MapLayersModel.cpp \
+    src/weather/common/models/MapLayersProxyModel.cpp \
+    src/weather/arso/ARSOWeatherProvider.cpp \
+    src/weather/arso/api/ARSOAPICommon.cpp \
+    src/weather/arso/api/ARSOAPIMapLayers.cpp \
+    src/weather/arso/api/ARSOAPIRequest.cpp \
+    src/weather/arso/models/ARSOMapLayersModel.cpp
 
 HEADERS += \
     src/application/ApplicationWindow.h \
@@ -63,7 +76,20 @@ HEADERS += \
     src/qml/Colors.h \
     src/qml/Globals.h \
     src/qml/Qml.h \
-    src/settings/Settings.h
+    src/settings/Settings.h \
+    src/weather/common/Weather.h \
+    src/weather/common/WeatherProvider.h \
+    src/weather/common/api/APIHelpers.h \
+    src/weather/common/api/APILoader.h \
+    src/weather/common/api/APIRequest.h \
+    src/weather/common/containers/MapLayer.h \
+    src/weather/common/models/MapLayersModel.h \
+    src/weather/common/models/MapLayersProxyModel.h \
+    src/weather/arso/ARSOWeatherProvider.h \
+    src/weather/arso/api/ARSOAPICommon.h \
+    src/weather/arso/api/ARSOAPIMapLayers.h \
+    src/weather/arso/api/ARSOAPIRequest.h \
+    src/weather/arso/models/ARSOMapLayersModel.h
 
 # Desktop specific
 macx {

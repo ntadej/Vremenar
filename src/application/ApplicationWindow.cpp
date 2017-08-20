@@ -18,6 +18,7 @@
 #include "location/LocationProvider.h"
 #include "qml/Qml.h"
 #include "settings/Settings.h"
+#include "weather/arso/ARSOWeatherProvider.h"
 
 #ifndef VREMENAR_MOBILE
 #include "application/DesktopApplication.h"
@@ -102,11 +103,13 @@ void ApplicationWindow::writeSettingsStartup()
 void ApplicationWindow::createModels()
 {
     _location = new LocationProvider(this);
+    _arso = new ARSOWeatherProvider(_network, this);
 
     rootContext()->setContextProperty("Vremenar", this);
     rootContext()->setContextProperty("VL", _localeManager);
 
     rootContext()->setContextProperty("VLocation", _location);
+    rootContext()->setContextProperty("VWeather", _arso);
 }
 
 #ifndef VREMENAR_MOBILE
@@ -147,6 +150,8 @@ void ApplicationWindow::startCompleted()
     QScopedPointer<Settings> settings(new Settings(this));
     emit dockVisibilityChanged(settings->showInDock());
 #endif
+
+    _arso->requestMapLayers(Vremenar::Weather::PrecipitationMap);
 
     qDebug() << "Initialization completed";
 }

@@ -20,8 +20,8 @@ class ListModel : public QAbstractListModel
 {
     Q_OBJECT
 public:
-    ListModel(ListItem *prototype, QObject *parent = 0);
-    ~ListModel();
+    ListModel(ListItem *prototype, QObject *parent = nullptr);
+    virtual ~ListModel();
     int rowCount(const QModelIndex &parent = QModelIndex()) const;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const;
     QHash<int, QByteArray> roleNames() const;
