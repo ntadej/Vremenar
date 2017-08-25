@@ -45,6 +45,10 @@ QHash<int, QByteArray> MapLayer::roleNames() const
     names[TypeRole] = "type";
     names[TimeRole] = "time";
     names[UrlRole] = "url";
+    names[MinLatitude] = "minLatitude";
+    names[MinLongitude] = "minLongitude";
+    names[MaxLatitude] = "maxLatitude";
+    names[MaxLongitude] = "maxLongitude";
     return names;
 }
 
@@ -61,6 +65,14 @@ QVariant MapLayer::data(int role) const
         return time();
     case UrlRole:
         return url();
+    case MinLatitude:
+        return range().bottomLeft().latitude();
+    case MinLongitude:
+        return range().bottomLeft().longitude();
+    case MaxLatitude:
+        return range().topRight().latitude();
+    case MaxLongitude:
+        return range().topRight().longitude();
     default:
         return QVariant();
     }

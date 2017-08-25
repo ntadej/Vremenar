@@ -12,7 +12,8 @@
 
 MapLayersProxyModel::MapLayersProxyModel(QObject *parent)
     : QSortFilterProxyModel(parent),
-      _type(Vremenar::Weather::PrecipitationMap) {}
+      _type(Vremenar::Weather::PrecipitationMap),
+      _time(0) {}
 
 MapLayersProxyModel::~MapLayersProxyModel() {}
 
@@ -24,6 +25,14 @@ void MapLayersProxyModel::setType(Vremenar::Weather::MapType type)
     }
 }
 
+void MapLayersProxyModel::setTime(const QDateTime &time)
+{
+    if (time.toSecsSinceEpoch() != _time) {
+        _time = time.toSecsSinceEpoch();
+        invalidateFilter();
+    }
+}
+
 bool MapLayersProxyModel::filterAcceptsRow(int sourceRow,
                                            const QModelIndex &sourceParent) const
 {
@@ -31,6 +40,7 @@ bool MapLayersProxyModel::filterAcceptsRow(int sourceRow,
 
     bool name = index.data(MapLayer::DisplayRole).toString().contains(filterRegExp());
     bool type = index.data(MapLayer::TypeRole).toInt() == _type;
+    bool time = !_time || index.data(MapLayer::TimeRole).toDateTime().toSecsSinceEpoch() == _time;
 
-    return name && type;
+    return name && type && time;
 }

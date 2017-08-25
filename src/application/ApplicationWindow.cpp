@@ -19,6 +19,7 @@
 #include "qml/Qml.h"
 #include "settings/Settings.h"
 #include "weather/arso/ARSOWeatherProvider.h"
+#include "weather/common/models/MapLayersProxyModel.h"
 
 #ifndef VREMENAR_MOBILE
 #include "application/DesktopApplication.h"
@@ -110,6 +111,7 @@ void ApplicationWindow::createModels()
 
     rootContext()->setContextProperty("VLocation", _location);
     rootContext()->setContextProperty("VWeather", _arso);
+    rootContext()->setContextProperty("VMapLayersModel", _arso->mapLayers());
 }
 
 #ifndef VREMENAR_MOBILE

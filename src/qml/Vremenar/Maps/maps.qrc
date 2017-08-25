@@ -3,5 +3,7 @@
         <file>MapsPage.qml</file>
         <file>qmldir</file>
         <file>LocationProvider.qml</file>
+        <file>MapImageDelegate.qml</file>
+        <file>CurrentLocationIndicator.qml</file>
     </qresource>
 </RCC>

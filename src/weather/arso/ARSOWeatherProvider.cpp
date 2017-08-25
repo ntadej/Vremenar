@@ -47,6 +47,7 @@ void ARSOWeatherProvider::response(QNetworkReply *reply)
         _mapLayersModel->clear();
         _mapLayersModel->addMapLayers(type, document.array());
         _mapLayersProxyModel->setType(type);
+        _mapLayersProxyModel->setTime(_mapLayersModel->row(0)->time());
 
         removeResponse(reply);
     }

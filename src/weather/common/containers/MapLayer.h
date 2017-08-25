@@ -32,7 +32,10 @@ public:
         TypeRole,
         TimeRole,
         UrlRole,
-        RangeRole
+        MinLatitude,
+        MinLongitude,
+        MaxLatitude,
+        MaxLongitude
     };
 
     explicit MapLayer(QObject *parent = nullptr);

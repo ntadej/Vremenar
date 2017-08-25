@@ -11,8 +11,6 @@
 #include <QtCore/QJsonObject>
 #include <QtPositioning/QGeoCoordinate>
 
-#include <QDebug>
-
 #include "weather/arso/api/ARSOAPICommon.h"
 #include "weather/arso/models/ARSOMapLayersModel.h"
 
@@ -30,8 +28,8 @@ MapLayer *ARSOMapLayersModel::createMapLayer(Vremenar::Weather::MapType type,
     QUrl url(Vremenar::ARSO::baseUrl() + data["path"].toString());
 
     QStringList c = data["bbox"].toString().split(",");
-    QGeoCoordinate topLeft(c[0].toDouble(), c[2].toDouble());
-    QGeoCoordinate bottomRight(c[1].toDouble(), c[3].toDouble());
+    QGeoCoordinate topLeft(c[2].toDouble(), c[1].toDouble());
+    QGeoCoordinate bottomRight(c[0].toDouble(), c[3].toDouble());
     QGeoRectangle range(topLeft, bottomRight);
 
     MapLayer *layer = new MapLayer(type, time, url, range);
