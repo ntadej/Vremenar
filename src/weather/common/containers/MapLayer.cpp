@@ -44,6 +44,7 @@ QHash<int, QByteArray> MapLayer::roleNames() const
     names[DisplayRole] = "display";
     names[TypeRole] = "type";
     names[TimeRole] = "time";
+    names[TimestampRole] = "timestamp";
     names[UrlRole] = "url";
     names[MinLatitude] = "minLatitude";
     names[MinLongitude] = "minLongitude";
@@ -63,6 +64,8 @@ QVariant MapLayer::data(int role) const
         return type();
     case TimeRole:
         return time();
+    case TimestampRole:
+        return time().toSecsSinceEpoch();
     case UrlRole:
         return url();
     case MinLatitude:

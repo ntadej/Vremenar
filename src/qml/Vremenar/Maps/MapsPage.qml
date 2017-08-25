@@ -11,6 +11,8 @@ import QtQuick.Controls 2.0
 import QtLocation 5.9
 import QtPositioning 5.9
 
+import Vremenar.Common 1.0
+
 Page {
     title: qsTr("Maps") + VL.R
 
@@ -18,12 +20,19 @@ Page {
         id: mapPlugin
     }
 
+    BaseGradient {
+        anchors.fill: parent
+    }
+
     Map {
         property double ratioX: 0
         property double ratioY: 0
 
         id: map
-        anchors.fill: parent
+        anchors {
+            fill: parent
+            bottomMargin: 50
+        }
         activeMapType: supportedMapTypes[5]
         plugin: mapPlugin
         zoomLevel: 8
@@ -33,12 +42,32 @@ Page {
         }
 
         MapItemView {
+            id: mapItemView
             model: VMapLayersModel
             delegate: mapLayerDelegate
         }
 
-        MapImageDelegate {
+        Component {
             id: mapLayerDelegate
+
+            MapImageDelegate {
+                timestamp: mapSlider.value
+            }
+        }
+    }
+
+    Slider {
+        id: mapSlider
+        from: VMapLayersModel.minTimestamp
+        to: VMapLayersModel.maxTimestamp
+        stepSize: VMapLayersModel.stepTimestamp
+        value: VMapLayersModel.maxTimestamp
+        snapMode: Slider.SnapAlways
+
+        anchors {
+            bottom: parent.bottom
+            left: parent.left
+            right: parent.right
         }
     }
 }

@@ -4,5 +4,6 @@
         <file>menus/File.qml</file>
         <file>menus/Help.qml</file>
         <file>menus/MainMenu.qml</file>
+        <file>components/BaseGradient.qml</file>
     </qresource>
 </RCC>

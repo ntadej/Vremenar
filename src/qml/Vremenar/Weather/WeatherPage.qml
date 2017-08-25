@@ -6,27 +6,16 @@
 * Version 3 or later as well as Mozilla Public License Version 2.
 * Refer to the LICENSE.md file for details.
 */
-import QtQuick 2.7
+import QtQuick 2.0
 import QtQuick.Controls 2.0
-import QtGraphicalEffects 1.0
 
-import Vremenar 1.0
+import Vremenar.Common 1.0
 
 Page {
     title: qsTr("Current Weather") + VL.R
 
-    LinearGradient {
+    BaseGradient {
         anchors.fill: parent
-        gradient: Gradient {
-            GradientStop {
-                position: 1.0
-                color: Colors.baseDark
-            }
-            GradientStop {
-                position: 0.0
-                color: Colors.baseLight
-            }
-        }
     }
 
     Label {

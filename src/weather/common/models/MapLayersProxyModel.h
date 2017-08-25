@@ -13,28 +13,36 @@
 #include <QtCore/QDateTime>
 #include <QtCore/QSortFilterProxyModel>
 
-#include "weather/common/Weather.h"
-
 class MapLayersProxyModel : public QSortFilterProxyModel
 {
     Q_OBJECT
-    Q_PROPERTY(Vremenar::Weather::MapType type READ type WRITE setType)
+    Q_PROPERTY(qint64 time READ timestamp WRITE setTimestamp NOTIFY timestampChanged)
+    Q_PROPERTY(qint64 minTimestamp READ minTimestamp NOTIFY rowCountChanged)
+    Q_PROPERTY(qint64 maxTimestamp READ maxTimestamp NOTIFY rowCountChanged)
+    Q_PROPERTY(qint64 stepTimestamp READ stepTimestamp NOTIFY rowCountChanged)
+
 public:
     explicit MapLayersProxyModel(QObject *parent = nullptr);
     ~MapLayersProxyModel();
 
-    inline Vremenar::Weather::MapType type() const { return _type; }
-    void setType(Vremenar::Weather::MapType type);
-
     inline QDateTime time() const { return QDateTime::fromSecsSinceEpoch(_time); }
+    inline qint64 timestamp() const { return _time; }
     void setTime(const QDateTime &time);
+    void setTimestamp(qint64 time);
+
+    qint64 minTimestamp() const;
+    qint64 maxTimestamp() const;
+    qint64 stepTimestamp() const;
+
+signals:
+    void rowCountChanged();
+    void timestampChanged();
 
 protected:
     bool filterAcceptsRow(int sourceRow,
                           const QModelIndex &sourceParent) const override;
 
 private:
-    Vremenar::Weather::MapType _type;
     qint64 _time;
 };
 

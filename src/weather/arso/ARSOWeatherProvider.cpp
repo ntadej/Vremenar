@@ -46,8 +46,6 @@ void ARSOWeatherProvider::response(QNetworkReply *reply)
         Vremenar::Weather::MapType type = Vremenar::Weather::MapType(_currentReplies[reply].extra().toInt());
         _mapLayersModel->clear();
         _mapLayersModel->addMapLayers(type, document.array());
-        _mapLayersProxyModel->setType(type);
-        _mapLayersProxyModel->setTime(_mapLayersModel->row(0)->time());
 
         removeResponse(reply);
     }

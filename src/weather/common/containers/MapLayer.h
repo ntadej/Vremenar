@@ -31,6 +31,7 @@ public:
         IdRole = Qt::UserRole + 1,
         TypeRole,
         TimeRole,
+        TimestampRole,
         UrlRole,
         MinLatitude,
         MinLongitude,

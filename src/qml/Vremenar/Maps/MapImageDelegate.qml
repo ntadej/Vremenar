@@ -10,34 +10,34 @@ import QtQuick 2.7
 import QtLocation 5.9
 import QtPositioning 5.9
 
-Component {
-    MapQuickItem {
-        coordinate: QtPositioning.coordinate(model.maxLatitude,
-                                             model.minLongitude)
-        zoomLevel: 8
-        sourceItem: Image {
-            smooth: false
-            fillMode: Image.Stretch
-            source: model.url
-            width: (model.maxLongitude - model.minLongitude) * map.ratioX
-            height: (model.maxLatitude - model.minLatitude) * map.ratioY
-        }
+MapQuickItem {
+    property var timestamp
 
-        Component.onCompleted: {
-            if (!map.mapReady || (map.ratioX && map.ratioY))
-                return
+    coordinate: QtPositioning.coordinate(model.maxLatitude, model.minLongitude)
+    zoomLevel: 8
+    sourceItem: Image {
+        visible: model.timestamp === timestamp
+        smooth: false
+        fillMode: Image.Stretch
+        source: model.url
+        width: (model.maxLongitude - model.minLongitude) * map.ratioX
+        height: (model.maxLatitude - model.minLatitude) * map.ratioY
+    }
 
-            var posMin = map.fromCoordinate(QtPositioning.coordinate(
-                                                model.minLatitude,
-                                                model.minLongitude), false)
-            var posMax = map.fromCoordinate(QtPositioning.coordinate(
-                                                model.maxLatitude,
-                                                model.maxLongitude), false)
+    Component.onCompleted: {
+        if (!map.mapReady || (map.ratioX && map.ratioY))
+            return
 
-            map.ratioX = Math.abs(
-                        (posMax.x - posMin.x) / (model.maxLongitude - model.minLongitude))
-            map.ratioY = Math.abs(
-                        (posMax.y - posMin.y) / (model.maxLatitude - model.minLatitude))
-        }
+        var posMin = map.fromCoordinate(QtPositioning.coordinate(
+                                            model.minLatitude,
+                                            model.minLongitude), false)
+        var posMax = map.fromCoordinate(QtPositioning.coordinate(
+                                            model.maxLatitude,
+                                            model.maxLongitude), false)
+
+        map.ratioX = Math.abs(
+                    (posMax.x - posMin.x) / (model.maxLongitude - model.minLongitude))
+        map.ratioY = Math.abs(
+                    (posMax.y - posMin.y) / (model.maxLatitude - model.minLatitude))
     }
 }
