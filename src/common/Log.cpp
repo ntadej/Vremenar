@@ -49,9 +49,9 @@ void Vremenar::Log::output(QtMsgType type,
     }
     (*out) << debugdate << " " << msg << endl;
 
-#ifdef QT_DEBUG
+//#ifdef QT_DEBUG
     Output(true) << debugdate << " " << msg << endl;
-#endif
+//#endif
 
     if (QtFatalMsg == type) {
         abort();
