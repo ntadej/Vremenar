@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2017 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -13,16 +13,18 @@
 #include "common/ListModel.h"
 #include "weather/common/containers/MapLayer.h"
 
+namespace Vremenar
+{
+
 class MapLayersModel : public ListModel
 {
     Q_OBJECT
 public:
     explicit MapLayersModel(QObject *parent = nullptr);
-    virtual ~MapLayersModel();
 
     MapLayer *find(const QString &id) const;
     MapLayer *row(int row);
-    MapLayer *takeRow(int row);
+    std::unique_ptr<MapLayer> takeRow(int row);
 
     virtual MapLayer *createMapLayer(Vremenar::Weather::MapType type,
                                      const QJsonObject &data)
@@ -33,5 +35,7 @@ public:
                               const QJsonArray &data)
         = 0;
 };
+
+} // namespace Vremenar
 
 #endif // VREMENAR_MAPLAYERSMODEL_H_

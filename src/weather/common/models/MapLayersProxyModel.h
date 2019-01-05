@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2017 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -13,6 +13,9 @@
 #include <QtCore/QDateTime>
 #include <QtCore/QSortFilterProxyModel>
 
+namespace Vremenar
+{
+
 class MapLayersProxyModel : public QSortFilterProxyModel
 {
     Q_OBJECT
@@ -23,7 +26,6 @@ class MapLayersProxyModel : public QSortFilterProxyModel
 
 public:
     explicit MapLayersProxyModel(QObject *parent = nullptr);
-    ~MapLayersProxyModel();
 
     inline QDateTime time() const { return QDateTime::fromSecsSinceEpoch(_time); }
     inline qint64 timestamp() const { return _time; }
@@ -39,11 +41,13 @@ signals:
     void timestampChanged();
 
 protected:
-    bool filterAcceptsRow(int sourceRow,
-                          const QModelIndex &sourceParent) const override;
+    virtual bool filterAcceptsRow(int sourceRow,
+                                  const QModelIndex &sourceParent) const override;
 
 private:
     qint64 _time;
 };
+
+} // namespace Vremenar
 
 #endif // VREMENAR_MAPLAYERSPROXYMODEL_H_

@@ -12,15 +12,15 @@
 
 #include "weather/common/models/MapLayersModel.h"
 
-class ARSOMapLayersModel : public MapLayersModel
+class ARSOMapLayersModel : public Vremenar::MapLayersModel
 {
     Q_OBJECT
 public:
     explicit ARSOMapLayersModel(QObject *parent = nullptr);
     virtual ~ARSOMapLayersModel();
 
-    MapLayer *createMapLayer(Vremenar::Weather::MapType type,
-                             const QJsonObject &data) override;
+    Vremenar::MapLayer *createMapLayer(Vremenar::Weather::MapType type,
+                                       const QJsonObject &data) override;
 
     void addMapLayers(Vremenar::Weather::MapType type,
                       const QJsonArray &data) override;

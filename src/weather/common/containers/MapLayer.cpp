@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2017 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -9,8 +9,17 @@
 
 #include "weather/common/containers/MapLayer.h"
 
+namespace Vremenar
+{
+
 MapLayer::MapLayer(QObject *parent)
-    : ListItem(parent) {}
+    : ListItem(parent)
+{
+    generateRoleNames();
+
+    _id = "prototype";
+    _type = Weather::PrecipitationMap;
+}
 
 MapLayer::MapLayer(Vremenar::Weather::MapType type,
                    const QDateTime &time,
@@ -19,38 +28,32 @@ MapLayer::MapLayer(Vremenar::Weather::MapType type,
                    QObject *parent)
     : ListItem(parent)
 {
+    generateRoleNames();
+
+    _id = Vremenar::Weather::mapTypeString(type) + "_" + QString::number(time.toSecsSinceEpoch());
     _type = type;
     _time = time;
     _url = url;
     _range = range;
 }
 
-MapLayer::~MapLayer() {}
-
-QString MapLayer::id() const
+void MapLayer::generateRoleNames()
 {
-    return Vremenar::Weather::mapTypeString(_type) + "_" + QString::number(_time.toSecsSinceEpoch());
+    _roleNames[IdRole] = "id";
+    _roleNames[DisplayRole] = "display";
+    _roleNames[TypeRole] = "type";
+    _roleNames[TimeRole] = "time";
+    _roleNames[TimestampRole] = "timestamp";
+    _roleNames[UrlRole] = "url";
+    _roleNames[MinLatitude] = "minLatitude";
+    _roleNames[MinLongitude] = "minLongitude";
+    _roleNames[MaxLatitude] = "maxLatitude";
+    _roleNames[MaxLongitude] = "maxLongitude";
 }
 
 QString MapLayer::display() const
 {
     return _time.time().toString(Qt::SystemLocaleShortDate);
-}
-
-QHash<int, QByteArray> MapLayer::roleNames() const
-{
-    QHash<int, QByteArray> names;
-    names[IdRole] = "id";
-    names[DisplayRole] = "display";
-    names[TypeRole] = "type";
-    names[TimeRole] = "time";
-    names[TimestampRole] = "timestamp";
-    names[UrlRole] = "url";
-    names[MinLatitude] = "minLatitude";
-    names[MinLongitude] = "minLongitude";
-    names[MaxLatitude] = "maxLatitude";
-    names[MaxLongitude] = "maxLongitude";
-    return names;
 }
 
 QVariant MapLayer::data(int role) const
@@ -80,3 +83,5 @@ QVariant MapLayer::data(int role) const
         return QVariant();
     }
 }
+
+} // namespace Vremenar

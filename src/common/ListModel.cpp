@@ -1,38 +1,36 @@
 /*
 * Vremenar
-* Copyright (C) 2017 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
 * Refer to the LICENSE.md file for details.
 */
 
-#include "ListItem.h"
 #include "ListModel.h"
+#include "ListItem.h"
 
-ListModel::ListModel(ListItem *prototype,
+namespace Vremenar
+{
+
+ListModel::ListModel(std::unique_ptr<ListItem> prototype,
                      QObject *parent)
     : QAbstractListModel(parent),
-      _prototype(prototype) {}
-
-ListModel::~ListModel()
-{
-    delete _prototype;
-    clear();
-}
+      _prototype(std::move(prototype)) {}
 
 int ListModel::rowCount(const QModelIndex &parent) const
 {
     Q_UNUSED(parent);
-    return _list.size();
+    return static_cast<int>(_list.size());
 }
 
 QVariant ListModel::data(const QModelIndex &index,
                          int role) const
 {
-    if (index.row() < 0 || index.row() >= _list.size())
+    auto i = static_cast<size_t>(index.row());
+    if (index.row() < 0 || i >= _list.size())
         return QVariant();
-    return _list[index.row()]->data(role);
+    return _list[i]->data(role);
 }
 
 QHash<int, QByteArray> ListModel::roleNames() const
@@ -40,32 +38,26 @@ QHash<int, QByteArray> ListModel::roleNames() const
     return _prototype->roleNames();
 }
 
-void ListModel::appendRow(ListItem *item)
+void ListModel::appendRow(std::unique_ptr<ListItem> item)
 {
-    appendRows(QList<ListItem *>() << item);
-}
-
-void ListModel::appendRows(const QList<ListItem *> &items)
-{
-    beginInsertRows(QModelIndex(), rowCount(), rowCount() + items.size() - 1);
-    for (ListItem *item : items) {
-        connect(item, &ListItem::dataChanged, this, &ListModel::handleItemChange);
-        _list.append(item);
-    }
+    beginInsertRows(QModelIndex(), rowCount(), rowCount());
+    connect(item.get(), &ListItem::dataChanged, this, &ListModel::handleItemChange);
+    _list.push_back(std::move(item));
     endInsertRows();
 }
 
-void ListModel::insertRow(int row, ListItem *item)
+void ListModel::insertRow(int row,
+                          std::unique_ptr<ListItem> item)
 {
     beginInsertRows(QModelIndex(), row, row);
-    connect(item, &ListItem::dataChanged, this, &ListModel::handleItemChange);
-    _list.insert(row, item);
+    connect(item.get(), &ListItem::dataChanged, this, &ListModel::handleItemChange);
+    _list.insert(_list.begin() + row, std::move(item));
     endInsertRows();
 }
 
 void ListModel::handleItemChange()
 {
-    ListItem *item = qobject_cast<ListItem *>(sender());
+    auto *item = qobject_cast<ListItem *>(sender());
     QModelIndex index = indexFromItem(item);
     if (index.isValid())
         emit dataChanged(index, index);
@@ -73,21 +65,21 @@ void ListModel::handleItemChange()
 
 ListItem *ListModel::find(const QString &id) const
 {
-    for (ListItem *item : _list) {
+    for (const std::unique_ptr<ListItem> &item : _list) {
         if (item->id() == id)
-            return item;
+            return item.get();
     }
-    return 0;
+    return nullptr;
 }
 
 QModelIndex ListModel::indexFromItem(const ListItem *item) const
 {
     Q_ASSERT(item);
-    for (int row = 0; row < _list.size(); ++row) {
-        if (_list[row] == item)
-            return index(row);
+    for (size_t row = 0; row < _list.size(); ++row) {
+        if (_list[row].get() == item)
+            return index(static_cast<int>(row));
     }
-    return QModelIndex();
+    return {};
 }
 
 void ListModel::clear()
@@ -95,24 +87,13 @@ void ListModel::clear()
     removeRows(0, rowCount());
 }
 
-bool ListModel::moveRow(int oldRow, int newRow, const QModelIndex &parent)
-{
-    Q_UNUSED(parent);
-    if (oldRow < 0 || oldRow >= _list.size() || newRow < 0 || newRow >= _list.size())
-        return false;
-    beginMoveRows(QModelIndex(), oldRow, oldRow, QModelIndex(), newRow);
-    _list.move(oldRow, newRow);
-    endMoveRows();
-    return true;
-}
-
 bool ListModel::removeRow(int row, const QModelIndex &parent)
 {
     Q_UNUSED(parent);
-    if (row < 0 || row >= _list.size())
+    if (row < 0 || static_cast<size_t>(row) >= _list.size())
         return false;
     beginRemoveRows(QModelIndex(), row, row);
-    delete _list.takeAt(row);
+    _list.erase(_list.begin() + row);
     endRemoveRows();
     return true;
 }
@@ -120,11 +101,12 @@ bool ListModel::removeRow(int row, const QModelIndex &parent)
 bool ListModel::removeRows(int row, int count, const QModelIndex &parent)
 {
     Q_UNUSED(parent);
-    if (row < 0 || (row + count) > _list.size())
+    int toRemove = row + count;
+    if (row < 0 || static_cast<size_t>(toRemove) > _list.size())
         return false;
-    beginRemoveRows(QModelIndex(), row, row + count - 1);
+    beginRemoveRows(QModelIndex(), row, toRemove - 1);
     for (int i = 0; i < count; ++i) {
-        delete _list.takeAt(row);
+        _list.erase(_list.begin() + row);
     }
     endRemoveRows();
     return true;
@@ -132,14 +114,17 @@ bool ListModel::removeRows(int row, int count, const QModelIndex &parent)
 
 ListItem *ListModel::row(int row)
 {
-    ListItem *item = _list[row];
-    return item;
+    return _list[static_cast<size_t>(row)].get();
 }
 
-ListItem *ListModel::takeRow(int row)
+std::unique_ptr<ListItem> ListModel::takeRow(int row)
 {
     beginRemoveRows(QModelIndex(), row, row);
-    ListItem *item = _list.takeAt(row);
+    std::unique_ptr<ListItem> item = nullptr;
+    item.swap(_list.at(static_cast<size_t>(row)));
+    _list.erase(_list.begin() + row);
     endRemoveRows();
     return item;
 }
+
+} // namespace Vremenar

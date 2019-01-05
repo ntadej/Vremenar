@@ -26,6 +26,9 @@ macx {
 # depend on your compiler).
 DEFINES += QT_DEPRECATED_WARNINGS
 
+# All warnings
+QMAKE_CXXFLAGS += -Wall -Wextra -Wno-unknown-pragmas -pedantic
+
 # Define mobile
 ios {
     DEFINES += VREMENAR_MOBILE

@@ -11,12 +11,15 @@
 
 #include "Config.h"
 
-QString Vremenar::name()
+namespace Vremenar
+{
+
+QString name()
 {
     return "Vremenar";
 }
 
-QString Vremenar::executable()
+QString executable()
 {
 #if defined(Q_OS_LINUX)
     return name().toLower();
@@ -25,22 +28,24 @@ QString Vremenar::executable()
 #endif
 }
 
-QString Vremenar::domain()
+QString domain()
 {
     return "tano.si";
 }
 
-QString Vremenar::localServer()
+QString localServer()
 {
     return QString(name() + "localserver").toLower();
 }
 
-QString Vremenar::version()
+QString version()
 {
     return QString(VREMENAR_VERSION);
 }
 
-int Vremenar::build()
+int build()
 {
     return VREMENAR_VERSION_BUILD;
 }
+
+} // namespace Vremenar

@@ -1,0 +1,5 @@
+---
+Checks: 'clang-diagnostic-*,clang-analyzer-*,bugprone-*,cppcoreguidelines-*,google-*,misc-*,modernize-*,performance-*,-google-default-arguments,-google-readability-braces-around-statements'
+WarningsAsErrors: 'clang-diagnostic-*,clang-analyzer-*,bugprone-*,cppcoreguidelines-*,google-*,misc-*,modernize-*,performance-*'
+...
+

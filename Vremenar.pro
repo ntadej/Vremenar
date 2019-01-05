@@ -62,6 +62,7 @@ SOURCES += \
 HEADERS += \
     src/application/ApplicationWindow.h \
     src/common/Common.h \
+    src/common/Helpers.h \
     src/common/ListItem.h \
     src/common/ListModel.h \
     src/common/LocaleManager.h \

@@ -14,7 +14,11 @@
 #include "weather/common/api/APILoader.h"
 
 class NetworkManager;
+
+namespace Vremenar
+{
 class MapLayersProxyModel;
+}
 
 class WeatherProvider : public APILoader
 {
@@ -24,12 +28,12 @@ public:
                              QObject *parent = nullptr);
     virtual ~WeatherProvider();
 
-    inline MapLayersProxyModel *mapLayers() { return _mapLayersProxyModel; }
+    inline Vremenar::MapLayersProxyModel *mapLayers() { return _mapLayersProxyModel; }
 
     virtual void requestMapLayers(Vremenar::Weather::MapType type) = 0;
 
 protected:
-    MapLayersProxyModel *_mapLayersProxyModel;
+    Vremenar::MapLayersProxyModel *_mapLayersProxyModel;
 };
 
 #endif // VREMENAR_WEATHERPROVIDER_H_

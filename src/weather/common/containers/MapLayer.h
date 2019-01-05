@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2017 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -16,6 +16,9 @@
 
 #include "common/ListItem.h"
 #include "weather/common/Weather.h"
+
+namespace Vremenar
+{
 
 class MapLayer : public ListItem
 {
@@ -45,24 +48,25 @@ public:
                       const QUrl &url,
                       const QGeoRectangle &range,
                       QObject *parent = nullptr);
-    ~MapLayer();
 
     // Implemented virtual functions
-    QString id() const override;
-    QVariant data(int role) const override;
-    QString display() const override;
-    QHash<int, QByteArray> roleNames() const override;
+    virtual QVariant data(int role) const final;
+    virtual QString display() const final;
 
     inline Vremenar::Weather::MapType type() const { return _type; }
-    inline QDateTime time() const { return _time; }
-    inline QUrl url() const { return _url; }
-    inline QGeoRectangle range() const { return _range; }
+    inline const QDateTime &time() const { return _time; }
+    inline const QUrl &url() const { return _url; }
+    inline const QGeoRectangle &range() const { return _range; }
 
 private:
+    virtual void generateRoleNames() final;
+
     Vremenar::Weather::MapType _type;
     QDateTime _time;
     QUrl _url;
     QGeoRectangle _range;
 };
+
+} // namespace Vremenar
 
 #endif // VREMENAR_MAPLAYER_H_

@@ -7,24 +7,20 @@
 * Refer to the LICENSE.md file for details.
 */
 
-#ifndef VREMENAR_COMMON_H_
-#define VREMENAR_COMMON_H_
+#ifndef VREMENAR_HELPERS_H_
+#define VREMENAR_HELPERS_H_
 
-#include <QtCore/QString>
+#include <QtCore/QtCore>
 
 namespace Vremenar
 {
 
-// Vremenar name and executable
-QString name();
-QString executable();
-QString domain();
-QString localServer();
-
-// Version
-QString version();
-int build();
+template <class T, class U>
+inline std::unique_ptr<T> qobject_pointer_cast(U *object)
+{
+    return std::unique_ptr<T>(qobject_cast<T *>(object));
+}
 
 } // namespace Vremenar
 
-#endif // VREMENAR_COMMON_H_
+#endif // VREMENAR_HELPERS_H_

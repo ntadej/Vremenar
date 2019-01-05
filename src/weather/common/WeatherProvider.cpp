@@ -7,13 +7,14 @@
 * Refer to the LICENSE.md file for details.
 */
 
-#include "common/NetworkManager.h"
 #include "weather/common/WeatherProvider.h"
+
+#include "common/NetworkManager.h"
 #include "weather/common/models/MapLayersProxyModel.h"
 
 WeatherProvider::WeatherProvider(NetworkManager *network,
                                  QObject *parent)
     : APILoader(network, parent),
-      _mapLayersProxyModel(new MapLayersProxyModel(this)) {}
+      _mapLayersProxyModel(new Vremenar::MapLayersProxyModel(this)) {}
 
 WeatherProvider::~WeatherProvider() {}

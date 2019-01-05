@@ -44,7 +44,8 @@ void ARSOWeatherProvider::response(QNetworkReply *reply)
     QJsonDocument document = QJsonDocument::fromJson(reply->readAll());
     if (_currentReplies[reply].call() == "/inca_data") {
         Vremenar::Weather::MapType type = Vremenar::Weather::MapType(_currentReplies[reply].extra().toInt());
-        _mapLayersModel->clear();
+        if (_mapLayersModel->rowCount())
+            _mapLayersModel->clear();
         _mapLayersModel->addMapLayers(type, document.array());
 
         removeResponse(reply);

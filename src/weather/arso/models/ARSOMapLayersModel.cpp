@@ -11,6 +11,8 @@
 #include <QtCore/QJsonObject>
 #include <QtPositioning/QGeoCoordinate>
 
+#include "common/Helpers.h"
+
 #include "weather/arso/api/ARSOAPICommon.h"
 #include "weather/arso/models/ARSOMapLayersModel.h"
 
@@ -19,8 +21,8 @@ ARSOMapLayersModel::ARSOMapLayersModel(QObject *parent)
 
 ARSOMapLayersModel::~ARSOMapLayersModel() {}
 
-MapLayer *ARSOMapLayersModel::createMapLayer(Vremenar::Weather::MapType type,
-                                             const QJsonObject &data)
+Vremenar::MapLayer *ARSOMapLayersModel::createMapLayer(Vremenar::Weather::MapType type,
+                                                       const QJsonObject &data)
 {
     QDateTime time = QDateTime::fromString(data["date"].toString(), "yyyyMMddHHmm");
     time.setTimeSpec(Qt::UTC);
@@ -32,10 +34,10 @@ MapLayer *ARSOMapLayersModel::createMapLayer(Vremenar::Weather::MapType type,
     QGeoCoordinate bottomRight(c[0].toDouble(), c[3].toDouble());
     QGeoRectangle range(topLeft, bottomRight);
 
-    MapLayer *layer = new MapLayer(type, time, url, range);
-    appendRow(layer);
+    auto layer = new Vremenar::MapLayer(type, time, url, range);
+    appendRow(Vremenar::qobject_pointer_cast<Vremenar::ListItem>(layer));
 
-    return row(indexFromItem(layer).row());
+    return layer;
 }
 
 void ARSOMapLayersModel::addMapLayers(Vremenar::Weather::MapType type,

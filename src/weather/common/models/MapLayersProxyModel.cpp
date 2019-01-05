@@ -7,9 +7,12 @@
 * Refer to the LICENSE.md file for details.
 */
 
-#include "weather/common/containers/MapLayer.h"
 #include "weather/common/models/MapLayersProxyModel.h"
-#include <QDebug>
+#include "weather/common/containers/MapLayer.h"
+
+namespace Vremenar
+{
+
 MapLayersProxyModel::MapLayersProxyModel(QObject *parent)
     : QSortFilterProxyModel(parent),
       _time(0)
@@ -17,8 +20,6 @@ MapLayersProxyModel::MapLayersProxyModel(QObject *parent)
     connect(this, &MapLayersProxyModel::rowsInserted, this, &MapLayersProxyModel::rowCountChanged);
     connect(this, &MapLayersProxyModel::rowsRemoved, this, &MapLayersProxyModel::rowCountChanged);
 }
-
-MapLayersProxyModel::~MapLayersProxyModel() {}
 
 void MapLayersProxyModel::setTime(const QDateTime &time)
 {
@@ -75,3 +76,5 @@ bool MapLayersProxyModel::filterAcceptsRow(int sourceRow,
 
     return name && time;
 }
+
+} // namespace Vremenar
