@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2017 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -10,20 +10,27 @@
 #ifndef VREMENAR_ARSOMAPLAYERSMODEL_H_
 #define VREMENAR_ARSOMAPLAYERSMODEL_H_
 
-#include "weather/common/models/MapLayersModel.h"
+#include "weather/common/models/MapLayersModelBase.h"
 
-class ARSOMapLayersModel : public Vremenar::MapLayersModel
+namespace Vremenar
+{
+namespace ARSO
+{
+
+class MapLayersModel : public MapLayersModelBase
 {
     Q_OBJECT
 public:
-    explicit ARSOMapLayersModel(QObject *parent = nullptr);
-    virtual ~ARSOMapLayersModel();
+    explicit MapLayersModel(QObject *parent = nullptr);
 
-    Vremenar::MapLayer *createMapLayer(Vremenar::Weather::MapType type,
-                                       const QJsonObject &data) override;
+    virtual MapLayer *createMapLayer(Weather::MapType type,
+                                     const QJsonObject &data) final;
 
-    void addMapLayers(Vremenar::Weather::MapType type,
-                      const QJsonArray &data) override;
+    virtual void addMapLayers(Weather::MapType type,
+                              const QJsonArray &data) final;
 };
+
+} // namespace ARSO
+} // namespace Vremenar
 
 #endif // VREMENAR_ARSOMAPLAYERSMODEL_H_

@@ -9,30 +9,30 @@
 
 #include "common/Helpers.h"
 
-#include "weather/common/models/MapLayersModel.h"
+#include "weather/common/models/MapLayersModelBase.h"
 
 namespace Vremenar
 {
 
-MapLayersModel::MapLayersModel(QObject *parent)
+MapLayersModelBase::MapLayersModelBase(QObject *parent)
     : ListModel(std::make_unique<MapLayer>(), parent) {}
 
-MapLayer *MapLayersModel::find(const QString &id) const
+MapLayer *MapLayersModelBase::find(const QString &id) const
 {
     return qobject_cast<MapLayer *>(ListModel::find(id));
 }
 
-MapLayer *MapLayersModel::row(int row)
+MapLayer *MapLayersModelBase::row(int row)
 {
     return qobject_cast<MapLayer *>(ListModel::row(row));
 }
 
-std::unique_ptr<MapLayer> MapLayersModel::takeRow(int row)
+std::unique_ptr<MapLayer> MapLayersModelBase::takeRow(int row)
 {
     return qobject_pointer_cast<MapLayer>(ListModel::takeRow(row).release());
 }
 
-void MapLayersModel::deleteMapLayer(MapLayer *genre)
+void MapLayersModelBase::deleteMapLayer(MapLayer *genre)
 {
     int r = indexFromItem(genre).row();
     removeRow(r);

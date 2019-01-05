@@ -10,16 +10,16 @@
 #include "common/NetworkManager.h"
 #include "weather/common/models/MapLayersProxyModel.h"
 
-#include "weather/common/WeatherProvider.h"
+#include "weather/common/WeatherProviderBase.h"
 
 namespace Vremenar
 {
 
-WeatherProvider::WeatherProvider(NetworkManager *network,
-                                 QObject *parent)
+WeatherProviderBase::WeatherProviderBase(NetworkManager *network,
+                                         QObject *parent)
     : APILoader(network, parent),
       _mapLayersProxyModel(std::make_unique<MapLayersProxyModel>(this)) {}
 
-WeatherProvider::~WeatherProvider() = default;
+WeatherProviderBase::~WeatherProviderBase() = default;
 
 } // namespace Vremenar

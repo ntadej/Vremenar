@@ -7,7 +7,7 @@
 * Refer to the LICENSE.md file for details.
 */
 
-#include "weather/common/api/APIHelpers.h"
+#include "common/api/APIHelpers.h"
 
 namespace Vremenar
 {

@@ -9,7 +9,7 @@
 
 #include "common/NetworkManager.h"
 
-#include "weather/common/api/APILoader.h"
+#include "common/api/APILoader.h"
 
 namespace Vremenar
 {

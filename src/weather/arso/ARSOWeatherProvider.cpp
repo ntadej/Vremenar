@@ -11,39 +11,41 @@
 #include <QtCore/QJsonDocument>
 #include <QtCore/QJsonObject>
 
-#include <QDebug>
-
 #include "common/NetworkManager.h"
-#include "weather/arso/ARSOWeatherProvider.h"
 #include "weather/arso/api/ARSOAPIMapLayers.h"
 #include "weather/arso/models/ARSOMapLayersModel.h"
 #include "weather/common/models/MapLayersProxyModel.h"
 
-ARSOWeatherProvider::ARSOWeatherProvider(Vremenar::NetworkManager *network,
-                                         QObject *parent)
-    : Vremenar::WeatherProvider(network, parent),
-      _mapLayersModel(new ARSOMapLayersModel(this))
+#include "weather/arso/ARSOWeatherProvider.h"
+
+namespace Vremenar
 {
-    _mapLayersProxyModel->setSourceModel(_mapLayersModel);
+
+ARSO::WeatherProvider::WeatherProvider(NetworkManager *network,
+                                       QObject *parent)
+    : WeatherProviderBase(network, parent),
+      _mapLayersModel(new MapLayersModel(this))
+{
+    _mapLayersProxyModel->setSourceModel(_mapLayersModel.get());
 }
 
-ARSOWeatherProvider::~ARSOWeatherProvider() {}
+ARSO::WeatherProvider::~WeatherProvider() = default;
 
-void ARSOWeatherProvider::requestMapLayers(Vremenar::Weather::MapType type)
+void ARSO::WeatherProvider::requestMapLayers(Weather::MapType type)
 {
-    Vremenar::APIRequest request = Vremenar::ARSO::mapLayers(type);
+    APIRequest request = ARSO::mapLayers(type);
 
     _currentReplies.insert(_network->request(request), request);
 }
 
-void ARSOWeatherProvider::response(QNetworkReply *reply)
+void ARSO::WeatherProvider::response(QNetworkReply *reply)
 {
     if (!_currentReplies.contains(reply))
         return;
 
     QJsonDocument document = QJsonDocument::fromJson(reply->readAll());
     if (_currentReplies[reply].call() == "/inca_data") {
-        Vremenar::Weather::MapType type = Vremenar::Weather::MapType(_currentReplies[reply].extra().toInt());
+        auto type = Weather::MapType(_currentReplies[reply].extra().toInt());
         if (_mapLayersModel->rowCount())
             _mapLayersModel->clear();
         _mapLayersModel->addMapLayers(type, document.array());
@@ -51,3 +53,5 @@ void ARSOWeatherProvider::response(QNetworkReply *reply)
         removeResponse(reply);
     }
 }
+
+} // namespace Vremenar

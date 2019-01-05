@@ -7,8 +7,8 @@
 * Refer to the LICENSE.md file for details.
 */
 
-#ifndef VREMENAR_MAPLAYERSMODEL_H_
-#define VREMENAR_MAPLAYERSMODEL_H_
+#ifndef VREMENAR_MAPLAYERSMODELBASE_H_
+#define VREMENAR_MAPLAYERSMODELBASE_H_
 
 #include "common/ListModel.h"
 #include "weather/common/containers/MapLayer.h"
@@ -16,26 +16,26 @@
 namespace Vremenar
 {
 
-class MapLayersModel : public ListModel
+class MapLayersModelBase : public ListModel
 {
     Q_OBJECT
 public:
-    explicit MapLayersModel(QObject *parent = nullptr);
+    explicit MapLayersModelBase(QObject *parent = nullptr);
 
     MapLayer *find(const QString &id) const;
     MapLayer *row(int row);
     std::unique_ptr<MapLayer> takeRow(int row);
 
-    virtual MapLayer *createMapLayer(Vremenar::Weather::MapType type,
+    virtual MapLayer *createMapLayer(Weather::MapType type,
                                      const QJsonObject &data)
         = 0;
     void deleteMapLayer(MapLayer *genre);
 
-    virtual void addMapLayers(Vremenar::Weather::MapType type,
+    virtual void addMapLayers(Weather::MapType type,
                               const QJsonArray &data)
         = 0;
 };
 
 } // namespace Vremenar
 
-#endif // VREMENAR_MAPLAYERSMODEL_H_
+#endif // VREMENAR_MAPLAYERSMODELBASE_H_

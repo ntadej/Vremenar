@@ -25,7 +25,7 @@ NetworkManager::NetworkManager(QObject *parent)
     setCache(_cache.get());
 }
 
-QNetworkReply *NetworkManager::request(APIRequest &request)
+QNetworkReply *NetworkManager::request(APIRequestBase &request)
 {
     qDebug() << "Requesting:" << request.url();
 

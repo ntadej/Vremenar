@@ -20,8 +20,8 @@ LocalServer::LocalServer(QObject *parent)
     : QObject(parent)
 {
     _server = std::make_unique<QLocalServer>(this);
-    _server->removeServer(Vremenar::localServer());
-    if (!_server->listen(Vremenar::localServer())) {
+    _server->removeServer(localServer());
+    if (!_server->listen(localServer())) {
         qCritical() << "Local server could not be started." << _server->errorString();
         return;
     }

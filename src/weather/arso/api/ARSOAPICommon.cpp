@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2017 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -11,12 +11,17 @@
 
 #include "Config.h"
 
-QString Vremenar::ARSO::baseUrl()
+namespace Vremenar
+{
+
+QString ARSO::baseUrl()
 {
     return QString(ARSO_API_ENDPOINT);
 }
 
-QString Vremenar::ARSO::apiUrl()
+QString ARSO::apiUrl()
 {
     return baseUrl() + "/api/1.0";
 }
+
+} // namespace Vremenar

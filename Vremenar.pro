@@ -38,6 +38,9 @@ SOURCES += \
     src/common/NetworkManagerFactory.cpp \
     src/common/Resources.cpp \
     src/common/Output.cpp \
+    src/common/api/APIHelpers.cpp \
+    src/common/api/APILoader.cpp \
+    src/common/api/APIRequestBase.cpp \
     src/location/LocationProvider.cpp \
     src/qml/Colors.cpp \
     src/qml/Globals.cpp \
@@ -46,12 +49,9 @@ SOURCES += \
     src/settings/SettingsDefaults.cpp \
     src/settings/SettingsKeys.cpp \
     src/weather/common/Weather.cpp \
-    src/weather/common/WeatherProvider.cpp \
-    src/weather/common/api/APIHelpers.cpp \
-    src/weather/common/api/APILoader.cpp \
-    src/weather/common/api/APIRequest.cpp \
+    src/weather/common/WeatherProviderBase.cpp \
     src/weather/common/containers/MapLayer.cpp \
-    src/weather/common/models/MapLayersModel.cpp \
+    src/weather/common/models/MapLayersModelBase.cpp \
     src/weather/common/models/MapLayersProxyModel.cpp \
     src/weather/arso/ARSOWeatherProvider.cpp \
     src/weather/arso/api/ARSOAPICommon.cpp \
@@ -72,18 +72,18 @@ HEADERS += \
     src/common/NetworkManagerFactory.h \
     src/common/Resources.h \
     src/common/Output.h \
+    src/common/api/APIHelpers.h \
+    src/common/api/APILoader.h \
+    src/common/api/APIRequestBase.h \
     src/location/LocationProvider.h \
     src/qml/Colors.h \
     src/qml/Globals.h \
     src/qml/Qml.h \
     src/settings/Settings.h \
     src/weather/common/Weather.h \
-    src/weather/common/WeatherProvider.h \
-    src/weather/common/api/APIHelpers.h \
-    src/weather/common/api/APILoader.h \
-    src/weather/common/api/APIRequest.h \
+    src/weather/common/WeatherProviderBase.h \
     src/weather/common/containers/MapLayer.h \
-    src/weather/common/models/MapLayersModel.h \
+    src/weather/common/models/MapLayersModelBase.h \
     src/weather/common/models/MapLayersProxyModel.h \
     src/weather/arso/ARSOWeatherProvider.h \
     src/weather/arso/api/ARSOAPICommon.h \

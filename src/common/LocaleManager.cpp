@@ -36,7 +36,7 @@ LocaleManager::~LocaleManager()
 
 QStringList LocaleManager::loadLocales()
 {
-    QDir dir(Vremenar::Resources::path("/i18n/sl_SI.qm"));
+    QDir dir(Resources::path("/i18n/sl_SI.qm"));
     QStringList list;
     list << QLocale(QLocale::English, QLocale::UnitedStates).name();
 
@@ -74,7 +74,7 @@ void LocaleManager::setLocale()
 
     qDebug() << "Using locale" << locale;
 
-    QString langPath = Vremenar::Resources::path("/i18n/" + locale + ".qm");
+    QString langPath = Resources::path("/i18n/" + locale + ".qm");
     _translator->load(locale, langPath);
     _locale = locale;
 

@@ -21,7 +21,7 @@ MapLayer::MapLayer(QObject *parent)
     _type = Weather::PrecipitationMap;
 }
 
-MapLayer::MapLayer(Vremenar::Weather::MapType type,
+MapLayer::MapLayer(Weather::MapType type,
                    const QDateTime &time,
                    const QUrl &url,
                    const QGeoRectangle &range,
@@ -30,7 +30,7 @@ MapLayer::MapLayer(Vremenar::Weather::MapType type,
 {
     generateRoleNames();
 
-    _id = Vremenar::Weather::mapTypeString(type) + "_" + QString::number(time.toSecsSinceEpoch());
+    _id = Weather::mapTypeString(type) + "_" + QString::number(time.toSecsSinceEpoch());
     _type = type;
     _time = time;
     _url = url;

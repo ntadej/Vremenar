@@ -24,7 +24,7 @@ class MapLayer : public ListItem
 {
     Q_OBJECT
     Q_PROPERTY(QString display READ display CONSTANT)
-    Q_PROPERTY(Vremenar::Weather::MapType type READ type CONSTANT)
+    Q_PROPERTY(Weather::MapType type READ type CONSTANT)
     Q_PROPERTY(QDateTime time READ time CONSTANT)
     Q_PROPERTY(QUrl url READ url CONSTANT)
     Q_PROPERTY(QGeoRectangle range READ range CONSTANT)
@@ -43,7 +43,7 @@ public:
     };
 
     explicit MapLayer(QObject *parent = nullptr);
-    explicit MapLayer(Vremenar::Weather::MapType type,
+    explicit MapLayer(Weather::MapType type,
                       const QDateTime &time,
                       const QUrl &url,
                       const QGeoRectangle &range,
@@ -53,7 +53,7 @@ public:
     virtual QVariant data(int role) const final;
     virtual QString display() const final;
 
-    inline Vremenar::Weather::MapType type() const { return _type; }
+    inline Weather::MapType type() const { return _type; }
     inline const QDateTime &time() const { return _time; }
     inline const QUrl &url() const { return _url; }
     inline const QGeoRectangle &range() const { return _range; }
@@ -61,7 +61,7 @@ public:
 private:
     virtual void generateRoleNames() final;
 
-    Vremenar::Weather::MapType _type;
+    Weather::MapType _type;
     QDateTime _time;
     QUrl _url;
     QGeoRectangle _range;

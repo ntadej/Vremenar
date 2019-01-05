@@ -45,7 +45,7 @@ ApplicationWindow::ApplicationWindow(QObject *parent)
 
     addImportPath("qrc:/");
 
-    Vremenar::Qml::registerTypes();
+    Qml::registerTypes();
 
 #ifndef VREMENAR_MOBILE
     connect(qApp, &QCoreApplication::aboutToQuit, this, &ApplicationWindow::writeSettingsStartup);
@@ -107,7 +107,7 @@ void ApplicationWindow::writeSettingsStartup()
 void ApplicationWindow::createModels()
 {
     _location = new LocationProvider(this);
-    _arso = new ARSOWeatherProvider(_network, this);
+    _arso = new ARSO::WeatherProvider(_network, this);
 
     rootContext()->setContextProperty("Vremenar", this);
     rootContext()->setContextProperty("VL", _localeManager);
@@ -156,7 +156,7 @@ void ApplicationWindow::startCompleted()
     emit dockVisibilityChanged(settings->showInDock());
 #endif
 
-    _arso->requestMapLayers(Vremenar::Weather::PrecipitationMap);
+    _arso->requestMapLayers(Weather::PrecipitationMap);
 
     qDebug() << "Initialization completed";
 }

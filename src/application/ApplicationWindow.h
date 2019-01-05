@@ -15,7 +15,6 @@
 
 class QQuickWindow;
 
-class ARSOWeatherProvider;
 class SettingsDialog;
 class TrayIcon;
 
@@ -25,6 +24,11 @@ class LocaleManager;
 class LocationProvider;
 class NetworkManager;
 class NetworkManagerFactory;
+
+namespace ARSO
+{
+class WeatherProvider;
+}
 
 class ApplicationWindow : public QQmlApplicationEngine
 {
@@ -68,7 +72,7 @@ private:
     NetworkManagerFactory *_networkFactory;
 
     // API
-    ARSOWeatherProvider *_arso;
+    ARSO::WeatherProvider *_arso;
 
     // QML
     QQuickWindow *_qmlMainWindow;

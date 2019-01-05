@@ -7,8 +7,8 @@
 * Refer to the LICENSE.md file for details.
 */
 
-#ifndef VREMENAR_APIREQUEST_H_
-#define VREMENAR_APIREQUEST_H_
+#ifndef VREMENAR_APIREQUESTBASE_H_
+#define VREMENAR_APIREQUESTBASE_H_
 
 #include <QtCore/QJsonObject>
 #include <QtNetwork/QNetworkAccessManager>
@@ -17,10 +17,10 @@
 namespace Vremenar
 {
 
-class APIRequest : public QNetworkRequest
+class APIRequestBase : public QNetworkRequest
 {
 public:
-    APIRequest();
+    APIRequestBase();
 
     inline const QString &call() const { return _call; }
     inline QNetworkAccessManager::Operation operation() const { return _operation; }
@@ -44,4 +44,4 @@ private:
 
 } // namespace Vremenar
 
-#endif // VREMENAR_APIREQUEST_H_
+#endif // VREMENAR_APIREQUESTBASE_H_

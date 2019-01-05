@@ -13,7 +13,7 @@
 #include <QtCore/QThread>
 #include <QtNetwork/QNetworkReply>
 
-#include "weather/common/api/APIRequest.h"
+#include "common/api/APIRequestBase.h"
 
 namespace Vremenar
 {
@@ -37,7 +37,7 @@ protected slots:
 protected:
     NetworkManager *_network; // not owned
 
-    QMap<QNetworkReply *, APIRequest> _currentReplies;
+    QMap<QNetworkReply *, APIRequestBase> _currentReplies;
 };
 
 } // namespace Vremenar

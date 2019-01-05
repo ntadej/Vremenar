@@ -15,7 +15,7 @@
 #include <QtNetwork/QNetworkDiskCache>
 #include <QtNetwork/QNetworkReply>
 
-#include "weather/common/api/APIRequest.h"
+#include "common/api/APIRequestBase.h"
 
 namespace Vremenar
 {
@@ -27,7 +27,7 @@ public:
     NetworkManager(QObject *parent = nullptr);
     ~NetworkManager() = default;
 
-    QNetworkReply *request(APIRequest &request);
+    QNetworkReply *request(APIRequestBase &request);
 
 signals:
     void error(QNetworkReply *,

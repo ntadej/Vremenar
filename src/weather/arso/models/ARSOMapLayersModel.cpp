@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2017 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -14,36 +14,40 @@
 #include "common/Helpers.h"
 
 #include "weather/arso/api/ARSOAPICommon.h"
+
 #include "weather/arso/models/ARSOMapLayersModel.h"
 
-ARSOMapLayersModel::ARSOMapLayersModel(QObject *parent)
-    : MapLayersModel(parent) {}
+namespace Vremenar
+{
 
-ARSOMapLayersModel::~ARSOMapLayersModel() {}
+ARSO::MapLayersModel::MapLayersModel(QObject *parent)
+    : MapLayersModelBase(parent) {}
 
-Vremenar::MapLayer *ARSOMapLayersModel::createMapLayer(Vremenar::Weather::MapType type,
-                                                       const QJsonObject &data)
+MapLayer *ARSO::MapLayersModel::createMapLayer(Weather::MapType type,
+                                               const QJsonObject &data)
 {
     QDateTime time = QDateTime::fromString(data["date"].toString(), "yyyyMMddHHmm");
     time.setTimeSpec(Qt::UTC);
 
-    QUrl url(Vremenar::ARSO::baseUrl() + data["path"].toString());
+    QUrl url(ARSO::baseUrl() + data["path"].toString());
 
     QStringList c = data["bbox"].toString().split(",");
     QGeoCoordinate topLeft(c[2].toDouble(), c[1].toDouble());
     QGeoCoordinate bottomRight(c[0].toDouble(), c[3].toDouble());
     QGeoRectangle range(topLeft, bottomRight);
 
-    auto layer = new Vremenar::MapLayer(type, time, url, range);
-    appendRow(Vremenar::qobject_pointer_cast<Vremenar::ListItem>(layer));
+    auto layer = new MapLayer(type, time, url, range);
+    appendRow(qobject_pointer_cast<ListItem>(layer));
 
     return layer;
 }
 
-void ARSOMapLayersModel::addMapLayers(Vremenar::Weather::MapType type,
-                                      const QJsonArray &data)
+void ARSO::MapLayersModel::addMapLayers(Weather::MapType type,
+                                        const QJsonArray &data)
 {
-    for (int i = 0; i < data.size(); i++) {
-        createMapLayer(type, data[i].toObject());
+    for (const QJsonValue &obj : data) {
+        createMapLayer(type, obj.toObject());
     }
 }
+
+} // namespace Vremenar

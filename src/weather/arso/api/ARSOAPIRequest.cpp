@@ -1,19 +1,23 @@
 /*
 * Vremenar
-* Copyright (C) 2017 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
 * Refer to the LICENSE.md file for details.
 */
 
-#include "weather/arso/api/ARSOAPIRequest.h"
 #include "weather/arso/api/ARSOAPICommon.h"
 
-ARSOAPIRequest::ARSOAPIRequest()
-    : Vremenar::APIRequest()
+#include "weather/arso/api/ARSOAPIRequest.h"
+
+namespace Vremenar
 {
-    setBaseUrl(Vremenar::ARSO::apiUrl());
+
+ARSO::APIRequest::APIRequest()
+    : APIRequestBase()
+{
+    setBaseUrl(ARSO::apiUrl());
 }
 
-ARSOAPIRequest::~ARSOAPIRequest() {}
+} // namespace Vremenar

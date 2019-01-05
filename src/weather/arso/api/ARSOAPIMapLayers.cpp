@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2017 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -9,34 +9,36 @@
 
 #include "weather/arso/api/ARSOAPIMapLayers.h"
 
-ARSOAPIRequest Vremenar::ARSO::mapLayers(Vremenar::Weather::MapType type)
+namespace Vremenar
+{
+
+ARSO::APIRequest ARSO::mapLayers(Weather::MapType type)
 {
     QString id;
     switch (type) {
-    case Vremenar::Weather::PrecipitationMap:
+    case Weather::PrecipitationMap:
         id = "inca_precip_data";
         break;
-    case Vremenar::Weather::CloudCoverageMap:
+    case Weather::CloudCoverageMap:
         id = "inca_precip_data";
         break;
-    case Vremenar::Weather::WindSpeedMap:
+    case Weather::WindSpeedMap:
         id = "inca_precip_data";
         break;
-    case Vremenar::Weather::TemperatureMap:
+    case Weather::TemperatureMap:
         id = "inca_precip_data";
         break;
-    case Vremenar::Weather::HailProbabilityMap:
+    case Weather::HailProbabilityMap:
         id = "inca_precip_data";
-        break;
-    default:
         break;
     }
 
-    ARSOAPIRequest request;
+    APIRequest request;
     request.setCall("/inca_data");
     request.setUrl("/" + id + "/");
-    request.setOperation(QNetworkAccessManager::GetOperation);
     request.setExtra(type);
 
     return request;
 }
+
+} // namespace Vremenar
