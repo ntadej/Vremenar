@@ -1,6 +1,6 @@
 #
 # Vremenar
-# Copyright (C) 2017 Tadej Novak <tadej@tano.si>
+# Copyright (C) 2019 Tadej Novak <tadej@tano.si>
 #
 # This application is bi-licensed under the GNU General Public License
 # Version 3 or later as well as Mozilla Public License Version 2.
@@ -12,8 +12,7 @@ CONFIG += qt
 
 # Common configuration
 include($$top_srcdir/config/version.pri)
-include($$top_srcdir/config/config.pri)
-include($$top_srcdir/config/dependencies.pri)
+include($$top_srcdir/config/build.pri)
 include($$top_srcdir/config/platform.pri)
 
 # Disabled for mobile for now
@@ -135,6 +134,10 @@ RESOURCES += \
     src/qml/Vremenar/Weather/weather.qrc \
     resources/icons/icons.qrc \
     resources/logo/desktop/logo.qrc
+
+# Define other files
+OTHER_FILES += \
+    src/Config.h.in
 
 # Disabled on mobile for now
 !ios {

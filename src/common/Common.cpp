@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2017 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -8,6 +8,8 @@
 */
 
 #include "common/Common.h"
+
+#include "Config.h"
 
 QString Vremenar::name()
 {
@@ -35,10 +37,10 @@ QString Vremenar::localServer()
 
 QString Vremenar::version()
 {
-    return QString(VERSION);
+    return QString(VREMENAR_VERSION);
 }
 
 int Vremenar::build()
 {
-    return VERSION_BUILD;
+    return VREMENAR_VERSION_BUILD;
 }

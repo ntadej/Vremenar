@@ -14,6 +14,8 @@
 #include "common/Common.h"
 #include "location/LocationProvider.h"
 
+#include "Config.h"
+
 LocationProvider::LocationProvider(QObject *parent)
     : QObject(parent)
 {
@@ -118,9 +120,5 @@ void LocationProvider::reverseGeocodingError(QGeoCodeReply *reply,
 
 QString LocationProvider::mapboxAPIToken()
 {
-#ifdef MAPBOX_API_TOKEN
     return QString(MAPBOX_API_TOKEN);
-#else
-    return QString();
-#endif
 }

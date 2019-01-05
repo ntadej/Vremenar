@@ -19,6 +19,8 @@
 #include "common/Output.h"
 #include "common/Resources.h"
 
+#include "Config.h"
+
 static QTextStream *out;
 static QMutex *outMutex;
 
@@ -60,7 +62,7 @@ void Vremenar::Log::output(QtMsgType type,
 
 void Vremenar::Log::setup()
 {
-#if LOGGING
+#if VREMENAR_LOGGING
     QString fileName = Vremenar::Resources::appData() + "/" + Vremenar::executable() + ".log";
     QFile *log = new QFile(fileName);
     if (log->open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text)) {

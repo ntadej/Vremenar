@@ -9,9 +9,11 @@
 
 #include "weather/arso/api/ARSOAPICommon.h"
 
+#include "Config.h"
+
 QString Vremenar::ARSO::baseUrl()
 {
-    return "";
+    return QString(ARSO_API_ENDPOINT);
 }
 
 QString Vremenar::ARSO::apiUrl()
