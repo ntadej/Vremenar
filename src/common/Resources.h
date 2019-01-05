@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2017 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -14,15 +14,17 @@
 
 namespace Vremenar
 {
-    namespace Resources
-    {
-        // Resources locators
-        QString path(const QString &file);
-        QString resource(const QString &file);
+namespace Resources
+{
 
-        // Special locations
-        QString appData();
-    }
-}
+// Resources locators
+QString path(const QString &file);
+QString resource(const QString &file);
+
+// Special locations
+QString appData();
+
+} // namespace Resources
+} // namespace Vremenar
 
 #endif // VREMENAR_RESOURCES_H_

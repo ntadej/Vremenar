@@ -7,11 +7,11 @@
 * Refer to the LICENSE.md file for details.
 */
 
-#include "weather/arso/api/ARSOAPICommon.h"
 #include "weather/arso/api/ARSOAPIRequest.h"
+#include "weather/arso/api/ARSOAPICommon.h"
 
 ARSOAPIRequest::ARSOAPIRequest()
-    : APIRequest()
+    : Vremenar::APIRequest()
 {
     setBaseUrl(Vremenar::ARSO::apiUrl());
 }

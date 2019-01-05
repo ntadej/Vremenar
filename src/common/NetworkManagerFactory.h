@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2017 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -13,19 +13,19 @@
 #include <QtNetwork/QNetworkAccessManager>
 #include <QtQml/QQmlNetworkAccessManagerFactory>
 
-class NetworkManager;
+namespace Vremenar
+{
 
 class NetworkManagerFactory : public QObject, public QQmlNetworkAccessManagerFactory
 {
     Q_OBJECT
 public:
     NetworkManagerFactory(QObject *parent = nullptr);
-    ~NetworkManagerFactory();
+    ~NetworkManagerFactory() = default;
 
     virtual QNetworkAccessManager *create(QObject *parent);
-
-private:
-    NetworkManager *_nam;
 };
+
+} // namespace Vremenar
 
 #endif // VREMENAR_NETWORKMANAGERFACTORY_H_

@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2017 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -12,13 +12,15 @@
 
 #include "weather/common/api/APIRequest.h"
 
+namespace Vremenar
+{
+
 APIRequest::APIRequest()
-    : QNetworkRequest()
+    : QNetworkRequest(),
+      _operation(QNetworkAccessManager::GetOperation)
 {
     setRawHeader("Content-type", "application/json");
 }
-
-APIRequest::~APIRequest() {}
 
 void APIRequest::setBaseUrl(const QString &url)
 {
@@ -54,3 +56,5 @@ void APIRequest::setData(const QJsonObject &data)
 {
     _data = data;
 }
+
+} // namespace Vremenar

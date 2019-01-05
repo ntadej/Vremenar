@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2017 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -12,6 +12,9 @@
 
 #include <QtCore/QString>
 #include <QtCore/QTranslator>
+
+namespace Vremenar
+{
 
 class LocaleManager : public QObject
 {
@@ -33,10 +36,12 @@ public slots:
 
 private:
     inline QString retranslateQml() { return ""; }
-    inline QString locale() { return _locale; }
+    inline const QString &locale() { return _locale; }
 
-    QTranslator *_translator;
+    std::unique_ptr<QTranslator> _translator;
     QString _locale;
 };
+
+} // namespace Vremenar
 
 #endif // VREMENAR_LOCALEMANAGER_H_

@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2017 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -9,21 +9,20 @@
 
 #include <QtCore/QStandardPaths>
 
-#include "common/NetworkManager.h"
 #include "settings/Settings.h"
+
+#include "common/NetworkManager.h"
+
+namespace Vremenar
+{
 
 NetworkManager::NetworkManager(QObject *parent)
     : QNetworkAccessManager(parent)
 {
-    _cache = new QNetworkDiskCache(this);
+    _cache = std::make_unique<QNetworkDiskCache>(this);
     _cache->setCacheDirectory(QStandardPaths::writableLocation(QStandardPaths::CacheLocation));
     _cache->setMaximumCacheSize(1073741824); // 1 GB
-    setCache(_cache);
-}
-
-NetworkManager::~NetworkManager()
-{
-    delete _cache;
+    setCache(_cache.get());
 }
 
 QNetworkReply *NetworkManager::request(APIRequest &request)
@@ -49,7 +48,7 @@ QNetworkReply *NetworkManager::request(APIRequest &request)
 
 void NetworkManager::httpError(QNetworkReply::NetworkError err)
 {
-    QNetworkReply *reply = qobject_cast<QNetworkReply *>(QObject::sender());
+    auto *reply = qobject_cast<QNetworkReply *>(QObject::sender());
 
     qDebug() << "Network Error:" << err << reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt() << reply->request().url();
 
@@ -58,7 +57,7 @@ void NetworkManager::httpError(QNetworkReply::NetworkError err)
 
 void NetworkManager::httpRequestFinished()
 {
-    QNetworkReply *reply = qobject_cast<QNetworkReply *>(QObject::sender());
+    auto *reply = qobject_cast<QNetworkReply *>(QObject::sender());
     if (reply->error()) {
         return;
     } else {
@@ -68,3 +67,5 @@ void NetworkManager::httpRequestFinished()
     disconnect(reply, qOverload<QNetworkReply::NetworkError>(&QNetworkReply::error), this, &NetworkManager::httpError);
     disconnect(reply, &QNetworkReply::finished, this, &NetworkManager::httpRequestFinished);
 }
+
+} // namespace Vremenar

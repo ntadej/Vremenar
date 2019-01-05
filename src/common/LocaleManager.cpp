@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2017 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -12,23 +12,26 @@
 #include <QtCore/QDir>
 #include <QtCore/QLocale>
 
-#include "common/LocaleManager.h"
 #include "common/Resources.h"
 #include "settings/Settings.h"
 
-LocaleManager::LocaleManager(QObject *parent)
-    : QObject(parent)
+#include "common/LocaleManager.h"
+
+namespace Vremenar
 {
-    _translator = new QTranslator();
-    _locale = "";
-    QCoreApplication::installTranslator(_translator);
+
+LocaleManager::LocaleManager(QObject *parent)
+    : QObject(parent),
+      _translator(std::make_unique<QTranslator>()),
+      _locale("")
+{
+    QCoreApplication::installTranslator(_translator.get());
     setLocale();
 }
 
 LocaleManager::~LocaleManager()
 {
-    QCoreApplication::removeTranslator(_translator);
-    delete _translator;
+    QCoreApplication::removeTranslator(_translator.get());
 }
 
 QStringList LocaleManager::loadLocales()
@@ -77,3 +80,5 @@ void LocaleManager::setLocale()
 
     emit localeChanged();
 }
+
+} // namespace Vremenar

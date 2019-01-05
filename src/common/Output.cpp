@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2017 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -11,14 +11,14 @@
 #include <QtCore/QTextCodec>
 
 #include "common/Common.h"
+
 #include "common/Output.h"
 
-using namespace Vremenar;
+namespace Vremenar
+{
 
 Output::Output(bool error)
     : QTextStream(error ? stderr : stdout, QIODevice::WriteOnly) {}
-
-Output::~Output() {}
 
 Output &Output::operator<<(const QString &string)
 {
@@ -35,3 +35,5 @@ void Output::welcome()
              << QString("Copyright (C) %1 Tadej Novak").arg(QDate::currentDate().year()) << endl
              << endl;
 }
+
+} // namespace Vremenar

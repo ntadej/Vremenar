@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2017 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -15,6 +15,9 @@
 #include <QtLocation/QGeoServiceProvider>
 #include <QtPositioning/QGeoPositionInfoSource>
 
+namespace Vremenar
+{
+
 class LocationProvider : public QObject
 {
     Q_OBJECT
@@ -22,7 +25,7 @@ class LocationProvider : public QObject
     Q_PROPERTY(QString location READ currentLocation NOTIFY locationChanged)
 public:
     explicit LocationProvider(QObject *parent = nullptr);
-    virtual ~LocationProvider();
+    ~LocationProvider() = default;
 
     static QString mapboxAPIToken();
 
@@ -44,11 +47,13 @@ private slots:
                                const QString &errorString);
 
 private:
-    QGeoPositionInfoSource *_position;
-    QGeoServiceProvider *_provider;
+    std::unique_ptr<QGeoPositionInfoSource> _position;
+    std::unique_ptr<QGeoServiceProvider> _provider;
 
     QGeoPositionInfo _currentPosition;
     QGeoLocation _currentLocation;
 };
+
+} // namespace Vremenar
 
 #endif // VREMENAR_LOCATIONPROVIDER_H_

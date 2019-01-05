@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2017 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -15,15 +15,17 @@
 
 #include "weather/common/api/APIRequest.h"
 
+namespace Vremenar
+{
+
 class NetworkManager;
 
 class APILoader : public QObject
 {
     Q_OBJECT
 public:
-    explicit APILoader(NetworkManager *network = nullptr,
+    explicit APILoader(NetworkManager *network,
                        QObject *parent = nullptr);
-    virtual ~APILoader();
 
     void removeResponse(QNetworkReply *reply);
 
@@ -33,9 +35,11 @@ protected slots:
     virtual void response(QNetworkReply *reply);
 
 protected:
-    NetworkManager *_network;
+    NetworkManager *_network; // not owned
 
     QMap<QNetworkReply *, APIRequest> _currentReplies;
 };
+
+} // namespace Vremenar
 
 #endif // VREMENAR_APILOADER_H_

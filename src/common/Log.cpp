@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2017 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -15,18 +15,22 @@
 #include <QtCore/QTextStream>
 
 #include "common/Common.h"
-#include "common/Log.h"
 #include "common/Output.h"
 #include "common/Resources.h"
+
+#include "common/Log.h"
 
 #include "Config.h"
 
 static QTextStream *out;
 static QMutex *outMutex;
 
-void Vremenar::Log::output(QtMsgType type,
-                           const QMessageLogContext &context,
-                           const QString &msg)
+namespace Vremenar
+{
+
+void Log::output(QtMsgType type,
+                 const QMessageLogContext &context,
+                 const QString &msg)
 {
     Q_UNUSED(context)
 
@@ -51,20 +55,20 @@ void Vremenar::Log::output(QtMsgType type,
     }
     (*out) << debugdate << " " << msg << endl;
 
-//#ifdef QT_DEBUG
+    //#ifdef QT_DEBUG
     Output(true) << debugdate << " " << msg << endl;
-//#endif
+    //#endif
 
     if (QtFatalMsg == type) {
         abort();
     }
 }
 
-void Vremenar::Log::setup()
+void Log::setup()
 {
 #if VREMENAR_LOGGING
     QString fileName = Vremenar::Resources::appData() + "/" + Vremenar::executable() + ".log";
-    QFile *log = new QFile(fileName);
+    auto *log = new QFile(fileName);
     if (log->open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text)) {
         out = new QTextStream(log);
         outMutex = new QMutex;
@@ -74,3 +78,5 @@ void Vremenar::Log::setup()
     }
 #endif
 }
+
+} // namespace Vremenar

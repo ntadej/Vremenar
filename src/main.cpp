@@ -31,7 +31,7 @@ int main(int argc, char *argv[])
 
     instance.postInit();
 
-    ApplicationWindow main;
+    Vremenar::ApplicationWindow main;
 
     return instance.exec();
 }

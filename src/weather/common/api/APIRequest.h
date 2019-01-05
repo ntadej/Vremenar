@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2017 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -14,15 +14,17 @@
 #include <QtNetwork/QNetworkAccessManager>
 #include <QtNetwork/QNetworkRequest>
 
+namespace Vremenar
+{
+
 class APIRequest : public QNetworkRequest
 {
 public:
     APIRequest();
-    virtual ~APIRequest();
 
-    inline QString call() const { return _call; }
+    inline const QString &call() const { return _call; }
     inline QNetworkAccessManager::Operation operation() const { return _operation; }
-    inline QVariant extra() const { return _extra; }
+    inline const QVariant &extra() const { return _extra; }
     QByteArray data() const;
 
     void setBaseUrl(const QString &url);
@@ -39,5 +41,7 @@ private:
     QVariant _extra;
     QJsonObject _data;
 };
+
+} // namespace Vremenar
 
 #endif // VREMENAR_APIREQUEST_H_

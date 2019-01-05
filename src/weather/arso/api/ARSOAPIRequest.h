@@ -12,7 +12,7 @@
 
 #include "weather/common/api/APIRequest.h"
 
-class ARSOAPIRequest : public APIRequest
+class ARSOAPIRequest : public Vremenar::APIRequest
 {
 public:
     ARSOAPIRequest();

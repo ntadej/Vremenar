@@ -7,8 +7,9 @@
 * Refer to the LICENSE.md file for details.
 */
 
-#include "ListModel.h"
 #include "ListItem.h"
+
+#include "ListModel.h"
 
 namespace Vremenar
 {

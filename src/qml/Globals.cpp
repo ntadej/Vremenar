@@ -9,14 +9,15 @@
 
 #include "common/Common.h"
 #include "location/LocationProvider.h"
-#include "qml/Globals.h"
 #include "settings/Settings.h"
+
+#include "qml/Globals.h"
 
 QString Globals::name() const { return Vremenar::name(); }
 QString Globals::version() const { return Vremenar::version(); }
 int Globals::build() const { return Vremenar::build(); }
 
-QString Globals::mapboxAPIToken() const { return LocationProvider::mapboxAPIToken(); }
+QString Globals::mapboxAPIToken() const { return Vremenar::LocationProvider::mapboxAPIToken(); }
 
 QObject *Globals::provider(QQmlEngine *engine,
                            QJSEngine *scriptEngine)

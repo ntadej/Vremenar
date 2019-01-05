@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2017 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -14,7 +14,10 @@
 
 #include "common/Resources.h"
 
-QString Vremenar::Resources::path(const QString &file)
+namespace Vremenar
+{
+
+QString Resources::path(const QString &file)
 {
     QString path;
     if (resource(file).isEmpty())
@@ -25,43 +28,43 @@ QString Vremenar::Resources::path(const QString &file)
     return path;
 }
 
-QString Vremenar::Resources::resource(const QString &file)
+QString Resources::resource(const QString &file)
 {
     QString path;
 
-    if (QFileInfo(file).exists())
+    if (QFileInfo::exists(file))
         path = QFileInfo(file).absoluteFilePath();
 
     // Try resources application path
-    else if (QFileInfo(":/Vremenar/" + file).exists())
+    else if (QFileInfo::exists(":/Vremenar/" + file))
         path = QFileInfo(":/Vremenar/" + file).absoluteFilePath();
 
     // Try application exe working path
-    else if (QFileInfo(QDir::currentPath() + "/" + file).exists())
+    else if (QFileInfo::exists(QDir::currentPath() + "/" + file))
         path = QFileInfo(QDir::currentPath() + "/" + file).absoluteFilePath();
 
     // Try application exe directory
-    else if (QFileInfo(QCoreApplication::applicationDirPath() + "/" + file).exists())
+    else if (QFileInfo::exists(QCoreApplication::applicationDirPath() + "/" + file))
         path = QFileInfo(QCoreApplication::applicationDirPath() + "/" + file).absoluteFilePath();
 
     // Try application exe directory without src for development
-    else if (QFileInfo(QCoreApplication::applicationDirPath().replace("/src", "") + "/" + file).exists())
+    else if (QFileInfo::exists(QCoreApplication::applicationDirPath().replace("/src", "") + "/" + file))
         path = QFileInfo(QCoreApplication::applicationDirPath().replace("/src", "") + "/" + file).absoluteFilePath();
 
 #if defined(Q_OS_UNIX)
-    else if (QFileInfo("/usr/bin/" + file).exists())
+    else if (QFileInfo::exists("/usr/bin/" + file))
         path = QFileInfo("/usr/bin/" + file).absoluteFilePath();
 #endif
 
 #if defined(Q_OS_MACOS)
-    else if (QFileInfo(QCoreApplication::applicationDirPath().replace("MacOS", "Resources") + "/" + file).exists())
+    else if (QFileInfo::exists(QCoreApplication::applicationDirPath().replace("MacOS", "Resources") + "/" + file))
         path = QFileInfo(QCoreApplication::applicationDirPath().replace("MacOS", "Resources") + "/" + file).absoluteFilePath();
 #endif
 
     return path;
 }
 
-QString Vremenar::Resources::appData()
+QString Resources::appData()
 {
     QDir dir(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation));
     if (!dir.exists()) {
@@ -70,3 +73,5 @@ QString Vremenar::Resources::appData()
 
     return dir.path();
 }
+
+} // namespace Vremenar

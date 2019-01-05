@@ -120,7 +120,7 @@ void SettingsDialog::loadLocales()
 
     disconnect(ui->comboLocale, &QComboBox::currentTextChanged, this, &SettingsDialog::localeChangedSlot);
 
-    _locales = LocaleManager::loadLocales();
+    _locales = Vremenar::LocaleManager::loadLocales();
 
     ui->comboLocale->clear();
     ui->comboLocale->addItem(tr("System default"));

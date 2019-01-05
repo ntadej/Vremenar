@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2017 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -16,13 +16,16 @@
 
 #include "Config.h"
 
+namespace Vremenar
+{
+
 LocationProvider::LocationProvider(QObject *parent)
     : QObject(parent)
 {
     QMap<QString, QVariant> params;
     params["osm.useragent"] = Vremenar::name() + " " + Vremenar::version();
 
-    _provider = new QGeoServiceProvider("osm", params);
+    _provider = std::make_unique<QGeoServiceProvider>("osm", params);
     if (_provider->geocodingManager()) {
         connect(_provider->geocodingManager(), SIGNAL(finished(QGeoCodeReply *)),
                 this, SLOT(reverseGeocodingFinished(QGeoCodeReply *)));
@@ -30,20 +33,18 @@ LocationProvider::LocationProvider(QObject *parent)
                 this, SLOT(reverseGeocodingError(QGeoCodeReply *, QGeoCodeReply::Error, QString)));
     }
 
-    _position = QGeoPositionInfoSource::createDefaultSource(this);
+    _position.reset(QGeoPositionInfoSource::createDefaultSource(this));
     if (_position) {
-        connect(_position, SIGNAL(positionUpdated(QGeoPositionInfo)),
+        connect(_position.get(), SIGNAL(positionUpdated(QGeoPositionInfo)),
                 this, SLOT(positionUpdated(QGeoPositionInfo)));
-        connect(_position, SIGNAL(error(QGeoPositionInfoSource::Error)),
+        connect(_position.get(), SIGNAL(error(QGeoPositionInfoSource::Error)),
                 this, SLOT(positionError(QGeoPositionInfoSource::Error)));
-        connect(_position, SIGNAL(updateTimeout()), this, SLOT(positionTimeout()));
+        connect(_position.get(), SIGNAL(updateTimeout()), this, SLOT(positionTimeout()));
         _position->requestUpdate(15000);
     } else {
         qWarning() << "Positioning source could not be initialised.";
     }
 }
-
-LocationProvider::~LocationProvider() {}
 
 QGeoCoordinate LocationProvider::currentPosition() const
 {
@@ -122,3 +123,5 @@ QString LocationProvider::mapboxAPIToken()
 {
     return QString(MAPBOX_API_TOKEN);
 }
+
+} // namespace Vremenar

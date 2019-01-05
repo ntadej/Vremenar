@@ -14,11 +14,11 @@
 
 class ARSOMapLayersModel;
 
-class ARSOWeatherProvider : public WeatherProvider
+class ARSOWeatherProvider : public Vremenar::WeatherProvider
 {
     Q_OBJECT
 public:
-    explicit ARSOWeatherProvider(NetworkManager *network = nullptr,
+    explicit ARSOWeatherProvider(Vremenar::NetworkManager *network,
                                  QObject *parent = nullptr);
     ~ARSOWeatherProvider();
 

@@ -8,22 +8,20 @@
 */
 
 #include "common/NetworkManager.h"
+
 #include "weather/common/api/APILoader.h"
+
+namespace Vremenar
+{
 
 APILoader::APILoader(NetworkManager *network,
                      QObject *parent)
     : QObject(parent),
       _network(network)
 {
-    if (!_network) {
-        _network = new NetworkManager(this);
-    }
-
     connect(_network, &NetworkManager::error, this, &APILoader::error);
     connect(_network, &NetworkManager::result, this, &APILoader::response);
 }
-
-APILoader::~APILoader() {}
 
 void APILoader::removeResponse(QNetworkReply *reply)
 {
@@ -55,3 +53,5 @@ void APILoader::response(QNetworkReply *reply)
         reply->deleteLater();
     }
 }
+
+} // namespace Vremenar

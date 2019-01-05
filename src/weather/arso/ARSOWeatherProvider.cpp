@@ -19,9 +19,9 @@
 #include "weather/arso/models/ARSOMapLayersModel.h"
 #include "weather/common/models/MapLayersProxyModel.h"
 
-ARSOWeatherProvider::ARSOWeatherProvider(NetworkManager *network,
+ARSOWeatherProvider::ARSOWeatherProvider(Vremenar::NetworkManager *network,
                                          QObject *parent)
-    : WeatherProvider(network, parent),
+    : Vremenar::WeatherProvider(network, parent),
       _mapLayersModel(new ARSOMapLayersModel(this))
 {
     _mapLayersProxyModel->setSourceModel(_mapLayersModel);
@@ -31,7 +31,7 @@ ARSOWeatherProvider::~ARSOWeatherProvider() {}
 
 void ARSOWeatherProvider::requestMapLayers(Vremenar::Weather::MapType type)
 {
-    APIRequest request = Vremenar::ARSO::mapLayers(type);
+    Vremenar::APIRequest request = Vremenar::ARSO::mapLayers(type);
 
     _currentReplies.insert(_network->request(request), request);
 }

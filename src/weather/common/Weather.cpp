@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2017 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -9,7 +9,8 @@
 
 #include "weather/common/Weather.h"
 
-using namespace Vremenar;
+namespace Vremenar
+{
 
 QString Weather::mapTypeString(MapType type)
 {
@@ -24,9 +25,9 @@ QString Weather::mapTypeString(MapType type)
         return "temperature";
     case HailProbabilityMap:
         return "hail";
-    default:
-        return QString();
     }
+
+    return QString();
 }
 
 QString Weather::mapTypeStringLocale(MapType type)
@@ -42,7 +43,9 @@ QString Weather::mapTypeStringLocale(MapType type)
         return QObject::tr("Temperature");
     case HailProbabilityMap:
         return QObject::tr("Hail probability");
-    default:
-        return QString();
     }
+
+    return QString();
 }
+
+} // namespace Vremenar

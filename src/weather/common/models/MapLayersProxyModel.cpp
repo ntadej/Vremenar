@@ -7,8 +7,9 @@
 * Refer to the LICENSE.md file for details.
 */
 
-#include "weather/common/models/MapLayersProxyModel.h"
 #include "weather/common/containers/MapLayer.h"
+
+#include "weather/common/models/MapLayersProxyModel.h"
 
 namespace Vremenar
 {
