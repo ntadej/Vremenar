@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2017 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -13,14 +13,17 @@
 
 #include "qml/Globals.h"
 
-QString Globals::name() const { return Vremenar::name(); }
-QString Globals::version() const { return Vremenar::version(); }
-int Globals::build() const { return Vremenar::build(); }
+namespace Vremenar
+{
 
-QString Globals::mapboxAPIToken() const { return Vremenar::LocationProvider::mapboxAPIToken(); }
+QString Qml::Globals::name() const { return Vremenar::name(); }
+QString Qml::Globals::version() const { return Vremenar::version(); }
+int Qml::Globals::build() const { return Vremenar::build(); }
 
-QObject *Globals::provider(QQmlEngine *engine,
-                           QJSEngine *scriptEngine)
+QString Qml::Globals::mapboxAPIToken() const { return LocationProvider::mapboxAPIToken(); }
+
+QObject *Qml::Globals::provider(QQmlEngine *engine,
+                                QJSEngine *scriptEngine)
 {
     Q_UNUSED(engine)
     Q_UNUSED(scriptEngine)
@@ -28,11 +31,13 @@ QObject *Globals::provider(QQmlEngine *engine,
     return new Globals;
 }
 
-QObject *Globals::providerSettings(QQmlEngine *engine,
-                                   QJSEngine *scriptEngine)
+QObject *Qml::Globals::providerSettings(QQmlEngine *engine,
+                                        QJSEngine *scriptEngine)
 {
     Q_UNUSED(engine)
     Q_UNUSED(scriptEngine)
 
     return new Settings;
 }
+
+} // namespace Vremenar

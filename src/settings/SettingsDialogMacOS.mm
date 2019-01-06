@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2017 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -15,19 +15,22 @@
 #include "SettingsDialog.h"
 #include "ui_SettingsDialog.h"
 
+namespace Vremenar
+{
+
 void SettingsDialog::initializeMacOS()
 {
     removeToolBar(ui->toolBar);
 
-    _macToolbar = new QMacToolBar(this);
+    _macToolbar = std::make_unique<QMacToolBar>(this);
 
-    _macItemGeneral = _macToolbar->addItem(QIcon(QStringLiteral(":/Vremenar/Icons/32x32/preferences-system.png")), tr("General"));
+    _macItemGeneral = std::unique_ptr<QMacToolBarItem>(_macToolbar->addItem(QIcon(QStringLiteral(":/Vremenar/Icons/32x32/preferences-system.png")), tr("General")));
     _macItemGeneral->setSelectable(true);
-    connect(_macItemGeneral, &QMacToolBarItem::activated, this, &SettingsDialog::actionToggled);
+    connect(_macItemGeneral.get(), &QMacToolBarItem::activated, this, &SettingsDialog::actionToggled);
 
-    _macItemInterface = _macToolbar->addItem(QIcon(QStringLiteral(":/Vremenar/Icons/32x32/preferences-system-windows-actions.png")), tr("Interface"));
+    _macItemInterface = std::unique_ptr<QMacToolBarItem>(_macToolbar->addItem(QIcon(QStringLiteral(":/Vremenar/Icons/32x32/preferences-system-windows-actions.png")), tr("Interface")));
     _macItemInterface->setSelectable(true);
-    connect(_macItemInterface, &QMacToolBarItem::activated, this, &SettingsDialog::actionToggled);
+    connect(_macItemInterface.get(), &QMacToolBarItem::activated, this, &SettingsDialog::actionToggled);
 
     window()->winId(); // create window->windowhandle()
     _macToolbar->attachToWindow(this->window()->windowHandle());
@@ -37,10 +40,10 @@ void SettingsDialog::initializeMacOS()
     NSString *toolbarItemId = [toolbarItem itemIdentifier];
     [toolbar setSelectedItemIdentifier:toolbarItemId];
 
-    NSView *view = (NSView *)window()->winId();
+    NSView *view = (NSView *)(window()->winId());
     NSWindow *window = [view window];
     NSRect frame = [window frame];
-    int extraHeight = frame.size.height - NSHeight([[window contentView] frame]);
+    double extraHeight = frame.size.height - NSHeight([[window contentView] frame]);
     frame.origin.y += frame.size.height;
     frame.origin.y -= ui->pageGeneral->sizeHint().height() + extraHeight;
     frame.size.height = ui->pageGeneral->sizeHint().height() + extraHeight;
@@ -59,14 +62,14 @@ void SettingsDialog::actionToggledMacOS()
     NSWindow *window = [view window];
     NSRect frame = [window frame];
 
-    int extraHeight = frame.size.height - NSHeight([[window contentView] frame]);
+    double extraHeight = frame.size.height - NSHeight([[window contentView] frame]);
     int stackHeight = 0;
     QMacToolBarItem *item = qobject_cast<QMacToolBarItem *>(sender());
     ui->stackedWidget->hide();
-    if (item == _macItemGeneral) {
+    if (item == _macItemGeneral.get()) {
         ui->stackedWidget->setCurrentWidget(ui->pageGeneral);
         stackHeight = ui->pageGeneral->sizeHint().height();
-    } else if (item == _macItemInterface) {
+    } else if (item == _macItemInterface.get()) {
         ui->stackedWidget->setCurrentWidget(ui->pageInterface);
         stackHeight = ui->pageInterface->sizeHint().height();
     }
@@ -79,4 +82,6 @@ void SettingsDialog::actionToggledMacOS()
 
     setWindowTitle(item->text());
     ui->stackedWidget->show();
+}
+
 }

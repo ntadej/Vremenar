@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2017 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -21,18 +21,21 @@
 
 namespace Ui
 {
-    class SettingsDialog;
+class SettingsDialog;
 }
+
+namespace Vremenar
+{
 
 class SettingsDialog : public QMainWindow
 {
     Q_OBJECT
 public:
     explicit SettingsDialog(QWidget *parent = nullptr);
-    ~SettingsDialog();
+    virtual ~SettingsDialog() final;
 
 protected:
-    void changeEvent(QEvent *e) override;
+    virtual void changeEvent(QEvent *e) final;
 
 signals:
     void localeChanged();
@@ -53,9 +56,9 @@ private slots:
     void rememberSizeChangedSlot(bool checked);
 
 private:
-    Ui::SettingsDialog *ui;
+    std::unique_ptr<Ui::SettingsDialog> ui;
 
-    QActionGroup *_group;
+    std::unique_ptr<QActionGroup> _group;
 
     void readSettings();
     void loadLocales();
@@ -66,10 +69,12 @@ private:
     void retranslateMacOS();
     void actionToggledMacOS();
 
-    QMacToolBar *_macToolbar;
-    QMacToolBarItem *_macItemGeneral;
-    QMacToolBarItem *_macItemInterface;
+    std::unique_ptr<QMacToolBar> _macToolbar;
+    std::unique_ptr<QMacToolBarItem> _macItemGeneral;
+    std::unique_ptr<QMacToolBarItem> _macItemInterface;
 #endif
 };
+
+} // namespace Vremenar
 
 #endif // VREMENAR_SETTINGSDIALOG_H_

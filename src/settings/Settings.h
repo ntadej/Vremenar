@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2017 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -11,6 +11,9 @@
 #define VREMENAR_SETTINGS_H_
 
 #include <QtCore/QSettings>
+
+namespace Vremenar
+{
 
 class Settings : public QSettings
 {
@@ -24,7 +27,6 @@ class Settings : public QSettings
 
 public:
     Settings(QObject *parent = nullptr);
-    ~Settings();
 
     Q_INVOKABLE void readSettings();
     void writeSettings();
@@ -32,7 +34,7 @@ public:
     Q_INVOKABLE QVariant defaultValue(const QString &key) const;
 
     // Locale
-    inline QString locale() const { return _locale; }
+    inline const QString &locale() const { return _locale; }
     inline void setLocale(const QString &s) { _locale = s; }
     static const QString KEY_LOCALE;
     static const QString DEFAULT_LOCALE;
@@ -105,5 +107,7 @@ private:
     int _posX;
     int _posY;
 };
+
+} // namespace Vremenar
 
 #endif // VREMENAR_SETTINGS_H_

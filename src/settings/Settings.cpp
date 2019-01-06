@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2017 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -9,8 +9,22 @@
 
 #include "settings/Settings.h"
 
+namespace Vremenar
+{
+
 Settings::Settings(QObject *parent)
-    : QSettings(parent)
+    : QSettings(parent),
+      _locale(DEFAULT_LOCALE),
+      _showInTray(DEFAULT_SHOW_IN_TRAY),
+#if defined(Q_OS_MACOS)
+      _showInDock(DEFAULT_SHOW_IN_DOCK),
+#endif
+      _rememberPosition(DEFAULT_REMEMBER_POSITION),
+      _rememberSize(DEFAULT_REMEMBER_SIZE),
+      _width(DEFAULT_WIDTH),
+      _height(DEFAULT_HEIGHT),
+      _posX(DEFAULT_POS_X),
+      _posY(DEFAULT_POS_Y)
 {
     _map[KEY_LOCALE] = DEFAULT_LOCALE;
     _map[KEY_SHOW_IN_TRAY] = DEFAULT_SHOW_IN_TRAY;
@@ -26,8 +40,6 @@ Settings::Settings(QObject *parent)
 
     readSettings();
 }
-
-Settings::~Settings() {}
 
 void Settings::writeSettings()
 {
@@ -71,3 +83,5 @@ QVariant Settings::defaultValue(const QString &key) const
 {
     return _map.value(key);
 }
+
+} // namespace Vremenar

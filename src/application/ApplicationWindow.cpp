@@ -92,16 +92,16 @@ void ApplicationWindow::writeSettingsStartup()
         || _qmlMainWindow->visibility() == QWindow::FullScreen)
         return;
 
-    QScopedPointer<Settings> settings(new Settings(this));
-    if (settings->rememberPosition()) {
-        settings->setPosX(_qmlMainWindow->x());
-        settings->setPosY(_qmlMainWindow->y());
+    Settings settings(this);
+    if (settings.rememberPosition()) {
+        settings.setPosX(_qmlMainWindow->x());
+        settings.setPosY(_qmlMainWindow->y());
     }
-    if (settings->rememberSize()) {
-        settings->setWidth(_qmlMainWindow->width());
-        settings->setHeight(_qmlMainWindow->height());
+    if (settings.rememberSize()) {
+        settings.setWidth(_qmlMainWindow->width());
+        settings.setHeight(_qmlMainWindow->height());
     }
-    settings->writeSettings();
+    settings.writeSettings();
 }
 
 void ApplicationWindow::createModels()
@@ -120,11 +120,11 @@ void ApplicationWindow::createModels()
 #ifndef VREMENAR_MOBILE
 void ApplicationWindow::createWidgets()
 {
-    QScopedPointer<Settings> settings(new Settings(this));
+    Settings settings(this);
 
     _settingsDialog = new SettingsDialog();
     _trayIcon = new TrayIcon(this);
-    _trayIcon->setVisible(settings->showInTray());
+    _trayIcon->setVisible(settings.showInTray());
 
     connect(_settingsDialog, &SettingsDialog::localeChanged, _localeManager, &LocaleManager::setLocale);
     connect(_settingsDialog, &SettingsDialog::showInTrayChanged, _trayIcon, &TrayIcon::setVisible);
@@ -152,8 +152,8 @@ void ApplicationWindow::processUrl(const QString &url)
 void ApplicationWindow::startCompleted()
 {
 #ifdef Q_OS_MACOS
-    QScopedPointer<Settings> settings(new Settings(this));
-    emit dockVisibilityChanged(settings->showInDock());
+    Settings settings(this);
+    emit dockVisibilityChanged(settings.showInDock());
 #endif
 
     _arso->requestMapLayers(Weather::PrecipitationMap);

@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2017 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -13,13 +13,16 @@
 #include "SettingsDialog.h"
 #include "ui_SettingsDialog.h"
 
+namespace Vremenar
+{
+
 SettingsDialog::SettingsDialog(QWidget *parent)
     : QMainWindow(parent),
-      ui(new Ui::SettingsDialog)
+      ui(std::make_unique<Ui::SettingsDialog>())
 {
     ui->setupUi(this);
 
-    _group = new QActionGroup(this);
+    _group = std::make_unique<QActionGroup>(this);
     _group->addAction(ui->actionGeneral);
     _group->addAction(ui->actionInterface);
 
@@ -50,12 +53,7 @@ SettingsDialog::SettingsDialog(QWidget *parent)
     loadLocales();
 }
 
-SettingsDialog::~SettingsDialog()
-{
-    delete ui;
-
-    delete _group;
-}
+SettingsDialog::~SettingsDialog() = default;
 
 void SettingsDialog::changeEvent(QEvent *e)
 {
@@ -91,42 +89,42 @@ void SettingsDialog::actionToggled()
 
 void SettingsDialog::readSettings()
 {
-    QScopedPointer<Settings> settings(new Settings(this));
+    Settings settings(this);
 
-    ui->checkShowInTray->setChecked(settings->showInTray());
+    ui->checkShowInTray->setChecked(settings.showInTray());
 #ifdef Q_OS_MACOS
-    ui->checkShowInDock->setChecked(settings->showInDock());
+    ui->checkShowInDock->setChecked(settings.showInDock());
 #endif
-    ui->checkRememberPosition->setChecked(settings->rememberPosition());
-    ui->checkRememberSize->setChecked(settings->rememberSize());
+    ui->checkRememberPosition->setChecked(settings.rememberPosition());
+    ui->checkRememberSize->setChecked(settings.rememberSize());
 }
 
 void SettingsDialog::localeChangedSlot()
 {
-    QScopedPointer<Settings> settings(new Settings(this));
+    Settings settings(this);
     if (ui->comboLocale->currentIndex() == 0) {
-        settings->setLocale("");
+        settings.setLocale("");
     } else {
-        settings->setLocale(_locales[ui->comboLocale->currentIndex() - 1]);
+        settings.setLocale(_locales[ui->comboLocale->currentIndex() - 1]);
     }
-    settings->writeSettings();
+    settings.writeSettings();
 
     emit localeChanged();
 }
 
 void SettingsDialog::loadLocales()
 {
-    QScopedPointer<Settings> settings(new Settings(this));
+    Settings settings(this);
 
     disconnect(ui->comboLocale, &QComboBox::currentTextChanged, this, &SettingsDialog::localeChangedSlot);
 
-    _locales = Vremenar::LocaleManager::loadLocales();
+    _locales = LocaleManager::loadLocales();
 
     ui->comboLocale->clear();
     ui->comboLocale->addItem(tr("System default"));
     for (const QString &locale : _locales) {
         ui->comboLocale->addItem(QLocale(locale).nativeLanguageName());
-        if (settings->locale() == locale) {
+        if (settings.locale() == locale) {
             ui->comboLocale->setCurrentIndex(ui->comboLocale->count() - 1);
         }
     }
@@ -136,9 +134,9 @@ void SettingsDialog::loadLocales()
 
 void SettingsDialog::showInTrayChangedSlot(bool checked)
 {
-    QScopedPointer<Settings> settings(new Settings(this));
-    settings->setShowInTray(checked);
-    settings->writeSettings();
+    Settings settings(this);
+    settings.setShowInTray(checked);
+    settings.writeSettings();
 
     emit showInTrayChanged(checked);
 
@@ -153,9 +151,9 @@ void SettingsDialog::showInTrayChangedSlot(bool checked)
 #ifdef Q_OS_MACOS
 void SettingsDialog::showInDockChangedSlot(bool checked)
 {
-    QScopedPointer<Settings> settings(new Settings(this));
-    settings->setShowInDock(checked);
-    settings->writeSettings();
+    Settings settings(this);
+    settings.setShowInDock(checked);
+    settings.writeSettings();
 
     emit showInDockChanged(checked);
 }
@@ -163,14 +161,16 @@ void SettingsDialog::showInDockChangedSlot(bool checked)
 
 void SettingsDialog::rememberPositionChangedSlot(bool checked)
 {
-    QScopedPointer<Settings> settings(new Settings(this));
-    settings->setRememberPosition(checked);
-    settings->writeSettings();
+    Settings settings(this);
+    settings.setRememberPosition(checked);
+    settings.writeSettings();
 }
 
 void SettingsDialog::rememberSizeChangedSlot(bool checked)
 {
-    QScopedPointer<Settings> settings(new Settings(this));
-    settings->setRememberSize(checked);
-    settings->writeSettings();
+    Settings settings(this);
+    settings.setRememberSize(checked);
+    settings.writeSettings();
 }
+
+} // namespace Vremenar

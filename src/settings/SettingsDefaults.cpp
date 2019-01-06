@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2017 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -8,6 +8,9 @@
 */
 
 #include "settings/Settings.h"
+
+namespace Vremenar
+{
 
 // Locale
 const QString Settings::DEFAULT_LOCALE = "";
@@ -26,3 +29,5 @@ const int Settings::DEFAULT_WIDTH = 650;
 const int Settings::DEFAULT_HEIGHT = 300;
 const int Settings::DEFAULT_POS_X = 0;
 const int Settings::DEFAULT_POS_Y = 0;
+
+} // namespace Vremenar
