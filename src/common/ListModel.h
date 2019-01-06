@@ -35,9 +35,9 @@ public:
 
     virtual QHash<int, QByteArray> roleNames() const override;
 
-    void appendRow(std::unique_ptr<ListItem> item);
-    void insertRow(int row,
-                   std::unique_ptr<ListItem> item);
+    ListItem *appendRow(std::unique_ptr<ListItem> item);
+    ListItem *insertRow(int row,
+                        std::unique_ptr<ListItem> item);
     bool removeRow(int row,
                    const QModelIndex &parent = QModelIndex());
     std::unique_ptr<ListItem> takeRow(int row);

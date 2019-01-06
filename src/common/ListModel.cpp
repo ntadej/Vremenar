@@ -39,21 +39,23 @@ QHash<int, QByteArray> ListModel::roleNames() const
     return _prototype->roleNames();
 }
 
-void ListModel::appendRow(std::unique_ptr<ListItem> item)
+ListItem *ListModel::appendRow(std::unique_ptr<ListItem> item)
 {
     beginInsertRows(QModelIndex(), rowCount(), rowCount());
     connect(item.get(), &ListItem::dataChanged, this, &ListModel::handleItemChange);
     _list.push_back(std::move(item));
     endInsertRows();
+    return _list.back().get();
 }
 
-void ListModel::insertRow(int row,
-                          std::unique_ptr<ListItem> item)
+ListItem *ListModel::insertRow(int row,
+                               std::unique_ptr<ListItem> item)
 {
     beginInsertRows(QModelIndex(), row, row);
     connect(item.get(), &ListItem::dataChanged, this, &ListModel::handleItemChange);
-    _list.insert(_list.begin() + row, std::move(item));
+    auto it = _list.insert(_list.begin() + row, std::move(item));
     endInsertRows();
+    return it->get();
 }
 
 void ListModel::handleItemChange()

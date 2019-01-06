@@ -36,10 +36,8 @@ MapLayer *ARSO::MapLayersModel::createMapLayer(Weather::MapType type,
     QGeoCoordinate bottomRight(c[0].toDouble(), c[3].toDouble());
     QGeoRectangle range(topLeft, bottomRight);
 
-    auto layer = new MapLayer(type, time, url, range);
-    appendRow(qobject_pointer_cast<ListItem>(layer));
-
-    return layer;
+    auto layerPtr = std::make_unique<MapLayer>(type, time, url, range);
+    return dynamic_cast<MapLayer *>(appendRow(qobject_pointer_cast<ListItem>(layerPtr.release())));
 }
 
 void ARSO::MapLayersModel::addMapLayers(Weather::MapType type,

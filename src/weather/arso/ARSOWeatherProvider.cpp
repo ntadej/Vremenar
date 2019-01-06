@@ -24,7 +24,7 @@ namespace Vremenar
 ARSO::WeatherProvider::WeatherProvider(NetworkManager *network,
                                        QObject *parent)
     : WeatherProviderBase(network, parent),
-      _mapLayersModel(new MapLayersModel(this))
+      _mapLayersModel(std::make_unique<MapLayersModel>(this))
 {
     _mapLayersProxyModel->setSourceModel(_mapLayersModel.get());
 }
