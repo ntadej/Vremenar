@@ -29,6 +29,7 @@ INCLUDEPATH += src
 SOURCES += \
     src/main.cpp \
     src/application/ApplicationWindow.cpp \
+    src/application/BaseApplication.cpp \
     src/common/Common.cpp \
     src/common/ListModel.cpp \
     src/common/LocaleManager.cpp \
@@ -61,6 +62,7 @@ SOURCES += \
 
 HEADERS += \
     src/application/ApplicationWindow.h \
+    src/application/BaseApplication.h \
     src/common/Common.h \
     src/common/Helpers.h \
     src/common/ListItem.h \

@@ -1,37 +1,20 @@
 /*
 * Vremenar
-* Copyright (C) 2017 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
 * Refer to the LICENSE.md file for details.
 */
 
-#include <QtCore/QDebug>
 #include <QtGui/QFileOpenEvent>
 
-#include "common/Common.h"
-#include "common/Log.h"
 #include "common/Output.h"
 
-#include "DesktopApplication.h"
+#include "application/DesktopApplication.h"
 
-#ifdef Q_OS_MACOS
-#include <objc/objc.h>
-#include <objc/message.h>
-
-bool dockClickHandler(id self,
-                      SEL cmd,
-                      ...)
+namespace Vremenar
 {
-    Q_UNUSED(self)
-    Q_UNUSED(cmd)
-
-    ((DesktopApplication *)qApp)->dockClickedCallback();
-
-    return true;
-}
-#endif
 
 DesktopApplication::DesktopApplication(int &argc,
                                        char **argv)
@@ -44,20 +27,6 @@ DesktopApplication::DesktopApplication(int &argc,
 #endif
 }
 
-DesktopApplication::~DesktopApplication() {}
-
-void DesktopApplication::preInit()
-{
-    QCoreApplication::setOrganizationDomain(Vremenar::domain());
-    QCoreApplication::setApplicationName(Vremenar::name());
-    QCoreApplication::setApplicationVersion(Vremenar::version());
-
-    QCoreApplication::setAttribute(Qt::AA_X11InitThreads);
-    QCoreApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
-
-    Vremenar::Log::setup();
-}
-
 void DesktopApplication::postInit()
 {
     Vremenar::Output::welcome();
@@ -67,7 +36,7 @@ bool DesktopApplication::eventFilter(QObject *object,
                                      QEvent *event)
 {
     if (event->type() == QEvent::FileOpen) {
-        QFileOpenEvent *fileEvent = static_cast<QFileOpenEvent *>(event);
+        auto *fileEvent = dynamic_cast<QFileOpenEvent *>(event);
         if (!fileEvent->url().isEmpty()) {
             emit urlOpened(fileEvent->url().toString());
             return false;
@@ -79,27 +48,4 @@ bool DesktopApplication::eventFilter(QObject *object,
     }
 }
 
-#ifdef Q_OS_MACOS
-void DesktopApplication::setupDockHandler()
-{
-    Class cls = objc_getClass("NSApplication");
-    objc_object *appInst = objc_msgSend((objc_object *)cls, sel_registerName("sharedApplication"));
-
-    if (appInst != NULL) {
-        objc_object *delegate = objc_msgSend(appInst, sel_registerName("delegate"));
-        Class delClass = (Class)objc_msgSend(delegate, sel_registerName("class"));
-        SEL shouldHandle = sel_registerName("applicationShouldHandleReopen:hasVisibleWindows:");
-        if (class_getInstanceMethod(delClass, shouldHandle)) {
-            if (class_replaceMethod(delClass, shouldHandle, (IMP)dockClickHandler, "B@:"))
-                qDebug() << "Registered dock click handler (replaced original method)";
-            else
-                qWarning() << "Failed to replace method for dock click handler";
-        } else {
-            if (class_addMethod(delClass, shouldHandle, (IMP)dockClickHandler, "B@:"))
-                qDebug() << "Registered dock click handler";
-            else
-                qWarning() << "Failed to register dock click handler";
-        }
-    }
-}
-#endif
+} // namespace Vremenar

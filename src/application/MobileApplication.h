@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2017 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -12,7 +12,8 @@
 
 #include <QtGui/QGuiApplication>
 
-class QWindow;
+namespace Vremenar
+{
 
 class MobileApplication : public QGuiApplication
 {
@@ -20,10 +21,10 @@ class MobileApplication : public QGuiApplication
 public:
     explicit MobileApplication(int &argc,
                                char **argv);
-    ~MobileApplication();
 
-    static void preInit();
     void postInit();
 };
+
+} // namespace Vremenar
 
 #endif // VREMENAR_MOBILEAPPLICATION_H_

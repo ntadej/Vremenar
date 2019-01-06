@@ -7,20 +7,17 @@
 * Refer to the LICENSE.md file for details.
 */
 
-#include "common/Output.h"
-
-#include "application/MobileApplication.h"
+#ifndef VREMENAR_BASEAPPLICATION_H_
+#define VREMENAR_BASEAPPLICATION_H_
 
 namespace Vremenar
 {
-
-MobileApplication::MobileApplication(int &argc,
-                                     char **argv)
-    : QGuiApplication(argc, argv) {}
-
-void MobileApplication::postInit()
+namespace Application
 {
-    Output::welcome();
-}
 
+void preInit();
+
+} // namespace Application
 } // namespace Vremenar
+
+#endif // VREMENAR_BASEAPPLICATION_H_

@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2017 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -12,6 +12,9 @@
 
 #include <QtWidgets/QApplication>
 
+namespace Vremenar
+{
+
 #ifndef Q_OS_MACOS
 class LocalServer;
 #endif
@@ -22,7 +25,7 @@ class SingleApplication : public QApplication
 public:
     explicit SingleApplication(int &argc,
                                char **argv);
-    ~SingleApplication();
+    virtual ~SingleApplication();
 
     bool shouldContinue();
 
@@ -31,9 +34,11 @@ signals:
 
 private:
 #ifndef Q_OS_MACOS
-    LocalServer *_server;
+    std::unique_ptr<LocalServer> _server;
 #endif
     bool _shouldContinue;
 };
+
+} // namespace Vremenar
 
 #endif // VREMENAR_SINGLEAPPLICATION_H_

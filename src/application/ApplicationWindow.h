@@ -15,15 +15,14 @@
 
 class QQuickWindow;
 
-class SettingsDialog;
-class TrayIcon;
-
 namespace Vremenar
 {
 class LocaleManager;
 class LocationProvider;
 class NetworkManager;
 class NetworkManagerFactory;
+class SettingsDialog;
+class TrayIcon;
 
 namespace ARSO
 {
@@ -35,7 +34,7 @@ class ApplicationWindow : public QQmlApplicationEngine
     Q_OBJECT
 public:
     explicit ApplicationWindow(QObject *parent = nullptr);
-    virtual ~ApplicationWindow();
+    ~ApplicationWindow();
 
 public slots:
     void activate();
@@ -59,28 +58,30 @@ private:
 #endif
 
     // Settings
-    bool _rememberGui;
+    bool _rememberSize;
+    bool _rememberPosition;
     int _width;
     int _height;
     int _posX;
     int _posY;
 
     // Application
-    LocaleManager *_localeManager;
-    LocationProvider *_location;
-    NetworkManager *_network;
-    NetworkManagerFactory *_networkFactory;
+    NetworkManager *_network; // owned by Qt internally
+
+    std::unique_ptr<LocaleManager> _localeManager;
+    std::unique_ptr<LocationProvider> _location;
+    std::unique_ptr<NetworkManagerFactory> _networkFactory;
 
     // API
-    ARSO::WeatherProvider *_arso;
+    std::unique_ptr<ARSO::WeatherProvider> _weatherProvider;
 
     // QML
-    QQuickWindow *_qmlMainWindow;
+    QQuickWindow *_qmlMainWindow; // owned by Qt internally
 
 // Widgets
 #ifndef VREMENAR_MOBILE
-    SettingsDialog *_settingsDialog;
-    TrayIcon *_trayIcon;
+    std::unique_ptr<SettingsDialog> _settingsDialog;
+    std::unique_ptr<TrayIcon> _trayIcon;
 #endif
 };
 

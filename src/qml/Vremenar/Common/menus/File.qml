@@ -21,6 +21,6 @@ Menu {
     MenuItem {
         text: Qt.platform.os === "osx" ? "Preferences" : qsTr(
                                              "Settings") + VL.R
-        onTriggered: VremenarSettings.show()
+        onTriggered: VSettings.show()
     }
 }

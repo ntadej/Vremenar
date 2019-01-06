@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2017 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -10,10 +10,51 @@
 #include <QtCore/QDebug>
 #include <QtGui/QWindow>
 
+#include <objc/message.h>
+#include <objc/objc.h>
+
 #include <ApplicationServices/ApplicationServices.h>
 #include <Cocoa/Cocoa.h>
 
-#include "DesktopApplication.h"
+#include "application/DesktopApplication.h"
+
+namespace Vremenar
+{
+
+bool dockClickHandler(id self,
+                      SEL cmd,
+                      ...)
+{
+    Q_UNUSED(self)
+    Q_UNUSED(cmd)
+
+    static_cast<DesktopApplication *>(qApp)->dockClickedCallback();
+
+    return true;
+}
+
+void DesktopApplication::setupDockHandler()
+{
+    Class cls = objc_getClass("NSApplication");
+    id appInst = objc_msgSend(cls, sel_registerName("sharedApplication"));
+
+    if (appInst) {
+        id delegate = objc_msgSend(appInst, sel_registerName("delegate"));
+        Class delClass = objc_msgSend(delegate, sel_registerName("class"));
+        SEL shouldHandle = sel_registerName("applicationShouldHandleReopen:hasVisibleWindows:");
+        if (class_getInstanceMethod(delClass, shouldHandle)) {
+            if (class_replaceMethod(delClass, shouldHandle, reinterpret_cast<IMP>(dockClickHandler), "B@:"))
+                qDebug() << "Registered dock click handler (replaced original method)";
+            else
+                qWarning() << "Failed to replace method for dock click handler";
+        } else {
+            if (class_addMethod(delClass, shouldHandle, reinterpret_cast<IMP>(dockClickHandler), "B@:"))
+                qDebug() << "Registered dock click handler";
+            else
+                qWarning() << "Failed to register dock click handler";
+        }
+    }
+}
 
 void DesktopApplication::dockSetVisibility(bool visible)
 {
@@ -84,4 +125,6 @@ void DesktopApplication::setupTitleBarLessWindow(WId winId)
 void DesktopApplication::dockClickedCallback()
 {
     emit dockClicked();
+}
+
 }

@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2017 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -10,9 +10,10 @@
 #ifndef VREMENAR_DESKTOPAPPLICATION_H_
 #define VREMENAR_DESKTOPAPPLICATION_H_
 
-#include "SingleApplication.h"
+#include "application/SingleApplication.h"
 
-class QWindow;
+namespace Vremenar
+{
 
 class DesktopApplication : public SingleApplication
 {
@@ -20,9 +21,7 @@ class DesktopApplication : public SingleApplication
 public:
     explicit DesktopApplication(int &argc,
                                 char **argv);
-    ~DesktopApplication();
 
-    static void preInit();
     void postInit();
 
     bool eventFilter(QObject *object,
@@ -48,5 +47,7 @@ private:
     void dockHide();
 #endif
 };
+
+} // namespace Vremenar
 
 #endif // VREMENAR_DESKTOPAPPLICATION_H_

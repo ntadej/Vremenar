@@ -34,9 +34,15 @@ namespace Vremenar
 
 ApplicationWindow::ApplicationWindow(QObject *parent)
     : QQmlApplicationEngine(parent),
-      _localeManager(new LocaleManager(this)),
+      _rememberSize(Settings::DEFAULT_REMEMBER_SIZE),
+      _rememberPosition(Settings::DEFAULT_REMEMBER_POSITION),
+      _width(Settings::DEFAULT_WIDTH),
+      _height(Settings::DEFAULT_HEIGHT),
+      _posX(Settings::DEFAULT_POS_X),
+      _posY(Settings::DEFAULT_POS_Y),
       _network(new NetworkManager(this)),
-      _networkFactory(new NetworkManagerFactory(this))
+      _localeManager(std::make_unique<LocaleManager>(this)),
+      _networkFactory(std::make_unique<NetworkManagerFactory>(this))
 {
     createModels();
 #ifndef VREMENAR_MOBILE
@@ -48,9 +54,9 @@ ApplicationWindow::ApplicationWindow(QObject *parent)
     Qml::registerTypes();
 
 #ifndef VREMENAR_MOBILE
-    connect(qApp, &QCoreApplication::aboutToQuit, this, &ApplicationWindow::writeSettingsStartup);
+    auto *application = qobject_cast<DesktopApplication *>(QCoreApplication::instance());
 
-    DesktopApplication *application = qobject_cast<DesktopApplication *>(qApp);
+    connect(application, &QCoreApplication::aboutToQuit, this, &ApplicationWindow::writeSettingsStartup);
     connect(application, &DesktopApplication::activate, this, &ApplicationWindow::activate);
     connect(application, &DesktopApplication::urlOpened, this, &ApplicationWindow::processUrl);
 #endif
@@ -61,7 +67,7 @@ ApplicationWindow::ApplicationWindow(QObject *parent)
 #endif
 
     // Setup and load main QML
-    setNetworkAccessManagerFactory(_networkFactory);
+    setNetworkAccessManagerFactory(_networkFactory.get());
     load(QUrl(QStringLiteral("qrc:/Vremenar/main.qml")));
 
     _qmlMainWindow = qobject_cast<QQuickWindow *>(rootObjects().first());
@@ -70,7 +76,7 @@ ApplicationWindow::ApplicationWindow(QObject *parent)
 #endif
 }
 
-ApplicationWindow::~ApplicationWindow() {}
+ApplicationWindow::~ApplicationWindow() = default;
 
 void ApplicationWindow::activate()
 {
@@ -106,15 +112,15 @@ void ApplicationWindow::writeSettingsStartup()
 
 void ApplicationWindow::createModels()
 {
-    _location = new LocationProvider(this);
-    _arso = new ARSO::WeatherProvider(_network, this);
+    _location = std::make_unique<LocationProvider>(this);
+    _weatherProvider = std::make_unique<ARSO::WeatherProvider>(_network, this);
 
     rootContext()->setContextProperty("Vremenar", this);
-    rootContext()->setContextProperty("VL", _localeManager);
+    rootContext()->setContextProperty("VL", _localeManager.get());
 
-    rootContext()->setContextProperty("VLocation", _location);
-    rootContext()->setContextProperty("VWeather", _arso);
-    rootContext()->setContextProperty("VMapLayersModel", _arso->mapLayers());
+    rootContext()->setContextProperty("VLocation", _location.get());
+    rootContext()->setContextProperty("VWeather", _weatherProvider.get());
+    rootContext()->setContextProperty("VMapLayersModel", _weatherProvider->mapLayers());
 }
 
 #ifndef VREMENAR_MOBILE
@@ -122,19 +128,19 @@ void ApplicationWindow::createWidgets()
 {
     Settings settings(this);
 
-    _settingsDialog = new SettingsDialog();
-    _trayIcon = new TrayIcon(this);
+    _settingsDialog = std::make_unique<SettingsDialog>();
+    _trayIcon = std::make_unique<TrayIcon>(this);
     _trayIcon->setVisible(settings.showInTray());
 
-    connect(_settingsDialog, &SettingsDialog::localeChanged, _localeManager, &LocaleManager::setLocale);
-    connect(_settingsDialog, &SettingsDialog::showInTrayChanged, _trayIcon, &TrayIcon::setVisible);
-    connect(_trayIcon, &TrayIcon::clicked, this, &ApplicationWindow::activate);
+    connect(_settingsDialog.get(), &SettingsDialog::localeChanged, _localeManager.get(), &LocaleManager::setLocale);
+    connect(_settingsDialog.get(), &SettingsDialog::showInTrayChanged, _trayIcon.get(), &TrayIcon::setVisible);
+    connect(_trayIcon.get(), &TrayIcon::clicked, this, &ApplicationWindow::activate);
 
 #ifdef Q_OS_MACOS
-    connect(_settingsDialog, &SettingsDialog::showInDockChanged, this, &ApplicationWindow::dockVisibilityChanged);
+    connect(_settingsDialog.get(), &SettingsDialog::showInDockChanged, this, &ApplicationWindow::dockVisibilityChanged);
 #endif
 
-    rootContext()->setContextProperty("VremenarSettings", _settingsDialog);
+    rootContext()->setContextProperty("VSettings", _settingsDialog.get());
 }
 #endif
 
@@ -156,7 +162,7 @@ void ApplicationWindow::startCompleted()
     emit dockVisibilityChanged(settings.showInDock());
 #endif
 
-    _arso->requestMapLayers(Weather::PrecipitationMap);
+    _weatherProvider->requestMapLayers(Weather::PrecipitationMap);
 
     qDebug() << "Initialization completed";
 }
