@@ -2,9 +2,10 @@
     <qresource prefix="/Vremenar/Navigation">
         <file>qmldir</file>
         <file>ApplicationWindow.qml</file>
-        <file>CentralSwipeView.qml</file>
-        <file>CentralPageIndicator.qml</file>
         <file>ApplicationWindowMobile.qml</file>
         <file>+ios/ApplicationWindow.qml</file>
+        <file>NavigationStack.qml</file>
+        <file>Page.qml</file>
+        <file>elements/NavBar.qml</file>
     </qresource>
 </RCC>

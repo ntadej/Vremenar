@@ -1,5 +1,5 @@
 module Vremenar.Common
 
-BaseGradient 1.0 components/BaseGradient.qml
-
 MainMenu 1.0 menus/MainMenu.qml
+
+TextCommon 1.0 text/Common.qml

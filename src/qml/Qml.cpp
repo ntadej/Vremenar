@@ -9,8 +9,8 @@
 
 #include <QtQuick/QQuickItem>
 
-#include "qml/Colors.h"
 #include "qml/Globals.h"
+#include "qml/UIManager.h"
 
 #include "settings/Settings.h"
 
@@ -24,7 +24,7 @@ void Qml::registerTypes()
     const char *uri = "Vremenar";
 
     qmlRegisterSingletonType<Globals>(uri, 1, 0, "Globals", Globals::provider);
-    qmlRegisterSingletonType<Colors>(uri, 1, 0, "Colors", Colors::provider);
+    qmlRegisterSingletonType<UIManager>(uri, 1, 0, "UI", UIManager::provider);
     qmlRegisterSingletonType<Settings>(uri, 1, 0, "Settings", Globals::providerSettings);
 }
 

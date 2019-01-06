@@ -1,6 +1,0 @@
-<RCC>
-    <qresource prefix="/Vremenar/Weather">
-        <file>qmldir</file>
-        <file>WeatherPage.qml</file>
-    </qresource>
-</RCC>

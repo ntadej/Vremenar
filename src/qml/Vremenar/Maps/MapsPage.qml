@@ -1,30 +1,28 @@
 /*
 * Vremenar
-* Copyright (C) 2017 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
 * Refer to the LICENSE.md file for details.
 */
+
 import QtQuick 2.7
 import QtQuick.Controls 2.0
 import QtLocation 5.9
 import QtPositioning 5.9
 
 import Vremenar.Common 1.0
+import Vremenar.Navigation 1.0
 
-Page {
-    title: qsTr("Maps") + VL.R
-
-    LocationProvider {
-        id: mapPlugin
-    }
-
-    BaseGradient {
-        anchors.fill: parent
-    }
+NavigationPage {
+    title: VLocation.location ? VLocation.location : qsTr("Weather Map") + VL.R
 
     Map {
+        LocationProvider {
+            id: mapPlugin
+        }
+
         property double ratioX: 0
         property double ratioY: 0
 

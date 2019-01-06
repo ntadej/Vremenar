@@ -43,9 +43,13 @@ SOURCES += \
     src/common/api/APILoader.cpp \
     src/common/api/APIRequestBase.cpp \
     src/location/LocationProvider.cpp \
-    src/qml/Colors.cpp \
     src/qml/Globals.cpp \
     src/qml/Qml.cpp \
+    src/qml/UIManager.cpp \
+    src/qml/UIColors.cpp \
+    src/qml/UIDimensions.cpp \
+    src/qml/UIEffects.cpp \
+    src/qml/UITexts.cpp \
     src/settings/Settings.cpp \
     src/settings/SettingsDefaults.cpp \
     src/settings/SettingsKeys.cpp \
@@ -78,9 +82,9 @@ HEADERS += \
     src/common/api/APILoader.h \
     src/common/api/APIRequestBase.h \
     src/location/LocationProvider.h \
-    src/qml/Colors.h \
     src/qml/Globals.h \
     src/qml/Qml.h \
+    src/qml/UIManager.h \
     src/settings/Settings.h \
     src/weather/common/Weather.h \
     src/weather/common/WeatherProviderBase.h \
@@ -134,9 +138,26 @@ RESOURCES += \
     src/qml/Vremenar/Common/common.qrc \
     src/qml/Vremenar/Maps/maps.qrc \
     src/qml/Vremenar/Navigation/navigation.qrc \
-    src/qml/Vremenar/Weather/weather.qrc \
     resources/icons/icons.qrc \
     resources/logo/desktop/logo.qrc
+
+# Define QML files
+OTHER_FILES += \
+    src/qml/main.qml \
+    src/qml/Vremenar/Common/qmldir \
+    src/qml/Vremenar/Common/*.qml \
+    src/qml/Vremenar/Common/components/*.qml \
+    src/qml/Vremenar/Common/menus/*.qml \
+    src/qml/Vremenar/Common/text/*.qml \
+    src/qml/Vremenar/Maps/qmldir \
+    src/qml/Vremenar/Maps/*.qml \
+    src/qml/Vremenar/Maps/models/*.qml \
+    src/qml/Vremenar/Navigation/qmldir \
+    src/qml/Vremenar/Navigation/*.qml \
+    src/qml/Vremenar/Navigation/+ios/*.qml \
+    src/qml/Vremenar/Navigation/elements/*.qml \
+    src/qml/Vremenar/Weather/qmldir \
+    src/qml/Vremenar/Weather/*.qml
 
 # Define other files
 OTHER_FILES += \

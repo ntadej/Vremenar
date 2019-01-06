@@ -23,7 +23,7 @@ MapQuickItem {
         width: 16
         height: width
         radius: width / 2
-        color: Colors.base
+        color: UI.colorPrimary
         border.color: "white"
         border.width: 2
     }
