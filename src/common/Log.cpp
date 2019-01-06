@@ -22,11 +22,15 @@
 
 #include "Config.h"
 
-static QTextStream *out;
-static QMutex *outMutex;
-
 namespace Vremenar
 {
+
+namespace Log
+{
+static std::unique_ptr<QTextStream> out;
+static std::unique_ptr<QFile> outFile;
+static std::unique_ptr<QMutex> outMutex;
+} // namespace Log
 
 void Log::output(QtMsgType type,
                  const QMessageLogContext &context,
@@ -34,7 +38,7 @@ void Log::output(QtMsgType type,
 {
     Q_UNUSED(context)
 
-    QMutexLocker locker(outMutex);
+    QMutexLocker locker(outMutex.get());
 
     QString debugdate = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss");
     switch (type) {
@@ -68,10 +72,10 @@ void Log::setup()
 {
 #if VREMENAR_LOGGING
     QString fileName = Resources::appData() + "/" + Vremenar::executable() + ".log";
-    auto *log = new QFile(fileName);
-    if (log->open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text)) {
-        out = new QTextStream(log);
-        outMutex = new QMutex;
+    outFile = std::make_unique<QFile>(fileName);
+    if (outFile->open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text)) {
+        out = std::make_unique<QTextStream>(outFile.get());
+        outMutex = std::make_unique<QMutex>();
         qInstallMessageHandler(output);
     } else {
         qDebug() << "Error opening log file '" << fileName << "'. All debug output redirected to console.";
