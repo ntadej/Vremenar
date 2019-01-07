@@ -1,10 +1,10 @@
 <RCC>
     <qresource prefix="/Vremenar/Common">
         <file>qmldir</file>
-        <file>menus/File.qml</file>
-        <file>menus/Help.qml</file>
         <file>menus/MainMenu.qml</file>
         <file>text/Core.qml</file>
         <file>text/Common.qml</file>
+        <file>menus/+custommenu/MainMenu.qml</file>
+        <file>menus/+nativemenu/MainMenu.qml</file>
     </qresource>
 </RCC>

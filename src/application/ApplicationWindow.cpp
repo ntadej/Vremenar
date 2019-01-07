@@ -10,6 +10,7 @@
 #include <QtCore/QDebug>
 #include <QtCore/QString>
 #include <QtQml/QQmlContext>
+#include <QtQml/QQmlFileSelector>
 #include <QtQuick/QQuickWindow>
 
 #include "common/LocaleManager.h"
@@ -52,6 +53,12 @@ ApplicationWindow::ApplicationWindow(QObject *parent)
     addImportPath("qrc:/");
 
     Qml::registerTypes();
+
+    // Custom file selector
+    _qmlFileSelector = new QQmlFileSelector(this);
+#ifdef Q_OS_MACOS
+    _qmlFileSelector->setExtraSelectors({"nativemenu"});
+#endif
 
 #ifndef VREMENAR_MOBILE
     auto *application = qobject_cast<DesktopApplication *>(QCoreApplication::instance());

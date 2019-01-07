@@ -13,6 +13,7 @@
 #include <QtGui/QWindow>
 #include <QtQml/QQmlApplicationEngine>
 
+class QQmlFileSelector;
 class QQuickWindow;
 
 namespace Vremenar
@@ -76,7 +77,8 @@ private:
     std::unique_ptr<ARSO::WeatherProvider> _weatherProvider;
 
     // QML
-    QQuickWindow *_qmlMainWindow; // owned by Qt internally
+    QQmlFileSelector *_qmlFileSelector; // owned by Qt internally
+    QQuickWindow *_qmlMainWindow;       // owned by Qt internally
 
 // Widgets
 #ifndef VREMENAR_MOBILE
