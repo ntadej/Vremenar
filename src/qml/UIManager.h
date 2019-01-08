@@ -31,6 +31,9 @@ class UIManager : public QObject
 
     Q_PROPERTY(QColor navBarColor READ navBarColor CONSTANT)
     Q_PROPERTY(int navBarHeight READ navBarHeight CONSTANT)
+    Q_PROPERTY(int bottomSheetBaseHeight READ bottomSheetBaseHeight CONSTANT)
+    Q_PROPERTY(int bottomSheetMaxWidth READ bottomSheetMaxWidth CONSTANT)
+    Q_PROPERTY(int bottomSheetRadius READ bottomSheetRadius CONSTANT)
 
     Q_PROPERTY(int textCommon READ textCommon CONSTANT)
     Q_PROPERTY(QColor textColor READ textColor CONSTANT)
@@ -45,6 +48,9 @@ public:
 
     QColor navBarColor() const;
     int navBarHeight() const;
+    int bottomSheetBaseHeight() const;
+    int bottomSheetMaxWidth() const;
+    int bottomSheetRadius() const;
 
     int textCommon() const;
     QColor textColor() const;

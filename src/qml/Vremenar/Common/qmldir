@@ -2,4 +2,7 @@ module Vremenar.Common
 
 MainMenu 1.0 menus/MainMenu.qml
 
+CommonBlur 1.0 components/CommonBlur.qml
+MaskedBlur 1.0 components/MaskedBlur.qml
+
 TextCommon 1.0 text/Common.qml

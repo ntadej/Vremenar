@@ -9,7 +9,6 @@
 
 import QtQuick 2.1
 import QtQuick.Layouts 1.1
-import QtGraphicalEffects 1.0
 
 import Vremenar 1.0
 import Vremenar.Common 1.0
@@ -20,21 +19,9 @@ Item {
     height: UI.navBarHeight
     clip: true
 
-    FastBlur {
-        source: contentPlaceholder
-        radius: UI.blurLevel
-
-        height: source.height
-        anchors {
-            top: parent.top
-            left: parent.left
-            right: parent.right
-        }
-    }
-
-    Rectangle {
+    CommonBlur {
+        blurSource: contentPlaceholder
         color: UI.navBarColor
-        anchors.fill: parent
     }
 
     MouseArea {

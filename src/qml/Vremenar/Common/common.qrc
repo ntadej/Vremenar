@@ -6,5 +6,7 @@
         <file>text/Common.qml</file>
         <file>menus/+custommenu/MainMenu.qml</file>
         <file>menus/+nativemenu/MainMenu.qml</file>
+        <file>components/CommonBlur.qml</file>
+        <file>components/MaskedBlur.qml</file>
     </qresource>
 </RCC>

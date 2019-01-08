@@ -15,6 +15,7 @@ Rectangle {
     default property alias contents: content.children
 
     property alias title: navBar.title
+    property alias bottomSheetContents: bottomSheet.contents
     property bool retranslating: false
 
     Item {
@@ -35,6 +36,15 @@ Rectangle {
             top: parent.top
             left: parent.left
             right: parent.right
+        }
+    }
+
+    BottomSheet {
+        id: bottomSheet
+        anchors {
+           top: parent.bottom
+           topMargin: -UI.bottomSheetBaseHeight
+           horizontalCenter: parent.horizontalCenter
         }
     }
 

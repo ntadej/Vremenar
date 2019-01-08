@@ -7,5 +7,6 @@
         <file>NavigationStack.qml</file>
         <file>Page.qml</file>
         <file>elements/NavBar.qml</file>
+        <file>elements/BottomSheet.qml</file>
     </qresource>
 </RCC>

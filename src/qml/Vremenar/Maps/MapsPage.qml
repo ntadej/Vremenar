@@ -27,10 +27,8 @@ NavigationPage {
         property double ratioY: 0
 
         id: map
-        anchors {
-            fill: parent
-            bottomMargin: 50
-        }
+        anchors.fill: parent
+
         activeMapType: supportedMapTypes[5]
         plugin: mapPlugin
         zoomLevel: 8
@@ -54,7 +52,7 @@ NavigationPage {
         }
     }
 
-    Slider {
+    bottomSheetContents: Slider {
         id: mapSlider
         from: VMapLayersModel.minTimestamp
         to: VMapLayersModel.maxTimestamp
@@ -63,7 +61,7 @@ NavigationPage {
         snapMode: Slider.SnapAlways
 
         anchors {
-            bottom: parent.bottom
+            top: parent.top
             left: parent.left
             right: parent.right
         }

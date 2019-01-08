@@ -5,3 +5,4 @@ NavigationStack 1.0 NavigationStack.qml
 NavigationPage 1.0 Page.qml
 
 NavBar 1.0 elements/NavBar.qml
+BottomSheet 1.0 elements/BottomSheet.qml

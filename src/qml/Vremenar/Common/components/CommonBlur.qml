@@ -1,0 +1,41 @@
+/*
+* Vremenar
+* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
+*
+* This application is bi-licensed under the GNU General Public License
+* Version 3 or later as well as Mozilla Public License Version 2.
+* Refer to the LICENSE.md file for details.
+*/
+
+import QtQuick 2.0
+import QtGraphicalEffects 1.0
+
+import Vremenar 1.0
+
+Item {
+    property alias blurSource: blurSource.sourceItem
+    property alias color: blurRectangle.color
+    property real sourceX
+    property real sourceY
+
+    anchors.fill: parent
+
+    ShaderEffectSource {
+        id: blurSource
+        anchors.fill: parent
+        sourceRect: Qt.rect(parent.sourceX, parent.sourceY, width, height)
+    }
+
+    FastBlur {
+        id: blur
+        source: blurSource
+        radius: UI.blurLevel
+        anchors.fill: parent
+    }
+
+    Rectangle {
+        id: blurRectangle
+        color: "transparent"
+        anchors.fill: parent
+    }
+}
