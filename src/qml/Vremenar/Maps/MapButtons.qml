@@ -14,11 +14,8 @@ import Vremenar 1.0
 import Vremenar.Common 1.0
 
 Item {
-    default property alias contents: content.children
-
-    height: UI.bottomSheetBaseHeight + UI.bottomSheetRadius
-    width: Math.min(parent.width, UI.bottomSheetMaxWidth)
-    clip: true
+    width: UI.buttonMapSize
+    height: 2 * UI.buttonMapSize + UI.lineThickness
 
     Rectangle {
         id: rounded
@@ -28,17 +25,31 @@ Item {
     }
 
     MaskedBlur {
-        id: blur
-        color: UI.navBarColor
         maskSource: rounded
         blurSource: contentPlaceholder
         sourceX: parent.x
         sourceY: parent.y
-        sourceHeight: UI.bottomSheetBaseHeight
+        color: UI.navBarColor
     }
 
-    Item {
-        id: content
+    ColumnLayout {
+        spacing: 0
         anchors.fill: parent
+
+        IconButton {
+            icon: "ios-map"
+            family: "Ionicons"
+            width: parent.width
+        }
+
+        CommonLine {
+            width: parent.width
+        }
+
+        IconButton {
+            icon: "ios-locate"
+            family: "Ionicons"
+            width: parent.width
+        }
     }
 }

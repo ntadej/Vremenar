@@ -15,6 +15,7 @@ OpacityMask {
     property alias color: blur.color
     property alias sourceX: blur.sourceX
     property alias sourceY: blur.sourceY
+    property alias sourceHeight: blur.sourceHeight
 
     anchors.fill: parent
     source: blur

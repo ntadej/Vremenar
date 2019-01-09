@@ -27,7 +27,14 @@ class UIManager : public QObject
     Q_PROPERTY(QColor colorPrimaryLight READ colorPrimaryLight CONSTANT)
     Q_PROPERTY(QColor colorPrimaryDark READ colorPrimaryDark CONSTANT)
 
+    Q_PROPERTY(QColor separatorColor READ separatorColor CONSTANT)
+
     Q_PROPERTY(int blurLevel READ blurLevel CONSTANT)
+
+    Q_PROPERTY(int buttonMapSize READ buttonMapSize CONSTANT)
+
+    Q_PROPERTY(int lineThickness READ lineThickness CONSTANT)
+    Q_PROPERTY(int iconSizeCommon READ iconSizeCommon CONSTANT)
 
     Q_PROPERTY(QColor navBarColor READ navBarColor CONSTANT)
     Q_PROPERTY(int navBarHeight READ navBarHeight CONSTANT)
@@ -39,12 +46,21 @@ class UIManager : public QObject
     Q_PROPERTY(QColor textColor READ textColor CONSTANT)
     Q_PROPERTY(QColor textColorPrimary READ textColorPrimary CONSTANT)
 
+    Q_PROPERTY(int hoverDuration READ hoverDuration CONSTANT)
+
 public:
     QColor colorPrimary() const;
     QColor colorPrimaryLight() const;
     QColor colorPrimaryDark() const;
 
+    QColor separatorColor() const;
+
     int blurLevel() const;
+
+    int buttonMapSize() const;
+
+    int lineThickness() const;
+    int iconSizeCommon() const;
 
     QColor navBarColor() const;
     int navBarHeight() const;
@@ -55,6 +71,8 @@ public:
     int textCommon() const;
     QColor textColor() const;
     QColor textColorPrimary() const;
+
+    int hoverDuration() const;
 
     static QObject *provider(QQmlEngine *engine,
                              QJSEngine *scriptEngine);

@@ -17,13 +17,14 @@ Item {
     property alias color: blurRectangle.color
     property real sourceX
     property real sourceY
+    property real sourceHeight: height
 
     anchors.fill: parent
 
     ShaderEffectSource {
         id: blurSource
         anchors.fill: parent
-        sourceRect: Qt.rect(parent.sourceX, parent.sourceY, width, height)
+        sourceRect: Qt.rect(parent.sourceX, parent.sourceY, width, sourceHeight)
     }
 
     FastBlur {

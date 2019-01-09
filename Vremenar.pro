@@ -136,6 +136,7 @@ RESOURCES += \
     src/qml/qml.qrc \
     src/qml/Vremenar/vremenar.qrc \
     src/qml/Vremenar/Common/common.qrc \
+    src/qml/Vremenar/Common/fonts.qrc \
     src/qml/Vremenar/Maps/maps.qrc \
     src/qml/Vremenar/Navigation/navigation.qrc \
     resources/icons/icons.qrc \
@@ -147,13 +148,16 @@ OTHER_FILES += \
     src/qml/Vremenar/Common/qmldir \
     src/qml/Vremenar/Common/*.qml \
     src/qml/Vremenar/Common/components/*.qml \
+    src/qml/Vremenar/Common/fonts/*.js \
+    src/qml/Vremenar/Common/fonts/*.qml \
+    src/qml/Vremenar/Common/fonts/Ionicons/*.js \
     src/qml/Vremenar/Common/menus/*.qml \
     src/qml/Vremenar/Common/menus/+custommenu/*.qml \
     src/qml/Vremenar/Common/menus/+nativemenu/*.qml \
     src/qml/Vremenar/Common/text/*.qml \
     src/qml/Vremenar/Maps/qmldir \
     src/qml/Vremenar/Maps/*.qml \
-    src/qml/Vremenar/Maps/models/*.qml \
+    src/qml/Vremenar/Maps/elements/*.qml \
     src/qml/Vremenar/Navigation/qmldir \
     src/qml/Vremenar/Navigation/*.qml \
     src/qml/Vremenar/Navigation/+ios/*.qml \

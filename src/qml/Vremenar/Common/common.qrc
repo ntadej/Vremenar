@@ -8,5 +8,9 @@
         <file>menus/+nativemenu/MainMenu.qml</file>
         <file>components/CommonBlur.qml</file>
         <file>components/MaskedBlur.qml</file>
+        <file>components/SimpleButton.qml</file>
+        <file>components/IconButton.qml</file>
+        <file>text/Icon.qml</file>
+        <file>components/CommonLine.qml</file>
     </qresource>
 </RCC>

@@ -12,6 +12,8 @@
 namespace Vremenar
 {
 
-int Qml::UIManager::blurLevel() const { return 32; }
+int Qml::UIManager::blurLevel() const { return 64; }
+
+int Qml::UIManager::hoverDuration() const { return 200; }
 
 } // namespace Vremenar

@@ -16,7 +16,9 @@ QColor Qml::UIManager::colorPrimary() const { return {62, 150, 243}; }
 QColor Qml::UIManager::colorPrimaryLight() const { return {90, 200, 251}; }
 QColor Qml::UIManager::colorPrimaryDark() const { return {49, 105, 218}; }
 
-QColor Qml::UIManager::navBarColor() const { return {27, 27, 27, 96}; }
+QColor Qml::UIManager::separatorColor() const { return {50, 50, 51}; }
+
+QColor Qml::UIManager::navBarColor() const { return {27, 27, 27, 160}; }
 
 QColor Qml::UIManager::textColor() const { return {255, 255, 255}; }
 QColor Qml::UIManager::textColorPrimary() const { return colorPrimary(); }

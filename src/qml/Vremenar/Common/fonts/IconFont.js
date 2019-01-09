@@ -7,16 +7,9 @@
 * Refer to the LICENSE.md file for details.
 */
 
-import QtQuick 2.0
-import QtQuick.Controls 2.0
+.import "Ionicons/icons.js" as Ionicons
 
-import Vremenar.Maps 1.0
-
-StackView {
-    id: stack
-    initialItem: pageMaps
-
-    MapPage {
-        id: pageMaps
-    }
+var icon =
+{
+    "Ionicons": Ionicons.icons
 }

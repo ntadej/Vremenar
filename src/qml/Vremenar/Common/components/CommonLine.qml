@@ -8,15 +8,10 @@
 */
 
 import QtQuick 2.0
-import QtQuick.Controls 2.0
 
-import Vremenar.Maps 1.0
+import Vremenar 1.0
 
-StackView {
-    id: stack
-    initialItem: pageMaps
-
-    MapPage {
-        id: pageMaps
-    }
+Rectangle {
+    color: UI.separatorColor
+    height: UI.lineThickness
 }

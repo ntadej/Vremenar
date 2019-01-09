@@ -1,8 +1,15 @@
 module Vremenar.Common
 
+IconFont 1.0 fonts/IconFont.js
+LoadFonts 1.0 fonts/Loader.qml
+
 MainMenu 1.0 menus/MainMenu.qml
 
+CommonLine 1.0 components/CommonLine.qml
 CommonBlur 1.0 components/CommonBlur.qml
 MaskedBlur 1.0 components/MaskedBlur.qml
+SimpleButton 1.0 components/SimpleButton.qml
+IconButton 1.0 components/IconButton.qml
 
 TextCommon 1.0 text/Common.qml
+TextIcon 1.0 text/Icon.qml

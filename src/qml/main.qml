@@ -10,11 +10,14 @@
 import QtQuick 2.7
 
 import Vremenar 1.0
+import Vremenar.Common 1.0
 import Vremenar.Navigation 1.0
 
 ApplicationWindow {
 //    title: centralNavigationStack.currentItem.title ? centralNavigationStack.currentItem.title + " - " + Globals.name : Globals.name
     visible: true
+
+    LoadFonts { }
 
     NavigationStack {
         id: centralNavigationStack
