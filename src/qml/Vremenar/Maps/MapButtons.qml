@@ -40,6 +40,8 @@ Item {
             icon: "ios-map"
             family: "Ionicons"
             width: parent.width
+
+            onClicked: mapTypeDialog.open()
         }
 
         CommonLine {

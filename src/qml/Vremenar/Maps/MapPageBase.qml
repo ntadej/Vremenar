@@ -17,6 +17,7 @@ Rectangle {
 
     property alias title: navBar.title
     property alias bottomSheetContents: bottomSheet.contents
+    property bool dialogActive: false
 
     Item {
         id: contentPlaceholder
@@ -56,5 +57,24 @@ Rectangle {
            topMargin: -UI.bottomSheetBaseHeight
            horizontalCenter: parent.horizontalCenter
         }
+    }
+
+    DialogBlur {
+        id: mapTypeDialog
+        anchors.centerIn: parent
+
+        onAboutToShow: dialogActive = true
+        onAboutToHide: dialogActive = false
+    }
+
+    states: State {
+        name: "dialog"; when: dialogActive
+        PropertyChanges { target: bottomSheet; anchors.topMargin: 0 }
+        PropertyChanges { target: mapButtons; opacity: 0 }
+    }
+
+    transitions: Transition {
+        PropertyAnimation { property: "anchors.topMargin"; duration: UI.hoverDuration }
+        PropertyAnimation { property: "opacity"; duration: UI.hoverDuration }
     }
 }

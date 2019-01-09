@@ -8,5 +8,6 @@
         <file>Page.qml</file>
         <file>elements/NavBar.qml</file>
         <file>elements/BottomSheet.qml</file>
+        <file>elements/DialogBlur.qml</file>
     </qresource>
 </RCC>

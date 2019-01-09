@@ -12,10 +12,13 @@ import QtQuick.Controls 2.0
 import QtLocation 5.9
 import QtPositioning 5.9
 
+import Vremenar 1.0
 import Vremenar.Common 1.0
 import Vremenar.Navigation 1.0
 
-NavigationPage {
+import "elements"
+
+MapPageBase {
     title: VLocation.location ? VLocation.location : qsTr("Weather Map") + VL.R
 
     Map {
