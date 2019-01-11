@@ -8,14 +8,14 @@
 */
 
 import QtQuick 2.7
-import QtQuick.Controls 2.2
+import QtQuick.Controls 2.2 as Controls
 
 import Vremenar 1.0
 import Vremenar.Common 1.0
 
-ApplicationWindow {
+Controls.ApplicationWindow {
     id: app
-    property ApplicationWindow applicationWindow : app
+    property Controls.ApplicationWindow applicationWindow : app
     property bool ready: false
 
     width: 640
