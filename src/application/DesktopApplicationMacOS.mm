@@ -116,8 +116,7 @@ void DesktopApplication::setupTitleBarLessWindow(WId winId)
     NSView *nativeView = reinterpret_cast<NSView *>(winId);
     NSWindow *nativeWindow = [nativeView window];
 
-    // Disabled due to resizing repaint bug
-    // [nativeWindow setStyleMask:[nativeWindow styleMask] | NSFullSizeContentViewWindowMask | NSWindowTitleHidden];
+    [nativeWindow setStyleMask:[nativeWindow styleMask] | NSFullSizeContentViewWindowMask | NSWindowTitleHidden];
     [nativeWindow setTitlebarAppearsTransparent:YES];
     [nativeWindow setMovableByWindowBackground:YES];
 }
