@@ -55,7 +55,9 @@ SOURCES += \
     src/settings/SettingsKeys.cpp \
     src/weather/common/Weather.cpp \
     src/weather/common/WeatherProviderBase.cpp \
+    src/weather/common/containers/MapInfo.cpp \
     src/weather/common/containers/MapLayer.cpp \
+    src/weather/common/models/MapInfoModel.cpp \
     src/weather/common/models/MapLayersModelBase.cpp \
     src/weather/common/models/MapLayersProxyModel.cpp \
     src/weather/arso/ARSOWeatherProvider.cpp \
@@ -68,7 +70,6 @@ HEADERS += \
     src/application/ApplicationWindow.h \
     src/application/BaseApplication.h \
     src/common/Common.h \
-    src/common/Helpers.h \
     src/common/ListItem.h \
     src/common/ListModel.h \
     src/common/LocaleManager.h \
@@ -88,7 +89,9 @@ HEADERS += \
     src/settings/Settings.h \
     src/weather/common/Weather.h \
     src/weather/common/WeatherProviderBase.h \
+    src/weather/common/containers/MapInfo.h \
     src/weather/common/containers/MapLayer.h \
+    src/weather/common/models/MapInfoModel.h \
     src/weather/common/models/MapLayersModelBase.h \
     src/weather/common/models/MapLayersProxyModel.h \
     src/weather/arso/ARSOWeatherProvider.h \

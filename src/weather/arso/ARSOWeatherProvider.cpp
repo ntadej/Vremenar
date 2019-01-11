@@ -14,6 +14,7 @@
 #include "common/NetworkManager.h"
 #include "weather/arso/api/ARSOAPIMapLayers.h"
 #include "weather/arso/models/ARSOMapLayersModel.h"
+#include "weather/common/models/MapInfoModel.h"
 #include "weather/common/models/MapLayersProxyModel.h"
 
 #include "weather/arso/ARSOWeatherProvider.h"
@@ -26,6 +27,7 @@ ARSO::WeatherProvider::WeatherProvider(NetworkManager *network,
     : WeatherProviderBase(network, parent),
       _mapLayersModel(std::make_unique<MapLayersModel>(this))
 {
+    _mapInfoModel->generateModel(supportedMapTypes());
     _mapLayersProxyModel->setSourceModel(_mapLayersModel.get());
 }
 

@@ -14,10 +14,10 @@
 namespace Vremenar
 {
 
-ListModel::ListModel(std::unique_ptr<ListItem> prototype,
+ListModel::ListModel(const QHash<int, QByteArray> &roleNames,
                      QObject *parent)
     : QAbstractListModel(parent),
-      _prototype(std::move(prototype)) {}
+      _roleNames(roleNames) {}
 
 int ListModel::rowCount(const QModelIndex &parent) const
 {
@@ -34,55 +34,12 @@ QVariant ListModel::data(const QModelIndex &index,
     return _list[i]->data(role);
 }
 
-QHash<int, QByteArray> ListModel::roleNames() const
-{
-    return _prototype->roleNames();
-}
-
-ListItem *ListModel::appendRow(std::unique_ptr<ListItem> item)
-{
-    beginInsertRows(QModelIndex(), rowCount(), rowCount());
-    connect(item.get(), &ListItem::dataChanged, this, &ListModel::handleItemChange);
-    _list.push_back(std::move(item));
-    endInsertRows();
-    return _list.back().get();
-}
-
-ListItem *ListModel::insertRow(int row,
-                               std::unique_ptr<ListItem> item)
-{
-    beginInsertRows(QModelIndex(), row, row);
-    connect(item.get(), &ListItem::dataChanged, this, &ListModel::handleItemChange);
-    auto it = _list.insert(_list.begin() + row, std::move(item));
-    endInsertRows();
-    return it->get();
-}
-
 void ListModel::handleItemChange()
 {
     auto *item = qobject_cast<ListItem *>(sender());
     QModelIndex index = indexFromItem(item);
     if (index.isValid())
         emit dataChanged(index, index);
-}
-
-ListItem *ListModel::find(const QString &id) const
-{
-    for (const std::unique_ptr<ListItem> &item : _list) {
-        if (item->id() == id)
-            return item.get();
-    }
-    return nullptr;
-}
-
-QModelIndex ListModel::indexFromItem(const ListItem *item) const
-{
-    Q_ASSERT(item);
-    for (size_t row = 0; row < _list.size(); ++row) {
-        if (_list[row].get() == item)
-            return index(static_cast<int>(row));
-    }
-    return {};
 }
 
 void ListModel::clear()
@@ -115,19 +72,14 @@ bool ListModel::removeRows(int row, int count, const QModelIndex &parent)
     return true;
 }
 
-ListItem *ListModel::row(int row)
+QModelIndex ListModel::indexFromItem(const ListItem *item) const
 {
-    return _list[static_cast<size_t>(row)].get();
-}
-
-std::unique_ptr<ListItem> ListModel::takeRow(int row)
-{
-    beginRemoveRows(QModelIndex(), row, row);
-    std::unique_ptr<ListItem> item = nullptr;
-    item.swap(_list.at(static_cast<size_t>(row)));
-    _list.erase(_list.begin() + row);
-    endRemoveRows();
-    return item;
+    Q_ASSERT(item);
+    for (size_t row = 0; row < _list.size(); ++row) {
+        if (_list[row].get() == item)
+            return index(static_cast<int>(row));
+    }
+    return {};
 }
 
 } // namespace Vremenar

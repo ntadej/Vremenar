@@ -12,15 +12,6 @@
 namespace Vremenar
 {
 
-MapLayer::MapLayer(QObject *parent)
-    : ListItem(parent)
-{
-    generateRoleNames();
-
-    _id = "prototype";
-    _type = Weather::PrecipitationMap;
-}
-
 MapLayer::MapLayer(Weather::MapType type,
                    const QDateTime &time,
                    const QUrl &url,
@@ -28,27 +19,11 @@ MapLayer::MapLayer(Weather::MapType type,
                    QObject *parent)
     : ListItem(parent)
 {
-    generateRoleNames();
-
     _id = Weather::mapTypeString(type) + "_" + QString::number(time.toSecsSinceEpoch());
     _type = type;
     _time = time;
     _url = url;
     _range = range;
-}
-
-void MapLayer::generateRoleNames()
-{
-    _roleNames[IdRole] = "id";
-    _roleNames[DisplayRole] = "display";
-    _roleNames[TypeRole] = "type";
-    _roleNames[TimeRole] = "time";
-    _roleNames[TimestampRole] = "timestamp";
-    _roleNames[UrlRole] = "url";
-    _roleNames[MinLatitude] = "minLatitude";
-    _roleNames[MinLongitude] = "minLongitude";
-    _roleNames[MaxLatitude] = "maxLatitude";
-    _roleNames[MaxLongitude] = "maxLongitude";
 }
 
 QString MapLayer::display() const

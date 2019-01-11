@@ -42,7 +42,6 @@ public:
         MaxLongitude
     };
 
-    explicit MapLayer(QObject *parent = nullptr);
     explicit MapLayer(Weather::MapType type,
                       const QDateTime &time,
                       const QUrl &url,
@@ -58,9 +57,22 @@ public:
     inline const QUrl &url() const { return _url; }
     inline const QGeoRectangle &range() const { return _range; }
 
-private:
-    virtual void generateRoleNames() final;
+    static inline QHash<int, QByteArray> roleNames()
+    {
+        return {
+            {IdRole, "id"},
+            {DisplayRole, "display"},
+            {TypeRole, "type"},
+            {TimeRole, "time"},
+            {TimestampRole, "timestamp"},
+            {UrlRole, "url"},
+            {MinLatitude, "minLatitude"},
+            {MinLongitude, "minLongitude"},
+            {MaxLatitude, "maxLatitude"},
+            {MaxLongitude, "maxLongitude"}};
+    }
 
+private:
     Weather::MapType _type;
     QDateTime _time;
     QUrl _url;

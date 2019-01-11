@@ -10,6 +10,7 @@
 #ifndef VREMENAR_ARSOWEATHERPROVIDER_H_
 #define VREMENAR_ARSOWEATHERPROVIDER_H_
 
+#include "weather/common/Weather.h"
 #include "weather/common/WeatherProviderBase.h"
 
 namespace Vremenar
@@ -28,10 +29,19 @@ public:
 
     Q_INVOKABLE virtual void requestMapLayers(Weather::MapType type) final;
 
+    inline virtual const std::vector<Weather::MapType> &supportedMapTypes() const final { return _supportedMapTypes; }
+
 protected slots:
     virtual void response(QNetworkReply *reply) final;
 
 private:
+    const std::vector<Weather::MapType> _supportedMapTypes{
+        Weather::PrecipitationMap,
+        Weather::CloudCoverageMap,
+        Weather::WindSpeedMap,
+        Weather::TemperatureMap,
+        Weather::HailProbabilityMap};
+
     std::unique_ptr<MapLayersModel> _mapLayersModel;
 };
 

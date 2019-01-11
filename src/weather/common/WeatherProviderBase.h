@@ -15,6 +15,7 @@
 
 namespace Vremenar
 {
+class MapInfoModel;
 class MapLayersProxyModel;
 class NetworkManager;
 
@@ -26,11 +27,15 @@ public:
                                  QObject *parent = nullptr);
     virtual ~WeatherProviderBase();
 
+    inline MapInfoModel *mapInfo() { return _mapInfoModel.get(); }
     inline MapLayersProxyModel *mapLayers() { return _mapLayersProxyModel.get(); }
 
     virtual void requestMapLayers(Weather::MapType type) = 0;
 
+    virtual const std::vector<Weather::MapType> &supportedMapTypes() const = 0;
+
 protected:
+    std::unique_ptr<MapInfoModel> _mapInfoModel;
     std::unique_ptr<MapLayersProxyModel> _mapLayersProxyModel;
 };
 

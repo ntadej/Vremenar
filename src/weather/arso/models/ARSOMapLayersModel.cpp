@@ -11,8 +11,6 @@
 #include <QtCore/QJsonObject>
 #include <QtPositioning/QGeoCoordinate>
 
-#include "common/Helpers.h"
-
 #include "weather/arso/api/ARSOAPICommon.h"
 
 #include "weather/arso/models/ARSOMapLayersModel.h"
@@ -36,8 +34,7 @@ MapLayer *ARSO::MapLayersModel::createMapLayer(Weather::MapType type,
     QGeoCoordinate bottomRight(c[0].toDouble(), c[3].toDouble());
     QGeoRectangle range(topLeft, bottomRight);
 
-    auto layerPtr = std::make_unique<MapLayer>(type, time, url, range);
-    return dynamic_cast<MapLayer *>(appendRow(qobject_pointer_cast<ListItem>(layerPtr.release())));
+    return dynamic_cast<MapLayer *>(appendRow(std::make_unique<MapLayer>(type, time, url, range)));
 }
 
 void ARSO::MapLayersModel::addMapLayers(Weather::MapType type,

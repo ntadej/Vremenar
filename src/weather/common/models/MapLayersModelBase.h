@@ -21,15 +21,11 @@ class MapLayersModelBase : public ListModel
     Q_OBJECT
 public:
     explicit MapLayersModelBase(QObject *parent = nullptr);
-
-    MapLayer *find(const QString &id) const;
-    MapLayer *row(int row);
-    std::unique_ptr<MapLayer> takeRow(int row);
+    virtual ~MapLayersModelBase() = default;
 
     virtual MapLayer *createMapLayer(Weather::MapType type,
                                      const QJsonObject &data)
         = 0;
-    void deleteMapLayer(MapLayer *genre);
 
     virtual void addMapLayers(Weather::MapType type,
                               const QJsonArray &data)

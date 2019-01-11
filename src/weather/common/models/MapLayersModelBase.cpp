@@ -7,35 +7,12 @@
 * Refer to the LICENSE.md file for details.
 */
 
-#include "common/Helpers.h"
-
 #include "weather/common/models/MapLayersModelBase.h"
 
 namespace Vremenar
 {
 
 MapLayersModelBase::MapLayersModelBase(QObject *parent)
-    : ListModel(std::make_unique<MapLayer>(), parent) {}
-
-MapLayer *MapLayersModelBase::find(const QString &id) const
-{
-    return qobject_cast<MapLayer *>(ListModel::find(id));
-}
-
-MapLayer *MapLayersModelBase::row(int row)
-{
-    return qobject_cast<MapLayer *>(ListModel::row(row));
-}
-
-std::unique_ptr<MapLayer> MapLayersModelBase::takeRow(int row)
-{
-    return qobject_pointer_cast<MapLayer>(ListModel::takeRow(row).release());
-}
-
-void MapLayersModelBase::deleteMapLayer(MapLayer *genre)
-{
-    int r = indexFromItem(genre).row();
-    removeRow(r);
-}
+    : ListModel(MapLayer::roleNames(), parent) {}
 
 } // namespace Vremenar

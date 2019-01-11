@@ -25,7 +25,6 @@ public:
     virtual ~ListItem() {}
 
     inline const QString &id() const { return _id; }
-    inline const QHash<int, QByteArray> &roleNames() const { return _roleNames; }
 
     virtual QVariant data(int role) const = 0;
     virtual QString display() const = 0;
@@ -34,10 +33,7 @@ signals:
     void dataChanged();
 
 protected:
-    virtual void generateRoleNames() = 0;
-
     QString _id;
-    QHash<int, QByteArray> _roleNames;
 };
 
 } // namespace Vremenar

@@ -23,7 +23,7 @@ class ListModel : public QAbstractListModel
 {
     Q_OBJECT
 public:
-    ListModel(std::unique_ptr<ListItem> prototype,
+    ListModel(const QHash<int, QByteArray> &roleNames,
               QObject *parent = nullptr);
 
     virtual QVariant data(const QModelIndex &index,
@@ -33,27 +33,57 @@ public:
                             const QModelIndex &parent = QModelIndex()) override;
     virtual int rowCount(const QModelIndex &parent = QModelIndex()) const override;
 
-    virtual QHash<int, QByteArray> roleNames() const override;
+    virtual QHash<int, QByteArray> roleNames() const override { return _roleNames; }
 
-    ListItem *appendRow(std::unique_ptr<ListItem> item);
-    ListItem *insertRow(int row,
-                        std::unique_ptr<ListItem> item);
+    template <class T>
+    T *appendRow(std::unique_ptr<T> item)
+    {
+        beginInsertRows(QModelIndex(), rowCount(), rowCount());
+        connect(item.get(), &T::dataChanged, this, &ListModel::handleItemChange);
+        _list.push_back(std::move(item));
+        endInsertRows();
+        return qobject_cast<T *>(_list.back().get());
+    }
+
     bool removeRow(int row,
                    const QModelIndex &parent = QModelIndex());
-    std::unique_ptr<ListItem> takeRow(int row);
 
-    ListItem *row(int row);
-    ListItem *find(const QString &id) const;
+    template <class T>
+    std::unique_ptr<T> takeRow(int row)
+    {
+        beginRemoveRows(QModelIndex(), row, row);
+        std::unique_ptr<T> item = nullptr;
+        item.swap(_list.at(static_cast<size_t>(row)));
+        _list.erase(_list.begin() + row);
+        endRemoveRows();
+        return item;
+    }
+
+    template <class T>
+    ListItem *row(int row)
+    {
+        return _list[static_cast<size_t>(row)].get();
+    }
+
+    template <class T>
+    T *find(const QString &id) const
+    {
+        for (const std::unique_ptr<T> &item : _list) {
+            if (item->id() == id)
+                return item.get();
+        }
+        return nullptr;
+    }
 
     QModelIndex indexFromItem(const ListItem *item) const;
-
     void clear();
 
 private slots:
     void handleItemChange();
 
 private:
-    std::unique_ptr<ListItem> _prototype;
+    const QHash<int, QByteArray> _roleNames;
+
     std::vector<std::unique_ptr<ListItem>> _list;
 };
 
