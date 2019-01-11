@@ -19,7 +19,7 @@ Item {
 
     Rectangle {
         id: rounded
-        radius: UI.bottomSheetRadius
+        radius: UI.radiusCommon
         anchors.fill: parent
         visible: false
     }
@@ -41,7 +41,7 @@ Item {
             family: "Ionicons"
             width: parent.width
 
-            onClicked: mapTypeDialog.open()
+            onClicked: mapSettingsDialog.open()
         }
 
         CommonLine {

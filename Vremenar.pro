@@ -157,6 +157,7 @@ OTHER_FILES += \
     src/qml/Vremenar/Common/menus/*.qml \
     src/qml/Vremenar/Common/menus/+custommenu/*.qml \
     src/qml/Vremenar/Common/menus/+nativemenu/*.qml \
+    src/qml/Vremenar/Common/views/*.qml \
     src/qml/Vremenar/Common/text/*.qml \
     src/qml/Vremenar/Maps/qmldir \
     src/qml/Vremenar/Maps/*.qml \

@@ -12,6 +12,8 @@ import QtQuick 2.0
 import Vremenar 1.0
 import Vremenar.Navigation 1.0
 
+import "elements"
+
 Rectangle {
     default property alias contents: content.children
 
@@ -59,8 +61,8 @@ Rectangle {
         }
     }
 
-    DialogBlur {
-        id: mapTypeDialog
+    MapSettingsDialog {
+        id: mapSettingsDialog
         anchors.centerIn: parent
 
         onAboutToShow: dialogActive = true

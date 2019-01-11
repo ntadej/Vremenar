@@ -18,6 +18,7 @@ MapInfo::MapInfo(Weather::MapType type,
 {
     _id = Weather::mapTypeString(type);
     _description = Weather::mapTypeStringLocale(type);
+    _type = type;
 }
 
 QString MapInfo::display() const

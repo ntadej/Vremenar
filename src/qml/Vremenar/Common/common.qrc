@@ -12,5 +12,8 @@
         <file>components/IconButton.qml</file>
         <file>text/Icon.qml</file>
         <file>components/CommonLine.qml</file>
+        <file>views/ListRadioDelegate.qml</file>
+        <file>views/ListRadioView.qml</file>
+        <file>text/Header.qml</file>
     </qresource>
 </RCC>

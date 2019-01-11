@@ -34,8 +34,8 @@ Item {
         }
 
         onPositionChanged: {
-            VApplicationWindow.x += mouse.x - clickPosition.x
-            VApplicationWindow.y += mouse.y - clickPosition.y
+            applicationWindow.x += mouse.x - clickPosition.x
+            applicationWindow.y += mouse.y - clickPosition.y
         }
     }
 

@@ -16,13 +16,13 @@ import Vremenar.Common 1.0
 Item {
     default property alias contents: content.children
 
-    height: UI.bottomSheetBaseHeight + UI.bottomSheetRadius
+    height: UI.bottomSheetBaseHeight + UI.radiusCommon
     width: Math.min(parent.width, UI.bottomSheetMaxWidth)
     clip: true
 
     Rectangle {
         id: rounded
-        radius: UI.bottomSheetRadius
+        radius: UI.radiusCommon
         anchors.fill: parent
         visible: false
     }

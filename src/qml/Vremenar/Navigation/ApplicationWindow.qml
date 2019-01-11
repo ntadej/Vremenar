@@ -14,11 +14,14 @@ import Vremenar 1.0
 import Vremenar.Common 1.0
 
 ApplicationWindow {
+    id: app
+    property ApplicationWindow applicationWindow : app
+    property bool ready: false
+
     width: 640
     height: 480
 
-    menuBar: MainMenu {
-    }
+    menuBar: MainMenu {}
 
     onClosing: {
         hide()
@@ -41,5 +44,6 @@ ApplicationWindow {
         }
 
         Vremenar.startCompleted()
+        ready = true
     }
 }

@@ -33,19 +33,25 @@ class UIManager : public QObject
 
     Q_PROPERTY(int buttonMapSize READ buttonMapSize CONSTANT)
 
-    Q_PROPERTY(int lineThickness READ lineThickness CONSTANT)
     Q_PROPERTY(int iconSizeCommon READ iconSizeCommon CONSTANT)
+    Q_PROPERTY(int lineThickness READ lineThickness CONSTANT)
+    Q_PROPERTY(int paddingCommon READ paddingCommon CONSTANT)
+    Q_PROPERTY(int paddingHeader READ paddingHeader CONSTANT)
+    Q_PROPERTY(int radiusCommon READ radiusCommon CONSTANT)
 
+    Q_PROPERTY(int rowHeight READ rowHeight CONSTANT)
     Q_PROPERTY(QColor navBarColor READ navBarColor CONSTANT)
     Q_PROPERTY(int navBarHeight READ navBarHeight CONSTANT)
+
     Q_PROPERTY(int bottomSheetBaseHeight READ bottomSheetBaseHeight CONSTANT)
     Q_PROPERTY(int bottomSheetMaxWidth READ bottomSheetMaxWidth CONSTANT)
-    Q_PROPERTY(int bottomSheetRadius READ bottomSheetRadius CONSTANT)
 
     Q_PROPERTY(int textCommon READ textCommon CONSTANT)
+    Q_PROPERTY(int textHeader READ textHeader CONSTANT)
     Q_PROPERTY(QColor textColor READ textColor CONSTANT)
     Q_PROPERTY(QColor textColorPrimary READ textColorPrimary CONSTANT)
 
+    Q_PROPERTY(QColor hoverColor READ hoverColor CONSTANT)
     Q_PROPERTY(int hoverDuration READ hoverDuration CONSTANT)
 
 public:
@@ -59,19 +65,25 @@ public:
 
     int buttonMapSize() const;
 
-    int lineThickness() const;
     int iconSizeCommon() const;
+    int lineThickness() const;
+    int paddingCommon() const;
+    int paddingHeader() const;
+    int radiusCommon() const;
 
+    int rowHeight() const;
     QColor navBarColor() const;
     int navBarHeight() const;
+
     int bottomSheetBaseHeight() const;
     int bottomSheetMaxWidth() const;
-    int bottomSheetRadius() const;
 
     int textCommon() const;
+    int textHeader() const;
     QColor textColor() const;
     QColor textColorPrimary() const;
 
+    QColor hoverColor() const;
     int hoverDuration() const;
 
     static QObject *provider(QQmlEngine *engine,

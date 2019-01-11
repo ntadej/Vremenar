@@ -60,9 +60,9 @@ public:
     }
 
     template <class T>
-    ListItem *row(int row)
+    T *row(int row)
     {
-        return _list[static_cast<size_t>(row)].get();
+        return qobject_cast<T *>(_list[static_cast<size_t>(row)].get());
     }
 
     template <class T>
@@ -70,7 +70,7 @@ public:
     {
         for (const std::unique_ptr<T> &item : _list) {
             if (item->id() == id)
-                return item.get();
+                return qobject_cast<T *>(item.get());
         }
         return nullptr;
     }

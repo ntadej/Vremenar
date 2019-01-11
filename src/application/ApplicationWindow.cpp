@@ -82,7 +82,6 @@ ApplicationWindow::ApplicationWindow(QObject *parent)
 #ifdef Q_OS_MACOS
     application->setupTitleBarLessWindow(_qmlMainWindow->winId());
 #endif
-    rootContext()->setContextProperty("VApplicationWindow", _qmlMainWindow);
 }
 
 ApplicationWindow::~ApplicationWindow() = default;

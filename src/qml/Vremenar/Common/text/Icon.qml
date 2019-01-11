@@ -16,6 +16,7 @@ import "../fonts/IconFont.js" as IconFont
 Core {
     property string icon: ""
     text: icon != "" && font.family != "" ? IconFont.icon[font.family][icon] : ""
+    font.pixelSize: UI.iconSizeCommon
     color: UI.textColor
     horizontalAlignment: Text.AlignHCenter
     verticalAlignment: Text.AlignVCenter

@@ -7,12 +7,16 @@
 * Refer to the LICENSE.md file for details.
 */
 
-#include "qml/UIManager.h"
+import QtQuick 2.0
 
-namespace Vremenar
-{
+import Vremenar 1.0
 
-int Qml::UIManager::textCommon() const { return 17; }
-int Qml::UIManager::textHeader() const { return 13; }
+Core {
+    color: UI.textColor
+    font.pointSize: UI.textHeader
+    font.capitalization: Font.AllUppercase
 
-} // namespace Vremenar
+    leftPadding: UI.paddingCommon
+    topPadding: UI.paddingCommon
+    bottomPadding: UI.paddingHeader
+}

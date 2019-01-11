@@ -8,6 +8,7 @@
 */
 
 #include "common/NetworkManager.h"
+#include "weather/common/containers/MapInfo.h"
 #include "weather/common/models/MapInfoModel.h"
 #include "weather/common/models/MapLayersProxyModel.h"
 
@@ -23,5 +24,10 @@ WeatherProviderBase::WeatherProviderBase(NetworkManager *network,
       _mapLayersProxyModel(std::make_unique<MapLayersProxyModel>(this)) {}
 
 WeatherProviderBase::~WeatherProviderBase() = default;
+
+void WeatherProviderBase::currentMapLayerChanged(int index)
+{
+    requestMapLayers(_mapInfoModel->row<MapInfo>(index)->type());
+}
 
 } // namespace Vremenar

@@ -20,16 +20,16 @@ ARSO::APIRequest ARSO::mapLayers(Weather::MapType type)
         id = "inca_precip_data";
         break;
     case Weather::CloudCoverageMap:
-        id = "inca_precip_data";
+        id = "inca_cloud_data";
         break;
     case Weather::WindSpeedMap:
-        id = "inca_precip_data";
+        id = "inca_wind_data";
         break;
     case Weather::TemperatureMap:
-        id = "inca_precip_data";
+        id = "inca_t2m_data";
         break;
     case Weather::HailProbabilityMap:
-        id = "inca_precip_data";
+        id = "inca_hail_data";
         break;
     }
 

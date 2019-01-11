@@ -7,5 +7,6 @@
         <file>elements/MapImageDelegate.qml</file>
         <file>MapPageBase.qml</file>
         <file>MapPage.qml</file>
+        <file>elements/MapSettingsDialog.qml</file>
     </qresource>
 </RCC>

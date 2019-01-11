@@ -20,6 +20,7 @@ Dialog {
     height: Math.min(parent.height, 400)
 
     modal: true
+    padding: 0
 
     background: MaskedBlur {
         blurSource: contentPlaceholder
@@ -29,7 +30,7 @@ Dialog {
         maskSource: Rectangle {
             width: dialog.width
             height: dialog.height
-            radius: UI.bottomSheetRadius
+            radius: UI.radiusCommon
             visible: false
         }
     }

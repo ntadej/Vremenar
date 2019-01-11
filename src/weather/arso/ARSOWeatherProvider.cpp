@@ -35,6 +35,8 @@ ARSO::WeatherProvider::~WeatherProvider() = default;
 
 void ARSO::WeatherProvider::requestMapLayers(Weather::MapType type)
 {
+    qDebug() << "Requesting map type:" << type;
+
     APIRequest request = ARSO::mapLayers(type);
 
     _currentReplies.insert(_network->request(request), request);
