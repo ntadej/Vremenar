@@ -36,12 +36,6 @@ namespace Vremenar
 
 ApplicationWindow::ApplicationWindow(QObject *parent)
     : QQmlApplicationEngine(parent),
-      _rememberSize(Settings::DEFAULT_REMEMBER_SIZE),
-      _rememberPosition(Settings::DEFAULT_REMEMBER_POSITION),
-      _width(Settings::DEFAULT_WIDTH),
-      _height(Settings::DEFAULT_HEIGHT),
-      _posX(Settings::DEFAULT_POS_X),
-      _posY(Settings::DEFAULT_POS_Y),
       _network(new NetworkManager(this)),
       _localeManager(std::make_unique<LocaleManager>(this)),
       _networkFactory(std::make_unique<NetworkManagerFactory>(this))

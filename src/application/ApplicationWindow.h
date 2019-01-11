@@ -58,14 +58,6 @@ private:
     void createWidgets();
 #endif
 
-    // Settings
-    bool _rememberSize;
-    bool _rememberPosition;
-    int _width;
-    int _height;
-    int _posX;
-    int _posY;
-
     // Application
     NetworkManager *_network; // owned by Qt internally
 
