@@ -12,15 +12,18 @@ import QtLocation 5.6
 import Vremenar 1.0
 
 Plugin {
-    // required: Plugin.AnyMappingFeatures
     preferred: ["mapboxgl", "mapbox"]
 
     PluginParameter {
         name: "mapbox.access_token"
-        value: ""
+        value: Globals.mapboxAPIToken
     }
     PluginParameter {
         name: "mapboxgl.access_token"
-        value: ""
+        value: Globals.mapboxAPIToken
+    }
+    PluginParameter {
+        name: "mapboxgl.mapping.items.insert_before"
+        value: "housenum-label"
     }
 }
