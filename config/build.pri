@@ -47,7 +47,7 @@ HEADERS += $$ConfigFile.output
 macx {
     message("Building for platform: macOS")
 } else:ios {
-    message("Building for platform: macOS")
+    message("Building for platform: iOS")
 } else {
     error("Unknown platform!")
 }

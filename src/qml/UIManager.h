@@ -12,8 +12,11 @@
 
 #include <QtCore/QObject>
 #include <QtGui/QColor>
+#include <QtGui/QScreen>
 #include <QtQml/QJSEngine>
 #include <QtQml/QQmlEngine>
+
+#include "common/Enums.h"
 
 namespace Vremenar
 {
@@ -55,6 +58,8 @@ class UIManager : public QObject
     Q_PROPERTY(int hoverDuration READ hoverDuration CONSTANT)
 
 public:
+    UIManager();
+
     QColor colorPrimary() const;
     QColor colorPrimaryLight() const;
     QColor colorPrimaryDark() const;
@@ -88,6 +93,27 @@ public:
 
     static QObject *provider(QQmlEngine *engine,
                              QJSEngine *scriptEngine);
+
+public slots:
+    void primaryWindowSizeChanged(qreal width,
+                                  qreal height);
+
+private slots:
+    void orientationChanged(Qt::ScreenOrientation orientation);
+    void primaryScreenChanged(QScreen *screen);
+
+private:
+    static Common::DeviceType getDeviceType();
+#ifdef Q_OS_IOS
+    static Common::DeviceType getDeviceTypeIOS();
+#endif
+
+    const Common::DeviceType _device;
+
+    QScreen *_currentPrimaryScreen{}; // owned by Qt
+    Qt::ScreenOrientation _currentOrientation = Qt::PrimaryOrientation;
+    qreal _currentWidth;
+    qreal _currentHeight;
 };
 
 } // namespace Qml

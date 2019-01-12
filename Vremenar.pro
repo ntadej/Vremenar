@@ -72,6 +72,7 @@ HEADERS += \
     src/application/ApplicationWindow.h \
     src/application/BaseApplication.h \
     src/common/Common.h \
+    src/common/Enums.h \
     src/common/ListItem.h \
     src/common/ListModel.h \
     src/common/LocaleManager.h \
@@ -127,6 +128,12 @@ ios {
 
     HEADERS += \
         src/application/MobileApplication.h
+}
+
+# iOS specific
+ios {
+    OBJECTIVE_SOURCES += \
+        src/qml/UIManagerIOS.mm
 }
 
 # macOS specific

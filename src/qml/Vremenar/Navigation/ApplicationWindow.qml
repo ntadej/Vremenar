@@ -28,6 +28,9 @@ Controls.ApplicationWindow {
         close.accepted = false
     }
 
+    onWidthChanged: UI.primaryWindowSizeChanged(width, height)
+    onHeightChanged: UI.primaryWindowSizeChanged(width, height)
+
     Component.onCompleted: {
         if (Settings.rememberSize) {
             console.log("Restoring size:", Settings.width, Settings.height)
