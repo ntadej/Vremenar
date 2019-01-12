@@ -7,6 +7,6 @@
 * Refer to the LICENSE.md file for details.
 */
 
-import QtQuick 2.6
+import QtQuick 2.12
 
 Text { }

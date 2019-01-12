@@ -6,8 +6,8 @@
 * Version 3 or later as well as Mozilla Public License Version 2.
 * Refer to the LICENSE.md file for details.
 */
-import QtQuick 2.7
-import QtLocation 5.6
+import QtQuick 2.12
+import QtLocation 5.12
 
 import Vremenar 1.0
 

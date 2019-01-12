@@ -7,7 +7,7 @@
 * Refer to the LICENSE.md file for details.
 */
 
-import QtQuick 2.2
+import QtQuick 2.12
 import Qt.labs.platform 1.1
 
 Item {

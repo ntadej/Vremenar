@@ -7,8 +7,8 @@
 * Refer to the LICENSE.md file for details.
 */
 
-import QtQuick 2.0
-import QtQuick.Controls 2.0
+import QtQuick 2.12
+import QtQuick.Controls 2.12
 
 import Vremenar.Maps 1.0
 

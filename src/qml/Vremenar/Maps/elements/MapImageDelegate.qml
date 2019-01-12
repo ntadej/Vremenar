@@ -6,9 +6,9 @@
 * Version 3 or later as well as Mozilla Public License Version 2.
 * Refer to the LICENSE.md file for details.
 */
-import QtQuick 2.7
-import QtLocation 5.9
-import QtPositioning 5.9
+import QtQuick 2.12
+import QtLocation 5.12
+import QtPositioning 5.12
 
 MapQuickItem {
     property var timestamp

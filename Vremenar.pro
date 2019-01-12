@@ -10,6 +10,8 @@
 TARGET = Vremenar
 CONFIG += qt
 
+lessThan(QT_MINOR_VERSION, 12): error("Requires Qt 5.12 or later!")
+
 # Common configuration
 include($$top_srcdir/config/version.pri)
 include($$top_srcdir/config/build.pri)

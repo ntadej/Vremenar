@@ -7,7 +7,7 @@
 * Refer to the LICENSE.md file for details.
 */
 
-import QtQuick 2.0
+import QtQuick 2.12
 import QtGraphicalEffects 1.0
 
 import Vremenar 1.0

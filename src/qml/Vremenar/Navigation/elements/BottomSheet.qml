@@ -7,8 +7,7 @@
 * Refer to the LICENSE.md file for details.
 */
 
-import QtQuick 2.1
-import QtQuick.Layouts 1.1
+import QtQuick 2.12
 
 import Vremenar 1.0
 import Vremenar.Common 1.0

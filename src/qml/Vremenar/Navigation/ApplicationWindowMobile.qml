@@ -6,8 +6,8 @@
 * Version 3 or later as well as Mozilla Public License Version 2.
 * Refer to the LICENSE.md file for details.
 */
-import QtQuick 2.7
-import QtQuick.Controls 2.0 as Controls
+import QtQuick 2.12
+import QtQuick.Controls 2.12 as Controls
 
 Controls.ApplicationWindow {
     id: app

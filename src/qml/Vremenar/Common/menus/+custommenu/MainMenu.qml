@@ -7,8 +7,8 @@
 * Refer to the LICENSE.md file for details.
 */
 
-import QtQuick 2.2
-import QtQuick.Controls 2.4
+import QtQuick 2.12
+import QtQuick.Controls 2.12
 
 MenuBar {
     // File menu
