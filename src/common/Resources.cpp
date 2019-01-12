@@ -74,4 +74,18 @@ QString Resources::appData()
     return dir.path();
 }
 
+QString Resources::logLocation()
+{
+#if VREMENAR_MOBILE
+    QDir dir(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation));
+#else
+    QDir dir(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation));
+#endif
+    if (!dir.exists()) {
+        dir.mkpath(".");
+    }
+
+    return dir.path();
+}
+
 } // namespace Vremenar

@@ -31,6 +31,8 @@
             <string>UIInterfaceOrientationLandscapeLeft</string>
             <string>UIInterfaceOrientationLandscapeRight</string>
         </array>
+        <key>UIFileSharingEnabled</key>
+        <true/>
         <key>NSLocationWhenInUseUsageDescription</key>
         <string>Location for weather info.</string>
         <key>CFBundleIcons</key>

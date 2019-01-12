@@ -71,7 +71,7 @@ void Log::output(QtMsgType type,
 void Log::setup()
 {
 #if VREMENAR_LOGGING
-    QString fileName = Resources::appData() + "/" + Vremenar::executable() + ".log";
+    QString fileName = Resources::logLocation() + "/" + Vremenar::executable() + ".log";
     outFile = std::make_unique<QFile>(fileName);
     if (outFile->open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text)) {
         out = std::make_unique<QTextStream>(outFile.get());

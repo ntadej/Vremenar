@@ -23,6 +23,7 @@ QString resource(const QString &file);
 
 // Special locations
 QString appData();
+QString logLocation();
 
 } // namespace Resources
 } // namespace Vremenar
