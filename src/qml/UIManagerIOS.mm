@@ -7,7 +7,10 @@
 * Refer to the LICENSE.md file for details.
 */
 
+#include <QtGui/QWindow>
+
 #include <UIKit/UIDevice.h>
+#include <UIKit/UIViewController.h>
 
 #include "qml/UIManager.h"
 
@@ -25,4 +28,28 @@ Common::DeviceType Qml::UIManager::getDeviceTypeIOS()
         return Common::UnknownDevice;
 }
 
+void Qml::UIManager::updateStatusBar()
+{
+    if (_device == Common::iPhone
+        && (_currentOrientation == Qt::LandscapeOrientation || _currentOrientation == Qt::InvertedLandscapeOrientation)) {
+        _currentWindow->setWindowStates(_currentWindow->windowStates() | Qt::WindowFullScreen);
+    } else {
+        _currentWindow->setWindowStates(_currentWindow->windowStates() & (~Qt::WindowFullScreen));
+    }
 }
+
+}
+
+@interface QIOSViewController : UIViewController
+@end
+
+@interface QIOSViewController (VremenarView)
+@end
+
+@implementation QIOSViewController (VremenarView)
+
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
+}
+
+@end

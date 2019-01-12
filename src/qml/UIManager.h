@@ -123,6 +123,8 @@ private:
     static Common::DeviceType getDeviceType();
 #ifdef Q_OS_IOS
     static Common::DeviceType getDeviceTypeIOS();
+
+    void updateStatusBar();
 #endif
 
     const Common::DeviceType _device;

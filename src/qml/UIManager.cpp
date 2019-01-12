@@ -39,6 +39,14 @@ Qml::UIManager::UIManager()
     connect(_currentWindow, &QWindow::widthChanged, this, &UIManager::windowWidthChanged);
     connect(_currentWindow, &QWindow::heightChanged, this, &UIManager::windowHeightChanged);
 
+#ifdef Q_OS_IOS
+    connect(application, &QGuiApplication::applicationStateChanged, application, [=](Qt::ApplicationState state) {
+        if (state == Qt::ApplicationActive) {
+            updateStatusBar();
+        }
+    });
+#endif
+
     qDebug() << "Running on device type" << _device;
 }
 
@@ -58,6 +66,10 @@ void Qml::UIManager::orientationChanged(Qt::ScreenOrientation orientation)
     qDebug() << "Orientation changed" << orientation;
 
     _currentOrientation = orientation;
+
+#ifdef Q_OS_IOS
+    updateStatusBar();
+#endif
 
     emit geometryChanged();
 }
