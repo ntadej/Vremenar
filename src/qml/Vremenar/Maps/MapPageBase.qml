@@ -56,7 +56,7 @@ Rectangle {
         id: bottomSheet
         anchors {
            top: parent.bottom
-           topMargin: -UI.bottomSheetBaseHeight
+           topMargin: - (UI.bottomSheetBaseHeight + UI.safetyMarginBottom)
            horizontalCenter: parent.horizontalCenter
         }
     }

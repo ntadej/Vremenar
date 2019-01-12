@@ -9,15 +9,13 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12 as Controls
 
-import Vremenar 1.0
-
 Controls.ApplicationWindow {
     id: app
+
     property Controls.ApplicationWindow applicationWindow : app
     property bool ready: false
 
-    onWidthChanged: UI.primaryWindowSizeChanged(width, height)
-    onHeightChanged: UI.primaryWindowSizeChanged(width, height)
+    flags: Qt.Window | Qt.MaximizeUsingFullscreenGeometryHint
 
     Component.onCompleted: {
         Vremenar.startCompleted()

@@ -16,7 +16,7 @@ import Vremenar.Common 1.0
 Item {
     property alias title: textTitle.text
 
-    height: UI.navBarHeight
+    height: UI.navBarHeight + UI.safetyMarginTop
     clip: true
 
     CommonBlur {
@@ -41,7 +41,10 @@ Item {
 
     RowLayout {
         spacing: 0
-        anchors.fill: parent
+        anchors {
+            fill: parent
+            topMargin: UI.safetyMarginTop
+        }
 
         TextCommon {
             id: textTitle

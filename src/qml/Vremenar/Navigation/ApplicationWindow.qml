@@ -15,6 +15,7 @@ import Vremenar.Common 1.0
 
 Controls.ApplicationWindow {
     id: app
+
     property Controls.ApplicationWindow applicationWindow : app
     property bool ready: false
 
@@ -27,9 +28,6 @@ Controls.ApplicationWindow {
         hide()
         close.accepted = false
     }
-
-    onWidthChanged: UI.primaryWindowSizeChanged(width, height)
-    onHeightChanged: UI.primaryWindowSizeChanged(width, height)
 
     Component.onCompleted: {
         if (Settings.rememberSize) {

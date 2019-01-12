@@ -21,6 +21,11 @@ macx {
     LIBS += -weak_framework ApplicationServices -weak_framework Cocoa
 }
 
+ios {
+    # Private module for the safe area margins
+    QT += gui-private
+}
+
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
 # depend on your compiler).

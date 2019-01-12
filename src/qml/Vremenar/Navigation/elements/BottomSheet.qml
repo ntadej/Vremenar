@@ -15,7 +15,7 @@ import Vremenar.Common 1.0
 Item {
     default property alias contents: content.children
 
-    height: UI.bottomSheetBaseHeight + UI.radiusCommon
+    height: UI.bottomSheetBaseHeight + UI.radiusCommon + UI.safetyMarginBottom
     width: Math.min(parent.width, UI.bottomSheetMaxWidth)
     clip: true
 

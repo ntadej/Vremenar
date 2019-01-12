@@ -10,13 +10,16 @@
 #ifndef VREMENAR_QML_UIMANAGER_H_
 #define VREMENAR_QML_UIMANAGER_H_
 
+#include <QtCore/QMargins>
 #include <QtCore/QObject>
 #include <QtGui/QColor>
-#include <QtGui/QScreen>
-#include <QtQml/QJSEngine>
-#include <QtQml/QQmlEngine>
 
 #include "common/Enums.h"
+
+class QScreen;
+class QJSEngine;
+class QQmlEngine;
+class QWindow;
 
 namespace Vremenar
 {
@@ -57,6 +60,11 @@ class UIManager : public QObject
     Q_PROPERTY(QColor hoverColor READ hoverColor CONSTANT)
     Q_PROPERTY(int hoverDuration READ hoverDuration CONSTANT)
 
+    Q_PROPERTY(int safetyMarginTop READ safetyMarginTop NOTIFY safetyMarginsChanged)
+    Q_PROPERTY(int safetyMarginBottom READ safetyMarginBottom NOTIFY safetyMarginsChanged)
+    Q_PROPERTY(int safetyMarginLeft READ safetyMarginLeft NOTIFY safetyMarginsChanged)
+    Q_PROPERTY(int safetyMarginRight READ safetyMarginRight NOTIFY safetyMarginsChanged)
+
 public:
     UIManager();
 
@@ -91,16 +99,25 @@ public:
     QColor hoverColor() const;
     int hoverDuration() const;
 
+    inline int safetyMarginTop() const { return _currentSafeAreaMargins.top(); }
+    inline int safetyMarginBottom() const { return _currentSafeAreaMargins.bottom(); }
+    inline int safetyMarginLeft() const { return _currentSafeAreaMargins.left(); }
+    inline int safetyMarginRight() const { return _currentSafeAreaMargins.right(); }
+
     static QObject *provider(QQmlEngine *engine,
                              QJSEngine *scriptEngine);
 
-public slots:
-    void primaryWindowSizeChanged(qreal width,
-                                  qreal height);
+signals:
+    void geometryChanged();
+    void safetyMarginsChanged();
 
 private slots:
     void orientationChanged(Qt::ScreenOrientation orientation);
     void primaryScreenChanged(QScreen *screen);
+    void windowWidthChanged(int width);
+    void windowHeightChanged(int height);
+    void windowSizeChanged(int width,
+                           int height);
 
 private:
     static Common::DeviceType getDeviceType();
@@ -112,8 +129,12 @@ private:
 
     QScreen *_currentPrimaryScreen{}; // owned by Qt
     Qt::ScreenOrientation _currentOrientation = Qt::PrimaryOrientation;
-    qreal _currentWidth;
-    qreal _currentHeight;
+    QWindow *_currentWindow{}; // owned by Qt
+
+    int _currentWidth;
+    int _currentHeight;
+    double _currentSizeRatio;
+    QMargins _currentSafeAreaMargins{0, 0, 0, 0};
 };
 
 } // namespace Qml
