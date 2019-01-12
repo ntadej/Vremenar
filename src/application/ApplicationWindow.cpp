@@ -131,19 +131,25 @@ void ApplicationWindow::createWidgets()
 {
     Settings settings(this);
 
-    _settingsDialog = std::make_unique<SettingsDialog>();
     _trayIcon = std::make_unique<TrayIcon>(this);
     _trayIcon->setVisible(settings.showInTray());
 
-    connect(_settingsDialog.get(), &SettingsDialog::localeChanged, _localeManager.get(), &LocaleManager::setLocale);
-    connect(_settingsDialog.get(), &SettingsDialog::showInTrayChanged, _trayIcon.get(), &TrayIcon::setVisible);
     connect(_trayIcon.get(), &TrayIcon::clicked, this, &ApplicationWindow::activate);
+}
+
+void ApplicationWindow::showSettingsDialog()
+{
+    auto dialog = new SettingsDialog();
+    dialog->setAttribute(Qt::WA_DeleteOnClose);
+
+    connect(dialog, &SettingsDialog::localeChanged, _localeManager.get(), &LocaleManager::setLocale);
+    connect(dialog, &SettingsDialog::showInTrayChanged, _trayIcon.get(), &TrayIcon::setVisible);
 
 #ifdef Q_OS_MACOS
-    connect(_settingsDialog.get(), &SettingsDialog::showInDockChanged, this, &ApplicationWindow::dockVisibilityChanged);
+    connect(dialog, &SettingsDialog::showInDockChanged, this, &ApplicationWindow::dockVisibilityChanged);
 #endif
 
-    rootContext()->setContextProperty("VSettings", _settingsDialog.get());
+    dialog->show();
 }
 #endif
 

@@ -42,6 +42,10 @@ public slots:
     void processUrl(const QString &url);
     void startCompleted();
 
+#ifndef VREMENAR_MOBILE
+    void showSettingsDialog();
+#endif
+
 #ifdef Q_OS_MACOS
     void dockClicked();
 
@@ -74,7 +78,6 @@ private:
 
 // Widgets
 #ifndef VREMENAR_MOBILE
-    std::unique_ptr<SettingsDialog> _settingsDialog;
     std::unique_ptr<TrayIcon> _trayIcon;
 #endif
 };

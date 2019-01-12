@@ -17,7 +17,7 @@ MenuBar {
 
         MenuItem {
             text: qsTr("Settings") + VL.R
-            onTriggered: VSettings.show()
+            onTriggered: Vremenar.showSettingsDialog()
         }
 
         MenuItem {
