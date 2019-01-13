@@ -54,6 +54,9 @@ ApplicationWindow::ApplicationWindow(QObject *parent)
 #ifdef Q_OS_MACOS
     _qmlFileSelector->setExtraSelectors({"nativemenu"});
 #endif
+#if defined(Q_OS_IOS) || defined(Q_OS_ANDROID)
+    _qmlFileSelector->setExtraSelectors({"mobile"});
+#endif
 
 #ifndef VREMENAR_MOBILE
     auto *application = qobject_cast<DesktopApplication *>(QCoreApplication::instance());

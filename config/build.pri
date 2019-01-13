@@ -35,7 +35,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 QMAKE_CXXFLAGS += -Wall -Wextra -Wno-unknown-pragmas -pedantic
 
 # Define mobile
-ios {
+ios|android {
     DEFINES += VREMENAR_MOBILE
 }
 
@@ -53,6 +53,8 @@ macx {
     message("Building for platform: macOS")
 } else:ios {
     message("Building for platform: iOS")
+} else:android {
+    message("Building for platform: Android")
 } else {
     error("Unknown platform!")
 }

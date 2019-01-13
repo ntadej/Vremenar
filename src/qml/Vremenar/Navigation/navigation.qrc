@@ -3,11 +3,11 @@
         <file>qmldir</file>
         <file>ApplicationWindow.qml</file>
         <file>ApplicationWindowMobile.qml</file>
-        <file>+ios/ApplicationWindow.qml</file>
         <file>NavigationStack.qml</file>
         <file>Page.qml</file>
         <file>elements/NavBar.qml</file>
         <file>elements/BottomSheet.qml</file>
         <file>elements/DialogBlur.qml</file>
+        <file>+mobile/ApplicationWindow.qml</file>
     </qresource>
 </RCC>

@@ -18,12 +18,12 @@ include($$top_srcdir/config/build.pri)
 include($$top_srcdir/config/platform.pri)
 
 # Disabled for mobile for now
-!ios {
+macx {
     include($$top_srcdir/config/i18n.pri)
 }
 
 # Add QML imports
-QML_IMPORT_PATH = src/qml
+QML_IMPORT_PATH = $$top_srcdir/src/qml
 
 # Define sources and headers
 INCLUDEPATH += src
@@ -122,7 +122,7 @@ macx {
 }
 
 # Mobile specific
-ios {
+ios|android {
     SOURCES += \
         src/application/MobileApplication.cpp
 
@@ -173,7 +173,7 @@ OTHER_FILES += \
     src/qml/Vremenar/Maps/elements/*.qml \
     src/qml/Vremenar/Navigation/qmldir \
     src/qml/Vremenar/Navigation/*.qml \
-    src/qml/Vremenar/Navigation/+ios/*.qml \
+    src/qml/Vremenar/Navigation/+mobile/*.qml \
     src/qml/Vremenar/Navigation/elements/*.qml \
     src/qml/Vremenar/Weather/qmldir \
     src/qml/Vremenar/Weather/*.qml
@@ -183,7 +183,7 @@ OTHER_FILES += \
     src/Config.h.in
 
 # Disabled on mobile for now
-!ios {
+macx {
     RESOURCES += \
         $$top_builddir/i18n.qrc
 }
