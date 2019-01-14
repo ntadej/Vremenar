@@ -151,8 +151,8 @@ RESOURCES += \
     src/qml/Vremenar/Common/fonts.qrc \
     src/qml/Vremenar/Maps/maps.qrc \
     src/qml/Vremenar/Navigation/navigation.qrc \
-    resources/icons/icons.qrc \
-    resources/logo/desktop/logo.qrc
+    resources/Common/graphics.qrc \
+    resources/icons/icons.qrc
 
 # Define QML files
 OTHER_FILES += \

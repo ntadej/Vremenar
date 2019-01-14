@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/Vremenar/Logo">
+        <file>logo_tray.svg</file>
+    </qresource>
+</RCC>
