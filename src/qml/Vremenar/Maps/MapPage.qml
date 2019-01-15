@@ -34,23 +34,17 @@ MapPageBase {
         activeMapType: supportedMapTypes[5]
         plugin: mapPlugin
         zoomLevel: 8
-        center: VLocation.position
-
-        CurrentLocationIndicator {
-        }
+        center: VLocation.position.isValid ? VLocation.position : VLocation.initial
 
         MapItemView {
             id: mapItemView
             model: VMapLayersModel
-            delegate: mapLayerDelegate
-        }
-
-        Component {
-            id: mapLayerDelegate
-
-            MapImageDelegate {
+            delegate: MapImageDelegate {
                 timestamp: mapSlider.value
             }
+        }
+
+        CurrentLocationIndicator {
         }
     }
 

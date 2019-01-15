@@ -21,6 +21,7 @@ namespace Vremenar
 class LocationProvider : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(QGeoCoordinate initial READ initialPosition CONSTANT)
     Q_PROPERTY(QGeoCoordinate position READ currentPosition NOTIFY positionChanged)
     Q_PROPERTY(QString location READ currentLocation NOTIFY locationChanged)
 public:
@@ -29,6 +30,7 @@ public:
 
     static QString mapboxAPIToken();
 
+    QGeoCoordinate initialPosition() const;
     QGeoCoordinate currentPosition() const;
     QString currentLocation() const;
 
@@ -50,6 +52,7 @@ private:
     std::unique_ptr<QGeoPositionInfoSource> _position;
     std::unique_ptr<QGeoServiceProvider> _provider;
 
+    QGeoPositionInfo _initialPosition;
     QGeoPositionInfo _currentPosition;
     QGeoLocation _currentLocation;
 };

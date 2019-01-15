@@ -20,7 +20,8 @@ namespace Vremenar
 {
 
 LocationProvider::LocationProvider(QObject *parent)
-    : QObject(parent)
+    : QObject(parent),
+      _initialPosition(QGeoCoordinate(46.119944, 14.815333), QDateTime::currentDateTime())
 {
     QMap<QString, QVariant> params;
     params["osm.useragent"] = Vremenar::name() + " " + Vremenar::version();
@@ -44,6 +45,11 @@ LocationProvider::LocationProvider(QObject *parent)
     } else {
         qWarning() << "Positioning source could not be initialised.";
     }
+}
+
+QGeoCoordinate LocationProvider::initialPosition() const
+{
+    return _initialPosition.coordinate();
 }
 
 QGeoCoordinate LocationProvider::currentPosition() const
