@@ -11,9 +11,9 @@
 QT += sql
 
 DISTFILES += \
-    $$top_srcdir/resources/Android/AndroidManifest.xml \
-    $$top_srcdir/resources/Android/res/values/libs.xml \
-    $$top_srcdir/resources/Android/build.gradle
+    $$top_srcdir/resources/Android/output/AndroidManifest.xml \
+    $$top_srcdir/resources/Android/output/res/values/libs.xml \
+    $$top_srcdir/resources/Android/output/build.gradle
 
 ANDROID_PACKAGE_SOURCE_DIR = \
-        $$top_srcdir/resources/Android
+        $$top_srcdir/resources/Android/output
