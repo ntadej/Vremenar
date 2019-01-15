@@ -2,7 +2,7 @@
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 OUT=$DIR/../resources/Android
-OUT_res=$OUT/res
+OUT_res=$OUT/output/res
 OUT_gen=$OUT/generated/res
 
 # Android logo
@@ -30,3 +30,12 @@ done
 inkscape -z --export-png $OUT/generated/shape.png -a $area -w 512 $DIR/shape.svg
 magick composite -gravity center $OUT/generated/shape.png $OUT/generated/ic_launcher-web.png $OUT/ic_launcher-web.png
 rm $OUT/generated/shape.png
+
+# TV
+inkscape -z --export-png $OUT_gen/background.png -w 320 -h 180 $DIR/background_square.svg
+inkscape -z --export-png $OUT_gen/shape.png -a 80:80:520:520 -w 180 $DIR/shape.svg
+
+echo magick composite -gravity center $OUT_gen/shape.png $OUT_gen/background.png $OUT_res/drawable/tv_banner.png
+magick composite -gravity center $OUT_gen/shape.png $OUT_gen/background.png $OUT_res/drawable/tv_banner.png
+
+rm $OUT_gen/shape.png $OUT_gen/background.png

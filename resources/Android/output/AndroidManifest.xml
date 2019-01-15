@@ -5,8 +5,16 @@
     android:versionCode="1"
     android:versionName="1.0">
 
+    <uses-feature
+        android:name="android.hardware.touchscreen"
+        android:required="false"/>
+    <uses-feature
+        android:name="android.software.leanback"
+        android:required="true"/>
+
     <application
         android:allowBackup="true"
+        android:banner="@drawable/tv_banner"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
         android:label="-- %%INSERT_APP_NAME%% --" android:name="org.qtproject.qt5.android.bindings.QtApplication"
@@ -21,6 +29,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
             </intent-filter>
 
             <!-- Application arguments -->
