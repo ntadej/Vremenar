@@ -34,30 +34,45 @@ ios {
 
 # Define resources
 RESOURCES += \
-    src/qml/qml.qrc \
     src/qml/Vremenar/vremenar.qrc \
     src/qml/Vremenar/Common/common.qrc \
     src/qml/Vremenar/Common/fonts.qrc \
     src/qml/Vremenar/Maps/maps.qrc \
     src/qml/Vremenar/Navigation/navigation.qrc
 
+# Desktop resources
+macx {
+    RESOURCES += \
+        src/qml/Vremenar/Desktop/desktop.qrc
+}
+
+# Mobile resources
+ios|android {
+    RESOURCES += \
+        src/qml/Vremenar/Mobile/mobile.qrc
+}
+
 # Define QML files
 OTHER_FILES += \
-    src/qml/main.qml \
+    src/qml/Vremenar/main.qml \
     src/qml/Vremenar/Common/qmldir \
     src/qml/Vremenar/Common/*.qml \
     src/qml/Vremenar/Common/components/*.qml \
     src/qml/Vremenar/Common/fonts/*.js \
     src/qml/Vremenar/Common/fonts/*.qml \
     src/qml/Vremenar/Common/fonts/Ionicons/*.js \
-    src/qml/Vremenar/Common/menus/*.qml \
-    src/qml/Vremenar/Common/menus/+custommenu/*.qml \
-    src/qml/Vremenar/Common/menus/+nativemenu/*.qml \
     src/qml/Vremenar/Common/views/*.qml \
     src/qml/Vremenar/Common/text/*.qml \
+    src/qml/Vremenar/Desktop/qmldir \
+    src/qml/Vremenar/Desktop/*.qml \
+    src/qml/Vremenar/Desktop/menus/*.qml \
+    src/qml/Vremenar/Desktop/menus/+custommenu/*.qml \
+    src/qml/Vremenar/Desktop/menus/+nativemenu/*.qml \
     src/qml/Vremenar/Maps/qmldir \
     src/qml/Vremenar/Maps/*.qml \
     src/qml/Vremenar/Maps/elements/*.qml \
+    src/qml/Vremenar/Mobile/qmldir \
+    src/qml/Vremenar/Mobile/*.qml \
     src/qml/Vremenar/Navigation/qmldir \
     src/qml/Vremenar/Navigation/*.qml \
     src/qml/Vremenar/Navigation/+mobile/*.qml \

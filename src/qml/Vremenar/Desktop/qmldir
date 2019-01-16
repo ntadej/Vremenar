@@ -1,0 +1,3 @@
+module Vremenar.Desktop
+
+ApplicationWindow 1.0 ApplicationWindow.qml

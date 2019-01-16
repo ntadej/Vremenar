@@ -1,6 +1,6 @@
 module Vremenar.Navigation
 
-ApplicationWindow 1.0 ApplicationWindow.qml
+MainWindow 1.0 MainWindow.qml
 NavigationStack 1.0 NavigationStack.qml
 NavigationPage 1.0 Page.qml
 

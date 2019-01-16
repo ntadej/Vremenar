@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/Vremenar/Desktop">
+        <file>qmldir</file>
+        <file>ApplicationWindow.qml</file>
+        <file>MainMenu.qml</file>
+        <file>+custommenu/MainMenu.qml</file>
+        <file>+nativemenu/MainMenu.qml</file>
+    </qresource>
+</RCC>
