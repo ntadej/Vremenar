@@ -6,6 +6,8 @@
 # Version 3 or later as well as Mozilla Public License Version 2.
 # Refer to the LICENSE.md file for details.
 #
+# SPDX-License-Identifier: (GPL-3.0-or-later AND MPL-2.0)
+#
 
 TARGET = Vremenar
 CONFIG += qt
@@ -16,11 +18,6 @@ lessThan(QT_MINOR_VERSION, 12): error("Requires Qt 5.12 or later!")
 include($$top_srcdir/config/version.pri)
 include($$top_srcdir/config/build.pri)
 include($$top_srcdir/config/platform.pri)
-
-# Disabled for mobile for now
-macx {
-    include($$top_srcdir/config/i18n.pri)
-}
 
 # Add QML imports
 QML_IMPORT_PATH = $$top_srcdir/src/qml
@@ -182,8 +179,4 @@ OTHER_FILES += \
 OTHER_FILES += \
     src/Config.h.in
 
-# Disabled on mobile for now
-macx {
-    RESOURCES += \
-        $$top_builddir/i18n.qrc
 }

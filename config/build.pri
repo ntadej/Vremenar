@@ -39,6 +39,9 @@ ios|android {
     DEFINES += VREMENAR_MOBILE
 }
 
+# Internationalisation
+include($$top_srcdir/config/i18n.pri)
+
 # Custom config
 include($$top_srcdir/config.pri)
 
