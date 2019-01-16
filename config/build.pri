@@ -7,6 +7,10 @@
 # Refer to the LICENSE.md file for details.
 #
 
+CONFIG += qt
+
+lessThan(QT_MINOR_VERSION, 12): error("Requires Qt 5.12 or later!")
+
 # Use C++14
 CONFIG += c++14
 
@@ -15,15 +19,9 @@ QT += qml quick
 QT += location positioning
 QT += quickcontrols2
 
+# Desktop dependencies
 macx {
     QT += widgets
-    QT += macextras
-    LIBS += -weak_framework ApplicationServices -weak_framework Cocoa
-}
-
-ios {
-    # Private module for the safe area margins
-    QT += gui-private
 }
 
 # The following define makes your compiler emit warnings if you use
@@ -34,22 +32,11 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # All warnings
 QMAKE_CXXFLAGS += -Wall -Wextra -Wno-unknown-pragmas -pedantic
 
-# Define mobile
-ios|android {
-    DEFINES += VREMENAR_MOBILE
-}
-
 # Internationalisation
 include($$top_srcdir/config/i18n.pri)
 
 # Custom config
 include($$top_srcdir/config.pri)
-
-ConfigFile.input = $$top_srcdir/src/Config.h.in
-ConfigFile.output = $$OUT_PWD/Config.h
-QMAKE_SUBSTITUTES += ConfigFile
-
-HEADERS += $$ConfigFile.output
 
 # Config summary
 macx {

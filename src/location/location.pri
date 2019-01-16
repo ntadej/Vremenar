@@ -9,14 +9,8 @@
 # SPDX-License-Identifier: (GPL-3.0-or-later AND MPL-2.0)
 #
 
-TARGET = Vremenar
+SOURCES += \
+    src/location/LocationProvider.cpp
 
-# Common configuration
-include($$top_srcdir/config/version.pri)
-include($$top_srcdir/config/build.pri)
-include($$top_srcdir/config/platform.pri)
-
-# Add sources
-include($$top_srcdir/src/src.pri)
-
-}
+ HEADERS += \
+    src/location/LocationProvider.h
