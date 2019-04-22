@@ -118,7 +118,6 @@ void DesktopApplication::setupTitleBarLessWindow(WId winId)
 
     [nativeWindow setStyleMask:[nativeWindow styleMask] | NSFullSizeContentViewWindowMask | NSWindowTitleHidden];
     [nativeWindow setTitlebarAppearsTransparent:YES];
-    [nativeWindow setMovableByWindowBackground:YES];
 }
 
 void DesktopApplication::dockClickedCallback()
