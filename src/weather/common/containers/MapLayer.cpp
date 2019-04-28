@@ -43,7 +43,7 @@ QVariant MapLayer::data(int role) const
     case TimeRole:
         return time();
     case TimestampRole:
-        return time().toSecsSinceEpoch();
+        return time().toMSecsSinceEpoch();
     case UrlRole:
         return url();
     case MinLatitude:
