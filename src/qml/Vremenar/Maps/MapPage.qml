@@ -44,7 +44,7 @@ MapPageBase {
             id: mapItemView
             model: VMapLayersModel
             delegate: MapImageDelegate {
-                timestamp: mapSlider.value
+                timestamp: mapControls.slider.value
             }
         }
 
@@ -52,18 +52,7 @@ MapPageBase {
         }
     }
 
-    bottomSheetContents: Slider {
-        id: mapSlider
-        from: VMapLayersModel.minTimestamp
-        to: VMapLayersModel.maxTimestamp
-        stepSize: VMapLayersModel.stepTimestamp
-        value: VMapLayersModel.maxTimestamp
-        snapMode: Slider.SnapAlways
-
-        anchors {
-            top: parent.top
-            left: parent.left
-            right: parent.right
-        }
+    bottomSheetContents: MapControls {
+        id: mapControls
     }
 }

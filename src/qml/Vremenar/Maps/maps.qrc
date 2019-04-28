@@ -8,5 +8,6 @@
         <file>MapPageBase.qml</file>
         <file>MapPage.qml</file>
         <file>elements/MapSettingsDialog.qml</file>
+        <file>MapControls.qml</file>
     </qresource>
 </RCC>

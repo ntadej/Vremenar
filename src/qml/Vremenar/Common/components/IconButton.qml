@@ -27,8 +27,10 @@ MouseArea {
 
         TextIcon {
             id: textLabel
-            anchors.centerIn: parent
+            anchors.fill: parent
             font.pixelSize: UI.iconSizeCommon
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
             color: UI.textColor
         }
     }

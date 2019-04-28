@@ -23,7 +23,7 @@ int Qml::UIManager::radiusCommon() const { return 10; }
 int Qml::UIManager::rowHeight() const { return 44; }
 int Qml::UIManager::navBarHeight() const { return 44; }
 
-int Qml::UIManager::bottomSheetBaseHeight() const { return 66; }
+int Qml::UIManager::bottomSheetBaseHeight() const { return 44; }
 int Qml::UIManager::bottomSheetMaxWidth() const { return 640; }
 
 } // namespace Vremenar
