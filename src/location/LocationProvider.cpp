@@ -41,7 +41,8 @@ LocationProvider::LocationProvider(QObject *parent)
         connect(_position.get(), SIGNAL(error(QGeoPositionInfoSource::Error)),
                 this, SLOT(positionError(QGeoPositionInfoSource::Error)));
         connect(_position.get(), SIGNAL(updateTimeout()), this, SLOT(positionTimeout()));
-        _position->requestUpdate(15000);
+
+        _position->requestUpdate();
     } else {
         qWarning() << "Positioning source could not be initialised.";
     }

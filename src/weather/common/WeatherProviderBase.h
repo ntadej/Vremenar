@@ -27,6 +27,9 @@ public:
                                  QObject *parent = nullptr);
     virtual ~WeatherProviderBase();
 
+    Q_PROPERTY(float minZoomLevel READ minZoomLevel CONSTANT)
+    Q_PROPERTY(float maxZoomLevel READ maxZoomLevel CONSTANT)
+
     inline MapInfoModel *mapInfo() { return _mapInfoModel.get(); }
     inline MapLayersProxyModel *mapLayers() { return _mapLayersProxyModel.get(); }
 
@@ -35,6 +38,8 @@ public:
     virtual void requestMapLayers(Weather::MapType type) = 0;
 
     virtual const std::vector<Weather::MapType> &supportedMapTypes() const = 0;
+    virtual float minZoomLevel() const = 0;
+    virtual float maxZoomLevel() const = 0;
 
 protected:
     std::unique_ptr<MapInfoModel> _mapInfoModel;

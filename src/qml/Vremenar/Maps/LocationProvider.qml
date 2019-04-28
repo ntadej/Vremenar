@@ -22,8 +22,4 @@ Plugin {
         name: "mapboxgl.access_token"
         value: Globals.mapboxAPIToken
     }
-    PluginParameter {
-        name: "mapboxgl.mapping.items.insert_before"
-        value: "housenum-label"
-    }
 }

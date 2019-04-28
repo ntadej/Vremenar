@@ -36,6 +36,10 @@ MapPageBase {
         zoomLevel: 8
         center: VLocation.position.isValid ? VLocation.position : VLocation.initial
 
+        minimumZoomLevel: VWeather.minZoomLevel
+        maximumZoomLevel: VWeather.maxZoomLevel
+        maximumTilt: 0
+
         MapItemView {
             id: mapItemView
             model: VMapLayersModel
