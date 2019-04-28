@@ -26,11 +26,12 @@ Item {
             height: UI.buttonMapSize
 
             IconButton {
-                icon: "ios-play"
+                id: buttonPlay
+                icon: mapSlider.running ? "ios-pause" : "ios-play"
                 family: "Ionicons"
                 width: UI.buttonMapSize
 
-                onClicked: console.log("play")
+                onClicked: mapSlider.play()
             }
 
             Item {
@@ -38,11 +39,12 @@ Item {
             }
 
             IconButton {
+                id: buttonPrevious
                 icon: "ios-rewind"
                 family: "Ionicons"
                 width: UI.buttonMapSize
 
-                onClicked: console.log("back")
+                onClicked: mapSlider.previous()
             }
 
             TextCommon {
@@ -55,11 +57,12 @@ Item {
             }
 
             IconButton {
+                id: buttonNext
                 icon: "ios-fastforward"
                 family: "Ionicons"
                 width: UI.buttonMapSize
 
-                onClicked: console.log("forward")
+                onClicked: mapSlider.next()
             }
 
             Item {
@@ -67,6 +70,7 @@ Item {
             }
 
             IconButton {
+                id: buttonInfo
                 icon: "ios-information-circle-outline"
                 family: "Ionicons"
                 width: UI.buttonMapSize
@@ -83,10 +87,59 @@ Item {
             value: VMapLayersModel.maxTimestamp
             snapMode: Slider.SnapAlways
 
+            property alias running: mapSliderTimer.running
             property date timestamp: new Date()
 
             onValueChanged: {
                 timestamp = new Date(value)
+            }
+
+            Timer {
+                id: mapSliderTimer
+                interval: 300; running: false; repeat: true
+                onTriggered: mapSlider.next(true)
+            }
+
+            function play() {
+                mapSliderTimer.running = !mapSliderTimer.running
+            }
+
+            function previous() {
+                mapSliderTimer.running = false
+
+                decrease()
+            }
+
+            function next(fromTimer = false) {
+                if (!fromTimer) mapSliderTimer.running = false
+
+                if (fromTimer && value == to) {
+                    value = from
+                } else {
+                    increase()
+                }
+            }
+
+            Shortcut {
+                sequence: "Space"
+                onActivated: {
+                    buttonPlay.downAnimation()
+                    mapSlider.play()
+                }
+            }
+            Shortcut {
+                sequence: "Left"
+                onActivated: {
+                    buttonPrevious.downAnimation()
+                    mapSlider.previous()
+                }
+            }
+            Shortcut {
+                sequence: "Right"
+                onActivated: {
+                    buttonNext.downAnimation()
+                    mapSlider.next()
+                }
             }
         }
     }

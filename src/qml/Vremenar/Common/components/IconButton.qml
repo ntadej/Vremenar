@@ -13,6 +13,8 @@ import Vremenar 1.0
 import Vremenar.Common 1.0
 
 MouseArea {
+    id: button
+
     property alias icon: textLabel.icon
     property alias family: textLabel.font.family
 
@@ -59,5 +61,19 @@ MouseArea {
 
     transitions: Transition {
         ColorAnimation { duration: UI.hoverDuration }
+    }
+
+    function downAnimation() {
+        if (containsMouse)
+            return
+
+        state = "down"
+        timer.restart()
+    }
+
+    Timer {
+        id: timer
+        interval: UI.hoverDuration; running: false; repeat: false
+        onTriggered: button.state = ""
     }
 }
