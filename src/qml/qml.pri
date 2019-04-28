@@ -51,31 +51,3 @@ ios|android {
     RESOURCES += \
         src/qml/Vremenar/Mobile/mobile.qrc
 }
-
-# Define QML files
-OTHER_FILES += \
-    src/qml/Vremenar/main.qml \
-    src/qml/Vremenar/Common/qmldir \
-    src/qml/Vremenar/Common/*.qml \
-    src/qml/Vremenar/Common/components/*.qml \
-    src/qml/Vremenar/Common/fonts/*.js \
-    src/qml/Vremenar/Common/fonts/*.qml \
-    src/qml/Vremenar/Common/fonts/Ionicons/*.js \
-    src/qml/Vremenar/Common/views/*.qml \
-    src/qml/Vremenar/Common/text/*.qml \
-    src/qml/Vremenar/Desktop/qmldir \
-    src/qml/Vremenar/Desktop/*.qml \
-    src/qml/Vremenar/Desktop/menus/*.qml \
-    src/qml/Vremenar/Desktop/menus/+custommenu/*.qml \
-    src/qml/Vremenar/Desktop/menus/+nativemenu/*.qml \
-    src/qml/Vremenar/Maps/qmldir \
-    src/qml/Vremenar/Maps/*.qml \
-    src/qml/Vremenar/Maps/elements/*.qml \
-    src/qml/Vremenar/Mobile/qmldir \
-    src/qml/Vremenar/Mobile/*.qml \
-    src/qml/Vremenar/Navigation/qmldir \
-    src/qml/Vremenar/Navigation/*.qml \
-    src/qml/Vremenar/Navigation/+mobile/*.qml \
-    src/qml/Vremenar/Navigation/elements/*.qml \
-    src/qml/Vremenar/Weather/qmldir \
-    src/qml/Vremenar/Weather/*.qml
