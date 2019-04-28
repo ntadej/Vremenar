@@ -18,5 +18,3 @@ include($$top_srcdir/config/platform.pri)
 
 # Add sources
 include($$top_srcdir/src/src.pri)
-
-}

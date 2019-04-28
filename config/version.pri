@@ -9,8 +9,10 @@
 # SPDX-License-Identifier: (GPL-3.0-or-later AND MPL-2.0)
 #
 
-VERSION = $$cat($$top_srcdir/VERSION)
+VERSION = $$cat($$top_srcdir/config/VERSION)
 VERSION_BUILD = $$system(git -C \""$$top_srcdir"\" rev-list --count HEAD)
+
+OTHER_FILES += $$top_srcdir/config/VERSION
 
 message("Building Vremenar version $$VERSION")
 message("Build number: $$VERSION_BUILD")

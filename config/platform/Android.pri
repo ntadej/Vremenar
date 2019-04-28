@@ -20,3 +20,20 @@ DISTFILES += \
 
 ANDROID_PACKAGE_SOURCE_DIR = \
         $$top_srcdir/resources/Android/output
+
+# OpenSSL
+contains(ANDROID_TARGET_ARCH,x86) {
+    ANDROID_EXTRA_LIBS = \
+        $$top_srcdir/3rdparty/openssl-android-x86/libcrypto.so \
+        $$top_srcdir/3rdparty/openssl-android-x86/libssl.so
+}
+contains(ANDROID_TARGET_ARCH,armeabi-v7a) {
+    ANDROID_EXTRA_LIBS = \
+        $$top_srcdir/3rdparty/openssl-android-armeabi-v7a/libcrypto.so \
+        $$top_srcdir/3rdparty/openssl-android-armeabi-v7a/libssl.so
+}
+contains(ANDROID_TARGET_ARCH,arm64-v8a) {
+    ANDROID_EXTRA_LIBS = \
+        $$top_srcdir/3rdparty/openssl-android-arm64-v8a/libcrypto.so \
+        $$top_srcdir/3rdparty/openssl-android-arm64-v8a/libssl.so
+}
