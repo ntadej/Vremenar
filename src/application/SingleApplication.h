@@ -10,6 +10,8 @@
 #ifndef VREMENAR_SINGLEAPPLICATION_H_
 #define VREMENAR_SINGLEAPPLICATION_H_
 
+#include <memory>
+
 #include <QtWidgets/QApplication>
 
 namespace Vremenar

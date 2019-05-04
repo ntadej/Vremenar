@@ -10,6 +10,8 @@
 #ifndef VREMENAR_APPLICATIONWINDOW_H_
 #define VREMENAR_APPLICATIONWINDOW_H_
 
+#include <memory>
+
 #include <QtGui/QWindow>
 #include <QtQml/QQmlApplicationEngine>
 

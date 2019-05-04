@@ -10,6 +10,8 @@
 #ifndef VREMENAR_LISTMODEL_H_
 #define VREMENAR_LISTMODEL_H_
 
+#include <memory>
+
 #include <QtCore/QAbstractListModel>
 #include <QtCore/QList>
 #include <QtCore/QVariant>

@@ -10,6 +10,8 @@
 #ifndef VREMENAR_LOCATIONPROVIDER_H_
 #define VREMENAR_LOCATIONPROVIDER_H_
 
+#include <memory>
+
 #include <QtCore/QObject>
 #include <QtLocation/QGeoCodeReply>
 #include <QtLocation/QGeoServiceProvider>

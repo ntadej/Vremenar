@@ -10,6 +10,8 @@
 #ifndef VREMENAR_NETWORKMANAGER_H_
 #define VREMENAR_NETWORKMANAGER_H_
 
+#include <memory>
+
 #include <QtCore/QTimer>
 #include <QtNetwork/QNetworkAccessManager>
 #include <QtNetwork/QNetworkDiskCache>

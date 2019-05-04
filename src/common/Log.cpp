@@ -7,6 +7,8 @@
 * Refer to the LICENSE.md file for details.
 */
 
+#include <memory>
+
 #include <QtCore/QDateTime>
 #include <QtCore/QDebug>
 #include <QtCore/QFile>

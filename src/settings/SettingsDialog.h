@@ -10,6 +10,8 @@
 #ifndef VREMENAR_SETTINGSDIALOG_H_
 #define VREMENAR_SETTINGSDIALOG_H_
 
+#include <memory>
+
 #include <QtWidgets/QActionGroup>
 #include <QtWidgets/QMainWindow>
 

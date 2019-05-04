@@ -10,6 +10,8 @@
 #ifndef VREMENAR_LOCALSERVER_H_
 #define VREMENAR_LOCALSERVER_H_
 
+#include <memory>
+
 #include <QtNetwork/QLocalServer>
 
 namespace Vremenar

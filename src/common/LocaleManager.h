@@ -10,6 +10,8 @@
 #ifndef VREMENAR_LOCALEMANAGER_H_
 #define VREMENAR_LOCALEMANAGER_H_
 
+#include <memory>
+
 #include <QtCore/QString>
 #include <QtCore/QTranslator>
 
