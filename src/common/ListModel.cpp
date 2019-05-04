@@ -16,10 +16,10 @@
 namespace Vremenar
 {
 
-ListModel::ListModel(const QHash<int, QByteArray> &roleNames,
+ListModel::ListModel(QHash<int, QByteArray> roleNames,
                      QObject *parent)
     : QAbstractListModel(parent),
-      _roleNames(roleNames) {}
+      _roleNames(std::move(roleNames)) {}
 
 int ListModel::rowCount(const QModelIndex &parent) const
 {
@@ -31,8 +31,9 @@ QVariant ListModel::data(const QModelIndex &index,
                          int role) const
 {
     auto i = static_cast<size_t>(index.row());
-    if (index.row() < 0 || i >= _list.size())
+    if (index.row() < 0 || i >= _list.size()) {
         return QVariant();
+    }
     return _list[i]->data(role);
 }
 
@@ -40,8 +41,9 @@ void ListModel::handleItemChange()
 {
     auto *item = qobject_cast<ListItem *>(sender());
     QModelIndex index = indexFromItem(item);
-    if (index.isValid())
+    if (index.isValid()) {
         emit dataChanged(index, index);
+    }
 }
 
 void ListModel::clear()
@@ -52,8 +54,9 @@ void ListModel::clear()
 bool ListModel::removeRow(int row, const QModelIndex &parent)
 {
     Q_UNUSED(parent);
-    if (row < 0 || static_cast<size_t>(row) >= _list.size())
+    if (row < 0 || static_cast<size_t>(row) >= _list.size()) {
         return false;
+    }
     beginRemoveRows(QModelIndex(), row, row);
     _list.erase(_list.begin() + row);
     endRemoveRows();
@@ -64,8 +67,9 @@ bool ListModel::removeRows(int row, int count, const QModelIndex &parent)
 {
     Q_UNUSED(parent);
     int toRemove = row + count;
-    if (row < 0 || static_cast<size_t>(toRemove) > _list.size())
+    if (row < 0 || static_cast<size_t>(toRemove) > _list.size()) {
         return false;
+    }
     beginRemoveRows(QModelIndex(), row, toRemove - 1);
     for (int i = 0; i < count; ++i) {
         _list.erase(_list.begin() + row);
@@ -78,8 +82,9 @@ QModelIndex ListModel::indexFromItem(const ListItem *item) const
 {
     Q_ASSERT(item);
     for (size_t row = 0; row < _list.size(); ++row) {
-        if (_list[row].get() == item)
+        if (_list[row].get() == item) {
             return index(static_cast<int>(row));
+        }
     }
     return {};
 }

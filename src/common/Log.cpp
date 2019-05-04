@@ -44,27 +44,27 @@ void Log::output(QtMsgType type,
 
     QMutexLocker locker(outMutex.get());
 
-    QString debugdate = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss");
+    QString debugdate = QDateTime::currentDateTime().toString(QStringLiteral("yyyy-MM-dd hh:mm:ss"));
     switch (type) {
     case QtInfoMsg:
-        debugdate += " [I]";
+        debugdate += QStringLiteral(" [I]");
         break;
     case QtDebugMsg:
-        debugdate += " [D]";
+        debugdate += QStringLiteral(" [D]");
         break;
     case QtWarningMsg:
-        debugdate += " [W]";
+        debugdate += QStringLiteral(" [W]");
         break;
     case QtCriticalMsg:
-        debugdate += " [C]";
+        debugdate += QStringLiteral(" [C]");
         break;
     case QtFatalMsg:
-        debugdate += " [F]";
+        debugdate += QStringLiteral(" [F]");
     }
-    (*out) << debugdate << " " << msg << endl;
+    (*out) << debugdate << QStringLiteral(" ") << msg << endl;
 
     //#ifdef QT_DEBUG
-    Output(true) << debugdate << " " << msg << endl;
+    Output(true) << debugdate << QStringLiteral(" ") << msg << endl;
     //#endif
 
     if (QtFatalMsg == type) {

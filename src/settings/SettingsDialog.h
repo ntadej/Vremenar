@@ -23,10 +23,7 @@
 #include <QtMacExtras>
 #endif
 
-namespace Ui
-{
-class SettingsDialog;
-}
+#include "ui_SettingsDialog.h"
 
 namespace Vremenar
 {
@@ -36,10 +33,9 @@ class SettingsDialog : public QMainWindow
     Q_OBJECT
 public:
     explicit SettingsDialog(QWidget *parent = nullptr);
-    virtual ~SettingsDialog() final;
 
 protected:
-    virtual void changeEvent(QEvent *e) final;
+    void changeEvent(QEvent *e) final;
 
 signals:
     void localeChanged();

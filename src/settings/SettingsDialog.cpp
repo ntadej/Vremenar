@@ -13,7 +13,6 @@
 #include "settings/Settings.h"
 
 #include "SettingsDialog.h"
-#include "ui_SettingsDialog.h"
 
 namespace Vremenar
 {
@@ -54,8 +53,6 @@ SettingsDialog::SettingsDialog(QWidget *parent)
     readSettings();
     loadLocales();
 }
-
-SettingsDialog::~SettingsDialog() = default;
 
 void SettingsDialog::changeEvent(QEvent *e)
 {
@@ -105,7 +102,7 @@ void SettingsDialog::localeChangedSlot()
 {
     Settings settings(this);
     if (ui->comboLocale->currentIndex() == 0) {
-        settings.setLocale("");
+        settings.setLocale(QString());
     } else {
         settings.setLocale(_locales[ui->comboLocale->currentIndex() - 1]);
     }
@@ -124,7 +121,7 @@ void SettingsDialog::loadLocales()
 
     ui->comboLocale->clear();
     ui->comboLocale->addItem(tr("System default"));
-    for (const QString &locale : _locales) {
+    for (const QString &locale : qAsConst(_locales)) {
         ui->comboLocale->addItem(QLocale(locale).nativeLanguageName());
         if (settings.locale() == locale) {
             ui->comboLocale->setCurrentIndex(ui->comboLocale->count() - 1);

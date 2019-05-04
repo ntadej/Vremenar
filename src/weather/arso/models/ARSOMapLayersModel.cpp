@@ -26,17 +26,17 @@ ARSO::MapLayersModel::MapLayersModel(QObject *parent)
 MapLayer *ARSO::MapLayersModel::createMapLayer(Weather::MapType type,
                                                const QJsonObject &data)
 {
-    QDateTime time = QDateTime::fromString(data["date"].toString(), "yyyyMMddHHmm");
+    QDateTime time = QDateTime::fromString(data[QStringLiteral("date")].toString(), QStringLiteral("yyyyMMddHHmm"));
     time.setTimeSpec(Qt::UTC);
 
-    QUrl url(ARSO::resourcesUrl() + data["path"].toString());
+    QUrl url(ARSO::resourcesUrl() + data[QStringLiteral("path")].toString());
 
-    QStringList c = data["bbox"].toString().split(",");
+    QStringList c = data[QStringLiteral("bbox")].toString().split(QStringLiteral(","));
     QGeoCoordinate topLeft(c[2].toDouble(), c[1].toDouble());
     QGeoCoordinate bottomRight(c[0].toDouble(), c[3].toDouble());
     QGeoRectangle range(topLeft, bottomRight);
 
-    return dynamic_cast<MapLayer *>(appendRow(std::make_unique<MapLayer>(type, time, url, range)));
+    return appendRow(std::make_unique<MapLayer>(type, time, url, range));
 }
 
 void ARSO::MapLayersModel::addMapLayers(Weather::MapType type,

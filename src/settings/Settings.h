@@ -28,7 +28,7 @@ class Settings : public QSettings
     Q_PROPERTY(int posY READ posY CONSTANT)
 
 public:
-    Settings(QObject *parent = nullptr);
+    explicit Settings(QObject *parent = nullptr);
 
     Q_INVOKABLE void readSettings();
     void writeSettings();

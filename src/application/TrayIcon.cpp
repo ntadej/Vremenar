@@ -17,7 +17,7 @@ namespace Vremenar
 TrayIcon::TrayIcon(QObject *parent)
     : QSystemTrayIcon(parent)
 {
-    QIcon icon(":/Vremenar/Logo/logo_tray.svg");
+    QIcon icon(QStringLiteral(":/Vremenar/Logo/logo_tray.svg"));
     icon.setIsMask(true);
 
     setIcon(icon);

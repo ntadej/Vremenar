@@ -1,5 +1,5 @@
 ---
-Checks: 'clang-diagnostic-*,clang-analyzer-*,bugprone-*,cppcoreguidelines-*,google-*,misc-*,modernize-*,performance-*,-cppcoreguidelines-pro-bounds-array-to-pointer-decay,-google-default-arguments,-google-readability-braces-around-statements,-google-readability-todo'
-WarningsAsErrors: 'clang-diagnostic-*,clang-analyzer-*,bugprone-*,cppcoreguidelines-*,google-*,misc-*,modernize-*,performance-*'
+Checks: 'clang-diagnostic-*,clang-analyzer-*,bugprone-*,cppcoreguidelines-*,google-*,misc-*,modernize-*,performance-*,readability-*,-cppcoreguidelines-pro-bounds-array-to-pointer-decay,-google-default-arguments,-google-readability-todo'
+WarningsAsErrors: 'clang-diagnostic-*,clang-analyzer-*,bugprone-*,cppcoreguidelines-*,google-*,misc-*,modernize-*,performance-*,readability-*'
 ...
 

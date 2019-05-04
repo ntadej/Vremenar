@@ -32,14 +32,14 @@ public:
     void setBaseUrl(const QString &url);
     void setCall(const QString &call);
     void setUrl(const QString &url);
-    void setOperation(const QNetworkAccessManager::Operation &operation);
+    void setOperation(QNetworkAccessManager::Operation operation);
     void setExtra(const QVariant &extra);
     void setData(const QJsonObject &data);
 
 private:
     QString _baseUrl;
     QString _call;
-    QNetworkAccessManager::Operation _operation;
+    QNetworkAccessManager::Operation _operation{QNetworkAccessManager::GetOperation};
     QVariant _extra;
     QJsonObject _data;
 };

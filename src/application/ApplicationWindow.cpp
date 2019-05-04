@@ -15,19 +15,14 @@
 #include <QtQml/QQmlFileSelector>
 #include <QtQuick/QQuickWindow>
 
-#include "common/LocaleManager.h"
 #include "common/NetworkManager.h"
-#include "common/NetworkManagerFactory.h"
-#include "location/LocationProvider.h"
 #include "qml/Qml.h"
 #include "settings/Settings.h"
-#include "weather/arso/ARSOWeatherProvider.h"
 #include "weather/common/models/MapInfoModel.h"
 #include "weather/common/models/MapLayersProxyModel.h"
 
 #ifndef VREMENAR_MOBILE
 #include "application/DesktopApplication.h"
-#include "application/TrayIcon.h"
 #include "settings/SettingsDialog.h"
 #endif
 
@@ -47,17 +42,17 @@ ApplicationWindow::ApplicationWindow(QObject *parent)
     createWidgets();
 #endif
 
-    addImportPath("qrc:/");
+    addImportPath(QStringLiteral("qrc:/"));
 
     Qml::registerTypes();
 
     // Custom file selector
     _qmlFileSelector = new QQmlFileSelector(this);
 #ifdef Q_OS_MACOS
-    _qmlFileSelector->setExtraSelectors({"nativemenu"});
+    _qmlFileSelector->setExtraSelectors({QStringLiteral("nativemenu")});
 #endif
 #if defined(Q_OS_IOS) || defined(Q_OS_ANDROID)
-    _qmlFileSelector->setExtraSelectors({"mobile"});
+    _qmlFileSelector->setExtraSelectors({QStringLiteral("mobile")});
 #endif
 
 #ifndef VREMENAR_MOBILE
@@ -77,13 +72,11 @@ ApplicationWindow::ApplicationWindow(QObject *parent)
     setNetworkAccessManagerFactory(_networkFactory.get());
     load(QUrl(QStringLiteral("qrc:/Vremenar/main.qml")));
 
-    _qmlMainWindow = qobject_cast<QQuickWindow *>(rootObjects().first());
+    _qmlMainWindow = qobject_cast<QQuickWindow *>(rootObjects().constFirst());
 #ifdef Q_OS_MACOS
     application->setupTitleBarLessWindow(_qmlMainWindow->winId());
 #endif
 }
-
-ApplicationWindow::~ApplicationWindow() = default;
 
 void ApplicationWindow::activate()
 {
@@ -102,8 +95,9 @@ void ApplicationWindow::dockClicked()
 void ApplicationWindow::writeSettingsStartup()
 {
     if (_qmlMainWindow->visibility() == QWindow::Maximized
-        || _qmlMainWindow->visibility() == QWindow::FullScreen)
+        || _qmlMainWindow->visibility() == QWindow::FullScreen) {
         return;
+    }
 
     Settings settings(this);
     if (settings.rememberPosition()) {
@@ -122,13 +116,13 @@ void ApplicationWindow::createModels()
     _location = std::make_unique<LocationProvider>(this);
     _weatherProvider = std::make_unique<ARSO::WeatherProvider>(_network, this);
 
-    rootContext()->setContextProperty("Vremenar", this);
-    rootContext()->setContextProperty("VL", _localeManager.get());
+    rootContext()->setContextProperty(QStringLiteral("Vremenar"), this);
+    rootContext()->setContextProperty(QStringLiteral("VL"), _localeManager.get());
 
-    rootContext()->setContextProperty("VLocation", _location.get());
-    rootContext()->setContextProperty("VWeather", _weatherProvider.get());
-    rootContext()->setContextProperty("VMapInfoModel", _weatherProvider->mapInfo());
-    rootContext()->setContextProperty("VMapLayersModel", _weatherProvider->mapLayers());
+    rootContext()->setContextProperty(QStringLiteral("VLocation"), _location.get());
+    rootContext()->setContextProperty(QStringLiteral("VWeather"), _weatherProvider.get());
+    rootContext()->setContextProperty(QStringLiteral("VMapInfoModel"), _weatherProvider->mapInfo());
+    rootContext()->setContextProperty(QStringLiteral("VMapLayersModel"), _weatherProvider->mapLayers());
 }
 
 #ifndef VREMENAR_MOBILE
@@ -160,11 +154,13 @@ void ApplicationWindow::showSettingsDialog()
 
 void ApplicationWindow::processUrl(const QString &url)
 {
-    if (url.isEmpty())
+    if (url.isEmpty()) {
         return;
+    }
 
-    if (!url.startsWith("vremenar://"))
+    if (!url.startsWith(QStringLiteral("vremenar://"))) {
         return;
+    }
 
     qDebug() << "Opened URL:" << url;
 }

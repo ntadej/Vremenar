@@ -24,10 +24,10 @@ public:
     explicit DesktopApplication(int &argc,
                                 char **argv);
 
-    void postInit();
+    void postInit() const;
 
     bool eventFilter(QObject *object,
-                     QEvent *event);
+                     QEvent *event) override;
 
 #ifdef Q_OS_MACOS
     void setupDockHandler();

@@ -24,7 +24,6 @@ class LocalServer : public QObject
     Q_OBJECT
 public:
     explicit LocalServer(QObject *parent = nullptr);
-    ~LocalServer() = default;
 
 signals:
     void connected();

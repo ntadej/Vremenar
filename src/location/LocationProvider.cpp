@@ -26,10 +26,10 @@ LocationProvider::LocationProvider(QObject *parent)
       _initialPosition(QGeoCoordinate(46.119944, 14.815333), QDateTime::currentDateTime())
 {
     QMap<QString, QVariant> params;
-    params["osm.useragent"] = Vremenar::name() + " " + Vremenar::version();
+    params[QStringLiteral("osm.useragent")] = Vremenar::name() + " " + Vremenar::version();
 
     _provider = std::make_unique<QGeoServiceProvider>("osm", params);
-    if (_provider->geocodingManager()) {
+    if (_provider->geocodingManager() != nullptr) {
         connect(_provider->geocodingManager(), SIGNAL(finished(QGeoCodeReply *)),
                 this, SLOT(reverseGeocodingFinished(QGeoCodeReply *)));
         connect(_provider->geocodingManager(), SIGNAL(error(QGeoCodeReply *, QGeoCodeReply::Error, QString)),
@@ -72,7 +72,7 @@ void LocationProvider::positionUpdated(const QGeoPositionInfo &info)
     _currentPosition = info;
 
     // Request location info about position
-    if (_provider->geocodingManager()) {
+    if (_provider->geocodingManager() != nullptr) {
         _provider->geocodingManager()->reverseGeocode(info.coordinate());
     } else {
         qWarning() << "No geocoding provider available.";
@@ -103,15 +103,16 @@ void LocationProvider::positionTimeout()
 
 void LocationProvider::reverseGeocodingFinished(QGeoCodeReply *reply)
 {
-    if (!reply->isFinished() || reply->error() != QGeoCodeReply::NoError)
+    if (!reply->isFinished() || reply->error() != QGeoCodeReply::NoError) {
         return;
+    }
 
     if (reply->locations().isEmpty()) {
         _currentLocation = QGeoLocation();
         return;
     }
 
-    _currentLocation = reply->locations().first();
+    _currentLocation = reply->locations().constFirst();
     qDebug() << "Location updated:"
              << _currentLocation.address().street()
              << _currentLocation.address().city();
@@ -130,7 +131,7 @@ void LocationProvider::reverseGeocodingError(QGeoCodeReply *reply,
 
 QString LocationProvider::mapsStyle()
 {
-    return QString(MAPS_ENDPOINT) + "/styles/vremenar/style.json";
+    return QStringLiteral(MAPS_ENDPOINT) + "/styles/vremenar/style.json";
 }
 
 } // namespace Vremenar

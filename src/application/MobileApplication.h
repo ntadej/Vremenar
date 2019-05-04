@@ -24,7 +24,7 @@ public:
     explicit MobileApplication(int &argc,
                                char **argv);
 
-    void postInit();
+    void postInit() const;
 };
 
 } // namespace Vremenar

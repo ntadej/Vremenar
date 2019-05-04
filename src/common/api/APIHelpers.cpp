@@ -20,10 +20,10 @@ QString API::generateParameters(const QVariantMap &map)
     QVariantMap::const_iterator i = map.constBegin();
     while (i != map.constEnd()) {
         if (!out.isEmpty()) {
-            out.append("&");
+            out.append(QStringLiteral("&"));
         }
 
-        out.append(QString("%1=%2").arg(i.key(), i.value().toString()));
+        out.append(QStringLiteral("%1=%2").arg(i.key(), i.value().toString()));
 
         ++i;
     }

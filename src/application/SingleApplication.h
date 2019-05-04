@@ -29,9 +29,8 @@ class SingleApplication : public QApplication
 public:
     explicit SingleApplication(int &argc,
                                char **argv);
-    virtual ~SingleApplication();
 
-    bool shouldContinue();
+    inline bool shouldContinue() const { return _shouldContinue; }
 
 signals:
     void activate();

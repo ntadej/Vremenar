@@ -15,7 +15,7 @@ namespace Vremenar
 {
 
 // Locale
-const QString Settings::DEFAULT_LOCALE = "";
+const QString Settings::DEFAULT_LOCALE = {};
 
 // GUI
 const bool Settings::DEFAULT_SHOW_IN_TRAY = false;

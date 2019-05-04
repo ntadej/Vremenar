@@ -15,21 +15,21 @@ namespace Vremenar
 {
 
 // Locale
-const QString Settings::KEY_LOCALE = "locale";
+const QString Settings::KEY_LOCALE = QStringLiteral("locale");
 
 // GUI
-const QString Settings::KEY_SHOW_IN_TRAY = "gui/tray";
+const QString Settings::KEY_SHOW_IN_TRAY = QStringLiteral("gui/tray");
 #if defined(Q_OS_MACOS)
-const QString Settings::KEY_SHOW_IN_DOCK = "gui/dock";
+const QString Settings::KEY_SHOW_IN_DOCK = QStringLiteral("gui/dock");
 #endif
 
 // GUI - start
-const QString Settings::KEY_REMEMBER_POSITION = "gui/remember-position";
-const QString Settings::KEY_REMEMBER_SIZE = "gui/remember-size";
+const QString Settings::KEY_REMEMBER_POSITION = QStringLiteral("gui/remember-position");
+const QString Settings::KEY_REMEMBER_SIZE = QStringLiteral("gui/remember-size");
 
-const QString Settings::KEY_WIDTH = "gui/width";
-const QString Settings::KEY_HEIGHT = "gui/height";
-const QString Settings::KEY_POS_X = "gui/posx";
-const QString Settings::KEY_POS_Y = "gui/posy";
+const QString Settings::KEY_WIDTH = QStringLiteral("gui/width");
+const QString Settings::KEY_HEIGHT = QStringLiteral("gui/height");
+const QString Settings::KEY_POS_X = QStringLiteral("gui/posx");
+const QString Settings::KEY_POS_Y = QStringLiteral("gui/posy");
 
 } // namespace Vremenar

@@ -29,7 +29,7 @@ DesktopApplication::DesktopApplication(int &argc,
 #endif
 }
 
-void DesktopApplication::postInit()
+void DesktopApplication::postInit() const
 {
     Vremenar::Output::welcome();
 }
@@ -40,14 +40,12 @@ bool DesktopApplication::eventFilter(QObject *object,
     if (event->type() == QEvent::FileOpen) {
         auto *fileEvent = dynamic_cast<QFileOpenEvent *>(event);
         if (!fileEvent->url().isEmpty()) {
+            fileEvent->accept();
             emit urlOpened(fileEvent->url().toString());
-            return false;
-        } else {
-            return QObject::eventFilter(object, event);
         }
-    } else {
-        return QObject::eventFilter(object, event);
     }
+
+    return QObject::eventFilter(object, event);
 }
 
 } // namespace Vremenar

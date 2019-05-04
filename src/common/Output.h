@@ -20,7 +20,7 @@ namespace Vremenar
 class Output : public QTextStream
 {
 public:
-    Output(bool error = false);
+    explicit Output(bool error = false);
 
     Output &operator<<(const QString &string);
 

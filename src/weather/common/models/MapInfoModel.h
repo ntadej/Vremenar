@@ -23,7 +23,6 @@ class MapInfoModel : public ListModel
     Q_OBJECT
 public:
     explicit MapInfoModel(QObject *parent = nullptr);
-    virtual ~MapInfoModel() = default;
 
     void generateModel(const std::vector<Weather::MapType> &supported);
 };

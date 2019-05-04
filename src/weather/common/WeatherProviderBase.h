@@ -14,11 +14,11 @@
 
 #include "common/api/APILoader.h"
 #include "weather/common/Weather.h"
+#include "weather/common/models/MapInfoModel.h"
+#include "weather/common/models/MapLayersProxyModel.h"
 
 namespace Vremenar
 {
-class MapInfoModel;
-class MapLayersProxyModel;
 class NetworkManager;
 
 class WeatherProviderBase : public APILoader
@@ -26,9 +26,8 @@ class WeatherProviderBase : public APILoader
     Q_OBJECT
 public:
     explicit WeatherProviderBase(NetworkManager *network,
-                                 QVariant defaultCoordinates,
+                                 const QVariant &defaultCoordinates,
                                  QObject *parent = nullptr);
-    virtual ~WeatherProviderBase();
 
     Q_PROPERTY(float minZoomLevel READ minZoomLevel CONSTANT)
     Q_PROPERTY(float maxZoomLevel READ maxZoomLevel CONSTANT)

@@ -23,8 +23,7 @@ class ListItem : public QObject
 {
     Q_OBJECT
 public:
-    ListItem(QObject *parent = nullptr) : QObject(parent) {}
-    virtual ~ListItem() {}
+    explicit ListItem(QObject *parent = nullptr) : QObject(parent) {}
 
     inline const QString &id() const { return _id; }
 

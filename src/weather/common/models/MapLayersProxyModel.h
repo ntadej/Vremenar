@@ -50,8 +50,8 @@ signals:
     void timestampChanged();
 
 protected:
-    virtual bool filterAcceptsRow(int sourceRow,
-                                  const QModelIndex &sourceParent) const override;
+    bool filterAcceptsRow(int sourceRow,
+                          const QModelIndex &sourceParent) const override;
 
 private:
     qint64 _time;

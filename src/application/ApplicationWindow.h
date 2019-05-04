@@ -17,29 +17,27 @@
 #include <QtGui/QWindow>
 #include <QtQml/QQmlApplicationEngine>
 
+#include "common/LocaleManager.h"
+#include "common/NetworkManagerFactory.h"
+#include "location/LocationProvider.h"
+#include "weather/arso/ARSOWeatherProvider.h"
+
+#ifndef VREMENAR_MOBILE
+#include "application/TrayIcon.h"
+#endif
+
 class QQmlFileSelector;
 class QQuickWindow;
 
 namespace Vremenar
 {
-class LocaleManager;
-class LocationProvider;
 class NetworkManager;
-class NetworkManagerFactory;
-class SettingsDialog;
-class TrayIcon;
-
-namespace ARSO
-{
-class WeatherProvider;
-}
 
 class ApplicationWindow : public QQmlApplicationEngine
 {
     Q_OBJECT
 public:
     explicit ApplicationWindow(QObject *parent = nullptr);
-    ~ApplicationWindow();
 
 public slots:
     void activate();

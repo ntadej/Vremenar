@@ -28,10 +28,9 @@ class NetworkManager : public QNetworkAccessManager
 {
     Q_OBJECT
 public:
-    NetworkManager(QObject *parent = nullptr);
-    ~NetworkManager() = default;
+    explicit NetworkManager(QObject *parent = nullptr);
 
-    QNetworkReply *request(APIRequestBase &request);
+    QNetworkReply *request(const APIRequestBase &request);
 
 signals:
     void error(QNetworkReply *,

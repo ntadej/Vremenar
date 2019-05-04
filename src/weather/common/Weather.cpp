@@ -18,15 +18,15 @@ QString Weather::mapTypeString(MapType type)
 {
     switch (type) {
     case PrecipitationMap:
-        return "precipitaion";
+        return QStringLiteral("precipitaion");
     case CloudCoverageMap:
-        return "cloud";
+        return QStringLiteral("cloud");
     case WindSpeedMap:
-        return "wind";
+        return QStringLiteral("wind");
     case TemperatureMap:
-        return "temperature";
+        return QStringLiteral("temperature");
     case HailProbabilityMap:
-        return "hail";
+        return QStringLiteral("hail");
     }
 
     return QString();

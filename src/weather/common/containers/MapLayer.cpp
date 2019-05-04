@@ -26,13 +26,7 @@ MapLayer::MapLayer(Weather::MapType type,
     _time = time;
     _url = url;
     _range = range;
-
-    QVariantList list;
-    list.append(QVariant::fromValue(QVariantList({QVariant(range.topLeft().latitude()), QVariant(range.topLeft().longitude())})));
-    list.append(QVariant::fromValue(QVariantList({QVariant(range.topRight().latitude()), QVariant(range.topRight().longitude())})));
-    list.append(QVariant::fromValue(QVariantList({QVariant(range.bottomRight().latitude()), QVariant(range.bottomRight().longitude())})));
-    list.append(QVariant::fromValue(QVariantList({QVariant(range.bottomLeft().latitude()), QVariant(range.bottomLeft().longitude())})));
-    _coordinates = QVariant::fromValue(list);
+    _coordinates = geoRectangleToList(range);
 }
 
 QString MapLayer::display() const
@@ -68,6 +62,16 @@ QVariant MapLayer::data(int role) const
     default:
         return QVariant();
     }
+}
+
+QVariant MapLayer::geoRectangleToList(const QGeoRectangle &rect)
+{
+    QVariantList list{
+        QVariant::fromValue(QVariantList({QVariant(rect.topLeft().latitude()), QVariant(rect.topLeft().longitude())})),
+        QVariant::fromValue(QVariantList({QVariant(rect.bottomRight().latitude()), QVariant(rect.topLeft().longitude())})),
+        QVariant::fromValue(QVariantList({QVariant(rect.bottomRight().latitude()), QVariant(rect.bottomRight().longitude())})),
+        QVariant::fromValue(QVariantList({QVariant(rect.topLeft().latitude()), QVariant(rect.bottomRight().longitude())}))};
+    return QVariant::fromValue(list);
 }
 
 } // namespace Vremenar

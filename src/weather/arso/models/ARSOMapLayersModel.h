@@ -25,11 +25,11 @@ class MapLayersModel : public MapLayersModelBase
 public:
     explicit MapLayersModel(QObject *parent = nullptr);
 
-    virtual MapLayer *createMapLayer(Weather::MapType type,
-                                     const QJsonObject &data) final;
+    MapLayer *createMapLayer(Weather::MapType type,
+                             const QJsonObject &data) final;
 
-    virtual void addMapLayers(Weather::MapType type,
-                              const QJsonArray &data) final;
+    void addMapLayers(Weather::MapType type,
+                      const QJsonArray &data) final;
 };
 
 } // namespace ARSO

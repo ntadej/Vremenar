@@ -23,7 +23,6 @@ class MapLayersModelBase : public ListModel
     Q_OBJECT
 public:
     explicit MapLayersModelBase(QObject *parent = nullptr);
-    virtual ~MapLayersModelBase() = default;
 
     virtual MapLayer *createMapLayer(Weather::MapType type,
                                      const QJsonObject &data)

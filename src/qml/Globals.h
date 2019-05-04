@@ -31,6 +31,8 @@ class Globals : public QObject
     Q_PROPERTY(QString mapsStyle READ mapsStyle CONSTANT)
 
 public:
+    explicit Globals(QObject *parent = nullptr) : QObject(parent) {}
+
     QString name() const;
     QString version() const;
     int build() const;

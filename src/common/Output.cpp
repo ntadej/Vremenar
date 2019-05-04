@@ -33,8 +33,8 @@ Output &Output::operator<<(const QString &string)
 
 void Output::welcome()
 {
-    Output() << QString("%1 %2").arg(Vremenar::name(), Vremenar::version()) << endl
-             << QString("Copyright (C) %1 Tadej Novak").arg(QDate::currentDate().year()) << endl
+    Output() << QStringLiteral("%1 %2").arg(Vremenar::name(), Vremenar::version()) << endl
+             << QStringLiteral("Copyright (C) %1 Tadej Novak").arg(QDate::currentDate().year()) << endl
              << endl;
 }
 

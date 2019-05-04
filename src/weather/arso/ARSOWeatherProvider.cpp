@@ -15,7 +15,6 @@
 
 #include "common/NetworkManager.h"
 #include "weather/arso/api/ARSOAPIMapLayers.h"
-#include "weather/arso/models/ARSOMapLayersModel.h"
 #include "weather/common/models/MapInfoModel.h"
 #include "weather/common/models/MapLayersProxyModel.h"
 
@@ -33,8 +32,6 @@ ARSO::WeatherProvider::WeatherProvider(NetworkManager *network,
     _mapLayersProxyModel->setSourceModel(_mapLayersModel.get());
 }
 
-ARSO::WeatherProvider::~WeatherProvider() = default;
-
 void ARSO::WeatherProvider::requestMapLayers(Weather::MapType type)
 {
     qDebug() << "Requesting map type:" << type;
@@ -46,14 +43,16 @@ void ARSO::WeatherProvider::requestMapLayers(Weather::MapType type)
 
 void ARSO::WeatherProvider::response(QNetworkReply *reply)
 {
-    if (!_currentReplies.contains(reply))
+    if (!_currentReplies.contains(reply)) {
         return;
+    }
 
     QJsonDocument document = QJsonDocument::fromJson(reply->readAll());
-    if (_currentReplies[reply].call() == "/inca_data") {
-        auto type = Weather::MapType(_currentReplies[reply].extra().toInt());
-        if (_mapLayersModel->rowCount())
+    if (_currentReplies[reply].call() == QStringLiteral("/inca_data")) {
+        auto type = Weather::MapType(_currentReplies.value(reply).extra().toInt());
+        if (_mapLayersModel->rowCount() != 0) {
             _mapLayersModel->clear();
+        }
         _mapLayersModel->addMapLayers(type, document.array());
 
         removeResponse(reply);
@@ -62,12 +61,7 @@ void ARSO::WeatherProvider::response(QNetworkReply *reply)
 
 QVariant ARSO::WeatherProvider::defaultMapCoordinates() const
 {
-    QVariantList list;
-    list.append(QVariant::fromValue(QVariantList({QVariant(12.1), QVariant(47.42)})));
-    list.append(QVariant::fromValue(QVariantList({QVariant(17.44), QVariant(47.42)})));
-    list.append(QVariant::fromValue(QVariantList({QVariant(17.44), QVariant(44.67)})));
-    list.append(QVariant::fromValue(QVariantList({QVariant(12.1), QVariant(44.67)})));
-    return QVariant::fromValue(list);
+    return MapLayer::geoRectangleToList(QGeoRectangle(QGeoCoordinate(12.1, 47.42), QGeoCoordinate(17.44, 44.67)));
 }
 
 } // namespace Vremenar

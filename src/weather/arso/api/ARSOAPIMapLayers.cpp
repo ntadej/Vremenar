@@ -19,24 +19,24 @@ ARSO::APIRequest ARSO::mapLayers(Weather::MapType type)
     QString id;
     switch (type) {
     case Weather::PrecipitationMap:
-        id = "inca_precip_data";
+        id = QStringLiteral("inca_precip_data");
         break;
     case Weather::CloudCoverageMap:
-        id = "inca_cloud_data";
+        id = QStringLiteral("inca_cloud_data");
         break;
     case Weather::WindSpeedMap:
-        id = "inca_wind_data";
+        id = QStringLiteral("inca_wind_data");
         break;
     case Weather::TemperatureMap:
-        id = "inca_t2m_data";
+        id = QStringLiteral("inca_t2m_data");
         break;
     case Weather::HailProbabilityMap:
-        id = "inca_hail_data";
+        id = QStringLiteral("inca_hail_data");
         break;
     }
 
     APIRequest request;
-    request.setCall("/inca_data");
+    request.setCall(QStringLiteral("/inca_data"));
     request.setUrl("/" + id + "/");
     request.setExtra(type);
 

@@ -18,7 +18,7 @@ namespace Vremenar
 
 QString name()
 {
-    return "Vremenar";
+    return QStringLiteral("Vremenar");
 }
 
 QString executable()
@@ -32,7 +32,7 @@ QString executable()
 
 QString domain()
 {
-    return "tano.si";
+    return QStringLiteral("tano.si");
 }
 
 QString localServer()
@@ -42,7 +42,7 @@ QString localServer()
 
 QString version()
 {
-    return QString(VREMENAR_VERSION);
+    return QStringLiteral(VREMENAR_VERSION);
 }
 
 int build()

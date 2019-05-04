@@ -24,8 +24,7 @@ namespace Vremenar
 
 LocaleManager::LocaleManager(QObject *parent)
     : QObject(parent),
-      _translator(std::make_unique<QTranslator>()),
-      _locale("")
+      _translator(std::make_unique<QTranslator>())
 {
     QCoreApplication::installTranslator(_translator.get());
     setLocale();
@@ -38,12 +37,13 @@ LocaleManager::~LocaleManager()
 
 QStringList LocaleManager::loadLocales()
 {
-    QDir dir(":/i18n/");
+    QDir dir(QStringLiteral(":/i18n/"));
     QStringList list;
     list << QLocale(QLocale::English, QLocale::UnitedStates).name();
 
-    for (const QString &fileName : dir.entryList(QDir::AllEntries)) {
-        if (fileName.contains(".qm")) {
+    const QStringList entryList = dir.entryList(QDir::AllEntries);
+    for (const QString &fileName : entryList) {
+        if (fileName.contains(QStringLiteral(".qm"))) {
             list << localeName(fileName);
         }
     }
@@ -56,10 +56,11 @@ QString LocaleManager::localeName(const QString &file)
     QLocale locale = QLocale(file);
     QString name = locale.name();
     QString f = file;
-    f = f.replace(".qm", "");
+    f = f.remove(QStringLiteral(".qm"));
 
-    if (name != f)
+    if (name != f) {
         name = f;
+    }
 
     return name;
 }

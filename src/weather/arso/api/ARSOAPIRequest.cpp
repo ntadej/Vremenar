@@ -17,7 +17,6 @@ namespace Vremenar
 {
 
 ARSO::APIRequest::APIRequest()
-    : APIRequestBase()
 {
     setBaseUrl(ARSO::apiUrl());
 }

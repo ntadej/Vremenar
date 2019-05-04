@@ -46,11 +46,4 @@ SingleApplication::SingleApplication(int &argc,
 #endif
 }
 
-SingleApplication::~SingleApplication() = default;
-
-bool SingleApplication::shouldContinue()
-{
-    return _shouldContinue;
-}
-
 } // namespace Vremenar

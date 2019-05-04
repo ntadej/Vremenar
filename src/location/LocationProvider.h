@@ -30,7 +30,6 @@ class LocationProvider : public QObject
     Q_PROPERTY(QString location READ currentLocation NOTIFY locationChanged)
 public:
     explicit LocationProvider(QObject *parent = nullptr);
-    ~LocationProvider() = default;
 
     static QString mapsStyle();
 

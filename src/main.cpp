@@ -28,8 +28,9 @@ int main(int argc, char *argv[])
     Vremenar::DesktopApplication instance(argc, argv);
 
     // Is another instance of the program is already running
-    if (!instance.shouldContinue())
+    if (!instance.shouldContinue()) {
         return 0;
+    }
 #endif
 
     instance.postInit();

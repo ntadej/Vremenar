@@ -12,6 +12,7 @@
 #ifndef VREMENAR_ARSOWEATHERPROVIDER_H_
 #define VREMENAR_ARSOWEATHERPROVIDER_H_
 
+#include "weather/arso/models/ARSOMapLayersModel.h"
 #include "weather/common/Weather.h"
 #include "weather/common/WeatherProviderBase.h"
 
@@ -19,7 +20,6 @@ namespace Vremenar
 {
 namespace ARSO
 {
-class MapLayersModel;
 
 class WeatherProvider : public WeatherProviderBase
 {
@@ -27,17 +27,16 @@ class WeatherProvider : public WeatherProviderBase
 public:
     explicit WeatherProvider(NetworkManager *network,
                              QObject *parent = nullptr);
-    virtual ~WeatherProvider() final;
 
-    Q_INVOKABLE virtual void requestMapLayers(Weather::MapType type) final;
+    Q_INVOKABLE void requestMapLayers(Weather::MapType type) final;
 
-    inline virtual const std::vector<Weather::MapType> &supportedMapTypes() const final { return _supportedMapTypes; }
-    inline virtual float minZoomLevel() const final { return 7; }
-    inline virtual float maxZoomLevel() const final { return 10; }
-    virtual QVariant defaultMapCoordinates() const final;
+    inline const std::vector<Weather::MapType> &supportedMapTypes() const final { return _supportedMapTypes; }
+    inline float minZoomLevel() const final { return 7; }
+    inline float maxZoomLevel() const final { return 10; }
+    QVariant defaultMapCoordinates() const final;
 
 protected slots:
-    virtual void response(QNetworkReply *reply) final;
+    void response(QNetworkReply *reply) final;
 
 private:
     const std::vector<Weather::MapType> _supportedMapTypes{

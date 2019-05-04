@@ -20,7 +20,7 @@ MobileApplication::MobileApplication(int &argc,
                                      char **argv)
     : QGuiApplication(argc, argv) {}
 
-void MobileApplication::postInit()
+void MobileApplication::postInit() const
 {
     Output::welcome();
 }

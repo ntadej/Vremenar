@@ -27,17 +27,17 @@ class ListModel : public QAbstractListModel
 {
     Q_OBJECT
 public:
-    ListModel(const QHash<int, QByteArray> &roleNames,
-              QObject *parent = nullptr);
+    explicit ListModel(QHash<int, QByteArray> roleNames,
+                       QObject *parent = nullptr);
 
-    virtual QVariant data(const QModelIndex &index,
-                          int role = Qt::DisplayRole) const override;
-    virtual bool removeRows(int row,
-                            int count,
-                            const QModelIndex &parent = QModelIndex()) override;
-    virtual int rowCount(const QModelIndex &parent = QModelIndex()) const override;
+    QVariant data(const QModelIndex &index,
+                  int role = Qt::DisplayRole) const override;
+    bool removeRows(int row,
+                    int count,
+                    const QModelIndex &parent = QModelIndex()) override;
+    int rowCount(const QModelIndex &parent = QModelIndex()) const override;
 
-    virtual QHash<int, QByteArray> roleNames() const override { return _roleNames; }
+    QHash<int, QByteArray> roleNames() const override { return _roleNames; }
 
     template <class T>
     T *appendRow(std::unique_ptr<T> item)
@@ -72,9 +72,10 @@ public:
     template <class T>
     T *find(const QString &id) const
     {
-        for (const std::unique_ptr<T> &item : _list) {
-            if (item->id() == id)
+        for (const auto &item : _list) {
+            if (item->id() == id) {
                 return qobject_cast<T *>(item.get());
+            }
         }
         return nullptr;
     }

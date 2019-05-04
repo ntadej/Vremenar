@@ -26,8 +26,8 @@ class LocaleManager : public QObject
     Q_PROPERTY(QString R READ retranslateQml NOTIFY localeChanged)
     Q_PROPERTY(QString locale READ locale NOTIFY localeChanged)
 public:
-    LocaleManager(QObject *parent = nullptr);
-    ~LocaleManager();
+    explicit LocaleManager(QObject *parent = nullptr);
+    ~LocaleManager() override;
 
     static QStringList loadLocales();
     static QString localeName(const QString &file);
@@ -39,11 +39,11 @@ public slots:
     void setLocale();
 
 private:
-    inline QString retranslateQml() { return ""; }
-    inline const QString &locale() { return _locale; }
+    inline QString retranslateQml() const { return {}; }
+    inline const QString &locale() const { return _locale; }
 
     std::unique_ptr<QTranslator> _translator;
-    QString _locale;
+    QString _locale{};
 };
 
 } // namespace Vremenar

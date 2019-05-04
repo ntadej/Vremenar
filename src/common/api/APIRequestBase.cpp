@@ -18,8 +18,6 @@ namespace Vremenar
 {
 
 APIRequestBase::APIRequestBase()
-    : QNetworkRequest(),
-      _operation(QNetworkAccessManager::GetOperation)
 {
     setRawHeader("Content-type", "application/json");
 }
@@ -39,7 +37,7 @@ void APIRequestBase::setUrl(const QString &url)
     QNetworkRequest::setUrl(QUrl(_baseUrl + url));
 }
 
-void APIRequestBase::setOperation(const QNetworkAccessManager::Operation &operation)
+void APIRequestBase::setOperation(QNetworkAccessManager::Operation operation)
 {
     _operation = operation;
 }

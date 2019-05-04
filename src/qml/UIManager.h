@@ -68,7 +68,7 @@ class UIManager : public QObject
     Q_PROPERTY(int safetyMarginRight READ safetyMarginRight NOTIFY safetyMarginsChanged)
 
 public:
-    UIManager();
+    explicit UIManager(QObject *parent = nullptr);
 
     QColor colorPrimary() const;
     QColor colorPrimaryLight() const;

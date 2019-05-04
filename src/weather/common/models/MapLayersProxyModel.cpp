@@ -20,7 +20,7 @@ MapLayersProxyModel::MapLayersProxyModel(QVariant defaultCoordinates,
                                          QObject *parent)
     : QSortFilterProxyModel(parent),
       _time(0),
-      _coordinates(defaultCoordinates)
+      _coordinates(std::move(defaultCoordinates))
 {
     connect(this, &MapLayersProxyModel::rowsInserted, this, &MapLayersProxyModel::rowCountChanged);
     connect(this, &MapLayersProxyModel::rowsRemoved, this, &MapLayersProxyModel::rowCountChanged);
@@ -46,24 +46,27 @@ void MapLayersProxyModel::setTimestamp(qint64 time)
 
 qint64 MapLayersProxyModel::minTimestamp() const
 {
-    if (!rowCount())
+    if (rowCount() == 0) {
         return 0;
+    }
 
     return data(index(0, 0), MapLayer::TimeRole).toDateTime().toMSecsSinceEpoch();
 }
 
 qint64 MapLayersProxyModel::maxTimestamp() const
 {
-    if (!rowCount())
+    if (rowCount() == 0) {
         return 0;
+    }
 
     return data(index(rowCount() - 1, 0), MapLayer::TimeRole).toDateTime().toMSecsSinceEpoch();
 }
 
 qint64 MapLayersProxyModel::stepTimestamp() const
 {
-    if (rowCount() < 2)
+    if (rowCount() < 2) {
         return 0;
+    }
 
     qint64 first = data(index(0, 0), MapLayer::TimeRole).toDateTime().toMSecsSinceEpoch();
     qint64 second = data(index(1, 0), MapLayer::TimeRole).toDateTime().toMSecsSinceEpoch();

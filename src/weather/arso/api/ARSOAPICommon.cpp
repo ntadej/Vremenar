@@ -18,12 +18,12 @@ namespace Vremenar
 
 QString ARSO::apiUrl()
 {
-    return QString(ARSO_API_ENDPOINT) + "/api/1.0";
+    return QStringLiteral(ARSO_API_ENDPOINT) + "/api/1.0";
 }
 
 QString ARSO::resourcesUrl()
 {
-    return QString(ARSO_API_RESOURCES);
+    return QStringLiteral(ARSO_API_RESOURCES);
 }
 
 } // namespace Vremenar

@@ -25,18 +25,18 @@
 namespace Vremenar
 {
 
-Qml::UIManager::UIManager()
-    : _device(getDeviceType()),
+Qml::UIManager::UIManager(QObject *parent)
+    : QObject(parent),
+      _device(getDeviceType()),
       _currentWidth(Settings::DEFAULT_WIDTH),
       _currentHeight(Settings::DEFAULT_HEIGHT),
-      _currentSizeRatio(_currentWidth / _currentHeight)
+      _currentSizeRatio(static_cast<double>(_currentWidth) / static_cast<double>(_currentHeight))
 {
+    _currentWindow = QGuiApplication::topLevelWindows().constLast();
+
+    primaryScreenChanged(QGuiApplication::primaryScreen());
+
     auto *application = qobject_cast<QGuiApplication *>(QCoreApplication::instance());
-
-    _currentWindow = application->topLevelWindows().back();
-
-    primaryScreenChanged(application->primaryScreen());
-
     connect(application, &QGuiApplication::primaryScreenChanged, this, &UIManager::primaryScreenChanged);
     connect(_currentWindow, &QWindow::widthChanged, this, &UIManager::windowWidthChanged);
     connect(_currentWindow, &QWindow::heightChanged, this, &UIManager::windowHeightChanged);
@@ -80,7 +80,7 @@ void Qml::UIManager::primaryScreenChanged(QScreen *screen)
 {
     qDebug() << "Primary screen changed" << screen;
 
-    if (_currentPrimaryScreen) {
+    if (_currentPrimaryScreen != nullptr) {
         disconnect(_currentPrimaryScreen, &QScreen::orientationChanged, this, &UIManager::orientationChanged);
     }
 
@@ -108,8 +108,9 @@ void Qml::UIManager::windowHeightChanged(int height)
 void Qml::UIManager::windowSizeChanged(int width,
                                        int height)
 {
-    if (width == _currentWidth && height == _currentHeight)
+    if (width == _currentWidth && height == _currentHeight) {
         return;
+    }
 
     _currentWidth = width;
     _currentHeight = height;

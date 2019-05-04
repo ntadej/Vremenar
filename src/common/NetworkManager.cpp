@@ -27,7 +27,7 @@ NetworkManager::NetworkManager(QObject *parent)
     setCache(_cache.get());
 }
 
-QNetworkReply *NetworkManager::request(APIRequestBase &request)
+QNetworkReply *NetworkManager::request(const APIRequestBase &request)
 {
     qDebug() << "Requesting:" << request.url();
 
@@ -60,11 +60,11 @@ void NetworkManager::httpError(QNetworkReply::NetworkError err)
 void NetworkManager::httpRequestFinished()
 {
     auto *reply = qobject_cast<QNetworkReply *>(QObject::sender());
-    if (reply->error()) {
+    if (reply->error() != QNetworkReply::NoError) {
         return;
-    } else {
-        emit result(reply);
     }
+
+    emit result(reply);
 
     disconnect(reply, qOverload<QNetworkReply::NetworkError>(&QNetworkReply::error), this, &NetworkManager::httpError);
     disconnect(reply, &QNetworkReply::finished, this, &NetworkManager::httpRequestFinished);

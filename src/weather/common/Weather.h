@@ -31,8 +31,8 @@ public:
 
     Q_ENUM(MapType)
 
-    static QString mapTypeString(MapType map);
-    Q_INVOKABLE static QString mapTypeStringLocale(MapType map);
+    static QString mapTypeString(Vremenar::Weather::MapType type);
+    Q_INVOKABLE static QString mapTypeStringLocale(Vremenar::Weather::MapType type);
 };
 
 } // namespace Vremenar

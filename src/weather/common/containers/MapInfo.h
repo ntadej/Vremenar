@@ -34,8 +34,8 @@ public:
                      QObject *parent = nullptr);
 
     // Implemented virtual functions
-    virtual QVariant data(int role) const final;
-    virtual QString display() const final;
+    QVariant data(int role) const final;
+    QString display() const final;
 
     inline Weather::MapType type() const { return _type; }
 

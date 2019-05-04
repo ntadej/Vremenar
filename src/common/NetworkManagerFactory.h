@@ -22,10 +22,9 @@ class NetworkManagerFactory : public QObject, public QQmlNetworkAccessManagerFac
 {
     Q_OBJECT
 public:
-    NetworkManagerFactory(QObject *parent = nullptr);
-    ~NetworkManagerFactory() = default;
+    explicit NetworkManagerFactory(QObject *parent = nullptr);
 
-    virtual QNetworkAccessManager *create(QObject *parent);
+    QNetworkAccessManager *create(QObject *parent) override;
 };
 
 } // namespace Vremenar
