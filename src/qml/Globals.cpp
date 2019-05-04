@@ -20,7 +20,7 @@ QString Qml::Globals::name() const { return Vremenar::name(); }
 QString Qml::Globals::version() const { return Vremenar::version(); }
 int Qml::Globals::build() const { return Vremenar::build(); }
 
-QString Qml::Globals::mapboxAPIToken() const { return LocationProvider::mapboxAPIToken(); }
+QString Qml::Globals::mapsStyle() const { return LocationProvider::mapsStyle(); }
 
 QObject *Qml::Globals::provider(QQmlEngine *engine,
                                 QJSEngine *scriptEngine)

@@ -27,7 +27,7 @@ MapLayer *ARSO::MapLayersModel::createMapLayer(Weather::MapType type,
     QDateTime time = QDateTime::fromString(data["date"].toString(), "yyyyMMddHHmm");
     time.setTimeSpec(Qt::UTC);
 
-    QUrl url(ARSO::baseUrl() + data["path"].toString());
+    QUrl url(ARSO::resourcesUrl() + data["path"].toString());
 
     QStringList c = data["bbox"].toString().split(",");
     QGeoCoordinate topLeft(c[2].toDouble(), c[1].toDouble());

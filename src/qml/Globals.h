@@ -26,14 +26,14 @@ class Globals : public QObject
     Q_PROPERTY(QString version READ version CONSTANT)
     Q_PROPERTY(int build READ build CONSTANT)
 
-    Q_PROPERTY(QString mapboxAPIToken READ mapboxAPIToken CONSTANT)
+    Q_PROPERTY(QString mapsStyle READ mapsStyle CONSTANT)
 
 public:
     QString name() const;
     QString version() const;
     int build() const;
 
-    QString mapboxAPIToken() const;
+    QString mapsStyle() const;
 
     static QObject *provider(QQmlEngine *engine,
                              QJSEngine *scriptEngine);

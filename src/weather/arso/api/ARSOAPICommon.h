@@ -17,8 +17,8 @@ namespace Vremenar
 namespace ARSO
 {
 
-QString baseUrl();
 QString apiUrl();
+QString resourcesUrl();
 
 } // namespace ARSO
 } // namespace Vremenar

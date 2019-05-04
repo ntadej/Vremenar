@@ -14,14 +14,14 @@
 namespace Vremenar
 {
 
-QString ARSO::baseUrl()
-{
-    return QString(ARSO_API_ENDPOINT);
-}
-
 QString ARSO::apiUrl()
 {
-    return baseUrl() + "/api/1.0";
+    return QString(ARSO_API_ENDPOINT) + "/api/1.0";
+}
+
+QString ARSO::resourcesUrl()
+{
+    return QString(ARSO_API_RESOURCES);
 }
 
 } // namespace Vremenar

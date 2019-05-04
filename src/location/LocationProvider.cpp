@@ -126,9 +126,9 @@ void LocationProvider::reverseGeocodingError(QGeoCodeReply *reply,
     qWarning() << "Reverse Geocoding Error:" << error << errorString;
 }
 
-QString LocationProvider::mapboxAPIToken()
+QString LocationProvider::mapsStyle()
 {
-    return QString(MAPBOX_API_TOKEN);
+    return QString(MAPS_ENDPOINT) + "/styles/vremenar/style.json";
 }
 
 } // namespace Vremenar

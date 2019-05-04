@@ -30,7 +30,7 @@ public:
     explicit LocationProvider(QObject *parent = nullptr);
     ~LocationProvider() = default;
 
-    static QString mapboxAPIToken();
+    static QString mapsStyle();
 
     QGeoCoordinate initialPosition() const;
     QGeoCoordinate currentPosition() const;

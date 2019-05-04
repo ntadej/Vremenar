@@ -12,14 +12,10 @@ import QtLocation 5.12
 import Vremenar 1.0
 
 Plugin {
-    preferred: ["mapboxgl", "mapbox"]
+    preferred: ["mapboxgl"]
 
     PluginParameter {
-        name: "mapbox.access_token"
-        value: Globals.mapboxAPIToken
-    }
-    PluginParameter {
-        name: "mapboxgl.access_token"
-        value: Globals.mapboxAPIToken
+        name: "mapboxgl.mapping.additional_style_urls"
+        value: Globals.mapsStyle
     }
 }
