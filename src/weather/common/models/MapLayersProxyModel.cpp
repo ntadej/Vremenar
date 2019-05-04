@@ -14,28 +14,30 @@
 namespace Vremenar
 {
 
-MapLayersProxyModel::MapLayersProxyModel(QObject *parent)
+MapLayersProxyModel::MapLayersProxyModel(QVariant defaultCoordinates,
+                                         QObject *parent)
     : QSortFilterProxyModel(parent),
-      _time(0)
+      _time(0),
+      _coordinates(defaultCoordinates)
 {
     connect(this, &MapLayersProxyModel::rowsInserted, this, &MapLayersProxyModel::rowCountChanged);
     connect(this, &MapLayersProxyModel::rowsRemoved, this, &MapLayersProxyModel::rowCountChanged);
-}
-
-void MapLayersProxyModel::setTime(const QDateTime &time)
-{
-    if (time.toMSecsSinceEpoch() != _time) {
-        _time = time.toMSecsSinceEpoch();
-        invalidateFilter();
-        emit timestampChanged();
-    }
 }
 
 void MapLayersProxyModel::setTimestamp(qint64 time)
 {
     if (time != _time) {
         _time = time;
-        invalidateFilter();
+
+        for (int i = 0; i < rowCount(); i++) {
+            const QModelIndex in = index(i, 0);
+            if (data(in, MapLayer::TimeRole).toDateTime().toMSecsSinceEpoch() == _time) {
+                _url = data(in, MapLayer::UrlRole).toUrl().toString();
+                _coordinates = data(in, MapLayer::CoordinatesRole);
+                break;
+            }
+        }
+
         emit timestampChanged();
     }
 }
@@ -73,9 +75,9 @@ bool MapLayersProxyModel::filterAcceptsRow(int sourceRow,
     QModelIndex index = sourceModel()->index(sourceRow, 0, sourceParent);
 
     bool name = index.data(MapLayer::DisplayRole).toString().contains(filterRegExp());
-    bool time = !_time || index.data(MapLayer::TimeRole).toDateTime().toMSecsSinceEpoch() == _time;
+    // bool time = !_time || index.data(MapLayer::TimeRole).toDateTime().toMSecsSinceEpoch() == _time;
 
-    return name && time;
+    return name;
 }
 
 } // namespace Vremenar

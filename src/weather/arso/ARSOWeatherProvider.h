@@ -32,6 +32,7 @@ public:
     inline virtual const std::vector<Weather::MapType> &supportedMapTypes() const final { return _supportedMapTypes; }
     inline virtual float minZoomLevel() const final { return 7; }
     inline virtual float maxZoomLevel() const final { return 10; }
+    virtual QVariant defaultMapCoordinates() const final;
 
 protected slots:
     virtual void response(QNetworkReply *reply) final;

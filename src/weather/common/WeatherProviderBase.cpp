@@ -18,10 +18,11 @@ namespace Vremenar
 {
 
 WeatherProviderBase::WeatherProviderBase(NetworkManager *network,
+                                         QVariant defaultCoordinates,
                                          QObject *parent)
     : APILoader(network, parent),
       _mapInfoModel(std::make_unique<MapInfoModel>(this)),
-      _mapLayersProxyModel(std::make_unique<MapLayersProxyModel>(this)) {}
+      _mapLayersProxyModel(std::make_unique<MapLayersProxyModel>(defaultCoordinates, this)) {}
 
 WeatherProviderBase::~WeatherProviderBase() = default;
 

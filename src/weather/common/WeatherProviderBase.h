@@ -24,11 +24,13 @@ class WeatherProviderBase : public APILoader
     Q_OBJECT
 public:
     explicit WeatherProviderBase(NetworkManager *network,
+                                 QVariant defaultCoordinates,
                                  QObject *parent = nullptr);
     virtual ~WeatherProviderBase();
 
     Q_PROPERTY(float minZoomLevel READ minZoomLevel CONSTANT)
     Q_PROPERTY(float maxZoomLevel READ maxZoomLevel CONSTANT)
+    Q_PROPERTY(QVariant defaultMapCoordinates READ defaultMapCoordinates CONSTANT)
 
     inline MapInfoModel *mapInfo() { return _mapInfoModel.get(); }
     inline MapLayersProxyModel *mapLayers() { return _mapLayersProxyModel.get(); }
@@ -40,6 +42,7 @@ public:
     virtual const std::vector<Weather::MapType> &supportedMapTypes() const = 0;
     virtual float minZoomLevel() const = 0;
     virtual float maxZoomLevel() const = 0;
+    virtual QVariant defaultMapCoordinates() const = 0;
 
 protected:
     std::unique_ptr<MapInfoModel> _mapInfoModel;

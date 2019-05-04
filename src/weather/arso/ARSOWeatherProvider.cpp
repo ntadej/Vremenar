@@ -24,7 +24,7 @@ namespace Vremenar
 
 ARSO::WeatherProvider::WeatherProvider(NetworkManager *network,
                                        QObject *parent)
-    : WeatherProviderBase(network, parent),
+    : WeatherProviderBase(network, defaultMapCoordinates(), parent),
       _mapLayersModel(std::make_unique<MapLayersModel>(this))
 {
     _mapInfoModel->generateModel(supportedMapTypes());
@@ -56,6 +56,16 @@ void ARSO::WeatherProvider::response(QNetworkReply *reply)
 
         removeResponse(reply);
     }
+}
+
+QVariant ARSO::WeatherProvider::defaultMapCoordinates() const
+{
+    QVariantList list;
+    list.append(QVariant::fromValue(QVariantList({QVariant(12.1), QVariant(47.42)})));
+    list.append(QVariant::fromValue(QVariantList({QVariant(17.44), QVariant(47.42)})));
+    list.append(QVariant::fromValue(QVariantList({QVariant(17.44), QVariant(44.67)})));
+    list.append(QVariant::fromValue(QVariantList({QVariant(12.1), QVariant(44.67)})));
+    return QVariant::fromValue(list);
 }
 
 } // namespace Vremenar

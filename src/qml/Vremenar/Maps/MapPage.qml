@@ -25,13 +25,9 @@ MapPageBase {
             id: mapPlugin
         }
 
-        property double ratioX: 0
-        property double ratioY: 0
-
         id: map
         anchors.fill: parent
 
-        activeMapType: supportedMapTypes[5]
         plugin: mapPlugin
         zoomLevel: 8
         center: VLocation.position.isValid ? VLocation.position : VLocation.initial
@@ -40,12 +36,29 @@ MapPageBase {
         maximumZoomLevel: VWeather.maxZoomLevel
         maximumTilt: 0
 
-        MapItemView {
-            id: mapItemView
-            model: VMapLayersModel
-            delegate: MapImageDelegate {
-                timestamp: mapControls.slider.value
-            }
+        MapParameter {
+            type: "source"
+
+            property var name: "weatherSource"
+            property var sourceType: "image"
+            property var url: VMapLayersModel.url
+            property var coordinates: VMapLayersModel.coordinates
+        }
+
+        MapParameter {
+            type: "layer"
+
+            property var name: "weather"
+            property var layerType: "raster"
+            property var source: "weatherSource"
+            property var before: "settlement"
+        }
+
+        MapParameter {
+            type: "paint"
+
+            property var layer: "weather"
+            property var rasterOpacity: 0.75
         }
 
         CurrentLocationIndicator {
@@ -54,5 +67,7 @@ MapPageBase {
 
     bottomSheetContents: MapControls {
         id: mapControls
+
+        Binding { target: VMapLayersModel; property: "time"; value: mapControls.time }
     }
 }

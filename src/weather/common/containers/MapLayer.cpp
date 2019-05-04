@@ -24,6 +24,13 @@ MapLayer::MapLayer(Weather::MapType type,
     _time = time;
     _url = url;
     _range = range;
+
+    QVariantList list;
+    list.append(QVariant::fromValue(QVariantList({QVariant(range.topLeft().latitude()), QVariant(range.topLeft().longitude())})));
+    list.append(QVariant::fromValue(QVariantList({QVariant(range.topRight().latitude()), QVariant(range.topRight().longitude())})));
+    list.append(QVariant::fromValue(QVariantList({QVariant(range.bottomRight().latitude()), QVariant(range.bottomRight().longitude())})));
+    list.append(QVariant::fromValue(QVariantList({QVariant(range.bottomLeft().latitude()), QVariant(range.bottomLeft().longitude())})));
+    _coordinates = QVariant::fromValue(list);
 }
 
 QString MapLayer::display() const
@@ -46,14 +53,16 @@ QVariant MapLayer::data(int role) const
         return time().toMSecsSinceEpoch();
     case UrlRole:
         return url();
-    case MinLatitude:
+    case MinLatitudeRole:
         return range().bottomLeft().latitude();
-    case MinLongitude:
+    case MinLongitudeRole:
         return range().bottomLeft().longitude();
-    case MaxLatitude:
+    case MaxLatitudeRole:
         return range().topRight().latitude();
-    case MaxLongitude:
+    case MaxLongitudeRole:
         return range().topRight().longitude();
+    case CoordinatesRole:
+        return coordinates();
     default:
         return QVariant();
     }

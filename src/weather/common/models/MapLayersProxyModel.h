@@ -19,22 +19,29 @@ namespace Vremenar
 class MapLayersProxyModel : public QSortFilterProxyModel
 {
     Q_OBJECT
-    Q_PROPERTY(qint64 time READ timestamp WRITE setTimestamp NOTIFY timestampChanged)
+
     Q_PROPERTY(qint64 minTimestamp READ minTimestamp NOTIFY rowCountChanged)
     Q_PROPERTY(qint64 maxTimestamp READ maxTimestamp NOTIFY rowCountChanged)
     Q_PROPERTY(qint64 stepTimestamp READ stepTimestamp NOTIFY rowCountChanged)
 
-public:
-    explicit MapLayersProxyModel(QObject *parent = nullptr);
+    Q_PROPERTY(qint64 time READ timestamp WRITE setTimestamp NOTIFY timestampChanged)
 
-    inline QDateTime time() const { return QDateTime::fromSecsSinceEpoch(_time); }
-    inline qint64 timestamp() const { return _time; }
-    void setTime(const QDateTime &time);
-    void setTimestamp(qint64 time);
+    Q_PROPERTY(QString url READ url NOTIFY timestampChanged)
+    Q_PROPERTY(QVariant coordinates READ coordinates NOTIFY timestampChanged)
+
+public:
+    explicit MapLayersProxyModel(QVariant defaultCoordinates,
+                                 QObject *parent = nullptr);
 
     qint64 minTimestamp() const;
     qint64 maxTimestamp() const;
     qint64 stepTimestamp() const;
+
+    inline qint64 timestamp() const { return _time; }
+    void setTimestamp(qint64 time);
+
+    inline QString url() const { return _url; }
+    inline QVariant coordinates() const { return _coordinates; }
 
 signals:
     void rowCountChanged();
@@ -46,6 +53,8 @@ protected:
 
 private:
     qint64 _time;
+    QString _url;
+    QVariant _coordinates;
 };
 
 } // namespace Vremenar

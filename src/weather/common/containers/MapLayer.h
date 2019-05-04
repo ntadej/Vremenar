@@ -36,10 +36,11 @@ public:
         TimeRole,
         TimestampRole,
         UrlRole,
-        MinLatitude,
-        MinLongitude,
-        MaxLatitude,
-        MaxLongitude
+        MinLatitudeRole,
+        MinLongitudeRole,
+        MaxLatitudeRole,
+        MaxLongitudeRole,
+        CoordinatesRole
     };
 
     explicit MapLayer(Weather::MapType type,
@@ -56,6 +57,7 @@ public:
     inline const QDateTime &time() const { return _time; }
     inline const QUrl &url() const { return _url; }
     inline const QGeoRectangle &range() const { return _range; }
+    inline const QVariant &coordinates() const { return _coordinates; }
 
     static inline QHash<int, QByteArray> roleNames()
     {
@@ -66,10 +68,11 @@ public:
             {TimeRole, "time"},
             {TimestampRole, "timestamp"},
             {UrlRole, "url"},
-            {MinLatitude, "minLatitude"},
-            {MinLongitude, "minLongitude"},
-            {MaxLatitude, "maxLatitude"},
-            {MaxLongitude, "maxLongitude"}};
+            {MinLatitudeRole, "minLatitude"},
+            {MinLongitudeRole, "minLongitude"},
+            {MaxLatitudeRole, "maxLatitude"},
+            {MaxLongitudeRole, "maxLongitude"},
+            {CoordinatesRole, "coordinates"}};
     }
 
 private:
@@ -77,6 +80,7 @@ private:
     QDateTime _time;
     QUrl _url;
     QGeoRectangle _range;
+    QVariant _coordinates;
 };
 
 } // namespace Vremenar

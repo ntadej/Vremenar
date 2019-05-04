@@ -4,7 +4,6 @@
         <file>LocationProvider.qml</file>
         <file>MapButtons.qml</file>
         <file>elements/CurrentLocationIndicator.qml</file>
-        <file>elements/MapImageDelegate.qml</file>
         <file>MapPageBase.qml</file>
         <file>MapPage.qml</file>
         <file>elements/MapSettingsDialog.qml</file>

@@ -17,7 +17,7 @@ import Vremenar.Common 1.0
 Item {
     anchors.fill: parent
 
-    property alias slider: mapSlider
+    property alias time: mapSlider.value
 
     ColumnLayout {
         anchors.fill: parent
@@ -121,21 +121,21 @@ Item {
             }
 
             Shortcut {
-                sequence: "Space"
+                sequences: ["Space", "Media Play", "Media Pause", "Toggle Media Play/Pause"]
                 onActivated: {
                     buttonPlay.downAnimation()
                     mapSlider.play()
                 }
             }
             Shortcut {
-                sequence: "Left"
+                sequences: ["Left", "Media Previous"]
                 onActivated: {
                     buttonPrevious.downAnimation()
                     mapSlider.previous()
                 }
             }
             Shortcut {
-                sequence: "Right"
+                sequences: ["Right", "Media Next"]
                 onActivated: {
                     buttonNext.downAnimation()
                     mapSlider.next()
