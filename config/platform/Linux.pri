@@ -9,12 +9,6 @@
 # SPDX-License-Identifier: (GPL-3.0-or-later AND MPL-2.0)
 #
 
-# Define mobile
-ios|android {
-    DEFINES += VREMENAR_MOBILE
-}
-
-macx: include(platform/macOS.pri)
-linux: include(platform/Linux.pri)
-ios: include(platform/iOS.pri)
-android: include(platform/Android.pri)
+# Installation rules
+target.path = /usr/bin
+INSTALLS += target

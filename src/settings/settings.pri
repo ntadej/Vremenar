@@ -18,7 +18,7 @@ HEADERS += \
     src/settings/Settings.h
 
 # Desktop specific
-macx {
+macx|linux {
     SOURCES += \
         src/settings/SettingsDialog.cpp
 

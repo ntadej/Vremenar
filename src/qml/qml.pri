@@ -41,7 +41,7 @@ RESOURCES += \
     src/qml/Vremenar/Navigation/navigation.qrc
 
 # Desktop resources
-macx {
+macx|linux {
     RESOURCES += \
         src/qml/Vremenar/Desktop/desktop.qrc
 }

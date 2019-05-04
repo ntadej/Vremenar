@@ -38,7 +38,7 @@ RESOURCES += \
     resources/Common/graphics.qrc
 
 # Desktop common resources
-macx {
+macx|linux {
     RESOURCES += \
         resources/Common/icons/icons.qrc
 }
