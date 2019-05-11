@@ -155,7 +155,9 @@ Item {
         }
 
         TextSmall {
-            text: qsTr("Maps") + generate() + VL.R
+            text: qsTr("Weather data") + generateWeather() + "<br>"
+                  + qsTr("Maps") + generateMaps()
+                  + VL.R
             wrapMode: Text.WordWrap
             linkColor: UI.textColorSpecialLink
 
@@ -163,9 +165,17 @@ Item {
 
             onLinkActivated: console.log(link + " activated")
 
-            function generate() {
+            function linkToHtml(link) {
+                return "<a href='" + link.url + "'>" + link.title + "</a>"
+            }
+
+            function generateWeather() {
+                return " " + linkToHtml(VWeather.copyrightLink)
+            }
+
+            function generateMaps() {
                 let text = ""
-                Globals.mapsCopyright.forEach(link => text += " " + "<a href='" + link.url + "'>" + link.title + "</a>")
+                Globals.mapsCopyright.forEach(link => text += " " + linkToHtml(link))
                 return text
             }
         }

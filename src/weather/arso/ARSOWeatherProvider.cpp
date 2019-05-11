@@ -30,6 +30,10 @@ ARSO::WeatherProvider::WeatherProvider(NetworkManager *network,
 {
     _mapInfoModel->generateModel(supportedMapTypes());
     _mapLayersProxyModel->setSourceModel(_mapLayersModel.get());
+
+    _copyrightLink = std::make_unique<Hyperlink>(
+        QStringLiteral("© ") + tr("Slovenian Environment Agency"),
+        QStringLiteral("https://www.arso.gov.si"));
 }
 
 void ARSO::WeatherProvider::requestMapLayers(Weather::MapType type)

@@ -34,6 +34,7 @@ public:
     inline float minZoomLevel() const final { return 7; }
     inline float maxZoomLevel() const final { return 10; }
     QVariant defaultMapCoordinates() const final;
+    inline Hyperlink *copyrightLink() const final { return _copyrightLink.get(); }
 
 protected slots:
     void response(QNetworkReply *reply) final;
@@ -47,6 +48,8 @@ private:
         Weather::HailProbabilityMap};
 
     std::unique_ptr<MapLayersModel> _mapLayersModel;
+
+    std::unique_ptr<Hyperlink> _copyrightLink;
 };
 
 } // namespace ARSO
