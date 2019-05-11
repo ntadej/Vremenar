@@ -22,7 +22,7 @@ QT += location positioning
 QT += quickcontrols2
 
 # Desktop dependencies
-macx|linux {
+macx|linux:!android {
     QT += widgets
 }
 
@@ -43,7 +43,7 @@ include($$top_srcdir/config.pri)
 # Config summary
 macx {
     message("Building for platform: macOS")
-} else:linux {
+} else:linux:!android {
     message("Building for platform: Linux")
 } else:ios {
     message("Building for platform: iOS")

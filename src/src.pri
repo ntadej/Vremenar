@@ -38,7 +38,7 @@ RESOURCES += \
     resources/Common/graphics.qrc
 
 # Desktop common resources
-macx|linux {
+macx|linux:!android {
     RESOURCES += \
         resources/Common/icons/icons.qrc
 }

@@ -15,6 +15,6 @@ ios|android {
 }
 
 macx: include(platform/macOS.pri)
-linux: include(platform/Linux.pri)
+linux:!android: include(platform/Linux.pri)
 ios: include(platform/iOS.pri)
 android: include(platform/Android.pri)

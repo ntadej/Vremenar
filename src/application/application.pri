@@ -18,7 +18,7 @@ HEADERS += \
     src/application/BaseApplication.h
 
 # Desktop specific
-macx|linux {
+macx|linux:!android {
     SOURCES += \
         src/application/DesktopApplication.cpp \
         src/application/SingleApplication.cpp \
