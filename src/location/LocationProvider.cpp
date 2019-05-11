@@ -129,9 +129,4 @@ void LocationProvider::reverseGeocodingError(QGeoCodeReply *reply,
     qWarning() << "Reverse Geocoding Error:" << error << errorString;
 }
 
-QString LocationProvider::mapsStyle()
-{
-    return QStringLiteral(MAPS_ENDPOINT);
-}
-
 } // namespace Vremenar

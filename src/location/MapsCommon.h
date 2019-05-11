@@ -9,13 +9,24 @@
 * SPDX-License-Identifier: (GPL-3.0-or-later AND MPL-2.0)
 */
 
-#include "qml/UIManager.h"
+#ifndef VREMENAR_MAPSCOMMON_H_
+#define VREMENAR_MAPSCOMMON_H_
+
+#include <memory>
+
+#include <QtCore/QString>
+
+#include "common/containers/Hyperlink.h"
 
 namespace Vremenar
 {
+namespace Maps
+{
 
-int Qml::UIManager::textCommon() const { return 17; }
-int Qml::UIManager::textHeader() const { return 13; }
-int Qml::UIManager::textSmall() const { return 12; }
+QString style();
+std::vector<std::unique_ptr<Hyperlink>> copyright();
 
+} // namespace Maps
 } // namespace Vremenar
+
+#endif // VREMENAR_MAPSCOMMON_H_

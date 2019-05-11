@@ -21,7 +21,8 @@ SOURCES += \
     src/common/Output.cpp \
     src/common/api/APIHelpers.cpp \
     src/common/api/APILoader.cpp \
-    src/common/api/APIRequestBase.cpp
+    src/common/api/APIRequestBase.cpp \
+    src/common/containers/Hyperlink.cpp
 
 HEADERS += \
     src/common/Common.h \
@@ -37,4 +38,5 @@ HEADERS += \
     src/common/Output.h \
     src/common/api/APIHelpers.h \
     src/common/api/APILoader.h \
-    src/common/api/APIRequestBase.h
+    src/common/api/APIRequestBase.h \
+    src/common/containers/Hyperlink.h

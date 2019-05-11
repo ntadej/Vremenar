@@ -31,8 +31,6 @@ class LocationProvider : public QObject
 public:
     explicit LocationProvider(QObject *parent = nullptr);
 
-    static QString mapsStyle();
-
     QGeoCoordinate initialPosition() const;
     QGeoCoordinate currentPosition() const;
     QString currentLocation() const;

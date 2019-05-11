@@ -33,6 +33,7 @@ MapPageBase {
         anchors.fill: parent
 
         plugin: mapPlugin
+        copyrightsVisible: false
         zoomLevel: 8
         center: VLocation.position.isValid ? VLocation.position : VLocation.initial
 

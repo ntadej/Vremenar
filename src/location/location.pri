@@ -10,7 +10,9 @@
 #
 
 SOURCES += \
-    src/location/LocationProvider.cpp
+    src/location/LocationProvider.cpp \
+    src/location/MapsCommon.cpp
 
  HEADERS += \
-    src/location/LocationProvider.h
+    src/location/LocationProvider.h \
+    src/location/MapsCommon.h

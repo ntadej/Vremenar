@@ -9,13 +9,13 @@
 * SPDX-License-Identifier: (GPL-3.0-or-later AND MPL-2.0)
 */
 
-#include "qml/UIManager.h"
+import QtQuick 2.12
 
-namespace Vremenar
-{
+import Vremenar 1.0
 
-int Qml::UIManager::textCommon() const { return 17; }
-int Qml::UIManager::textHeader() const { return 13; }
-int Qml::UIManager::textSmall() const { return 12; }
+Core {
+    color: UI.textColor
+    font.pointSize: UI.textSmall
 
-} // namespace Vremenar
+    padding: UI.paddingCommon
+}

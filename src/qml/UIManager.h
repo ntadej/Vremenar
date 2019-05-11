@@ -56,8 +56,10 @@ class UIManager : public QObject
 
     Q_PROPERTY(int textCommon READ textCommon CONSTANT)
     Q_PROPERTY(int textHeader READ textHeader CONSTANT)
+    Q_PROPERTY(int textSmall READ textSmall CONSTANT)
     Q_PROPERTY(QColor textColor READ textColor CONSTANT)
     Q_PROPERTY(QColor textColorPrimary READ textColorPrimary CONSTANT)
+    Q_PROPERTY(QColor textColorSpecialLink READ textColorSpecialLink CONSTANT)
 
     Q_PROPERTY(QColor hoverColor READ hoverColor CONSTANT)
     Q_PROPERTY(int hoverDuration READ hoverDuration CONSTANT)
@@ -95,8 +97,10 @@ public:
 
     int textCommon() const;
     int textHeader() const;
+    int textSmall() const;
     QColor textColor() const;
     QColor textColorPrimary() const;
+    QColor textColorSpecialLink() const;
 
     QColor hoverColor() const;
     int hoverDuration() const;

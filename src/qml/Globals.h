@@ -12,6 +12,7 @@
 #ifndef VREMENAR_QML_GLOBALS_H_
 #define VREMENAR_QML_GLOBALS_H_
 
+#include <QtCore/QJsonArray>
 #include <QtCore/QObject>
 #include <QtQml/QJSEngine>
 #include <QtQml/QQmlEngine>
@@ -29,6 +30,7 @@ class Globals : public QObject
     Q_PROPERTY(int build READ build CONSTANT)
 
     Q_PROPERTY(QString mapsStyle READ mapsStyle CONSTANT)
+    Q_PROPERTY(QJsonArray mapsCopyright READ mapsCopyright CONSTANT)
 
 public:
     explicit Globals(QObject *parent = nullptr) : QObject(parent) {}
@@ -38,6 +40,7 @@ public:
     int build() const;
 
     QString mapsStyle() const;
+    QJsonArray mapsCopyright() const;
 
     static QObject *provider(QQmlEngine *engine,
                              QJSEngine *scriptEngine);

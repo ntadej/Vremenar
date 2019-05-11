@@ -153,5 +153,21 @@ Item {
         Item {
             Layout.fillHeight: true
         }
+
+        TextSmall {
+            text: qsTr("Maps") + generate() + VL.R
+            wrapMode: Text.WordWrap
+            linkColor: UI.textColorSpecialLink
+
+            Layout.maximumWidth: parent.width
+
+            onLinkActivated: console.log(link + " activated")
+
+            function generate() {
+                let text = ""
+                Globals.mapsCopyright.forEach(link => text += " " + "<a href='" + link.url + "'>" + link.title + "</a>")
+                return text
+            }
+        }
     }
 }

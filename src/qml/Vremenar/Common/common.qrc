@@ -12,5 +12,6 @@
         <file>views/ListRadioDelegate.qml</file>
         <file>views/ListRadioView.qml</file>
         <file>text/Header.qml</file>
+        <file>text/Small.qml</file>
     </qresource>
 </RCC>

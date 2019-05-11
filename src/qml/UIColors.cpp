@@ -24,6 +24,7 @@ QColor Qml::UIManager::navBarColor() const { return {27, 27, 27, 160}; }
 
 QColor Qml::UIManager::textColor() const { return {255, 255, 255}; }
 QColor Qml::UIManager::textColorPrimary() const { return colorPrimary(); }
+QColor Qml::UIManager::textColorSpecialLink() const { return {200, 200, 200}; }
 
 QColor Qml::UIManager::hoverColor() const { return {255, 255, 255, 16}; }
 
