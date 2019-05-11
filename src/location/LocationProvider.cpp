@@ -131,7 +131,7 @@ void LocationProvider::reverseGeocodingError(QGeoCodeReply *reply,
 
 QString LocationProvider::mapsStyle()
 {
-    return QStringLiteral(MAPS_ENDPOINT) + "/styles/vremenar/style.json";
+    return QStringLiteral(MAPS_ENDPOINT);
 }
 
 } // namespace Vremenar
