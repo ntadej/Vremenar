@@ -35,7 +35,7 @@ Item {
         blurSource: contentPlaceholder
         sourceX: parent.x
         sourceY: parent.y
-        sourceHeight: UI.bottomSheetBaseHeight
+        sourceHeight: parent.height - UI.radiusCommon
     }
 
     Item {

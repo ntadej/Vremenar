@@ -23,9 +23,12 @@ Item {
 
     ColumnLayout {
         anchors.fill: parent
+        anchors.bottomMargin: UI.radiusCommon
+        spacing: 0
 
         RowLayout {
             height: UI.buttonMapSize
+            Layout.maximumHeight: UI.buttonMapSize
 
             IconButton {
                 id: buttonPlay
@@ -73,11 +76,11 @@ Item {
 
             IconButton {
                 id: buttonInfo
-                icon: "ios-information-circle-outline"
+                icon: mapPage.state === "sheet" ? "ios-information-circle" : "ios-information-circle-outline"
                 family: "Ionicons"
                 width: UI.buttonMapSize
 
-                onClicked: console.log("info")
+                onClicked: mapPage.toggleSheetVisibility()
             }
         }
 
@@ -88,6 +91,8 @@ Item {
             stepSize: VMapLayersModel.stepTimestamp
             value: VMapLayersModel.maxTimestamp
             snapMode: Slider.SnapAlways
+            visible: false
+            Layout.maximumHeight: 0
 
             property alias running: mapSliderTimer.running
             property date timestamp: new Date()
@@ -143,6 +148,10 @@ Item {
                     mapSlider.next()
                 }
             }
+        }
+
+        Item {
+            Layout.fillHeight: true
         }
     }
 }

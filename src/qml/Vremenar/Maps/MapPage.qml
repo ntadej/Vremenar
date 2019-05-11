@@ -20,6 +20,8 @@ import Vremenar.Navigation 1.0
 import "elements"
 
 MapPageBase {
+    id: mapPage
+
     title: VLocation.location ? VLocation.location : qsTr("Weather Map") + VL.R
 
     Map {

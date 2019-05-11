@@ -71,14 +71,38 @@ Rectangle {
         onAboutToHide: dialogActive = false
     }
 
-    states: State {
-        name: "dialog"; when: dialogActive
-        PropertyChanges { target: bottomSheet; anchors.topMargin: 0 }
-        PropertyChanges { target: mapButtons; opacity: 0 }
+    Shortcut {
+        sequences: ["I"]
+        onActivated: toggleSheetVisibility()
     }
+
+    states: [
+        State {
+            name: "dialog"; when: dialogActive
+            PropertyChanges { target: bottomSheet; anchors.topMargin: 0 }
+            PropertyChanges { target: mapButtons; opacity: 0 }
+        },
+        State {
+            name: "sheet"
+            PropertyChanges {
+                target: bottomSheet
+                height: 5 * UI.bottomSheetBaseHeight + UI.radiusCommon + UI.safetyMarginBottom
+                anchors.topMargin: -height + UI.radiusCommon
+            }
+        }
+    ]
 
     transitions: Transition {
         PropertyAnimation { property: "anchors.topMargin"; duration: UI.hoverDuration }
+        PropertyAnimation { property: "height"; duration: UI.hoverDuration }
         PropertyAnimation { property: "opacity"; duration: UI.hoverDuration }
+
+    }
+
+    function toggleSheetVisibility() {
+        if (state != "sheet")
+            state = "sheet"
+        else
+            state = ""
     }
 }
