@@ -156,14 +156,15 @@ Item {
 
         TextSmall {
             text: qsTr("Weather data") + generateWeather() + "<br>"
-                  + qsTr("Maps") + generateMaps()
+                  + qsTr("Maps") + generateMaps() + "<br>"
+                  + Globals.name + " " + Globals.version + " (" + Globals.build + ")"
                   + VL.R
             wrapMode: Text.WordWrap
             linkColor: UI.textColorSpecialLink
 
             Layout.maximumWidth: parent.width
 
-            onLinkActivated: console.log(link + " activated")
+            onLinkActivated: Qt.openUrlExternally(link)
 
             function generateWeather() {
                 return " " + VWeather.copyrightLink.html
@@ -173,6 +174,12 @@ Item {
                 let text = ""
                 Globals.mapsCopyright.forEach(link => text += " " + link.html)
                 return text
+            }
+
+            MouseArea {
+                anchors.fill: parent
+                acceptedButtons: Qt.NoButton // we don't want to eat clicks on the Text
+                cursorShape: parent.hoveredLink ? Qt.PointingHandCursor : Qt.ArrowCursor
             }
         }
     }
