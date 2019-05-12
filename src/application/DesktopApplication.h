@@ -30,6 +30,8 @@ public:
                      QEvent *event) override;
 
 #ifdef Q_OS_MACOS
+    bool isDark();
+
     void setupDockHandler();
     void setupTitleBarLessWindow(WId winId);
 

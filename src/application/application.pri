@@ -22,12 +22,17 @@ desktop {
     SOURCES += \
         src/application/DesktopApplication.cpp \
         src/application/SingleApplication.cpp \
-        src/application/TrayIcon.cpp
+        src/application/TrayIcon.cpp \
+        src/application/dialogs/AboutDialog.cpp
 
     HEADERS += \
         src/application/DesktopApplication.h \
         src/application/SingleApplication.h \
-        src/application/TrayIcon.h
+        src/application/TrayIcon.h \
+        src/application/dialogs/AboutDialog.h
+
+    FORMS += \
+        src/application/dialogs/AboutDialog.ui
 }
 
 # Mobile specific

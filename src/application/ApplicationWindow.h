@@ -45,6 +45,7 @@ public slots:
     void startCompleted();
 
 #ifndef VREMENAR_MOBILE
+    void showAboutDialog();
     void showSettingsDialog();
 #endif
 

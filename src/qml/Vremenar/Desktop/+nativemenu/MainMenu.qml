@@ -34,6 +34,11 @@ Item {
         // Help menu
         Menu {
             title: Qt.platform.os === "osx" ? "&Help" : qsTr("&Help") + VL.R
+
+            MenuItem {
+                text: Qt.platform.os === "osx" ? "&About" : qsTr("&About") + VL.R
+                onTriggered: Vremenar.showAboutDialog()
+            }
         }
     }
 }

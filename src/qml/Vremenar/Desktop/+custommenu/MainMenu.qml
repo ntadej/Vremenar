@@ -35,5 +35,10 @@ MenuBar {
     // Help menu
     Menu {
         title: qsTr("&Help") + VL.R
+
+        MenuItem {
+            text: qsTr("&About") + VL.R
+            onTriggered: Vremenar.showAboutDialog()
+        }
     }
 }

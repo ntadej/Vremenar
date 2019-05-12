@@ -42,6 +42,7 @@ public:
     inline const QUrl &url() const { return _url; }
 
     QJsonObject asJson() const;
+    QString asHtml(const QString &style = "") const;
 
     static QHash<int, QByteArray> roleNames()
     {

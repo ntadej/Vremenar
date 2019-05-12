@@ -49,7 +49,17 @@ QJsonObject Hyperlink::asJson() const
 {
     return {
         {"title", display()},
-        {"url", url().toString()}};
+        {"url", url().toString()},
+        {"html", asHtml()}};
+}
+
+QString Hyperlink::asHtml(const QString &style) const
+{
+    if (!style.isEmpty()) {
+        return "<a href=\"" + url().toString() + "\" style=\"" + style + "\">" + display() + "</a>";
+    }
+
+    return "<a href=\"" + url().toString() + "\">" + display() + "</a>";
 }
 
 } // namespace Vremenar

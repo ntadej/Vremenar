@@ -35,6 +35,19 @@ bool dockClickHandler(id self,
     return true;
 }
 
+bool DesktopApplication::isDark()
+{
+    if (@available(macOS 10.14, *)) {
+        NSAppearanceName basicAppearance = [[NSAppearance currentAppearance] bestMatchFromAppearancesWithNames:@[
+            NSAppearanceNameAqua,
+            NSAppearanceNameDarkAqua
+        ]];
+        return [basicAppearance isEqualToString:NSAppearanceNameDarkAqua];
+    } else {
+        return NO;
+    }
+}
+
 void DesktopApplication::setupDockHandler()
 {
     Class cls = objc_getClass("NSApplication");
@@ -118,7 +131,7 @@ void DesktopApplication::setupTitleBarLessWindow(WId winId)
     NSView *nativeView = reinterpret_cast<NSView *>(winId);
     NSWindow *nativeWindow = [nativeView window];
 
-    [nativeWindow setStyleMask:[nativeWindow styleMask] | NSFullSizeContentViewWindowMask | NSWindowTitleHidden];
+    [nativeWindow setStyleMask:[nativeWindow styleMask] | NSWindowStyleMaskFullSizeContentView | NSWindowTitleHidden];
     [nativeWindow setTitlebarAppearsTransparent:YES];
 }
 

@@ -40,5 +40,6 @@ RESOURCES += \
 # Desktop common resources
 desktop {
     RESOURCES += \
-        resources/Common/icons/icons.qrc
+        resources/Common/icons/icons.qrc \
+        resources/Linux/logo.qrc
 }

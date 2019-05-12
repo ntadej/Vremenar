@@ -1,0 +1,18 @@
+<RCC>
+    <qresource prefix="/Vremenar/Logo">
+        <file>logo/128x128/vremenar.png</file>
+        <file>logo/128x128/vremenar@2x.png</file>
+        <file>logo/256x256/vremenar.png</file>
+        <file>logo/256x256/vremenar@2x.png</file>
+        <file>logo/64x64/vremenar@2x.png</file>
+        <file>logo/64x64/vremenar.png</file>
+        <file>logo/48x48/vremenar.png</file>
+        <file>logo/48x48/vremenar@2x.png</file>
+        <file>logo/32x32/vremenar.png</file>
+        <file>logo/32x32/vremenar@2x.png</file>
+        <file>logo/24x24/vremenar.png</file>
+        <file>logo/24x24/vremenar@2x.png</file>
+        <file>logo/16x16/vremenar.png</file>
+        <file>logo/16x16/vremenar@2x.png</file>
+    </qresource>
+</RCC>

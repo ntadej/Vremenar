@@ -165,17 +165,13 @@ Item {
 
             onLinkActivated: console.log(link + " activated")
 
-            function linkToHtml(link) {
-                return "<a href='" + link.url + "'>" + link.title + "</a>"
-            }
-
             function generateWeather() {
-                return " " + linkToHtml(VWeather.copyrightLink)
+                return " " + VWeather.copyrightLink.html
             }
 
             function generateMaps() {
                 let text = ""
-                Globals.mapsCopyright.forEach(link => text += " " + linkToHtml(link))
+                Globals.mapsCopyright.forEach(link => text += " " + link.html)
                 return text
             }
         }

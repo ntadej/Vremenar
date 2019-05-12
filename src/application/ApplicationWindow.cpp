@@ -23,6 +23,7 @@
 
 #ifndef VREMENAR_MOBILE
 #include "application/DesktopApplication.h"
+#include "application/dialogs/AboutDialog.h"
 #include "settings/SettingsDialog.h"
 #endif
 
@@ -134,6 +135,12 @@ void ApplicationWindow::createWidgets()
     _trayIcon->setVisible(settings.showInTray());
 
     connect(_trayIcon.get(), &TrayIcon::clicked, this, &ApplicationWindow::activate);
+}
+
+void ApplicationWindow::showAboutDialog()
+{
+    AboutDialog dialog(_weatherProvider.get());
+    dialog.exec();
 }
 
 void ApplicationWindow::showSettingsDialog()
