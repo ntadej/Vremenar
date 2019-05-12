@@ -21,8 +21,16 @@ QT += qml quick
 QT += location positioning
 QT += quickcontrols2
 
-# Desktop dependencies
+# Define common platforms
 macx|linux:!android {
+    CONFIG += desktop
+} else:ios|android {
+    DEFINES += VREMENAR_MOBILE
+    CONFIG += mobile
+}
+
+# Desktop dependencies
+desktop {
     QT += widgets
 }
 

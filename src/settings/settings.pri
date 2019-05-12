@@ -18,7 +18,7 @@ HEADERS += \
     src/settings/Settings.h
 
 # Desktop specific
-macx|linux:!android {
+desktop {
     SOURCES += \
         src/settings/SettingsDialog.cpp
 

@@ -41,13 +41,13 @@ RESOURCES += \
     src/qml/Vremenar/Navigation/navigation.qrc
 
 # Desktop resources
-macx|linux:!android {
+desktop {
     RESOURCES += \
         src/qml/Vremenar/Desktop/desktop.qrc
 }
 
 # Mobile resources
-ios|android {
+mobile {
     RESOURCES += \
         src/qml/Vremenar/Mobile/mobile.qrc
 }

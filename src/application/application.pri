@@ -18,7 +18,7 @@ HEADERS += \
     src/application/BaseApplication.h
 
 # Desktop specific
-macx|linux:!android {
+desktop {
     SOURCES += \
         src/application/DesktopApplication.cpp \
         src/application/SingleApplication.cpp \
@@ -31,7 +31,7 @@ macx|linux:!android {
 }
 
 # Mobile specific
-ios|android {
+mobile {
     SOURCES += \
         src/application/MobileApplication.cpp
 
