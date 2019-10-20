@@ -34,7 +34,8 @@ namespace Vremenar
 {
 
 ApplicationWindow::ApplicationWindow(QObject *parent)
-    : QQmlApplicationEngine(parent),
+    : QObject(parent),
+      _engine(std::make_unique<QQmlApplicationEngine>(this)),
       _network(new NetworkManager(this)),
       _localeManager(std::make_unique<LocaleManager>(this)),
       _networkFactory(std::make_unique<NetworkManagerFactory>(this))
@@ -44,12 +45,12 @@ ApplicationWindow::ApplicationWindow(QObject *parent)
     createWidgets();
 #endif
 
-    addImportPath(QStringLiteral("qrc:/"));
+    _engine->addImportPath(QStringLiteral("qrc:/"));
 
     Qml::registerTypes();
 
     // Custom file selector
-    _qmlFileSelector = new QQmlFileSelector(this);
+    _qmlFileSelector = new QQmlFileSelector(_engine.get());
 #ifdef Q_OS_MACOS
     _qmlFileSelector->setExtraSelectors({QStringLiteral("nativemenu")});
 #endif
@@ -71,13 +72,19 @@ ApplicationWindow::ApplicationWindow(QObject *parent)
 #endif
 
     // Setup and load main QML
-    setNetworkAccessManagerFactory(_networkFactory.get());
-    load(QUrl(QStringLiteral("qrc:/Vremenar/main.qml")));
+    _engine->setNetworkAccessManagerFactory(_networkFactory.get());
+    _engine->load(QUrl(QStringLiteral("qrc:/Vremenar/main.qml")));
 
-    _qmlMainWindow = qobject_cast<QQuickWindow *>(rootObjects().constFirst());
+    _qmlMainWindow = qobject_cast<QQuickWindow *>(_engine->rootObjects().constFirst());
 #ifdef Q_OS_MACOS
     application->setupTitleBarLessWindow(_qmlMainWindow->winId());
 #endif
+}
+
+ApplicationWindow::~ApplicationWindow()
+{
+    // Needs to be deleted first
+    _engine.reset();
 }
 
 void ApplicationWindow::activate()
@@ -118,14 +125,14 @@ void ApplicationWindow::createModels()
     _location = std::make_unique<LocationProvider>(this);
     _weatherProvider = std::make_unique<ARSO::WeatherProvider>(_network, this);
 
-    rootContext()->setContextProperty(QStringLiteral("Vremenar"), this);
-    rootContext()->setContextProperty(QStringLiteral("VL"), _localeManager.get());
+    _engine->rootContext()->setContextProperty(QStringLiteral("Vremenar"), this);
+    _engine->rootContext()->setContextProperty(QStringLiteral("VL"), _localeManager.get());
 
-    rootContext()->setContextProperty(QStringLiteral("VLocation"), _location.get());
-    rootContext()->setContextProperty(QStringLiteral("VWeather"), _weatherProvider.get());
-    rootContext()->setContextProperty(QStringLiteral("VMapInfoModel"), _weatherProvider->mapInfo());
-    rootContext()->setContextProperty(QStringLiteral("VMapLayersModel"), _weatherProvider->mapLayers());
-    rootContext()->setContextProperty(QStringLiteral("VMapLegendModel"), _weatherProvider->mapLegend());
+    _engine->rootContext()->setContextProperty(QStringLiteral("VLocation"), _location.get());
+    _engine->rootContext()->setContextProperty(QStringLiteral("VWeather"), _weatherProvider.get());
+    _engine->rootContext()->setContextProperty(QStringLiteral("VMapInfoModel"), _weatherProvider->mapInfo());
+    _engine->rootContext()->setContextProperty(QStringLiteral("VMapLayersModel"), _weatherProvider->mapLayers());
+    _engine->rootContext()->setContextProperty(QStringLiteral("VMapLegendModel"), _weatherProvider->mapLegend());
 }
 
 #ifndef VREMENAR_MOBILE

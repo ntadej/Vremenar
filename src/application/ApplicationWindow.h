@@ -33,11 +33,12 @@ namespace Vremenar
 {
 class NetworkManager;
 
-class ApplicationWindow : public QQmlApplicationEngine
+class ApplicationWindow : public QObject
 {
     Q_OBJECT
 public:
     explicit ApplicationWindow(QObject *parent = nullptr);
+    ~ApplicationWindow();
 
 public slots:
     void activate();
@@ -66,6 +67,8 @@ private:
 #endif
 
     // Application
+    std::unique_ptr<QQmlApplicationEngine> _engine;
+
     NetworkManager *_network; // owned by Qt internally
 
     std::unique_ptr<LocaleManager> _localeManager;
