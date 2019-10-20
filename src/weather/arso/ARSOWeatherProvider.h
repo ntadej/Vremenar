@@ -13,6 +13,7 @@
 #define VREMENAR_ARSOWEATHERPROVIDER_H_
 
 #include "weather/arso/models/ARSOMapLayersModel.h"
+#include "weather/arso/models/ARSOMapLegendModel.h"
 #include "weather/common/Weather.h"
 #include "weather/common/WeatherProviderBase.h"
 
@@ -48,6 +49,7 @@ private:
         Weather::HailProbabilityMap};
 
     std::unique_ptr<MapLayersModel> _mapLayersModel;
+    std::unique_ptr<MapLegendModel> _mapLegendModel;
 
     std::unique_ptr<Hyperlink> _copyrightLink;
 };

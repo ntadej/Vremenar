@@ -14,25 +14,33 @@ SOURCES += \
     src/weather/common/WeatherProviderBase.cpp \
     src/weather/common/containers/MapInfo.cpp \
     src/weather/common/containers/MapLayer.cpp \
+    src/weather/common/containers/MapLegendItem.cpp \
     src/weather/common/models/MapInfoModel.cpp \
     src/weather/common/models/MapLayersModelBase.cpp \
     src/weather/common/models/MapLayersProxyModel.cpp \
+    src/weather/common/models/MapLegendModelBase.cpp \
+    src/weather/common/models/MapLegendProxyModel.cpp \
     src/weather/arso/ARSOWeatherProvider.cpp \
     src/weather/arso/api/ARSOAPICommon.cpp \
     src/weather/arso/api/ARSOAPIMapLayers.cpp \
     src/weather/arso/api/ARSOAPIRequest.cpp \
-    src/weather/arso/models/ARSOMapLayersModel.cpp
+    src/weather/arso/models/ARSOMapLayersModel.cpp \
+    src/weather/arso/models/ARSOMapLegendModel.cpp
 
 HEADERS += \
     src/weather/common/Weather.h \
     src/weather/common/WeatherProviderBase.h \
     src/weather/common/containers/MapInfo.h \
     src/weather/common/containers/MapLayer.h \
+    src/weather/common/containers/MapLegendItem.h \
     src/weather/common/models/MapInfoModel.h \
     src/weather/common/models/MapLayersModelBase.h \
     src/weather/common/models/MapLayersProxyModel.h \
+    src/weather/common/models/MapLegendModelBase.h \
+    src/weather/common/models/MapLegendProxyModel.h \
     src/weather/arso/ARSOWeatherProvider.h \
     src/weather/arso/api/ARSOAPICommon.h \
     src/weather/arso/api/ARSOAPIMapLayers.h \
     src/weather/arso/api/ARSOAPIRequest.h \
-    src/weather/arso/models/ARSOMapLayersModel.h
+    src/weather/arso/models/ARSOMapLayersModel.h \
+    src/weather/arso/models/ARSOMapLegendModel.h

@@ -54,6 +54,8 @@ class UIManager : public QObject
     Q_PROPERTY(int bottomSheetBaseHeight READ bottomSheetBaseHeight CONSTANT)
     Q_PROPERTY(int bottomSheetMaxWidth READ bottomSheetMaxWidth CONSTANT)
 
+    Q_PROPERTY(int mapLegendSize READ mapLegendSize CONSTANT)
+
     Q_PROPERTY(int textCommon READ textCommon CONSTANT)
     Q_PROPERTY(int textHeader READ textHeader CONSTANT)
     Q_PROPERTY(int textSmall READ textSmall CONSTANT)
@@ -94,6 +96,8 @@ public:
 
     int bottomSheetBaseHeight() const;
     int bottomSheetMaxWidth() const;
+
+    int mapLegendSize() const;
 
     int textCommon() const;
     int textHeader() const;

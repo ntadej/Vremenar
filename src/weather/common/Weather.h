@@ -22,6 +22,7 @@ class Weather
     Q_GADGET
 public:
     enum MapType {
+        UnknownMap,
         PrecipitationMap,
         CloudCoverageMap,
         WindSpeedMap,

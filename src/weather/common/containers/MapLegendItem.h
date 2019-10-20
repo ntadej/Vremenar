@@ -9,8 +9,10 @@
 * SPDX-License-Identifier: (GPL-3.0-or-later AND MPL-2.0)
 */
 
-#ifndef VREMENAR_MAPINFO_H_
-#define VREMENAR_MAPINFO_H_
+#ifndef VREMENAR_MAPLEGENDITEM_H_
+#define VREMENAR_MAPLEGENDITEM_H_
+
+#include <QtGui/QColor>
 
 #include "common/ListItem.h"
 #include "weather/common/Weather.h"
@@ -18,40 +20,47 @@
 namespace Vremenar
 {
 
-class MapInfo : public ListItem
+class MapLegendItem : public ListItem
 {
     Q_OBJECT
     Q_PROPERTY(QString display READ display CONSTANT)
     Q_PROPERTY(Weather::MapType type READ type CONSTANT)
+    Q_PROPERTY(QColor color READ color CONSTANT)
 public:
     enum Roles {
         DisplayRole = Qt::DisplayRole,
         IdRole = Qt::UserRole + 1,
-        TypeRole
+        TypeRole,
+        ColorRole
     };
 
-    explicit MapInfo(Weather::MapType type,
-                     QObject *parent = nullptr);
+    explicit MapLegendItem(Weather::MapType type,
+                           const QString &value,
+                           const QColor &color,
+                           QObject *parent = nullptr);
 
     // Implemented virtual functions
     QVariant data(int role) const final;
     QString display() const final;
 
     inline Weather::MapType type() const { return _type; }
+    inline const QColor &color() const { return _color; }
 
     static QHash<int, QByteArray> roleNames()
     {
         return {
             {IdRole, "id"},
             {DisplayRole, "display"},
-            {TypeRole, "type"}};
+            {TypeRole, "type"},
+            {ColorRole, "color"}};
     }
 
 private:
     Weather::MapType _type{Weather::UnknownMap};
-    QString _description;
+    QString _value;
+    QColor _color;
 };
 
 } // namespace Vremenar
 
-#endif // VREMENAR_MAPINFO_H_
+#endif // VREMENAR_MAPLEGENDITEM_H_

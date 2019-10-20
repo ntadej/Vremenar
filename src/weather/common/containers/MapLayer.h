@@ -80,7 +80,7 @@ public:
     static QVariant geoRectangleToList(const QGeoRectangle &rect);
 
 private:
-    Weather::MapType _type;
+    Weather::MapType _type{Weather::UnknownMap};
     QDateTime _time;
     QUrl _url;
     QGeoRectangle _range;

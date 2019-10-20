@@ -33,6 +33,8 @@ ARSO::APIRequest ARSO::mapLayers(Weather::MapType type)
     case Weather::HailProbabilityMap:
         id = QStringLiteral("inca_hail_data");
         break;
+    case Weather::UnknownMap:
+        throw std::runtime_error("unknown map");
     }
 
     APIRequest request;

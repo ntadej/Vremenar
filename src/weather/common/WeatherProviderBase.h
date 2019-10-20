@@ -19,6 +19,7 @@
 #include "weather/common/Weather.h"
 #include "weather/common/models/MapInfoModel.h"
 #include "weather/common/models/MapLayersProxyModel.h"
+#include "weather/common/models/MapLegendProxyModel.h"
 
 namespace Vremenar
 {
@@ -40,6 +41,7 @@ public:
 
     inline MapInfoModel *mapInfo() { return _mapInfoModel.get(); }
     inline MapLayersProxyModel *mapLayers() { return _mapLayersProxyModel.get(); }
+    inline MapLegendProxyModel *mapLegend() { return _mapLegendProxyModel.get(); }
 
     virtual void requestMapLayers(Weather::MapType type) = 0;
 
@@ -52,6 +54,7 @@ public:
     const QDateTime &lastUpdateTime() { return _lastUpdateResponseTime; }
 
 public slots:
+    Q_INVOKABLE void changeMapType(Weather::MapType type);
     Q_INVOKABLE void currentMapLayerChanged(int index);
     Q_INVOKABLE void refresh();
 
@@ -63,6 +66,7 @@ protected:
 
     std::unique_ptr<MapInfoModel> _mapInfoModel;
     std::unique_ptr<MapLayersProxyModel> _mapLayersProxyModel;
+    std::unique_ptr<MapLegendProxyModel> _mapLegendProxyModel;
 
     QDateTime _lastUpdateRequestTime{};
     QDateTime _lastUpdateResponseTime{};
@@ -71,7 +75,7 @@ private:
     inline QJsonObject copyrightLinkJson() const { return copyrightLink()->asJson(); }
     void timerCallback();
 
-    Weather::MapType _currentType{};
+    Weather::MapType _currentType{Weather::UnknownMap};
 
     std::unique_ptr<QTimer> _timer{};
 };

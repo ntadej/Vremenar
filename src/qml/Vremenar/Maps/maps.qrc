@@ -8,5 +8,7 @@
         <file>MapPage.qml</file>
         <file>elements/MapSettingsDialog.qml</file>
         <file>MapControls.qml</file>
+        <file>elements/MapLegendView.qml</file>
+        <file>elements/MapLegendItem.qml</file>
     </qresource>
 </RCC>

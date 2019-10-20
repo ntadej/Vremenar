@@ -16,6 +16,8 @@ import QtQuick.Layouts 1.12
 import Vremenar 1.0
 import Vremenar.Common 1.0
 
+import "elements"
+
 Item {
     anchors.fill: parent
 
@@ -82,6 +84,11 @@ Item {
 
                 onClicked: mapPage.toggleSheetVisibility()
             }
+        }
+
+        MapLegendView {
+            id: mapLegend
+            model: VMapLegendModel
         }
 
         Slider {

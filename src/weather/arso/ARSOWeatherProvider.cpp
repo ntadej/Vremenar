@@ -17,6 +17,7 @@
 #include "weather/arso/api/ARSOAPIMapLayers.h"
 #include "weather/common/models/MapInfoModel.h"
 #include "weather/common/models/MapLayersProxyModel.h"
+#include "weather/common/models/MapLegendProxyModel.h"
 
 #include "weather/arso/ARSOWeatherProvider.h"
 
@@ -26,10 +27,12 @@ namespace Vremenar
 ARSO::WeatherProvider::WeatherProvider(NetworkManager *network,
                                        QObject *parent)
     : WeatherProviderBase(network, defaultMapCoordinates(), parent),
-      _mapLayersModel(std::make_unique<MapLayersModel>(this))
+      _mapLayersModel(std::make_unique<MapLayersModel>(this)),
+      _mapLegendModel(std::make_unique<MapLegendModel>(this))
 {
     _mapInfoModel->generateModel(supportedMapTypes());
     _mapLayersProxyModel->setSourceModel(_mapLayersModel.get());
+    _mapLegendProxyModel->setSourceModel(_mapLegendModel.get());
 
     _copyrightLink = std::make_unique<Hyperlink>(
         QStringLiteral("© ") + tr("Slovenian Environment Agency"),
@@ -40,8 +43,11 @@ void ARSO::WeatherProvider::requestMapLayers(Weather::MapType type)
 {
     qDebug() << "Requesting map type:" << type;
 
-    APIRequest request = ARSO::mapLayers(type);
+    if (_mapLayersModel->rowCount() != 0) {
+        _mapLayersModel->clear();
+    }
 
+    APIRequest request = ARSO::mapLayers(type);
     _currentReplies.insert(_network->request(request), request);
 }
 

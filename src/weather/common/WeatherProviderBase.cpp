@@ -31,6 +31,7 @@ WeatherProviderBase::WeatherProviderBase(NetworkManager *network,
     : APILoader(network, parent),
       _mapInfoModel(std::make_unique<MapInfoModel>(this)),
       _mapLayersProxyModel(std::make_unique<MapLayersProxyModel>(defaultCoordinates, this)),
+      _mapLegendProxyModel(std::make_unique<MapLegendProxyModel>(this)),
       _timer(std::make_unique<QTimer>(this))
 {
     _timer->setSingleShot(true);
@@ -38,15 +39,20 @@ WeatherProviderBase::WeatherProviderBase(NetworkManager *network,
     connect(_timer.get(), &QTimer::timeout, this, &WeatherProviderBase::timerCallback);
 }
 
-void WeatherProviderBase::currentMapLayerChanged(int index)
+void WeatherProviderBase::changeMapType(Weather::MapType type)
 {
-    Weather::MapType type = _mapInfoModel->row<MapInfo>(index)->type();
     if (_currentType == type) {
         return;
     }
 
     _currentType = type;
+    _mapLegendProxyModel->setType(_currentType);
     refresh();
+}
+
+void WeatherProviderBase::currentMapLayerChanged(int index)
+{
+    changeMapType(_mapInfoModel->row<MapInfo>(index)->type());
 }
 
 void WeatherProviderBase::refresh()

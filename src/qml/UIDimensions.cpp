@@ -28,4 +28,6 @@ int Qml::UIManager::navBarHeight() const { return 44; }
 int Qml::UIManager::bottomSheetBaseHeight() const { return 44; }
 int Qml::UIManager::bottomSheetMaxWidth() const { return 640; }
 
+int Qml::UIManager::mapLegendSize() const { return 20; }
+
 } // namespace Vremenar

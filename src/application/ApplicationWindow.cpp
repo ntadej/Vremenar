@@ -20,6 +20,7 @@
 #include "settings/Settings.h"
 #include "weather/common/models/MapInfoModel.h"
 #include "weather/common/models/MapLayersProxyModel.h"
+#include "weather/common/models/MapLegendProxyModel.h"
 
 #ifndef VREMENAR_MOBILE
 #include "application/DesktopApplication.h"
@@ -124,6 +125,7 @@ void ApplicationWindow::createModels()
     rootContext()->setContextProperty(QStringLiteral("VWeather"), _weatherProvider.get());
     rootContext()->setContextProperty(QStringLiteral("VMapInfoModel"), _weatherProvider->mapInfo());
     rootContext()->setContextProperty(QStringLiteral("VMapLayersModel"), _weatherProvider->mapLayers());
+    rootContext()->setContextProperty(QStringLiteral("VMapLegendModel"), _weatherProvider->mapLegend());
 }
 
 #ifndef VREMENAR_MOBILE
@@ -179,7 +181,7 @@ void ApplicationWindow::startCompleted()
     emit dockVisibilityChanged(settings.showInDock());
 #endif
 
-    _weatherProvider->requestMapLayers(Weather::PrecipitationMap);
+    _weatherProvider->changeMapType(Weather::PrecipitationMap);
 
     qDebug() << "Initialization completed";
 }
