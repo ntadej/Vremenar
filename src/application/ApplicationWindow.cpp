@@ -75,7 +75,7 @@ ApplicationWindow::ApplicationWindow(QObject *parent)
     _engine->setNetworkAccessManagerFactory(_networkFactory.get());
     _engine->load(QUrl(QStringLiteral("qrc:/Vremenar/main.qml")));
 
-    _qmlMainWindow = qobject_cast<QQuickWindow *>(_engine->rootObjects().constFirst());
+    _qmlMainWindow = gsl::owner<QQuickWindow *>(qobject_cast<QQuickWindow *>(_engine->rootObjects().constFirst()));
 #ifdef Q_OS_MACOS
     application->setupTitleBarLessWindow(_qmlMainWindow->winId());
 #endif
@@ -154,7 +154,8 @@ void ApplicationWindow::showAboutDialog()
 
 void ApplicationWindow::showSettingsDialog()
 {
-    auto dialog = new SettingsDialog();
+    gsl::owner<SettingsDialog *> dialog{};
+    dialog = new SettingsDialog();
     dialog->setAttribute(Qt::WA_DeleteOnClose);
 
     connect(dialog, &SettingsDialog::localeChanged, _localeManager.get(), &LocaleManager::setLocale);

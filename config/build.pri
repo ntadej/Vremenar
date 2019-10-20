@@ -46,6 +46,9 @@ desktop {
     QMAKE_CXXFLAGS += -Werror
 }
 
+# Add GSL
+INCLUDEPATH += $$top_srcdir/3rdparty/GSL/include
+
 # Internationalisation
 include($$top_srcdir/config/i18n.pri)
 

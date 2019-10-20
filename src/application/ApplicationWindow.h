@@ -14,6 +14,8 @@
 
 #include <memory>
 
+#include <gsl/pointers>
+
 #include <QtGui/QWindow>
 #include <QtQml/QQmlApplicationEngine>
 
@@ -71,7 +73,7 @@ private:
     // Application
     std::unique_ptr<QQmlApplicationEngine> _engine;
 
-    NetworkManager *_network; // owned by Qt internally
+    gsl::owner<NetworkManager *> _network; // owned by Qt internally
 
     std::unique_ptr<LocaleManager> _localeManager;
     std::unique_ptr<LocationProvider> _location;
@@ -81,8 +83,8 @@ private:
     std::unique_ptr<ARSO::WeatherProvider> _weatherProvider;
 
     // QML
-    QQmlFileSelector *_qmlFileSelector; // owned by Qt internally
-    QQuickWindow *_qmlMainWindow;       // owned by Qt internally
+    gsl::owner<QQmlFileSelector *> _qmlFileSelector; // owned by Qt internally
+    gsl::owner<QQuickWindow *> _qmlMainWindow;       // owned by Qt internally
 
 // Widgets
 #ifndef VREMENAR_MOBILE
