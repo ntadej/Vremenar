@@ -10,7 +10,6 @@
 #
 
 SOURCES += \
-    src/common/Common.cpp \
     src/common/ListModel.cpp \
     src/common/LocaleManager.cpp \
     src/common/LocalServer.cpp \
@@ -25,8 +24,8 @@ SOURCES += \
     src/common/containers/Hyperlink.cpp
 
 HEADERS += \
-    src/common/Common.h \
     src/common/Enums.h \
+    src/common/Helpers.h \
     src/common/ListItem.h \
     src/common/ListModel.h \
     src/common/LocaleManager.h \

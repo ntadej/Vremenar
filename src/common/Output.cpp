@@ -12,9 +12,9 @@
 #include <QtCore/QDate>
 #include <QtCore/QTextCodec>
 
-#include "common/Common.h"
-
 #include "common/Output.h"
+
+#include "Config.h"
 
 namespace Vremenar
 {
@@ -33,7 +33,7 @@ Output &Output::operator<<(const QString &string)
 
 void Output::welcome()
 {
-    Output() << QStringLiteral("%1 %2").arg(Vremenar::name(), Vremenar::version()) << endl
+    Output() << QStringLiteral("%1 %2").arg(Vremenar::name, Vremenar::version) << endl
              << QStringLiteral("Copyright (C) %1 Tadej Novak").arg(QDate::currentDate().year()) << endl
              << endl;
 }

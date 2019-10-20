@@ -17,9 +17,7 @@
 #include <QtWidgets/QActionGroup>
 #include <QtWidgets/QMainWindow>
 
-#define MAC_NATIVE_TOOLBAR 1
-
-#if defined(Q_OS_MACOS) && MAC_NATIVE_TOOLBAR
+#if defined(Q_OS_MACOS)
 #include <QtMacExtras>
 #endif
 
@@ -64,7 +62,7 @@ private:
     void loadLocales();
     QStringList _locales;
 
-#if defined(Q_OS_MACOS) && MAC_NATIVE_TOOLBAR
+#if defined(Q_OS_MACOS)
     void initializeMacOS();
     void retranslateMacOS();
     void actionToggledMacOS();

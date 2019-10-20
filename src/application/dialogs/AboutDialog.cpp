@@ -13,8 +13,9 @@
 
 #include "application/DesktopApplication.h"
 #include "application/dialogs/AboutDialog.h"
-#include "common/Common.h"
 #include "location/MapsCommon.h"
+
+#include "Config.h"
 
 namespace Vremenar
 {
@@ -26,7 +27,7 @@ AboutDialog::AboutDialog(WeatherProviderBase *weatherProvider,
 {
     ui->setupUi(this);
 
-    setWindowTitle(tr("About %1").arg(Vremenar::name()));
+    setWindowTitle(tr("About %1").arg(Vremenar::name));
     setWindowFlags(Qt::Dialog
                    | Qt::WindowTitleHint
                    | Qt::WindowCloseButtonHint
@@ -59,7 +60,7 @@ AboutDialog::AboutDialog(WeatherProviderBase *weatherProvider,
     }
 
     ui->labelVremenar->setText(QStringLiteral("Vremenar"));
-    ui->labelVersion->setText(tr("Version %1 (%2)").arg(Vremenar::version(), QString::number(Vremenar::build())));
+    ui->labelVersion->setText(tr("Version %1 (%2)").arg(Vremenar::version, QString::number(Vremenar::build)));
     ui->labelCopyright->setText(tr("© %1 Tadej Novak").arg(QDate::currentDate().toString(QStringLiteral("yyyy"))));
 
     ui->labelWeather->setText(tr("Weather data") + " " + weatherProvider->copyrightLink()->asHtml(additionalStyle));

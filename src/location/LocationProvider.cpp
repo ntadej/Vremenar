@@ -13,7 +13,6 @@
 #include <QtLocation/QGeoCodingManager>
 #include <QtPositioning/QGeoAddress>
 
-#include "common/Common.h"
 #include "location/LocationProvider.h"
 
 #include "Config.h"
@@ -32,7 +31,7 @@ LocationProvider::LocationProvider(QObject *parent)
       _initialPosition(QGeoCoordinate(initialLatitude, initialLongitude), QDateTime::currentDateTime())
 {
     QMap<QString, QVariant> params;
-    params[QStringLiteral("osm.useragent")] = Vremenar::name() + " " + Vremenar::version();
+    params[QStringLiteral("osm.useragent")] = QString(Vremenar::name) + " " + Vremenar::version;
 
     _provider = std::make_unique<QGeoServiceProvider>("osm", params);
     if (_provider->geocodingManager() != nullptr) {

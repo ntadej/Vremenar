@@ -18,11 +18,6 @@ namespace Vremenar
 namespace Maps
 {
 
-QString style()
-{
-    return QStringLiteral(MAPS_ENDPOINT);
-}
-
 std::vector<std::unique_ptr<Hyperlink>> copyright()
 {
     std::vector<std::unique_ptr<Hyperlink>> list;

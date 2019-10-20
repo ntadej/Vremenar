@@ -33,7 +33,7 @@ SettingsDialog::SettingsDialog(QWidget *parent)
                    | Qt::WindowCloseButtonHint
                    | Qt::CustomizeWindowHint);
 
-#if defined(Q_OS_MACOS) && MAC_NATIVE_TOOLBAR
+#if defined(Q_OS_MACOS)
     initializeMacOS();
 #else
     connect(ui->actionGeneral, &QAction::toggled, this, &SettingsDialog::actionToggled);
@@ -60,7 +60,7 @@ void SettingsDialog::changeEvent(QEvent *e)
     switch (e->type()) {
     case QEvent::LanguageChange:
         ui->retranslateUi(this);
-#if defined(Q_OS_MACOS) && MAC_NATIVE_TOOLBAR
+#if defined(Q_OS_MACOS)
         retranslateMacOS();
 #endif
         loadLocales();
@@ -72,7 +72,7 @@ void SettingsDialog::changeEvent(QEvent *e)
 
 void SettingsDialog::actionToggled()
 {
-#if defined(Q_OS_MACOS) && MAC_NATIVE_TOOLBAR
+#if defined(Q_OS_MACOS)
     actionToggledMacOS();
 #else
     QAction *action = qobject_cast<QAction *>(sender());

@@ -9,20 +9,17 @@
 * SPDX-License-Identifier: (GPL-3.0-or-later AND MPL-2.0)
 */
 
-#ifndef VREMENAR_ARSOAPICOMMON_H_
-#define VREMENAR_ARSOAPICOMMON_H_
+#ifndef VREMENAR_HELPERS_H_
+#define VREMENAR_HELPERS_H_
 
-#include <QtCore/QString>
+#include <QtCore/QLatin1String>
 
-namespace Vremenar
+// Helper class
+class CString : public QLatin1String
 {
-namespace ARSO
-{
+public:
+    constexpr CString(const char *const s)
+        : QLatin1String(s, static_cast<int>(std::char_traits<char>::length(s))) {}
+};
 
-QString apiUrl();
-QString resourcesUrl();
-
-} // namespace ARSO
-} // namespace Vremenar
-
-#endif // VREMENAR_ARSOAPICOMMON_H_
+#endif // VREMENAR_HELPERS_H_

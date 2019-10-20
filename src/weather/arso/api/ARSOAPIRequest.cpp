@@ -9,16 +9,16 @@
 * SPDX-License-Identifier: (GPL-3.0-or-later AND MPL-2.0)
 */
 
-#include "weather/arso/api/ARSOAPICommon.h"
-
 #include "weather/arso/api/ARSOAPIRequest.h"
+
+#include "Config.h"
 
 namespace Vremenar
 {
 
 ARSO::APIRequest::APIRequest()
 {
-    setBaseUrl(ARSO::apiUrl());
+    setBaseUrl(Vremenar::ARSOAPIEndpoint);
 }
 
 } // namespace Vremenar

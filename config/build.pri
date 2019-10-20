@@ -65,6 +65,6 @@ macx {
     error("Unknown platform!")
 }
 
-equals(LOGGING, 1) {
+equals(LOGGING, true) {
     message("Logging enabled")
 }

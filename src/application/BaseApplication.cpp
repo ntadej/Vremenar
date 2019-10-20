@@ -11,19 +11,19 @@
 
 #include <QtCore/QCoreApplication>
 
-#include "common/Common.h"
+#include "application/BaseApplication.h"
 #include "common/Log.h"
 
-#include "application/BaseApplication.h"
+#include "Config.h"
 
 namespace Vremenar
 {
 
 void Application::preInit()
 {
-    QCoreApplication::setOrganizationDomain(Vremenar::domain());
-    QCoreApplication::setApplicationName(Vremenar::name());
-    QCoreApplication::setApplicationVersion(Vremenar::version());
+    QCoreApplication::setOrganizationDomain(Vremenar::domain);
+    QCoreApplication::setApplicationName(Vremenar::name);
+    QCoreApplication::setApplicationVersion(Vremenar::version);
 
     QCoreApplication::setAttribute(Qt::AA_X11InitThreads);
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);

@@ -21,7 +21,6 @@ SOURCES += \
     src/weather/common/models/MapLegendModelBase.cpp \
     src/weather/common/models/MapLegendProxyModel.cpp \
     src/weather/arso/ARSOWeatherProvider.cpp \
-    src/weather/arso/api/ARSOAPICommon.cpp \
     src/weather/arso/api/ARSOAPIMapLayers.cpp \
     src/weather/arso/api/ARSOAPIRequest.cpp \
     src/weather/arso/models/ARSOMapLayersModel.cpp \
@@ -39,7 +38,6 @@ HEADERS += \
     src/weather/common/models/MapLegendModelBase.h \
     src/weather/common/models/MapLegendProxyModel.h \
     src/weather/arso/ARSOWeatherProvider.h \
-    src/weather/arso/api/ARSOAPICommon.h \
     src/weather/arso/api/ARSOAPIMapLayers.h \
     src/weather/arso/api/ARSOAPIRequest.h \
     src/weather/arso/models/ARSOMapLayersModel.h \

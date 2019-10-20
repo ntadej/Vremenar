@@ -11,9 +11,9 @@
 
 #include <QtCore/QDebug>
 
-#include "common/Common.h"
-
 #include "common/LocalServer.h"
+
+#include "Config.h"
 
 namespace Vremenar
 {
@@ -21,9 +21,11 @@ namespace Vremenar
 LocalServer::LocalServer(QObject *parent)
     : QObject(parent)
 {
+    QString name = QString(Vremenar::name) + "_localserver";
+
     _server = std::make_unique<QLocalServer>(this);
-    _server->removeServer(localServer());
-    if (!_server->listen(localServer())) {
+    _server->removeServer(name);
+    if (!_server->listen(name)) {
         qCritical() << "Local server could not be started." << _server->errorString();
         return;
     }

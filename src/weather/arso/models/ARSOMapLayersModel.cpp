@@ -13,9 +13,9 @@
 #include <QtCore/QJsonObject>
 #include <QtPositioning/QGeoCoordinate>
 
-#include "weather/arso/api/ARSOAPICommon.h"
-
 #include "weather/arso/models/ARSOMapLayersModel.h"
+
+#include "Config.h"
 
 namespace Vremenar
 {
@@ -29,7 +29,7 @@ MapLayer *ARSO::MapLayersModel::createMapLayer(Weather::MapType type,
     QDateTime time = QDateTime::fromString(data[QStringLiteral("date")].toString(), QStringLiteral("yyyyMMddHHmm"));
     time.setTimeSpec(Qt::UTC);
 
-    QUrl url(ARSO::resourcesUrl() + data[QStringLiteral("path")].toString());
+    QUrl url(Vremenar::ARSOAPIResources + data[QStringLiteral("path")].toString());
 
     QStringList c = data[QStringLiteral("bbox")].toString().split(QStringLiteral(","));
     QGeoCoordinate topLeft(c[2].toDouble(), c[1].toDouble());

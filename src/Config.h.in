@@ -12,13 +12,23 @@
 #ifndef VREMENAR_CONFIG_H_
 #define VREMENAR_CONFIG_H_
 
-#define VREMENAR_VERSION \"$${VERSION}\"
-#define VREMENAR_VERSION_BUILD $${VERSION_BUILD}
+#include \"common/Helpers.h\"
 
-#define VREMENAR_LOGGING $${LOGGING}
+namespace Vremenar
+{
 
-#define MAPS_ENDPOINT \"$${MAPS_ENDPOINT}\"
-#define ARSO_API_ENDPOINT \"$${ARSO_API_ENDPOINT}\"
-#define ARSO_API_RESOURCES \"$${ARSO_API_RESOURCES}\"
+constexpr CString name = \"Vremenar\";
+constexpr CString domain = \"tano.si\";
+
+constexpr CString version = \"$${VERSION}\";
+constexpr uint32_t build = $${VERSION_BUILD};
+
+constexpr bool loggingEnabled = $${LOGGING};
+
+constexpr CString mapsEndpoint = \"$${MAPS_ENDPOINT}\";
+constexpr CString ARSOAPIEndpoint = \"$${ARSO_API_ENDPOINT}\";
+constexpr CString ARSOAPIResources = \"$${ARSO_API_RESOURCES}\";
+
+} // namespace Vremenar
 
 #endif // VREMENAR_CONFIG_H_

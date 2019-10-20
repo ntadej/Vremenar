@@ -23,7 +23,6 @@ namespace Vremenar
 namespace Maps
 {
 
-QString style();
 std::vector<std::unique_ptr<Hyperlink>> copyright();
 
 } // namespace Maps

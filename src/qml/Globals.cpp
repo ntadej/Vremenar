@@ -11,20 +11,21 @@
 
 #include <QtCore/QJsonObject>
 
-#include "common/Common.h"
 #include "location/MapsCommon.h"
 #include "settings/Settings.h"
 
 #include "qml/Globals.h"
 
+#include "Config.h"
+
 namespace Vremenar
 {
 
-QString Qml::Globals::name() const { return Vremenar::name(); }
-QString Qml::Globals::version() const { return Vremenar::version(); }
-int Qml::Globals::build() const { return Vremenar::build(); }
+QString Qml::Globals::name() const { return Vremenar::name; }
+QString Qml::Globals::version() const { return Vremenar::version; }
+int Qml::Globals::build() const { return Vremenar::build; }
 
-QString Qml::Globals::mapsStyle() const { return Maps::style(); }
+QString Qml::Globals::mapsStyle() const { return Vremenar::mapsEndpoint; }
 
 QJsonArray Qml::Globals::mapsCopyright() const
 {

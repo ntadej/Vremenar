@@ -18,7 +18,6 @@
 #include <QtCore/QTextCodec>
 #include <QtCore/QTextStream>
 
-#include "common/Common.h"
 #include "common/Output.h"
 #include "common/Resources.h"
 
@@ -74,17 +73,17 @@ void Log::output(QtMsgType type,
 
 void Log::setup()
 {
-#if VREMENAR_LOGGING
-    QString fileName = Resources::logLocation() + "/" + Vremenar::executable() + ".log";
-    outFile = std::make_unique<QFile>(fileName);
-    if (outFile->open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text)) {
-        out = std::make_unique<QTextStream>(outFile.get());
-        outMutex = std::make_unique<QMutex>();
-        qInstallMessageHandler(output);
-    } else {
-        qDebug() << "Error opening log file '" << fileName << "'. All debug output redirected to console.";
+    if (Vremenar::loggingEnabled) {
+        QString fileName = Resources::logLocation() + "/" + Vremenar::name + ".log";
+        outFile = std::make_unique<QFile>(fileName);
+        if (outFile->open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text)) {
+            out = std::make_unique<QTextStream>(outFile.get());
+            outMutex = std::make_unique<QMutex>();
+            qInstallMessageHandler(output);
+        } else {
+            qDebug() << "Error opening log file '" << fileName << "'. All debug output redirected to console.";
+        }
     }
-#endif
 }
 
 } // namespace Vremenar
