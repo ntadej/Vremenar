@@ -50,12 +50,10 @@ bool DesktopApplication::isDark()
 
 void DesktopApplication::setupDockHandler()
 {
-    Class cls = objc_getClass("NSApplication");
-    id appInst = objc_msgSend(cls, sel_registerName("sharedApplication"));
+    NSApplication *appInst = [NSApplication sharedApplication];
 
     if (appInst) {
-        id delegate = objc_msgSend(appInst, sel_registerName("delegate"));
-        Class delClass = objc_msgSend(delegate, sel_registerName("class"));
+        Class delClass = [[appInst delegate] class];
         SEL shouldHandle = sel_registerName("applicationShouldHandleReopen:hasVisibleWindows:");
         if (class_getInstanceMethod(delClass, shouldHandle)) {
             if (class_replaceMethod(delClass, shouldHandle, reinterpret_cast<IMP>(dockClickHandler), "B@:"))
