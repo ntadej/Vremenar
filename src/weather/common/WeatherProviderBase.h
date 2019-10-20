@@ -12,6 +12,8 @@
 #ifndef VREMENAR_WEATHERPROVIDERBASE_H_
 #define VREMENAR_WEATHERPROVIDERBASE_H_
 
+#include <QtCore/QTimer>
+
 #include "common/api/APILoader.h"
 #include "common/containers/Hyperlink.h"
 #include "weather/common/Weather.h"
@@ -34,11 +36,10 @@ public:
     Q_PROPERTY(float maxZoomLevel READ maxZoomLevel CONSTANT)
     Q_PROPERTY(QVariant defaultMapCoordinates READ defaultMapCoordinates CONSTANT)
     Q_PROPERTY(QJsonObject copyrightLink READ copyrightLinkJson CONSTANT)
+    Q_PROPERTY(QDateTime lastUpdateTime READ lastUpdateTime NOTIFY lastUpdateTimeChanged)
 
     inline MapInfoModel *mapInfo() { return _mapInfoModel.get(); }
     inline MapLayersProxyModel *mapLayers() { return _mapLayersProxyModel.get(); }
-
-    Q_INVOKABLE void currentMapLayerChanged(int index);
 
     virtual void requestMapLayers(Weather::MapType type) = 0;
 
@@ -48,12 +49,31 @@ public:
     virtual QVariant defaultMapCoordinates() const = 0;
     virtual Hyperlink *copyrightLink() const = 0;
 
+    const QDateTime &lastUpdateTime() { return _lastUpdateResponseTime; }
+
+public slots:
+    Q_INVOKABLE void currentMapLayerChanged(int index);
+    Q_INVOKABLE void refresh();
+
+signals:
+    void lastUpdateTimeChanged();
+
 protected:
+    void startTimer();
+
     std::unique_ptr<MapInfoModel> _mapInfoModel;
     std::unique_ptr<MapLayersProxyModel> _mapLayersProxyModel;
 
+    QDateTime _lastUpdateRequestTime{};
+    QDateTime _lastUpdateResponseTime{};
+
 private:
     inline QJsonObject copyrightLinkJson() const { return copyrightLink()->asJson(); }
+    void timerCallback();
+
+    Weather::MapType _currentType{};
+
+    std::unique_ptr<QTimer> _timer{};
 };
 
 } // namespace Vremenar

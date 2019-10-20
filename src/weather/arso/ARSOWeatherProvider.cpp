@@ -51,6 +51,8 @@ void ARSO::WeatherProvider::response(QNetworkReply *reply)
         return;
     }
 
+    bool valid{};
+
     QJsonDocument document = QJsonDocument::fromJson(reply->readAll());
     if (_currentReplies[reply].call() == QStringLiteral("/inca_data")) {
         auto type = Weather::MapType(_currentReplies.value(reply).extra().toInt());
@@ -60,7 +62,17 @@ void ARSO::WeatherProvider::response(QNetworkReply *reply)
         _mapLayersModel->addMapLayers(type, document.array());
 
         removeResponse(reply);
+
+        valid = true;
     }
+
+    if (!valid) {
+        return;
+    }
+
+    _lastUpdateResponseTime = QDateTime::currentDateTime();
+    startTimer();
+    emit lastUpdateTimeChanged();
 }
 
 QVariant ARSO::WeatherProvider::defaultMapCoordinates() const

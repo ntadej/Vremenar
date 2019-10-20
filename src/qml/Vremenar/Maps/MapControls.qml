@@ -155,6 +155,10 @@ Item {
         }
 
         TextSmall {
+            text: qsTr("Last updated:") + " " + VWeather.lastUpdateTime + VL.R
+        }
+
+        TextSmall {
             text: qsTr("Weather data") + generateWeather() + "<br>"
                   + qsTr("Maps") + generateMaps() + "<br>"
                   + Globals.name + " " + Globals.version + " (" + Globals.build + ")"

@@ -14,7 +14,6 @@
 
 #include <memory>
 
-#include <QtCore/QTimer>
 #include <QtNetwork/QNetworkAccessManager>
 #include <QtNetwork/QNetworkDiskCache>
 #include <QtNetwork/QNetworkReply>
