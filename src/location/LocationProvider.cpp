@@ -18,12 +18,18 @@
 
 #include "Config.h"
 
+namespace
+{
+constexpr double initialLatitude{46.119944};
+constexpr double initialLongitude{14.815333};
+} // namespace
+
 namespace Vremenar
 {
 
 LocationProvider::LocationProvider(QObject *parent)
     : QObject(parent),
-      _initialPosition(QGeoCoordinate(46.119944, 14.815333), QDateTime::currentDateTime())
+      _initialPosition(QGeoCoordinate(initialLatitude, initialLongitude), QDateTime::currentDateTime())
 {
     QMap<QString, QVariant> params;
     params[QStringLiteral("osm.useragent")] = Vremenar::name() + " " + Vremenar::version();
@@ -83,7 +89,7 @@ void LocationProvider::positionUpdated(const QGeoPositionInfo &info)
 
 void LocationProvider::positionError(QGeoPositionInfoSource::Error error)
 {
-    // TODO: pass errors to UI
+    // TODO(#1): pass errors to UI
     switch (error) {
     case QGeoPositionInfoSource::AccessError:
         qWarning() << "This application is not allowed to do positioning.";

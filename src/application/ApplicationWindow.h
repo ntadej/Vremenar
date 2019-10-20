@@ -38,7 +38,9 @@ class ApplicationWindow : public QObject
     Q_OBJECT
 public:
     explicit ApplicationWindow(QObject *parent = nullptr);
-    ~ApplicationWindow();
+    ApplicationWindow(const ApplicationWindow &) = delete;
+    ApplicationWindow &operator=(ApplicationWindow) = delete;
+    ~ApplicationWindow() final;
 
 public Q_SLOTS:
     void activate();

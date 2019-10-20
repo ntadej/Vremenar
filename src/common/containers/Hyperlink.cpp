@@ -19,11 +19,11 @@ namespace Vremenar
 Hyperlink::Hyperlink(const QString &title,
                      const QString &url,
                      QObject *parent)
-    : ListItem(parent)
+    : ListItem(parent),
+      _title(title),
+      _url(url)
 {
-    _id = url;
-    _title = title;
-    _url = url;
+    setId(url);
 }
 
 QString Hyperlink::display() const

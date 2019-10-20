@@ -11,7 +11,6 @@
 
 #include <Cocoa/Cocoa.h>
 
-#include "common/LocaleManager.h"
 #include "settings/Settings.h"
 
 #include "SettingsDialog.h"

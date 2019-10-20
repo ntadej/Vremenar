@@ -30,11 +30,6 @@ LocaleManager::LocaleManager(QObject *parent)
     setLocale();
 }
 
-LocaleManager::~LocaleManager()
-{
-    QCoreApplication::removeTranslator(_translator.get());
-}
-
 QStringList LocaleManager::loadLocales()
 {
     QDir dir(QStringLiteral(":/i18n/"));

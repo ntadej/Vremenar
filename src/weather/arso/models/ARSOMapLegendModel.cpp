@@ -14,6 +14,8 @@
 namespace Vremenar
 {
 
+// clazy:excludeall=qcolor-from-literal
+
 ARSO::MapLegendModel::MapLegendModel(QObject *parent)
     : MapLegendModelBase(parent)
 {

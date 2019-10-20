@@ -31,10 +31,10 @@ public:
                        QObject *parent = nullptr);
 
     QVariant data(const QModelIndex &index,
-                  int role = Qt::DisplayRole) const override;
-    bool removeRows(int row,
-                    int count,
-                    const QModelIndex &parent = QModelIndex()) override;
+                  int role) const override;
+    // NOLINTNEXTLINE(google-default-arguments)
+    bool removeRows(int row, int count, const QModelIndex &parent = QModelIndex()) override;
+    // NOLINTNEXTLINE(google-default-arguments)
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
 
     QHash<int, QByteArray> roleNames() const override { return _roleNames; }

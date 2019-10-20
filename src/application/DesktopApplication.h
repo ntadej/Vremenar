@@ -21,8 +21,9 @@ class DesktopApplication : public SingleApplication
 {
     Q_OBJECT
 public:
-    explicit DesktopApplication(int &argc,
-                                char **argv);
+    explicit DesktopApplication(int &argc, // NOLINT(google-runtime-references)
+                                char **argv,
+                                QObject *parent = nullptr);
 
     void postInit() const;
 

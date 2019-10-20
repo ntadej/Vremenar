@@ -21,6 +21,14 @@
 
 #include "weather/arso/ARSOWeatherProvider.h"
 
+namespace
+{
+constexpr double ARSODefaultTopLeftLatitude{12.1};
+constexpr double ARSODefaultTopLeftLongitude{47.42};
+constexpr double ARSODefaultBottomRightLatitude{17.44};
+constexpr double ARSODefaultBottomRightLongitude{44.67};
+} // namespace
+
 namespace Vremenar
 {
 
@@ -30,9 +38,9 @@ ARSO::WeatherProvider::WeatherProvider(NetworkManager *network,
       _mapLayersModel(std::make_unique<MapLayersModel>(this)),
       _mapLegendModel(std::make_unique<MapLegendModel>(this))
 {
-    _mapInfoModel->generateModel(supportedMapTypes());
-    _mapLayersProxyModel->setSourceModel(_mapLayersModel.get());
-    _mapLegendProxyModel->setSourceModel(_mapLegendModel.get());
+    mapInfo()->generateModel(supportedMapTypes());
+    mapLayers()->setSourceModel(_mapLayersModel.get());
+    mapLegend()->setSourceModel(_mapLegendModel.get());
 
     _copyrightLink = std::make_unique<Hyperlink>(
         QStringLiteral("© ") + tr("Slovenian Environment Agency"),
@@ -48,20 +56,20 @@ void ARSO::WeatherProvider::requestMapLayers(Weather::MapType type)
     }
 
     APIRequest request = ARSO::mapLayers(type);
-    _currentReplies.insert(_network->request(request), request);
+    currentReplies()->insert(network()->request(request), request);
 }
 
 void ARSO::WeatherProvider::response(QNetworkReply *reply)
 {
-    if (!_currentReplies.contains(reply)) {
+    if (!currentReplies()->contains(reply)) {
         return;
     }
 
     bool valid{};
 
     QJsonDocument document = QJsonDocument::fromJson(reply->readAll());
-    if (_currentReplies[reply].call() == QStringLiteral("/inca_data")) {
-        auto type = Weather::MapType(_currentReplies.value(reply).extra().toInt());
+    if (currentReplies()->value(reply).call() == QStringLiteral("/inca_data")) {
+        auto type = Weather::MapType(currentReplies()->value(reply).extra().toInt());
         if (_mapLayersModel->rowCount() != 0) {
             _mapLayersModel->clear();
         }
@@ -76,14 +84,16 @@ void ARSO::WeatherProvider::response(QNetworkReply *reply)
         return;
     }
 
-    _lastUpdateResponseTime = QDateTime::currentDateTime();
+    setLastUpdatedTime(QDateTime::currentDateTime());
     startTimer();
     Q_EMIT lastUpdateTimeChanged();
 }
 
 QVariant ARSO::WeatherProvider::defaultMapCoordinates() const
 {
-    return MapLayer::geoRectangleToList(QGeoRectangle(QGeoCoordinate(12.1, 47.42), QGeoCoordinate(17.44, 44.67)));
+    return MapLayer::geoRectangleToList(QGeoRectangle(
+        QGeoCoordinate(ARSODefaultTopLeftLatitude, ARSODefaultTopLeftLongitude),
+        QGeoCoordinate(ARSODefaultBottomRightLatitude, ARSODefaultBottomRightLongitude)));
 }
 
 } // namespace Vremenar

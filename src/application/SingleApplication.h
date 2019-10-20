@@ -27,8 +27,9 @@ class SingleApplication : public QApplication
 {
     Q_OBJECT
 public:
-    explicit SingleApplication(int &argc,
-                               char **argv);
+    explicit SingleApplication(int &argc, // NOLINT(google-runtime-references)
+                               char **argv,
+                               QObject *parent = nullptr);
 
     inline bool shouldContinue() const { return _shouldContinue; }
 

@@ -16,11 +16,11 @@ namespace Vremenar
 
 MapInfo::MapInfo(Weather::MapType type,
                  QObject *parent)
-    : ListItem(parent)
+    : ListItem(parent),
+      _type(type),
+      _description(Weather::mapTypeStringLocale(type))
 {
-    _id = Weather::mapTypeString(type);
-    _description = Weather::mapTypeStringLocale(type);
-    _type = type;
+    setId(Weather::mapTypeString(type));
 }
 
 QString MapInfo::display() const

@@ -37,6 +37,10 @@ protected Q_SLOTS:
     virtual void response(QNetworkReply *reply);
 
 protected:
+    NetworkManager *network() { return _network; }
+    QMap<QNetworkReply *, APIRequestBase> *currentReplies() { return &_currentReplies; }
+
+private:
     NetworkManager *_network; // not owned
 
     QMap<QNetworkReply *, APIRequestBase> _currentReplies;

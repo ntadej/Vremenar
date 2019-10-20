@@ -34,6 +34,9 @@ Q_SIGNALS:
     void dataChanged();
 
 protected:
+    void setId(const QString &id) { _id = id; }
+
+private:
     QString _id;
 };
 

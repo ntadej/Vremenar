@@ -15,15 +15,15 @@ namespace Vremenar
 {
 
 MapLegendItem::MapLegendItem(Weather::MapType type,
-                             const QString &value,
-                             const QColor &color,
+                             QString value,
+                             QColor color,
                              QObject *parent)
     : ListItem(parent),
       _type(type),
-      _value(value),
-      _color(color)
+      _value(std::move(value)),
+      _color(std::move(color))
 {
-    _id = Weather::mapTypeString(type) + "_" + value;
+    setId(Weather::mapTypeString(type) + "_" + value);
 }
 
 QString MapLegendItem::display() const

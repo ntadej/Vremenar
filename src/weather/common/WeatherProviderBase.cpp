@@ -59,7 +59,6 @@ void WeatherProviderBase::refresh()
 {
     _timer->stop();
 
-    _lastUpdateRequestTime = QDateTime::currentDateTime();
     requestMapLayers(_currentType);
 }
 
@@ -86,7 +85,7 @@ void WeatherProviderBase::timerCallback()
     qDebug() << "Autorefresh:"
              << "Reloading...";
 
-    _lastUpdateRequestTime = now;
+    setLastUpdatedTime(now);
     requestMapLayers(_currentType);
 }
 

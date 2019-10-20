@@ -22,7 +22,8 @@ namespace Vremenar
 {
 
 SingleApplication::SingleApplication(int &argc,
-                                     char **argv)
+                                     char **argv,
+                                     QObject *parent)
     : QApplication(argc, argv),
 #ifndef Q_OS_MACOS
       _shouldContinue(false) // By default this is not the main process
@@ -30,6 +31,8 @@ SingleApplication::SingleApplication(int &argc,
       _shouldContinue(true) // It is default on OS X
 #endif
 {
+    Q_UNUSED(parent)
+
 #ifndef Q_OS_MACOS
     auto socket = std::make_unique<QLocalSocket>(this);
 

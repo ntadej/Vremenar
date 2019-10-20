@@ -35,8 +35,8 @@ public:
     };
 
     explicit MapLegendItem(Weather::MapType type,
-                           const QString &value,
-                           const QColor &color,
+                           QString value,
+                           QColor color,
                            QObject *parent = nullptr);
 
     // Implemented virtual functions

@@ -27,7 +27,6 @@ class LocaleManager : public QObject
     Q_PROPERTY(QString locale READ locale NOTIFY localeChanged)
 public:
     explicit LocaleManager(QObject *parent = nullptr);
-    ~LocaleManager() override;
 
     static QStringList loadLocales();
     static QString localeName(const QString &file);

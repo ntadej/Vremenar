@@ -37,5 +37,5 @@ int main(int argc, char *argv[])
 
     Vremenar::ApplicationWindow main;
 
-    return instance.exec();
+    return instance.exec(); // NOLINT(readability-static-accessed-through-instance)
 }

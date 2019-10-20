@@ -19,8 +19,9 @@ namespace Vremenar
 {
 
 DesktopApplication::DesktopApplication(int &argc,
-                                       char **argv)
-    : SingleApplication(argc, argv)
+                                       char **argv,
+                                       QObject *parent)
+    : SingleApplication(argc, argv, parent)
 {
     installEventFilter(this);
 

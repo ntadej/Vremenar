@@ -28,7 +28,7 @@ QString Weather::mapTypeString(MapType type)
     case HailProbabilityMap:
         return QStringLiteral("hail");
     case UnknownMap:
-        return QStringLiteral("");
+        return QString();
     }
 
     return QString();
@@ -48,7 +48,7 @@ QString Weather::mapTypeStringLocale(MapType type)
     case HailProbabilityMap:
         return QObject::tr("Hail probability");
     case UnknownMap:
-        return QStringLiteral("");
+        return QString();
     }
 
     return QString();

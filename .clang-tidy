@@ -1,5 +1,9 @@
 ---
-Checks: 'clang-diagnostic-*,clang-analyzer-*,bugprone-*,cppcoreguidelines-*,google-*,misc-*,modernize-*,performance-*,readability-*,-cppcoreguidelines-pro-bounds-array-to-pointer-decay,-google-default-arguments,-google-readability-todo'
+Checks: 'clang-diagnostic-*,clang-analyzer-*,bugprone-*,cppcoreguidelines-*,google-*,misc-*,modernize-*,performance-*,readability-*,-google-objc-global-variable-declaration'
 WarningsAsErrors: 'clang-diagnostic-*,clang-analyzer-*,bugprone-*,cppcoreguidelines-*,google-*,misc-*,modernize-*,performance-*,readability-*'
+CheckOptions:
+ - key: cppcoreguidelines-special-member-functions.AllowMissingMoveFunctions
+   value: 1
+ - key: misc-non-private-member-variables-in-classes.IgnoreClassesWithAllMemberVariablesBeingPublic
+   value: 1
 ...
-

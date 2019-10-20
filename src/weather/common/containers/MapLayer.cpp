@@ -21,7 +21,8 @@ MapLayer::MapLayer(Weather::MapType type,
                    QObject *parent)
     : ListItem(parent)
 {
-    _id = Weather::mapTypeString(type) + "_" + QString::number(time.toSecsSinceEpoch());
+    setId(Weather::mapTypeString(type) + "_" + QString::number(time.toSecsSinceEpoch()));
+
     _type = type;
     _time = time;
     _url = url;
@@ -64,6 +65,7 @@ QVariant MapLayer::data(int role) const
     }
 }
 
+// clazy:excludeall=inefficient-qlist
 QVariant MapLayer::geoRectangleToList(const QGeoRectangle &rect)
 {
     QVariantList list{

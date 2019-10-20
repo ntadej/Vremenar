@@ -21,9 +21,10 @@ ListModel::ListModel(QHash<int, QByteArray> roleNames,
     : QAbstractListModel(parent),
       _roleNames(std::move(roleNames)) {}
 
+// NOLINTNEXTLINE(google-default-arguments)
 int ListModel::rowCount(const QModelIndex &parent) const
 {
-    Q_UNUSED(parent);
+    Q_UNUSED(parent)
     return static_cast<int>(_list.size());
 }
 
@@ -53,7 +54,7 @@ void ListModel::clear()
 
 bool ListModel::removeRow(int row, const QModelIndex &parent)
 {
-    Q_UNUSED(parent);
+    Q_UNUSED(parent)
     if (row < 0 || static_cast<size_t>(row) >= _list.size()) {
         return false;
     }
@@ -63,9 +64,10 @@ bool ListModel::removeRow(int row, const QModelIndex &parent)
     return true;
 }
 
+// NOLINTNEXTLINE(google-default-arguments)
 bool ListModel::removeRows(int row, int count, const QModelIndex &parent)
 {
-    Q_UNUSED(parent);
+    Q_UNUSED(parent)
     int toRemove = row + count;
     if (row < 0 || static_cast<size_t>(toRemove) > _list.size()) {
         return false;

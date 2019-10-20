@@ -15,6 +15,11 @@
 
 #include "common/NetworkManager.h"
 
+namespace
+{
+constexpr uint64_t GB{1073741824};
+} // namespace
+
 namespace Vremenar
 {
 
@@ -23,7 +28,7 @@ NetworkManager::NetworkManager(QObject *parent)
 {
     _cache = std::make_unique<QNetworkDiskCache>(this);
     _cache->setCacheDirectory(QStandardPaths::writableLocation(QStandardPaths::CacheLocation));
-    _cache->setMaximumCacheSize(1073741824); // 1 GB
+    _cache->setMaximumCacheSize(GB); // 1 GB
     setCache(_cache.get());
 }
 

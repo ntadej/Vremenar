@@ -63,17 +63,17 @@ Q_SIGNALS:
 
 protected:
     void startTimer();
+    void setLastUpdatedTime(const QDateTime &time) { _lastUpdateResponseTime = time; }
+
+private:
+    inline QJsonObject copyrightLinkJson() const { return copyrightLink()->asJson(); }
+    void timerCallback();
 
     std::unique_ptr<MapInfoModel> _mapInfoModel;
     std::unique_ptr<MapLayersProxyModel> _mapLayersProxyModel;
     std::unique_ptr<MapLegendProxyModel> _mapLegendProxyModel;
 
-    QDateTime _lastUpdateRequestTime{};
     QDateTime _lastUpdateResponseTime{};
-
-private:
-    inline QJsonObject copyrightLinkJson() const { return copyrightLink()->asJson(); }
-    void timerCallback();
 
     Weather::MapType _currentType{Weather::UnknownMap};
 
