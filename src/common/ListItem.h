@@ -25,10 +25,10 @@ class ListItem : public QObject
 public:
     explicit ListItem(QObject *parent = nullptr) : QObject(parent) {}
 
-    inline const QString &id() const { return _id; }
+    [[nodiscard]] inline const QString &id() const { return _id; }
 
-    virtual QVariant data(int role) const = 0;
-    virtual QString display() const = 0;
+    [[nodiscard]] virtual QVariant data(int role) const = 0;
+    [[nodiscard]] virtual QString display() const = 0;
 
 Q_SIGNALS:
     void dataChanged();

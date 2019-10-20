@@ -38,8 +38,8 @@ public Q_SLOTS:
     void setLocale();
 
 private:
-    inline QString retranslateQml() const { return {}; }
-    inline const QString &locale() const { return _locale; }
+    [[nodiscard]] inline QString retranslateQml() const { return {}; }
+    [[nodiscard]] inline const QString &locale() const { return _locale; }
 
     std::unique_ptr<QTranslator> _translator;
     QString _locale{};

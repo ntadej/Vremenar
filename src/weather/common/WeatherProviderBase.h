@@ -45,11 +45,11 @@ public:
 
     virtual void requestMapLayers(Weather::MapType type) = 0;
 
-    virtual const std::vector<Weather::MapType> &supportedMapTypes() const = 0;
-    virtual float minZoomLevel() const = 0;
-    virtual float maxZoomLevel() const = 0;
-    virtual QVariant defaultMapCoordinates() const = 0;
-    virtual Hyperlink *copyrightLink() const = 0;
+    [[nodiscard]] virtual const std::vector<Weather::MapType> &supportedMapTypes() const = 0;
+    [[nodiscard]] virtual float minZoomLevel() const = 0;
+    [[nodiscard]] virtual float maxZoomLevel() const = 0;
+    [[nodiscard]] virtual QVariant defaultMapCoordinates() const = 0;
+    [[nodiscard]] virtual Hyperlink *copyrightLink() const = 0;
 
     const QDateTime &lastUpdateTime() { return _lastUpdateResponseTime; }
 
@@ -66,7 +66,7 @@ protected:
     void setLastUpdatedTime(const QDateTime &time) { _lastUpdateResponseTime = time; }
 
 private:
-    inline QJsonObject copyrightLinkJson() const { return copyrightLink()->asJson(); }
+    [[nodiscard]] inline QJsonObject copyrightLinkJson() const { return copyrightLink()->asJson(); }
     void timerCallback();
 
     std::unique_ptr<MapInfoModel> _mapInfoModel;

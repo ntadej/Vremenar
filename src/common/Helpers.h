@@ -18,6 +18,7 @@
 class CString : public QLatin1String
 {
 public:
+    // NOLINTNEXTLINE(google-explicit-constructor)
     constexpr CString(const char *const s)
         : QLatin1String(s, static_cast<int>(std::char_traits<char>::length(s))) {}
 };

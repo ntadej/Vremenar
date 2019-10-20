@@ -24,10 +24,10 @@ class APIRequestBase : public QNetworkRequest
 public:
     APIRequestBase();
 
-    inline const QString &call() const { return _call; }
-    inline QNetworkAccessManager::Operation operation() const { return _operation; }
-    inline const QVariant &extra() const { return _extra; }
-    QByteArray data() const;
+    [[nodiscard]] inline const QString &call() const { return _call; }
+    [[nodiscard]] inline QNetworkAccessManager::Operation operation() const { return _operation; }
+    [[nodiscard]] inline const QVariant &extra() const { return _extra; }
+    [[nodiscard]] QByteArray data() const;
 
     void setBaseUrl(const QString &url);
     void setCall(const QString &call);

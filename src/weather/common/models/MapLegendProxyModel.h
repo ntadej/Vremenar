@@ -27,15 +27,15 @@ class MapLegendProxyModel : public QSortFilterProxyModel
 public:
     explicit MapLegendProxyModel(QObject *parent = nullptr);
 
-    inline Weather::MapType type() const { return _type; }
+    [[nodiscard]] inline Weather::MapType type() const { return _type; }
     void setType(Weather::MapType type);
 
 Q_SIGNALS:
     void typeChanged();
 
 protected:
-    bool filterAcceptsRow(int sourceRow,
-                          const QModelIndex &sourceParent) const override;
+    [[nodiscard]] bool filterAcceptsRow(int sourceRow,
+                                        const QModelIndex &sourceParent) const override;
 
 private:
     Weather::MapType _type{Weather::UnknownMap};

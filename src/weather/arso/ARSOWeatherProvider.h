@@ -31,11 +31,11 @@ public:
 
     Q_INVOKABLE void requestMapLayers(Weather::MapType type) final;
 
-    inline const std::vector<Weather::MapType> &supportedMapTypes() const final { return _supportedMapTypes; }
-    inline float minZoomLevel() const final { return 7; }  // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
-    inline float maxZoomLevel() const final { return 10; } // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
-    QVariant defaultMapCoordinates() const final;
-    inline Hyperlink *copyrightLink() const final { return _copyrightLink.get(); }
+    [[nodiscard]] inline const std::vector<Weather::MapType> &supportedMapTypes() const final { return _supportedMapTypes; }
+    [[nodiscard]] inline float minZoomLevel() const final { return 7; }  // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+    [[nodiscard]] inline float maxZoomLevel() const final { return 10; } // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+    [[nodiscard]] QVariant defaultMapCoordinates() const final;
+    [[nodiscard]] inline Hyperlink *copyrightLink() const final { return _copyrightLink.get(); }
 
 protected Q_SLOTS:
     void response(QNetworkReply *reply) final;

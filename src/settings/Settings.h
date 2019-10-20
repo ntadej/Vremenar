@@ -33,55 +33,55 @@ public:
     Q_INVOKABLE void readSettings();
     void writeSettings();
 
-    Q_INVOKABLE QVariant defaultValue(const QString &key) const;
+    Q_INVOKABLE [[nodiscard]] QVariant defaultValue(const QString &key) const;
 
     // Locale
-    inline const QString &locale() const { return _locale; }
+    [[nodiscard]] inline const QString &locale() const { return _locale; }
     inline void setLocale(const QString &s) { _locale = s; }
     static const QString KEY_LOCALE;
     static const QString DEFAULT_LOCALE;
 
     // GUI
-    inline bool showInTray() const { return _showInTray; }
+    [[nodiscard]] inline bool showInTray() const { return _showInTray; }
     inline void setShowInTray(bool b) { _showInTray = b; }
     static const QString KEY_SHOW_IN_TRAY;
     static const bool DEFAULT_SHOW_IN_TRAY;
 
 #if defined(Q_OS_MACOS)
     // macOS special
-    inline bool showInDock() const { return _showInDock; }
+    [[nodiscard]] inline bool showInDock() const { return _showInDock; }
     inline void setShowInDock(bool b) { _showInDock = b; }
     static const QString KEY_SHOW_IN_DOCK;
     static const bool DEFAULT_SHOW_IN_DOCK;
 #endif
 
     // GUI - session
-    inline bool rememberPosition() const { return _rememberPosition; }
+    [[nodiscard]] inline bool rememberPosition() const { return _rememberPosition; }
     inline void setRememberPosition(bool b) { _rememberPosition = b; }
     static const QString KEY_REMEMBER_POSITION;
     static const bool DEFAULT_REMEMBER_POSITION;
 
-    inline bool rememberSize() const { return _rememberSize; }
+    [[nodiscard]] inline bool rememberSize() const { return _rememberSize; }
     inline void setRememberSize(bool b) { _rememberSize = b; }
     static const QString KEY_REMEMBER_SIZE;
     static const bool DEFAULT_REMEMBER_SIZE;
 
-    inline int width() const { return _width; }
+    [[nodiscard]] inline int width() const { return _width; }
     inline void setWidth(int i) { _width = i; }
     static const QString KEY_WIDTH;
     static const int DEFAULT_WIDTH;
 
-    inline int height() const { return _height; }
+    [[nodiscard]] inline int height() const { return _height; }
     inline void setHeight(int i) { _height = i; }
     static const QString KEY_HEIGHT;
     static const int DEFAULT_HEIGHT;
 
-    inline int posX() const { return _posX; }
+    [[nodiscard]] inline int posX() const { return _posX; }
     inline void setPosX(int i) { _posX = i; }
     static const QString KEY_POS_X;
     static const int DEFAULT_POS_X;
 
-    inline int posY() const { return _posY; }
+    [[nodiscard]] inline int posY() const { return _posY; }
     inline void setPosY(int i) { _posY = i; }
     static const QString KEY_POS_Y;
     static const int DEFAULT_POS_Y;

@@ -52,14 +52,14 @@ public:
                       QObject *parent = nullptr);
 
     // Implemented virtual functions
-    QVariant data(int role) const final;
-    QString display() const final;
+    [[nodiscard]] QVariant data(int role) const final;
+    [[nodiscard]] QString display() const final;
 
-    inline Weather::MapType type() const { return _type; }
-    inline const QDateTime &time() const { return _time; }
-    inline const QUrl &url() const { return _url; }
-    inline const QGeoRectangle &range() const { return _range; }
-    inline const QVariant &coordinates() const { return _coordinates; }
+    [[nodiscard]] inline Weather::MapType type() const { return _type; }
+    [[nodiscard]] inline const QDateTime &time() const { return _time; }
+    [[nodiscard]] inline const QUrl &url() const { return _url; }
+    [[nodiscard]] inline const QGeoRectangle &range() const { return _range; }
+    [[nodiscard]] inline const QVariant &coordinates() const { return _coordinates; }
 
     static inline QHash<int, QByteArray> roleNames()
     {

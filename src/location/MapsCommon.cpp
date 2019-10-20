@@ -13,9 +13,7 @@
 
 #include "Config.h"
 
-namespace Vremenar
-{
-namespace Maps
+namespace Vremenar::Maps
 {
 
 std::vector<std::unique_ptr<Hyperlink>> copyright()
@@ -33,5 +31,4 @@ std::vector<std::unique_ptr<Hyperlink>> copyright()
     return list;
 }
 
-} // namespace Maps
-} // namespace Vremenar
+} // namespace Vremenar::Maps

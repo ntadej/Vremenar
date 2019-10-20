@@ -40,11 +40,11 @@ public:
                            QObject *parent = nullptr);
 
     // Implemented virtual functions
-    QVariant data(int role) const final;
-    QString display() const final;
+    [[nodiscard]] QVariant data(int role) const final;
+    [[nodiscard]] QString display() const final;
 
-    inline Weather::MapType type() const { return _type; }
-    inline const QColor &color() const { return _color; }
+    [[nodiscard]] inline Weather::MapType type() const { return _type; }
+    [[nodiscard]] inline const QColor &color() const { return _color; }
 
     static QHash<int, QByteArray> roleNames()
     {

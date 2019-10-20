@@ -35,23 +35,23 @@ public:
     explicit MapLayersProxyModel(QVariant defaultCoordinates,
                                  QObject *parent = nullptr);
 
-    qint64 minTimestamp() const;
-    qint64 maxTimestamp() const;
-    qint64 stepTimestamp() const;
+    [[nodiscard]] qint64 minTimestamp() const;
+    [[nodiscard]] qint64 maxTimestamp() const;
+    [[nodiscard]] qint64 stepTimestamp() const;
 
-    inline qint64 timestamp() const { return _time; }
+    [[nodiscard]] inline qint64 timestamp() const { return _time; }
     void setTimestamp(qint64 time);
 
-    inline QString url() const { return _url; }
-    inline QVariant coordinates() const { return _coordinates; }
+    [[nodiscard]] inline QString url() const { return _url; }
+    [[nodiscard]] inline QVariant coordinates() const { return _coordinates; }
 
 Q_SIGNALS:
     void rowCountChanged();
     void timestampChanged();
 
 protected:
-    bool filterAcceptsRow(int sourceRow,
-                          const QModelIndex &sourceParent) const override;
+    [[nodiscard]] bool filterAcceptsRow(int sourceRow,
+                                        const QModelIndex &sourceParent) const override;
 
 private:
     qint64 _time;

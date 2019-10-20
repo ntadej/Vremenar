@@ -31,18 +31,18 @@ public:
         UrlRole
     };
 
-    explicit Hyperlink(const QString &title,
-                       const QString &url,
+    explicit Hyperlink(QString title,
+                       QUrl url,
                        QObject *parent = nullptr);
 
     // Implemented virtual functions
-    QVariant data(int role) const final;
-    QString display() const final;
+    [[nodiscard]] QVariant data(int role) const final;
+    [[nodiscard]] QString display() const final;
 
-    inline const QUrl &url() const { return _url; }
+    [[nodiscard]] inline const QUrl &url() const { return _url; }
 
-    QJsonObject asJson() const;
-    QString asHtml(const QString &style = QString()) const;
+    [[nodiscard]] QJsonObject asJson() const;
+    [[nodiscard]] QString asHtml(const QString &style = QString()) const;
 
     static QHash<int, QByteArray> roleNames()
     {

@@ -31,9 +31,9 @@ class LocationProvider : public QObject
 public:
     explicit LocationProvider(QObject *parent = nullptr);
 
-    QGeoCoordinate initialPosition() const;
-    QGeoCoordinate currentPosition() const;
-    QString currentLocation() const;
+    [[nodiscard]] QGeoCoordinate initialPosition() const;
+    [[nodiscard]] QGeoCoordinate currentPosition() const;
+    [[nodiscard]] QString currentLocation() const;
 
 Q_SIGNALS:
     void positionChanged();

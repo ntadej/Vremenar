@@ -16,14 +16,14 @@
 namespace Vremenar
 {
 
-Hyperlink::Hyperlink(const QString &title,
-                     const QString &url,
+Hyperlink::Hyperlink(QString title,
+                     QUrl url,
                      QObject *parent)
     : ListItem(parent),
-      _title(title),
-      _url(url)
+      _title(std::move(title)),
+      _url(std::move(url))
 {
-    setId(url);
+    setId(_url.toString());
 }
 
 QString Hyperlink::display() const

@@ -31,7 +31,7 @@ public:
                                char **argv,
                                QObject *parent = nullptr);
 
-    inline bool shouldContinue() const { return _shouldContinue; }
+    [[nodiscard]] inline bool shouldContinue() const { return _shouldContinue; }
 
 Q_SIGNALS:
     void activate();

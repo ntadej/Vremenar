@@ -30,14 +30,14 @@ public:
     explicit ListModel(QHash<int, QByteArray> roleNames,
                        QObject *parent = nullptr);
 
-    QVariant data(const QModelIndex &index,
-                  int role) const override;
+    [[nodiscard]] QVariant data(const QModelIndex &index,
+                                int role) const override;
     // NOLINTNEXTLINE(google-default-arguments)
     bool removeRows(int row, int count, const QModelIndex &parent = QModelIndex()) override;
     // NOLINTNEXTLINE(google-default-arguments)
-    int rowCount(const QModelIndex &parent = QModelIndex()) const override;
+    [[nodiscard]] int rowCount(const QModelIndex &parent = QModelIndex()) const override;
 
-    QHash<int, QByteArray> roleNames() const override { return _roleNames; }
+    [[nodiscard]] QHash<int, QByteArray> roleNames() const override { return _roleNames; }
 
     template <class T>
     T *appendRow(std::unique_ptr<T> item)

@@ -35,12 +35,12 @@ class Globals : public QObject
 public:
     explicit Globals(QObject *parent = nullptr) : QObject(parent) {}
 
-    QString name() const;
-    QString version() const;
-    int build() const;
+    [[nodiscard]] QString name() const;
+    [[nodiscard]] QString version() const;
+    [[nodiscard]] int build() const;
 
-    QString mapsStyle() const;
-    QJsonArray mapsCopyright() const;
+    [[nodiscard]] QString mapsStyle() const;
+    [[nodiscard]] QJsonArray mapsCopyright() const;
 
     static QObject *provider(QQmlEngine *engine,
                              QJSEngine *scriptEngine);

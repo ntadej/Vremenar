@@ -13,8 +13,8 @@ CONFIG += qt
 
 lessThan(QT_MINOR_VERSION, 12): error("Requires Qt 5.12 or later!")
 
-# Use C++14
-CONFIG += c++14
+# Use C++17
+CONFIG += c++17
 
 # Qt modules and other dependencies
 QT += qml quick
