@@ -41,6 +41,10 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 # All warnings
 QMAKE_CXXFLAGS += -Wall -Wextra -Wno-unknown-pragmas -pedantic
+# Warnings as errors on desktop
+desktop {
+    QMAKE_CXXFLAGS += -Werror
+}
 
 # Internationalisation
 include($$top_srcdir/config/i18n.pri)

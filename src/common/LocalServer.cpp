@@ -33,7 +33,7 @@ LocalServer::LocalServer(QObject *parent)
 
 void LocalServer::newConnection()
 {
-    emit connected();
+    Q_EMIT connected();
 }
 
 } // namespace Vremenar

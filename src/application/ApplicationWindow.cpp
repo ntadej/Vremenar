@@ -185,7 +185,7 @@ void ApplicationWindow::startCompleted()
 {
 #ifdef Q_OS_MACOS
     Settings settings(this);
-    emit dockVisibilityChanged(settings.showInDock());
+    Q_EMIT dockVisibilityChanged(settings.showInDock());
 #endif
 
     _weatherProvider->changeMapType(Weather::PrecipitationMap);

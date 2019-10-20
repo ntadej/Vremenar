@@ -41,7 +41,7 @@ bool DesktopApplication::eventFilter(QObject *object,
         auto *fileEvent = dynamic_cast<QFileOpenEvent *>(event);
         if (!fileEvent->url().isEmpty()) {
             fileEvent->accept();
-            emit urlOpened(fileEvent->url().toString());
+            Q_EMIT urlOpened(fileEvent->url().toString());
         }
     }
 

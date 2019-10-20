@@ -25,7 +25,7 @@ void MapLegendProxyModel::setType(Weather::MapType type)
     if (type != _type) {
         _type = type;
         invalidateFilter();
-        emit typeChanged();
+        Q_EMIT typeChanged();
     }
 }
 

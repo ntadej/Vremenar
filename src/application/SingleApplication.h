@@ -32,7 +32,7 @@ public:
 
     inline bool shouldContinue() const { return _shouldContinue; }
 
-signals:
+Q_SIGNALS:
     void activate();
 
 private:

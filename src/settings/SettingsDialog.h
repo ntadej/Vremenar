@@ -37,14 +37,14 @@ public:
 protected:
     void changeEvent(QEvent *e) final;
 
-signals:
+Q_SIGNALS:
     void localeChanged();
     void showInTrayChanged(bool checked);
 #if defined(Q_OS_MACOS)
     void showInDockChanged(bool checked);
 #endif
 
-private slots:
+private Q_SLOTS:
     void actionToggled();
 
     void localeChangedSlot();

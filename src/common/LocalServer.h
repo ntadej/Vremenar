@@ -25,10 +25,10 @@ class LocalServer : public QObject
 public:
     explicit LocalServer(QObject *parent = nullptr);
 
-signals:
+Q_SIGNALS:
     void connected();
 
-private slots:
+private Q_SLOTS:
     void newConnection();
 
 private:

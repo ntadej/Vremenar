@@ -42,7 +42,7 @@ void ListModel::handleItemChange()
     auto *item = qobject_cast<ListItem *>(sender());
     QModelIndex index = indexFromItem(item);
     if (index.isValid()) {
-        emit dataChanged(index, index);
+        Q_EMIT dataChanged(index, index);
     }
 }
 

@@ -54,7 +54,7 @@ void NetworkManager::httpError(QNetworkReply::NetworkError err)
 
     qDebug() << "Network Error:" << err << reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt() << reply->request().url();
 
-    emit error(reply, err);
+    Q_EMIT error(reply, err);
 }
 
 void NetworkManager::httpRequestFinished()
@@ -64,7 +64,7 @@ void NetworkManager::httpRequestFinished()
         return;
     }
 
-    emit result(reply);
+    Q_EMIT result(reply);
 
     disconnect(reply, qOverload<QNetworkReply::NetworkError>(&QNetworkReply::error), this, &NetworkManager::httpError);
     disconnect(reply, &QNetworkReply::finished, this, &NetworkManager::httpRequestFinished);

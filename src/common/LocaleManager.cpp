@@ -81,7 +81,7 @@ void LocaleManager::setLocale()
     _translator->load(locale, langPath);
     _locale = locale;
 
-    emit localeChanged();
+    Q_EMIT localeChanged();
 }
 
 } // namespace Vremenar

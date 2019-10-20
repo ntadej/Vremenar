@@ -108,7 +108,7 @@ void SettingsDialog::localeChangedSlot()
     }
     settings.writeSettings();
 
-    emit localeChanged();
+    Q_EMIT localeChanged();
 }
 
 void SettingsDialog::loadLocales()
@@ -137,7 +137,7 @@ void SettingsDialog::showInTrayChangedSlot(bool checked)
     settings.setShowInTray(checked);
     settings.writeSettings();
 
-    emit showInTrayChanged(checked);
+    Q_EMIT showInTrayChanged(checked);
 
 #ifdef Q_OS_MACOS
     ui->checkShowInDock->setEnabled(checked);
@@ -154,7 +154,7 @@ void SettingsDialog::showInDockChangedSlot(bool checked)
     settings.setShowInDock(checked);
     settings.writeSettings();
 
-    emit showInDockChanged(checked);
+    Q_EMIT showInDockChanged(checked);
 }
 #endif
 

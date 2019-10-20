@@ -135,7 +135,7 @@ void DesktopApplication::setupTitleBarLessWindow(WId winId)
 
 void DesktopApplication::dockClickedCallback()
 {
-    emit dockClicked();
+    Q_EMIT dockClicked();
 }
 
 }

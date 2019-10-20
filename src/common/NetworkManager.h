@@ -31,12 +31,12 @@ public:
 
     QNetworkReply *request(const APIRequestBase &request);
 
-signals:
+Q_SIGNALS:
     void error(QNetworkReply *,
                QNetworkReply::NetworkError);
     void result(QNetworkReply *);
 
-private slots:
+private Q_SLOTS:
     void httpError(QNetworkReply::NetworkError err);
     void httpRequestFinished();
 

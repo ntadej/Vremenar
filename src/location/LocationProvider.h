@@ -35,11 +35,11 @@ public:
     QGeoCoordinate currentPosition() const;
     QString currentLocation() const;
 
-signals:
+Q_SIGNALS:
     void positionChanged();
     void locationChanged();
 
-private slots:
+private Q_SLOTS:
     void positionUpdated(const QGeoPositionInfo &info);
     void positionError(QGeoPositionInfoSource::Error error);
     void positionTimeout();

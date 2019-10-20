@@ -32,10 +32,10 @@ public:
     static QStringList loadLocales();
     static QString localeName(const QString &file);
 
-signals:
+Q_SIGNALS:
     void localeChanged();
 
-public slots:
+public Q_SLOTS:
     void setLocale();
 
 private:

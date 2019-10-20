@@ -78,7 +78,7 @@ void Settings::readSettings()
     setPosX(value(KEY_POS_X, defaultValue(KEY_POS_X)).toInt());
     setPosY(value(KEY_POS_Y, defaultValue(KEY_POS_Y)).toInt());
 
-    emit settingsReloaded();
+    Q_EMIT settingsReloaded();
 }
 
 QVariant Settings::defaultValue(const QString &key) const

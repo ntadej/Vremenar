@@ -23,10 +23,10 @@ class TrayIcon : public QSystemTrayIcon
 public:
     explicit TrayIcon(QObject *parent = nullptr);
 
-signals:
+Q_SIGNALS:
     void clicked();
 
-private slots:
+private Q_SLOTS:
     void activatedCallback(QSystemTrayIcon::ActivationReason reason);
 };
 

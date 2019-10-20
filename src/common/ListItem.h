@@ -30,7 +30,7 @@ public:
     virtual QVariant data(int role) const = 0;
     virtual QString display() const = 0;
 
-signals:
+Q_SIGNALS:
     void dataChanged();
 
 protected:

@@ -30,7 +30,7 @@ public:
     inline Weather::MapType type() const { return _type; }
     void setType(Weather::MapType type);
 
-signals:
+Q_SIGNALS:
     void typeChanged();
 
 protected:

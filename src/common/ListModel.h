@@ -83,7 +83,7 @@ public:
     QModelIndex indexFromItem(const ListItem *item) const;
     void clear();
 
-private slots:
+private Q_SLOTS:
     void handleItemChange();
 
 private:

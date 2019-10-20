@@ -78,7 +78,7 @@ void LocationProvider::positionUpdated(const QGeoPositionInfo &info)
         qWarning() << "No geocoding provider available.";
     }
 
-    emit positionChanged();
+    Q_EMIT positionChanged();
 }
 
 void LocationProvider::positionError(QGeoPositionInfoSource::Error error)
@@ -117,7 +117,7 @@ void LocationProvider::reverseGeocodingFinished(QGeoCodeReply *reply)
              << _currentLocation.address().street()
              << _currentLocation.address().city();
 
-    emit locationChanged();
+    Q_EMIT locationChanged();
 }
 
 void LocationProvider::reverseGeocodingError(QGeoCodeReply *reply,

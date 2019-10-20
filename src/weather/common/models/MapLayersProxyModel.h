@@ -45,7 +45,7 @@ public:
     inline QString url() const { return _url; }
     inline QVariant coordinates() const { return _coordinates; }
 
-signals:
+Q_SIGNALS:
     void rowCountChanged();
     void timestampChanged();
 

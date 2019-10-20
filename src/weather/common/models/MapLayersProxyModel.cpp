@@ -40,7 +40,7 @@ void MapLayersProxyModel::setTimestamp(qint64 time)
             }
         }
 
-        emit timestampChanged();
+        Q_EMIT timestampChanged();
     }
 }
 

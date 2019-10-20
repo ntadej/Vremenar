@@ -86,7 +86,7 @@ public:
     static const QString KEY_POS_Y;
     static const int DEFAULT_POS_Y;
 
-signals:
+Q_SIGNALS:
     void settingsReloaded();
 
 private:

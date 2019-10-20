@@ -35,12 +35,12 @@ public:
     void setupDockHandler();
     void setupTitleBarLessWindow(WId winId);
 
-public slots:
+public Q_SLOTS:
     void dockClickedCallback();
     void dockSetVisibility(bool visible);
 #endif
 
-signals:
+Q_SIGNALS:
     void urlOpened(const QString &);
 
 #ifdef Q_OS_MACOS

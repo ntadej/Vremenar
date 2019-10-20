@@ -73,7 +73,7 @@ void Qml::UIManager::orientationChanged(Qt::ScreenOrientation orientation)
     updateStatusBar();
 #endif
 
-    emit geometryChanged();
+    Q_EMIT geometryChanged();
 }
 
 void Qml::UIManager::primaryScreenChanged(QScreen *screen)
@@ -121,10 +121,10 @@ void Qml::UIManager::windowSizeChanged(int width,
     if (platformWindow)
         _currentSafeAreaMargins = platformWindow->safeAreaMargins();
 
-    emit safetyMarginsChanged();
+    Q_EMIT safetyMarginsChanged();
 #endif
 
-    emit geometryChanged();
+    Q_EMIT geometryChanged();
 }
 
 QObject *Qml::UIManager::provider(QQmlEngine *engine,

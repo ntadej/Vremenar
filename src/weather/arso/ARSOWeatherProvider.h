@@ -37,7 +37,7 @@ public:
     QVariant defaultMapCoordinates() const final;
     inline Hyperlink *copyrightLink() const final { return _copyrightLink.get(); }
 
-protected slots:
+protected Q_SLOTS:
     void response(QNetworkReply *reply) final;
 
 private:

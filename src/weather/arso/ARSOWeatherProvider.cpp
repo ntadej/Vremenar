@@ -78,7 +78,7 @@ void ARSO::WeatherProvider::response(QNetworkReply *reply)
 
     _lastUpdateResponseTime = QDateTime::currentDateTime();
     startTimer();
-    emit lastUpdateTimeChanged();
+    Q_EMIT lastUpdateTimeChanged();
 }
 
 QVariant ARSO::WeatherProvider::defaultMapCoordinates() const

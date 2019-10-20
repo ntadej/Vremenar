@@ -40,7 +40,7 @@ public:
     explicit ApplicationWindow(QObject *parent = nullptr);
     ~ApplicationWindow();
 
-public slots:
+public Q_SLOTS:
     void activate();
     void processUrl(const QString &url);
     void startCompleted();
@@ -53,11 +53,11 @@ public slots:
 #ifdef Q_OS_MACOS
     void dockClicked();
 
-signals:
+Q_SIGNALS:
     void dockVisibilityChanged(bool);
 #endif
 
-private slots:
+private Q_SLOTS:
     void writeSettingsStartup();
 
 private:

@@ -31,7 +31,7 @@ public:
 
     void removeResponse(QNetworkReply *reply);
 
-protected slots:
+protected Q_SLOTS:
     virtual void error(QNetworkReply *reply,
                        QNetworkReply::NetworkError err);
     virtual void response(QNetworkReply *reply);

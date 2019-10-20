@@ -53,12 +53,12 @@ public:
 
     const QDateTime &lastUpdateTime() { return _lastUpdateResponseTime; }
 
-public slots:
+public Q_SLOTS:
     Q_INVOKABLE void changeMapType(Weather::MapType type);
     Q_INVOKABLE void currentMapLayerChanged(int index);
     Q_INVOKABLE void refresh();
 
-signals:
+Q_SIGNALS:
     void lastUpdateTimeChanged();
 
 protected:

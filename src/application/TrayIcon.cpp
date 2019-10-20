@@ -30,7 +30,7 @@ void TrayIcon::activatedCallback(QSystemTrayIcon::ActivationReason reason)
     switch (reason) {
     case QSystemTrayIcon::Trigger:
     case QSystemTrayIcon::DoubleClick:
-        emit clicked();
+        Q_EMIT clicked();
         break;
     default:
         break;
