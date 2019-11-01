@@ -91,11 +91,13 @@ void ARSO::WeatherProvider::response(QNetworkReply *reply)
         requestForecastDetails(0);
 
         return;
-    } else if (currentReplies()->value(reply).call() == QStringLiteral("/forecast_data_details")) {
+    }
+
+    if (currentReplies()->value(reply).call() == QStringLiteral("/forecast_data_details")) {
         if (_forecastModel->rowCount() != 0) {
             _forecastModel->clear();
         }
-        _forecastModel->addEntries(document.object()["features"].toArray());
+        _forecastModel->addEntries(document.object()[QStringLiteral("features")].toArray());
 
         removeResponse(reply);
         valid = true;

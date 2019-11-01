@@ -14,17 +14,19 @@
 namespace Vremenar
 {
 
-ForecastEntry::ForecastEntry(QString id,
+ForecastEntry::ForecastEntry(const QString &id,
                              QString title,
                              QString icon,
-                             QGeoCoordinate coordinate,
+                             const QGeoCoordinate &coordinate,
+                             qreal zoomLevel,
                              QObject *parent)
     : ListItem(parent),
       _title(std::move(title)),
       _icon(std::move(icon)),
-      _coordinate(std::move(coordinate))
+      _coordinate(coordinate),
+      _zoomLevel(zoomLevel)
 {
-    setId(std::move(id));
+    setId(id);
 }
 
 QString ForecastEntry::display() const
@@ -42,7 +44,9 @@ QVariant ForecastEntry::data(int role) const
     case IconRole:
         return icon();
     case CoordinateRole:
-        return QVariantList({_coordinate.latitude(), _coordinate.longitude()});
+        return QVariant::fromValue(coordinate());
+    case ZoomLevelRole:
+        return zoomLevel();
     }
 
     return QVariant();

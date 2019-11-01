@@ -12,6 +12,7 @@
 #include <QtCore/QJsonArray>
 #include <QtCore/QJsonObject>
 
+#include "weather/arso/ARSOCommon.h"
 #include "weather/arso/models/ARSOForecastModel.h"
 
 namespace Vremenar
@@ -34,9 +35,17 @@ ForecastEntry *ARSO::ForecastModel::createEntry(const QJsonObject &data)
 
     QJsonObject geometry = data[QStringLiteral("geometry")].toObject();
     QJsonArray coordinates = geometry[QStringLiteral("coordinates")].toArray();
-    QGeoCoordinate coordinate{coordinates[0].toDouble(), coordinates[1].toDouble()};
+    QGeoCoordinate coordinate{coordinates[1].toDouble(), coordinates[0].toDouble()};
 
-    return appendRow(std::make_unique<ForecastEntry>(id, title, icon, coordinate));
+    qreal zoomLevel = properties[QStringLiteral("zoomLevel")].toString().toDouble();
+    qreal epsilon = 0.25;
+
+    zoomLevel = zoomLevel == 5 ? zoomLevel + 1 : zoomLevel;
+    zoomLevel /= 6;
+    zoomLevel *= ARSO::maxZoomLevel - ARSO::minZoomLevel - epsilon;
+    zoomLevel = ARSO::maxZoomLevel - zoomLevel - epsilon;
+
+    return appendRow(std::make_unique<ForecastEntry>(id, title, icon, coordinate, zoomLevel));
 }
 
 void ARSO::ForecastModel::addEntries(const QJsonArray &data)

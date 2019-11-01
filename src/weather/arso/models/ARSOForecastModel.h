@@ -25,8 +25,8 @@ class ForecastModel : public ForecastModelBase
 public:
     explicit ForecastModel(QObject *parent = nullptr);
 
-    virtual ForecastEntry *createEntry(const QJsonObject &data) final;
-    virtual void addEntries(const QJsonArray &data) final;
+    ForecastEntry *createEntry(const QJsonObject &data) final;
+    void addEntries(const QJsonArray &data) final;
 };
 
 } // namespace ARSO

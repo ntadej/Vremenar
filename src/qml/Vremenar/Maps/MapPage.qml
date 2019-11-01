@@ -66,8 +66,19 @@ MapPageBase {
             property var rasterOpacity: 0.75
         }
 
+        MapItemView {
+             model: VForecastModel
+             delegate: ForecastEntry {
+                 icon: model.icon
+                 title: model.display
+                 coordinate: model.coordinate
+             }
+        }
+
         CurrentLocationIndicator {
         }
+
+        Binding { target: VForecastModel; property: "zoomLevel"; value: map.zoomLevel }
     }
 
     bottomSheetContents: MapControls {

@@ -48,6 +48,7 @@ HEADERS += \
     src/weather/common/models/MapLayersProxyModel.h \
     src/weather/common/models/MapLegendModelBase.h \
     src/weather/common/models/MapLegendProxyModel.h \
+    src/weather/arso/ARSOCommon.h \
     src/weather/arso/ARSOWeatherProvider.h \
     src/weather/arso/api/ARSOAPIMapLayers.h \
     src/weather/arso/api/ARSOAPIRequest.h \

@@ -12,6 +12,7 @@
 #ifndef VREMENAR_ARSOWEATHERPROVIDER_H_
 #define VREMENAR_ARSOWEATHERPROVIDER_H_
 
+#include "weather/arso/ARSOCommon.h"
 #include "weather/arso/models/ARSOForecastModel.h"
 #include "weather/arso/models/ARSOMapLayersModel.h"
 #include "weather/arso/models/ARSOMapLegendModel.h"
@@ -34,8 +35,8 @@ public:
     Q_INVOKABLE void requestMapLayers(Weather::MapType type) final;
 
     [[nodiscard]] inline const std::vector<Weather::MapType> &supportedMapTypes() const final { return _supportedMapTypes; }
-    [[nodiscard]] inline float minZoomLevel() const final { return 7; }  // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
-    [[nodiscard]] inline float maxZoomLevel() const final { return 10; } // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+    [[nodiscard]] inline qreal minZoomLevel() const final { return ARSO::minZoomLevel; }
+    [[nodiscard]] inline qreal maxZoomLevel() const final { return ARSO::maxZoomLevel; }
     [[nodiscard]] QVariant defaultMapCoordinates() const final;
     [[nodiscard]] inline Hyperlink *copyrightLink() const final { return _copyrightLink.get(); }
 

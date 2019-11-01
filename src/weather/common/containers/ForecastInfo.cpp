@@ -21,7 +21,7 @@ ForecastInfo::ForecastInfo(QString url,
       _url(std::move(url)),
       _time(std::move(time))
 {
-    setId(time.toString());
+    setId(_time.toString());
 }
 
 QString ForecastInfo::display() const

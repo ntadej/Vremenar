@@ -23,15 +23,24 @@ ForecastProxyModel::ForecastProxyModel(QObject *parent)
     connect(this, &ForecastProxyModel::rowsRemoved, this, &ForecastProxyModel::rowCountChanged);
 }
 
+void ForecastProxyModel::setZoomLevel(qreal level)
+{
+    if (level != _zoomLevel) {
+        _zoomLevel = level;
+        invalidateFilter();
+        Q_EMIT zoomLevelChanged();
+    }
+}
+
 bool ForecastProxyModel::filterAcceptsRow(int sourceRow,
                                           const QModelIndex &sourceParent) const
 {
     QModelIndex index = sourceModel()->index(sourceRow, 0, sourceParent);
 
     bool name = index.data(ForecastEntry::DisplayRole).toString().contains(filterRegExp());
-    // bool time = !_time || index.data(MapLayer::TimeRole).toDateTime().toMSecsSinceEpoch() == _time;
+    bool zoomLevel = index.data(ForecastEntry::ZoomLevelRole).toReal() <= _zoomLevel;
 
-    return name;
+    return name && zoomLevel;
 }
 
 } // namespace Vremenar

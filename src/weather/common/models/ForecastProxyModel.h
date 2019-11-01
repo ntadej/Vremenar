@@ -21,15 +21,24 @@ namespace Vremenar
 class ForecastProxyModel : public QSortFilterProxyModel
 {
     Q_OBJECT
+
+    Q_PROPERTY(qreal zoomLevel READ zoomLevel WRITE setZoomLevel NOTIFY zoomLevelChanged)
 public:
     explicit ForecastProxyModel(QObject *parent = nullptr);
 
+    [[nodiscard]] inline qreal zoomLevel() const { return _zoomLevel; }
+    void setZoomLevel(qreal level);
+
 Q_SIGNALS:
     void rowCountChanged();
+    void zoomLevelChanged();
 
 protected:
     [[nodiscard]] bool filterAcceptsRow(int sourceRow,
                                         const QModelIndex &sourceParent) const override;
+
+private:
+    qreal _zoomLevel{};
 };
 
 } // namespace Vremenar

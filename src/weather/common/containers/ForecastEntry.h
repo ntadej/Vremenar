@@ -25,18 +25,21 @@ class ForecastEntry : public ListItem
     Q_PROPERTY(QString display READ display CONSTANT)
     Q_PROPERTY(QString icon READ icon CONSTANT)
     Q_PROPERTY(QGeoCoordinate coordinate READ coordinate CONSTANT)
+    Q_PROPERTY(qreal zoomLevel READ zoomLevel CONSTANT)
 public:
     enum Roles {
         DisplayRole = Qt::DisplayRole,
         IdRole = Qt::UserRole + 1,
         IconRole,
-        CoordinateRole
+        CoordinateRole,
+        ZoomLevelRole
     };
 
-    explicit ForecastEntry(QString id,
+    explicit ForecastEntry(const QString &id,
                            QString title,
                            QString icon,
-                           QGeoCoordinate coordinate,
+                           const QGeoCoordinate &coordinate,
+                           qreal zoomLevel,
                            QObject *parent = nullptr);
 
     // Implemented virtual functions
@@ -45,6 +48,7 @@ public:
 
     [[nodiscard]] inline const QString &icon() const { return _icon; }
     [[nodiscard]] inline const QGeoCoordinate &coordinate() const { return _coordinate; }
+    [[nodiscard]] inline qreal zoomLevel() const { return _zoomLevel; }
 
     static inline QHash<int, QByteArray> roleNames()
     {
@@ -52,13 +56,15 @@ public:
             {IdRole, "id"},
             {DisplayRole, "display"},
             {IconRole, "icon"},
-            {CoordinateRole, "coordinate"}};
+            {CoordinateRole, "coordinate"},
+            {ZoomLevelRole, "zoomLevel"}};
     }
 
 private:
     QString _title;
     QString _icon;
     QGeoCoordinate _coordinate;
+    qreal _zoomLevel;
 };
 
 } // namespace Vremenar

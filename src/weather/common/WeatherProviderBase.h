@@ -35,8 +35,8 @@ public:
                                  const QVariant &defaultCoordinates,
                                  QObject *parent = nullptr);
 
-    Q_PROPERTY(float minZoomLevel READ minZoomLevel CONSTANT)
-    Q_PROPERTY(float maxZoomLevel READ maxZoomLevel CONSTANT)
+    Q_PROPERTY(qreal minZoomLevel READ minZoomLevel CONSTANT)
+    Q_PROPERTY(qreal maxZoomLevel READ maxZoomLevel CONSTANT)
     Q_PROPERTY(QVariant defaultMapCoordinates READ defaultMapCoordinates CONSTANT)
     Q_PROPERTY(QJsonObject copyrightLink READ copyrightLinkJson CONSTANT)
     Q_PROPERTY(QDateTime lastUpdateTime READ lastUpdateTime NOTIFY lastUpdateTimeChanged)
@@ -51,8 +51,8 @@ public:
     virtual void requestMapLayers(Weather::MapType type) = 0;
 
     [[nodiscard]] virtual const std::vector<Weather::MapType> &supportedMapTypes() const = 0;
-    [[nodiscard]] virtual float minZoomLevel() const = 0;
-    [[nodiscard]] virtual float maxZoomLevel() const = 0;
+    [[nodiscard]] virtual qreal minZoomLevel() const = 0;
+    [[nodiscard]] virtual qreal maxZoomLevel() const = 0;
     [[nodiscard]] virtual QVariant defaultMapCoordinates() const = 0;
     [[nodiscard]] virtual Hyperlink *copyrightLink() const = 0;
 

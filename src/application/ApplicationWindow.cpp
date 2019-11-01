@@ -18,6 +18,7 @@
 #include "common/NetworkManager.h"
 #include "qml/Qml.h"
 #include "settings/Settings.h"
+#include "weather/common/models/ForecastProxyModel.h"
 #include "weather/common/models/MapInfoModel.h"
 #include "weather/common/models/MapLayersProxyModel.h"
 #include "weather/common/models/MapLegendProxyModel.h"
@@ -130,6 +131,7 @@ void ApplicationWindow::createModels()
 
     _engine->rootContext()->setContextProperty(QStringLiteral("VLocation"), _location.get());
     _engine->rootContext()->setContextProperty(QStringLiteral("VWeather"), _weatherProvider.get());
+    _engine->rootContext()->setContextProperty(QStringLiteral("VForecastModel"), _weatherProvider->forecast());
     _engine->rootContext()->setContextProperty(QStringLiteral("VMapInfoModel"), _weatherProvider->mapInfo());
     _engine->rootContext()->setContextProperty(QStringLiteral("VMapLayersModel"), _weatherProvider->mapLayers());
     _engine->rootContext()->setContextProperty(QStringLiteral("VMapLegendModel"), _weatherProvider->mapLegend());

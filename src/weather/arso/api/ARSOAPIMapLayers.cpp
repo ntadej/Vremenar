@@ -20,7 +20,7 @@ ARSO::APIRequest ARSO::mapForecast()
 {
     APIRequest request;
     request.setCall(QStringLiteral("/forecast_data"));
-    request.setUrl("/forecast_si_data/");
+    request.setUrl(QStringLiteral("/forecast_si_data/"));
 
     return request;
 }
