@@ -23,6 +23,7 @@ class Weather
 public:
     enum MapType {
         UnknownMap,
+        ForecastMap,
         PrecipitationMap,
         CloudCoverageMap,
         WindSpeedMap,

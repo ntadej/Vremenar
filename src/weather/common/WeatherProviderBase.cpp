@@ -29,6 +29,8 @@ WeatherProviderBase::WeatherProviderBase(NetworkManager *network,
                                          const QVariant &defaultCoordinates,
                                          QObject *parent)
     : APILoader(network, parent),
+      _forecastListModel(std::make_unique<ForecastListModel>(this)),
+      _forecastProxyModel(std::make_unique<ForecastProxyModel>(this)),
       _mapInfoModel(std::make_unique<MapInfoModel>(this)),
       _mapLayersProxyModel(std::make_unique<MapLayersProxyModel>(defaultCoordinates, this)),
       _mapLegendProxyModel(std::make_unique<MapLegendProxyModel>(this)),

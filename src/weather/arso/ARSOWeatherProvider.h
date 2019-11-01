@@ -12,6 +12,7 @@
 #ifndef VREMENAR_ARSOWEATHERPROVIDER_H_
 #define VREMENAR_ARSOWEATHERPROVIDER_H_
 
+#include "weather/arso/models/ARSOForecastModel.h"
 #include "weather/arso/models/ARSOMapLayersModel.h"
 #include "weather/arso/models/ARSOMapLegendModel.h"
 #include "weather/common/Weather.h"
@@ -29,6 +30,7 @@ public:
     explicit WeatherProvider(NetworkManager *network,
                              QObject *parent = nullptr);
 
+    Q_INVOKABLE void requestForecastDetails(int index) final;
     Q_INVOKABLE void requestMapLayers(Weather::MapType type) final;
 
     [[nodiscard]] inline const std::vector<Weather::MapType> &supportedMapTypes() const final { return _supportedMapTypes; }
@@ -42,12 +44,14 @@ protected Q_SLOTS:
 
 private:
     const std::vector<Weather::MapType> _supportedMapTypes{
+        Weather::ForecastMap,
         Weather::PrecipitationMap,
         Weather::CloudCoverageMap,
         Weather::WindSpeedMap,
         Weather::TemperatureMap,
         Weather::HailProbabilityMap};
 
+    std::unique_ptr<ForecastModel> _forecastModel;
     std::unique_ptr<MapLayersModel> _mapLayersModel;
     std::unique_ptr<MapLegendModel> _mapLegendModel;
 

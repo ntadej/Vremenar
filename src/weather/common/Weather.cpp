@@ -17,6 +17,8 @@ namespace Vremenar
 QString Weather::mapTypeString(MapType type)
 {
     switch (type) {
+    case ForecastMap:
+        return QStringLiteral("forecast");
     case PrecipitationMap:
         return QStringLiteral("precipitaion");
     case CloudCoverageMap:
@@ -37,6 +39,8 @@ QString Weather::mapTypeString(MapType type)
 QString Weather::mapTypeStringLocale(MapType type)
 {
     switch (type) {
+    case ForecastMap:
+        return QObject::tr("Forecast");
     case PrecipitationMap:
         return QObject::tr("Precipitation");
     case CloudCoverageMap:

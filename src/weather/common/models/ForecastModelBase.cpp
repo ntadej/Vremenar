@@ -9,22 +9,12 @@
 * SPDX-License-Identifier: (GPL-3.0-or-later AND MPL-2.0)
 */
 
-#ifndef VREMENAR_ARSOAPIMAPLAYERS_H_
-#define VREMENAR_ARSOAPIMAPLAYERS_H_
-
-#include "weather/arso/api/ARSOAPIRequest.h"
-#include "weather/common/Weather.h"
+#include "weather/common/models/ForecastModelBase.h"
 
 namespace Vremenar
 {
-namespace ARSO
-{
 
-APIRequest mapForecast();
-APIRequest mapForecastDetails(const QString &url);
-APIRequest mapLayers(Weather::MapType type);
+ForecastModelBase::ForecastModelBase(QObject *parent)
+    : ListModel(ForecastEntry::roleNames(), parent) {}
 
-} // namespace ARSO
 } // namespace Vremenar
-
-#endif // VREMENAR_ARSOAPIMAPLAYERS_H_

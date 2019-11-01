@@ -17,6 +17,8 @@
 #include "common/api/APILoader.h"
 #include "common/containers/Hyperlink.h"
 #include "weather/common/Weather.h"
+#include "weather/common/models/ForecastListModel.h"
+#include "weather/common/models/ForecastProxyModel.h"
 #include "weather/common/models/MapInfoModel.h"
 #include "weather/common/models/MapLayersProxyModel.h"
 #include "weather/common/models/MapLegendProxyModel.h"
@@ -39,10 +41,13 @@ public:
     Q_PROPERTY(QJsonObject copyrightLink READ copyrightLinkJson CONSTANT)
     Q_PROPERTY(QDateTime lastUpdateTime READ lastUpdateTime NOTIFY lastUpdateTimeChanged)
 
+    inline ForecastListModel *forecastList() { return _forecastListModel.get(); }
+    inline ForecastProxyModel *forecast() { return _forecastProxyModel.get(); }
     inline MapInfoModel *mapInfo() { return _mapInfoModel.get(); }
     inline MapLayersProxyModel *mapLayers() { return _mapLayersProxyModel.get(); }
     inline MapLegendProxyModel *mapLegend() { return _mapLegendProxyModel.get(); }
 
+    virtual void requestForecastDetails(int index) = 0;
     virtual void requestMapLayers(Weather::MapType type) = 0;
 
     [[nodiscard]] virtual const std::vector<Weather::MapType> &supportedMapTypes() const = 0;
@@ -69,6 +74,8 @@ private:
     [[nodiscard]] inline QJsonObject copyrightLinkJson() const { return copyrightLink()->asJson(); }
     void timerCallback();
 
+    std::unique_ptr<ForecastListModel> _forecastListModel;
+    std::unique_ptr<ForecastProxyModel> _forecastProxyModel;
     std::unique_ptr<MapInfoModel> _mapInfoModel;
     std::unique_ptr<MapLayersProxyModel> _mapLayersProxyModel;
     std::unique_ptr<MapLegendProxyModel> _mapLegendProxyModel;

@@ -189,7 +189,7 @@ void ApplicationWindow::startCompleted()
     Q_EMIT dockVisibilityChanged(settings.showInDock());
 #endif
 
-    _weatherProvider->changeMapType(Weather::PrecipitationMap);
+    _weatherProvider->changeMapType(Weather::ForecastMap);
 
     qDebug() << "Initialization completed";
 }

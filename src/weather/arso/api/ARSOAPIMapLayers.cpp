@@ -11,13 +11,36 @@
 
 #include "weather/arso/api/ARSOAPIMapLayers.h"
 
+#include "Config.h"
+
 namespace Vremenar
 {
+
+ARSO::APIRequest ARSO::mapForecast()
+{
+    APIRequest request;
+    request.setCall(QStringLiteral("/forecast_data"));
+    request.setUrl("/forecast_si_data/");
+
+    return request;
+}
+
+ARSO::APIRequest ARSO::mapForecastDetails(const QString &url)
+{
+    APIRequest request;
+    request.setBaseUrl(Vremenar::ARSOAPIResources);
+    request.setCall(QStringLiteral("/forecast_data_details"));
+    request.setUrl(url);
+
+    return request;
+}
 
 ARSO::APIRequest ARSO::mapLayers(Weather::MapType type)
 {
     QString id;
     switch (type) {
+    case Weather::ForecastMap:
+        throw std::runtime_error("not supported");
     case Weather::PrecipitationMap:
         id = QStringLiteral("inca_precip_data");
         break;

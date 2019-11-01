@@ -35,9 +35,11 @@ namespace Vremenar
 ARSO::WeatherProvider::WeatherProvider(NetworkManager *network,
                                        QObject *parent)
     : WeatherProviderBase(network, defaultMapCoordinates(), parent),
+      _forecastModel(std::make_unique<ForecastModel>(this)),
       _mapLayersModel(std::make_unique<MapLayersModel>(this)),
       _mapLegendModel(std::make_unique<MapLegendModel>(this))
 {
+    forecast()->setSourceModel(_forecastModel.get());
     mapInfo()->generateModel(supportedMapTypes());
     mapLayers()->setSourceModel(_mapLayersModel.get());
     mapLegend()->setSourceModel(_mapLegendModel.get());
@@ -45,6 +47,14 @@ ARSO::WeatherProvider::WeatherProvider(NetworkManager *network,
     _copyrightLink = std::make_unique<Hyperlink>(
         QStringLiteral("© ") + tr("Slovenian Environment Agency"),
         QStringLiteral("https://www.arso.gov.si"));
+}
+
+void ARSO::WeatherProvider::requestForecastDetails(int index)
+{
+    qDebug() << "Requesting forecast details:" << index;
+
+    APIRequest request = ARSO::mapForecastDetails(forecastList()->get(index)->url());
+    currentReplies()->insert(network()->request(request), request);
 }
 
 void ARSO::WeatherProvider::requestMapLayers(Weather::MapType type)
@@ -55,8 +65,13 @@ void ARSO::WeatherProvider::requestMapLayers(Weather::MapType type)
         _mapLayersModel->clear();
     }
 
-    APIRequest request = ARSO::mapLayers(type);
-    currentReplies()->insert(network()->request(request), request);
+    if (type == Weather::ForecastMap) {
+        APIRequest request = ARSO::mapForecast();
+        currentReplies()->insert(network()->request(request), request);
+    } else {
+        APIRequest request = ARSO::mapLayers(type);
+        currentReplies()->insert(network()->request(request), request);
+    }
 }
 
 void ARSO::WeatherProvider::response(QNetworkReply *reply)
@@ -68,7 +83,23 @@ void ARSO::WeatherProvider::response(QNetworkReply *reply)
     bool valid{};
 
     QJsonDocument document = QJsonDocument::fromJson(reply->readAll());
-    if (currentReplies()->value(reply).call() == QStringLiteral("/inca_data")) {
+    if (currentReplies()->value(reply).call() == QStringLiteral("/forecast_data")) {
+        forecastList()->clear();
+        forecastList()->generateModel(document.array());
+
+        removeResponse(reply);
+        requestForecastDetails(0);
+
+        return;
+    } else if (currentReplies()->value(reply).call() == QStringLiteral("/forecast_data_details")) {
+        if (_forecastModel->rowCount() != 0) {
+            _forecastModel->clear();
+        }
+        _forecastModel->addEntries(document.object()["features"].toArray());
+
+        removeResponse(reply);
+        valid = true;
+    } else if (currentReplies()->value(reply).call() == QStringLiteral("/inca_data")) {
         auto type = Weather::MapType(currentReplies()->value(reply).extra().toInt());
         if (_mapLayersModel->rowCount() != 0) {
             _mapLayersModel->clear();
@@ -76,7 +107,6 @@ void ARSO::WeatherProvider::response(QNetworkReply *reply)
         _mapLayersModel->addMapLayers(type, document.array());
 
         removeResponse(reply);
-
         valid = true;
     }
 
