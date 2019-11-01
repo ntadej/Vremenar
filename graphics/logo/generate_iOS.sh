@@ -1,7 +1,7 @@
 #!/bin/bash
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-OUT=$DIR/../resources/iOS/logo
+OUT=$DIR/../../resources/iOS/logo
 
 # iOS logo
 apple=("Icon-76" "Icon-76@2x" "Icon-60@2x" "Icon-60@3x" "Icon-83.5@2x" "Icon-Small" "Icon-Small@2x" "Icon-Small@3x" "Icon-Small-40" "Icon-Small-40@2x" "Icon-Small-40@3x")

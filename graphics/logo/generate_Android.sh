@@ -1,7 +1,7 @@
 #!/bin/bash
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-OUT=$DIR/../resources/Android
+OUT=$DIR/../../resources/Android
 OUT_res=$OUT/output/res
 OUT_gen=$OUT/generated/res
 

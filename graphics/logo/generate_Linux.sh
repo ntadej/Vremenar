@@ -1,7 +1,7 @@
 #!/bin/bash
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-OUT=$DIR/../resources/Linux/logo
+OUT=$DIR/../../resources/Linux/logo
 
 # Desktop (Linux) logo
 sizes=(16 24 32 48 64 128 256)
