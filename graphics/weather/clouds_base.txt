@@ -1,0 +1,10 @@
+FG_day fog_heavy
+FG_night fog_heavy
+clear_day sun_big
+clear_night stars_big stars_small moon_big
+overcast_day cloud_big_day cloud_small_day
+overcast_night cloud_big_night cloud_small_night
+partCloudy_day sun_big cloud_small_day
+partCloudy_night stars_small moon_big cloud_small_night
+prevCloudy_day sun_small cloud_big_day cloud_small_day
+prevCloudy_night moon_small cloud_big_night cloud_small_night

@@ -1,4 +1,6 @@
 *.pro.user*
 *.so
 config.pri
-wip
+
+/graphics/weather/components/*.png
+/graphics/weather/modifiers/*.png
