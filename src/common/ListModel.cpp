@@ -49,7 +49,9 @@ void ListModel::handleItemChange()
 
 void ListModel::clear()
 {
-    removeRows(0, rowCount());
+    if (!_list.empty()) {
+        removeRows(0, rowCount());
+    }
 }
 
 bool ListModel::removeRow(int row, const QModelIndex &parent)

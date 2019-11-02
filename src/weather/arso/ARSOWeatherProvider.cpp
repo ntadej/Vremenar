@@ -61,9 +61,7 @@ void ARSO::WeatherProvider::requestMapLayers(Weather::MapType type)
 {
     qDebug() << "Requesting map type:" << type;
 
-    if (_mapLayersModel->rowCount() != 0) {
-        _mapLayersModel->clear();
-    }
+    _mapLayersModel->clear();
 
     if (type == Weather::ForecastMap) {
         APIRequest request = ARSO::mapForecast();
@@ -94,18 +92,14 @@ void ARSO::WeatherProvider::response(QNetworkReply *reply)
     }
 
     if (currentReplies()->value(reply).call() == QStringLiteral("/forecast_data_details")) {
-        if (_forecastModel->rowCount() != 0) {
-            _forecastModel->clear();
-        }
+        _forecastModel->clear();
         _forecastModel->addEntries(document.object()[QStringLiteral("features")].toArray());
 
         removeResponse(reply);
         valid = true;
     } else if (currentReplies()->value(reply).call() == QStringLiteral("/inca_data")) {
         auto type = Weather::MapType(currentReplies()->value(reply).extra().toInt());
-        if (_mapLayersModel->rowCount() != 0) {
-            _mapLayersModel->clear();
-        }
+        _mapLayersModel->clear();
         _mapLayersModel->addMapLayers(type, document.array());
 
         removeResponse(reply);
