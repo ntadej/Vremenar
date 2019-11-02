@@ -16,24 +16,23 @@ import Vremenar 1.0
 import Vremenar.Common 1.0
 
 MapQuickItem {
-    property string icon: "no"
-    property alias title: text.text
+    property string icon
+    property string title
 
-    anchorPoint.x: rectangle.width / 2
-    anchorPoint.y: rectangle.width / 2
+    anchorPoint.x: entry.width / 2
+    anchorPoint.y: entry.width / 2
 
-    sourceItem: Rectangle {
-        id: rectangle
+    sourceItem: Item {
+        id: entry
         width: 48
         height: width
-        color: "transparent"
-        border.color: "white"
-        border.width: 2
         opacity: 0
 
-        TextSmall {
-            id: text
+        Image {
+            id: image
             anchors.centerIn: parent
+            anchors.alignWhenCentered: true
+            source: "../icons/" + icon + ".png"
         }
 
         Component.onCompleted: opacity = 1
