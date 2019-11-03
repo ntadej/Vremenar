@@ -24,8 +24,8 @@ MapQuickItem {
 
     sourceItem: Item {
         id: entry
-        width: 48
-        height: width
+        width: UI.mapIconSize
+        height: UI.mapIconSize
         opacity: 0
 
         Image {
@@ -37,6 +37,6 @@ MapQuickItem {
 
         Component.onCompleted: opacity = 1
 
-        Behavior on opacity { PropertyAnimation { duration: 200 } }
+        Behavior on opacity { PropertyAnimation { duration: UI.hoverDuration } }
     }
 }

@@ -27,7 +27,10 @@ MouseArea {
 
     Rectangle {
         color: UI.navBarColor
-        anchors.fill: parent
+        anchors {
+            fill: parent
+            topMargin: UI.safetyMarginTop
+        }
 
         Spinner {
             id: indicator

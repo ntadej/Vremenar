@@ -22,7 +22,11 @@ Item {
 
     ListView {
         id: view
-        anchors.centerIn: parent
+        anchors {
+            top: parent.top
+            centerIn: parent
+        }
+
         interactive: false
         orientation: ListView.Horizontal
 

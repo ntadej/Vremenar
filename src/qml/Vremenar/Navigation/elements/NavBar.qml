@@ -46,6 +46,8 @@ Item {
         anchors {
             fill: parent
             topMargin: UI.safetyMarginTop
+            leftMargin: UI.safetyMarginLeft
+            rightMargin: UI.safetyMarginRight
         }
 
         TextCommon {

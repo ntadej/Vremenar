@@ -14,7 +14,8 @@
 namespace Vremenar
 {
 
-int Qml::UIManager::buttonMapSize() const { return 44; }
+int Qml::UIManager::mapElementSize() const { return 44; }
+int Qml::UIManager::mapElementOffset() const { return 8; }
 
 int Qml::UIManager::iconSizeCommon() const { return 32; }
 int Qml::UIManager::lineThickness() const { return 1; }
@@ -28,6 +29,7 @@ int Qml::UIManager::navBarHeight() const { return 44; }
 int Qml::UIManager::bottomSheetBaseHeight() const { return 44; }
 int Qml::UIManager::bottomSheetMaxWidth() const { return 640; }
 
+int Qml::UIManager::mapIconSize() const { return 48; }
 int Qml::UIManager::mapLegendSize() const { return 20; }
 
 } // namespace Vremenar

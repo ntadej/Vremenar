@@ -52,9 +52,20 @@ Qml::UIManager::UIManager(QObject *parent)
     qDebug() << "Running on device type" << _device;
 }
 
+bool Qml::UIManager::debugging() const
+{
+#if defined(Q_OS_MACOS) && defined(QT_DEBUG)
+    return true;
+#else
+    return false;
+#endif
+}
+
 Common::DeviceType Qml::UIManager::getDeviceType()
 {
-#if defined(Q_OS_MACOS)
+#if defined(Q_OS_MACOS) && defined(QT_DEBUG)
+    return Common::DebuggingDevice;
+#elif defined(Q_OS_MACOS)
     return Common::Desktop;
 #elif defined(Q_OS_IOS)
     return getDeviceTypeIOS();
@@ -74,6 +85,8 @@ void Qml::UIManager::orientationChanged(Qt::ScreenOrientation orientation)
 #ifdef Q_OS_IOS
     updateStatusBar();
 #endif
+
+    updateSafeAreaMargins();
 
     Q_EMIT geometryChanged();
 }
@@ -118,6 +131,13 @@ void Qml::UIManager::windowSizeChanged(int width,
     _currentHeight = height;
     _currentSizeRatio = static_cast<double>(_currentWidth) / static_cast<double>(_currentHeight);
 
+    updateSafeAreaMargins();
+
+    Q_EMIT geometryChanged();
+}
+
+void Qml::UIManager::updateSafeAreaMargins()
+{
 #ifdef Q_OS_IOS
     QPlatformWindow *platformWindow = _currentWindow->handle();
     if (platformWindow)
@@ -130,7 +150,12 @@ void Qml::UIManager::windowSizeChanged(int width,
     Q_EMIT safetyMarginsChanged();
 #endif
 
-    Q_EMIT geometryChanged();
+#ifdef Q_OS_MACOS
+    if (_device == Common::DebuggingDevice) {
+        _currentSafeAreaMargins = QMargins(40, 25, 25, 25);
+        Q_EMIT safetyMarginsChanged();
+    }
+#endif
 }
 
 QObject *Qml::UIManager::provider(QQmlEngine *engine,

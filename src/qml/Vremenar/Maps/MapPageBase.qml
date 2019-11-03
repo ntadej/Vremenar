@@ -40,8 +40,8 @@ Rectangle {
         anchors {
             top: parent.top
             right: parent.right
-            topMargin: 2 * UI.navBarHeight
-            rightMargin: UI.navBarHeight
+            topMargin: UI.navBarHeight + UI.mapElementOffset + UI.safetyMarginTop
+            rightMargin: UI.mapElementOffset + UI.safetyMarginRight
         }
     }
 
@@ -59,7 +59,22 @@ Rectangle {
         anchors {
            top: parent.bottom
            topMargin: - (UI.bottomSheetBaseHeight + UI.safetyMarginBottom)
-           horizontalCenter: parent.horizontalCenter
+           leftMargin: UI.safetyMarginLeft
+           rightMargin: UI.safetyMarginRight
+        }
+
+        onFullWidthChanged: {
+            anchors.left = undefined
+            anchors.right = undefined
+            anchors.horizontalCenter = undefined
+
+            if (!fullWidth) {
+                width = Math.min(parent.width - UI.safetyMarginLeft - UI.safetyMarginRight, UI.bottomSheetMaxWidth)
+                anchors.horizontalCenter = parent.horizontalCenter
+            } else {
+                anchors.left = parent.left
+                anchors.right = parent.right
+            }
         }
     }
 
@@ -94,8 +109,12 @@ Rectangle {
             name: "sheet"
             PropertyChanges {
                 target: bottomSheet
-                height: 5 * UI.bottomSheetBaseHeight + UI.radiusCommon + UI.safetyMarginBottom
+                height: mapControls.height + UI.radiusCommon + UI.safetyMarginBottom
                 anchors.topMargin: -height + UI.radiusCommon
+            }
+            PropertyChanges {
+                target: mapControls
+                active: true
             }
         }
     ]
@@ -104,7 +123,6 @@ Rectangle {
         PropertyAnimation { property: "anchors.topMargin"; duration: UI.hoverDuration }
         PropertyAnimation { property: "height"; duration: UI.hoverDuration }
         PropertyAnimation { property: "opacity"; duration: UI.hoverDuration }
-
     }
 
     function toggleSheetVisibility() {

@@ -25,4 +25,17 @@ MainWindow {
         id: centralNavigationStack
         anchors.fill: parent
     }
+
+    Rectangle {
+        id: debuggingRect
+        visible: UI.debugging
+        anchors.fill: parent
+        anchors.topMargin: UI.safetyMarginTop
+        anchors.bottomMargin: UI.safetyMarginBottom
+        anchors.leftMargin: UI.safetyMarginLeft
+        anchors.rightMargin: UI.safetyMarginRight
+        color: "transparent"
+        border.color: "red"
+        border.width: 1
+    }
 }

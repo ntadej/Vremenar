@@ -16,8 +16,8 @@ import Vremenar 1.0
 import Vremenar.Common 1.0
 
 Item {
-    width: UI.buttonMapSize
-    height: 2 * UI.buttonMapSize + UI.lineThickness
+    width: UI.mapElementSize
+    height: 2 * UI.mapElementSize + UI.lineThickness
 
     Rectangle {
         id: rounded

@@ -16,9 +16,10 @@ import Vremenar.Common 1.0
 
 Item {
     default property alias contents: content.children
+    property alias contentItem: content
+    property bool fullWidth: parent.width - 2 * (UI.safetyMarginLeft + UI.safetyMarginRight) <= UI.bottomSheetMaxWidth
 
     height: UI.bottomSheetBaseHeight + UI.radiusCommon + UI.safetyMarginBottom
-    width: Math.min(parent.width, UI.bottomSheetMaxWidth)
     clip: true
 
     Rectangle {
@@ -40,6 +41,10 @@ Item {
 
     Item {
         id: content
-        anchors.fill: parent
+        anchors {
+            top: parent.top
+            left: parent.left
+            right: parent.right
+        }
     }
 }

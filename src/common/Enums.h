@@ -27,6 +27,7 @@ public:
         iPad,
         Android,
         AndroidTV,
+        DebuggingDevice,
         UnknownDevice
     };
 

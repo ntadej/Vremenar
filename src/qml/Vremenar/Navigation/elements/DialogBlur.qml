@@ -41,7 +41,7 @@ Dialog {
         spacing: 0
         Rectangle {
             color: "transparent"
-            height: UI.navBarHeight
+            height: UI.navBarHeight + UI.safetyMarginTop
             Layout.fillWidth: true
         }
         Rectangle {
