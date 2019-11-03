@@ -36,6 +36,7 @@ include(application/application.pri)
 # Common resources
 RESOURCES += \
     resources/Common/graphics.qrc \
+    resources/Common/ui/ui.qrc \
     resources/Weather/Map/map.qrc
 
 # Desktop common resources

@@ -71,6 +71,14 @@ Rectangle {
         onAboutToHide: dialogActive = false
     }
 
+    LoadingOverlay {
+        id: loadingOverlay
+        active: VWeather.loading
+        visible: false
+        anchors.fill: parent
+        anchors.topMargin: UI.navBarHeight
+    }
+
     Shortcut {
         sequences: ["I"]
         onActivated: toggleSheetVisibility()

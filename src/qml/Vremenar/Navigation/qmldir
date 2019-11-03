@@ -3,6 +3,7 @@ module Vremenar.Navigation
 MainWindow 1.0 MainWindow.qml
 NavigationStack 1.0 NavigationStack.qml
 NavigationPage 1.0 Page.qml
+LoadingOverlay 1.0 LoadingOverlay.qml
 
 NavBar 1.0 elements/NavBar.qml
 BottomSheet 1.0 elements/BottomSheet.qml

@@ -8,6 +8,7 @@ CommonBlur 1.0 components/CommonBlur.qml
 MaskedBlur 1.0 components/MaskedBlur.qml
 SimpleButton 1.0 components/SimpleButton.qml
 IconButton 1.0 components/IconButton.qml
+Spinner 1.0 components/Spinner.qml
 
 ListRadioView 1.0 views/ListRadioView.qml
 

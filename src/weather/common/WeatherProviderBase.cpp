@@ -90,4 +90,12 @@ void WeatherProviderBase::timerCallback()
     requestMapLayers(_currentType);
 }
 
+void WeatherProviderBase::setLoading(bool loading)
+{
+    if (_loading != loading) {
+        _loading = loading;
+        Q_EMIT loadingChanged();
+    }
+}
+
 } // namespace Vremenar

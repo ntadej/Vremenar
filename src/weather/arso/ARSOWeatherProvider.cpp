@@ -61,6 +61,8 @@ void ARSO::WeatherProvider::requestMapLayers(Weather::MapType type)
 {
     qDebug() << "Requesting map type:" << type;
 
+    setLoading(true);
+
     _forecastModel->clear();
     _mapLayersModel->clear();
 
@@ -112,6 +114,7 @@ void ARSO::WeatherProvider::response(QNetworkReply *reply)
     }
 
     setLastUpdatedTime(QDateTime::currentDateTime());
+    setLoading(false);
     startTimer();
     Q_EMIT lastUpdateTimeChanged();
 }

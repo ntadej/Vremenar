@@ -39,6 +39,7 @@ public:
     Q_PROPERTY(QVariant defaultMapCoordinates READ defaultMapCoordinates CONSTANT)
     Q_PROPERTY(QJsonObject copyrightLink READ copyrightLinkJson CONSTANT)
     Q_PROPERTY(QDateTime lastUpdateTime READ lastUpdateTime NOTIFY lastUpdateTimeChanged)
+    Q_PROPERTY(bool loading READ loading NOTIFY loadingChanged)
 
     inline ForecastProxyModel *forecast() { return _forecastProxyModel.get(); }
     inline MapInfoModel *mapInfo() { return _mapInfoModel.get(); }
@@ -55,6 +56,7 @@ public:
     [[nodiscard]] virtual Hyperlink *copyrightLink() const = 0;
 
     const QDateTime &lastUpdateTime() { return _lastUpdateResponseTime; }
+    bool loading() { return _loading; }
 
 public Q_SLOTS:
     Q_INVOKABLE void changeMapType(Weather::MapType type);
@@ -63,10 +65,12 @@ public Q_SLOTS:
 
 Q_SIGNALS:
     void lastUpdateTimeChanged();
+    void loadingChanged();
 
 protected:
     void startTimer();
     void setLastUpdatedTime(const QDateTime &time) { _lastUpdateResponseTime = time; }
+    void setLoading(bool loading);
 
 private:
     [[nodiscard]] inline QJsonObject copyrightLinkJson() const { return copyrightLink()->asJson(); }
@@ -78,6 +82,7 @@ private:
     std::unique_ptr<MapLegendProxyModel> _mapLegendProxyModel;
 
     QDateTime _lastUpdateResponseTime{};
+    bool _loading;
 
     Weather::MapType _currentType{Weather::UnknownMap};
 

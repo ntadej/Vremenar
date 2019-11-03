@@ -13,5 +13,6 @@
         <file>views/ListRadioView.qml</file>
         <file>text/Header.qml</file>
         <file>text/Small.qml</file>
+        <file>components/Spinner.qml</file>
     </qresource>
 </RCC>
