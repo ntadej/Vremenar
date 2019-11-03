@@ -18,13 +18,14 @@
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
         android:label="-- %%INSERT_APP_NAME%% --" android:name="org.qtproject.qt5.android.bindings.QtApplication"
-        android:roundIcon="@mipmap/ic_launcher_round">
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:theme="@style/VremenarTheme" >
 
         <activity
             android:configChanges="orientation|uiMode|screenLayout|screenSize|smallestScreenSize|layoutDirection|locale|fontScale|keyboard|keyboardHidden|navigation|mcc|mnc"
             android:label="-- %%INSERT_APP_NAME%% --"
             android:launchMode="singleTop"
-            android:name="org.qtproject.qt5.android.bindings.QtActivity" android:screenOrientation="unspecified">
+            android:name="si.tano.vremenar.VremenarActivity" android:screenOrientation="unspecified">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -84,7 +85,7 @@
 
     </application>
 
-    <uses-sdk android:minSdkVersion="16" android:targetSdkVersion="28"/>
+    <uses-sdk android:minSdkVersion="23" android:targetSdkVersion="28"/>
     <supports-screens
         android:anyDensity="true"
         android:largeScreens="true"

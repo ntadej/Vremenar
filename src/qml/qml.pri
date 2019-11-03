@@ -32,6 +32,12 @@ ios {
        src/qml/UIManagerIOS.mm
 }
 
+# Android specific
+android {
+    SOURCES += \
+       src/qml/UIManagerAndroid.cpp
+}
+
 # Define resources
 RESOURCES += \
     src/qml/Vremenar/vremenar.qrc \

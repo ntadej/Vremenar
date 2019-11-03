@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<resources>
+    <style name="VremenarTheme" parent="@android:style/Theme.DeviceDefault.NoActionBar.TranslucentDecor">
+        <item name="android:windowTranslucentStatus">true</item>
+    </style>
+</resources>

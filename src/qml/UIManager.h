@@ -133,8 +133,16 @@ private:
     static Common::DeviceType getDeviceType();
 #ifdef Q_OS_IOS
     static Common::DeviceType getDeviceTypeIOS();
+#endif
+#ifdef Q_OS_ANDROID
+    static Common::DeviceType getDeviceTypeAndroid();
+#endif
 
+#ifdef Q_OS_IOS
     void updateStatusBar();
+#endif
+#ifdef Q_OS_ANDROID
+    QMargins safeAreaMargins();
 #endif
 
     const Common::DeviceType _device;

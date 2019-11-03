@@ -58,6 +58,8 @@ Common::DeviceType Qml::UIManager::getDeviceType()
     return Common::Desktop;
 #elif defined(Q_OS_IOS)
     return getDeviceTypeIOS();
+#elif defined(Q_OS_ANDROID)
+    return getDeviceTypeAndroid();
 #else
     return Common::UnknownDevice;
 #endif
@@ -121,6 +123,10 @@ void Qml::UIManager::windowSizeChanged(int width,
     if (platformWindow)
         _currentSafeAreaMargins = platformWindow->safeAreaMargins();
 
+    Q_EMIT safetyMarginsChanged();
+#endif
+#ifdef Q_OS_ANDROID
+    _currentSafeAreaMargins = safeAreaMargins();
     Q_EMIT safetyMarginsChanged();
 #endif
 

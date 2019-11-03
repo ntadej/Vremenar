@@ -25,6 +25,8 @@ public:
         Desktop,
         iPhone,
         iPad,
+        Android,
+        AndroidTV,
         UnknownDevice
     };
 
