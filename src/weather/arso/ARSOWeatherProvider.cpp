@@ -53,7 +53,7 @@ void ARSO::WeatherProvider::requestForecastDetails(int index)
 {
     qDebug() << "Requesting forecast details:" << index;
 
-    APIRequest request = ARSO::mapForecastDetails(forecastList()->get(index)->url());
+    APIRequest request = ARSO::mapForecastDetails(mapLayers()->data(mapLayers()->index(0, 0), MapLayer::UrlRole).toString());
     currentReplies()->insert(network()->request(request), request);
 }
 
@@ -61,6 +61,7 @@ void ARSO::WeatherProvider::requestMapLayers(Weather::MapType type)
 {
     qDebug() << "Requesting map type:" << type;
 
+    _forecastModel->clear();
     _mapLayersModel->clear();
 
     if (type == Weather::ForecastMap) {
@@ -82,8 +83,8 @@ void ARSO::WeatherProvider::response(QNetworkReply *reply)
 
     QJsonDocument document = QJsonDocument::fromJson(reply->readAll());
     if (currentReplies()->value(reply).call() == QStringLiteral("/forecast_data")) {
-        forecastList()->clear();
-        forecastList()->generateModel(document.array());
+        _mapLayersModel->clear();
+        _mapLayersModel->addMapLayers(Weather::ForecastMap, document.array());
 
         removeResponse(reply);
         requestForecastDetails(0);

@@ -13,11 +13,9 @@ SOURCES += \
     src/weather/common/Weather.cpp \
     src/weather/common/WeatherProviderBase.cpp \
     src/weather/common/containers/ForecastEntry.cpp \
-    src/weather/common/containers/ForecastInfo.cpp \
     src/weather/common/containers/MapInfo.cpp \
     src/weather/common/containers/MapLayer.cpp \
     src/weather/common/containers/MapLegendItem.cpp \
-    src/weather/common/models/ForecastListModel.cpp \
     src/weather/common/models/ForecastModelBase.cpp \
     src/weather/common/models/ForecastProxyModel.cpp \
     src/weather/common/models/MapInfoModel.cpp \
@@ -36,11 +34,9 @@ HEADERS += \
     src/weather/common/Weather.h \
     src/weather/common/WeatherProviderBase.h \
     src/weather/common/containers/ForecastEntry.h \
-    src/weather/common/containers/ForecastInfo.h \
     src/weather/common/containers/MapInfo.h \
     src/weather/common/containers/MapLayer.h \
     src/weather/common/containers/MapLegendItem.h \
-    src/weather/common/models/ForecastListModel.h \
     src/weather/common/models/ForecastModelBase.h \
     src/weather/common/models/ForecastProxyModel.h \
     src/weather/common/models/MapInfoModel.h \

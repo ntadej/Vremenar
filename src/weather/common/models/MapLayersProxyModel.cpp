@@ -20,6 +20,7 @@ MapLayersProxyModel::MapLayersProxyModel(QVariant defaultCoordinates,
                                          QObject *parent)
     : QSortFilterProxyModel(parent),
       _time(0),
+      _url(QStringLiteral("qrc:/Vremenar/Maps/icons/blank.png")),
       _coordinates(std::move(defaultCoordinates))
 {
     connect(this, &MapLayersProxyModel::rowsInserted, this, &MapLayersProxyModel::rowCountChanged);
@@ -35,6 +36,9 @@ void MapLayersProxyModel::setTimestamp(qint64 time)
             const QModelIndex in = index(i, 0);
             if (data(in, MapLayer::TimeRole).toDateTime().toMSecsSinceEpoch() == _time) {
                 _url = data(in, MapLayer::UrlRole).toUrl().toString();
+                if (_url.contains(QStringLiteral("json"))) {
+                    _url = QStringLiteral("qrc:/Vremenar/Maps/icons/blank.png");
+                }
                 _coordinates = data(in, MapLayer::CoordinatesRole);
                 break;
             }

@@ -48,7 +48,7 @@ public:
     explicit MapLayer(Weather::MapType type,
                       const QDateTime &time,
                       const QUrl &url,
-                      const QGeoRectangle &range,
+                      const QGeoRectangle &range = QGeoRectangle(),
                       QObject *parent = nullptr);
 
     // Implemented virtual functions

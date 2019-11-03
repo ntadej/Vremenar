@@ -1587,5 +1587,6 @@
         <file>prevCloudy.png</file>
         <file>prevCloudy@2x.png</file>
         <file>prevCloudy@3x.png</file>
+        <file>blank.png</file>
     </qresource>
 </RCC>

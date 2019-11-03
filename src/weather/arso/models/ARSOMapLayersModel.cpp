@@ -42,8 +42,20 @@ MapLayer *ARSO::MapLayersModel::createMapLayer(Weather::MapType type,
 void ARSO::MapLayersModel::addMapLayers(Weather::MapType type,
                                         const QJsonArray &data)
 {
-    for (const QJsonValue &obj : data) {
-        createMapLayer(type, obj.toObject());
+    if (type == Weather::ForecastMap) {
+        for (const QJsonValue &value : data) {
+            QJsonObject data = value.toObject();
+
+            QDateTime time = QDateTime::fromString(data[QStringLiteral("date")].toString(), QStringLiteral("yyyyMMddHHmm"));
+            time.setTimeSpec(Qt::UTC);
+            QString url = data[QStringLiteral("path")].toString();
+
+            appendRow(std::make_unique<MapLayer>(type, time, url));
+        }
+    } else {
+        for (const QJsonValue &obj : data) {
+            createMapLayer(type, obj.toObject());
+        }
     }
 }
 
