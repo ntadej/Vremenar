@@ -29,6 +29,10 @@
 #include "settings/SettingsDialog.h"
 #endif
 
+#ifdef Q_OS_ANDROID
+#include <QtAndroidExtras/QtAndroid>
+#endif
+
 #include "ApplicationWindow.h"
 
 namespace Vremenar
@@ -189,6 +193,10 @@ void ApplicationWindow::startCompleted()
 #ifdef Q_OS_MACOS
     Settings settings(this);
     Q_EMIT dockVisibilityChanged(settings.showInDock());
+#endif
+
+#ifdef Q_OS_ANDROID
+    QtAndroid::hideSplashScreen();
 #endif
 
     _weatherProvider->changeMapType(Weather::ForecastMap);
