@@ -14,9 +14,8 @@
 namespace Vremenar
 {
 
-QColor Qml::UIManager::colorPrimary() const { return {62, 150, 243}; }
-QColor Qml::UIManager::colorPrimaryLight() const { return {90, 200, 251}; }
-QColor Qml::UIManager::colorPrimaryDark() const { return {49, 105, 218}; }
+QColor Qml::UIManager::colorPrimary() const { return {255, 219, 79}; }
+QColor Qml::UIManager::colorPrimaryDark() const { return {255, 149, 0}; }
 
 QColor Qml::UIManager::separatorColor() const { return {50, 50, 51}; }
 

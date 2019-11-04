@@ -35,7 +35,6 @@ class UIManager : public QObject
     Q_PROPERTY(bool debugging READ debugging CONSTANT)
 
     Q_PROPERTY(QColor colorPrimary READ colorPrimary CONSTANT)
-    Q_PROPERTY(QColor colorPrimaryLight READ colorPrimaryLight CONSTANT)
     Q_PROPERTY(QColor colorPrimaryDark READ colorPrimaryDark CONSTANT)
 
     Q_PROPERTY(QColor separatorColor READ separatorColor CONSTANT)
