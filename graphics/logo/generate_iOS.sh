@@ -20,3 +20,12 @@ do
 
     rm $OUT/shape.png $OUT/background.png
 done
+
+# iOS launcher logo
+apple=("LauncherIcon" "LauncherIcon@2x" "LauncherIcon@3x")
+apple_sizes=(120 240 360)
+
+for (( i=0; i<${#apple[@]}; i++ ));
+do
+    $inkscape -z -o $OUT/${apple[$i]}.png --export-area=80:80:520:520 -w ${apple_sizes[$i]} $DIR/shape_flat.svg
+done

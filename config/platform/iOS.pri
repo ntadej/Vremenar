@@ -14,5 +14,9 @@ QT += gui-private
 
 # Info.plist
 QMAKE_INFO_PLIST = $$top_srcdir/resources/iOS/Info.plist
+
 ios_icon.files = $$files($$top_srcdir/resources/iOS/logo/*.png)
 QMAKE_BUNDLE_DATA += ios_icon
+
+launch_storyboard.files = $$top_srcdir/resources/iOS/VremenarLaunchScreen.storyboard
+QMAKE_BUNDLE_DATA += launch_storyboard
