@@ -123,6 +123,8 @@ public:
     inline int safetyMarginLeft() const { return _currentSafeAreaMargins.left(); }
     inline int safetyMarginRight() const { return _currentSafeAreaMargins.right(); }
 
+    Q_INVOKABLE void debugAction();
+
     static QObject *provider(QQmlEngine *engine,
                              QJSEngine *scriptEngine);
 
@@ -148,10 +150,7 @@ private:
     static Common::DeviceType getDeviceTypeAndroid();
 #endif
 
-#ifdef Q_OS_IOS
-    void updateStatusBar();
-#endif
-#ifdef Q_OS_ANDROID
+#if defined(Q_OS_IOS) || defined(Q_OS_ANDROID)
     QMargins safeAreaMargins();
 #endif
 

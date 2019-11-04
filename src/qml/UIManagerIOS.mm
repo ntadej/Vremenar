@@ -11,6 +11,9 @@
 
 #include <QtGui/QWindow>
 
+// Private include for the safe area margins
+#include <QtGui/qpa/qplatformwindow.h>
+
 #include <UIKit/UIDevice.h>
 #include <UIKit/UIViewController.h>
 
@@ -30,14 +33,14 @@ Common::DeviceType Qml::UIManager::getDeviceTypeIOS()
         return Common::UnknownDevice;
 }
 
-void Qml::UIManager::updateStatusBar()
+QMargins Qml::UIManager::safeAreaMargins()
 {
-    if (_device == Common::iPhone
-        && (_currentOrientation == Qt::LandscapeOrientation || _currentOrientation == Qt::InvertedLandscapeOrientation)) {
-        _currentWindow->setWindowStates(_currentWindow->windowStates() | Qt::WindowFullScreen);
-    } else {
-        _currentWindow->setWindowStates(_currentWindow->windowStates() & (~Qt::WindowFullScreen));
+    QPlatformWindow *platformWindow = _currentWindow->handle();
+    if (platformWindow) {
+        return platformWindow->safeAreaMargins();
     }
+
+    return QMargins();
 }
 
 }
@@ -50,7 +53,8 @@ void Qml::UIManager::updateStatusBar()
 
 @implementation QIOSViewController (VremenarView)
 
-- (UIStatusBarStyle)preferredStatusBarStyle {
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
     return UIStatusBarStyleLightContent;
 }
 

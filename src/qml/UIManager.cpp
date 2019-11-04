@@ -14,11 +14,6 @@
 #include <QtGui/QScreen>
 #include <QtGui/QWindow>
 
-// Private include for the safe area margins
-#ifdef Q_OS_IOS
-#include <QtGui/qpa/qplatformwindow.h>
-#endif
-
 #include "qml/UIManager.h"
 #include "settings/Settings.h"
 
@@ -40,14 +35,6 @@ Qml::UIManager::UIManager(QObject *parent)
     connect(application, &QGuiApplication::primaryScreenChanged, this, &UIManager::primaryScreenChanged);
     connect(_currentWindow, &QWindow::widthChanged, this, &UIManager::windowWidthChanged);
     connect(_currentWindow, &QWindow::heightChanged, this, &UIManager::windowHeightChanged);
-
-#ifdef Q_OS_IOS
-    connect(application, &QGuiApplication::applicationStateChanged, application, [=](Qt::ApplicationState state) {
-        if (state == Qt::ApplicationActive) {
-            updateStatusBar();
-        }
-    });
-#endif
 
     qDebug() << "Running on device type" << _device;
 }
@@ -81,10 +68,6 @@ void Qml::UIManager::orientationChanged(Qt::ScreenOrientation orientation)
     qDebug() << "Orientation changed" << orientation;
 
     _currentOrientation = orientation;
-
-#ifdef Q_OS_IOS
-    updateStatusBar();
-#endif
 
     updateSafeAreaMargins();
 
@@ -138,14 +121,7 @@ void Qml::UIManager::windowSizeChanged(int width,
 
 void Qml::UIManager::updateSafeAreaMargins()
 {
-#ifdef Q_OS_IOS
-    QPlatformWindow *platformWindow = _currentWindow->handle();
-    if (platformWindow)
-        _currentSafeAreaMargins = platformWindow->safeAreaMargins();
-
-    Q_EMIT safetyMarginsChanged();
-#endif
-#ifdef Q_OS_ANDROID
+#if defined(Q_OS_IOS) || defined(Q_OS_ANDROID)
     _currentSafeAreaMargins = safeAreaMargins();
     Q_EMIT safetyMarginsChanged();
 #endif
@@ -156,6 +132,10 @@ void Qml::UIManager::updateSafeAreaMargins()
         Q_EMIT safetyMarginsChanged();
     }
 #endif
+}
+
+void Qml::UIManager::debugAction()
+{
 }
 
 QObject *Qml::UIManager::provider(QQmlEngine *engine,
