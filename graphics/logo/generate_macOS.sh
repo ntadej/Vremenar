@@ -4,6 +4,8 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 OUT=$DIR/../../resources/macOS
 OUT_iconset=$OUT/Vremenar.iconset
 
+source $DIR/common.sh
+
 # macOS iconset
 if [[ ! -d "$OUT_iconset" ]]; then
   mkdir -p "$OUT_iconset"
@@ -16,11 +18,11 @@ iconset_retina=(32 64 256 512 1024)
 for (( i=0; i<${#iconset[@]}; i++ )); do
   size=${iconset[$i]}x${iconset[$i]}
 
-  inkscape -z --export-png $OUT_iconset/background_${size}.png -a $area -w ${iconset[$i]} $DIR/background_macOS.svg
-  inkscape -z --export-png $OUT_iconset/background_${size}@2x.png -a $area -w ${iconset_retina[$i]} $DIR/background_macOS.svg
+  $inkscape -z -o $OUT_iconset/background_${size}.png --export-area=$area -w ${iconset[$i]} $DIR/background_macOS.svg
+  $inkscape -z -o $OUT_iconset/background_${size}@2x.png --export-area=$area -w ${iconset_retina[$i]} $DIR/background_macOS.svg
 
-  inkscape -z --export-png $OUT_iconset/shape_${size}.png -a $area -w ${iconset[$i]} $DIR/shape.svg
-  inkscape -z --export-png $OUT_iconset/shape_${size}@2x.png -a $area -w ${iconset_retina[$i]} $DIR/shape.svg
+  $inkscape -z -o $OUT_iconset/shape_${size}.png --export-area=$area -w ${iconset[$i]} $DIR/shape_flat.svg
+  $inkscape -z -o $OUT_iconset/shape_${size}@2x.png --export-area=$area -w ${iconset_retina[$i]} $DIR/shape_flat.svg
 
   echo magick composite -gravity center $OUT_iconset/shape_${size}.png $OUT_iconset/background_${size}.png $OUT_iconset/icon_${size}.png
   magick composite -gravity center $OUT_iconset/shape_${size}.png $OUT_iconset/background_${size}.png $OUT_iconset/icon_${size}.png
