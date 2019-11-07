@@ -19,10 +19,12 @@ MouseArea {
 
     property alias icon: textLabel.icon
     property alias family: textLabel.font.family
+    property bool disabled: false
 
     height: width
 
-    hoverEnabled: true
+    enabled: !disabled
+    hoverEnabled: !disabled
 
     Rectangle {
         id: background
@@ -53,12 +55,21 @@ MouseArea {
             name: "hover"
             when: containsMouse
 
-
             PropertyChanges {
                 target: textLabel
                 color: UI.colorPrimary
             }
+        },
+        State {
+            name: "disabled"
+            when: disabled
+
+            PropertyChanges {
+                target: textLabel
+                color: UI.textColorDisabled
+            }
         }
+
     ]
 
     transitions: Transition {
@@ -66,7 +77,7 @@ MouseArea {
     }
 
     function downAnimation() {
-        if (containsMouse)
+        if (disabled || containsMouse)
             return
 
         state = "down"
@@ -76,6 +87,12 @@ MouseArea {
     Timer {
         id: timer
         interval: UI.hoverDuration; running: false; repeat: false
-        onTriggered: button.state = ""
+        onTriggered: {
+            if (disabled) {
+                button.state = "disabled"
+            } else {
+                button.state = ""
+            }
+        }
     }
 }

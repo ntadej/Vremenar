@@ -20,8 +20,10 @@ import "elements"
 
 
 ColumnLayout {
+    id: layout
+
     property bool active: false
-    property alias time: mapSlider.value
+    property alias legend: mapLegend
 
     anchors {
         top: parent.top
@@ -31,17 +33,51 @@ ColumnLayout {
     }
     spacing: 0
 
+    Shortcut {
+        sequences: ["Space", "Media Play", "Media Pause", "Toggle Media Play/Pause"]
+        onActivated: {
+            buttonPlay.downAnimation()
+            VMapLayersModel.play()
+        }
+    }
+    Shortcut {
+        sequences: ["Left", "Media Previous"]
+        onActivated: {
+            buttonPrevious.downAnimation()
+            VMapLayersModel.previous()
+        }
+    }
+    Shortcut {
+        sequences: ["Right", "Media Next"]
+        onActivated: {
+            buttonNext.downAnimation()
+            VMapLayersModel.next()
+        }
+    }
+    Shortcut {
+        sequences: ["Up"]
+        onActivated: {
+            VWeather.currentMapLayer -= 1
+        }
+    }
+    Shortcut {
+        sequences: ["Down"]
+        onActivated: {
+            VWeather.currentMapLayer += 1
+        }
+    }
+
     RowLayout {
         height: UI.mapElementSize
         Layout.maximumHeight: UI.mapElementSize
 
         IconButton {
-            id: buttonPlay
-            icon: mapSlider.running ? "ios-pause" : "ios-play"
+            id: buttonInfo
+            icon: mapPage.state === "sheet" ? "ios-information-circle" : "ios-information-circle-outline"
             family: "Ionicons"
             width: UI.mapElementSize
 
-            onClicked: mapSlider.play()
+            onClicked: mapPage.toggleSheetVisibility()
         }
 
         Item {
@@ -53,17 +89,18 @@ ColumnLayout {
             icon: "ios-rewind"
             family: "Ionicons"
             width: UI.mapElementSize
+            disabled: VMapLayersModel.minTimestamp === VMapLayersModel.time
 
-            onClicked: mapSlider.previous()
+            onClicked: VMapLayersModel.previous()
         }
 
-        TextCommon {
-            text: Qt.formatTime(mapSlider.timestamp)
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignVCenter
+        IconButton {
+            id: buttonPlay
+            icon: VMapLayersModel.animated ? "ios-pause" : "ios-play"
+            family: "Ionicons"
+            width: UI.mapElementSize
 
-            Layout.fillHeight: true
-            Layout.minimumWidth: 60
+            onClicked: VMapLayersModel.play()
         }
 
         IconButton {
@@ -71,8 +108,9 @@ ColumnLayout {
             icon: "ios-fastforward"
             family: "Ionicons"
             width: UI.mapElementSize
+            disabled: VMapLayersModel.maxTimestamp === VMapLayersModel.time
 
-            onClicked: mapSlider.next()
+            onClicked: VMapLayersModel.next()
         }
 
         Item {
@@ -80,89 +118,33 @@ ColumnLayout {
         }
 
         IconButton {
-            id: buttonInfo
-            icon: mapPage.state === "sheet" ? "ios-information-circle" : "ios-information-circle-outline"
+            id: buttonRefresh
+            icon: "ios-refresh"
             family: "Ionicons"
             width: UI.mapElementSize
 
-            onClicked: mapPage.toggleSheetVisibility()
+            RotationAnimator {
+                id: buttonRefreshAnimator
+                target: buttonRefresh
+                from: 0
+                to: 360
+                duration: UI.hoverDuration
+            }
+
+            onClicked: {
+                VWeather.refresh()
+                buttonRefreshAnimator.running = true
+            }
         }
     }
 
     MapLegendView {
         id: mapLegend
         model: VMapLegendModel
-        opacity: 0
     }
 
     Item {
         Layout.preferredHeight: UI.radiusCommon
-    }
-
-    Slider {
-        id: mapSlider
-        from: VMapLayersModel.minTimestamp
-        to: VMapLayersModel.maxTimestamp
-        stepSize: VMapLayersModel.stepTimestamp
-        value: VMapLayersModel.maxTimestamp
-        snapMode: Slider.SnapAlways
-        visible: false
-        Layout.maximumHeight: 0
-
-        property alias running: mapSliderTimer.running
-        property date timestamp: new Date()
-
-        onValueChanged: {
-            timestamp = new Date(value)
-        }
-
-        Timer {
-            id: mapSliderTimer
-            interval: 300; running: false; repeat: true
-            onTriggered: mapSlider.next(true)
-        }
-
-        function play() {
-            mapSliderTimer.running = !mapSliderTimer.running
-        }
-
-        function previous() {
-            mapSliderTimer.running = false
-
-            decrease()
-        }
-
-        function next(fromTimer = false) {
-            if (!fromTimer) mapSliderTimer.running = false
-
-            if (fromTimer && value == to) {
-                value = from
-            } else {
-                increase()
-            }
-        }
-
-        Shortcut {
-            sequences: ["Space", "Media Play", "Media Pause", "Toggle Media Play/Pause"]
-            onActivated: {
-                buttonPlay.downAnimation()
-                mapSlider.play()
-            }
-        }
-        Shortcut {
-            sequences: ["Left", "Media Previous"]
-            onActivated: {
-                buttonPrevious.downAnimation()
-                mapSlider.previous()
-            }
-        }
-        Shortcut {
-            sequences: ["Right", "Media Next"]
-            onActivated: {
-                buttonNext.downAnimation()
-                mapSlider.next()
-            }
-        }
     }
 
     Item {
@@ -211,7 +193,6 @@ ColumnLayout {
     states: [
         State {
             name: "active"; when: active
-            PropertyChanges { target: mapLegend; opacity: 1 }
             PropertyChanges { target: labelUpdated; opacity: 1 }
             PropertyChanges { target: labelAbout; opacity: 1 }
         }

@@ -17,4 +17,10 @@ namespace Vremenar
 MapLayersModelBase::MapLayersModelBase(QObject *parent)
     : ListModel(MapLayer::roleNames(), parent) {}
 
+MapLayer *MapLayersModelBase::findLayer(Weather::MapType type,
+                                        qint64 time) const
+{
+    return find<MapLayer>(Weather::mapTypeString(type) + "_" + QString::number(time));
+}
+
 } // namespace Vremenar

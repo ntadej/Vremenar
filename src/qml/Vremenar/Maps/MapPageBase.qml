@@ -45,6 +45,16 @@ Rectangle {
         }
     }
 
+    MapTime {
+        id: mapTime
+        anchors {
+            top: parent.top
+            left: parent.left
+            topMargin: UI.navBarHeight + UI.mapElementOffset + UI.safetyMarginTop
+            leftMargin: UI.mapElementOffset + UI.safetyMarginLeft
+        }
+    }
+
     NavBar {
         id: navBar
         anchors {
@@ -58,10 +68,12 @@ Rectangle {
         id: bottomSheet
         anchors {
            top: parent.bottom
-           topMargin: - (UI.bottomSheetBaseHeight + UI.safetyMarginBottom)
+           topMargin: -height + UI.radiusCommon
            leftMargin: UI.safetyMarginLeft
            rightMargin: UI.safetyMarginRight
         }
+
+        height: UI.bottomSheetBaseHeight + mapControls.legend.height + UI.radiusCommon + UI.safetyMarginBottom
 
         onFullWidthChanged: {
             anchors.left = undefined
@@ -110,7 +122,6 @@ Rectangle {
             PropertyChanges {
                 target: bottomSheet
                 height: mapControls.height + UI.radiusCommon + UI.safetyMarginBottom
-                anchors.topMargin: -height + UI.radiusCommon
             }
             PropertyChanges {
                 target: mapControls

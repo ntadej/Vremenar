@@ -15,12 +15,14 @@ namespace Vremenar
 {
 
 ForecastEntry::ForecastEntry(const QString &id,
+                             qint64 time,
                              QString title,
                              QString icon,
                              const QGeoCoordinate &coordinate,
                              qreal zoomLevel,
                              QObject *parent)
     : ListItem(parent),
+      _time(time),
       _title(std::move(title)),
       _icon(std::move(icon)),
       _coordinate(coordinate),
@@ -41,6 +43,8 @@ QVariant ForecastEntry::data(int role) const
         return id();
     case DisplayRole:
         return display();
+    case TimeRole:
+        return time();
     case IconRole:
         return icon();
     case CoordinateRole:

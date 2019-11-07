@@ -83,7 +83,5 @@ MapPageBase {
 
     bottomSheetContents: MapControls {
         id: mapControls
-
-        Binding { target: VMapLayersModel; property: "time"; value: mapControls.time }
     }
 }

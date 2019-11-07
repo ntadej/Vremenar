@@ -30,6 +30,8 @@ class MapLayer : public ListItem
     Q_PROPERTY(QDateTime time READ time CONSTANT)
     Q_PROPERTY(QUrl url READ url CONSTANT)
     Q_PROPERTY(QGeoRectangle range READ range CONSTANT)
+    Q_PROPERTY(bool loaded READ loaded NOTIFY loadedChanged)
+
 public:
     enum Roles {
         DisplayRole = Qt::DisplayRole,
@@ -42,7 +44,8 @@ public:
         MinLongitudeRole,
         MaxLatitudeRole,
         MaxLongitudeRole,
-        CoordinatesRole
+        CoordinatesRole,
+        LoadedRole
     };
 
     explicit MapLayer(Weather::MapType type,
@@ -60,6 +63,8 @@ public:
     [[nodiscard]] inline const QUrl &url() const { return _url; }
     [[nodiscard]] inline const QGeoRectangle &range() const { return _range; }
     [[nodiscard]] inline const QVariant &coordinates() const { return _coordinates; }
+    [[nodiscard]] inline bool loaded() const { return _loaded; }
+    void setLoaded();
 
     static inline QHash<int, QByteArray> roleNames()
     {
@@ -74,10 +79,14 @@ public:
             {MinLongitudeRole, "minLongitude"},
             {MaxLatitudeRole, "maxLatitude"},
             {MaxLongitudeRole, "maxLongitude"},
-            {CoordinatesRole, "coordinates"}};
+            {CoordinatesRole, "coordinates"},
+            {LoadedRole, "loaded"}};
     }
 
     static QVariant geoRectangleToList(const QGeoRectangle &rect);
+
+Q_SIGNALS:
+    void loadedChanged();
 
 private:
     Weather::MapType _type{Weather::UnknownMap};
@@ -85,6 +94,7 @@ private:
     QUrl _url;
     QGeoRectangle _range;
     QVariant _coordinates;
+    bool _loaded{false};
 };
 
 } // namespace Vremenar

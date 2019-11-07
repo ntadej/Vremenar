@@ -31,6 +31,9 @@ ForecastEntry *ARSO::ForecastModel::createEntry(const QJsonObject &data)
     QJsonObject day = properties[QStringLiteral("days")].toArray()[0].toObject();
     QJsonObject timeline = day[QStringLiteral("timeline")].toArray()[0].toObject();
 
+    QDateTime time = QDateTime::fromString(timeline[QStringLiteral("valid")].toString(), Qt::ISODate);
+    time.setTimeSpec(Qt::UTC);
+
     QString icon = timeline[QStringLiteral("clouds_icon_wwsyn_icon")].toString();
 
     QJsonObject geometry = data[QStringLiteral("geometry")].toObject();
@@ -45,7 +48,7 @@ ForecastEntry *ARSO::ForecastModel::createEntry(const QJsonObject &data)
     zoomLevel *= ARSO::maxZoomLevel - ARSO::minZoomLevel - epsilon;
     zoomLevel = ARSO::maxZoomLevel - zoomLevel - epsilon;
 
-    return appendRow(std::make_unique<ForecastEntry>(id, title, icon, coordinate, zoomLevel));
+    return appendRow(std::make_unique<ForecastEntry>(id, time.toMSecsSinceEpoch(), title, icon, coordinate, zoomLevel));
 }
 
 void ARSO::ForecastModel::addEntries(const QJsonArray &data)

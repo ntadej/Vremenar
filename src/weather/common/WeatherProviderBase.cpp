@@ -48,12 +48,26 @@ void WeatherProviderBase::changeMapType(Weather::MapType type)
 
     _currentType = type;
     _mapLegendProxyModel->setType(_currentType);
+
+    Q_EMIT currentMapLayerChangedSignal();
+
     refresh();
 }
 
 void WeatherProviderBase::currentMapLayerChanged(int index)
 {
+    if (index < 0 || index >= static_cast<int>(supportedMapTypes().size())) {
+        return;
+    }
+
     changeMapType(_mapInfoModel->row<MapInfo>(index)->type());
+}
+
+int WeatherProviderBase::currentMapLayer() const
+{
+    const std::vector<Weather::MapType> &types = supportedMapTypes();
+    auto it = std::find(types.begin(), types.end(), _currentType);
+    return static_cast<int>(std::distance(types.begin(), it));
 }
 
 void WeatherProviderBase::refresh()

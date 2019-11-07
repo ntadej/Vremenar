@@ -18,7 +18,18 @@ Item {
     property alias model: view.model
 
     Layout.fillWidth: true
-    Layout.preferredHeight: UI.mapLegendSize
+    Layout.preferredHeight: VWeather.currentMapLayer !== 0 ? view.height : 0
+    height: VWeather.currentMapLayer !== 0 ? view.height : 0
+    opacity: VWeather.currentMapLayer !== 0 ? 1 : 0
+
+    Behavior on opacity {
+        animation: PropertyAnimation { duration: UI.hoverDuration }
+        enabled: !dialogActive
+    }
+    Behavior on height {
+        animation: PropertyAnimation { duration: UI.hoverDuration }
+        enabled: !dialogActive
+    }
 
     ListView {
         id: view
@@ -31,7 +42,7 @@ Item {
         orientation: ListView.Horizontal
 
         width: count * UI.mapLegendSize
-        height: UI.mapLegendSize
+        height: 2 * UI.mapLegendSize
 
         delegate: MapLegendItem {
             color: model.color

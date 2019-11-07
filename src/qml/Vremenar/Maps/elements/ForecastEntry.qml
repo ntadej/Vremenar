@@ -37,6 +37,6 @@ MapQuickItem {
 
         Component.onCompleted: opacity = 1
 
-        Behavior on opacity { PropertyAnimation { duration: UI.hoverDuration } }
+        Behavior on opacity { PropertyAnimation { duration: UI.mapIconFadeDuration } }
     }
 }

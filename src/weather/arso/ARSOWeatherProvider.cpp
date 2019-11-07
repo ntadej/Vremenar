@@ -47,13 +47,17 @@ ARSO::WeatherProvider::WeatherProvider(NetworkManager *network,
     _copyrightLink = std::make_unique<Hyperlink>(
         QStringLiteral("© ") + tr("Slovenian Environment Agency"),
         QStringLiteral("https://www.arso.gov.si"));
+
+    connect(mapLayers(), &MapLayersProxyModel::timestampChanged, this, &ARSO::WeatherProvider::currentTimeChanged);
 }
 
-void ARSO::WeatherProvider::requestForecastDetails(int index)
+void ARSO::WeatherProvider::requestForecastDetails(const QString &url)
 {
-    qDebug() << "Requesting forecast details:" << index;
+    qDebug() << "Requesting forecast details:" << url;
 
-    APIRequest request = ARSO::mapForecastDetails(mapLayers()->data(mapLayers()->index(0, 0), MapLayer::UrlRole).toString());
+    setLoading(true);
+
+    APIRequest request = ARSO::mapForecastDetails(url);
     currentReplies()->insert(network()->request(request), request);
 }
 
@@ -85,17 +89,15 @@ void ARSO::WeatherProvider::response(QNetworkReply *reply)
 
     QJsonDocument document = QJsonDocument::fromJson(reply->readAll());
     if (currentReplies()->value(reply).call() == QStringLiteral("/forecast_data")) {
+        _forecastModel->clear();
         _mapLayersModel->clear();
         _mapLayersModel->addMapLayers(Weather::ForecastMap, document.array());
 
         removeResponse(reply);
-        requestForecastDetails(0);
-
         return;
     }
 
     if (currentReplies()->value(reply).call() == QStringLiteral("/forecast_data_details")) {
-        _forecastModel->clear();
         _forecastModel->addEntries(document.object()[QStringLiteral("features")].toArray());
 
         removeResponse(reply);
@@ -117,6 +119,21 @@ void ARSO::WeatherProvider::response(QNetworkReply *reply)
     setLoading(false);
     startTimer();
     Q_EMIT lastUpdateTimeChanged();
+}
+
+void ARSO::WeatherProvider::currentTimeChanged()
+{
+    if (currentType() != Weather::ForecastMap) {
+        return;
+    }
+
+    MapLayer *layer = _mapLayersModel->findLayer(Weather::ForecastMap, mapLayers()->timestamp());
+    if (!layer->loaded()) {
+        requestForecastDetails(layer->url().toString());
+        layer->setLoaded();
+    }
+
+    forecast()->setTime(mapLayers()->timestamp());
 }
 
 QVariant ARSO::WeatherProvider::defaultMapCoordinates() const

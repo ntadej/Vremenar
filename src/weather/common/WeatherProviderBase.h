@@ -40,13 +40,14 @@ public:
     Q_PROPERTY(QJsonObject copyrightLink READ copyrightLinkJson CONSTANT)
     Q_PROPERTY(QDateTime lastUpdateTime READ lastUpdateTime NOTIFY lastUpdateTimeChanged)
     Q_PROPERTY(bool loading READ loading NOTIFY loadingChanged)
+    Q_PROPERTY(int currentMapLayer READ currentMapLayer WRITE currentMapLayerChanged NOTIFY currentMapLayerChangedSignal)
 
     inline ForecastProxyModel *forecast() { return _forecastProxyModel.get(); }
     inline MapInfoModel *mapInfo() { return _mapInfoModel.get(); }
     inline MapLayersProxyModel *mapLayers() { return _mapLayersProxyModel.get(); }
     inline MapLegendProxyModel *mapLegend() { return _mapLegendProxyModel.get(); }
 
-    virtual void requestForecastDetails(int index) = 0;
+    virtual void requestForecastDetails(const QString &url) = 0;
     virtual void requestMapLayers(Weather::MapType type) = 0;
 
     [[nodiscard]] virtual const std::vector<Weather::MapType> &supportedMapTypes() const = 0;
@@ -55,8 +56,10 @@ public:
     [[nodiscard]] virtual QVariant defaultMapCoordinates() const = 0;
     [[nodiscard]] virtual Hyperlink *copyrightLink() const = 0;
 
-    const QDateTime &lastUpdateTime() { return _lastUpdateResponseTime; }
-    bool loading() { return _loading; }
+    [[nodiscard]] inline Weather::MapType currentType() const { return _currentType; }
+    [[nodiscard]] inline const QDateTime &lastUpdateTime() const { return _lastUpdateResponseTime; }
+    [[nodiscard]] inline bool loading() const { return _loading; }
+    int currentMapLayer() const;
 
 public Q_SLOTS:
     Q_INVOKABLE void changeMapType(Weather::MapType type);
@@ -66,6 +69,7 @@ public Q_SLOTS:
 Q_SIGNALS:
     void lastUpdateTimeChanged();
     void loadingChanged();
+    void currentMapLayerChangedSignal();
 
 protected:
     void startTimer();

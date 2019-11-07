@@ -58,17 +58,24 @@ class UIManager : public QObject
     Q_PROPERTY(int bottomSheetMaxWidth READ bottomSheetMaxWidth CONSTANT)
 
     Q_PROPERTY(int mapIconSize READ mapIconSize CONSTANT)
+    Q_PROPERTY(int mapIconFadeDuration READ mapIconFadeDuration CONSTANT)
     Q_PROPERTY(int mapLegendSize READ mapLegendSize CONSTANT)
+    Q_PROPERTY(int mapTimeChangeDuration READ mapTimeChangeDuration CONSTANT)
+    Q_PROPERTY(int mapRefreshRotationDuration READ mapRefreshRotationDuration CONSTANT)
 
     Q_PROPERTY(int textCommon READ textCommon CONSTANT)
     Q_PROPERTY(int textHeader READ textHeader CONSTANT)
     Q_PROPERTY(int textSmall READ textSmall CONSTANT)
     Q_PROPERTY(QColor textColor READ textColor CONSTANT)
     Q_PROPERTY(QColor textColorPrimary READ textColorPrimary CONSTANT)
+    Q_PROPERTY(QColor textColorDisabled READ textColorDisabled CONSTANT)
     Q_PROPERTY(QColor textColorSpecialLink READ textColorSpecialLink CONSTANT)
 
     Q_PROPERTY(QColor hoverColor READ hoverColor CONSTANT)
     Q_PROPERTY(int hoverDuration READ hoverDuration CONSTANT)
+
+    Q_PROPERTY(int loadingDelay READ loadingDelay CONSTANT)
+    Q_PROPERTY(int loadingTransitionDuration READ loadingTransitionDuration CONSTANT)
 
     Q_PROPERTY(int safetyMarginTop READ safetyMarginTop NOTIFY safetyMarginsChanged)
     Q_PROPERTY(int safetyMarginBottom READ safetyMarginBottom NOTIFY safetyMarginsChanged)
@@ -105,17 +112,24 @@ public:
     int bottomSheetMaxWidth() const;
 
     int mapIconSize() const;
+    int mapIconFadeDuration() const;
     int mapLegendSize() const;
+    int mapTimeChangeDuration() const;
+    int mapRefreshRotationDuration() const;
 
     int textCommon() const;
     int textHeader() const;
     int textSmall() const;
     QColor textColor() const;
     QColor textColorPrimary() const;
+    QColor textColorDisabled() const;
     QColor textColorSpecialLink() const;
 
     QColor hoverColor() const;
     int hoverDuration() const;
+
+    int loadingDelay() const;
+    int loadingTransitionDuration() const;
 
     inline int safetyMarginTop() const { return _currentSafeAreaMargins.top(); }
     inline int safetyMarginBottom() const { return _currentSafeAreaMargins.bottom(); }

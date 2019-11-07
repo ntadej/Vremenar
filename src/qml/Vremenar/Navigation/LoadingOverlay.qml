@@ -16,6 +16,7 @@ import Vremenar.Common 1.0
 
 MouseArea {
     property bool active: false
+    property bool shouldBeVisible: false
 
     id: loadingOverlay
     propagateComposedEvents: false
@@ -23,6 +24,15 @@ MouseArea {
     opacity: 0
     onWheel: {
         return false
+    }
+
+    onActiveChanged: {
+        if (active) {
+            timer.restart()
+        } else {
+            timer.stop()
+            shouldBeVisible = false
+        }
     }
 
     Rectangle {
@@ -38,9 +48,19 @@ MouseArea {
         }
     }
 
+    Timer {
+        id: timer
+        interval: UI.loadingDelay; running: false; repeat: false
+        onTriggered: {
+            if (active) {
+                shouldBeVisible = true
+            }
+        }
+    }
+
     states: [
         State {
-            when: active
+            when: shouldBeVisible
             PropertyChanges {
                 target: loadingOverlay
                 opacity: 1.0
@@ -51,7 +71,7 @@ MouseArea {
             }
         },
         State {
-            when: !active
+            when: !shouldBeVisible
             PropertyChanges {
                 target: loadingOverlay
                 opacity: 0.0
@@ -62,10 +82,11 @@ MouseArea {
             }
         }
     ]
+
     transitions: Transition {
         NumberAnimation {
             property: "opacity"
-            duration: 50
+            duration: UI.loadingTransitionDuration
         }
         onRunningChanged: {
             if (!running) {

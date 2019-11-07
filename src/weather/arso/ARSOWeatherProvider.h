@@ -31,7 +31,7 @@ public:
     explicit WeatherProvider(NetworkManager *network,
                              QObject *parent = nullptr);
 
-    Q_INVOKABLE void requestForecastDetails(int index) final;
+    Q_INVOKABLE void requestForecastDetails(const QString &url) final;
     Q_INVOKABLE void requestMapLayers(Weather::MapType type) final;
 
     [[nodiscard]] inline const std::vector<Weather::MapType> &supportedMapTypes() const final { return _supportedMapTypes; }
@@ -40,8 +40,9 @@ public:
     [[nodiscard]] QVariant defaultMapCoordinates() const final;
     [[nodiscard]] inline Hyperlink *copyrightLink() const final { return _copyrightLink.get(); }
 
-protected Q_SLOTS:
+private Q_SLOTS:
     void response(QNetworkReply *reply) final;
+    void currentTimeChanged();
 
 private:
     const std::vector<Weather::MapType> _supportedMapTypes{

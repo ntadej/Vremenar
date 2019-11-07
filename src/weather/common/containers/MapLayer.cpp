@@ -21,7 +21,7 @@ MapLayer::MapLayer(Weather::MapType type,
                    QObject *parent)
     : ListItem(parent)
 {
-    setId(Weather::mapTypeString(type) + "_" + QString::number(time.toSecsSinceEpoch()));
+    setId(Weather::mapTypeString(type) + "_" + QString::number(time.toMSecsSinceEpoch()));
 
     _type = type;
     _time = time;
@@ -60,9 +60,17 @@ QVariant MapLayer::data(int role) const
         return range().topRight().longitude();
     case CoordinatesRole:
         return coordinates();
+    case LoadedRole:
+        return loaded();
     default:
         return QVariant();
     }
+}
+
+void MapLayer::setLoaded()
+{
+    _loaded = true;
+    Q_EMIT loadedChanged();
 }
 
 // clazy:excludeall=inefficient-qlist

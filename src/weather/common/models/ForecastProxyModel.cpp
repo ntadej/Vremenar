@@ -32,6 +32,15 @@ void ForecastProxyModel::setZoomLevel(qreal level)
     }
 }
 
+void ForecastProxyModel::setTime(qint64 time)
+{
+    if (time != _time) {
+        _time = time;
+        invalidateFilter();
+        Q_EMIT timeChanged();
+    }
+}
+
 bool ForecastProxyModel::filterAcceptsRow(int sourceRow,
                                           const QModelIndex &sourceParent) const
 {
@@ -39,8 +48,9 @@ bool ForecastProxyModel::filterAcceptsRow(int sourceRow,
 
     bool name = index.data(ForecastEntry::DisplayRole).toString().contains(filterRegExp());
     bool zoomLevel = index.data(ForecastEntry::ZoomLevelRole).toReal() <= _zoomLevel;
+    bool time = index.data(ForecastEntry::TimeRole).toLongLong() == _time;
 
-    return name && zoomLevel;
+    return name && zoomLevel && time;
 }
 
 } // namespace Vremenar

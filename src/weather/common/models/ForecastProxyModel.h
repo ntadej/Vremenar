@@ -23,22 +23,27 @@ class ForecastProxyModel : public QSortFilterProxyModel
     Q_OBJECT
 
     Q_PROPERTY(qreal zoomLevel READ zoomLevel WRITE setZoomLevel NOTIFY zoomLevelChanged)
+    Q_PROPERTY(qint64 time READ time NOTIFY timeChanged)
+
 public:
     explicit ForecastProxyModel(QObject *parent = nullptr);
 
     [[nodiscard]] inline qreal zoomLevel() const { return _zoomLevel; }
     void setZoomLevel(qreal level);
+    [[nodiscard]] inline qint64 time() const { return _time; }
+    void setTime(qint64 time);
 
 Q_SIGNALS:
     void rowCountChanged();
     void zoomLevelChanged();
+    void timeChanged();
 
-protected:
+private:
     [[nodiscard]] bool filterAcceptsRow(int sourceRow,
                                         const QModelIndex &sourceParent) const override;
 
-private:
     qreal _zoomLevel{};
+    qint64 _time{};
 };
 
 } // namespace Vremenar

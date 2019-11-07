@@ -23,6 +23,7 @@ class ForecastEntry : public ListItem
 {
     Q_OBJECT
     Q_PROPERTY(QString display READ display CONSTANT)
+    Q_PROPERTY(qint64 time READ time CONSTANT)
     Q_PROPERTY(QString icon READ icon CONSTANT)
     Q_PROPERTY(QGeoCoordinate coordinate READ coordinate CONSTANT)
     Q_PROPERTY(qreal zoomLevel READ zoomLevel CONSTANT)
@@ -30,12 +31,14 @@ public:
     enum Roles {
         DisplayRole = Qt::DisplayRole,
         IdRole = Qt::UserRole + 1,
+        TimeRole,
         IconRole,
         CoordinateRole,
         ZoomLevelRole
     };
 
     explicit ForecastEntry(const QString &id,
+                           qint64 time,
                            QString title,
                            QString icon,
                            const QGeoCoordinate &coordinate,
@@ -46,6 +49,7 @@ public:
     [[nodiscard]] QVariant data(int role) const final;
     [[nodiscard]] QString display() const final;
 
+    [[nodiscard]] inline qint64 time() const { return _time; }
     [[nodiscard]] inline const QString &icon() const { return _icon; }
     [[nodiscard]] inline const QGeoCoordinate &coordinate() const { return _coordinate; }
     [[nodiscard]] inline qreal zoomLevel() const { return _zoomLevel; }
@@ -55,12 +59,14 @@ public:
         return {
             {IdRole, "id"},
             {DisplayRole, "display"},
+            {TimeRole, "time"},
             {IconRole, "icon"},
             {CoordinateRole, "coordinate"},
             {ZoomLevelRole, "zoomLevel"}};
     }
 
 private:
+    qint64 _time;
     QString _title;
     QString _icon;
     QGeoCoordinate _coordinate;
