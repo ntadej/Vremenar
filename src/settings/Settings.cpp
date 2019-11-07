@@ -16,6 +16,11 @@ namespace Vremenar
 
 Settings::Settings(QObject *parent)
     : QSettings(parent),
+      _startupMapEnabled(DEFAULT_STARTUP_MAP_ENABLED),
+      _startupMapType(DEFAULT_STARTUP_MAP_TYPE),
+      _startupMapZoomLevel(DEFAULT_STARTUP_MAP_ZOOM_LEVEL),
+      _startupMapLatitude(DEFAULT_STARTUP_MAP_LATITUDE),
+      _startupMapLongitude(DEFAULT_STARTUP_MAP_LONGITUDE),
       _locale(DEFAULT_LOCALE),
       _showInTray(DEFAULT_SHOW_IN_TRAY),
 #if defined(Q_OS_MACOS)
@@ -28,6 +33,11 @@ Settings::Settings(QObject *parent)
       _posX(DEFAULT_POS_X),
       _posY(DEFAULT_POS_Y)
 {
+    _map[KEY_STARTUP_MAP_ENABLED] = DEFAULT_STARTUP_MAP_ENABLED;
+    _map[KEY_STARTUP_MAP_TYPE] = DEFAULT_STARTUP_MAP_TYPE;
+    _map[KEY_STARTUP_MAP_ZOOM_LEVEL] = DEFAULT_STARTUP_MAP_ZOOM_LEVEL;
+    _map[KEY_STARTUP_MAP_LATITUDE] = DEFAULT_STARTUP_MAP_LATITUDE;
+    _map[KEY_STARTUP_MAP_LONGITUDE] = DEFAULT_STARTUP_MAP_LONGITUDE;
     _map[KEY_LOCALE] = DEFAULT_LOCALE;
     _map[KEY_SHOW_IN_TRAY] = DEFAULT_SHOW_IN_TRAY;
 #if defined(Q_OS_MACOS)
@@ -45,6 +55,12 @@ Settings::Settings(QObject *parent)
 
 void Settings::writeSettings()
 {
+    setValue(KEY_STARTUP_MAP_ENABLED, startupMapEnabled());
+    setValue(KEY_STARTUP_MAP_TYPE, static_cast<int>(startupMapType()));
+    setValue(KEY_STARTUP_MAP_ZOOM_LEVEL, startupMapZoomLevel());
+    setValue(KEY_STARTUP_MAP_LATITUDE, startupMapLatitude());
+    setValue(KEY_STARTUP_MAP_LONGITUDE, startupMapLongitude());
+
     setValue(KEY_LOCALE, locale());
 
     setValue(KEY_SHOW_IN_TRAY, showInTray());
@@ -64,6 +80,12 @@ void Settings::writeSettings()
 
 void Settings::readSettings()
 {
+    setStartupMapEnabled(value(KEY_STARTUP_MAP_ENABLED, defaultValue(KEY_STARTUP_MAP_ENABLED)).toBool());
+    setStartupMapType(Weather::MapType(value(KEY_STARTUP_MAP_TYPE, defaultValue(KEY_STARTUP_MAP_TYPE)).toInt()));
+    setStartupMapZoomLevel(value(KEY_STARTUP_MAP_ZOOM_LEVEL, defaultValue(KEY_STARTUP_MAP_ZOOM_LEVEL)).toReal());
+    setStartupMapLatitude(value(KEY_STARTUP_MAP_LATITUDE, defaultValue(KEY_STARTUP_MAP_LATITUDE)).toDouble());
+    setStartupMapLongitude(value(KEY_STARTUP_MAP_LONGITUDE, defaultValue(KEY_STARTUP_MAP_LONGITUDE)).toDouble());
+
     setLocale(value(KEY_LOCALE, defaultValue(KEY_LOCALE)).toString());
 
     setShowInTray(value(KEY_SHOW_IN_TRAY, defaultValue(KEY_SHOW_IN_TRAY)).toBool());

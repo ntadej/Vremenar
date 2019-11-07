@@ -13,6 +13,7 @@
 #include <QtCore/QString>
 #include <QtQml/QQmlContext>
 #include <QtQml/QQmlFileSelector>
+#include <QtQml/QQmlProperty>
 #include <QtQuick/QQuickWindow>
 
 #include "common/NetworkManager.h"
@@ -70,6 +71,7 @@ ApplicationWindow::ApplicationWindow(QObject *parent)
     connect(application, &DesktopApplication::activate, this, &ApplicationWindow::activate);
     connect(application, &DesktopApplication::urlOpened, this, &ApplicationWindow::processUrl);
 #endif
+    connect(application, &QCoreApplication::aboutToQuit, this, &ApplicationWindow::writeSettingsStartupMap);
 
 #ifdef Q_OS_MACOS
     connect(application, &DesktopApplication::dockClicked, this, &ApplicationWindow::dockClicked);
@@ -106,6 +108,7 @@ void ApplicationWindow::dockClicked()
 }
 #endif
 
+#ifndef VREMENAR_MOBILE
 void ApplicationWindow::writeSettingsStartup()
 {
     if (_qmlMainWindow->visibility() == QWindow::Maximized
@@ -123,6 +126,24 @@ void ApplicationWindow::writeSettingsStartup()
         settings.setHeight(_qmlMainWindow->height());
     }
     settings.writeSettings();
+}
+#endif
+
+void ApplicationWindow::writeSettingsStartupMap()
+{
+    Settings settings(this);
+    if (settings.startupMapEnabled()) {
+        auto mapObject = _qmlMainWindow->findChild<QObject *>("mapObject");
+
+        settings.setStartupMapType(_weatherProvider->currentType());
+        settings.setStartupMapZoomLevel(QQmlProperty::read(mapObject, "zoomLevel").toReal());
+
+        QGeoCoordinate center = QQmlProperty::read(mapObject, "center").value<QGeoCoordinate>();
+        settings.setStartupMapLatitude(center.latitude());
+        settings.setStartupMapLongitude(center.longitude());
+
+        settings.writeSettings();
+    }
 }
 
 void ApplicationWindow::createModels()
@@ -199,7 +220,11 @@ void ApplicationWindow::startCompleted()
     QtAndroid::hideSplashScreen();
 #endif
 
-    _weatherProvider->changeMapType(Weather::ForecastMap);
+    if (settings.startupMapEnabled()) {
+        _weatherProvider->changeMapType(settings.startupMapType());
+    } else {
+        _weatherProvider->changeMapType(Weather::ForecastMap);
+    }
 
     qDebug() << "Initialization completed";
 }

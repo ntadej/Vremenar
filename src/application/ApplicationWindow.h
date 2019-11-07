@@ -62,7 +62,10 @@ Q_SIGNALS:
 #endif
 
 private Q_SLOTS:
+#ifndef VREMENAR_MOBILE
     void writeSettingsStartup();
+#endif
+    void writeSettingsStartupMap();
 
 private:
     void createModels();

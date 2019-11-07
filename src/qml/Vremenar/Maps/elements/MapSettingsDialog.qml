@@ -19,9 +19,12 @@ DialogBlur {
     id: dialog
 
     ListRadioView {
+        id: view
         title:  qsTr("Map type") + VL.R
         model: VMapInfoModel
         anchors.fill: parent
+
+        currentIndex: VWeather.currentMapLayer
 
         onCurrentIndexChanged: {
             if (applicationWindow.ready) {
@@ -30,4 +33,6 @@ DialogBlur {
             }
         }
     }
+
+    Binding { target: view; property: "currentIndex"; value: VWeather.currentMapLayer }
 }

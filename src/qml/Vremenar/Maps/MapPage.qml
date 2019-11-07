@@ -30,11 +30,12 @@ MapPageBase {
         }
 
         id: map
+        objectName: "mapObject"
         anchors.fill: parent
 
         plugin: mapPlugin
         copyrightsVisible: false
-        zoomLevel: 8
+        zoomLevel: Settings.startupMapEnabled ? Settings.startupMapZoomLevel : 8
         center: VLocation.position.isValid ? VLocation.position : VLocation.initial
 
         minimumZoomLevel: VWeather.minZoomLevel

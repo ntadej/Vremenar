@@ -14,22 +14,19 @@
 #include <QtPositioning/QGeoAddress>
 
 #include "location/LocationProvider.h"
+#include "settings/Settings.h"
 
 #include "Config.h"
-
-namespace
-{
-constexpr double initialLatitude{46.119944};
-constexpr double initialLongitude{14.815333};
-} // namespace
 
 namespace Vremenar
 {
 
 LocationProvider::LocationProvider(QObject *parent)
-    : QObject(parent),
-      _initialPosition(QGeoCoordinate(initialLatitude, initialLongitude), QDateTime::currentDateTime())
+    : QObject(parent)
 {
+    Settings settings(this);
+    _initialPosition = QGeoPositionInfo(QGeoCoordinate(settings.startupMapLatitude(), settings.startupMapLongitude()), QDateTime::currentDateTime());
+
     QMap<QString, QVariant> params;
     params[QStringLiteral("osm.useragent")] = QString(Vremenar::name) + " " + Vremenar::version;
 

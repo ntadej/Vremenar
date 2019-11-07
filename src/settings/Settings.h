@@ -14,12 +14,16 @@
 
 #include <QtCore/QSettings>
 
+#include "weather/common/Weather.h"
+
 namespace Vremenar
 {
 
 class Settings : public QSettings
 {
     Q_OBJECT
+    Q_PROPERTY(bool startupMapEnabled READ startupMapEnabled CONSTANT)
+    Q_PROPERTY(qreal startupMapZoomLevel READ startupMapZoomLevel CONSTANT)
     Q_PROPERTY(bool rememberPosition READ rememberPosition CONSTANT)
     Q_PROPERTY(bool rememberSize READ rememberSize CONSTANT)
     Q_PROPERTY(int width READ width CONSTANT)
@@ -34,6 +38,32 @@ public:
     void writeSettings();
 
     Q_INVOKABLE [[nodiscard]] QVariant defaultValue(const QString &key) const;
+
+    // Map startup settings
+    [[nodiscard]] inline bool startupMapEnabled() const { return _startupMapEnabled; }
+    inline void setStartupMapEnabled(bool b) { _startupMapEnabled = b; }
+    static const QString KEY_STARTUP_MAP_ENABLED;
+    static const bool DEFAULT_STARTUP_MAP_ENABLED;
+
+    [[nodiscard]] inline Weather::MapType startupMapType() const { return _startupMapType; }
+    inline void setStartupMapType(Weather::MapType t) { _startupMapType = t; }
+    static const QString KEY_STARTUP_MAP_TYPE;
+    static const Weather::MapType DEFAULT_STARTUP_MAP_TYPE;
+
+    [[nodiscard]] inline qreal startupMapZoomLevel() const { return _startupMapZoomLevel; }
+    inline void setStartupMapZoomLevel(qreal r) { _startupMapZoomLevel = r; }
+    static const QString KEY_STARTUP_MAP_ZOOM_LEVEL;
+    static const qreal DEFAULT_STARTUP_MAP_ZOOM_LEVEL;
+
+    [[nodiscard]] inline double startupMapLatitude() const { return _startupMapLatitude; }
+    inline void setStartupMapLatitude(double d) { _startupMapLatitude = d; }
+    static const QString KEY_STARTUP_MAP_LATITUDE;
+    static const double DEFAULT_STARTUP_MAP_LATITUDE;
+
+    [[nodiscard]] inline double startupMapLongitude() const { return _startupMapLongitude; }
+    inline void setStartupMapLongitude(double d) { _startupMapLongitude = d; }
+    static const QString KEY_STARTUP_MAP_LONGITUDE;
+    static const double DEFAULT_STARTUP_MAP_LONGITUDE;
 
     // Locale
     [[nodiscard]] inline const QString &locale() const { return _locale; }
@@ -91,6 +121,13 @@ Q_SIGNALS:
 
 private:
     QVariantMap _map;
+
+    // Map startup settings
+    bool _startupMapEnabled;
+    Weather::MapType _startupMapType;
+    qreal _startupMapZoomLevel;
+    double _startupMapLatitude;
+    double _startupMapLongitude;
 
     // Locale
     QString _locale;

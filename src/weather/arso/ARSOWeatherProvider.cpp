@@ -128,6 +128,10 @@ void ARSO::WeatherProvider::currentTimeChanged()
     }
 
     MapLayer *layer = _mapLayersModel->findLayer(Weather::ForecastMap, mapLayers()->timestamp());
+    if (layer == nullptr) {
+        return;
+    }
+
     if (!layer->loaded()) {
         requestForecastDetails(layer->url().toString());
         layer->setLoaded();

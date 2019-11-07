@@ -14,6 +14,13 @@
 namespace Vremenar
 {
 
+// Map startup settings
+const bool Settings::DEFAULT_STARTUP_MAP_ENABLED = true;
+const Weather::MapType Settings::DEFAULT_STARTUP_MAP_TYPE = Weather::ForecastMap;
+const qreal Settings::DEFAULT_STARTUP_MAP_ZOOM_LEVEL = 8;
+const double Settings::DEFAULT_STARTUP_MAP_LATITUDE = 46.119944;
+const double Settings::DEFAULT_STARTUP_MAP_LONGITUDE = 14.815333;
+
 // Locale
 const QString Settings::DEFAULT_LOCALE = {};
 
