@@ -13,6 +13,11 @@
 
 #include "weather/common/models/MapLayersProxyModel.h"
 
+namespace
+{
+constexpr int timerInterval{500};
+}
+
 namespace Vremenar
 {
 
@@ -20,7 +25,6 @@ MapLayersProxyModel::MapLayersProxyModel(QVariant defaultCoordinates,
                                          QObject *parent)
     : QSortFilterProxyModel(parent),
       _timer(std::make_unique<QTimer>(this)),
-      _time(0),
       _url(QStringLiteral("qrc:/Vremenar/Maps/icons/blank.png")),
       _coordinates(std::move(defaultCoordinates))
 {
@@ -29,7 +33,7 @@ MapLayersProxyModel::MapLayersProxyModel(QVariant defaultCoordinates,
     connect(this, &MapLayersProxyModel::rowCountChanged, this, &MapLayersProxyModel::setDefaultTimestamp);
     connect(_timer.get(), &QTimer::timeout, this, &MapLayersProxyModel::nextTimer);
 
-    _timer->setInterval(500);
+    _timer->setInterval(timerInterval);
 }
 
 qint64 MapLayersProxyModel::timestamp() const
@@ -53,9 +57,11 @@ QString MapLayersProxyModel::day() const
     qint64 diff = current.daysTo(selected);
     if (diff == 0) {
         return "";
-    } else if (diff == 1) {
+    }
+    if (diff == 1) {
         return tr("tomorrow");
-    } else if (diff == -1) {
+    }
+    if (diff == -1) {
         return tr("yesterday");
     }
 

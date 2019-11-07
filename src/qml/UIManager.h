@@ -85,56 +85,56 @@ class UIManager : public QObject
 public:
     explicit UIManager(QObject *parent = nullptr);
 
-    bool debugging() const;
+    [[nodiscard]] bool debugging() const;
 
-    QColor colorPrimary() const;
-    QColor colorPrimaryLight() const;
-    QColor colorPrimaryDark() const;
+    [[nodiscard]] QColor colorPrimary() const;
+    [[nodiscard]] QColor colorPrimaryLight() const;
+    [[nodiscard]] QColor colorPrimaryDark() const;
 
-    QColor separatorColor() const;
+    [[nodiscard]] QColor separatorColor() const;
 
-    int blurLevel() const;
+    [[nodiscard]] int blurLevel() const;
 
-    int mapElementSize() const;
-    int mapElementOffset() const;
+    [[nodiscard]] int mapElementSize() const;
+    [[nodiscard]] int mapElementOffset() const;
 
-    int iconSizeCommon() const;
-    int lineThickness() const;
-    int paddingCommon() const;
-    int paddingHeader() const;
-    int radiusCommon() const;
+    [[nodiscard]] int iconSizeCommon() const;
+    [[nodiscard]] int lineThickness() const;
+    [[nodiscard]] int paddingCommon() const;
+    [[nodiscard]] int paddingHeader() const;
+    [[nodiscard]] int radiusCommon() const;
 
-    int rowHeight() const;
-    QColor navBarColor() const;
-    int navBarHeight() const;
+    [[nodiscard]] int rowHeight() const;
+    [[nodiscard]] QColor navBarColor() const;
+    [[nodiscard]] int navBarHeight() const;
 
-    int bottomSheetBaseHeight() const;
-    int bottomSheetMaxWidth() const;
+    [[nodiscard]] int bottomSheetBaseHeight() const;
+    [[nodiscard]] int bottomSheetMaxWidth() const;
 
-    int mapIconSize() const;
-    int mapIconFadeDuration() const;
-    int mapLegendSize() const;
-    int mapTimeChangeDuration() const;
-    int mapRefreshRotationDuration() const;
+    [[nodiscard]] int mapIconSize() const;
+    [[nodiscard]] int mapIconFadeDuration() const;
+    [[nodiscard]] int mapLegendSize() const;
+    [[nodiscard]] int mapTimeChangeDuration() const;
+    [[nodiscard]] int mapRefreshRotationDuration() const;
 
-    int textCommon() const;
-    int textHeader() const;
-    int textSmall() const;
-    QColor textColor() const;
-    QColor textColorPrimary() const;
-    QColor textColorDisabled() const;
-    QColor textColorSpecialLink() const;
+    [[nodiscard]] int textCommon() const;
+    [[nodiscard]] int textHeader() const;
+    [[nodiscard]] int textSmall() const;
+    [[nodiscard]] QColor textColor() const;
+    [[nodiscard]] QColor textColorPrimary() const;
+    [[nodiscard]] QColor textColorDisabled() const;
+    [[nodiscard]] QColor textColorSpecialLink() const;
 
-    QColor hoverColor() const;
-    int hoverDuration() const;
+    [[nodiscard]] QColor hoverColor() const;
+    [[nodiscard]] int hoverDuration() const;
 
-    int loadingDelay() const;
-    int loadingTransitionDuration() const;
+    [[nodiscard]] int loadingDelay() const;
+    [[nodiscard]] int loadingTransitionDuration() const;
 
-    inline int safetyMarginTop() const { return _currentSafeAreaMargins.top(); }
-    inline int safetyMarginBottom() const { return _currentSafeAreaMargins.bottom(); }
-    inline int safetyMarginLeft() const { return _currentSafeAreaMargins.left(); }
-    inline int safetyMarginRight() const { return _currentSafeAreaMargins.right(); }
+    [[nodiscard]] inline int safetyMarginTop() const { return _currentSafeAreaMargins.top(); }
+    [[nodiscard]] inline int safetyMarginBottom() const { return _currentSafeAreaMargins.bottom(); }
+    [[nodiscard]] inline int safetyMarginLeft() const { return _currentSafeAreaMargins.left(); }
+    [[nodiscard]] inline int safetyMarginRight() const { return _currentSafeAreaMargins.right(); }
 
     Q_INVOKABLE void debugAction();
 

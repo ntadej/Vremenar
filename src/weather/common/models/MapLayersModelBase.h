@@ -32,8 +32,8 @@ public:
                               const QJsonArray &data)
         = 0;
 
-    MapLayer *findLayer(Weather::MapType type,
-                        qint64 time) const;
+    [[nodiscard]] MapLayer *findLayer(Weather::MapType type,
+                                      qint64 time) const;
 };
 
 } // namespace Vremenar

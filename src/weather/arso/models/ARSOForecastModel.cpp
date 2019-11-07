@@ -41,10 +41,10 @@ ForecastEntry *ARSO::ForecastModel::createEntry(const QJsonObject &data)
     QGeoCoordinate coordinate{coordinates[1].toDouble(), coordinates[0].toDouble()};
 
     qreal zoomLevel = properties[QStringLiteral("zoomLevel")].toString().toDouble();
-    qreal epsilon = 0.25;
+    qreal epsilon = 0.25; // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
 
-    zoomLevel = zoomLevel == 5 ? zoomLevel + 1 : zoomLevel;
-    zoomLevel /= 6;
+    zoomLevel = zoomLevel == 5 ? zoomLevel + 1 : zoomLevel; // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+    zoomLevel /= 6;                                         // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
     zoomLevel *= ARSO::maxZoomLevel - ARSO::minZoomLevel - epsilon;
     zoomLevel = ARSO::maxZoomLevel - zoomLevel - epsilon;
 

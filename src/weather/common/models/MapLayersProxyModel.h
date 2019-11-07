@@ -69,10 +69,10 @@ private:
 
     std::unique_ptr<QTimer> _timer{};
 
-    qint64 _time;
+    qint64 _time{};
     QString _url;
     QVariant _coordinates;
-    int _row;
+    int _row{};
 };
 
 } // namespace Vremenar

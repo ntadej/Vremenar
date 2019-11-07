@@ -138,7 +138,7 @@ void ApplicationWindow::writeSettingsStartupMap()
         settings.setStartupMapType(_weatherProvider->currentType());
         settings.setStartupMapZoomLevel(QQmlProperty::read(mapObject, "zoomLevel").toReal());
 
-        QGeoCoordinate center = QQmlProperty::read(mapObject, "center").value<QGeoCoordinate>();
+        auto center = QQmlProperty::read(mapObject, "center").value<QGeoCoordinate>();
         settings.setStartupMapLatitude(center.latitude());
         settings.setStartupMapLongitude(center.longitude());
 

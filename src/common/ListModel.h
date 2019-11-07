@@ -70,7 +70,7 @@ public:
     }
 
     template <class T>
-    T *find(const QString &id) const
+    [[nodiscard]] T *find(const QString &id) const
     {
         for (const auto &item : _list) {
             if (item->id() == id) {

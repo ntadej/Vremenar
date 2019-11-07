@@ -59,7 +59,7 @@ public:
     [[nodiscard]] inline Weather::MapType currentType() const { return _currentType; }
     [[nodiscard]] inline const QDateTime &lastUpdateTime() const { return _lastUpdateResponseTime; }
     [[nodiscard]] inline bool loading() const { return _loading; }
-    int currentMapLayer() const;
+    [[nodiscard]] int currentMapLayer() const;
 
 public Q_SLOTS:
     Q_INVOKABLE void changeMapType(Weather::MapType type);
@@ -86,7 +86,7 @@ private:
     std::unique_ptr<MapLegendProxyModel> _mapLegendProxyModel;
 
     QDateTime _lastUpdateResponseTime{};
-    bool _loading;
+    bool _loading{false};
 
     Weather::MapType _currentType{Weather::UnknownMap};
 
