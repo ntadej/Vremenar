@@ -14,6 +14,7 @@ package si.tano.vremenar;
 import android.app.UiModeManager;
 import android.content.Context;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowInsets;
@@ -33,12 +34,19 @@ public class VremenarActivity extends QtActivity
     public int[] getSafeAreMargins() {
         int[] margins = new int[4];
 
-        View decorView = getWindow().getDecorView();
-        WindowInsets insets = decorView.getRootWindowInsets();
-        margins[0] = insets.getStableInsetTop();
-        margins[1] = insets.getStableInsetBottom();
-        margins[2] = insets.getStableInsetLeft();
-        margins[3] = insets.getStableInsetRight();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            View decorView = getWindow().getDecorView();
+            WindowInsets insets = decorView.getRootWindowInsets();
+            margins[0] = insets.getStableInsetTop();
+            margins[1] = insets.getStableInsetBottom();
+            margins[2] = insets.getStableInsetLeft();
+            margins[3] = insets.getStableInsetRight();
+        } else {
+            margins[0] = 0;
+            margins[1] = 0;
+            margins[2] = 0;
+            margins[3] = 0;
+        }
 
         return margins;
     }
@@ -49,10 +57,12 @@ public class VremenarActivity extends QtActivity
 
         super.onCreateHook(savedInstanceState);
 
-        View decorView = getWindow().getDecorView();
-        // Hide the status bar.
-        int uiOptions = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
-        decorView.setSystemUiVisibility(uiOptions);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            View decorView = getWindow().getDecorView();
+            // Hide the status bar.
+            int uiOptions = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+            decorView.setSystemUiVisibility(uiOptions);
+        }
     }
 
     @Override
@@ -60,9 +70,11 @@ public class VremenarActivity extends QtActivity
     {
         super.onWindowFocusChanged(hasFocus);
 
-        View decorView = getWindow().getDecorView();
-        // Hide the status bar.
-        int uiOptions = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
-        decorView.setSystemUiVisibility(uiOptions);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            View decorView = getWindow().getDecorView();
+            // Hide the status bar.
+            int uiOptions = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+            decorView.setSystemUiVisibility(uiOptions);
+        }
     }
 } 

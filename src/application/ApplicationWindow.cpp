@@ -9,6 +9,7 @@
 * SPDX-License-Identifier: (GPL-3.0-or-later AND MPL-2.0)
 */
 
+#include <QtCore/QCoreApplication>
 #include <QtCore/QDebug>
 #include <QtCore/QString>
 #include <QtQml/QQmlContext>
@@ -71,7 +72,7 @@ ApplicationWindow::ApplicationWindow(QObject *parent)
     connect(application, &DesktopApplication::activate, this, &ApplicationWindow::activate);
     connect(application, &DesktopApplication::urlOpened, this, &ApplicationWindow::processUrl);
 #endif
-    connect(application, &QCoreApplication::aboutToQuit, this, &ApplicationWindow::writeSettingsStartupMap);
+    connect(QCoreApplication::instance(), &QCoreApplication::aboutToQuit, this, &ApplicationWindow::writeSettingsStartupMap);
 
 #ifdef Q_OS_MACOS
     connect(application, &DesktopApplication::dockClicked, this, &ApplicationWindow::dockClicked);
@@ -211,8 +212,8 @@ void ApplicationWindow::processUrl(const QString &url)
 
 void ApplicationWindow::startCompleted()
 {
-#ifdef Q_OS_MACOS
     Settings settings(this);
+#ifdef Q_OS_MACOS
     Q_EMIT dockVisibilityChanged(settings.showInDock());
 #endif
 
