@@ -11,6 +11,7 @@
 
 #include <QtCore/QJsonArray>
 #include <QtCore/QJsonObject>
+#include <QtCore/QTimeZone>
 #include <QtPositioning/QGeoCoordinate>
 
 #include "weather/arso/models/ARSOMapLayersModel.h"
@@ -26,8 +27,8 @@ ARSO::MapLayersModel::MapLayersModel(QObject *parent)
 MapLayer *ARSO::MapLayersModel::createMapLayer(Weather::MapType type,
                                                const QJsonObject &data)
 {
-    QDateTime time = QDateTime::fromString(data[QStringLiteral("date")].toString(), QStringLiteral("yyyyMMddHHmm"));
-    time.setTimeSpec(Qt::UTC);
+    QDateTime time = QDateTime::fromString(data[QStringLiteral("valid")].toString(), Qt::ISODate);
+    time.setTimeZone(QTimeZone::utc());
 
     QUrl url(Vremenar::ARSOAPIResources + data[QStringLiteral("path")].toString());
 
@@ -46,8 +47,8 @@ void ARSO::MapLayersModel::addMapLayers(Weather::MapType type,
         for (const QJsonValue &value : data) {
             QJsonObject data = value.toObject();
 
-            QDateTime time = QDateTime::fromString(data[QStringLiteral("date")].toString(), QStringLiteral("yyyyMMddHHmm"));
-            time.setTimeSpec(Qt::UTC);
+            QDateTime time = QDateTime::fromString(data[QStringLiteral("valid")].toString(), Qt::ISODate);
+            time.setTimeZone(QTimeZone::utc());
             QString url = data[QStringLiteral("path")].toString();
 
             appendRow(std::make_unique<MapLayer>(type, time, url));
