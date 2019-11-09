@@ -138,6 +138,24 @@ void Qml::UIManager::debugAction()
 {
 }
 
+bool Qml::UIManager::showButtonMapType() const
+{
+    if (_device == Common::Desktop || _device == Common::AndroidTV) {
+        return false;
+    }
+
+    return true;
+}
+
+bool Qml::UIManager::showButtonMapPosition() const
+{
+    if (_device == Common::AndroidTV) {
+        return false;
+    }
+
+    return true;
+}
+
 QObject *Qml::UIManager::provider(QQmlEngine *engine,
                                   QJSEngine *scriptEngine)
 {

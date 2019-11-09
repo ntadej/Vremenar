@@ -34,6 +34,9 @@ class UIManager : public QObject
 
     Q_PROPERTY(bool debugging READ debugging CONSTANT)
 
+    Q_PROPERTY(bool showButtonMapType READ showButtonMapType CONSTANT)
+    Q_PROPERTY(bool showButtonMapPosition READ showButtonMapPosition NOTIFY showMapButonPositionChanged)
+
     Q_PROPERTY(QColor colorPrimary READ colorPrimary CONSTANT)
     Q_PROPERTY(QColor colorPrimaryDark READ colorPrimaryDark CONSTANT)
 
@@ -87,6 +90,9 @@ public:
     explicit UIManager(QObject *parent = nullptr);
 
     [[nodiscard]] bool debugging() const;
+
+    [[nodiscard]] bool showButtonMapType() const;
+    [[nodiscard]] bool showButtonMapPosition() const;
 
     [[nodiscard]] QColor colorPrimary() const;
     [[nodiscard]] QColor colorPrimaryLight() const;
@@ -146,6 +152,8 @@ public:
 Q_SIGNALS:
     void geometryChanged();
     void safetyMarginsChanged();
+
+    void showMapButonPositionChanged();
 
 private Q_SLOTS:
     void orientationChanged(Qt::ScreenOrientation orientation);

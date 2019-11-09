@@ -9,6 +9,7 @@
 * SPDX-License-Identifier: (GPL-3.0-or-later AND MPL-2.0)
 */
 
+import QtQml 2.12
 import QtQuick 2.12
 import Qt.labs.platform 1.1
 
@@ -28,6 +29,32 @@ Item {
                 text: Qt.platform.os === "osx" ? "Preferences" : qsTr(
                                                      "Settings") + VL.R
                 onTriggered: Vremenar.showSettingsDialog()
+            }
+        }
+
+        // Map Type
+        Menu {
+            id: mapTypeMenu
+
+            title: qsTr("Map Type") + VL.R
+
+            MenuItemGroup {
+                id: mapTypeMenuGroup
+                items: mapTypeMenu.items
+            }
+
+            Instantiator {
+                model: VMapInfoModel
+
+                MenuItem {
+                    text: model.display
+                    checkable: true
+                    checked: VWeather.currentMapLayer === index
+                    onTriggered: VWeather.currentMapLayerChanged(index)
+                }
+
+                onObjectAdded: mapTypeMenu.insertItem(index, object)
+                onObjectRemoved: mapTypeMenu.removeItem(object)
             }
         }
 

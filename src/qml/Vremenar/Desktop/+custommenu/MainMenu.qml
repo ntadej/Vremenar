@@ -9,6 +9,7 @@
 * SPDX-License-Identifier: (GPL-3.0-or-later AND MPL-2.0)
 */
 
+import QtQml 2.12
 import QtQuick 2.12
 import QtQuick.Controls 2.12
 
@@ -30,6 +31,23 @@ MenuBar {
             onTriggered: Qt.quit()
         }
 
+    }
+
+    // Map Type
+    Menu {
+        title: qsTr("Map Type") + VL.R
+
+        Instantiator {
+            model: VMapInfoModel
+
+            MenuItem {
+                text: model.display
+                onTriggered: VWeather.currentMapLayerChanged(index)
+            }
+
+            onObjectAdded: mapTypeMenu.insertItem(index, object)
+            onObjectRemoved: mapTypeMenu.removeItem(object)
+        }
     }
 
     // Help menu
