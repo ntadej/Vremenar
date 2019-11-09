@@ -54,6 +54,8 @@ Item {
             icon: "ios-locate"
             family: "Ionicons"
             width: parent.width
+
+            onClicked: map.resetPosition()
         }
     }
 }

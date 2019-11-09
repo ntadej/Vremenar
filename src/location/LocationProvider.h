@@ -15,6 +15,7 @@
 #include <memory>
 
 #include <QtCore/QObject>
+#include <QtCore/QTimer>
 #include <QtLocation/QGeoCodeReply>
 #include <QtLocation/QGeoServiceProvider>
 #include <QtPositioning/QGeoPositionInfoSource>
@@ -35,6 +36,8 @@ public:
     [[nodiscard]] QGeoCoordinate currentPosition() const;
     [[nodiscard]] QString currentLocation() const;
 
+    Q_INVOKABLE void requestPositionUpdate();
+
 Q_SIGNALS:
     void positionChanged();
     void locationChanged();
@@ -50,6 +53,8 @@ private Q_SLOTS:
                                const QString &errorString);
 
 private:
+    std::unique_ptr<QTimer> _timer{};
+
     std::unique_ptr<QGeoPositionInfoSource> _position;
     std::unique_ptr<QGeoServiceProvider> _provider;
 

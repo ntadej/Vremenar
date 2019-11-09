@@ -57,6 +57,7 @@ class UIManager : public QObject
     Q_PROPERTY(int bottomSheetBaseHeight READ bottomSheetBaseHeight CONSTANT)
     Q_PROPERTY(int bottomSheetMaxWidth READ bottomSheetMaxWidth CONSTANT)
 
+    Q_PROPERTY(int mapCoordinateChangeDuration READ mapCoordinateChangeDuration CONSTANT)
     Q_PROPERTY(int mapIconSize READ mapIconSize CONSTANT)
     Q_PROPERTY(int mapIconFadeDuration READ mapIconFadeDuration CONSTANT)
     Q_PROPERTY(int mapLegendSize READ mapLegendSize CONSTANT)
@@ -111,6 +112,7 @@ public:
     [[nodiscard]] int bottomSheetBaseHeight() const;
     [[nodiscard]] int bottomSheetMaxWidth() const;
 
+    [[nodiscard]] int mapCoordinateChangeDuration() const;
     [[nodiscard]] int mapIconSize() const;
     [[nodiscard]] int mapIconFadeDuration() const;
     [[nodiscard]] int mapLegendSize() const;

@@ -12,6 +12,7 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtLocation 5.12
+import QtPositioning 5.12
 
 import Vremenar 1.0
 import Vremenar.Common 1.0
@@ -36,11 +37,15 @@ MapPageBase {
         plugin: mapPlugin
         copyrightsVisible: false
         zoomLevel: Settings.startupMapEnabled ? Settings.startupMapZoomLevel : 8
-        center: VLocation.position.isValid ? VLocation.position : VLocation.initial
 
         minimumZoomLevel: VWeather.minZoomLevel
         maximumZoomLevel: VWeather.maxZoomLevel
         maximumTilt: 0
+
+        Component.onCompleted: {
+            center = VLocation.initial
+            centerBehavior.enabled = true
+        }
 
         MapParameter {
             type: "source"
@@ -80,6 +85,44 @@ MapPageBase {
         }
 
         Binding { target: VForecastModel; property: "zoomLevel"; value: map.zoomLevel }
+
+        Binding {
+             target: map
+             property: "center"
+             when: centerBehavior.enabled && VLocation.position.isValid
+             value: VLocation.position
+         }
+
+        Behavior on center {
+            id: centerBehavior
+            CoordinateAnimation {
+                id: coordinateAnimation
+                duration: UI.mapCoordinateChangeDuration
+                easing.type: Easing.InOutQuad
+                onRunningChanged: {
+                    if (!running) {
+                        map.center = VLocation.position
+                        centerBehavior.enabled = false
+                    }
+                }
+            }
+            enabled: false
+        }
+
+        Behavior on bearing {
+            NumberAnimation {
+                duration: UI.mapCoordinateChangeDuration
+                easing.type: Easing.InOutQuad
+            }
+        }
+
+        function resetPosition() {
+            VLocation.requestPositionUpdate();
+            if (VLocation.position.isValid) {
+                centerBehavior.enabled = true
+                bearing = 0
+            }
+        }
     }
 
     bottomSheetContents: MapControls {

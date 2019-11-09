@@ -18,12 +18,21 @@
 
 #include "Config.h"
 
+namespace
+{
+constexpr int updateInterval{60000000};
+}
+
 namespace Vremenar
 {
 
 LocationProvider::LocationProvider(QObject *parent)
-    : QObject(parent)
+    : QObject(parent),
+      _timer(std::make_unique<QTimer>(this))
 {
+    _timer->setInterval(updateInterval);
+    _timer->setSingleShot(true);
+
     Settings settings(this);
     _initialPosition = QGeoPositionInfo(QGeoCoordinate(settings.startupMapLatitude(), settings.startupMapLongitude()), QDateTime::currentDateTime());
 
@@ -40,6 +49,8 @@ LocationProvider::LocationProvider(QObject *parent)
 
     _position.reset(QGeoPositionInfoSource::createDefaultSource(this));
     if (_position) {
+        connect(_timer.get(), &QTimer::timeout, this, &LocationProvider::requestPositionUpdate);
+
         connect(_position.get(), SIGNAL(positionUpdated(QGeoPositionInfo)),
                 this, SLOT(positionUpdated(QGeoPositionInfo)));
         connect(_position.get(), SIGNAL(error(QGeoPositionInfoSource::Error)),
@@ -49,6 +60,14 @@ LocationProvider::LocationProvider(QObject *parent)
         _position->requestUpdate();
     } else {
         qWarning() << "Positioning source could not be initialised.";
+    }
+}
+
+void LocationProvider::requestPositionUpdate()
+{
+    _timer->stop();
+    if (_position) {
+        _position->requestUpdate();
     }
 }
 
@@ -79,6 +98,8 @@ void LocationProvider::positionUpdated(const QGeoPositionInfo &info)
     } else {
         qWarning() << "No geocoding provider available.";
     }
+
+    _timer->start();
 
     Q_EMIT positionChanged();
 }
