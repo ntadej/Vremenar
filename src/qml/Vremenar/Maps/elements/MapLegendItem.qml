@@ -36,7 +36,7 @@ Item {
     TextCommon {
         id: text
         width: UI.mapLegendSize
-        font.pointSize: UI.textSmall
+        font.pixelSize: UI.textSmall
         horizontalAlignment: Text.AlignHCenter
         anchors.top: rectangle.bottom
         anchors.left: parent.left

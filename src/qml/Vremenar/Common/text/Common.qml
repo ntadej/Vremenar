@@ -15,5 +15,5 @@ import Vremenar 1.0
 
 Core {
     color: UI.textColor
-    font.pointSize: UI.textCommon
+    font.pixelSize: UI.textCommon
 }

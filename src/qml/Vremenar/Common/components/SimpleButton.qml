@@ -30,7 +30,7 @@ MouseArea {
         TextCommon {
             id: textLabel
             anchors.centerIn: parent
-            font.pointSize: UI.textCommon
+            font.pixelSize: UI.textCommon
             color: UI.textColor
         }
     }
