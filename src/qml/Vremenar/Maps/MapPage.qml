@@ -13,6 +13,7 @@ import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtLocation 5.12
 import QtPositioning 5.12
+import QtQml 2.14
 
 import Vremenar 1.0
 import Vremenar.Common 1.0
@@ -91,6 +92,7 @@ MapPageBase {
              property: "center"
              when: centerBehavior.enabled && VLocation.position.isValid
              value: VLocation.position
+             restoreMode: Binding.RestoreNone
          }
 
         Behavior on center {

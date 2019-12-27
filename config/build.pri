@@ -11,7 +11,7 @@
 
 CONFIG += qt
 
-lessThan(QT_MINOR_VERSION, 12): error("Requires Qt 5.12 or later!")
+lessThan(QT_MINOR_VERSION, 14): error("Requires Qt 5.14 or later!")
 
 # Use C++17
 CONFIG += c++17
