@@ -37,7 +37,6 @@ public:
     [[nodiscard]] inline const std::vector<Weather::MapType> &supportedMapTypes() const final { return _supportedMapTypes; }
     [[nodiscard]] inline qreal minZoomLevel() const final { return ARSO::minZoomLevel; }
     [[nodiscard]] inline qreal maxZoomLevel() const final { return ARSO::maxZoomLevel; }
-    [[nodiscard]] QVariant defaultMapCoordinates() const final;
     [[nodiscard]] inline Hyperlink *copyrightLink() const final { return _copyrightLink.get(); }
 
 private Q_SLOTS:

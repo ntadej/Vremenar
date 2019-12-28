@@ -21,26 +21,19 @@
 
 #include "weather/arso/ARSOWeatherProvider.h"
 
-namespace
-{
-constexpr double ARSODefaultTopLeftLatitude{12.1};
-constexpr double ARSODefaultTopLeftLongitude{47.42};
-constexpr double ARSODefaultBottomRightLatitude{17.44};
-constexpr double ARSODefaultBottomRightLongitude{44.67};
-} // namespace
-
 namespace Vremenar
 {
 
 ARSO::WeatherProvider::WeatherProvider(NetworkManager *network,
                                        QObject *parent)
-    : WeatherProviderBase(network, defaultMapCoordinates(), parent),
+    : WeatherProviderBase(network, parent),
       _forecastModel(std::make_unique<ForecastModel>(this)),
       _mapLayersModel(std::make_unique<MapLayersModel>(this)),
       _mapLegendModel(std::make_unique<MapLegendModel>(this))
 {
     forecast()->setSourceModel(_forecastModel.get());
     mapInfo()->generateModel(supportedMapTypes());
+    mapLayers()->setDefaultCoordinates(MapLayer::geoRectangleToList(defaultMapCoordinates()));
     mapLayers()->setSourceModel(_mapLayersModel.get());
     mapLegend()->setSourceModel(_mapLegendModel.get());
 
@@ -138,13 +131,6 @@ void ARSO::WeatherProvider::currentTimeChanged()
     }
 
     forecast()->setTime(mapLayers()->timestamp());
-}
-
-QVariant ARSO::WeatherProvider::defaultMapCoordinates() const
-{
-    return MapLayer::geoRectangleToList(QGeoRectangle(
-        QGeoCoordinate(ARSODefaultTopLeftLatitude, ARSODefaultTopLeftLongitude),
-        QGeoCoordinate(ARSODefaultBottomRightLatitude, ARSODefaultBottomRightLongitude)));
 }
 
 } // namespace Vremenar

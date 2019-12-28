@@ -12,7 +12,7 @@
 #ifndef VREMENAR_ARSOCOMMON_H_
 #define VREMENAR_ARSOCOMMON_H_
 
-#include "common/api/APIRequestBase.h"
+#include <QtPositioning/QGeoRectangle>
 
 namespace Vremenar
 {
@@ -21,6 +21,8 @@ namespace ARSO
 
 constexpr qreal minZoomLevel{7.5};
 constexpr qreal maxZoomLevel{11};
+
+QGeoRectangle defaultMapCoordinates();
 
 } // namespace ARSO
 } // namespace Vremenar

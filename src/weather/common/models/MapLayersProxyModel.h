@@ -37,8 +37,7 @@ class MapLayersProxyModel : public QSortFilterProxyModel
     Q_PROPERTY(bool animated READ animated NOTIFY animatedChanged)
 
 public:
-    explicit MapLayersProxyModel(QVariant defaultCoordinates,
-                                 QObject *parent = nullptr);
+    explicit MapLayersProxyModel(QObject *parent = nullptr);
 
     [[nodiscard]] qint64 minTimestamp() const;
     [[nodiscard]] qint64 maxTimestamp() const;
@@ -49,6 +48,7 @@ public:
 
     [[nodiscard]] inline const QString &url() const { return _url; }
     [[nodiscard]] inline const QVariant &coordinates() const { return _coordinates; }
+    void setDefaultCoordinates(QVariant coordinates);
 
     [[nodiscard]] inline bool animated() const { return _timer->isActive(); }
 

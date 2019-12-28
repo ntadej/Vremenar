@@ -26,12 +26,11 @@ namespace Vremenar
 {
 
 WeatherProviderBase::WeatherProviderBase(NetworkManager *network,
-                                         const QVariant &defaultCoordinates,
                                          QObject *parent)
     : APILoader(network, parent),
       _forecastProxyModel(std::make_unique<ForecastProxyModel>(this)),
       _mapInfoModel(std::make_unique<MapInfoModel>(this)),
-      _mapLayersProxyModel(std::make_unique<MapLayersProxyModel>(defaultCoordinates, this)),
+      _mapLayersProxyModel(std::make_unique<MapLayersProxyModel>(this)),
       _mapLegendProxyModel(std::make_unique<MapLegendProxyModel>(this)),
       _timer(std::make_unique<QTimer>(this))
 {

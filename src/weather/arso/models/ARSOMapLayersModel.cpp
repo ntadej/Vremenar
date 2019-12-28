@@ -14,6 +14,7 @@
 #include <QtCore/QTimeZone>
 #include <QtPositioning/QGeoCoordinate>
 
+#include "weather/arso/ARSOCommon.h"
 #include "weather/arso/models/ARSOMapLayersModel.h"
 
 #include "Config.h"
@@ -51,7 +52,7 @@ void ARSO::MapLayersModel::addMapLayers(Weather::MapType type,
             time.setTimeZone(QTimeZone::utc());
             QString url = data[QStringLiteral("path")].toString();
 
-            appendRow(std::make_unique<MapLayer>(type, time, url));
+            appendRow(std::make_unique<MapLayer>(type, time, url, defaultMapCoordinates()));
         }
     } else {
         for (const QJsonValue &obj : data) {

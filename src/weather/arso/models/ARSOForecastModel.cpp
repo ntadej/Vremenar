@@ -9,6 +9,7 @@
 * SPDX-License-Identifier: (GPL-3.0-or-later AND MPL-2.0)
 */
 
+#include <QtCore/QDateTime>
 #include <QtCore/QJsonArray>
 #include <QtCore/QJsonObject>
 

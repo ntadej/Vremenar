@@ -23,6 +23,7 @@ SOURCES += \
     src/weather/common/models/MapLayersProxyModel.cpp \
     src/weather/common/models/MapLegendModelBase.cpp \
     src/weather/common/models/MapLegendProxyModel.cpp \
+    src/weather/arso/ARSOCommon.cpp \
     src/weather/arso/ARSOWeatherProvider.cpp \
     src/weather/arso/api/ARSOAPIMapLayers.cpp \
     src/weather/arso/api/ARSOAPIRequest.cpp \

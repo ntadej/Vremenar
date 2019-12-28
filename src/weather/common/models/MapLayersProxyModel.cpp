@@ -21,12 +21,10 @@ constexpr int timerInterval{500};
 namespace Vremenar
 {
 
-MapLayersProxyModel::MapLayersProxyModel(QVariant defaultCoordinates,
-                                         QObject *parent)
+MapLayersProxyModel::MapLayersProxyModel(QObject *parent)
     : QSortFilterProxyModel(parent),
       _timer(std::make_unique<QTimer>(this)),
-      _url(QStringLiteral("qrc:/Vremenar/Maps/icons/blank.png")),
-      _coordinates(std::move(defaultCoordinates))
+      _url(QStringLiteral("qrc:/Vremenar/Maps/icons/blank.png"))
 {
     connect(this, &MapLayersProxyModel::rowsInserted, this, &MapLayersProxyModel::rowCountChanged);
     connect(this, &MapLayersProxyModel::rowsRemoved, this, &MapLayersProxyModel::rowCountChanged);
@@ -34,6 +32,11 @@ MapLayersProxyModel::MapLayersProxyModel(QVariant defaultCoordinates,
     connect(_timer.get(), &QTimer::timeout, this, &MapLayersProxyModel::nextTimer);
 
     _timer->setInterval(timerInterval);
+}
+
+void MapLayersProxyModel::setDefaultCoordinates(QVariant coordinates)
+{
+    _coordinates = std::move(coordinates);
 }
 
 qint64 MapLayersProxyModel::timestamp() const
