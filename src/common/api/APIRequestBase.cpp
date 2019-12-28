@@ -9,17 +9,22 @@
 * SPDX-License-Identifier: (GPL-3.0-or-later AND MPL-2.0)
 */
 
-#include <QtCore/QDebug>
 #include <QtCore/QJsonDocument>
+#include <QtCore/QSysInfo>
 
 #include "common/api/APIRequestBase.h"
+
+#include "Config.h"
 
 namespace Vremenar
 {
 
 APIRequestBase::APIRequestBase()
 {
+    static const QByteArray agent = QString("%1/%2 (%3)").arg(Vremenar::name).arg(Vremenar::version).arg(QSysInfo::prettyProductName()).toLatin1();
+
     setRawHeader("Content-type", "application/json");
+    setRawHeader("User-Agent", agent);
 }
 
 void APIRequestBase::setBaseUrl(const QString &url)
