@@ -58,6 +58,8 @@ Common::DeviceType Qml::UIManager::getDeviceType()
     return getDeviceTypeIOS();
 #elif defined(Q_OS_ANDROID)
     return getDeviceTypeAndroid();
+#elif defined(Q_OS_LINUX)
+    return Common::Desktop;
 #else
     return Common::UnknownDevice;
 #endif

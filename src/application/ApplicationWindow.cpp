@@ -16,6 +16,7 @@
 #include <QtQml/QQmlFileSelector>
 #include <QtQml/QQmlProperty>
 #include <QtQuick/QQuickWindow>
+#include <QtQuickControls2/QQuickStyle>
 
 #include "common/NetworkManager.h"
 #include "qml/Qml.h"
@@ -58,11 +59,17 @@ ApplicationWindow::ApplicationWindow(QObject *parent)
 
     // Custom file selector
     _qmlFileSelector = new QQmlFileSelector(_engine.get());
-#ifdef Q_OS_MACOS
+#if defined(Q_OS_MACOS)
     _qmlFileSelector->setExtraSelectors({QStringLiteral("nativemenu")});
-#endif
-#if defined(Q_OS_IOS) || defined(Q_OS_ANDROID)
+#elif defined(Q_OS_IOS) || defined(Q_OS_ANDROID)
     _qmlFileSelector->setExtraSelectors({QStringLiteral("mobile")});
+#elif defined(Q_OS_LINUX)
+    _qmlFileSelector->setExtraSelectors({QStringLiteral("custommenu")});
+#endif
+
+    // Set the style
+#if defined(Q_OS_LINUX)
+    QQuickStyle::setStyle("Material");
 #endif
 
 #ifndef VREMENAR_MOBILE

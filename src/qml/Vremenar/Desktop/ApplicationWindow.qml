@@ -13,12 +13,17 @@ import QtQuick 2.12
 import QtQuick.Controls 2.12 as Controls
 
 import Vremenar 1.0
+import QtQuick.Controls.Material 2.12
 
 Controls.ApplicationWindow {
     id: app
 
     property Controls.ApplicationWindow applicationWindow : app
     property bool ready: false
+
+    Material.theme: Material.Dark
+    Material.accent: UI.colorPrimaryDark
+    Material.primary: UI.colorPrimary
 
     width: 640
     height: 480

@@ -28,6 +28,10 @@ void Application::preInit()
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QCoreApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
 
+#ifdef Q_OS_LINUX
+    qputenv("QT_QUICK_CONTROLS_MATERIAL_VARIANT", "Dense");
+#endif
+
     Log::setup();
 }
 

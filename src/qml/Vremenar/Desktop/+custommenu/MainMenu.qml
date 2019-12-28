@@ -35,6 +35,8 @@ MenuBar {
 
     // Map Type
     Menu {
+        id: mapTypeMenu
+
         title: qsTr("Map Type") + VL.R
 
         Instantiator {
