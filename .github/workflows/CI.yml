@@ -1,0 +1,101 @@
+name: Continuous Integration
+on: [push]
+
+env:
+  QT_VERSION: 5.14.0
+
+jobs:
+  build:
+    name: ${{ matrix.config.name }}
+    runs-on: ${{ matrix.config.os }}
+    strategy:
+      matrix:
+        config:
+          # - name: "Linux Ubuntu 18.04 x64"
+          #   artifact: "Linux-x64.zip"
+          #   os: ubuntu-18.04
+          #   platform: linux
+          #   target: desktop
+          - name: "Android Universal"
+            artifact: "Android-universal.apk"
+            os: ubuntu-latest
+            platform: android
+            target: android
+          - name: "macOS Latest x64"
+            artifact: "macOS-x64.dmg"
+            os: macos-latest
+            platform: macos
+            target: desktop
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Checkout submodules
+        shell: bash
+        run: |
+          auth_header="$(git config --local --get http.https://github.com/.extraheader)"
+          git submodule sync --recursive
+          git -c "http.extraheader=$auth_header" -c protocol.version=2 submodule update --init --force --recursive --depth=1
+
+      - name: Download Qt
+        uses: jurplel/install-qt-action@v2
+        with:
+          version: ${{ env.QT_VERSION }}
+          target: ${{ matrix.config.target }}
+
+      - name: Set up JDK 1.8
+        if: matrix.config.platform == 'android'
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+
+      - name: Configure & prepare
+        env:
+          MAPS_ENDPOINT: ${{ secrets.MAPS_ENDPOINT }}
+          ARSO_API_ENDPOINT: ${{ secrets.ARSO_API_ENDPOINT }}
+          ARSO_API_RESOURCES: ${{ secrets.ARSO_API_RESOURCES }}
+        run: |
+          sed -e 's/MAPS_ENDPOINT_VALUE/$MAPS_ENDPOINT/g' \
+            -e 's/ARSO_API_ENDPOINT_VALUE/$ARSO_API_ENDPOINT/g' \
+            -e 's/ARSO_API_RESOURCES_VALUE/$ARSO_API_RESOURCES/g' \
+            config.pri.example > config.pri
+          cd ..
+          mkdir build
+
+      - name: Build (macOS)
+        if: matrix.config.platform == 'macos'
+        working-directory: ../build
+        env:
+          ARTIFACT_NAME: ${{ matrix.config.artifact }}
+          VREMENAR_PATH: ../Vremenar
+        run: |
+          qmake $VREMENAR_PATH/Vremenar.pro -spec macx-clang CONFIG+=x86_64 CONFIG+=qtquickcompiler
+          make -j2
+          macdeployqt Vremenar.app -qmldir=$VREMENAR_PATH/src/qml/ -dmg
+          mv Vremenar.dmg $ARTIFACT_NAME
+
+      - name: Build (Android)
+        if: matrix.config.platform == 'android'
+        working-directory: ../build
+        env:
+          ARTIFACT_NAME: ${{ matrix.config.artifact }}
+          VREMENAR_PATH: ../Vremenar
+          ANDROID_NDK_PLATFORM: android-21
+        run: |
+          # Fix Qt deployment
+          sed -i -e 's/qmake_qmake_immediate/qmake_qmake_qm_files/g' \
+            $Qt5_Dir/mkspecs/features/android/android_deployment_settings.prf
+          export ANDROID_NDK_ROOT=$ANDROID_SDK_ROOT/ndk-bundle
+          qmake $VREMENAR_PATH/Vremenar.pro -spec android-clang CONFIG+=qtquickcompiler ANDROID_ABIS="armeabi-v7a arm64-v8a x86 x86_64"
+          make -j2
+          make apk
+          mv android-build/build/outputs/apk/debug/android-build-debug.apk $ARTIFACT_NAME
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v1
+        with:
+          name: ${{ matrix.config.artifact }}
+          path: ../build/${{ matrix.config.artifact }}
