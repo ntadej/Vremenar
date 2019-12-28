@@ -16,12 +16,12 @@
 
 #include <QtWidgets/QApplication>
 
+#ifndef Q_OS_MACOS
+#include "common/LocalServer.h"
+#endif
+
 namespace Vremenar
 {
-
-#ifndef Q_OS_MACOS
-class LocalServer;
-#endif
 
 class SingleApplication : public QApplication
 {

@@ -14,8 +14,7 @@
 #ifndef Q_OS_MACOS
 #include <QtNetwork/QLocalSocket>
 
-#include "common/Common.h"
-#include "common/LocalServer.h"
+#include "Config.h"
 #endif
 
 namespace Vremenar
@@ -37,7 +36,7 @@ SingleApplication::SingleApplication(int &argc,
     auto socket = std::make_unique<QLocalSocket>(this);
 
     // Attempt to connect to the LocalServer
-    socket->connectToServer(Vremenar::localServer());
+    socket->connectToServer(QString(Vremenar::name) + "_localserver");
     if (socket->waitForConnected(100)) {
         socket->close();
     } else {

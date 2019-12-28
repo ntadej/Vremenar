@@ -12,6 +12,8 @@
 #ifndef VREMENAR_MAPLAYERSPROXYMODEL_H_
 #define VREMENAR_MAPLAYERSPROXYMODEL_H_
 
+#include <memory>
+
 #include <QtCore/QDateTime>
 #include <QtCore/QSortFilterProxyModel>
 #include <QtCore/QTimer>
