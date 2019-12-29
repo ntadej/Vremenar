@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=Vremenar
+Comment=Weather map app
+Exec=vremenar
+Icon=vremenar
+Categories=Utility;

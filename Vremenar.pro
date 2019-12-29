@@ -9,7 +9,11 @@
 # SPDX-License-Identifier: (GPL-3.0-or-later AND MPL-2.0)
 #
 
-TARGET = Vremenar
+linux:!android {
+    TARGET = vremenar
+} else {
+    TARGET = Vremenar
+}
 
 # Common configuration
 include($$top_srcdir/config/version.pri)

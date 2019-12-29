@@ -11,18 +11,18 @@ jobs:
     strategy:
       matrix:
         config:
-          # - name: "Linux Ubuntu 18.04 x64"
-          #   artifact: "Linux-x64.zip"
-          #   os: ubuntu-18.04
-          #   platform: linux
-          #   target: desktop
+          - name: "Linux Ubuntu 16.04 x64"
+            artifact: "Vremenar-x86_64.AppImage"
+            os: ubuntu-16.04
+            platform: linux
+            target: desktop
           - name: "Android Universal"
-            artifact: "Android-universal.apk"
+            artifact: "Vremenar_Android_universal.apk"
             os: ubuntu-latest
             platform: android
             target: android
           - name: "macOS Latest x64"
-            artifact: "macOS-x64.dmg"
+            artifact: "Vremenar_macOS.dmg"
             os: macos-latest
             platform: macos
             target: desktop
@@ -58,9 +58,9 @@ jobs:
           ARSO_API_ENDPOINT: ${{ secrets.ARSO_API_ENDPOINT }}
           ARSO_API_RESOURCES: ${{ secrets.ARSO_API_RESOURCES }}
         run: |
-          sed -e 's/MAPS_ENDPOINT_VALUE/$MAPS_ENDPOINT/g' \
-            -e 's/ARSO_API_ENDPOINT_VALUE/$ARSO_API_ENDPOINT/g' \
-            -e 's/ARSO_API_RESOURCES_VALUE/$ARSO_API_RESOURCES/g' \
+          sed -e 's/MAPS_ENDPOINT_VALUE/$$(MAPS_ENDPOINT)/g' \
+            -e 's/ARSO_API_ENDPOINT_VALUE/$$(ARSO_API_ENDPOINT)/g' \
+            -e 's/ARSO_API_RESOURCES_VALUE/$$(ARSO_API_RESOURCES)/g' \
             config.pri.example > config.pri
           cd ..
           mkdir build
@@ -77,6 +77,34 @@ jobs:
           macdeployqt Vremenar.app -qmldir=$VREMENAR_PATH/src/qml/ -dmg
           mv Vremenar.dmg $ARTIFACT_NAME
 
+      - name: Build (Linux)
+        if: matrix.config.platform == 'linux'
+        working-directory: ../build
+        env:
+          ARTIFACT_NAME: ${{ matrix.config.artifact }}
+          VREMENAR_PATH: ../Vremenar
+        run: |
+          # Fit Qt deployment
+          rm $Qt5_Dir/plugins/sqldrivers/libqsqlodbc.so
+          rm $Qt5_Dir/plugins/sqldrivers/libqsqlpsql.so
+          # Install gcc 8
+          sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+          sudo apt update
+          sudo apt install libgl-dev libxkbcommon-x11-dev gcc-8 g++-8
+          sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-7 700 --slave /usr/bin/g++ g++ /usr/bin/g++-7
+          sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 800 --slave /usr/bin/g++ g++ /usr/bin/g++-8
+          # Build
+          qmake $VREMENAR_PATH/Vremenar.pro -spec linux-g++ CONFIG+=qtquickcompiler
+          make -j2
+          make INSTALL_ROOT=appdir -j2 install ; find appdir/
+          wget -c -nv "https://github.com/probonopd/linuxdeployqt/releases/download/6/linuxdeployqt-6-x86_64.AppImage"
+          chmod a+x linuxdeployqt-6-x86_64.AppImage
+          ./linuxdeployqt-6-x86_64.AppImage appdir/usr/share/applications/vremenar.desktop \
+            -qmldir=$VREMENAR_PATH/src/qml/ \
+            -extra-plugins=geoservices/libqtgeoservices_mapboxgl.so,geoservices/libqtgeoservices_osm.so,sqldrivers/libqsqlite.so \
+            -appimage
+          mv Vremenar--x86_64.AppImage $ARTIFACT_NAME
+
       - name: Build (Android)
         if: matrix.config.platform == 'android'
         working-directory: ../build
@@ -88,6 +116,7 @@ jobs:
           # Fix Qt deployment
           sed -i -e 's/qmake_qmake_immediate/qmake_qmake_qm_files/g' \
             $Qt5_Dir/mkspecs/features/android/android_deployment_settings.prf
+          # Build
           export ANDROID_NDK_ROOT=$ANDROID_SDK_ROOT/ndk-bundle
           qmake $VREMENAR_PATH/Vremenar.pro -spec android-clang CONFIG+=qtquickcompiler ANDROID_ABIS="armeabi-v7a arm64-v8a x86 x86_64"
           make -j2
