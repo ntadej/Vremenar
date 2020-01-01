@@ -53,10 +53,6 @@ jobs:
           java-version: 1.8
 
       - name: Configure & prepare
-        env:
-          MAPS_ENDPOINT: ${{ secrets.MAPS_ENDPOINT }}
-          ARSO_API_ENDPOINT: ${{ secrets.ARSO_API_ENDPOINT }}
-          ARSO_API_RESOURCES: ${{ secrets.ARSO_API_RESOURCES }}
         run: |
           sed -e 's/MAPS_ENDPOINT_VALUE/$$(MAPS_ENDPOINT)/g' \
             -e 's/ARSO_API_ENDPOINT_VALUE/$$(ARSO_API_ENDPOINT)/g' \
@@ -71,6 +67,9 @@ jobs:
         env:
           ARTIFACT_NAME: ${{ matrix.config.artifact }}
           VREMENAR_PATH: ../Vremenar
+          MAPS_ENDPOINT: ${{ secrets.MAPS_ENDPOINT }}
+          ARSO_API_ENDPOINT: ${{ secrets.ARSO_API_ENDPOINT }}
+          ARSO_API_RESOURCES: ${{ secrets.ARSO_API_RESOURCES }}
         run: |
           qmake $VREMENAR_PATH/Vremenar.pro -spec macx-clang CONFIG+=x86_64 CONFIG+=qtquickcompiler
           make -j2
@@ -83,6 +82,9 @@ jobs:
         env:
           ARTIFACT_NAME: ${{ matrix.config.artifact }}
           VREMENAR_PATH: ../Vremenar
+          MAPS_ENDPOINT: ${{ secrets.MAPS_ENDPOINT }}
+          ARSO_API_ENDPOINT: ${{ secrets.ARSO_API_ENDPOINT }}
+          ARSO_API_RESOURCES: ${{ secrets.ARSO_API_RESOURCES }}
         run: |
           # Fit Qt deployment
           rm $Qt5_Dir/plugins/sqldrivers/libqsqlodbc.so
@@ -112,6 +114,9 @@ jobs:
           ARTIFACT_NAME: ${{ matrix.config.artifact }}
           VREMENAR_PATH: ../Vremenar
           ANDROID_NDK_PLATFORM: android-21
+          MAPS_ENDPOINT: ${{ secrets.MAPS_ENDPOINT }}
+          ARSO_API_ENDPOINT: ${{ secrets.ARSO_API_ENDPOINT }}
+          ARSO_API_RESOURCES: ${{ secrets.ARSO_API_RESOURCES }}
         run: |
           # Fix Qt deployment
           sed -i -e 's/qmake_qmake_immediate/qmake_qmake_qm_files/g' \
