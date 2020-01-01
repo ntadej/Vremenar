@@ -18,7 +18,7 @@ CONFIG += c++17
 
 # Qt modules and other dependencies
 QT += qml quick
-QT += location positioning
+QT += location positioning sql
 QT += quickcontrols2
 
 # Define common platforms

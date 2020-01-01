@@ -11,9 +11,6 @@
 # Android extras
 QT += androidextras
 
-# Mapbox GL plugin requirement
-QT += sql
-
 # Android packaging
 DISTFILES += \
     $$top_srcdir/resources/Android/output/AndroidManifest.xml \
