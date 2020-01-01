@@ -41,7 +41,8 @@ void SettingsDialog::initializeMacOS()
     NSString *toolbarItemId = [toolbarItem itemIdentifier];
     [toolbar setSelectedItemIdentifier:toolbarItemId];
 
-    NSView *view = reinterpret_cast<NSView *>(window()->winId());
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
+    auto view = reinterpret_cast<NSView *>(window()->winId());
     NSWindow *window = [view window];
     NSRect frame = [window frame];
     double extraHeight = frame.size.height - NSHeight([[window contentView] frame]);
@@ -59,13 +60,14 @@ void SettingsDialog::retranslateMacOS()
 
 void SettingsDialog::actionToggledMacOS()
 {
-    NSView *view = reinterpret_cast<NSView *>(window()->winId());
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
+    auto view = reinterpret_cast<NSView *>(window()->winId());
     NSWindow *window = [view window];
     NSRect frame = [window frame];
 
     double extraHeight = frame.size.height - NSHeight([[window contentView] frame]);
     int stackHeight = 0;
-    QMacToolBarItem *item = qobject_cast<QMacToolBarItem *>(sender());
+    auto item = qobject_cast<QMacToolBarItem *>(sender());
     ui->stackedWidget->hide();
     if (item == _macItemGeneral.get()) {
         ui->stackedWidget->setCurrentWidget(ui->pageGeneral);
@@ -85,4 +87,4 @@ void SettingsDialog::actionToggledMacOS()
     ui->stackedWidget->show();
 }
 
-}
+} // namespace Vremenar

@@ -14,16 +14,16 @@
 namespace Vremenar
 {
 
-int Qml::UIManager::blurLevel() const { return 64; }
+int Qml::UIManager::blurLevel() const { return 64; } // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
 
-int Qml::UIManager::mapCoordinateChangeDuration() const { return 1000; }
-int Qml::UIManager::mapIconFadeDuration() const { return 100; }
-int Qml::UIManager::mapTimeChangeDuration() const { return 100; }
-int Qml::UIManager::mapRefreshRotationDuration() const { return 1000; }
+int Qml::UIManager::mapCoordinateChangeDuration() const { return 1000; } // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+int Qml::UIManager::mapIconFadeDuration() const { return 100; }          // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+int Qml::UIManager::mapTimeChangeDuration() const { return 100; }        // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+int Qml::UIManager::mapRefreshRotationDuration() const { return 1000; }  // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
 
-int Qml::UIManager::hoverDuration() const { return 200; }
+int Qml::UIManager::hoverDuration() const { return 200; } // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
 
-int Qml::UIManager::loadingDelay() const { return 250; }
-int Qml::UIManager::loadingTransitionDuration() const { return 50; }
+int Qml::UIManager::loadingDelay() const { return 250; }             // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+int Qml::UIManager::loadingTransitionDuration() const { return 50; } // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
 
 } // namespace Vremenar

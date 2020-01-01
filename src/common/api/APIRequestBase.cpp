@@ -21,7 +21,7 @@ namespace Vremenar
 
 APIRequestBase::APIRequestBase()
 {
-    static const QByteArray agent = QString("%1/%2 (%3)").arg(Vremenar::name).arg(Vremenar::version).arg(QSysInfo::prettyProductName()).toLatin1();
+    static const QByteArray agent = QStringLiteral("%1/%2 (%3)").arg(Vremenar::name).arg(Vremenar::version).arg(QSysInfo::prettyProductName()).toLatin1();
 
     setRawHeader("Content-type", "application/json");
     setRawHeader("User-Agent", agent);

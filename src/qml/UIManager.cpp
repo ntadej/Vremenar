@@ -130,6 +130,7 @@ void Qml::UIManager::updateSafeAreaMargins()
 
 #ifdef Q_OS_MACOS
     if (_device == Common::DebuggingDevice) {
+        // NOLINTNEXTLINE(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
         _currentSafeAreaMargins = QMargins(40, 25, 25, 25);
         Q_EMIT safetyMarginsChanged();
     }
@@ -142,20 +143,12 @@ void Qml::UIManager::debugAction()
 
 bool Qml::UIManager::showButtonMapType() const
 {
-    if (_device == Common::Desktop || _device == Common::AndroidTV) {
-        return false;
-    }
-
-    return true;
+    return !(_device == Common::Desktop || _device == Common::AndroidTV);
 }
 
 bool Qml::UIManager::showButtonMapPosition() const
 {
-    if (_device == Common::AndroidTV) {
-        return false;
-    }
-
-    return true;
+    return _device != Common::AndroidTV;
 }
 
 QObject *Qml::UIManager::provider(QQmlEngine *engine,

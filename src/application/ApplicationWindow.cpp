@@ -141,12 +141,12 @@ void ApplicationWindow::writeSettingsStartupMap()
 {
     Settings settings(this);
     if (settings.startupMapEnabled()) {
-        auto mapObject = _qmlMainWindow->findChild<QObject *>("mapObject");
+        auto mapObject = _qmlMainWindow->findChild<QObject *>(QStringLiteral("mapObject"));
 
         settings.setStartupMapType(_weatherProvider->currentType());
-        settings.setStartupMapZoomLevel(QQmlProperty::read(mapObject, "zoomLevel").toReal());
+        settings.setStartupMapZoomLevel(QQmlProperty::read(mapObject, QStringLiteral("zoomLevel")).toReal());
 
-        auto center = QQmlProperty::read(mapObject, "center").value<QGeoCoordinate>();
+        auto center = QQmlProperty::read(mapObject, QStringLiteral("center")).value<QGeoCoordinate>();
         settings.setStartupMapLatitude(center.latitude());
         settings.setStartupMapLongitude(center.longitude());
 

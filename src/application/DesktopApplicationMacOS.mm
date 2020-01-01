@@ -13,7 +13,6 @@
 #include <QtGui/QWindow>
 
 #include <objc/message.h>
-#include <objc/objc.h>
 
 #include <ApplicationServices/ApplicationServices.h>
 #include <Cocoa/Cocoa.h>
@@ -30,7 +29,7 @@ bool dockClickHandler(id self,
     Q_UNUSED(self)
     Q_UNUSED(cmd)
 
-    static_cast<DesktopApplication *>(qApp)->dockClickedCallback();
+    qobject_cast<DesktopApplication *>(QCoreApplication::instance())->dockClickedCallback();
 
     return true;
 }
@@ -42,29 +41,33 @@ bool DesktopApplication::isDark()
             NSAppearanceNameAqua,
             NSAppearanceNameDarkAqua
         ]];
-        return [basicAppearance isEqualToString:NSAppearanceNameDarkAqua];
-    } else {
-        return NO;
+        return [basicAppearance isEqualToString:NSAppearanceNameDarkAqua] != 0;
     }
+
+    return false;
 }
 
 void DesktopApplication::setupDockHandler()
 {
     NSApplication *appInst = [NSApplication sharedApplication];
 
-    if (appInst) {
+    if (appInst != nullptr) {
         Class delClass = [[appInst delegate] class];
         SEL shouldHandle = sel_registerName("applicationShouldHandleReopen:hasVisibleWindows:");
-        if (class_getInstanceMethod(delClass, shouldHandle)) {
-            if (class_replaceMethod(delClass, shouldHandle, reinterpret_cast<IMP>(dockClickHandler), "B@:"))
+        if (class_getInstanceMethod(delClass, shouldHandle) != nullptr) {
+            // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
+            if (class_replaceMethod(delClass, shouldHandle, reinterpret_cast<IMP>(dockClickHandler), "B@:") != nullptr) {
                 qDebug() << "Registered dock click handler (replaced original method)";
-            else
+            } else {
                 qWarning() << "Failed to replace method for dock click handler";
+            }
         } else {
-            if (class_addMethod(delClass, shouldHandle, reinterpret_cast<IMP>(dockClickHandler), "B@:"))
+            // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
+            if (class_addMethod(delClass, shouldHandle, reinterpret_cast<IMP>(dockClickHandler), "B@:") != 0) {
                 qDebug() << "Registered dock click handler";
-            else
+            } else {
                 qWarning() << "Failed to register dock click handler";
+            }
         }
     }
 }
@@ -82,7 +85,7 @@ void DesktopApplication::dockShow()
 {
     BOOL active = [[NSRunningApplication currentApplication] isActive];
     ProcessSerialNumber psn = {0, kCurrentProcess};
-    if (active) {
+    if (active != 0) {
         // Workaround buggy behavior of TransformProcessType.
         // http://stackoverflow.com/questions/7596643/
         NSArray *runningApps = [NSRunningApplication
@@ -110,7 +113,8 @@ void DesktopApplication::dockHide()
     QWindowList windows = QGuiApplication::allWindows();
 
     for (QWindow *window : windows) {
-        NSView *nativeView = reinterpret_cast<NSView *>(window->winId());
+        // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
+        auto nativeView = reinterpret_cast<NSView *>(window->winId());
         NSWindow *nativeWindow = [nativeView window];
         [nativeWindow setCanHide:NO];
     }
@@ -123,10 +127,12 @@ void DesktopApplication::dockHide()
 
 void DesktopApplication::setupTitleBarLessWindow(WId winId)
 {
-    if (!winId)
+    if (winId == 0) {
         return;
+    }
 
-    NSView *nativeView = reinterpret_cast<NSView *>(winId);
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
+    auto nativeView = reinterpret_cast<NSView *>(winId);
     NSWindow *nativeWindow = [nativeView window];
 
     [nativeWindow setStyleMask:[nativeWindow styleMask] | NSWindowStyleMaskFullSizeContentView | NSWindowTitleHidden];
@@ -138,4 +144,4 @@ void DesktopApplication::dockClickedCallback()
     Q_EMIT dockClicked();
 }
 
-}
+} // namespace Vremenar

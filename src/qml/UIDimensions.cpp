@@ -14,22 +14,22 @@
 namespace Vremenar
 {
 
-int Qml::UIManager::mapElementSize() const { return 44; }
-int Qml::UIManager::mapElementOffset() const { return 8; }
+int Qml::UIManager::mapElementSize() const { return 44; }  // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+int Qml::UIManager::mapElementOffset() const { return 8; } // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
 
-int Qml::UIManager::iconSizeCommon() const { return 32; }
-int Qml::UIManager::lineThickness() const { return 1; }
-int Qml::UIManager::paddingCommon() const { return 15; }
-int Qml::UIManager::paddingHeader() const { return 5; }
-int Qml::UIManager::radiusCommon() const { return 10; }
+int Qml::UIManager::iconSizeCommon() const { return 32; } // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+int Qml::UIManager::lineThickness() const { return 1; }   // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+int Qml::UIManager::paddingCommon() const { return 15; }  // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+int Qml::UIManager::paddingHeader() const { return 5; }   // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+int Qml::UIManager::radiusCommon() const { return 10; }   // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
 
-int Qml::UIManager::rowHeight() const { return 44; }
-int Qml::UIManager::navBarHeight() const { return 44; }
+int Qml::UIManager::rowHeight() const { return 44; }    // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+int Qml::UIManager::navBarHeight() const { return 44; } // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
 
-int Qml::UIManager::bottomSheetBaseHeight() const { return 44; }
-int Qml::UIManager::bottomSheetMaxWidth() const { return 640; }
+int Qml::UIManager::bottomSheetBaseHeight() const { return 44; } // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+int Qml::UIManager::bottomSheetMaxWidth() const { return 640; }  // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
 
-int Qml::UIManager::mapIconSize() const { return 48; }
-int Qml::UIManager::mapLegendSize() const { return 20; }
+int Qml::UIManager::mapIconSize() const { return 48; }   // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+int Qml::UIManager::mapLegendSize() const { return 20; } // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
 
 } // namespace Vremenar

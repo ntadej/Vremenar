@@ -51,7 +51,7 @@ qint64 MapLayersProxyModel::timestamp() const
 QString MapLayersProxyModel::day() const
 {
     if (rowCount() == 0) {
-        return "";
+        return QString();
     }
 
     auto current = QDateTime::currentDateTime();
@@ -59,7 +59,7 @@ QString MapLayersProxyModel::day() const
 
     qint64 diff = current.daysTo(selected);
     if (diff == 0) {
-        return "";
+        return QString();
     }
     if (diff == 1) {
         return tr("tomorrow");
