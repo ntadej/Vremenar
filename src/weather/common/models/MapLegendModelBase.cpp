@@ -19,9 +19,10 @@ MapLegendModelBase::MapLegendModelBase(QObject *parent)
 
 MapLegendItem *MapLegendModelBase::emplace(Weather::MapType type,
                                            const QString &value,
-                                           const QColor &color)
+                                           const QColor &color,
+                                           bool placeholder)
 {
-    auto item = std::make_unique<MapLegendItem>(type, value, color);
+    auto item = std::make_unique<MapLegendItem>(type, value, color, placeholder);
     return appendRow(std::move(item));
 }
 

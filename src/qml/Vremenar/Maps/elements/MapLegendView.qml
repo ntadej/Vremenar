@@ -16,11 +16,14 @@ import Vremenar 1.0
 
 Item {
     property alias model: view.model
+    property bool hasLegend: VWeather.currentMapLayerHasLegend
 
-    Layout.fillWidth: true
-    Layout.preferredHeight: VWeather.currentMapLayer !== 0 ? view.height : 0
-    height: VWeather.currentMapLayer !== 0 ? view.height : 0
-    opacity: VWeather.currentMapLayer !== 0 ? 1 : 0
+    Layout.fillWidth: view.computedWidth > parent.width
+    Layout.alignment: Qt.AlignHCenter
+    Layout.preferredHeight: hasLegend ? 2 * UI.mapLegendSize : 0
+    Layout.preferredWidth: view.computedWidth
+    height: hasLegend ? 2 * UI.mapLegendSize : 0
+    opacity: hasLegend ? 1 : 0
 
     Behavior on opacity {
         animation: PropertyAnimation { duration: UI.hoverDuration }
@@ -33,20 +36,17 @@ Item {
 
     ListView {
         id: view
-        anchors {
-            top: parent.top
-            centerIn: parent
-        }
-
-        interactive: false
+        anchors.fill: parent
         orientation: ListView.Horizontal
 
-        width: count * UI.mapLegendSize
-        height: 2 * UI.mapLegendSize
+        property bool wide: count < 8
+        property int computedWidth: count * (wide ? UI.mapLegendSizeWide : UI.mapLegendSize)
 
         delegate: MapLegendItem {
             color: model.color
             value: model.display
+            placeholder: model.placeholder
+            wide: view.wide
         }
     }
 }

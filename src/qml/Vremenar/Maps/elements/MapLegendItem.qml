@@ -17,8 +17,10 @@ import Vremenar.Common 1.0
 Item {
     property alias color: rectangle.color
     property alias value: text.text
+    property bool placeholder: false
+    property bool wide: false
 
-    width: UI.mapLegendSize
+    width: wide ? UI.mapLegendSizeWide : UI.mapLegendSize
     height: 2 * UI.mapLegendSize
 
     Rectangle {
@@ -26,20 +28,20 @@ Item {
         anchors.top: parent.top
         anchors.left: parent.left
 
-        width: UI.mapLegendSize
+        width: wide ? UI.mapLegendSizeWide : UI.mapLegendSize
         height: UI.mapLegendSize
 
-        border.width: Qt.colorEqual(color, "#00000000") ? 1 : 0
+        border.width: !placeholder && Qt.colorEqual(color, "transparent") ? 1 : 0
         border.color: UI.colorPrimary
     }
 
     TextCommon {
         id: text
-        width: UI.mapLegendSize
+        width: wide ? UI.mapLegendSizeWide : UI.mapLegendSize
         font.pixelSize: UI.textSmall
         horizontalAlignment: Text.AlignHCenter
         anchors.top: rectangle.bottom
         anchors.left: parent.left
-        anchors.leftMargin: -UI.mapLegendSize / 2
+        anchors.leftMargin: placeholder ? -width / 4 : -width / 2
     }
 }

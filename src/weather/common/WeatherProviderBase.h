@@ -39,6 +39,7 @@ public:
     Q_PROPERTY(QDateTime lastUpdateTime READ lastUpdateTime NOTIFY lastUpdateTimeChanged)
     Q_PROPERTY(bool loading READ loading NOTIFY loadingChanged)
     Q_PROPERTY(int currentMapLayer READ currentMapLayer WRITE currentMapLayerChanged NOTIFY currentMapLayerChangedSignal)
+    Q_PROPERTY(int currentMapLayerHasLegend READ currentMapLayerHasLegend NOTIFY currentMapLayerChangedSignal)
 
     inline ForecastProxyModel *forecast() { return _forecastProxyModel.get(); }
     inline MapInfoModel *mapInfo() { return _mapInfoModel.get(); }
@@ -48,6 +49,7 @@ public:
     virtual void requestForecastDetails(const QString &url) = 0;
     virtual void requestMapLayers(Weather::MapType type) = 0;
 
+    [[nodiscard]] virtual bool currentMapLayerHasLegend() const = 0;
     [[nodiscard]] virtual const std::vector<Weather::MapType> &supportedMapTypes() const = 0;
     [[nodiscard]] virtual qreal minZoomLevel() const = 0;
     [[nodiscard]] virtual qreal maxZoomLevel() const = 0;

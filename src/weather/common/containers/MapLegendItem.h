@@ -26,17 +26,21 @@ class MapLegendItem : public ListItem
     Q_PROPERTY(QString display READ display CONSTANT)
     Q_PROPERTY(Weather::MapType type READ type CONSTANT)
     Q_PROPERTY(QColor color READ color CONSTANT)
+    Q_PROPERTY(bool placeholder READ placeholder CONSTANT)
+
 public:
     enum Roles {
         DisplayRole = Qt::DisplayRole,
         IdRole = Qt::UserRole + 1,
         TypeRole,
-        ColorRole
+        ColorRole,
+        PlaceholderRole
     };
 
     explicit MapLegendItem(Weather::MapType type,
                            QString value,
                            QColor color,
+                           bool placeholder = false,
                            QObject *parent = nullptr);
 
     // Implemented virtual functions
@@ -45,6 +49,7 @@ public:
 
     [[nodiscard]] inline Weather::MapType type() const { return _type; }
     [[nodiscard]] inline const QColor &color() const { return _color; }
+    [[nodiscard]] inline bool placeholder() const { return _placeholder; }
 
     static QHash<int, QByteArray> roleNames()
     {
@@ -52,13 +57,15 @@ public:
             {IdRole, "id"},
             {DisplayRole, "display"},
             {TypeRole, "type"},
-            {ColorRole, "color"}};
+            {ColorRole, "color"},
+            {PlaceholderRole, "placeholder"}};
     }
 
 private:
     Weather::MapType _type{Weather::UnknownMap};
     QString _value;
     QColor _color;
+    bool _placeholder;
 };
 
 } // namespace Vremenar

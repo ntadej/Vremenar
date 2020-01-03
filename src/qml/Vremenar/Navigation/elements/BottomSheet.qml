@@ -14,7 +14,7 @@ import QtQuick 2.12
 import Vremenar 1.0
 import Vremenar.Common 1.0
 
-Item {
+MouseArea {
     default property alias contents: content.children
     property alias contentItem: content
     property bool fullWidth: parent.width - 2 * (UI.safetyMarginLeft + UI.safetyMarginRight) <= UI.bottomSheetMaxWidth

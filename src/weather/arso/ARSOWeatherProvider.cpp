@@ -44,6 +44,11 @@ ARSO::WeatherProvider::WeatherProvider(NetworkManager *network,
     connect(mapLayers(), &MapLayersProxyModel::timestampChanged, this, &ARSO::WeatherProvider::currentTimeChanged);
 }
 
+bool ARSO::WeatherProvider::currentMapLayerHasLegend() const
+{
+    return !(currentType() == Weather::ForecastMap || currentType() == Weather::CloudCoverageMap);
+}
+
 void ARSO::WeatherProvider::requestForecastDetails(const QString &url)
 {
     qDebug() << "Requesting forecast details:" << url;

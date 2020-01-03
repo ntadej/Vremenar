@@ -34,6 +34,7 @@ public:
     Q_INVOKABLE void requestForecastDetails(const QString &url) final;
     Q_INVOKABLE void requestMapLayers(Weather::MapType type) final;
 
+    [[nodiscard]] bool currentMapLayerHasLegend() const final;
     [[nodiscard]] inline const std::vector<Weather::MapType> &supportedMapTypes() const final { return _supportedMapTypes; }
     [[nodiscard]] inline qreal minZoomLevel() const final { return ARSO::minZoomLevel; }
     [[nodiscard]] inline qreal maxZoomLevel() const final { return ARSO::maxZoomLevel; }

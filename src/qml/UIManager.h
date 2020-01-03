@@ -64,6 +64,7 @@ class UIManager : public QObject
     Q_PROPERTY(int mapIconSize READ mapIconSize CONSTANT)
     Q_PROPERTY(int mapIconFadeDuration READ mapIconFadeDuration CONSTANT)
     Q_PROPERTY(int mapLegendSize READ mapLegendSize CONSTANT)
+    Q_PROPERTY(int mapLegendSizeWide READ mapLegendSizeWide CONSTANT)
     Q_PROPERTY(int mapTimeChangeDuration READ mapTimeChangeDuration CONSTANT)
     Q_PROPERTY(int mapRefreshRotationDuration READ mapRefreshRotationDuration CONSTANT)
 
@@ -122,6 +123,7 @@ public:
     [[nodiscard]] int mapIconSize() const;
     [[nodiscard]] int mapIconFadeDuration() const;
     [[nodiscard]] int mapLegendSize() const;
+    [[nodiscard]] int mapLegendSizeWide() const;
     [[nodiscard]] int mapTimeChangeDuration() const;
     [[nodiscard]] int mapRefreshRotationDuration() const;
 

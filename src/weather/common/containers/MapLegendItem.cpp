@@ -17,11 +17,13 @@ namespace Vremenar
 MapLegendItem::MapLegendItem(Weather::MapType type,
                              QString value,
                              QColor color,
+                             bool placeholder,
                              QObject *parent)
     : ListItem(parent),
       _type(type),
       _value(std::move(value)),
-      _color(std::move(color))
+      _color(std::move(color)),
+      _placeholder(placeholder)
 {
     setId(Weather::mapTypeString(type) + "_" + value);
 }
@@ -42,6 +44,8 @@ QVariant MapLegendItem::data(int role) const
         return type();
     case ColorRole:
         return color();
+    case PlaceholderRole:
+        return placeholder();
     default:
         return QVariant();
     }

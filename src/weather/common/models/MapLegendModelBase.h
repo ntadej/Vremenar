@@ -27,7 +27,8 @@ public:
 protected:
     MapLegendItem *emplace(Weather::MapType type,
                            const QString &value,
-                           const QColor &color);
+                           const QColor &color,
+                           bool placeholder = false);
 };
 
 } // namespace Vremenar
