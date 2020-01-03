@@ -92,7 +92,7 @@ void ARSO::WeatherProvider::response(QNetworkReply *reply)
 
     if (currentReplies()->value(reply).call() == QStringLiteral("/forecast_data_details")) {
         _forecastModel->addEntries(document.object()[QStringLiteral("features")].toArray());
-
+        mapLayers()->playResume();
         removeResponse(reply);
         valid = true;
     } else if (currentReplies()->value(reply).call() == QStringLiteral("/inca_data")) {
@@ -128,6 +128,8 @@ void ARSO::WeatherProvider::currentTimeChanged()
     if (!layer->loaded()) {
         requestForecastDetails(layer->url().toString());
         layer->setLoaded();
+    } else {
+        mapLayers()->playResume();
     }
 
     forecast()->setTime(mapLayers()->timestamp());

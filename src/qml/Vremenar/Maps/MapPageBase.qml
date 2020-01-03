@@ -100,7 +100,7 @@ Rectangle {
 
     LoadingOverlay {
         id: loadingOverlay
-        active: VWeather.loading
+        active: VWeather.loading || map.loading === true
         visible: false
         anchors.fill: parent
         anchors.topMargin: UI.navBarHeight

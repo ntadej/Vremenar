@@ -48,12 +48,15 @@ MapPageBase {
             centerBehavior.enabled = true
         }
 
+        property bool loading: false
+        property string currentUrl: ""
+
         MapParameter {
             type: "source"
 
             property var name: "weatherSource"
             property var sourceType: "image"
-            property var url: VMapLayersModel.url
+            property var url: map.currentUrl
             property var coordinates: VMapLayersModel.coordinates
         }
 
@@ -123,6 +126,26 @@ MapPageBase {
             if (VLocation.position.isValid) {
                 centerBehavior.enabled = true
                 bearing = 0
+            }
+        }
+    }
+
+    Image {
+        id: mapPreload
+        visible: false
+        source: VMapLayersModel.url
+        onStatusChanged: {
+            if (mapPreload.status === Image.Loading) {
+                console.log('Loading ' + source)
+                map.loading = true
+            } else if (mapPreload.status === Image.Ready) {
+                map.currentUrl = source
+                map.loading = false
+                VMapLayersModel.playResume()
+            } else {
+                // TODO: properly handle errors
+                console.log('Image loading error: ' + mapPreload.status)
+                map.loading = false
             }
         }
     }

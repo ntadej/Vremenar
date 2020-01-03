@@ -50,12 +50,13 @@ public:
     [[nodiscard]] inline const QVariant &coordinates() const { return _coordinates; }
     void setDefaultCoordinates(QVariant coordinates);
 
-    [[nodiscard]] inline bool animated() const { return _timer->isActive(); }
+    [[nodiscard]] inline bool animated() const { return _animated; }
 
     Q_INVOKABLE void previous();
     Q_INVOKABLE void next();
     Q_INVOKABLE void nextTimer();
     Q_INVOKABLE void play();
+    Q_INVOKABLE void playResume();
 
 Q_SIGNALS:
     void rowCountChanged();
@@ -70,6 +71,7 @@ private:
                                         const QModelIndex &sourceParent) const override;
 
     std::unique_ptr<QTimer> _timer{};
+    bool _animated{false};
 
     qint64 _time{};
     QString _url;

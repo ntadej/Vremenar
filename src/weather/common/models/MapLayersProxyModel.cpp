@@ -131,8 +131,9 @@ void MapLayersProxyModel::previous()
     if (_row > 0) {
         setTimestamp(data(index(_row - 1, 0), MapLayer::TimeRole).toDateTime().toMSecsSinceEpoch());
 
-        if (_timer->isActive()) {
+        if (_animated) {
             _timer->stop();
+            _animated = false;
             Q_EMIT animatedChanged();
         }
     }
@@ -143,8 +144,9 @@ void MapLayersProxyModel::next()
     if (_row < rowCount() - 1) {
         setTimestamp(data(index(_row + 1, 0), MapLayer::TimeRole).toDateTime().toMSecsSinceEpoch());
 
-        if (_timer->isActive()) {
+        if (_animated) {
             _timer->stop();
+            _animated = false;
             Q_EMIT animatedChanged();
         }
     }
@@ -152,6 +154,8 @@ void MapLayersProxyModel::next()
 
 void MapLayersProxyModel::nextTimer()
 {
+    _timer->stop();
+
     if (_row == rowCount() - 1) {
         setTimestamp(data(index(0, 0), MapLayer::TimeRole).toDateTime().toMSecsSinceEpoch());
     } else {
@@ -161,13 +165,22 @@ void MapLayersProxyModel::nextTimer()
 
 void MapLayersProxyModel::play()
 {
-    if (_timer->isActive()) {
+    if (_animated) {
         _timer->stop();
+        _animated = false;
     } else {
         _timer->start();
+        _animated = true;
     }
 
     Q_EMIT animatedChanged();
+}
+
+void MapLayersProxyModel::playResume()
+{
+    if (_animated) {
+        _timer->start();
+    }
 }
 
 bool MapLayersProxyModel::filterAcceptsRow(int sourceRow,
