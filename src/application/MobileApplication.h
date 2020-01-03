@@ -22,7 +22,8 @@ class MobileApplication : public QGuiApplication
     Q_OBJECT
 public:
     explicit MobileApplication(int &argc,
-                               char **argv);
+                               char **argv,
+                               QObject *parent = nullptr);
 
     void postInit() const;
 };

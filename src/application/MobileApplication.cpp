@@ -17,7 +17,8 @@ namespace Vremenar
 {
 
 MobileApplication::MobileApplication(int &argc,
-                                     char **argv)
+                                     char **argv,
+                                     QObject * /* parent */)
     : QGuiApplication(argc, argv) {}
 
 void MobileApplication::postInit() const

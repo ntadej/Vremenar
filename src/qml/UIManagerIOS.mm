@@ -15,7 +15,6 @@
 #include <QtGui/qpa/qplatformwindow.h>
 
 #include <UIKit/UIDevice.h>
-#include <UIKit/UIViewController.h>
 
 #include "qml/UIManager.h"
 
@@ -25,37 +24,24 @@ namespace Vremenar
 Common::DeviceType Qml::UIManager::getDeviceTypeIOS()
 {
     UIUserInterfaceIdiom idiom = [UIDevice currentDevice].userInterfaceIdiom;
-    if (idiom == UIUserInterfaceIdiomPad)
+    if (idiom == UIUserInterfaceIdiomPad) {
         return Common::iPad;
-    else if (idiom == UIUserInterfaceIdiomPhone)
+    }
+    if (idiom == UIUserInterfaceIdiomPhone) {
         return Common::iPhone;
-    else
-        return Common::UnknownDevice;
+    }
+
+    return Common::UnknownDevice;
 }
 
 QMargins Qml::UIManager::safeAreaMargins()
 {
     QPlatformWindow *platformWindow = _currentWindow->handle();
-    if (platformWindow) {
+    if (platformWindow != nullptr) {
         return platformWindow->safeAreaMargins();
     }
 
     return QMargins();
 }
 
-}
-
-@interface QIOSViewController : UIViewController
-@end
-
-@interface QIOSViewController (VremenarView)
-@end
-
-@implementation QIOSViewController (VremenarView)
-
-- (UIStatusBarStyle)preferredStatusBarStyle
-{
-    return UIStatusBarStyleLightContent;
-}
-
-@end
+} // namespace Vremenar

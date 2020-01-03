@@ -33,6 +33,10 @@
         </array>
         <key>UIFileSharingEnabled</key>
         <true/>
+        <key>UIViewControllerBasedStatusBarAppearance</key>
+        <false/>
+        <key>UIStatusBarStyle</key>
+        <string>UIStatusBarStyleLightContent</string>
         <key>NSLocationWhenInUseUsageDescription</key>
         <string>Location for weather info.</string>
         <key>CFBundleIcons</key>
