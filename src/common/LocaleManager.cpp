@@ -34,8 +34,6 @@ QStringList LocaleManager::loadLocales()
 {
     QDir dir(QStringLiteral(":/i18n/"));
     QStringList list;
-    list << QLocale(QLocale::English, QLocale::UnitedStates).name();
-
     const QStringList entryList = dir.entryList(QDir::AllEntries);
     for (const QString &fileName : entryList) {
         if (fileName.contains(QStringLiteral(".qm"))) {
@@ -62,21 +60,41 @@ QString LocaleManager::localeName(const QString &file)
 
 void LocaleManager::setLocale()
 {
-    QString locale;
+    // Try settings first
     Settings settings(this);
-    if (settings.locale().isEmpty()) {
-        locale = QLocale::system().name();
-    } else {
-        locale = settings.locale();
+    if (!settings.locale().isEmpty()) {
+        setLanguageByString(settings.locale(), QStringLiteral("settings"));
+        return;
     }
 
-    qDebug() << "Using locale" << locale;
+    // Try system UI languages
+    QStringList languages = QLocale::system().uiLanguages();
+    for (const QString &lang : languages) {
+        if (setLanguageByString(lang, QStringLiteral("UI"))) {
+            return;
+        }
+    }
 
-    QString langPath = Resources::path(":/i18n/" + locale + ".qm");
-    _translator->load(locale, langPath);
-    _locale = locale;
+    // Use default language
+    setLanguageByString(QStringLiteral("C"), QStringLiteral("default"));
+}
 
-    Q_EMIT localeChanged();
+bool LocaleManager::setLanguageByString(const QString &lang,
+                                        const QString &source)
+{
+    QLocale locale = QLocale(lang);
+    qDebug() << "Trying language" << lang << "from source" << source;
+    if (_translator->load(locale, QStringLiteral(":/i18n/"))) {
+        _locale = locale.name();
+
+        qDebug() << "Using locale" << locale;
+
+        Q_EMIT localeChanged();
+
+        return true;
+    }
+
+    return false;
 }
 
 } // namespace Vremenar

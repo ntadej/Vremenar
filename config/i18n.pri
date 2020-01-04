@@ -11,7 +11,7 @@
 
 CONFIG += lrelease embed_translations
 
-LANGUAGES = sl_SI
+LANGUAGES = en sl
 
 # parameters: var, prepend, append
 defineReplace(prependAll) {

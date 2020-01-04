@@ -86,7 +86,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Vremenar</string>
+        <string notr="true">Vremenar</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>

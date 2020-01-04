@@ -20,3 +20,11 @@ QMAKE_BUNDLE_DATA += ios_icon
 
 launch_storyboard.files = $$top_srcdir/resources/iOS/VremenarLaunchScreen.storyboard
 QMAKE_BUNDLE_DATA += launch_storyboard
+
+TRANSLATE_en.files = $$top_srcdir/resources/iOS/en.lproj/InfoPlist.strings
+TRANSLATE_en.path = en.lproj
+QMAKE_BUNDLE_DATA += TRANSLATE_en
+
+TRANSLATE_sl.files = $$top_srcdir/resources/iOS/sl.lproj/InfoPlist.strings
+TRANSLATE_sl.path = sl.lproj
+QMAKE_BUNDLE_DATA += TRANSLATE_sl

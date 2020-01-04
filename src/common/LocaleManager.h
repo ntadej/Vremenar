@@ -41,6 +41,9 @@ private:
     [[nodiscard]] inline QString retranslateQml() const { return {}; }
     [[nodiscard]] inline const QString &locale() const { return _locale; }
 
+    bool setLanguageByString(const QString &lang,
+                             const QString &source);
+
     std::unique_ptr<QTranslator> _translator;
     QString _locale{};
 };
