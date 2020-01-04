@@ -24,4 +24,14 @@ void MapInfoModel::generateModel(const std::vector<Weather::MapType> &supported)
     }
 }
 
+QStringList MapInfoModel::list() const
+{
+    QStringList l;
+    l.reserve(rowCount());
+    for (int i = 0; i < rowCount(); i++) {
+        l << row<MapInfo>(i)->display();
+    }
+    return l;
+}
+
 } // namespace Vremenar

@@ -70,6 +70,12 @@ public:
     }
 
     template <class T>
+    const T *row(int row) const
+    {
+        return qobject_cast<T *>(_list[static_cast<size_t>(row)].get());
+    }
+
+    template <class T>
     [[nodiscard]] T *find(const QString &id) const
     {
         for (const auto &item : _list) {

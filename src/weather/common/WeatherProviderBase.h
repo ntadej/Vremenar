@@ -68,7 +68,7 @@ public Q_SLOTS:
 Q_SIGNALS:
     void lastUpdateTimeChanged();
     void loadingChanged();
-    void currentMapLayerChangedSignal();
+    void currentMapLayerChangedSignal(int);
 
 protected:
     void startTimer();

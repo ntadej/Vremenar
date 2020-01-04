@@ -48,7 +48,7 @@ void WeatherProviderBase::changeMapType(Weather::MapType type)
     _currentType = type;
     _mapLegendProxyModel->setType(_currentType);
 
-    Q_EMIT currentMapLayerChangedSignal();
+    Q_EMIT currentMapLayerChangedSignal(currentMapLayer());
 
     refresh();
 }

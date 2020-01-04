@@ -25,6 +25,8 @@ public:
     explicit MapInfoModel(QObject *parent = nullptr);
 
     void generateModel(const std::vector<Weather::MapType> &supported);
+
+    [[nodiscard]] QStringList list() const;
 };
 
 } // namespace Vremenar

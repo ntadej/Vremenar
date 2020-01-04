@@ -12,7 +12,10 @@
 #ifndef VREMENAR_TRAYICON_H_
 #define VREMENAR_TRAYICON_H_
 
+#include <QtWidgets/QMenu>
 #include <QtWidgets/QSystemTrayIcon>
+
+class QMenu;
 
 namespace Vremenar
 {
@@ -23,11 +26,25 @@ class TrayIcon : public QSystemTrayIcon
 public:
     explicit TrayIcon(QObject *parent = nullptr);
 
+public Q_SLOTS:
+    void createMenu(const QStringList &maps);
+    void setCurrentMap(int index);
+
 Q_SIGNALS:
     void clicked();
+    void quit();
+    void mapSelected(int index);
 
 private Q_SLOTS:
     void activatedCallback(QSystemTrayIcon::ActivationReason reason);
+    void mapSelectedCallback();
+
+private:
+    std::unique_ptr<QMenu> _menu{};
+    std::unique_ptr<QMenu> _menuDock{};
+    std::unique_ptr<QActionGroup> _actionGroup{};
+    std::unique_ptr<QAction> _actionShow{};
+    std::unique_ptr<QAction> _actionQuit{};
 };
 
 } // namespace Vremenar

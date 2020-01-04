@@ -177,8 +177,13 @@ void ApplicationWindow::createWidgets()
 
     _trayIcon = std::make_unique<TrayIcon>(this);
     _trayIcon->setVisible(settings.showInTray());
+    _trayIcon->createMenu(_weatherProvider->mapInfo()->list());
+    _trayIcon->setCurrentMap(_weatherProvider->currentMapLayer());
 
     connect(_trayIcon.get(), &TrayIcon::clicked, this, &ApplicationWindow::activate);
+    connect(_trayIcon.get(), &TrayIcon::quit, QCoreApplication::instance(), &QCoreApplication::quit);
+    connect(_trayIcon.get(), &TrayIcon::mapSelected, _weatherProvider.get(), &WeatherProviderBase::currentMapLayerChanged);
+    connect(_weatherProvider.get(), &WeatherProviderBase::currentMapLayerChangedSignal, _trayIcon.get(), &TrayIcon::setCurrentMap);
 }
 
 void ApplicationWindow::showAboutDialog()
