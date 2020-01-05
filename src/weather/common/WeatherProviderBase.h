@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -13,9 +13,11 @@
 #define VREMENAR_WEATHERPROVIDERBASE_H_
 
 #include <QtCore/QTimer>
+#include <QtPositioning/QGeoCoordinate>
 
 #include "common/api/APILoader.h"
 #include "common/containers/Hyperlink.h"
+#include "weather/common/CurrentWeatherBase.h"
 #include "weather/common/Weather.h"
 #include "weather/common/models/ForecastProxyModel.h"
 #include "weather/common/models/MapInfoModel.h"
@@ -41,11 +43,13 @@ public:
     Q_PROPERTY(int currentMapLayer READ currentMapLayer WRITE currentMapLayerChanged NOTIFY currentMapLayerChangedSignal)
     Q_PROPERTY(int currentMapLayerHasLegend READ currentMapLayerHasLegend NOTIFY currentMapLayerChangedSignal)
 
+    inline CurrentWeatherBase *current() { return _currentWeather.get(); }
     inline ForecastProxyModel *forecast() { return _forecastProxyModel.get(); }
     inline MapInfoModel *mapInfo() { return _mapInfoModel.get(); }
     inline MapLayersProxyModel *mapLayers() { return _mapLayersProxyModel.get(); }
     inline MapLegendProxyModel *mapLegend() { return _mapLegendProxyModel.get(); }
 
+    virtual void requestCurrentWeatherInfo(const QGeoCoordinate &coordinate) = 0;
     virtual void requestForecastDetails(const QString &url) = 0;
     virtual void requestMapLayers(Weather::MapType type) = 0;
 
@@ -67,29 +71,38 @@ public Q_SLOTS:
 
 Q_SIGNALS:
     void lastUpdateTimeChanged();
+    void lastUpdateTimeChangedCurrent();
     void loadingChanged();
     void currentMapLayerChangedSignal(int);
 
 protected:
+    void setupCurrentWeather(std::unique_ptr<CurrentWeatherBase> ptr) { _currentWeather = std::move(ptr); }
     void startTimer();
+    void startTimerCurrent();
+    void stopTimerCurrent();
     void setLastUpdatedTime(const QDateTime &time) { _lastUpdateResponseTime = time; }
+    void setLastUpdatedTimeCurrent(const QDateTime &time) { _lastUpdateResponseTimeCurrent = time; }
     void setLoading(bool loading);
 
 private:
     [[nodiscard]] inline QJsonObject copyrightLinkJson() const { return copyrightLink()->asJson(); }
     void timerCallback();
+    void timerCallbackCurrent();
 
-    std::unique_ptr<ForecastProxyModel> _forecastProxyModel;
-    std::unique_ptr<MapInfoModel> _mapInfoModel;
-    std::unique_ptr<MapLayersProxyModel> _mapLayersProxyModel;
-    std::unique_ptr<MapLegendProxyModel> _mapLegendProxyModel;
+    std::unique_ptr<CurrentWeatherBase> _currentWeather{};
+    std::unique_ptr<ForecastProxyModel> _forecastProxyModel{};
+    std::unique_ptr<MapInfoModel> _mapInfoModel{};
+    std::unique_ptr<MapLayersProxyModel> _mapLayersProxyModel{};
+    std::unique_ptr<MapLegendProxyModel> _mapLegendProxyModel{};
 
     QDateTime _lastUpdateResponseTime{};
+    QDateTime _lastUpdateResponseTimeCurrent{};
     bool _loading{false};
 
     Weather::MapType _currentType{Weather::UnknownMap};
 
     std::unique_ptr<QTimer> _timer{};
+    std::unique_ptr<QTimer> _timerCurrent{};
 };
 
 } // namespace Vremenar

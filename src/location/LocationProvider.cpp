@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -101,7 +101,7 @@ void LocationProvider::positionUpdated(const QGeoPositionInfo &info)
 
     _timer->start();
 
-    Q_EMIT positionChanged();
+    Q_EMIT positionChanged(_currentPosition.coordinate());
 }
 
 void LocationProvider::positionError(QGeoPositionInfoSource::Error error)

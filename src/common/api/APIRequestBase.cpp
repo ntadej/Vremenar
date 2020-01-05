@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -37,9 +37,14 @@ void APIRequestBase::setCall(const QString &call)
     _call = call;
 }
 
-void APIRequestBase::setUrl(const QString &url)
+void APIRequestBase::setUrl(const QString &url,
+                            const QUrlQuery &query)
 {
-    QNetworkRequest::setUrl(QUrl(_baseUrl + url));
+    QUrl u(_baseUrl + url);
+    if (!query.isEmpty()) {
+        u.setQuery(query);
+    }
+    QNetworkRequest::setUrl(u);
 }
 
 void APIRequestBase::setOperation(QNetworkAccessManager::Operation operation)

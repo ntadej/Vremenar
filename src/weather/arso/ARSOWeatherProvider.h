@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -31,6 +31,7 @@ public:
     explicit WeatherProvider(NetworkManager *network,
                              QObject *parent = nullptr);
 
+    Q_INVOKABLE void requestCurrentWeatherInfo(const QGeoCoordinate &coordinate) final;
     Q_INVOKABLE void requestForecastDetails(const QString &url) final;
     Q_INVOKABLE void requestMapLayers(Weather::MapType type) final;
 

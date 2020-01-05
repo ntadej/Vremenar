@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -32,11 +32,14 @@ WeatherProviderBase::WeatherProviderBase(NetworkManager *network,
       _mapInfoModel(std::make_unique<MapInfoModel>(this)),
       _mapLayersProxyModel(std::make_unique<MapLayersProxyModel>(this)),
       _mapLegendProxyModel(std::make_unique<MapLegendProxyModel>(this)),
-      _timer(std::make_unique<QTimer>(this))
+      _timer(std::make_unique<QTimer>(this)),
+      _timerCurrent(std::make_unique<QTimer>(this))
 {
     _timer->setSingleShot(true);
+    _timerCurrent->setSingleShot(true);
 
     connect(_timer.get(), &QTimer::timeout, this, &WeatherProviderBase::timerCallback);
+    connect(_timerCurrent.get(), &QTimer::timeout, this, &WeatherProviderBase::timerCallbackCurrent);
 }
 
 void WeatherProviderBase::changeMapType(Weather::MapType type)
@@ -84,6 +87,19 @@ void WeatherProviderBase::startTimer()
              << "Starting timer...";
 }
 
+void WeatherProviderBase::startTimerCurrent()
+{
+    _timerCurrent->start(INTERVAL);
+
+    qDebug() << "Autorefresh:"
+             << "Starting current weather timer...";
+}
+
+void WeatherProviderBase::stopTimerCurrent()
+{
+    _timerCurrent->stop();
+}
+
 void WeatherProviderBase::timerCallback()
 {
     _timer->stop();
@@ -101,6 +117,24 @@ void WeatherProviderBase::timerCallback()
 
     setLastUpdatedTime(now);
     requestMapLayers(_currentType);
+}
+
+void WeatherProviderBase::timerCallbackCurrent()
+{
+    _timerCurrent->stop();
+
+    auto now = QDateTime::currentDateTime();
+    if (_lastUpdateResponseTimeCurrent.msecsTo(now) < PROTECTION) {
+        qDebug() << "Autorefresh:"
+                 << "Already requested current weather information less than" << PROTECTION << "ms ago.";
+        startTimer();
+        return;
+    }
+
+    qDebug() << "Autorefresh:"
+             << "Reloading current weather...";
+
+    setLastUpdatedTimeCurrent(now);
 }
 
 void WeatherProviderBase::setLoading(bool loading)

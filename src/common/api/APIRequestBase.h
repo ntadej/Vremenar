@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -13,6 +13,7 @@
 #define VREMENAR_APIREQUESTBASE_H_
 
 #include <QtCore/QJsonObject>
+#include <QtCore/QUrlQuery>
 #include <QtNetwork/QNetworkAccessManager>
 #include <QtNetwork/QNetworkRequest>
 
@@ -31,7 +32,8 @@ public:
 
     void setBaseUrl(const QString &url);
     void setCall(const QString &call);
-    void setUrl(const QString &url);
+    void setUrl(const QString &url,
+                const QUrlQuery &query = QUrlQuery());
     void setOperation(QNetworkAccessManager::Operation operation);
     void setExtra(const QVariant &extra);
     void setData(const QJsonObject &data);

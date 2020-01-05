@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -62,6 +62,7 @@ class UIManager : public QObject
 
     Q_PROPERTY(int mapCoordinateChangeDuration READ mapCoordinateChangeDuration CONSTANT)
     Q_PROPERTY(int mapIconSize READ mapIconSize CONSTANT)
+    Q_PROPERTY(int mapIconSizeHeight READ mapIconSizeHeight CONSTANT)
     Q_PROPERTY(int mapIconFadeDuration READ mapIconFadeDuration CONSTANT)
     Q_PROPERTY(int mapLegendSize READ mapLegendSize CONSTANT)
     Q_PROPERTY(int mapLegendSizeWide READ mapLegendSizeWide CONSTANT)
@@ -121,6 +122,7 @@ public:
 
     [[nodiscard]] int mapCoordinateChangeDuration() const;
     [[nodiscard]] int mapIconSize() const;
+    [[nodiscard]] int mapIconSizeHeight() const;
     [[nodiscard]] int mapIconFadeDuration() const;
     [[nodiscard]] int mapLegendSize() const;
     [[nodiscard]] int mapLegendSizeWide() const;

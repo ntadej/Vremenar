@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -14,6 +14,8 @@
 #include <QtCore/QJsonObject>
 
 #include "common/NetworkManager.h"
+#include "weather/arso/ARSOCurrentWeather.h"
+#include "weather/arso/api/ARSOAPILocations.h"
 #include "weather/arso/api/ARSOAPIMapLayers.h"
 #include "weather/common/models/MapInfoModel.h"
 #include "weather/common/models/MapLayersProxyModel.h"
@@ -31,6 +33,7 @@ ARSO::WeatherProvider::WeatherProvider(NetworkManager *network,
       _mapLayersModel(std::make_unique<MapLayersModel>(this)),
       _mapLegendModel(std::make_unique<MapLegendModel>(this))
 {
+    setupCurrentWeather(std::make_unique<CurrentWeather>(this));
     forecast()->setSourceModel(_forecastModel.get());
     mapInfo()->generateModel(supportedMapTypes());
     mapLayers()->setDefaultCoordinates(MapLayer::geoRectangleToList(defaultMapCoordinates()));
@@ -47,6 +50,16 @@ ARSO::WeatherProvider::WeatherProvider(NetworkManager *network,
 bool ARSO::WeatherProvider::currentMapLayerHasLegend() const
 {
     return !(currentType() == Weather::ForecastMap || currentType() == Weather::CloudCoverageMap);
+}
+
+void ARSO::WeatherProvider::requestCurrentWeatherInfo(const QGeoCoordinate &coordinate)
+{
+    qDebug() << "Requesting current weather details:" << coordinate;
+
+    stopTimerCurrent();
+
+    APIRequest request = ARSO::location(coordinate);
+    currentReplies()->insert(network()->request(request), request);
 }
 
 void ARSO::WeatherProvider::requestForecastDetails(const QString &url)
@@ -86,6 +99,17 @@ void ARSO::WeatherProvider::response(QNetworkReply *reply)
     bool valid{};
 
     QJsonDocument document = QJsonDocument::fromJson(reply->readAll());
+    if (currentReplies()->value(reply).call() == QStringLiteral("/locations")) {
+        current()->updateCurrentWeather(document.object());
+
+        setLastUpdatedTimeCurrent(QDateTime::currentDateTime());
+        startTimerCurrent();
+        Q_EMIT lastUpdateTimeChangedCurrent();
+
+        removeResponse(reply);
+        return;
+    }
+
     if (currentReplies()->value(reply).call() == QStringLiteral("/forecast_data")) {
         _forecastModel->clear();
         _mapLayersModel->clear();

@@ -12,5 +12,6 @@
         <file>elements/MapLegendView.qml</file>
         <file>elements/MapLegendItem.qml</file>
         <file>MapTime.qml</file>
+        <file>MapCurrentWeather.qml</file>
     </qresource>
 </RCC>

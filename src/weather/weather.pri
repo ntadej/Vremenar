@@ -1,6 +1,6 @@
 #
 # Vremenar
-# Copyright (C) 2019 Tadej Novak <tadej@tano.si>
+# Copyright (C) 2020 Tadej Novak <tadej@tano.si>
 #
 # This application is bi-licensed under the GNU General Public License
 # Version 3 or later as well as Mozilla Public License Version 2.
@@ -10,6 +10,7 @@
 #
 
 SOURCES += \
+    src/weather/common/CurrentWeatherBase.cpp \
     src/weather/common/Weather.cpp \
     src/weather/common/WeatherProviderBase.cpp \
     src/weather/common/containers/ForecastEntry.cpp \
@@ -24,7 +25,9 @@ SOURCES += \
     src/weather/common/models/MapLegendModelBase.cpp \
     src/weather/common/models/MapLegendProxyModel.cpp \
     src/weather/arso/ARSOCommon.cpp \
+    src/weather/arso/ARSOCurrentWeather.cpp \
     src/weather/arso/ARSOWeatherProvider.cpp \
+    src/weather/arso/api/ARSOAPILocations.cpp \
     src/weather/arso/api/ARSOAPIMapLayers.cpp \
     src/weather/arso/api/ARSOAPIRequest.cpp \
     src/weather/arso/models/ARSOForecastModel.cpp \
@@ -32,6 +35,7 @@ SOURCES += \
     src/weather/arso/models/ARSOMapLegendModel.cpp
 
 HEADERS += \
+    src/weather/common/CurrentWeatherBase.h \
     src/weather/common/Weather.h \
     src/weather/common/WeatherProviderBase.h \
     src/weather/common/containers/ForecastEntry.h \
@@ -46,7 +50,9 @@ HEADERS += \
     src/weather/common/models/MapLegendModelBase.h \
     src/weather/common/models/MapLegendProxyModel.h \
     src/weather/arso/ARSOCommon.h \
+    src/weather/arso/ARSOCurrentWeather.h \
     src/weather/arso/ARSOWeatherProvider.h \
+    src/weather/arso/api/ARSOAPILocations.h \
     src/weather/arso/api/ARSOAPIMapLayers.h \
     src/weather/arso/api/ARSOAPIRequest.h \
     src/weather/arso/models/ARSOForecastModel.h \

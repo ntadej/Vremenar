@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -51,6 +51,16 @@ Rectangle {
             top: parent.top
             left: parent.left
             topMargin: UI.navBarHeight + UI.mapElementOffset + UI.safetyMarginTop
+            leftMargin: UI.mapElementOffset + UI.safetyMarginLeft
+        }
+    }
+
+    MapCurrentWeather {
+        id: mapCurrentWeather
+        anchors {
+            bottom: bottomSheet.top
+            left: parent.left
+            bottomMargin: UI.mapElementOffset
             leftMargin: UI.mapElementOffset + UI.safetyMarginLeft
         }
     }
@@ -116,6 +126,8 @@ Rectangle {
             name: "dialog"; when: dialogActive
             PropertyChanges { target: bottomSheet; anchors.topMargin: 0 }
             PropertyChanges { target: mapButtons; opacity: 0 }
+            PropertyChanges { target: mapTime; opacity: 0 }
+            PropertyChanges { target: mapCurrentWeather; opacity: 0 }
         },
         State {
             name: "sheet"
