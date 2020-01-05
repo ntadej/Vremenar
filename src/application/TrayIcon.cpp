@@ -21,11 +21,10 @@ TrayIcon::TrayIcon(QObject *parent)
       _actionShow(std::make_unique<QAction>(tr("Show"))),
       _actionQuit(std::make_unique<QAction>(tr("Quit")))
 {
-    QIcon icon(QStringLiteral(":/Vremenar/Logo/logo_tray.svg"));
+    QIcon icon(QStringLiteral(":/Vremenar/Logo/logo_tray.png"));
     icon.setIsMask(true);
 
     setIcon(icon);
-    setToolTip(QStringLiteral("?"));
 
     setContextMenu(_menu.get());
     _menuDock->setAsDockMenu();

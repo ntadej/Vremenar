@@ -10,10 +10,10 @@ heavySHRASN rain_heavy snow_heavy
 heavySHSN snow_heavy
 heavySN snow_heavy
 heavyTS blank
-heavyTSGR hail_heavy
-heavyTSRA rain_heavy_storm
-heavyTSRASN rain_heavy_storm snow_heavy
-heavyTSSN snow_heavy
+heavyTSGR blank hail_heavy
+heavyTSRA blank rain_heavy_storm
+heavyTSRASN blank rain_heavy_storm snow_heavy
+heavyTSSN blank snow_heavy
 lightDZ drizzle_light
 lightFG fog_light
 lightFZDZ drizzle_light
@@ -26,10 +26,10 @@ lightSHRASN rain_light snow_light
 lightSHSN snow_light
 lightSN snow_light
 lightTS blank
-lightTSGR hail_light
-lightTSRA rain_light
-lightTSRASN rain_light snow_light
-lightTSSN snow_light
+lightTSGR blank hail_light
+lightTSRA blank rain_light
+lightTSRASN blank rain_light snow_light
+lightTSSN blank snow_light
 modDZ drizzle_mod
 modFG fog_mod
 modFZDZ drizzle_mod
@@ -42,7 +42,7 @@ modSHRASN rain_mod snow_mod
 modSHSN snow_mod
 modSN snow_mod
 modTS blank
-modTSGR hail_mod
-modTSRA rain_mod
-modTSRASN rain_mod snow_mod
-modTSSN snow_mod
+modTSGR blank hail_mod
+modTSRA blank rain_mod
+modTSRASN blank rain_mod snow_mod
+modTSSN blank snow_mod

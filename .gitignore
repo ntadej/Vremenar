@@ -4,3 +4,5 @@ config.pri
 
 /graphics/weather/components/*.png
 /graphics/weather/modifiers/*.png
+/graphics/weather/mask/components/*.svg
+/graphics/weather/mask/modifiers/*.svg
