@@ -11,8 +11,8 @@ heavySHSN snow_heavy
 heavySN snow_heavy
 heavyTS blank
 heavyTSGR hail_heavy
-heavyTSRA rain_heavy
-heavyTSRASN rain_heavy snow_heavy
+heavyTSRA rain_heavy_storm
+heavyTSRASN rain_heavy_storm snow_heavy
 heavyTSSN snow_heavy
 lightDZ drizzle_light
 lightFG fog_light
