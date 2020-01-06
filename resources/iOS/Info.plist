@@ -20,6 +20,11 @@
         <string>1.0</string>
         <key>CFBundleVersion</key>
         <string>1</string>
+        <key>CFBundleLocalizations</key>
+        <array>
+            <string>en</string>
+            <string>sl</string>
+        </array>
         <key>CFBundleSignature</key>
         <string>????</string>
         <key>LSRequiresIPhoneOS</key>
