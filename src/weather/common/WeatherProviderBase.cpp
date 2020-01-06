@@ -53,7 +53,8 @@ void WeatherProviderBase::changeMapType(Weather::MapType type)
 
     Q_EMIT currentMapLayerChangedSignal(currentMapLayer());
 
-    refresh();
+    _timer->stop();
+    requestMapLayers(_currentType);
 }
 
 void WeatherProviderBase::currentMapLayerChanged(int index)
@@ -75,8 +76,10 @@ int WeatherProviderBase::currentMapLayer() const
 void WeatherProviderBase::refresh()
 {
     _timer->stop();
+    _timerCurrent->stop();
 
     requestMapLayers(_currentType);
+    requestCurrentWeatherInfo(QGeoCoordinate());
 }
 
 void WeatherProviderBase::startTimer()
@@ -135,6 +138,7 @@ void WeatherProviderBase::timerCallbackCurrent()
              << "Reloading current weather...";
 
     setLastUpdatedTimeCurrent(now);
+    requestCurrentWeatherInfo(QGeoCoordinate());
 }
 
 void WeatherProviderBase::setLoading(bool loading)

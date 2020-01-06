@@ -16,16 +16,29 @@
 namespace Vremenar
 {
 
-ARSO::APIRequest ARSO::location(const QGeoCoordinate &coordinate)
+ARSO::APIRequest ARSO::locations(const QGeoCoordinate &coordinate)
 {
     QUrlQuery query;
     query.addQueryItem(QStringLiteral("lat"), QString::number(coordinate.latitude()));
     query.addQueryItem(QStringLiteral("lon"), QString::number(coordinate.longitude()));
 
     APIRequest request;
-    request.setCall(QStringLiteral("/locations"));
+    request.setCall(QStringLiteral("/locations/coordinate"));
     request.setUrl(QStringLiteral("/locations/"), query);
     request.setExtra(coordinate.toString());
+
+    return request;
+}
+
+ARSO::APIRequest ARSO::locations(const QString &location)
+{
+    QUrlQuery query;
+    query.addQueryItem(QStringLiteral("loc"), location);
+
+    APIRequest request;
+    request.setCall(QStringLiteral("/locations/string"));
+    request.setUrl(QStringLiteral("/locations/"), query);
+    request.setExtra(location);
 
     return request;
 }

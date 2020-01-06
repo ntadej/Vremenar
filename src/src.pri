@@ -43,5 +43,6 @@ RESOURCES += \
 desktop {
     RESOURCES += \
         resources/Common/icons/icons.qrc \
-        resources/Linux/logo.qrc
+        resources/Linux/logo.qrc \
+        resources/Weather/TrayMask/tray_mask.qrc
 }

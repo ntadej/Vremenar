@@ -24,20 +24,27 @@ ARSO::CurrentWeather::CurrentWeather(QObject *parent)
 
 void ARSO::CurrentWeather::updateCurrentWeather(const QJsonObject &data)
 {
-    QJsonObject properties = data[QStringLiteral("properties")].toObject();
+    QJsonArray features = data[QStringLiteral("features")].toArray();
 
-    QString title = properties[QStringLiteral("title")].toString();
+    for (QJsonValueRef obj : features) {
+        QJsonObject properties = obj.toObject()[QStringLiteral("properties")].toObject();
 
-    QJsonObject day = properties[QStringLiteral("days")].toArray()[0].toObject();
-    QJsonObject timeline = day[QStringLiteral("timeline")].toArray()[0].toObject();
+        QString title = properties[QStringLiteral("title")].toString();
+        if (title != location()) {
+            continue;
+        }
 
-    QDateTime time = QDateTime::fromString(timeline[QStringLiteral("valid")].toString(), Qt::ISODate);
-    time.setTimeSpec(Qt::UTC);
+        QJsonObject day = properties[QStringLiteral("days")].toArray()[0].toObject();
+        QJsonObject timeline = day[QStringLiteral("timeline")].toArray()[0].toObject();
 
-    double temperature = timeline[QStringLiteral("t")].toString().toDouble();
-    QString icon = timeline[QStringLiteral("clouds_icon_wwsyn_icon")].toString();
+        QDateTime time = QDateTime::fromString(timeline[QStringLiteral("valid")].toString(), Qt::ISODate);
+        time.setTimeSpec(Qt::UTC);
 
-    setCurrentWeather(title, temperature, icon, time);
+        double temperature = timeline[QStringLiteral("t")].toString().toDouble();
+        QString icon = timeline[QStringLiteral("clouds_icon_wwsyn_icon")].toString();
+
+        setCurrentWeather(title, temperature, icon, time);
+    }
 }
 
 } // namespace Vremenar

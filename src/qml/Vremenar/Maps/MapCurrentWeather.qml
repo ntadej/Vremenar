@@ -16,9 +16,9 @@ import Vremenar.Common 1.0
 
 Item {
     width: UI.paddingCommon + icon.width + textTemperature.width + UI.paddingCommon / 2
-    height: UI.paddingCommon + UI.mapIconSizeHeight + textLocation.height + UI.paddingCommon
+    height: UI.paddingCommon + UI.mapIconSizeHeight + Math.round(textLocation.height) + UI.paddingCommon
 
-    opacity: textLocation.text !== "" ? 1 : 0
+    opacity: VCurrent.icon !== "" ? 1 : 0
 
     Rectangle {
         id: rounded

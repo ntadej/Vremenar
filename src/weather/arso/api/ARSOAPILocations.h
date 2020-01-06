@@ -21,7 +21,8 @@ namespace Vremenar
 namespace ARSO
 {
 
-APIRequest location(const QGeoCoordinate &coordinate);
+APIRequest locations(const QGeoCoordinate &coordinate);
+APIRequest locations(const QString &location);
 
 } // namespace ARSO
 } // namespace Vremenar

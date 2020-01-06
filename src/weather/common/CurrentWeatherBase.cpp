@@ -39,7 +39,7 @@ void CurrentWeatherBase::setCurrentWeather(const QString &location,
     _icon = icon;
     _time = time;
 
-    Q_EMIT weatherChanged();
+    Q_EMIT weatherChanged(_location, _temperature, _icon);
 }
 
 } // namespace Vremenar

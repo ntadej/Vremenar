@@ -23,11 +23,12 @@ TrayIcon::TrayIcon(QObject *parent)
 {
     QIcon icon(QStringLiteral(":/Vremenar/Logo/logo_tray.png"));
     icon.setIsMask(true);
-
     setIcon(icon);
 
     setContextMenu(_menu.get());
+#ifdef Q_OS_MAC
     _menuDock->setAsDockMenu();
+#endif
 
     connect(this, &TrayIcon::activated, this, &TrayIcon::activatedCallback);
     connect(_actionShow.get(), &QAction::triggered, this, &TrayIcon::clicked);
@@ -86,6 +87,23 @@ void TrayIcon::setCurrentMap(int index)
 
     if (index < _actionGroup->actions().size()) {
         _actionGroup->actions().at(index)->setChecked(true);
+    }
+}
+
+void TrayIcon::setCurrentWeather(const QString &location,
+                                 double temperature,
+                                 const QString &icon)
+{
+    if (!location.isEmpty()) {
+        setToolTip(QStringLiteral("%1°").arg(temperature));
+        QIcon i(QStringLiteral(":/Vremenar/Maps/TrayMask/%1.png").arg(icon));
+        i.setIsMask(true);
+        setIcon(i);
+    } else {
+        setToolTip(QString());
+        QIcon i(QStringLiteral(":/Vremenar/Logo/logo_tray.png"));
+        i.setIsMask(true);
+        setIcon(i);
     }
 }
 

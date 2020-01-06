@@ -54,12 +54,17 @@ bool ARSO::WeatherProvider::currentMapLayerHasLegend() const
 
 void ARSO::WeatherProvider::requestCurrentWeatherInfo(const QGeoCoordinate &coordinate)
 {
-    qDebug() << "Requesting current weather details:" << coordinate;
-
     stopTimerCurrent();
 
-    APIRequest request = ARSO::location(coordinate);
-    currentReplies()->insert(network()->request(request), request);
+    if (coordinate.isValid()) {
+        qDebug() << "Requesting current weather details:" << coordinate;
+        APIRequest request = ARSO::locations(coordinate);
+        currentReplies()->insert(network()->request(request), request);
+    } else if (!current()->location().isEmpty()) {
+        qDebug() << "Requesting current weather details:" << current()->location();
+        APIRequest request = ARSO::locations(current()->location());
+        currentReplies()->insert(network()->request(request), request);
+    }
 }
 
 void ARSO::WeatherProvider::requestForecastDetails(const QString &url)
@@ -99,7 +104,15 @@ void ARSO::WeatherProvider::response(QNetworkReply *reply)
     bool valid{};
 
     QJsonDocument document = QJsonDocument::fromJson(reply->readAll());
-    if (currentReplies()->value(reply).call() == QStringLiteral("/locations")) {
+    if (currentReplies()->value(reply).call() == QStringLiteral("/locations/coordinate")) {
+        QJsonObject properties = document.object()[QStringLiteral("properties")].toObject();
+        QString title = properties[QStringLiteral("title")].toString();
+        current()->setLocation(title);
+        requestCurrentWeatherInfo(QGeoCoordinate());
+        removeResponse(reply);
+        return;
+    }
+    if (currentReplies()->value(reply).call() == QStringLiteral("/locations/string")) {
         current()->updateCurrentWeather(document.object());
 
         setLastUpdatedTimeCurrent(QDateTime::currentDateTime());

@@ -71,6 +71,8 @@ jobs:
           ARSO_API_ENDPOINT: ${{ secrets.ARSO_API_ENDPOINT }}
           ARSO_API_RESOURCES: ${{ secrets.ARSO_API_RESOURCES }}
         run: |
+          wget -c -nv "https://dl.bintray.com/tano-si/Vremenar-Dependencies/qcocoa/5.14.0/libqcocoa.dylib"
+          cp libqcocoa.dylib $Qt5_Dir/plugins/platforms/
           qmake $VREMENAR_PATH/Vremenar.pro -spec macx-clang CONFIG+=x86_64 CONFIG+=qtquickcompiler
           make -j2
           macdeployqt Vremenar.app -qmldir=$VREMENAR_PATH/src/qml/ -dmg

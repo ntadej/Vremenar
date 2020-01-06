@@ -32,6 +32,7 @@ public:
 
     virtual void updateCurrentWeather(const QJsonObject &data) = 0;
 
+    inline void setLocation(const QString &location) { _location = location; }
     [[nodiscard]] inline const QString &location() const { return _location; }
     [[nodiscard]] QString temperature() const;
     [[nodiscard]] QString temperatureShort() const;
@@ -39,7 +40,9 @@ public:
     [[nodiscard]] inline const QDateTime &time() const { return _time; }
 
 Q_SIGNALS:
-    void weatherChanged();
+    void weatherChanged(const QString &location,
+                        double temperature,
+                        const QString &icon);
 
 protected:
     void setCurrentWeather(const QString &location,

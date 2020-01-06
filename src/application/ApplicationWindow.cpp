@@ -188,6 +188,7 @@ void ApplicationWindow::createWidgets()
     connect(_trayIcon.get(), &TrayIcon::quit, QCoreApplication::instance(), &QCoreApplication::quit);
     connect(_trayIcon.get(), &TrayIcon::mapSelected, _weatherProvider.get(), &WeatherProviderBase::currentMapLayerChanged);
     connect(_weatherProvider.get(), &WeatherProviderBase::currentMapLayerChangedSignal, _trayIcon.get(), &TrayIcon::setCurrentMap);
+    connect(_weatherProvider->current(), &CurrentWeatherBase::weatherChanged, _trayIcon.get(), &TrayIcon::setCurrentWeather);
 }
 
 void ApplicationWindow::showAboutDialog()

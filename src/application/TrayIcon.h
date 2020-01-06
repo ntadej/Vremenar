@@ -29,6 +29,9 @@ public:
 public Q_SLOTS:
     void createMenu(const QStringList &maps);
     void setCurrentMap(int index);
+    void setCurrentWeather(const QString &location,
+                           double temperature,
+                           const QString &icon);
 
 Q_SIGNALS:
     void clicked();
