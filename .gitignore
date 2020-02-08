@@ -2,6 +2,7 @@
 *.so
 config.pri
 
+/graphics/logo/web/*.png
 /graphics/weather/components/*.png
 /graphics/weather/modifiers/*.png
 /graphics/weather/mask/components/*.svg
