@@ -2,7 +2,7 @@ name: Continuous Integration
 on: [push]
 
 env:
-  QT_VERSION: 5.14.0
+  QT_VERSION: 5.14.2
 
 jobs:
   build:
