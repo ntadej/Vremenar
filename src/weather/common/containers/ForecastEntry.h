@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -33,6 +33,8 @@ public:
         IdRole = Qt::UserRole + 1,
         TimeRole,
         IconRole,
+        TemperatureRole,
+        TemperatureLowRole,
         CoordinateRole,
         ZoomLevelRole
     };
@@ -41,6 +43,8 @@ public:
                            qint64 time,
                            QString title,
                            QString icon,
+                           int temperature,
+                           int temperatureLow,
                            const QGeoCoordinate &coordinate,
                            qreal zoomLevel,
                            QObject *parent = nullptr);
@@ -51,6 +55,8 @@ public:
 
     [[nodiscard]] inline qint64 time() const { return _time; }
     [[nodiscard]] inline const QString &icon() const { return _icon; }
+    [[nodiscard]] inline int temperature() const { return _temperature; }
+    [[nodiscard]] inline int temperatureLow() const { return _temperatureLow; }
     [[nodiscard]] inline const QGeoCoordinate &coordinate() const { return _coordinate; }
     [[nodiscard]] inline qreal zoomLevel() const { return _zoomLevel; }
 
@@ -61,6 +67,8 @@ public:
             {DisplayRole, "display"},
             {TimeRole, "time"},
             {IconRole, "icon"},
+            {TemperatureRole, "temperature"},
+            {TemperatureLowRole, "temperatureLow"},
             {CoordinateRole, "coordinate"},
             {ZoomLevelRole, "zoomLevel"}};
     }
@@ -69,6 +77,8 @@ private:
     qint64 _time;
     QString _title;
     QString _icon;
+    int _temperature;
+    int _temperatureLow;
     QGeoCoordinate _coordinate;
     qreal _zoomLevel;
 };

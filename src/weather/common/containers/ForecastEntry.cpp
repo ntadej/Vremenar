@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -18,6 +18,8 @@ ForecastEntry::ForecastEntry(const QString &id,
                              qint64 time,
                              QString title,
                              QString icon,
+                             int temperature,
+                             int temperatureLow,
                              const QGeoCoordinate &coordinate,
                              qreal zoomLevel,
                              QObject *parent)
@@ -25,6 +27,8 @@ ForecastEntry::ForecastEntry(const QString &id,
       _time(time),
       _title(std::move(title)),
       _icon(std::move(icon)),
+      _temperature(temperature),
+      _temperatureLow(temperatureLow),
       _coordinate(coordinate),
       _zoomLevel(zoomLevel)
 {
@@ -47,6 +51,10 @@ QVariant ForecastEntry::data(int role) const
         return time();
     case IconRole:
         return icon();
+    case TemperatureRole:
+        return temperature();
+    case TemperatureLowRole:
+        return temperatureLow();
     case CoordinateRole:
         return QVariant::fromValue(coordinate());
     case ZoomLevelRole:

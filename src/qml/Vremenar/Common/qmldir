@@ -14,6 +14,7 @@ ListRadioView 1.0 views/ListRadioView.qml
 
 TextCore 1.0 text/Core.qml
 TextCommon 1.0 text/Common.qml
+TextCommonShadow 1.0 text/CommonShadow.qml
 TextHeader 1.0 text/Header.qml
 TextIcon 1.0 text/Icon.qml
 TextSmall 1.0 text/Small.qml

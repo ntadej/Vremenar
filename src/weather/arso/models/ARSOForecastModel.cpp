@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -37,6 +37,15 @@ ForecastEntry *ARSO::ForecastModel::createEntry(const QJsonObject &data)
 
     QString icon = timeline[QStringLiteral("clouds_icon_wwsyn_icon")].toString();
 
+    int temperature{};
+    int temperatureLow{-1000}; // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+    if (timeline.contains("txsyn")) {
+        temperature = timeline[QStringLiteral("txsyn")].toString().toInt();
+        temperatureLow = timeline[QStringLiteral("tnsyn")].toString().toInt();
+    } else {
+        temperature = timeline[QStringLiteral("t")].toString().toInt();
+    }
+
     QJsonObject geometry = data[QStringLiteral("geometry")].toObject();
     QJsonArray coordinates = geometry[QStringLiteral("coordinates")].toArray();
     QGeoCoordinate coordinate{coordinates[1].toDouble(), coordinates[0].toDouble()};
@@ -49,7 +58,7 @@ ForecastEntry *ARSO::ForecastModel::createEntry(const QJsonObject &data)
     zoomLevel *= ARSO::maxZoomLevel - ARSO::minZoomLevel - epsilon;
     zoomLevel = ARSO::maxZoomLevel - zoomLevel - epsilon;
 
-    return appendRow(std::make_unique<ForecastEntry>(id, time.toMSecsSinceEpoch(), title, icon, coordinate, zoomLevel));
+    return appendRow(std::make_unique<ForecastEntry>(id, time.toMSecsSinceEpoch(), title, icon, temperature, temperatureLow, coordinate, zoomLevel));
 }
 
 void ARSO::ForecastModel::addEntries(const QJsonArray &data)
