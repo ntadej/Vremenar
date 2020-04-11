@@ -14,6 +14,8 @@ import QtQuick 2.12
 import QtQuick.Controls 2.12
 
 MenuBar {
+    property alias mapTypeMenu: mapTypeMenu
+
     // File menu
     Menu {
         title: qsTr("&File") + VL.R

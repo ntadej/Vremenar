@@ -14,26 +14,23 @@
 
 #include <QtCore/QObject>
 
-namespace Vremenar
+namespace Vremenar::Common
 {
 
-class Common
-{
-    Q_GADGET
-public:
-    enum DeviceType {
-        Desktop,
-        iPhone,
-        iPad,
-        Android,
-        AndroidTV,
-        DebuggingDevice,
-        UnknownDevice
-    };
+Q_NAMESPACE
 
-    Q_ENUM(DeviceType)
+enum DeviceType {
+    Desktop,
+    iPhone,
+    iPad,
+    Android,
+    AndroidTV,
+    DebuggingDevice,
+    UnknownDevice
 };
 
-} // namespace Vremenar
+Q_ENUM_NS(DeviceType)
+
+} // namespace Vremenar::Common
 
 #endif // VREMENAR_ENUMS_H_

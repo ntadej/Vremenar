@@ -19,6 +19,7 @@ Controls.ApplicationWindow {
     id: app
 
     property Controls.ApplicationWindow applicationWindow : app
+    property alias mainMenu: mainMenu
     property bool ready: false
 
     Material.theme: Material.Dark
@@ -28,7 +29,9 @@ Controls.ApplicationWindow {
     width: 640
     height: 480
 
-    menuBar: MainMenu {}
+    menuBar: MainMenu {
+        id: mainMenu
+    }
 
     onClosing: {
         hide()

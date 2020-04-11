@@ -45,7 +45,17 @@ Item {
             width: parent.width
             visible: UI.showButtonMapType
 
-            onClicked: mapSettingsDialog.open()
+            onClicked: {
+                if (UI.deviceType === Common.Desktop || UI.deviceType === Common.DebuggingDevice) {
+                    if (typeof applicationWindow.mainMenu.mapTypeMenu.open !== 'undefined') {
+                        applicationWindow.mainMenu.mapTypeMenu.open()
+                    } else {
+                        applicationWindow.mainMenu.mapTypeMenu.popup()
+                    }
+                } else {
+                    mapSettingsDialog.open()
+                }
+            }
         }
 
         CommonLine {

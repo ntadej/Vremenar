@@ -14,7 +14,9 @@
 #include "qml/Globals.h"
 #include "qml/UIManager.h"
 
+#include "common/Enums.h"
 #include "settings/Settings.h"
+#include "weather/common/Weather.h"
 
 #include "qml/Qml.h"
 
@@ -28,6 +30,9 @@ void Qml::registerTypes()
     qmlRegisterSingletonType<Globals>(uri, 1, 0, "Globals", Globals::provider);
     qmlRegisterSingletonType<UIManager>(uri, 1, 0, "UI", UIManager::provider);
     qmlRegisterSingletonType<Settings>(uri, 1, 0, "Settings", Globals::providerSettings);
+
+    qmlRegisterUncreatableMetaObject(Common::staticMetaObject, uri, 1, 0, "Common", "Error: only enums");
+    qmlRegisterUncreatableMetaObject(Weather::staticMetaObject, uri, 1, 0, "Weather", "Error: only enums");
 }
 
 } // namespace Vremenar

@@ -143,7 +143,7 @@ void Qml::UIManager::debugAction()
 
 bool Qml::UIManager::showButtonMapType() const
 {
-    return !(_device == Common::Desktop || _device == Common::AndroidTV);
+    return _device != Common::AndroidTV;
 }
 
 bool Qml::UIManager::showButtonMapPosition() const

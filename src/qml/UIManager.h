@@ -33,6 +33,7 @@ class UIManager : public QObject
     Q_OBJECT
 
     Q_PROPERTY(bool debugging READ debugging CONSTANT)
+    Q_PROPERTY(Vremenar::Common::DeviceType deviceType READ getDeviceType CONSTANT)
 
     Q_PROPERTY(bool showButtonMapType READ showButtonMapType CONSTANT)
     Q_PROPERTY(bool showButtonMapPosition READ showButtonMapPosition NOTIFY showMapButonPositionChanged)

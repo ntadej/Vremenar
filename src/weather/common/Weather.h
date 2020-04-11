@@ -14,29 +14,26 @@
 
 #include <QtCore/QObject>
 
-namespace Vremenar
+namespace Vremenar::Weather
 {
 
-class Weather
-{
-    Q_GADGET
-public:
-    enum MapType {
-        UnknownMap,
-        ForecastMap,
-        PrecipitationMap,
-        CloudCoverageMap,
-        WindSpeedMap,
-        TemperatureMap,
-        HailProbabilityMap
-    };
+Q_NAMESPACE
 
-    Q_ENUM(MapType)
-
-    static QString mapTypeString(Vremenar::Weather::MapType type);
-    Q_INVOKABLE static QString mapTypeStringLocale(Vremenar::Weather::MapType type);
+enum MapType {
+    UnknownMap,
+    ForecastMap,
+    PrecipitationMap,
+    CloudCoverageMap,
+    WindSpeedMap,
+    TemperatureMap,
+    HailProbabilityMap
 };
 
-} // namespace Vremenar
+Q_ENUM_NS(MapType)
+
+QString mapTypeString(Vremenar::Weather::MapType type);
+Q_INVOKABLE QString mapTypeStringLocale(Vremenar::Weather::MapType type);
+
+} // namespace Vremenar::Weather
 
 #endif // VREMENAR_WEATHER_H_
