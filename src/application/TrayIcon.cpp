@@ -19,6 +19,7 @@ TrayIcon::TrayIcon(QObject *parent)
       _menu(std::make_unique<QMenu>()),
       _menuDock(std::make_unique<QMenu>()),
       _actionShow(std::make_unique<QAction>(tr("Show"))),
+      _actionSettings(std::make_unique<QAction>(tr("Settings"))),
       _actionQuit(std::make_unique<QAction>(tr("Quit")))
 {
     QIcon icon(QStringLiteral(":/Vremenar/Logo/logo_tray.png"));
@@ -32,6 +33,7 @@ TrayIcon::TrayIcon(QObject *parent)
 
     connect(this, &TrayIcon::activated, this, &TrayIcon::activatedCallback);
     connect(_actionShow.get(), &QAction::triggered, this, &TrayIcon::clicked);
+    connect(_actionSettings.get(), &QAction::triggered, this, &TrayIcon::settings);
     connect(_actionQuit.get(), &QAction::triggered, this, &TrayIcon::quit);
 }
 
@@ -76,6 +78,7 @@ void TrayIcon::createMenu(const QStringList &maps)
     }
 
     _menu->addSeparator();
+    _menu->addAction(_actionSettings.get());
     _menu->addAction(_actionQuit.get());
 }
 

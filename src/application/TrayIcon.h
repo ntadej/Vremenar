@@ -35,6 +35,7 @@ public Q_SLOTS:
 
 Q_SIGNALS:
     void clicked();
+    void settings();
     void quit();
     void mapSelected(int index);
 
@@ -47,6 +48,7 @@ private:
     std::unique_ptr<QMenu> _menuDock{};
     std::unique_ptr<QActionGroup> _actionGroup{};
     std::unique_ptr<QAction> _actionShow{};
+    std::unique_ptr<QAction> _actionSettings{};
     std::unique_ptr<QAction> _actionQuit{};
 };
 
