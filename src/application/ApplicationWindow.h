@@ -75,6 +75,7 @@ private:
 
     // Application
     std::unique_ptr<QQmlApplicationEngine> _engine;
+    bool _ready{};
 
     gsl::owner<NetworkManager *> _network; // owned by Qt internally
 

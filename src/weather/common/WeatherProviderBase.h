@@ -74,6 +74,7 @@ Q_SIGNALS:
     void lastUpdateTimeChangedCurrent();
     void loadingChanged();
     void currentMapLayerChangedSignal(int);
+    void storeState();
 
 protected:
     void setupCurrentWeather(std::unique_ptr<CurrentWeatherBase> ptr) { _currentWeather = std::move(ptr); }

@@ -141,15 +141,18 @@ void ApplicationWindow::writeSettingsStartup()
 void ApplicationWindow::writeSettingsStartupMap()
 {
     Settings settings(this);
-    if (settings.startupMapEnabled()) {
+    if (_ready && settings.startupMapEnabled()) {
         auto mapObject = _qmlMainWindow->findChild<QObject *>(QStringLiteral("mapObject"));
 
         settings.setStartupMapType(_weatherProvider->currentType());
-        settings.setStartupMapZoomLevel(QQmlProperty::read(mapObject, QStringLiteral("zoomLevel")).toReal());
 
-        auto center = QQmlProperty::read(mapObject, QStringLiteral("center")).value<QGeoCoordinate>();
-        settings.setStartupMapLatitude(center.latitude());
-        settings.setStartupMapLongitude(center.longitude());
+        if (mapObject != nullptr) {
+            settings.setStartupMapZoomLevel(QQmlProperty::read(mapObject, QStringLiteral("zoomLevel")).toReal());
+
+            auto center = QQmlProperty::read(mapObject, QStringLiteral("center")).value<QGeoCoordinate>();
+            settings.setStartupMapLatitude(center.latitude());
+            settings.setStartupMapLongitude(center.longitude());
+        }
 
         settings.writeSettings();
     }
@@ -159,6 +162,7 @@ void ApplicationWindow::createModels()
 {
     _location = std::make_unique<LocationProvider>(this);
     _weatherProvider = std::make_unique<ARSO::WeatherProvider>(_network, this);
+    connect(_weatherProvider.get(), &WeatherProviderBase::storeState, this, &ApplicationWindow::writeSettingsStartupMap);
 
     _engine->rootContext()->setContextProperty(QStringLiteral("Vremenar"), this);
     _engine->rootContext()->setContextProperty(QStringLiteral("VL"), _localeManager.get());
@@ -244,6 +248,8 @@ void ApplicationWindow::startCompleted()
     } else {
         _weatherProvider->changeMapType(Weather::ForecastMap);
     }
+
+    _ready = true;
 
     qDebug() << "Initialization completed";
 }
