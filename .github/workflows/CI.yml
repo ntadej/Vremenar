@@ -71,8 +71,12 @@ jobs:
           ARSO_API_ENDPOINT: ${{ secrets.ARSO_API_ENDPOINT }}
           ARSO_API_RESOURCES: ${{ secrets.ARSO_API_RESOURCES }}
         run: |
+          # Qt patches
           wget -c -nv "https://dl.bintray.com/tano-si/Vremenar-Dependencies/qcocoa/5.14.0/libqcocoa.dylib"
+          wget -c -nv "https://dl.bintray.com/tano-si/Vremenar-Dependencies/mapbox-gl-native/5.14.2/clang_x64/libqtgeoservices_mapboxgl.dylib"
           cp libqcocoa.dylib $Qt5_Dir/plugins/platforms/
+          cp libqtgeoservices_mapboxgl.dylib $Qt5_Dir/plugins/geoservices/
+          # Build
           qmake $VREMENAR_PATH/Vremenar.pro -spec macx-clang CONFIG+=x86_64 CONFIG+=qtquickcompiler
           make -j2
           macdeployqt Vremenar.app -qmldir=$VREMENAR_PATH/src/qml/ -dmg
@@ -123,6 +127,15 @@ jobs:
           # Fix Qt deployment
           sed -i -e 's/qmake_qmake_immediate/qmake_qmake_qm_files/g' \
             $Qt5_Dir/mkspecs/features/android/android_deployment_settings.prf
+          # Qt patches
+          wget -c -nv "https://dl.bintray.com/tano-si/Vremenar-Dependencies/mapbox-gl-native/5.14.2/android/libplugins_geoservices_qtgeoservices_mapboxgl_arm64-v8a.so"
+          wget -c -nv "https://dl.bintray.com/tano-si/Vremenar-Dependencies/mapbox-gl-native/5.14.2/android/libplugins_geoservices_qtgeoservices_mapboxgl_armeabi-v7a.so"
+          wget -c -nv "https://dl.bintray.com/tano-si/Vremenar-Dependencies/mapbox-gl-native/5.14.2/android/libplugins_geoservices_qtgeoservices_mapboxgl_x86.so"
+          wget -c -nv "https://dl.bintray.com/tano-si/Vremenar-Dependencies/mapbox-gl-native/5.14.2/android/libplugins_geoservices_qtgeoservices_mapboxgl_x86_64.so"
+          cp libplugins_geoservices_qtgeoservices_mapboxgl_arm64-v8a.so $Qt5_Dir/plugins/geoservices/
+          cp libplugins_geoservices_qtgeoservices_mapboxgl_armeabi-v7a.so $Qt5_Dir/plugins/geoservices/
+          cp libplugins_geoservices_qtgeoservices_mapboxgl_x86.so $Qt5_Dir/plugins/geoservices/
+          cp libplugins_geoservices_qtgeoservices_mapboxgl_x86_64.so $Qt5_Dir/plugins/geoservices/
           # Build
           export ANDROID_NDK_ROOT=$ANDROID_SDK_ROOT/ndk-bundle
           qmake $VREMENAR_PATH/Vremenar.pro -spec android-clang CONFIG+=qtquickcompiler ANDROID_ABIS="armeabi-v7a arm64-v8a x86 x86_64"
