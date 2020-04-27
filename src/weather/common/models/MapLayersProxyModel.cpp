@@ -34,6 +34,15 @@ MapLayersProxyModel::MapLayersProxyModel(QObject *parent)
     _timer->setInterval(timerInterval);
 }
 
+void MapLayersProxyModel::setUpdating(bool updating)
+{
+    _updating = updating;
+
+    if (!_updating) {
+        Q_EMIT timestampChanged();
+    }
+}
+
 void MapLayersProxyModel::setDefaultCoordinates(QVariant coordinates)
 {
     _coordinates = std::move(coordinates);
@@ -81,7 +90,7 @@ void MapLayersProxyModel::setTimestamp(qint64 time)
             if (data(in, MapLayer::TimeRole).toDateTime().toMSecsSinceEpoch() == _time) {
                 _url = data(in, MapLayer::UrlRole).toUrl().toString();
                 if (_url.contains(QStringLiteral("json"))) {
-                    _url = QStringLiteral("qrc:/Vremenar/Maps/icons/blank.png");
+                    _url = QString();
                 }
                 _coordinates = data(in, MapLayer::CoordinatesRole);
                 _row = i;
@@ -89,7 +98,17 @@ void MapLayersProxyModel::setTimestamp(qint64 time)
             }
         }
 
-        Q_EMIT timestampChanged();
+        if (!_updating) {
+            Q_EMIT timestampChanged();
+        }
+    }
+}
+
+void MapLayersProxyModel::setImage(const QString &image)
+{
+    if (_image != image) {
+        _image = image;
+        Q_EMIT imageChanged();
     }
 }
 

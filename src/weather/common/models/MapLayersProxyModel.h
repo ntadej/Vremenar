@@ -18,6 +18,8 @@
 #include <QtCore/QSortFilterProxyModel>
 #include <QtCore/QTimer>
 
+#include "weather/common/Weather.h"
+
 namespace Vremenar
 {
 
@@ -32,6 +34,7 @@ class MapLayersProxyModel : public QSortFilterProxyModel
     Q_PROPERTY(QString day READ day NOTIFY timestampChanged)
 
     Q_PROPERTY(QString url READ url NOTIFY timestampChanged)
+    Q_PROPERTY(QString image READ image NOTIFY imageChanged)
     Q_PROPERTY(QVariant coordinates READ coordinates NOTIFY timestampChanged)
 
     Q_PROPERTY(bool animated READ animated NOTIFY animatedChanged)
@@ -47,10 +50,14 @@ public:
     [[nodiscard]] QString day() const;
 
     [[nodiscard]] inline const QString &url() const { return _url; }
+    [[nodiscard]] inline const QString &image() const { return _image; }
+    void setImage(const QString &image);
     [[nodiscard]] inline const QVariant &coordinates() const { return _coordinates; }
     void setDefaultCoordinates(QVariant coordinates);
 
     [[nodiscard]] inline bool animated() const { return _animated; }
+
+    void setUpdating(bool updating);
 
     Q_INVOKABLE void previous();
     Q_INVOKABLE void next();
@@ -61,6 +68,7 @@ public:
 Q_SIGNALS:
     void rowCountChanged();
     void timestampChanged();
+    void imageChanged();
     void animatedChanged();
 
 private Q_SLOTS:
@@ -72,9 +80,11 @@ private:
 
     std::unique_ptr<QTimer> _timer{};
     bool _animated{false};
+    bool _updating{false};
 
     qint64 _time{};
     QString _url;
+    QString _image{Weather::blankPng};
     QVariant _coordinates;
     int _row{};
 };

@@ -20,6 +20,7 @@ namespace Vremenar
 namespace ARSO
 {
 
+APIRequest mapImage(const QString &url);
 APIRequest mapForecast();
 APIRequest mapForecastDetails(const QString &url);
 APIRequest mapLayers(Weather::MapType type);

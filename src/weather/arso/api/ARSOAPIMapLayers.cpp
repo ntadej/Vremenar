@@ -16,6 +16,17 @@
 namespace Vremenar
 {
 
+ARSO::APIRequest ARSO::mapImage(const QString &url)
+{
+    APIRequest request;
+    request.setBaseUrl(QString());
+    request.setCall(QStringLiteral("/image"));
+    request.setUrl(url);
+    request.setAttribute(QNetworkRequest::CacheLoadControlAttribute, QNetworkRequest::PreferCache);
+
+    return request;
+}
+
 ARSO::APIRequest ARSO::mapForecast()
 {
     APIRequest request;

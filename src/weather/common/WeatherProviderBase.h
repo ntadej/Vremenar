@@ -51,6 +51,7 @@ public:
 
     virtual void requestCurrentWeatherInfo(const QGeoCoordinate &coordinate) = 0;
     virtual void requestForecastDetails(const QString &url) = 0;
+    virtual void requestImage(const QString &url) = 0;
     virtual void requestMapLayers(Weather::MapType type) = 0;
 
     [[nodiscard]] virtual bool currentMapLayerHasLegend() const = 0;

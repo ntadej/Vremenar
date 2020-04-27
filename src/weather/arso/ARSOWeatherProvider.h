@@ -32,6 +32,7 @@ public:
                              QObject *parent = nullptr);
 
     Q_INVOKABLE void requestCurrentWeatherInfo(const QGeoCoordinate &coordinate) final;
+    Q_INVOKABLE void requestImage(const QString &url) final;
     Q_INVOKABLE void requestForecastDetails(const QString &url) final;
     Q_INVOKABLE void requestMapLayers(Weather::MapType type) final;
 

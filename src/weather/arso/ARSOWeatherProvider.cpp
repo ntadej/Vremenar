@@ -9,9 +9,11 @@
 * SPDX-License-Identifier: (GPL-3.0-or-later AND MPL-2.0)
 */
 
+#include <QtCore/QBuffer>
 #include <QtCore/QJsonArray>
 #include <QtCore/QJsonDocument>
 #include <QtCore/QJsonObject>
+#include <QtGui/QImage>
 
 #include "common/NetworkManager.h"
 #include "weather/arso/ARSOCurrentWeather.h"
@@ -77,12 +79,23 @@ void ARSO::WeatherProvider::requestForecastDetails(const QString &url)
     currentReplies()->insert(network()->request(request), request);
 }
 
+void ARSO::WeatherProvider::requestImage(const QString &url)
+{
+    qDebug() << "Requesting image:" << url;
+
+    setLoading(true);
+
+    APIRequest request = ARSO::mapImage(url);
+    currentReplies()->insert(network()->request(request), request);
+}
+
 void ARSO::WeatherProvider::requestMapLayers(Weather::MapType type)
 {
     qDebug() << "Requesting map type:" << type;
 
     setLoading(true);
 
+    mapLayers()->setUpdating(true);
     _forecastModel->clear();
     _mapLayersModel->clear();
 
@@ -101,8 +114,26 @@ void ARSO::WeatherProvider::response(QNetworkReply *reply)
         return;
     }
 
+    qDebug() << "Request done:" << reply->url() << reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
+
     bool valid{};
 
+    if (currentReplies()->value(reply).call() == QStringLiteral("/image")) {
+        QImage image;
+        image.loadFromData(reply->readAll());
+
+        QByteArray byteArray;
+        QBuffer buffer(&byteArray);
+        image.save(&buffer, "PNG");
+        QString iconBase64 = QString::fromLatin1(byteArray.toBase64().data());
+        mapLayers()->setImage(QStringLiteral("data:image/jpeg;base64,") + iconBase64);
+
+        removeResponse(reply);
+        setLoading(false);
+        return;
+    }
+
+    // JSON
     QJsonDocument document = QJsonDocument::fromJson(reply->readAll());
     if (currentReplies()->value(reply).call() == QStringLiteral("/locations/coordinate")) {
         QJsonObject properties = document.object()[QStringLiteral("properties")].toObject();
@@ -124,11 +155,15 @@ void ARSO::WeatherProvider::response(QNetworkReply *reply)
     }
 
     if (currentReplies()->value(reply).call() == QStringLiteral("/forecast_data")) {
+        mapLayers()->setUpdating(true);
+
         _forecastModel->clear();
         _mapLayersModel->clear();
         _mapLayersModel->addMapLayers(Weather::ForecastMap, document.array());
 
         removeResponse(reply);
+
+        currentTimeChanged();
         return;
     }
 
@@ -138,6 +173,8 @@ void ARSO::WeatherProvider::response(QNetworkReply *reply)
         removeResponse(reply);
         valid = true;
     } else if (currentReplies()->value(reply).call() == QStringLiteral("/inca_data")) {
+        mapLayers()->setUpdating(true);
+
         auto type = Weather::MapType(currentReplies()->value(reply).extra().toInt());
         _mapLayersModel->clear();
         _mapLayersModel->addMapLayers(type, document.array());
@@ -150,6 +187,8 @@ void ARSO::WeatherProvider::response(QNetworkReply *reply)
         return;
     }
 
+    mapLayers()->setUpdating(false);
+
     setLastUpdatedTime(QDateTime::currentDateTime());
     setLoading(false);
     startTimer();
@@ -159,6 +198,7 @@ void ARSO::WeatherProvider::response(QNetworkReply *reply)
 void ARSO::WeatherProvider::currentTimeChanged()
 {
     if (currentType() != Weather::ForecastMap) {
+        requestImage(mapLayers()->url());
         return;
     }
 
@@ -166,6 +206,8 @@ void ARSO::WeatherProvider::currentTimeChanged()
     if (layer == nullptr) {
         return;
     }
+
+    mapLayers()->setImage(QStringLiteral("data:image/jpeg;base64,") + Weather::blankPng);
 
     if (!layer->loaded()) {
         requestForecastDetails(layer->url().toString());

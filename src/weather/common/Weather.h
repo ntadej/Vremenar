@@ -14,6 +14,8 @@
 
 #include <QtCore/QObject>
 
+#include "common/Helpers.h"
+
 namespace Vremenar::Weather
 {
 
@@ -33,6 +35,8 @@ Q_ENUM_NS(MapType)
 
 QString mapTypeString(Vremenar::Weather::MapType type);
 Q_INVOKABLE QString mapTypeStringLocale(Vremenar::Weather::MapType type);
+
+constexpr CString blankPng{"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="};
 
 } // namespace Vremenar::Weather
 
