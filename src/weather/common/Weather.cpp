@@ -20,7 +20,7 @@ QString Weather::mapTypeString(MapType type)
     case ForecastMap:
         return QStringLiteral("forecast");
     case PrecipitationMap:
-        return QStringLiteral("precipitaion");
+        return QStringLiteral("precipitation");
     case CloudCoverageMap:
         return QStringLiteral("cloud");
     case WindSpeedMap:

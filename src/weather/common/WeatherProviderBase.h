@@ -15,6 +15,7 @@
 #include <QtCore/QTimer>
 #include <QtPositioning/QGeoCoordinate>
 
+#include "application/analytics/Analytics.h"
 #include "common/api/APILoader.h"
 #include "common/containers/Hyperlink.h"
 #include "weather/common/CurrentWeatherBase.h"
@@ -66,11 +67,13 @@ public:
     [[nodiscard]] int currentMapLayer() const;
 
 public Q_SLOTS:
-    Q_INVOKABLE void changeMapType(Weather::MapType type);
+    Q_INVOKABLE void changeMapType(Weather::MapType type,
+                                   bool action = false);
     Q_INVOKABLE void currentMapLayerChanged(int index);
     Q_INVOKABLE void refresh();
 
 Q_SIGNALS:
+    void recordEvent(Analytics::EventType, const QString &payload);
     void lastUpdateTimeChanged();
     void lastUpdateTimeChangedCurrent();
     void loadingChanged();

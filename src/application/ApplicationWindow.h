@@ -19,6 +19,7 @@
 #include <QtGui/QWindow>
 #include <QtQml/QQmlApplicationEngine>
 
+#include "application/analytics/Analytics.h"
 #include "common/LocaleManager.h"
 #include "common/NetworkManagerFactory.h"
 #include "location/LocationProvider.h"
@@ -79,6 +80,7 @@ private:
 
     gsl::owner<NetworkManager *> _network; // owned by Qt internally
 
+    std::unique_ptr<Analytics> _analytics;
     std::unique_ptr<LocaleManager> _localeManager;
     std::unique_ptr<LocationProvider> _location;
     std::unique_ptr<NetworkManagerFactory> _networkFactory;

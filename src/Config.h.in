@@ -29,6 +29,10 @@ constexpr CString mapsEndpoint = \"$${MAPS_ENDPOINT}\";
 constexpr CString ARSOAPIEndpoint = \"$${ARSO_API_ENDPOINT}\";
 constexpr CString ARSOAPIResources = \"$${ARSO_API_RESOURCES}\";
 
+constexpr CString CountlyAppKey = \"$${COUNTLY_APPKEY}\";
+constexpr CString CountlyEndpoint = \"$${COUNTLY_ENDPOINT}\";
+constexpr CString CountlySalt = \"$${COUNTLY_SALT}\";       
+
 } // namespace Vremenar
 
 #endif // VREMENAR_CONFIG_H_

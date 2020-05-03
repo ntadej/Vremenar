@@ -46,6 +46,7 @@ ApplicationWindow::ApplicationWindow(QObject *parent)
     : QObject(parent),
       _engine(std::make_unique<QQmlApplicationEngine>(this)),
       _network(new NetworkManager(this)),
+      _analytics(std::make_unique<Analytics>(this)),
       _localeManager(std::make_unique<LocaleManager>(this)),
       _networkFactory(std::make_unique<NetworkManagerFactory>(this))
 {
@@ -162,6 +163,7 @@ void ApplicationWindow::createModels()
 {
     _location = std::make_unique<LocationProvider>(this);
     _weatherProvider = std::make_unique<ARSO::WeatherProvider>(_network, this);
+    connect(_weatherProvider.get(), &WeatherProviderBase::recordEvent, _analytics.get(), &Analytics::recordEvent);
     connect(_weatherProvider.get(), &WeatherProviderBase::storeState, this, &ApplicationWindow::writeSettingsStartupMap);
 
     _engine->rootContext()->setContextProperty(QStringLiteral("Vremenar"), this);

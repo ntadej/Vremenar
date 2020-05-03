@@ -1,6 +1,6 @@
 #
 # Vremenar
-# Copyright (C) 2019 Tadej Novak <tadej@tano.si>
+# Copyright (C) 2020 Tadej Novak <tadej@tano.si>
 #
 # This application is bi-licensed under the GNU General Public License
 # Version 3 or later as well as Mozilla Public License Version 2.
@@ -12,10 +12,14 @@
 SOURCES += \
     src/application/ApplicationWindow.cpp \
     src/application/BaseApplication.cpp \
+    src/application/analytics/Analytics.cpp \
+    src/application/analytics/AnalyticsEngine.cpp
 
 HEADERS += \
     src/application/ApplicationWindow.h \
-    src/application/BaseApplication.h
+    src/application/BaseApplication.h \
+    src/application/analytics/Analytics.h \
+    src/application/analytics/AnalyticsEngine.h
 
 # Desktop specific
 desktop {
@@ -47,5 +51,9 @@ mobile {
 # macOS specific
 macx {
     OBJECTIVE_SOURCES += \
-        src/application/DesktopApplicationMacOS.mm
+        src/application/DesktopApplicationMacOS.mm \
+        src/application/analytics/AnalyticsEngineMacOSiOS.mm
+
+    HEADERS += \
+        src/application/analytics/AnalyticsEngineMacOSiOS.h
 }

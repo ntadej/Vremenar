@@ -42,10 +42,15 @@ WeatherProviderBase::WeatherProviderBase(NetworkManager *network,
     connect(_timerCurrent.get(), &QTimer::timeout, this, &WeatherProviderBase::timerCallbackCurrent);
 }
 
-void WeatherProviderBase::changeMapType(Weather::MapType type)
+void WeatherProviderBase::changeMapType(Weather::MapType type,
+                                        bool action)
 {
     if (_currentType == type) {
         return;
+    }
+
+    if (action) {
+        Q_EMIT recordEvent(Analytics::MapTypeChanged, Weather::mapTypeString(type));
     }
 
     _currentType = type;
@@ -65,7 +70,7 @@ void WeatherProviderBase::currentMapLayerChanged(int index)
         return;
     }
 
-    changeMapType(_mapInfoModel->row<MapInfo>(index)->type());
+    changeMapType(_mapInfoModel->row<MapInfo>(index)->type(), true);
 }
 
 int WeatherProviderBase::currentMapLayer() const

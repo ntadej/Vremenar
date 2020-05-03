@@ -19,3 +19,6 @@ QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.12
 # Info.plist & icons
 QMAKE_INFO_PLIST = $$top_srcdir/resources/macOS/Info.plist
 ICON = $$top_srcdir/resources/macOS/Vremenar.icns
+
+# Countly
+LIBS += -framework Countly
