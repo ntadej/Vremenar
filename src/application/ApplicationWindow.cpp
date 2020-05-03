@@ -143,7 +143,7 @@ void ApplicationWindow::writeSettingsStartupMap()
 {
     Settings settings(this);
     if (_ready && settings.startupMapEnabled()) {
-        auto mapObject = _qmlMainWindow->findChild<QObject *>(QStringLiteral("mapObject"));
+        auto *mapObject = _qmlMainWindow->findChild<QObject *>(QStringLiteral("mapObject"));
 
         settings.setStartupMapType(_weatherProvider->currentType());
 

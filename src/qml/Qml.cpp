@@ -31,8 +31,8 @@ void Qml::registerTypes()
     qmlRegisterSingletonType<UIManager>(uri, 1, 0, "UI", UIManager::provider);
     qmlRegisterSingletonType<Settings>(uri, 1, 0, "Settings", Globals::providerSettings);
 
-    qmlRegisterUncreatableMetaObject(Common::staticMetaObject, uri, 1, 0, "Common", "Error: only enums");
-    qmlRegisterUncreatableMetaObject(Weather::staticMetaObject, uri, 1, 0, "Weather", "Error: only enums");
+    qmlRegisterUncreatableMetaObject(Common::staticMetaObject, uri, 1, 0, "Common", QStringLiteral("Error: only enums"));
+    qmlRegisterUncreatableMetaObject(Weather::staticMetaObject, uri, 1, 0, "Weather", QStringLiteral("Error: only enums"));
 }
 
 } // namespace Vremenar

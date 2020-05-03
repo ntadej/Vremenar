@@ -51,7 +51,7 @@ void TrayIcon::activatedCallback(QSystemTrayIcon::ActivationReason reason)
 
 void TrayIcon::mapSelectedCallback()
 {
-    auto action = qobject_cast<QAction *>(sender());
+    auto *action = qobject_cast<QAction *>(sender());
     if (action == nullptr) {
         return;
     }

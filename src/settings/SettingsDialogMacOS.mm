@@ -42,7 +42,7 @@ void SettingsDialog::initializeMacOS()
     [toolbar setSelectedItemIdentifier:toolbarItemId];
 
     // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
-    auto view = reinterpret_cast<NSView *>(window()->winId());
+    auto *view = reinterpret_cast<NSView *>(window()->winId());
     NSWindow *window = [view window];
     NSRect frame = [window frame];
     double extraHeight = frame.size.height - NSHeight([[window contentView] frame]);
@@ -61,13 +61,13 @@ void SettingsDialog::retranslateMacOS()
 void SettingsDialog::actionToggledMacOS()
 {
     // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
-    auto view = reinterpret_cast<NSView *>(window()->winId());
+    auto *view = reinterpret_cast<NSView *>(window()->winId());
     NSWindow *window = [view window];
     NSRect frame = [window frame];
 
     double extraHeight = frame.size.height - NSHeight([[window contentView] frame]);
     int stackHeight = 0;
-    auto item = qobject_cast<QMacToolBarItem *>(sender());
+    auto *item = qobject_cast<QMacToolBarItem *>(sender());
     ui->stackedWidget->hide();
     if (item == _macItemGeneral.get()) {
         ui->stackedWidget->setCurrentWidget(ui->pageGeneral);

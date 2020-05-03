@@ -39,7 +39,7 @@ ForecastEntry *ARSO::ForecastModel::createEntry(const QJsonObject &data)
 
     int temperature{};
     int temperatureLow{-1000}; // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
-    if (timeline.contains("txsyn")) {
+    if (timeline.contains(QStringLiteral("txsyn"))) {
         temperature = timeline[QStringLiteral("txsyn")].toString().toInt();
         temperatureLow = timeline[QStringLiteral("tnsyn")].toString().toInt();
     } else {

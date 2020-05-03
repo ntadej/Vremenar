@@ -36,7 +36,7 @@ QNetworkReply *NetworkManager::request(const APIRequestBase &request)
 {
     qDebug() << "Requesting:" << request.url();
 
-    QNetworkReply *reply;
+    QNetworkReply *reply{};
     switch (request.operation()) {
     case QNetworkAccessManager::PostOperation:
         reply = post(request, request.data());
