@@ -19,7 +19,17 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.WindowInsets;
 
+import ly.count.android.sdk.Countly;
+import ly.count.android.sdk.CountlyConfig;
+
 import org.qtproject.qt5.android.bindings.QtActivity;
+
+class VremenarCountlyNativeInterface
+{
+    public static native String appKey();
+    public static native String endpoint();
+    public static native String salt();
+}
 
 public class VremenarActivity extends QtActivity
 {
@@ -51,6 +61,10 @@ public class VremenarActivity extends QtActivity
         return margins;
     }
 
+    public void recordEvent(String event) {
+        Countly.sharedInstance().events().recordEvent(event);
+    }
+
     @Override
     protected void onCreateHook(Bundle savedInstanceState) {
         this.QT_ANDROID_DEFAULT_THEME = "VremenarTheme";
@@ -63,6 +77,36 @@ public class VremenarActivity extends QtActivity
             int uiOptions = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
             decorView.setSystemUiVisibility(uiOptions);
         }
+
+        // Initialise Countly
+        CountlyConfig config = new CountlyConfig(this, VremenarCountlyNativeInterface.appKey(), VremenarCountlyNativeInterface.endpoint());
+        config.setLoggingEnabled(true);
+        config.setViewTracking(false);
+        config.enableCrashReporting();
+        config.setParameterTamperingProtectionSalt(VremenarCountlyNativeInterface.salt());
+
+        Countly.sharedInstance().init(config);
+        Countly.sharedInstance().onCreate(this);
+    }
+
+    @Override
+    public void onStart()
+    {
+        super.onStart();
+        Countly.sharedInstance().onStart(this);
+    }
+
+    @Override
+    public void onStop()
+    {
+        Countly.sharedInstance().onStop();
+        super.onStop();
+    }
+
+    @Override
+    public void onConfigurationChanged (Configuration newConfig){
+        super.onConfigurationChanged(newConfig);
+        Countly.sharedInstance().onConfigurationChanged(newConfig);
     }
 
     @Override

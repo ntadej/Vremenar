@@ -13,6 +13,8 @@
 
 #if defined(Q_OS_MACOS) || defined(Q_OS_IOS)
 #include "application/analytics/AnalyticsEngineMacOSiOS.h"
+#elif defined(Q_OS_ANDROID)
+#include "application/analytics/AnalyticsEngineAndroid.h"
 #endif
 
 namespace Vremenar
@@ -23,6 +25,8 @@ Analytics::Analytics(QObject *parent)
 {
 #if defined(Q_OS_MACOS) || defined(Q_OS_IOS)
     _engine = std::make_unique<AnalyticsEngineMacOSiOS>();
+#elif defined(Q_OS_ANDROID)
+    _engine = std::make_unique<AnalyticsEngineAndroid>();
 #endif
 }
 
@@ -46,6 +50,10 @@ QString Analytics::eventString(EventType type,
 void Analytics::recordEvent(EventType type,
                             const QString &payload) const
 {
+    if (_engine == nullptr) {
+        return;
+    }
+
     QString event = eventString(type, payload);
     _engine->recordEvent(event);
 }

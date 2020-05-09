@@ -62,3 +62,12 @@ macx|ios {
     HEADERS += \
         src/application/analytics/AnalyticsEngineMacOSiOS.h
 }
+
+# Android specific
+android {
+    SOURCES += \
+        src/application/analytics/AnalyticsEngineAndroid.cpp
+
+    HEADERS += \
+        src/application/analytics/AnalyticsEngineAndroid.h
+}

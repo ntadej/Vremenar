@@ -11,6 +11,11 @@
 # Android extras
 QT += androidextras
 
+# Define substitution files
+iOSPlist.input = $$top_srcdir/resources/Android/AndroidManifest.xml.in
+iOSPlist.output = $$top_srcdir/resources/Android/output/AndroidManifest.xml
+QMAKE_SUBSTITUTES += iOSPlist
+
 # Android packaging
 DISTFILES += \
     $$top_srcdir/resources/Android/output/AndroidManifest.xml \
