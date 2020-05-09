@@ -20,18 +20,24 @@
 #include <QtLocation/QGeoServiceProvider>
 #include <QtPositioning/QGeoPositionInfoSource>
 
+#include "location/LocationProviderPlatform.h"
+
 namespace Vremenar
 {
 
 class LocationProvider : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(bool supported READ supported NOTIFY supportedChanged)
+    Q_PROPERTY(bool enabled READ enabled NOTIFY enabledChanged)
     Q_PROPERTY(QGeoCoordinate initial READ initialPosition CONSTANT)
     Q_PROPERTY(QGeoCoordinate position READ currentPosition NOTIFY positionChanged)
     Q_PROPERTY(QString location READ currentLocation NOTIFY locationChanged)
 public:
     explicit LocationProvider(QObject *parent = nullptr);
 
+    [[nodiscard]] bool supported() const;
+    [[nodiscard]] bool enabled() const;
     [[nodiscard]] QGeoCoordinate initialPosition() const;
     [[nodiscard]] QGeoCoordinate currentPosition() const;
     [[nodiscard]] QString currentLocation() const;
@@ -39,8 +45,13 @@ public:
     Q_INVOKABLE void requestPositionUpdate();
 
 Q_SIGNALS:
+    void supportedChanged();
+    void enabledChanged();
     void positionChanged(QGeoCoordinate);
     void locationChanged();
+
+public Q_SLOTS:
+    void supportedMethodsChanged();
 
 private Q_SLOTS:
     void positionUpdated(const QGeoPositionInfo &info);
@@ -53,10 +64,16 @@ private Q_SLOTS:
                                const QString &errorString);
 
 private:
+#if defined(Q_OS_MACOS) || defined(Q_OS_IOS)
+    void initMacOSiOS();
+#endif
+
+    std::unique_ptr<LocationProviderPlatform> _platform{};
+
     std::unique_ptr<QTimer> _timer{};
 
-    std::unique_ptr<QGeoPositionInfoSource> _position;
-    std::unique_ptr<QGeoServiceProvider> _provider;
+    std::unique_ptr<QGeoPositionInfoSource> _position{};
+    std::unique_ptr<QGeoServiceProvider> _provider{};
 
     QGeoPositionInfo _initialPosition;
     QGeoPositionInfo _currentPosition;

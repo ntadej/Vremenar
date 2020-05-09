@@ -36,14 +36,14 @@ namespace Vremenar
 {
 class NetworkManager;
 
-class ApplicationWindow : public QObject
+class ApplicationWindow final : public QObject
 {
     Q_OBJECT
 public:
     explicit ApplicationWindow(QObject *parent = nullptr);
     ApplicationWindow(const ApplicationWindow &) = delete;
     ApplicationWindow &operator=(ApplicationWindow) = delete;
-    ~ApplicationWindow() final;
+    ~ApplicationWindow();
 
 public Q_SLOTS:
     void activate();

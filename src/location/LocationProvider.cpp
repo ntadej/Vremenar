@@ -30,6 +30,10 @@ LocationProvider::LocationProvider(QObject *parent)
     : QObject(parent),
       _timer(std::make_unique<QTimer>(this))
 {
+#if defined(Q_OS_MACOS) || defined(Q_OS_IOS)
+    initMacOSiOS();
+#endif
+
     _timer->setInterval(updateInterval);
     _timer->setSingleShot(true);
 
@@ -51,6 +55,8 @@ LocationProvider::LocationProvider(QObject *parent)
     if (_position) {
         connect(_timer.get(), &QTimer::timeout, this, &LocationProvider::requestPositionUpdate);
 
+        connect(_position.get(), SIGNAL(supportedPositioningMethodsChanged()),
+                this, SLOT(supportedMethodsChanged()));
         connect(_position.get(), SIGNAL(positionUpdated(QGeoPositionInfo)),
                 this, SLOT(positionUpdated(QGeoPositionInfo)));
         connect(_position.get(), SIGNAL(error(QGeoPositionInfoSource::Error)),
@@ -61,6 +67,24 @@ LocationProvider::LocationProvider(QObject *parent)
     } else {
         qWarning() << "Positioning source could not be initialised.";
     }
+}
+
+bool LocationProvider::supported() const
+{
+#if defined(Q_OS_MACOS) || defined(Q_OS_IOS)
+    return _platform->servicesEnabled();
+#else
+    return true;
+#endif
+}
+
+bool LocationProvider::enabled() const
+{
+#if defined(Q_OS_MACOS) || defined(Q_OS_IOS)
+    return _platform->servicesAllowed();
+#else
+    return true;
+#endif
 }
 
 void LocationProvider::requestPositionUpdate()
@@ -122,6 +146,20 @@ void LocationProvider::positionError(QGeoPositionInfoSource::Error error)
 void LocationProvider::positionTimeout()
 {
     qWarning() << "Positioning has timed-out.";
+}
+
+void LocationProvider::supportedMethodsChanged()
+{
+    if (_position == nullptr) {
+        return;
+    }
+
+    qWarning() << "Supported positioning methods changed to:" << _position->supportedPositioningMethods();
+
+    Q_EMIT supportedChanged();
+    Q_EMIT enabledChanged();
+
+    requestPositionUpdate();
 }
 
 void LocationProvider::reverseGeocodingFinished(QGeoCodeReply *reply)

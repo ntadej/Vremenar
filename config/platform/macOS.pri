@@ -11,7 +11,7 @@
 
 # Extra libraries
 QT += macextras
-LIBS += -weak_framework ApplicationServices -weak_framework Cocoa
+LIBS += -weak_framework ApplicationServices -weak_framework Cocoa -weak_framework CoreLocation
 
 # Deployment target
 QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.12

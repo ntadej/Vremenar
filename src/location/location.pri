@@ -13,6 +13,16 @@ SOURCES += \
     src/location/LocationProvider.cpp \
     src/location/MapsCommon.cpp
 
- HEADERS += \
+HEADERS += \
     src/location/LocationProvider.h \
+    src/location/LocationProviderPlatform.h \
     src/location/MapsCommon.h
+
+# macOS/iOS specific
+macx|ios {
+    HEADERS += \
+        src/location/LocationProviderMacOSiOS.h
+
+    OBJECTIVE_SOURCES += \
+        src/location/LocationProviderMacOSiOS.mm
+}

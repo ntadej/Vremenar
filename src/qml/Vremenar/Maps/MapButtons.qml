@@ -17,8 +17,8 @@ import Vremenar.Common 1.0
 
 Item {
     width: UI.mapElementSize
-    height: (UI.showButtonMapType +  UI.showButtonMapPosition) * UI.mapElementSize + UI.lineThickness
-    visible: UI.showButtonMapType || UI.showButtonMapPosition
+    height: (UI.showButtonMapType + (UI.showButtonMapPosition && VLocation.supported && VLocation.enabled)) * UI.mapElementSize + UI.lineThickness
+    visible: UI.showButtonMapType || (UI.showButtonMapPosition && VLocation.supported && VLocation.enabled)
 
     Rectangle {
         id: rounded
@@ -60,14 +60,14 @@ Item {
 
         CommonLine {
             width: parent.width
-            visible: UI.showButtonMapType && UI.showButtonMapPosition
+            visible: UI.showButtonMapType && (UI.showButtonMapPosition && VLocation.supported && VLocation.enabled)
         }
 
         IconButton {
             icon: "ios-locate"
             family: "Ionicons"
             width: parent.width
-            visible: UI.showButtonMapPosition
+            visible: UI.showButtonMapPosition && VLocation.supported && VLocation.enabled
 
             onClicked: map.resetPosition()
         }
