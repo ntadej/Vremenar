@@ -28,7 +28,6 @@ namespace Vremenar
 class LocationProvider : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(bool supported READ supported NOTIFY supportedChanged)
     Q_PROPERTY(bool enabled READ enabled NOTIFY enabledChanged)
     Q_PROPERTY(QGeoCoordinate initial READ initialPosition CONSTANT)
     Q_PROPERTY(QGeoCoordinate position READ currentPosition NOTIFY positionChanged)
@@ -36,8 +35,7 @@ class LocationProvider : public QObject
 public:
     explicit LocationProvider(QObject *parent = nullptr);
 
-    [[nodiscard]] bool supported() const;
-    [[nodiscard]] bool enabled() const;
+    [[nodiscard]] bool enabled();
     [[nodiscard]] QGeoCoordinate initialPosition() const;
     [[nodiscard]] QGeoCoordinate currentPosition() const;
     [[nodiscard]] QString currentLocation() const;
@@ -45,7 +43,6 @@ public:
     Q_INVOKABLE void requestPositionUpdate();
 
 Q_SIGNALS:
-    void supportedChanged();
     void enabledChanged();
     void positionChanged(QGeoCoordinate);
     void locationChanged();
@@ -78,6 +75,8 @@ private:
     QGeoPositionInfo _initialPosition;
     QGeoPositionInfo _currentPosition;
     QGeoLocation _currentLocation;
+
+    QGeoPositionInfoSource::PositioningMethods _currentSupportedMethods;
 };
 
 } // namespace Vremenar

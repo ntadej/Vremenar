@@ -21,7 +21,8 @@
 namespace
 {
 constexpr int updateInterval{60000000};
-}
+constexpr int androidQuickUpdate{3000};
+} // namespace
 
 namespace Vremenar
 {
@@ -63,35 +64,41 @@ LocationProvider::LocationProvider(QObject *parent)
                 this, SLOT(positionError(QGeoPositionInfoSource::Error)));
         connect(_position.get(), SIGNAL(updateTimeout()), this, SLOT(positionTimeout()));
 
-        _position->requestUpdate();
+        positionUpdated(_position->lastKnownPosition());
+        requestPositionUpdate();
     } else {
         qWarning() << "Positioning source could not be initialised.";
     }
 }
 
-bool LocationProvider::supported() const
+bool LocationProvider::enabled()
 {
 #if defined(Q_OS_MACOS) || defined(Q_OS_IOS)
-    return _platform->servicesEnabled();
+    return _platform->servicesEnabled() && _platform->servicesAllowed();
 #else
-    return true;
-#endif
-}
+    if (_position != nullptr) {
+        QGeoPositionInfoSource::PositioningMethods methods = _position->supportedPositioningMethods();
+        if (_currentSupportedMethods != methods) {
+            Q_EMIT enabledChanged();
+            _currentSupportedMethods = methods;
+        }
+        return !(methods == 0 || methods.testFlag(QGeoPositionInfoSource::NoPositioningMethods));
+    }
 
-bool LocationProvider::enabled() const
-{
-#if defined(Q_OS_MACOS) || defined(Q_OS_IOS)
-    return _platform->servicesAllowed();
-#else
-    return true;
+    return false;
 #endif
 }
 
 void LocationProvider::requestPositionUpdate()
 {
     _timer->stop();
-    if (_position) {
+    if (_position && enabled()) {
+        qDebug() << "Request position update.";
+#ifdef Q_OS_ANDROID
+        _position->requestUpdate(androidQuickUpdate);
+#else
         _position->requestUpdate();
+#endif
     }
 }
 
@@ -112,6 +119,10 @@ QString LocationProvider::currentLocation() const
 
 void LocationProvider::positionUpdated(const QGeoPositionInfo &info)
 {
+    if (!info.isValid()) {
+        return;
+    }
+
     qDebug() << "Position updated:" << info;
 
     _currentPosition = info;
@@ -154,9 +165,10 @@ void LocationProvider::supportedMethodsChanged()
         return;
     }
 
-    qWarning() << "Supported positioning methods changed to:" << _position->supportedPositioningMethods();
+    _currentSupportedMethods = _position->supportedPositioningMethods();
 
-    Q_EMIT supportedChanged();
+    qDebug() << "Supported positioning methods changed to:" << _currentSupportedMethods;
+
     Q_EMIT enabledChanged();
 
     requestPositionUpdate();

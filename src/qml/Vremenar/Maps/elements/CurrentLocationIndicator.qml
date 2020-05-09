@@ -29,5 +29,5 @@ MapQuickItem {
         border.width: 2
     }
 
-    visible: VLocation.supported && VLocation.enabled
+    visible: VLocation.enabled
 }
