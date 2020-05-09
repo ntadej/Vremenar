@@ -2,6 +2,8 @@
 *.so
 config.pri
 
+/3rdparty/Countly
+
 /graphics/logo/web/*.png
 /graphics/weather/components/*.png
 /graphics/weather/modifiers/*.png

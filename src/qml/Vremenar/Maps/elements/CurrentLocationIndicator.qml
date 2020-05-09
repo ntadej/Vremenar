@@ -28,4 +28,6 @@ MapQuickItem {
         border.color: "white"
         border.width: 2
     }
+
+    visible: VLocation.supported && VLocation.enabled
 }

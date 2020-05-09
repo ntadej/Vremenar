@@ -11,7 +11,7 @@
 
 #include "application/analytics/Analytics.h"
 
-#ifdef Q_OS_MACOS
+#if defined(Q_OS_MACOS) || defined(Q_OS_IOS)
 #include "application/analytics/AnalyticsEngineMacOSiOS.h"
 #endif
 
@@ -21,7 +21,7 @@ namespace Vremenar
 Analytics::Analytics(QObject *parent)
     : QObject(parent)
 {
-#ifdef Q_OS_MACOS
+#if defined(Q_OS_MACOS) || defined(Q_OS_IOS)
     _engine = std::make_unique<AnalyticsEngineMacOSiOS>();
 #endif
 }

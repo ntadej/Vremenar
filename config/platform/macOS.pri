@@ -17,8 +17,17 @@ LIBS += -weak_framework ApplicationServices -weak_framework Cocoa -weak_framewor
 QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.12
 
 # Info.plist & icons
-QMAKE_INFO_PLIST = $$top_srcdir/resources/macOS/Info.plist
+macOSPlist.input = $$top_srcdir/resources/macOS/Info.plist.in
+macOSPlist.output = $$OUT_PWD/Info.plist
+QMAKE_SUBSTITUTES += macOSPlist
+QMAKE_INFO_PLIST = $$OUT_PWD/Info.plist
 ICON = $$top_srcdir/resources/macOS/Vremenar.icns
 
 # Countly
-LIBS += -framework Countly
+QMAKE_CXXFLAGS += -F$$top_srcdir/3rdparty/Countly/macOS
+LIBS += -F$$top_srcdir/3rdparty/Countly/macOS -framework Countly
+
+countly.files = $$top_srcdir/3rdparty/Countly/macOS/Countly.framework
+countly.path = Contents/Frameworks
+QMAKE_BUNDLE_DATA += countly
+QMAKE_RPATHDIR = @executable_path/../Frameworks

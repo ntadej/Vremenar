@@ -12,8 +12,13 @@
 # Private module for the safe area margins
 QT += gui-private
 
+# Define substitution files
+iOSPlist.input = $$top_srcdir/resources/iOS/Info.plist.in
+iOSPlist.output = $$OUT_PWD/Info.plist
+QMAKE_SUBSTITUTES += iOSPlist
+
 # Info.plist
-QMAKE_INFO_PLIST = $$top_srcdir/resources/iOS/Info.plist
+QMAKE_INFO_PLIST = $$OUT_PWD/Info.plist
 
 ios_icon.files = $$files($$top_srcdir/resources/iOS/logo/*.png)
 QMAKE_BUNDLE_DATA += ios_icon
@@ -28,3 +33,16 @@ QMAKE_BUNDLE_DATA += TRANSLATE_en
 TRANSLATE_sl.files = $$top_srcdir/resources/iOS/sl.lproj/InfoPlist.strings
 TRANSLATE_sl.path = sl.lproj
 QMAKE_BUNDLE_DATA += TRANSLATE_sl
+
+# Countly
+iphonesimulator {
+    LIBS += -F$$top_srcdir/3rdparty/Countly/iOSSimulator -framework Countly
+    countly.files = $$top_srcdir/3rdparty/Countly/iOSSimulator/Countly.framework
+} else {
+    LIBS += -F$$top_srcdir/3rdparty/Countly/iOS -framework Countly
+    countly.files = $$top_srcdir/3rdparty/Countly/iOS/Countly.framework
+}
+
+countly.path = Frameworks
+QMAKE_BUNDLE_DATA += countly
+QMAKE_RPATHDIR = @executable_path/Frameworks

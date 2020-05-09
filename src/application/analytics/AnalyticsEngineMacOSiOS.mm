@@ -24,7 +24,7 @@ namespace Vremenar
 AnalyticsEngineMacOSiOS::AnalyticsEngineMacOSiOS()
 {
     CountlyConfig *config = [[CountlyConfig alloc] init];
-    config.appKey = [NSString stringWithUTF8String:Vremenar::CountlyAppKey.data()];
+    config.appKey = [NSString stringWithUTF8String:Vremenar::CountlyAppKey.data()]; // NOLINT(clang-analyzer-nullability.NullPassedToNonnull)
     config.host = [NSString stringWithUTF8String:Vremenar::CountlyEndpoint.data()];
     config.secretSalt = [NSString stringWithUTF8String:Vremenar::CountlySalt.data()];
     config.features = @[ CLYCrashReporting ];

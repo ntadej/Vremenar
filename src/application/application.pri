@@ -51,7 +51,12 @@ mobile {
 # macOS specific
 macx {
     OBJECTIVE_SOURCES += \
-        src/application/DesktopApplicationMacOS.mm \
+        src/application/DesktopApplicationMacOS.mm
+}
+
+# macOS/iOS specific
+macx|ios {
+    OBJECTIVE_SOURCES += \
         src/application/analytics/AnalyticsEngineMacOSiOS.mm
 
     HEADERS += \
