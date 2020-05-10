@@ -21,7 +21,9 @@
 namespace
 {
 constexpr int updateInterval{60000000};
+#ifdef Q_OS_ANDROID
 constexpr int androidQuickUpdate{3000};
+#endif
 } // namespace
 
 namespace Vremenar
