@@ -35,14 +35,10 @@ TRANSLATE_sl.path = sl.lproj
 QMAKE_BUNDLE_DATA += TRANSLATE_sl
 
 # Countly
-iphonesimulator {
-    LIBS += -F$$top_srcdir/3rdparty/Countly/iOSSimulator -framework Countly
-    countly.files = $$top_srcdir/3rdparty/Countly/iOSSimulator/Countly.framework
-} else {
-    LIBS += -F$$top_srcdir/3rdparty/Countly/iOS -framework Countly
-    countly.files = $$top_srcdir/3rdparty/Countly/iOS/Countly.framework
+INCLUDEPATH += $$top_srcdir/3rdparty/Countly/iOS
+iphoneos {
+    LIBS += -L$$top_srcdir/3rdparty/Countly/iOS -lCountlyStatic
+} else:iphonesimulator {
+    LIBS += -L$$top_srcdir/3rdparty/Countly/iOSSimulator -lCountlyStatic
+    message("Building for simulator")
 }
-
-countly.path = Frameworks
-QMAKE_BUNDLE_DATA += countly
-QMAKE_RPATHDIR = @executable_path/Frameworks

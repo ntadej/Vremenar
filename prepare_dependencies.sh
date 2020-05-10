@@ -16,13 +16,28 @@ fi
 if [[ "${1}" == "macos" ]] || [[ "${1}" == "macOS" ]]; then
   echo "Downloading for macOS"
   echo "Countly"
-  wget -c -nv -O "${LOCATION}/3rdparty/Countly/macOS/countly-sdk_20.04.tar.bz2" "https://dl.bintray.com/tano-si/Vremenar-Dependencies/countly/20.04/clang_x64/countly-sdk_20.04.tar.bz2"
+  wget -nv -O "${LOCATION}/3rdparty/Countly/macOS/countly-sdk_20.04.tar.bz2" "https://dl.bintray.com/tano-si/Vremenar-Dependencies/countly/20.04/clang_x64/countly-sdk_20.04.tar.bz2"
   tar -C "${LOCATION}/3rdparty/Countly/macOS/" -xf "${LOCATION}/3rdparty/Countly/macOS/countly-sdk_20.04.tar.bz2"
 
   echo "Qt Patches"
   if [[ $QT -eq 1 ]]; then
-    wget -c -nv -O "$Qt5_Dir/plugins/platforms/libqcocoa.dylib" "https://dl.bintray.com/tano-si/Vremenar-Dependencies/qcocoa/5.14.0/libqcocoa.dylib"
-    wget -c -nv -O "$Qt5_Dir/plugins/geoservices/libqtgeoservices_mapboxgl.dylib" "https://dl.bintray.com/tano-si/Vremenar-Dependencies/mapbox-gl-native/5.14.2/clang_x64/libqtgeoservices_mapboxgl.dylib"
+    wget -nv -O "$Qt5_Dir/plugins/platforms/libqcocoa.dylib" "https://dl.bintray.com/tano-si/Vremenar-Dependencies/qcocoa/5.14.0/libqcocoa.dylib"
+    wget -nv -O "$Qt5_Dir/plugins/geoservices/libqtgeoservices_mapboxgl.dylib" "https://dl.bintray.com/tano-si/Vremenar-Dependencies/mapbox-gl-native/5.14.2/clang_x64/libqtgeoservices_mapboxgl.dylib"
+  else
+    echo "skipping..."
+  fi
+elif [[ "${1}" == "ios" ]] || [[ "${1}" == "iOS" ]]; then
+  echo "Downloading for iOS"
+  echo "Countly"
+  wget -nv -O "${LOCATION}/3rdparty/Countly/iOS/countly-sdk_20.04.tar.bz2" "https://dl.bintray.com/tano-si/Vremenar-Dependencies/countly/20.04/ios/countly-sdk_20.04.tar.bz2"
+  tar -C "${LOCATION}/3rdparty/Countly/iOS/" -xf "${LOCATION}/3rdparty/Countly/iOS/countly-sdk_20.04.tar.bz2"
+  wget -nv -O "${LOCATION}/3rdparty/Countly/iOSSimulator/countly-sdk_20.04.tar.bz2" "https://dl.bintray.com/tano-si/Vremenar-Dependencies/countly/20.04/iossimulator/countly-sdk_20.04.tar.bz2"
+  tar -C "${LOCATION}/3rdparty/Countly/iOSSimulator/" -xf "${LOCATION}/3rdparty/Countly/iOSSimulator/countly-sdk_20.04.tar.bz2"
+
+  echo "Qt Patches"
+  if [[ $QT -eq 1 ]]; then
+    wget -nv -O "$Qt5_Dir/plugins/geoservices/libqtgeoservices_mapboxgl.a" "https://dl.bintray.com/tano-si/Vremenar-Dependencies/mapbox-gl-native/5.14.2/ios/libqtgeoservices_mapboxgl.a"
+    wget -nv -O "$Qt5_Dir/lib/libqmapboxgl.a" "https://dl.bintray.com/tano-si/Vremenar-Dependencies/mapbox-gl-native/5.14.2/ios/libqmapboxgl.a"
   else
     echo "skipping..."
   fi
@@ -48,10 +63,10 @@ elif [[ "${1}" == "android" ]] || [[ "${1}" == "Android" ]]; then
     sed -i -e 's/qmake_qmake_immediate/qmake_qmake_qm_files/g' \
       "$Qt5_Dir/mkspecs/features/android/android_deployment_settings.prf"
     # Qt patches
-    wget -c -nv -O "$Qt5_Dir/plugins/geoservices/libplugins_geoservices_qtgeoservices_mapboxgl_arm64-v8a.so" "https://dl.bintray.com/tano-si/Vremenar-Dependencies/mapbox-gl-native/5.14.2/android/libplugins_geoservices_qtgeoservices_mapboxgl_arm64-v8a.so"
-    wget -c -nv -O "$Qt5_Dir/plugins/geoservices/libplugins_geoservices_qtgeoservices_mapboxgl_armeabi-v7a.so" "https://dl.bintray.com/tano-si/Vremenar-Dependencies/mapbox-gl-native/5.14.2/android/libplugins_geoservices_qtgeoservices_mapboxgl_armeabi-v7a.so"
-    wget -c -nv -O "$Qt5_Dir/plugins/geoservices/libplugins_geoservices_qtgeoservices_mapboxgl_x86.so" "https://dl.bintray.com/tano-si/Vremenar-Dependencies/mapbox-gl-native/5.14.2/android/libplugins_geoservices_qtgeoservices_mapboxgl_x86.so"
-    wget -c -nv -O "$Qt5_Dir/plugins/geoservices/libplugins_geoservices_qtgeoservices_mapboxgl_x86_64.so" "https://dl.bintray.com/tano-si/Vremenar-Dependencies/mapbox-gl-native/5.14.2/android/libplugins_geoservices_qtgeoservices_mapboxgl_x86_64.so"
+    wget -nv -O "$Qt5_Dir/plugins/geoservices/libplugins_geoservices_qtgeoservices_mapboxgl_arm64-v8a.so" "https://dl.bintray.com/tano-si/Vremenar-Dependencies/mapbox-gl-native/5.14.2/android/libplugins_geoservices_qtgeoservices_mapboxgl_arm64-v8a.so"
+    wget -nv -O "$Qt5_Dir/plugins/geoservices/libplugins_geoservices_qtgeoservices_mapboxgl_armeabi-v7a.so" "https://dl.bintray.com/tano-si/Vremenar-Dependencies/mapbox-gl-native/5.14.2/android/libplugins_geoservices_qtgeoservices_mapboxgl_armeabi-v7a.so"
+    wget -nv -O "$Qt5_Dir/plugins/geoservices/libplugins_geoservices_qtgeoservices_mapboxgl_x86.so" "https://dl.bintray.com/tano-si/Vremenar-Dependencies/mapbox-gl-native/5.14.2/android/libplugins_geoservices_qtgeoservices_mapboxgl_x86.so"
+    wget -nv -O "$Qt5_Dir/plugins/geoservices/libplugins_geoservices_qtgeoservices_mapboxgl_x86_64.so" "https://dl.bintray.com/tano-si/Vremenar-Dependencies/mapbox-gl-native/5.14.2/android/libplugins_geoservices_qtgeoservices_mapboxgl_x86_64.so"
   else
     echo "skipping..."
   fi

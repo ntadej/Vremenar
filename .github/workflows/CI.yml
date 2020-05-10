@@ -26,6 +26,11 @@ jobs:
             os: macos-latest
             platform: macos
             target: desktop
+          - name: "iOS Latest"
+            artifact: "Vremenar_iOS.ipa"
+            os: macos-latest
+            platform: ios
+            target: ios
 
     steps:
       - name: Checkout
@@ -75,14 +80,24 @@ jobs:
         env:
           ARTIFACT_NAME: ${{ matrix.config.artifact }}
           VREMENAR_PATH: ../Vremenar
-          MAPS_ENDPOINT: ${{ secrets.MAPS_ENDPOINT }}
-          ARSO_API_ENDPOINT: ${{ secrets.ARSO_API_ENDPOINT }}
-          ARSO_API_RESOURCES: ${{ secrets.ARSO_API_RESOURCES }}
         run: |
           qmake $VREMENAR_PATH/Vremenar.pro -spec macx-clang CONFIG+=x86_64 CONFIG+=qtquickcompiler
           make -j2
           macdeployqt Vremenar.app -qmldir=$VREMENAR_PATH/src/qml/ -dmg
           mv Vremenar.dmg $ARTIFACT_NAME
+
+      - name: Build (iOS)
+        if: matrix.config.platform == 'ios'
+        working-directory: ../build
+        env:
+          ARTIFACT_NAME: ${{ matrix.config.artifact }}
+          VREMENAR_PATH: ../Vremenar
+        run: |
+          qmake $VREMENAR_PATH/Vremenar.pro -spec macx-ios-clang CONFIG+=release CONFIG+=iphoneos CONFIG+=device CONFIG+=qtquickcompiler
+          xcodebuild archive -scheme Vremenar -configuration Release -sdk iphoneos CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -archivePath Vremenar.xcarchive
+          mv Vremenar.xcarchive/Products/Applications Payload
+          zip -r Vremenar.zip Payload
+          mv Vremenar.zip $ARTIFACT_NAME
 
       - name: Build (Linux)
         if: matrix.config.platform == 'linux'
@@ -90,9 +105,6 @@ jobs:
         env:
           ARTIFACT_NAME: ${{ matrix.config.artifact }}
           VREMENAR_PATH: ../Vremenar
-          MAPS_ENDPOINT: ${{ secrets.MAPS_ENDPOINT }}
-          ARSO_API_ENDPOINT: ${{ secrets.ARSO_API_ENDPOINT }}
-          ARSO_API_RESOURCES: ${{ secrets.ARSO_API_RESOURCES }}
         run: |
           # Install gcc 8
           sudo add-apt-repository ppa:ubuntu-toolchain-r/test
@@ -119,9 +131,6 @@ jobs:
           ARTIFACT_NAME: ${{ matrix.config.artifact }}
           VREMENAR_PATH: ../Vremenar
           ANDROID_NDK_PLATFORM: android-21
-          MAPS_ENDPOINT: ${{ secrets.MAPS_ENDPOINT }}
-          ARSO_API_ENDPOINT: ${{ secrets.ARSO_API_ENDPOINT }}
-          ARSO_API_RESOURCES: ${{ secrets.ARSO_API_RESOURCES }}
         run: |
           export ANDROID_NDK_ROOT=$ANDROID_SDK_ROOT/ndk-bundle
           qmake $VREMENAR_PATH/Vremenar.pro -spec android-clang CONFIG+=qtquickcompiler ANDROID_ABIS="armeabi-v7a arm64-v8a x86 x86_64"
