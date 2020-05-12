@@ -48,6 +48,20 @@ bool Qml::UIManager::debugging() const
 #endif
 }
 
+QString Qml::UIManager::iconTheme() const
+{
+    return QStringLiteral("Ionicons");
+}
+
+QString Qml::UIManager::iconPrefix() const
+{
+#if defined(Q_OS_ANDROID)
+    return QStringLiteral("md-");
+#else
+    return QStringLiteral("ios-");
+#endif
+}
+
 Common::DeviceType Qml::UIManager::getDeviceType()
 {
 #if defined(Q_OS_MACOS) && defined(QT_DEBUG)

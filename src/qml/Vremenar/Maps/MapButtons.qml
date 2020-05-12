@@ -40,8 +40,8 @@ Item {
         anchors.fill: parent
 
         IconButton {
-            icon: "ios-map"
-            family: "Ionicons"
+            icon: UI.iconPrefix + "map"
+            family: UI.iconTheme
             width: parent.width
             visible: UI.showButtonMapType
 
@@ -64,8 +64,8 @@ Item {
         }
 
         IconButton {
-            icon: "ios-locate"
-            family: "Ionicons"
+            icon: UI.iconPrefix + "locate"
+            family: UI.iconTheme
             width: parent.width
             visible: UI.showButtonMapPosition && VLocation.enabled
 

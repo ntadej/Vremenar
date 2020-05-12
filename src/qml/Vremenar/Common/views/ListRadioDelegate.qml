@@ -31,8 +31,8 @@ RadioDelegate {
     }
 
     indicator: TextIcon {
-        icon: "ios-checkmark"
-        font.family: "Ionicons"
+        icon: UI.iconPrefix + "checkmark"
+        font.family: UI.iconTheme
         x: control.width - width - control.rightPadding
         y: parent.height / 2 - height / 2
         color: UI.colorPrimary

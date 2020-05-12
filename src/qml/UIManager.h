@@ -34,6 +34,8 @@ class UIManager : public QObject
 
     Q_PROPERTY(bool debugging READ debugging CONSTANT)
     Q_PROPERTY(Vremenar::Common::DeviceType deviceType READ getDeviceType CONSTANT)
+    Q_PROPERTY(QString iconTheme READ iconTheme CONSTANT)
+    Q_PROPERTY(QString iconPrefix READ iconPrefix CONSTANT)
 
     Q_PROPERTY(bool showButtonMapType READ showButtonMapType CONSTANT)
     Q_PROPERTY(bool showButtonMapPosition READ showButtonMapPosition NOTIFY showMapButonPositionChanged)
@@ -93,6 +95,8 @@ public:
     explicit UIManager(QObject *parent = nullptr);
 
     [[nodiscard]] bool debugging() const;
+    [[nodiscard]] QString iconTheme() const;
+    [[nodiscard]] QString iconPrefix() const;
 
     [[nodiscard]] bool showButtonMapType() const;
     [[nodiscard]] bool showButtonMapPosition() const;

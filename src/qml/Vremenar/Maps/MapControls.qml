@@ -73,8 +73,8 @@ ColumnLayout {
 
         IconButton {
             id: buttonInfo
-            icon: mapPage.state === "sheet" ? "ios-information-circle" : "ios-information-circle-outline"
-            family: "Ionicons"
+            icon: mapPage.state === "sheet" ? UI.iconPrefix + "information-circle" : UI.iconPrefix + "information-circle-outline"
+            family: UI.iconTheme
             width: UI.mapElementSize
 
             onClicked: mapPage.toggleSheetVisibility()
@@ -86,8 +86,8 @@ ColumnLayout {
 
         IconButton {
             id: buttonPrevious
-            icon: "ios-rewind"
-            family: "Ionicons"
+            icon: UI.iconPrefix + "rewind"
+            family: UI.iconTheme
             width: UI.mapElementSize
             disabled: VMapLayersModel.minTimestamp === VMapLayersModel.time
 
@@ -96,8 +96,8 @@ ColumnLayout {
 
         IconButton {
             id: buttonPlay
-            icon: VMapLayersModel.animated ? "ios-pause" : "ios-play"
-            family: "Ionicons"
+            icon: VMapLayersModel.animated ? UI.iconPrefix + "pause" : UI.iconPrefix + "play"
+            family: UI.iconTheme
             width: UI.mapElementSize
 
             onClicked: VMapLayersModel.play()
@@ -105,8 +105,8 @@ ColumnLayout {
 
         IconButton {
             id: buttonNext
-            icon: "ios-fastforward"
-            family: "Ionicons"
+            icon: UI.iconPrefix + "fastforward"
+            family: UI.iconTheme
             width: UI.mapElementSize
             disabled: VMapLayersModel.maxTimestamp === VMapLayersModel.time
 
@@ -119,8 +119,8 @@ ColumnLayout {
 
         IconButton {
             id: buttonRefresh
-            icon: "ios-refresh"
-            family: "Ionicons"
+            icon: UI.iconPrefix + "refresh"
+            family: UI.iconTheme
             width: UI.mapElementSize
 
             RotationAnimator {
