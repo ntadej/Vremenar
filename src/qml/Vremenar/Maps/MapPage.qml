@@ -24,7 +24,7 @@ import "elements"
 MapPageBase {
     id: mapPage
 
-    title: VLocation.location ? VLocation.location : qsTr("Weather Map") + VL.R
+    title: VMapLayersModel.title + VL.R
 
     Map {
         LocationProvider {

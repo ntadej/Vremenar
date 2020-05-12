@@ -33,6 +33,7 @@ class MapLayersProxyModel : public QSortFilterProxyModel
     Q_PROPERTY(qint64 time READ timestamp WRITE setTimestamp NOTIFY timestampChanged)
     Q_PROPERTY(QString day READ day NOTIFY timestampChanged)
 
+    Q_PROPERTY(QString title READ title NOTIFY timestampChanged)
     Q_PROPERTY(QString url READ url NOTIFY timestampChanged)
     Q_PROPERTY(QString image READ image NOTIFY imageChanged)
     Q_PROPERTY(QVariant coordinates READ coordinates NOTIFY timestampChanged)
@@ -49,6 +50,7 @@ public:
     void setTimestamp(qint64 time);
     [[nodiscard]] QString day() const;
 
+    QString title() const;
     [[nodiscard]] inline const QString &url() const { return _url; }
     [[nodiscard]] inline const QString &image() const { return _image; }
     void setImage(const QString &image);
