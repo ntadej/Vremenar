@@ -31,6 +31,7 @@ namespace Vremenar
 ARSO::WeatherProvider::WeatherProvider(NetworkManager *network,
                                        QObject *parent)
     : WeatherProviderBase(network, parent),
+      _forecastModelBase(std::make_unique<ForecastModel>(this)),
       _forecastModel(std::make_unique<ForecastModel>(this)),
       _mapLayersModel(std::make_unique<MapLayersModel>(this)),
       _mapLegendModel(std::make_unique<MapLegendModel>(this))
@@ -96,6 +97,7 @@ void ARSO::WeatherProvider::requestMapLayers(Weather::MapType type)
     setLoading(true);
 
     mapLayers()->setUpdating(true);
+    _forecastModelBase->clear();
     _forecastModel->clear();
     _mapLayersModel->clear();
 
@@ -127,6 +129,8 @@ void ARSO::WeatherProvider::response(QNetworkReply *reply)
         image.save(&buffer, "PNG");
         QString iconBase64 = QString::fromLatin1(byteArray.toBase64().data());
         mapLayers()->setImage(QStringLiteral("data:image/jpeg;base64,") + iconBase64);
+        mapLayers()->setUpdating(false, true);
+        mapLayers()->playResume();
 
         removeResponse(reply);
         setLoading(false);
@@ -157,6 +161,7 @@ void ARSO::WeatherProvider::response(QNetworkReply *reply)
     if (currentReplies()->value(reply).call() == QStringLiteral("/forecast_data")) {
         mapLayers()->setUpdating(true);
 
+        _forecastModelBase->clear();
         _forecastModel->clear();
         _mapLayersModel->clear();
         _mapLayersModel->addMapLayers(Weather::ForecastMap, document.array());
@@ -168,7 +173,12 @@ void ARSO::WeatherProvider::response(QNetworkReply *reply)
     }
 
     if (currentReplies()->value(reply).call() == QStringLiteral("/forecast_data_details")) {
-        _forecastModel->addEntries(document.object()[QStringLiteral("features")].toArray());
+        _forecastModelBase->addEntries(document.object()[QStringLiteral("features")].toArray());
+        if (currentReplies()->value(reply).url().toString().contains(QStringLiteral("latest"))) {
+            _forecastModel->addEntries(document.object()[QStringLiteral("features")].toArray());
+        } else {
+            _forecastModel->update(_forecastModelBase.get(), mapLayers()->timestamp());
+        }
         mapLayers()->playResume();
         removeResponse(reply);
         valid = true;
@@ -213,10 +223,9 @@ void ARSO::WeatherProvider::currentTimeChanged()
         requestForecastDetails(layer->url().toString());
         layer->setLoaded();
     } else {
+        _forecastModel->update(_forecastModelBase.get(), mapLayers()->timestamp());
         mapLayers()->playResume();
     }
-
-    forecast()->setTime(mapLayers()->timestamp());
 }
 
 } // namespace Vremenar

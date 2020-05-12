@@ -57,7 +57,8 @@ public:
 
     [[nodiscard]] inline bool animated() const { return _animated; }
 
-    void setUpdating(bool updating);
+    void setUpdating(bool updating,
+                     bool silent = false);
 
     Q_INVOKABLE void previous();
     Q_INVOKABLE void next();

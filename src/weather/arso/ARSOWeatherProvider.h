@@ -55,6 +55,7 @@ private:
         Weather::TemperatureMap,
         Weather::HailProbabilityMap};
 
+    std::unique_ptr<ForecastModel> _forecastModelBase;
     std::unique_ptr<ForecastModel> _forecastModel;
     std::unique_ptr<MapLayersModel> _mapLayersModel;
     std::unique_ptr<MapLegendModel> _mapLegendModel;

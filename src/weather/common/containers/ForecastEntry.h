@@ -22,9 +22,9 @@ namespace Vremenar
 class ForecastEntry : public ListItem
 {
     Q_OBJECT
-    Q_PROPERTY(QString display READ display CONSTANT)
-    Q_PROPERTY(qint64 time READ time CONSTANT)
-    Q_PROPERTY(QString icon READ icon CONSTANT)
+    Q_PROPERTY(QString display READ display NOTIFY updated)
+    Q_PROPERTY(qint64 time READ time NOTIFY updated)
+    Q_PROPERTY(QString icon READ icon NOTIFY updated)
     Q_PROPERTY(QGeoCoordinate coordinate READ coordinate CONSTANT)
     Q_PROPERTY(qreal zoomLevel READ zoomLevel CONSTANT)
 public:
@@ -60,6 +60,8 @@ public:
     [[nodiscard]] inline const QGeoCoordinate &coordinate() const { return _coordinate; }
     [[nodiscard]] inline qreal zoomLevel() const { return _zoomLevel; }
 
+    void update(const ForecastEntry *source);
+
     static inline QHash<int, QByteArray> roleNames()
     {
         return {
@@ -72,6 +74,9 @@ public:
             {CoordinateRole, "coordinate"},
             {ZoomLevelRole, "zoomLevel"}};
     }
+
+Q_SIGNALS:
+    void updated();
 
 private:
     qint64 _time;

@@ -17,12 +17,19 @@ import Vremenar.Common 1.0
 
 MapQuickItem {
     property string icon
+    property string iconTmp: ""
     property string title
     property int temperature
     property int temperatureLow
 
     anchorPoint.x: entry.width / 2
     anchorPoint.y: entry.width / 2
+
+    onIconChanged: {
+        image.visible = true
+        fadeOutAnimation.start()
+        fadeInAnimation.start()
+    }
 
     sourceItem: Item {
         id: entry
@@ -31,10 +38,35 @@ MapQuickItem {
         opacity: 0
 
         Image {
+            id: imageTmp
+            anchors.centerIn: parent
+            anchors.alignWhenCentered: true
+            source: iconTmp ? "../icons/" + iconTmp + ".png" : ""
+
+            NumberAnimation on opacity {
+                id: fadeOutAnimation
+                to: 0.5
+                duration: UI.mapIconFadeDuration / 2
+            }
+        }
+
+        Image {
             id: image
             anchors.centerIn: parent
             anchors.alignWhenCentered: true
-            source: "../icons/" + icon + ".png"
+            source: icon ? "../icons/" + icon + ".png" : ""
+
+            NumberAnimation on opacity {
+                id: fadeInAnimation
+                from: 0; to: 1
+                duration: UI.mapIconFadeDuration
+
+                onRunningChanged: {
+                    if (!running) {
+                        iconTmp = icon
+                    }
+                }
+            }
         }
 
         TextCommonShadow {

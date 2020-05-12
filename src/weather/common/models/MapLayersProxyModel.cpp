@@ -16,7 +16,8 @@
 namespace
 {
 constexpr int timerInterval{500};
-}
+constexpr int timerIntervalLong{750};
+} // namespace
 
 namespace Vremenar
 {
@@ -34,11 +35,12 @@ MapLayersProxyModel::MapLayersProxyModel(QObject *parent)
     _timer->setInterval(timerInterval);
 }
 
-void MapLayersProxyModel::setUpdating(bool updating)
+void MapLayersProxyModel::setUpdating(bool updating,
+                                      bool silent)
 {
     _updating = updating;
 
-    if (!_updating) {
+    if (!_updating && !silent) {
         Q_EMIT timestampChanged();
     }
 }
@@ -114,6 +116,15 @@ void MapLayersProxyModel::setImage(const QString &image)
 
 void MapLayersProxyModel::setDefaultTimestamp()
 {
+    auto type = data(index(0, 0), MapLayer::TypeRole).value<Weather::MapType>();
+    if (type == Weather::ForecastMap) {
+        _timer->setInterval(timerIntervalLong);
+        setTimestamp(data(index(0, 0), MapLayer::TimeRole).toDateTime().toMSecsSinceEpoch());
+        return;
+    }
+
+    _timer->setInterval(timerInterval);
+
     qint64 now = QDateTime::currentDateTime().toMSecsSinceEpoch();
     qint64 newDefault{};
     for (int i = 0; i < rowCount(); i++) {

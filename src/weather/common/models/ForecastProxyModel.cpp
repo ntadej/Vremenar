@@ -48,7 +48,7 @@ bool ForecastProxyModel::filterAcceptsRow(int sourceRow,
 
     bool name = index.data(ForecastEntry::DisplayRole).toString().contains(filterRegExp());
     bool zoomLevel = index.data(ForecastEntry::ZoomLevelRole).toReal() <= _zoomLevel;
-    bool time = index.data(ForecastEntry::TimeRole).toLongLong() == _time;
+    bool time = _time == 0 || index.data(ForecastEntry::TimeRole).toLongLong() == _time;
 
     return name && zoomLevel && time;
 }

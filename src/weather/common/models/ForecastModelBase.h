@@ -26,6 +26,9 @@ public:
 
     virtual ForecastEntry *createEntry(const QJsonObject &data) = 0;
     virtual void addEntries(const QJsonArray &data) = 0;
+
+    void update(ForecastModelBase *model,
+                qint64 time);
 };
 
 } // namespace Vremenar

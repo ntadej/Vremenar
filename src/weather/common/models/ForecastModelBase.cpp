@@ -17,4 +17,24 @@ namespace Vremenar
 ForecastModelBase::ForecastModelBase(QObject *parent)
     : ListModel(ForecastEntry::roleNames(), parent) {}
 
+void ForecastModelBase::update(ForecastModelBase *model,
+                               qint64 time)
+{
+    for (int i = 0; i < model->rowCount(); i++) {
+        const auto *entry = model->row<ForecastEntry>(i);
+        if (entry->time() != time) {
+            continue;
+        }
+
+        auto *toUpdate = find<ForecastEntry>(entry->id());
+        if (toUpdate == nullptr) {
+            continue;
+        }
+
+        toUpdate->update(entry);
+    }
+
+    Q_EMIT dataChanged(index(0), index(rowCount() - 1));
+}
+
 } // namespace Vremenar

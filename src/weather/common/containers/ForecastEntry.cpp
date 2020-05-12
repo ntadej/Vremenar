@@ -64,4 +64,22 @@ QVariant ForecastEntry::data(int role) const
     return QVariant();
 }
 
+void ForecastEntry::update(const ForecastEntry *source)
+{
+    if (source == nullptr) {
+        return;
+    }
+
+    if (source->id() != id()) {
+        return;
+    }
+
+    _title = source->display();
+    _icon = source->icon();
+    _temperature = source->temperature();
+    _temperatureLow = source->temperatureLow();
+
+    Q_EMIT updated();
+}
+
 } // namespace Vremenar
