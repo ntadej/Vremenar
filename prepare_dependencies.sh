@@ -21,8 +21,7 @@ if [[ "${1}" == "macos" ]] || [[ "${1}" == "macOS" ]]; then
 
   echo "Qt Patches"
   if [[ $QT -eq 1 ]]; then
-    wget -nv -O "$Qt5_Dir/plugins/platforms/libqcocoa.dylib" "https://dl.bintray.com/tano-si/Vremenar-Dependencies/qcocoa/5.14.0/libqcocoa.dylib"
-    wget -nv -O "$Qt5_Dir/plugins/geoservices/libqtgeoservices_mapboxgl.dylib" "https://dl.bintray.com/tano-si/Vremenar-Dependencies/mapbox-gl-native/5.14.2/clang_x64/libqtgeoservices_mapboxgl.dylib"
+    wget -nv -O "$Qt5_Dir/plugins/platforms/libqcocoa.dylib" "https://dl.bintray.com/tano-si/Vremenar-Dependencies/qcocoa/${QT_VERSION}/libqcocoa.dylib"
   else
     echo "skipping..."
   fi
@@ -33,14 +32,6 @@ elif [[ "${1}" == "ios" ]] || [[ "${1}" == "iOS" ]]; then
   tar -C "${LOCATION}/3rdparty/Countly/iOS/" -xf "${LOCATION}/3rdparty/Countly/iOS/countly-sdk_20.04.tar.bz2"
   wget -nv -O "${LOCATION}/3rdparty/Countly/iOSSimulator/countly-sdk_20.04.tar.bz2" "https://dl.bintray.com/tano-si/Vremenar-Dependencies/countly/20.04/iossimulator/countly-sdk_20.04.tar.bz2"
   tar -C "${LOCATION}/3rdparty/Countly/iOSSimulator/" -xf "${LOCATION}/3rdparty/Countly/iOSSimulator/countly-sdk_20.04.tar.bz2"
-
-  echo "Qt Patches"
-  if [[ $QT -eq 1 ]]; then
-    wget -nv -O "$Qt5_Dir/plugins/geoservices/libqtgeoservices_mapboxgl.a" "https://dl.bintray.com/tano-si/Vremenar-Dependencies/mapbox-gl-native/5.14.2/ios/libqtgeoservices_mapboxgl.a"
-    wget -nv -O "$Qt5_Dir/lib/libqmapboxgl.a" "https://dl.bintray.com/tano-si/Vremenar-Dependencies/mapbox-gl-native/5.14.2/ios/libqmapboxgl.a"
-  else
-    echo "skipping..."
-  fi
 elif [[ "${1}" == "linux" ]] || [[ "${1}" == "Linux" ]]; then
   echo "Downloading for Linux"
   echo "Qt Patches"
@@ -57,19 +48,7 @@ elif [[ "${1}" == "linux" ]] || [[ "${1}" == "Linux" ]]; then
   fi
 elif [[ "${1}" == "android" ]] || [[ "${1}" == "Android" ]]; then
   echo "Downloading for Android"
-  echo "Qt Patches"
-  if [[ $QT -eq 1 ]]; then
-    # Fix Qt deployment
-    sed -i -e 's/qmake_qmake_immediate/qmake_qmake_qm_files/g' \
-      "$Qt5_Dir/mkspecs/features/android/android_deployment_settings.prf"
-    # Qt patches
-    wget -nv -O "$Qt5_Dir/plugins/geoservices/libplugins_geoservices_qtgeoservices_mapboxgl_arm64-v8a.so" "https://dl.bintray.com/tano-si/Vremenar-Dependencies/mapbox-gl-native/5.14.2/android/libplugins_geoservices_qtgeoservices_mapboxgl_arm64-v8a.so"
-    wget -nv -O "$Qt5_Dir/plugins/geoservices/libplugins_geoservices_qtgeoservices_mapboxgl_armeabi-v7a.so" "https://dl.bintray.com/tano-si/Vremenar-Dependencies/mapbox-gl-native/5.14.2/android/libplugins_geoservices_qtgeoservices_mapboxgl_armeabi-v7a.so"
-    wget -nv -O "$Qt5_Dir/plugins/geoservices/libplugins_geoservices_qtgeoservices_mapboxgl_x86.so" "https://dl.bintray.com/tano-si/Vremenar-Dependencies/mapbox-gl-native/5.14.2/android/libplugins_geoservices_qtgeoservices_mapboxgl_x86.so"
-    wget -nv -O "$Qt5_Dir/plugins/geoservices/libplugins_geoservices_qtgeoservices_mapboxgl_x86_64.so" "https://dl.bintray.com/tano-si/Vremenar-Dependencies/mapbox-gl-native/5.14.2/android/libplugins_geoservices_qtgeoservices_mapboxgl_x86_64.so"
-  else
-    echo "skipping..."
-  fi
+  echo "Nothing to be done!"
 else
   echo "Error: Unknown platform!" 1>&2
   exit 2

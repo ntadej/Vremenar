@@ -2,7 +2,7 @@ name: Continuous Integration
 on: [push]
 
 env:
-  QT_VERSION: 5.14.2
+  QT_VERSION: 5.15.0
 
 jobs:
   build:
@@ -58,14 +58,22 @@ jobs:
           java-version: 1.8
 
       - name: Configure & prepare
+        env:
+          MAPS_ENDPOINT: ${{ secrets.MAPS_ENDPOINT }}
+          ARSO_API_ENDPOINT: ${{ secrets.ARSO_API_ENDPOINT }}
+          ARSO_API_RESOURCES: ${{ secrets.ARSO_API_RESOURCES }}
+          COUNTLY_APPKEY_DEV: ${{ secrets.COUNTLY_APPKEY_DEV }}
+          COUNTLY_ENDPOINT: ${{ secrets.COUNTLY_ENDPOINT }}
+          COUNTLY_SALT_DEV: ${{ secrets.COUNTLY_SALT_DEV }}
         run: |
-          sed -e 's/MAPS_ENDPOINT_VALUE/$$(MAPS_ENDPOINT)/g' \
-            -e 's/ARSO_API_ENDPOINT_VALUE/$$(ARSO_API_ENDPOINT)/g' \
-            -e 's/ARSO_API_RESOURCES_VALUE/$$(ARSO_API_RESOURCES)/g' \
-            -e 's/COUNTLY_APPKEY_VALUE/$$(COUNTLY_APPKEY_DEV)/g' \
-            -e 's/COUNTLY_ENDPOINT_VALUE/$$(COUNTLY_ENDPOINT)/g' \
-            -e 's/COUNTLY_SALT_VALUE/$$(COUNTLY_SALT)/g' \
-            config.pri.example > config.pri
+          cat <<EOT > config.pri
+          MAPS_ENDPOINT="${MAPS_ENDPOINT}"
+          ARSO_API_ENDPOINT="${ARSO_API_ENDPOINT}"
+          ARSO_API_RESOURCES="${ARSO_API_RESOURCES}"
+          COUNTLY_APPKEY="${COUNTLY_APPKEY_DEV}"
+          COUNTLY_ENDPOINT="${COUNTLY_ENDPOINT}"
+          COUNTLY_SALT="${COUNTLY_SALT_DEV}"
+          EOT
           cd ..
           mkdir build
 
@@ -109,7 +117,12 @@ jobs:
           # Install gcc 8
           sudo add-apt-repository ppa:ubuntu-toolchain-r/test
           sudo apt update
-          sudo apt install libgl-dev libxkbcommon-x11-dev gcc-8 g++-8
+          sudo apt install libgl-dev \
+            libxkbcommon-x11-dev \
+            libxcb-icccm4-dev libxcb-image0-dev libxcb-keysyms1-dev \
+            libxcb-randr0-dev libxcb-render0-dev libxcb-render-util0-dev libxcb-shape0-dev libxcb-shm0-dev \
+            libxcb-sync-dev libxcb-xinerama0-dev libxcb-xkb-dev \
+            gcc-8 g++-8
           sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-7 700 --slave /usr/bin/g++ g++ /usr/bin/g++-7
           sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 800 --slave /usr/bin/g++ g++ /usr/bin/g++-8
           # Build

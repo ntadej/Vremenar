@@ -1,6 +1,6 @@
 #
 # Vremenar
-# Copyright (C) 2019 Tadej Novak <tadej@tano.si>
+# Copyright (C) 2020 Tadej Novak <tadej@tano.si>
 #
 # This application is bi-licensed under the GNU General Public License
 # Version 3 or later as well as Mozilla Public License Version 2.
@@ -10,8 +10,9 @@
 #
 
 CONFIG += qt
+LOGGING = true
 
-lessThan(QT_MINOR_VERSION, 14): error("Requires Qt 5.14 or later!")
+lessThan(QT_MINOR_VERSION, 15): error("Requires Qt 5.15 or later!")
 
 # Use C++17
 CONFIG += c++17
@@ -54,6 +55,7 @@ include($$top_srcdir/config/i18n.pri)
 
 # Custom config
 include($$top_srcdir/config.pri)
+include($$top_srcdir/config/config_check.pri)
 
 # Config summary
 macx {
