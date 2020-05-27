@@ -32,7 +32,7 @@ TrayIcon::TrayIcon(QObject *parent)
 #endif
 
     connect(this, &TrayIcon::activated, this, &TrayIcon::activatedCallback);
-    connect(_actionShow.get(), &QAction::triggered, this, &TrayIcon::clicked);
+    connect(_actionShow.get(), &QAction::triggered, this, &TrayIcon::triggered);
     connect(_actionSettings.get(), &QAction::triggered, this, &TrayIcon::settings);
     connect(_actionQuit.get(), &QAction::triggered, this, &TrayIcon::quit);
 }
@@ -41,8 +41,7 @@ void TrayIcon::activatedCallback(QSystemTrayIcon::ActivationReason reason)
 {
     switch (reason) {
     case QSystemTrayIcon::Trigger:
-    case QSystemTrayIcon::DoubleClick:
-        Q_EMIT clicked();
+        Q_EMIT triggered();
         break;
     default:
         break;

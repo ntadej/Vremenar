@@ -34,7 +34,7 @@ public Q_SLOTS:
                            const QString &icon);
 
 Q_SIGNALS:
-    void clicked();
+    void triggered();
     void settings();
     void quit();
     void mapSelected(int index);
