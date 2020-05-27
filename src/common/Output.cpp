@@ -33,9 +33,9 @@ Output &Output::operator<<(const QString &string)
 
 void Output::welcome()
 {
-    Output() << QStringLiteral("%1 %2").arg(Vremenar::name, Vremenar::version) << endl
-             << QStringLiteral("Copyright (C) %1 Tadej Novak").arg(QDate::currentDate().year()) << endl
-             << endl;
+    Output() << QStringLiteral("%1 %2").arg(Vremenar::name, Vremenar::version) << Qt::endl
+             << QStringLiteral("Copyright (C) %1 Tadej Novak").arg(QDate::currentDate().year()) << Qt::endl
+             << Qt::endl;
 }
 
 } // namespace Vremenar

@@ -47,7 +47,7 @@ QNetworkReply *NetworkManager::request(const APIRequestBase &request)
         break;
     }
 
-    connect(reply, qOverload<QNetworkReply::NetworkError>(&QNetworkReply::error), this, &NetworkManager::httpError);
+    connect(reply, &QNetworkReply::errorOccurred, this, &NetworkManager::httpError);
     connect(reply, &QNetworkReply::finished, this, &NetworkManager::httpRequestFinished);
 
     return reply;
@@ -71,7 +71,7 @@ void NetworkManager::httpRequestFinished()
 
     Q_EMIT result(reply);
 
-    disconnect(reply, qOverload<QNetworkReply::NetworkError>(&QNetworkReply::error), this, &NetworkManager::httpError);
+    disconnect(reply, &QNetworkReply::errorOccurred, this, &NetworkManager::httpError);
     disconnect(reply, &QNetworkReply::finished, this, &NetworkManager::httpRequestFinished);
 }
 

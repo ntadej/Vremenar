@@ -9,6 +9,8 @@
 * SPDX-License-Identifier: (GPL-3.0-or-later AND MPL-2.0)
 */
 
+#include <QtCore/QLocale>
+
 #include "weather/common/containers/MapLayer.h"
 
 namespace Vremenar
@@ -32,7 +34,7 @@ MapLayer::MapLayer(Weather::MapType type,
 
 QString MapLayer::display() const
 {
-    return _time.time().toString(Qt::SystemLocaleShortDate);
+    return QLocale::system().toString(_time.time(), QLocale::ShortFormat);
 }
 
 QVariant MapLayer::data(int role) const

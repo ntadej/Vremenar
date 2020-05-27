@@ -60,10 +60,10 @@ void Log::output(QtMsgType type,
     case QtFatalMsg:
         debugdate += QStringLiteral(" [F]");
     }
-    (*out) << debugdate << QStringLiteral(" ") << msg << endl;
+    (*out) << debugdate << QStringLiteral(" ") << msg << Qt::endl;
 
     //#ifdef QT_DEBUG
-    Output(true) << debugdate << QStringLiteral(" ") << msg << endl;
+    Output(true) << debugdate << QStringLiteral(" ") << msg << Qt::endl;
     //#endif
 
     if (QtFatalMsg == type) {

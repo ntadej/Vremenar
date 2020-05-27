@@ -9,6 +9,8 @@
 * SPDX-License-Identifier: (GPL-3.0-or-later AND MPL-2.0)
 */
 
+#include <QtCore/QLocale>
+
 #include "weather/common/containers/MapLayer.h"
 
 #include "weather/common/models/MapLayersProxyModel.h"
@@ -79,7 +81,7 @@ QString MapLayersProxyModel::day() const
         return tr("yesterday");
     }
 
-    return selected.date().toString(Qt::SystemLocaleShortDate);
+    return QLocale::system().toString(selected.date(), QLocale::ShortFormat);
 }
 
 QString MapLayersProxyModel::title() const
