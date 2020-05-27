@@ -37,7 +37,12 @@ include(application/application.pri)
 RESOURCES += \
     resources/Common/graphics.qrc \
     resources/Common/ui/ui.qrc \
-    resources/Weather/Map/map.qrc
+    resources/Weather/Map/map_clear.qrc \
+    resources/Weather/Map/map_overcast.qrc \
+    resources/Weather/Map/map_partCloudy.qrc \
+    resources/Weather/Map/map_prevCloudy.qrc \
+    resources/Weather/Map/map_FG.qrc \
+    resources/Weather/Map/map_other.qrc
 
 # Desktop common resources
 desktop {
