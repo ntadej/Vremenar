@@ -9,6 +9,8 @@
 * SPDX-License-Identifier: (GPL-3.0-or-later AND MPL-2.0)
 */
 
+#include <QtCore/QDebug>
+
 #include "application/analytics/Analytics.h"
 
 #if defined(Q_OS_MACOS) || defined(Q_OS_IOS)
@@ -17,17 +19,73 @@
 #include "application/analytics/AnalyticsEngineAndroid.h"
 #endif
 
+namespace
+{
+constexpr int updateInterval{60000};
+} // namespace
+
 namespace Vremenar
 {
 
 Analytics::Analytics(QObject *parent)
-    : QObject(parent)
+    : QObject(parent),
+      _timer(std::make_unique<QTimer>(this))
 {
 #if defined(Q_OS_MACOS) || defined(Q_OS_IOS)
     _engine = std::make_unique<AnalyticsEngineMacOSiOS>();
 #elif defined(Q_OS_ANDROID)
     _engine = std::make_unique<AnalyticsEngineAndroid>();
 #endif
+
+    _timer->setInterval(updateInterval);
+    _timer->setSingleShot(true);
+
+    if (_engine->manualSessionHandling()) {
+        connect(_timer.get(), &QTimer::timeout, this, &Analytics::updateSession);
+    }
+}
+
+void Analytics::beginSession()
+{
+    if (!_engine->manualSessionHandling()) {
+        return;
+    }
+
+    _timer->stop();
+
+    qDebug() << "Analytics: Begin session";
+
+    _engine->beginSession();
+
+    _timer->start();
+}
+
+void Analytics::updateSession()
+{
+    if (!_engine->manualSessionHandling()) {
+        return;
+    }
+
+    _timer->stop();
+
+    qDebug() << "Analytics: Update session";
+
+    _engine->updateSession();
+
+    _timer->start();
+}
+
+void Analytics::endSession()
+{
+    if (!_engine->manualSessionHandling()) {
+        return;
+    }
+
+    _timer->stop();
+
+    qDebug() << "Analytics: End session";
+
+    _engine->endSession();
 }
 
 QString Analytics::eventString(EventType type,

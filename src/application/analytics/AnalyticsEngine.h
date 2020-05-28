@@ -23,6 +23,13 @@ class AnalyticsEngine
 public:
     AnalyticsEngine() = default;
     virtual ~AnalyticsEngine() = default;
+
+    virtual bool manualSessionHandling() const = 0;
+
+    virtual void beginSession() const = 0;
+    virtual void updateSession() const = 0;
+    virtual void endSession() const = 0;
+
     virtual void recordEvent(const QString &event) const = 0;
 };
 

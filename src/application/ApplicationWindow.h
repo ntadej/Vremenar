@@ -47,6 +47,8 @@ public:
 
 public Q_SLOTS:
     void activate();
+    void toggleVisibility();
+    void visibilityChanged(bool visible);
     void processUrl(const QString &url);
     void startCompleted();
 
@@ -67,6 +69,7 @@ private Q_SLOTS:
     void writeSettingsStartup();
 #endif
     void writeSettingsStartupMap();
+    void beforeClose();
 
 private:
     void createModels();

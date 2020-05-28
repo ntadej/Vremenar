@@ -28,12 +28,39 @@ AnalyticsEngineMacOSiOS::AnalyticsEngineMacOSiOS()
     config.host = [NSString stringWithUTF8String:Vremenar::CountlyEndpoint.data()];
     config.secretSalt = [NSString stringWithUTF8String:Vremenar::CountlySalt.data()];
     config.features = @[ CLYCrashReporting ];
+#ifdef Q_OS_MACOS
+    config.manualSessionHandling = YES;
+#endif
 #ifdef QT_DEBUG
     config.enableDebug = YES;
 #endif
     [Countly.sharedInstance startWithConfig:config];
 
     [config release];
+}
+
+bool AnalyticsEngineMacOSiOS::manualSessionHandling() const
+{
+#ifdef Q_OS_MACOS
+    return true;
+#else
+    return false;
+#endif
+}
+
+void AnalyticsEngineMacOSiOS::beginSession() const
+{
+    [Countly.sharedInstance beginSession];
+}
+
+void AnalyticsEngineMacOSiOS::updateSession() const
+{
+    [Countly.sharedInstance updateSession];
+}
+
+void AnalyticsEngineMacOSiOS::endSession() const
+{
+    [Countly.sharedInstance endSession];
 }
 
 void AnalyticsEngineMacOSiOS::recordEvent(const QString &event) const

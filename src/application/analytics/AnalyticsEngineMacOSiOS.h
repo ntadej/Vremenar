@@ -22,6 +22,12 @@ class AnalyticsEngineMacOSiOS : public AnalyticsEngine
 public:
     AnalyticsEngineMacOSiOS();
 
+    bool manualSessionHandling() const override;
+
+    void beginSession() const override;
+    void updateSession() const override;
+    void endSession() const override;
+
     void recordEvent(const QString &event) const override;
 };
 

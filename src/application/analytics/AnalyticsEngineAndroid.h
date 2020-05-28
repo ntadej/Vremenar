@@ -22,6 +22,12 @@ class AnalyticsEngineAndroid : public AnalyticsEngine
 public:
     AnalyticsEngineAndroid();
 
+    bool manualSessionHandling() const override { return false; }
+
+    void beginSession() const override {}
+    void updateSession() const override {}
+    void endSession() const override {}
+
     void recordEvent(const QString &event) const override;
 };
 

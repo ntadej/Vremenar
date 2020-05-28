@@ -15,6 +15,7 @@
 #include <memory>
 
 #include <QtCore/QObject>
+#include <QtCore/QTimer>
 
 #include "application/analytics/AnalyticsEngine.h"
 
@@ -37,11 +38,16 @@ public:
                                const QString &payload);
 
 public Q_SLOTS:
+    void beginSession();
+    void updateSession();
+    void endSession();
+
     void recordEvent(Vremenar::Analytics::EventType type,
                      const QString &payload) const;
 
 private:
     std::unique_ptr<AnalyticsEngine> _engine{};
+    std::unique_ptr<QTimer> _timer{};
 };
 
 } // namespace Vremenar

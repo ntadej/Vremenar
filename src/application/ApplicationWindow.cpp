@@ -82,6 +82,7 @@ ApplicationWindow::ApplicationWindow(QObject *parent)
     connect(application, &DesktopApplication::urlOpened, this, &ApplicationWindow::processUrl);
 #endif
     connect(QCoreApplication::instance(), &QCoreApplication::aboutToQuit, this, &ApplicationWindow::writeSettingsStartupMap);
+    connect(QCoreApplication::instance(), &QCoreApplication::aboutToQuit, this, &ApplicationWindow::beforeClose);
 
 #ifdef Q_OS_MACOS
     connect(application, &DesktopApplication::dockClicked, this, &ApplicationWindow::dockClicked);
@@ -93,6 +94,7 @@ ApplicationWindow::ApplicationWindow(QObject *parent)
     _engine->load(QUrl(QStringLiteral("qrc:/Vremenar/main.qml")));
 
     _qmlMainWindow = gsl::owner<QQuickWindow *>(qobject_cast<QQuickWindow *>(_engine->rootObjects().constFirst()));
+    connect(_qmlMainWindow, &QQuickWindow::visibleChanged, this, &ApplicationWindow::visibilityChanged);
 #ifdef Q_OS_MACOS
     application->setupTitleBarLessWindow(_qmlMainWindow->winId());
 #endif
@@ -111,12 +113,37 @@ void ApplicationWindow::activate()
     _qmlMainWindow->requestActivate();
 }
 
+void ApplicationWindow::toggleVisibility()
+{
+    if (_qmlMainWindow->isVisible()) {
+        _qmlMainWindow->hide();
+    } else {
+        activate();
+    }
+}
+
+void ApplicationWindow::visibilityChanged(bool visible)
+{
+    qDebug() << "Application window visibility changed:" << visible;
+
+    if (visible) {
+        _analytics->beginSession();
+    } else {
+        _analytics->endSession();
+    }
+}
+
 #ifdef Q_OS_MACOS
 void ApplicationWindow::dockClicked()
 {
     _qmlMainWindow->show();
 }
 #endif
+
+void ApplicationWindow::beforeClose()
+{
+    _analytics->endSession();
+}
 
 #ifndef VREMENAR_MOBILE
 void ApplicationWindow::writeSettingsStartup()
@@ -190,7 +217,7 @@ void ApplicationWindow::createWidgets()
     _trayIcon->createMenu(_weatherProvider->mapInfo()->list());
     _trayIcon->setCurrentMap(_weatherProvider->currentMapLayer());
 
-    connect(_trayIcon.get(), &TrayIcon::triggered, this, &ApplicationWindow::activate);
+    connect(_trayIcon.get(), &TrayIcon::triggered, this, &ApplicationWindow::toggleVisibility);
     connect(_trayIcon.get(), &TrayIcon::settings, this, &ApplicationWindow::showSettingsDialog);
     connect(_trayIcon.get(), &TrayIcon::quit, QCoreApplication::instance(), &QCoreApplication::quit);
     connect(_trayIcon.get(), &TrayIcon::mapSelected, _weatherProvider.get(), &WeatherProviderBase::currentMapLayerChanged);
@@ -252,6 +279,8 @@ void ApplicationWindow::startCompleted()
     }
 
     _ready = true;
+
+    _analytics->beginSession();
 
     qDebug() << "Initialization completed";
 }
