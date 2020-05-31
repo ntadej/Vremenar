@@ -60,6 +60,7 @@ jobs:
       - name: Configure & prepare
         env:
           MAPS_ENDPOINT: ${{ secrets.MAPS_ENDPOINT }}
+          API_ENDPOINT: ${{ secrets.API_ENDPOINT }}
           ARSO_API_ENDPOINT: ${{ secrets.ARSO_API_ENDPOINT }}
           ARSO_API_RESOURCES: ${{ secrets.ARSO_API_RESOURCES }}
           COUNTLY_APPKEY_DEV: ${{ secrets.COUNTLY_APPKEY_DEV }}
@@ -68,6 +69,7 @@ jobs:
         run: |
           cat <<EOT > config.pri
           MAPS_ENDPOINT="${MAPS_ENDPOINT}"
+          API_ENDPOINT="${API_ENDPOINT}"
           ARSO_API_ENDPOINT="${ARSO_API_ENDPOINT}"
           ARSO_API_RESOURCES="${ARSO_API_RESOURCES}"
           COUNTLY_APPKEY="${COUNTLY_APPKEY_DEV}"
@@ -80,7 +82,7 @@ jobs:
       - name: Setup dependencies
         env:
           PLATFORM: ${{ matrix.config.platform }}
-        run: ./prepare_dependencies.sh ${PLATFORM}
+        run: ./scripts/prepare_dependencies.sh ${PLATFORM}
 
       - name: Build (macOS)
         if: matrix.config.platform == 'macos'
@@ -91,8 +93,8 @@ jobs:
         run: |
           qmake $VREMENAR_PATH/Vremenar.pro -spec macx-clang CONFIG+=x86_64 CONFIG+=qtquickcompiler
           make -j2
-          macdeployqt Vremenar.app -qmldir=$VREMENAR_PATH/src/qml/ -dmg
-          mv Vremenar.dmg $ARTIFACT_NAME
+          $VREMENAR_PATH/scripts/build_dmg.sh Vremenar.app "$VREMENAR_PATH"
+          mv "Vremenar $(cat "$VREMENAR_PATH/config/VERSION").dmg" $ARTIFACT_NAME
 
       - name: Build (iOS)
         if: matrix.config.platform == 'ios'

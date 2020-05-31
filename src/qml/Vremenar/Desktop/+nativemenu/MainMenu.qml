@@ -68,6 +68,11 @@ Item {
                 text: Qt.platform.os === "osx" ? "&About" : qsTr("&About") + VL.R
                 onTriggered: Vremenar.showAboutDialog()
             }
+
+            MenuItem {
+                text: Qt.platform.os === "osx" ? "&Check for updates" : qsTr("&Check for updates") + VL.R
+                onTriggered: VUpdates.checkForUpdates()
+            }
         }
     }
 }

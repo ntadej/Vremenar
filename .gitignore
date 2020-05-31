@@ -3,6 +3,7 @@
 config.pri
 
 /3rdparty/Countly
+/3rdparty/Sparkle
 
 /graphics/logo/web/*.png
 /graphics/weather/components/*.png

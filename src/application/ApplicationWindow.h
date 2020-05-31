@@ -19,6 +19,7 @@
 #include <QtGui/QWindow>
 #include <QtQml/QQmlApplicationEngine>
 
+#include "application/Updates.h"
 #include "application/analytics/Analytics.h"
 #include "common/LocaleManager.h"
 #include "common/NetworkManagerFactory.h"
@@ -78,26 +79,27 @@ private:
 #endif
 
     // Application
-    std::unique_ptr<QQmlApplicationEngine> _engine;
+    std::unique_ptr<QQmlApplicationEngine> _engine{};
     bool _ready{};
 
-    gsl::owner<NetworkManager *> _network; // owned by Qt internally
+    gsl::owner<NetworkManager *> _network{}; // owned by Qt internally
 
-    std::unique_ptr<Analytics> _analytics;
-    std::unique_ptr<LocaleManager> _localeManager;
-    std::unique_ptr<LocationProvider> _location;
-    std::unique_ptr<NetworkManagerFactory> _networkFactory;
+    std::unique_ptr<Analytics> _analytics{};
+    std::unique_ptr<LocaleManager> _localeManager{};
+    std::unique_ptr<LocationProvider> _location{};
+    std::unique_ptr<NetworkManagerFactory> _networkFactory{};
+    std::unique_ptr<Updates> _updates{};
 
     // API
-    std::unique_ptr<ARSO::WeatherProvider> _weatherProvider;
+    std::unique_ptr<ARSO::WeatherProvider> _weatherProvider{};
 
     // QML
-    gsl::owner<QQmlFileSelector *> _qmlFileSelector; // owned by Qt internally
-    gsl::owner<QQuickWindow *> _qmlMainWindow;       // owned by Qt internally
+    gsl::owner<QQmlFileSelector *> _qmlFileSelector{}; // owned by Qt internally
+    gsl::owner<QQuickWindow *> _qmlMainWindow{};       // owned by Qt internally
 
 // Widgets
 #ifndef VREMENAR_MOBILE
-    std::unique_ptr<TrayIcon> _trayIcon;
+    std::unique_ptr<TrayIcon> _trayIcon{};
 #endif
 };
 

@@ -47,5 +47,9 @@
         <true/>
         <key>NSLocationWhenInUseUsageDescription</key>
         <string>Location for weather info.</string>
+        <key>SUFeedURL</key>
+        <string>$${API_ENDPOINT}/appcast.xml</string>
+        <key>SUPublicEDKey</key>
+        <string>U2gUlDA3cZYnWfAWTj0qxF30XqWVl0hGbOFDP3sNZIw=</string>
     </dict>
 </plist>

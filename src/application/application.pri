@@ -12,12 +12,14 @@
 SOURCES += \
     src/application/ApplicationWindow.cpp \
     src/application/BaseApplication.cpp \
+    src/application/Updates.cpp \
     src/application/analytics/Analytics.cpp \
     src/application/analytics/AnalyticsEngine.cpp
 
 HEADERS += \
     src/application/ApplicationWindow.h \
     src/application/BaseApplication.h \
+    src/application/Updates.h \
     src/application/analytics/Analytics.h \
     src/application/analytics/AnalyticsEngine.h
 
@@ -51,7 +53,11 @@ mobile {
 # macOS specific
 macx {
     OBJECTIVE_SOURCES += \
-        src/application/DesktopApplicationMacOS.mm
+        src/application/DesktopApplicationMacOS.mm \
+        src/application/SparkleHelper.mm
+
+    HEADERS += \
+        src/application/SparkleHelper.h
 }
 
 # macOS/iOS specific

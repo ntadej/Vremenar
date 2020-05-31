@@ -26,6 +26,7 @@ constexpr uint32_t build = $${VERSION_BUILD};
 constexpr bool loggingEnabled = $${LOGGING};
 
 constexpr CString mapsEndpoint = \"$${MAPS_ENDPOINT}\";
+constexpr CString APIEndpoint = \"$${API_ENDPOINT}\";
 constexpr CString ARSOAPIEndpoint = \"$${ARSO_API_ENDPOINT}\";
 constexpr CString ARSOAPIResources = \"$${ARSO_API_RESOURCES}\";
 

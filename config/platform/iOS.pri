@@ -38,7 +38,4 @@ QMAKE_BUNDLE_DATA += TRANSLATE_sl
 INCLUDEPATH += $$top_srcdir/3rdparty/Countly/iOS
 iphoneos {
     LIBS += -L$$top_srcdir/3rdparty/Countly/iOS -lCountlyStatic
-} else:iphonesimulator {
-    LIBS += -L$$top_srcdir/3rdparty/Countly/iOSSimulator -lCountlyStatic
-    message("Building for simulator")
 }

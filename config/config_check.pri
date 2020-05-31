@@ -13,6 +13,10 @@ isEmpty(MAPS_ENDPOINT) {
     error("'MAPS_ENDPOINT' is not defined or empty!")
 }
 
+isEmpty(API_ENDPOINT) {
+    error("'API_ENDPOINT' is not defined or empty!")
+}
+
 isEmpty(ARSO_API_ENDPOINT) {
     error("'ARSO_API_ENDPOINT' is not defined or empty!")
 }

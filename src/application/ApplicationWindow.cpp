@@ -189,12 +189,14 @@ void ApplicationWindow::writeSettingsStartupMap()
 void ApplicationWindow::createModels()
 {
     _location = std::make_unique<LocationProvider>(this);
+    _updates = std::make_unique<Updates>(_network, this);
     _weatherProvider = std::make_unique<ARSO::WeatherProvider>(_network, this);
     connect(_weatherProvider.get(), &WeatherProviderBase::recordEvent, _analytics.get(), &Analytics::recordEvent);
     connect(_weatherProvider.get(), &WeatherProviderBase::storeState, this, &ApplicationWindow::writeSettingsStartupMap);
 
     _engine->rootContext()->setContextProperty(QStringLiteral("Vremenar"), this);
     _engine->rootContext()->setContextProperty(QStringLiteral("VL"), _localeManager.get());
+    _engine->rootContext()->setContextProperty(QStringLiteral("VUpdates"), _updates.get());
 
     _engine->rootContext()->setContextProperty(QStringLiteral("VLocation"), _location.get());
     _engine->rootContext()->setContextProperty(QStringLiteral("VWeather"), _weatherProvider.get());
@@ -283,6 +285,10 @@ void ApplicationWindow::startCompleted()
     _analytics->beginSession();
 
     qDebug() << "Initialization completed";
+
+#ifndef Q_OS_MACOS
+    _updates->checkForUpdates();
+#endif
 }
 
 } // namespace Vremenar

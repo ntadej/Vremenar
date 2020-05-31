@@ -43,17 +43,13 @@ void APILoader::error(QNetworkReply *reply,
             _currentReplies.insert(_network->request(_currentReplies[reply]), _currentReplies[reply]);
         }
 
-        _currentReplies.remove(reply);
-        reply->deleteLater();
+        removeResponse(reply);
     }
 }
 
 void APILoader::response(QNetworkReply *reply)
 {
-    if (_currentReplies.contains(reply)) {
-        _currentReplies.remove(reply);
-        reply->deleteLater();
-    }
+    removeResponse(reply);
 }
 
 } // namespace Vremenar

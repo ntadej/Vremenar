@@ -5,7 +5,7 @@ if [[ -z ${1+x} ]]; then
   exit 1
 fi
 
-LOCATION=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+LOCATION=$(cd "$(dirname "${BASH_SOURCE[0]}")" && cd .. && pwd)
 
 QT=1
 if [[ -z ${Qt5_Dir+x} ]]; then
@@ -15,9 +15,16 @@ fi
 
 if [[ "${1}" == "macos" ]] || [[ "${1}" == "macOS" ]]; then
   echo "Downloading for macOS"
+  npm install --global create-dmg
+  brew install graphicsmagick imagemagick
+
   echo "Countly"
   wget -nv -O "${LOCATION}/3rdparty/Countly/macOS/countly-sdk_20.04.tar.bz2" "https://dl.bintray.com/tano-si/Vremenar-Dependencies/countly/20.04/clang_x64/countly-sdk_20.04.tar.bz2"
   tar -C "${LOCATION}/3rdparty/Countly/macOS/" -xf "${LOCATION}/3rdparty/Countly/macOS/countly-sdk_20.04.tar.bz2"
+
+  echo "Sparkle"
+  wget -nv -O "${LOCATION}/3rdparty/Sparkle/macOS/Sparkle-1.23.0.tar.xz" "https://github.com/sparkle-project/Sparkle/releases/download/1.23.0/Sparkle-1.23.0.tar.xz"
+  tar -C "${LOCATION}/3rdparty/Sparkle/macOS/" -xf "${LOCATION}/3rdparty/Sparkle/macOS/Sparkle-1.23.0.tar.xz"
 
   echo "Qt Patches"
   if [[ $QT -eq 1 ]]; then

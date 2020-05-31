@@ -13,8 +13,9 @@
 QT += macextras
 LIBS += -weak_framework ApplicationServices -weak_framework Cocoa -weak_framework CoreLocation
 
-# Deployment target
+# Deployment target and rpath
 QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.12
+QMAKE_RPATHDIR = @executable_path/../Frameworks
 
 # Info.plist & icons
 macOSPlist.input = $$top_srcdir/resources/macOS/Info.plist.in
@@ -30,4 +31,11 @@ LIBS += -F$$top_srcdir/3rdparty/Countly/macOS -framework Countly
 countly.files = $$top_srcdir/3rdparty/Countly/macOS/Countly.framework
 countly.path = Contents/Frameworks
 QMAKE_BUNDLE_DATA += countly
-QMAKE_RPATHDIR = @executable_path/../Frameworks
+
+# Sparkle
+QMAKE_CXXFLAGS += -F$$top_srcdir/3rdparty/Sparkle/macOS
+LIBS += -F$$top_srcdir/3rdparty/Sparkle/macOS -framework Sparkle
+
+sparkle.files = $$top_srcdir/3rdparty/Sparkle/macOS/Sparkle.framework
+sparkle.path = Contents/Frameworks
+QMAKE_BUNDLE_DATA += sparkle

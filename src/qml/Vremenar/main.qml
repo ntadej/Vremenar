@@ -10,6 +10,7 @@
 */
 
 import QtQuick 2.12
+import Qt.labs.platform 1.0
 
 import Vremenar 1.0
 import Vremenar.Common 1.0
@@ -37,5 +38,20 @@ MainWindow {
         color: "transparent"
         border.color: "red"
         border.width: 1
+    }
+
+    MessageDialog {
+        id: updateDialog
+        buttons: MessageDialog.Yes | MessageDialog.No
+        text: VUpdates.message
+
+        Connections {
+            target: VUpdates
+            function onUpdateAvailable() { updateDialog.open() }
+        }
+
+        onYesClicked: {
+            Qt.openUrlExternally(VUpdates.url);
+        }
     }
 }

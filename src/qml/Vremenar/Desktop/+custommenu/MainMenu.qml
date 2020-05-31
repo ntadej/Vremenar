@@ -62,5 +62,10 @@ MenuBar {
             text: qsTr("&About") + VL.R
             onTriggered: Vremenar.showAboutDialog()
         }
+
+        MenuItem {
+            text: qsTr("&Check for updates") + VL.R
+            onTriggered: VUpdates.checkForUpdates()
+        }
     }
 }
