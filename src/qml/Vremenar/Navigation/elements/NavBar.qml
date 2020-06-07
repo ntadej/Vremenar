@@ -32,10 +32,18 @@ Item {
         anchors.fill: parent
 
         onPressed: {
+            if (UI.isMobile) {
+                return
+            }
+
             clickPosition = Qt.point(mouse.x, mouse.y)
         }
 
         onPositionChanged: {
+            if (UI.isMobile) {
+                return
+            }
+
             applicationWindow.x += mouse.x - clickPosition.x
             applicationWindow.y += mouse.y - clickPosition.y
         }

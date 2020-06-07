@@ -33,6 +33,7 @@ class UIManager : public QObject
     Q_OBJECT
 
     Q_PROPERTY(bool debugging READ debugging CONSTANT)
+    Q_PROPERTY(bool isMobile READ isMobile CONSTANT)
     Q_PROPERTY(Vremenar::Common::DeviceType deviceType READ getDeviceType CONSTANT)
     Q_PROPERTY(QString iconTheme READ iconTheme CONSTANT)
     Q_PROPERTY(QString iconPrefix READ iconPrefix CONSTANT)
@@ -95,6 +96,7 @@ public:
     explicit UIManager(QObject *parent = nullptr);
 
     [[nodiscard]] bool debugging() const;
+    [[nodiscard]] bool isMobile() const;
     [[nodiscard]] QString iconTheme() const;
     [[nodiscard]] QString iconPrefix() const;
 

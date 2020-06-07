@@ -48,6 +48,15 @@ bool Qml::UIManager::debugging() const
 #endif
 }
 
+bool Qml::UIManager::isMobile() const
+{
+#if defined(Q_OS_IOS) || defined(Q_OS_ANDROID)
+    return true;
+#else
+    return false;
+#endif
+}
+
 QString Qml::UIManager::iconTheme() const
 {
     return QStringLiteral("Ionicons");
