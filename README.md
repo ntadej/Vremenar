@@ -18,6 +18,6 @@ The details are outlined in the file [LICENSE.md](LICENSE.md).
 
 
 [web]: https://vremenar.tano.si
-[release]: https://github.com/ntadej/tano/releases/latest
+[release]: https://github.com/ntadej/Vremenar/releases/latest
 [web-img]: https://img.shields.io/badge/web-vremenar.tano.si-yellow.svg
 [release-img]: https://img.shields.io/github/release/ntadej/Vremenar.svg

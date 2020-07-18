@@ -22,7 +22,11 @@ namespace Vremenar
 void Application::preInit()
 {
     QCoreApplication::setOrganizationDomain(Vremenar::domain);
+#if defined(Q_OS_MACOS) && defined(QT_DEBUG)
+    QCoreApplication::setApplicationName("VremenarDevel");
+#else
     QCoreApplication::setApplicationName(Vremenar::name);
+#endif
     QCoreApplication::setApplicationVersion(Vremenar::version);
 
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
