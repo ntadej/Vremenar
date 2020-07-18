@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -18,10 +18,23 @@ namespace Vremenar
 
 Hyperlink::Hyperlink(QString title,
                      QUrl url,
+                     bool mobileOnly,
                      QObject *parent)
     : ListItem(parent),
       _title(std::move(title)),
-      _url(std::move(url))
+      _url(std::move(url)),
+      _mobileOnly(mobileOnly)
+{
+    setId(_url.toString());
+}
+
+Hyperlink::Hyperlink(QString title,
+                     QUrl url,
+                     QObject *parent)
+    : ListItem(parent),
+      _title(std::move(title)),
+      _url(std::move(url)),
+      _mobileOnly(false)
 {
     setId(_url.toString());
 }
@@ -40,6 +53,8 @@ QVariant Hyperlink::data(int role) const
         return display();
     case UrlRole:
         return url();
+    case MobileOnlyRole:
+        return mobileOnly();
     default:
         return QVariant();
     }
@@ -50,7 +65,8 @@ QJsonObject Hyperlink::asJson() const
     return {
         {"title", display()},
         {"url", url().toString()},
-        {"html", asHtml()}};
+        {"html", asHtml()},
+        {"mobileOnly", mobileOnly()}};
 }
 
 QString Hyperlink::asHtml(const QString &style) const

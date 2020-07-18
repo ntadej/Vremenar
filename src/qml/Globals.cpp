@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -11,6 +11,7 @@
 
 #include <QtCore/QJsonObject>
 
+#include "common/About.h"
 #include "location/MapsCommon.h"
 #include "settings/Settings.h"
 
@@ -31,6 +32,20 @@ QJsonArray Qml::Globals::mapsCopyright() const
 {
     QJsonArray list;
     for (const std::unique_ptr<Hyperlink> &link : Maps::copyright()) {
+        list.append(link->asJson());
+    }
+    return list;
+}
+
+QJsonArray Qml::Globals::aboutLinks() const
+{
+    QJsonArray list;
+    for (const std::unique_ptr<Hyperlink> &link : Vremenar::aboutLinks()) {
+#if !defined(Q_OS_IOS) && !defined(Q_OS_ANDROID)
+        if (link->mobileOnly()) {
+            continue;
+        }
+#endif
         list.append(link->asJson());
     }
     return list;

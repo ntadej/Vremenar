@@ -13,6 +13,7 @@
 
 #include "application/DesktopApplication.h"
 #include "application/dialogs/AboutDialog.h"
+#include "common/About.h"
 #include "location/MapsCommon.h"
 
 #include "Config.h"
@@ -59,13 +60,27 @@ AboutDialog::AboutDialog(WeatherProviderBase *weatherProvider,
         copyrightIcons.append(" " + link->asHtml(additionalStyle));
     }
 
+    QString aboutLabels;
+    for (const std::unique_ptr<Hyperlink> &link : Vremenar::aboutLinks()) {
+        if (link->mobileOnly()) {
+            continue;
+        }
+        aboutLabels.append(" " + link->asHtml(additionalStyle));
+    }
+
+    auto homepage = std::make_unique<Hyperlink>(
+        QStringLiteral("https://vremenar.tano.si"),
+        QStringLiteral("https://vremenar.tano.si"));
+
     ui->labelVremenar->setText(QStringLiteral("Vremenar"));
     ui->labelVersion->setText(tr("Version %1 (%2)").arg(Vremenar::version, QString::number(Vremenar::build)));
     ui->labelCopyright->setText(QStringLiteral("© %1 Tadej Novak").arg(QDate::currentDate().toString(QStringLiteral("yyyy"))));
+    ui->labelHomepage->setText(homepage->asHtml(additionalStyle));
 
     ui->labelWeather->setText(tr("Weather data") + " " + weatherProvider->copyrightLink()->asHtml(additionalStyle));
     ui->labelMaps->setText(tr("Maps") + copyrightMaps);
     ui->labelIcons->setText(tr("Icons") + copyrightIcons);
+    ui->labelAbout->setText(aboutLabels);
 }
 
 } // namespace Vremenar

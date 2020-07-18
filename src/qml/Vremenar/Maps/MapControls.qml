@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -153,7 +153,7 @@ ColumnLayout {
 
     TextSmall {
         id: labelUpdated
-        text: qsTr("Last updated:") + " " + VWeather.lastUpdateTime + VL.R
+        text: qsTr("Last updated:") + " " + Qt.formatTime(new Date(VWeather.lastUpdateTime)) + VL.R
         Layout.maximumWidth: parent.width
         Layout.preferredHeight: UI.mapElementSize / 2
         opacity: 0
@@ -164,6 +164,7 @@ ColumnLayout {
         text: qsTr("Weather data") + generateWeather() + "<br>"
               + qsTr("Maps") + generateMaps() + "<br>"
               + Globals.name + " " + Globals.version + " (" + Globals.build + ")"
+              + generateAboutLinks()
               + VL.R
         wrapMode: Text.WordWrap
         linkColor: UI.textColorSpecialLink
@@ -180,6 +181,12 @@ ColumnLayout {
         function generateMaps() {
             let text = ""
             Globals.mapsCopyright.forEach(link => text += " " + link.html)
+            return text
+        }
+
+        function generateAboutLinks() {
+            let text = ""
+            Globals.aboutLinks.forEach(link => text += " " + link.html)
             return text
         }
 

@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -31,6 +31,7 @@ class Globals : public QObject
 
     Q_PROPERTY(QString mapsStyle READ mapsStyle CONSTANT)
     Q_PROPERTY(QJsonArray mapsCopyright READ mapsCopyright CONSTANT)
+    Q_PROPERTY(QJsonArray aboutLinks READ aboutLinks CONSTANT)
 
 public:
     explicit Globals(QObject *parent = nullptr) : QObject(parent) {}
@@ -41,6 +42,7 @@ public:
 
     [[nodiscard]] QString mapsStyle() const;
     [[nodiscard]] QJsonArray mapsCopyright() const;
+    [[nodiscard]] QJsonArray aboutLinks() const;
 
     static QObject *provider(QQmlEngine *engine,
                              QJSEngine *scriptEngine);

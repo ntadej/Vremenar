@@ -140,6 +140,19 @@
     </widget>
    </item>
    <item>
+    <widget class="QLabel" name="labelHomepage">
+     <property name="text">
+      <string notr="true">Homepage</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+     <property name="openExternalLinks">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
     <spacer name="spacerCopyright">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
@@ -185,6 +198,19 @@
     <widget class="QLabel" name="labelIcons">
      <property name="text">
       <string notr="true">Icons</string>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+     <property name="openExternalLinks">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="labelAbout">
+     <property name="text">
+      <string notr="true">About</string>
      </property>
      <property name="wordWrap">
       <bool>true</bool>

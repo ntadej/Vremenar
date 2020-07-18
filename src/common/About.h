@@ -9,8 +9,8 @@
 * SPDX-License-Identifier: (GPL-3.0-or-later AND MPL-2.0)
 */
 
-#ifndef VREMENAR_MAPSCOMMON_H_
-#define VREMENAR_MAPSCOMMON_H_
+#ifndef VREMENAR_ABOUT_H_
+#define VREMENAR_ABOUT_H_
 
 #include <memory>
 
@@ -18,12 +18,9 @@
 
 namespace Vremenar
 {
-namespace Maps
-{
 
-std::vector<std::unique_ptr<Hyperlink>> copyright();
+std::vector<std::unique_ptr<Hyperlink>> aboutLinks();
 
-} // namespace Maps
 } // namespace Vremenar
 
-#endif // VREMENAR_MAPSCOMMON_H_
+#endif // VREMENAR_ABOUT_H_

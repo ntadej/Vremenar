@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -24,15 +24,22 @@ class Hyperlink : public ListItem
     Q_OBJECT
     Q_PROPERTY(QString display READ display CONSTANT)
     Q_PROPERTY(QUrl url READ url CONSTANT)
+    Q_PROPERTY(bool mobileOnly READ mobileOnly CONSTANT)
 public:
     enum Roles {
         DisplayRole = Qt::DisplayRole,
         IdRole = Qt::UserRole + 1,
-        UrlRole
+        UrlRole,
+        MobileOnlyRole
     };
 
     explicit Hyperlink(QString title,
                        QUrl url,
+                       QObject *parent = nullptr);
+
+    explicit Hyperlink(QString title,
+                       QUrl url,
+                       bool mobileOnly,
                        QObject *parent = nullptr);
 
     // Implemented virtual functions
@@ -40,6 +47,7 @@ public:
     [[nodiscard]] QString display() const final;
 
     [[nodiscard]] inline const QUrl &url() const { return _url; }
+    [[nodiscard]] inline bool mobileOnly() const { return _mobileOnly; }
 
     [[nodiscard]] QJsonObject asJson() const;
     [[nodiscard]] QString asHtml(const QString &style = QString()) const;
@@ -49,12 +57,14 @@ public:
         return {
             {IdRole, "id"},
             {DisplayRole, "display"},
-            {UrlRole, "url"}};
+            {UrlRole, "url"},
+            {MobileOnlyRole, "mobileOnly"}};
     }
 
 private:
     QString _title;
     QUrl _url;
+    bool _mobileOnly;
 };
 
 } // namespace Vremenar
