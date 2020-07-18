@@ -63,8 +63,10 @@ jobs:
           API_ENDPOINT: ${{ secrets.API_ENDPOINT }}
           ARSO_API_ENDPOINT: ${{ secrets.ARSO_API_ENDPOINT }}
           ARSO_API_RESOURCES: ${{ secrets.ARSO_API_RESOURCES }}
+          COUNTLY_APPKEY: ${{ secrets.COUNTLY_APPKEY }}
           COUNTLY_APPKEY_DEV: ${{ secrets.COUNTLY_APPKEY_DEV }}
           COUNTLY_ENDPOINT: ${{ secrets.COUNTLY_ENDPOINT }}
+          COUNTLY_SALT: ${{ secrets.COUNTLY_SALT }}
           COUNTLY_SALT_DEV: ${{ secrets.COUNTLY_SALT_DEV }}
         run: |
           cat <<EOT > config.pri
@@ -72,9 +74,9 @@ jobs:
           API_ENDPOINT="${API_ENDPOINT}"
           ARSO_API_ENDPOINT="${ARSO_API_ENDPOINT}"
           ARSO_API_RESOURCES="${ARSO_API_RESOURCES}"
-          COUNTLY_APPKEY="${COUNTLY_APPKEY_DEV}"
+          COUNTLY_APPKEY="${COUNTLY_APPKEY}"
           COUNTLY_ENDPOINT="${COUNTLY_ENDPOINT}"
-          COUNTLY_SALT="${COUNTLY_SALT_DEV}"
+          COUNTLY_SALT="${COUNTLY_SALT}"
           EOT
           cd ..
           mkdir build
