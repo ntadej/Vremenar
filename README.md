@@ -3,7 +3,7 @@
 
 ## Copyright
 
-Copyright (C) 2019 Tadej Novak
+Copyright (C) 2020 Tadej Novak
 
 Vremenar is free (libre) software. This means that the application
 source code is available to public, anyone is welcome to research

@@ -4,39 +4,45 @@
 <context>
     <name>MainMenu</name>
     <message>
-        <location filename="../../../src/qml/Vremenar/Desktop/+custommenu/MainMenu.qml" line="19"/>
-        <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="20"/>
+        <location filename="../../../src/qml/Vremenar/Desktop/+custommenu/MainMenu.qml" line="21"/>
+        <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="22"/>
         <source>&amp;File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Desktop/+custommenu/MainMenu.qml" line="22"/>
-        <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="29"/>
+        <location filename="../../../src/qml/Vremenar/Desktop/+custommenu/MainMenu.qml" line="24"/>
+        <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="31"/>
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Desktop/+custommenu/MainMenu.qml" line="27"/>
-        <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="23"/>
+        <location filename="../../../src/qml/Vremenar/Desktop/+custommenu/MainMenu.qml" line="29"/>
+        <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="25"/>
         <source>E&amp;xit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Desktop/+custommenu/MainMenu.qml" line="40"/>
-        <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="39"/>
+        <location filename="../../../src/qml/Vremenar/Desktop/+custommenu/MainMenu.qml" line="42"/>
+        <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="41"/>
         <source>Map Type</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Desktop/+custommenu/MainMenu.qml" line="57"/>
-        <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="63"/>
+        <location filename="../../../src/qml/Vremenar/Desktop/+custommenu/MainMenu.qml" line="59"/>
+        <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="65"/>
         <source>&amp;Help</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Desktop/+custommenu/MainMenu.qml" line="60"/>
-        <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="66"/>
+        <location filename="../../../src/qml/Vremenar/Desktop/+custommenu/MainMenu.qml" line="62"/>
+        <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="68"/>
         <source>&amp;About</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../src/qml/Vremenar/Desktop/+custommenu/MainMenu.qml" line="67"/>
+        <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="73"/>
+        <source>&amp;Check for updates</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -55,14 +61,6 @@
     <message>
         <location filename="../../../src/qml/Vremenar/Maps/MapControls.qml" line="165"/>
         <source>Maps</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>MapPage</name>
-    <message>
-        <location filename="../../../src/qml/Vremenar/Maps/MapPage.qml" line="27"/>
-        <source>Weather Map</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -104,6 +102,26 @@
     <message>
         <location filename="../../../src/weather/common/Weather.cpp" line="53"/>
         <source>Hail probability</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../src/common/About.cpp" line="21"/>
+        <source>About</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../src/common/About.cpp" line="25"/>
+        <source>Terms of Service</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../src/common/About.cpp" line="28"/>
+        <source>Privacy Policy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../src/common/About.cpp" line="31"/>
+        <source>Report an issue</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -181,7 +199,7 @@
 <context>
     <name>Vremenar::ARSO::WeatherProvider</name>
     <message>
-        <location filename="../../../src/weather/arso/ARSOWeatherProvider.cpp" line="41"/>
+        <location filename="../../../src/weather/arso/ARSOWeatherProvider.cpp" line="47"/>
         <source>Slovenian Environment Agency</source>
         <translation type="unfinished"></translation>
     </message>
@@ -189,27 +207,27 @@
 <context>
     <name>Vremenar::AboutDialog</name>
     <message>
-        <location filename="../../../src/application/dialogs/AboutDialog.cpp" line="30"/>
+        <location filename="../../../src/application/dialogs/AboutDialog.cpp" line="31"/>
         <source>About %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/application/dialogs/AboutDialog.cpp" line="63"/>
+        <location filename="../../../src/application/dialogs/AboutDialog.cpp" line="76"/>
         <source>Version %1 (%2)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/application/dialogs/AboutDialog.cpp" line="66"/>
+        <location filename="../../../src/application/dialogs/AboutDialog.cpp" line="80"/>
         <source>Weather data</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/application/dialogs/AboutDialog.cpp" line="67"/>
+        <location filename="../../../src/application/dialogs/AboutDialog.cpp" line="81"/>
         <source>Maps</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/application/dialogs/AboutDialog.cpp" line="68"/>
+        <location filename="../../../src/application/dialogs/AboutDialog.cpp" line="82"/>
         <source>Icons</source>
         <translation type="unfinished"></translation>
     </message>
@@ -217,12 +235,12 @@
 <context>
     <name>Vremenar::MapLayersProxyModel</name>
     <message>
-        <location filename="../../../src/weather/common/models/MapLayersProxyModel.cpp" line="65"/>
+        <location filename="../../../src/weather/common/models/MapLayersProxyModel.cpp" line="78"/>
         <source>tomorrow</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/weather/common/models/MapLayersProxyModel.cpp" line="68"/>
+        <location filename="../../../src/weather/common/models/MapLayersProxyModel.cpp" line="81"/>
         <source>yesterday</source>
         <translation type="unfinished"></translation>
     </message>
@@ -244,6 +262,42 @@
         <location filename="../../../src/settings/SettingsDialogMacOS.mm" line="32"/>
         <location filename="../../../src/settings/SettingsDialogMacOS.mm" line="58"/>
         <source>Interface</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>Vremenar::TrayIcon</name>
+    <message>
+        <location filename="../../../src/application/TrayIcon.cpp" line="21"/>
+        <source>Show</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../src/application/TrayIcon.cpp" line="22"/>
+        <source>Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../src/application/TrayIcon.cpp" line="23"/>
+        <source>Quit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../src/application/TrayIcon.cpp" line="69"/>
+        <source>Map Type</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>Vremenar::Updates</name>
+    <message>
+        <location filename="../../../src/application/Updates.cpp" line="83"/>
+        <source>An update is available. Do you want to download it now?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../src/application/Updates.cpp" line="89"/>
+        <source>A new testing update is available. Do you want to download it now?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
