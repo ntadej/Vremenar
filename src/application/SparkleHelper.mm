@@ -19,7 +19,7 @@ namespace Vremenar
 
 SparkleHelper::SparkleHelper()
 {
-    sharedUpdater = [SUUpdater new];
+    sharedUpdater = [[SUUpdater alloc] init];
 }
 
 void SparkleHelper::checkForUpdates()

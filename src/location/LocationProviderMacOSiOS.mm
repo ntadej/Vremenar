@@ -66,7 +66,7 @@ bool LocationProviderMacOSiOS::servicesAllowed() const
     case kCLAuthorizationStatusNotDetermined:
         // User has not yet made a choice with regards to this application
         break;
-    case kCLAuthorizationStatusRestricted:
+    case kCLAuthorizationStatusRestricted: // NOLINT(bugprone-branch-clone)
         // This application is not authorized to use location services.  Due
         // to active restrictions on location services, the user cannot change
         // this status, and may not have personally denied authorization
@@ -75,7 +75,7 @@ bool LocationProviderMacOSiOS::servicesAllowed() const
         // User has explicitly denied authorization for this application, or
         // location services are disabled in Settings
         return false;
-    case kCLAuthorizationStatusAuthorizedAlways:
+    case kCLAuthorizationStatusAuthorizedAlways: // NOLINT(bugprone-branch-clone)
         // This app is authorized to start location services at any time.
         break;
 #ifndef Q_OS_MACOS

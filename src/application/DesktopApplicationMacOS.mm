@@ -90,7 +90,8 @@ void DesktopApplication::dockShow()
         // http://stackoverflow.com/questions/7596643/
         NSArray *runningApps = [NSRunningApplication
             runningApplicationsWithBundleIdentifier:@"com.apple.dock"];
-        for (NSRunningApplication *app in runningApps) {
+        NSRunningApplication *app = nullptr;
+        for (app in runningApps) {
             [app activateWithOptions:NSApplicationActivateIgnoringOtherApps];
             break;
         }
