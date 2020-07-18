@@ -1,5 +1,6 @@
 # Vremenar
 
+[![Homepage][web-img]][web] [![Latest release][release-img]][release]
 
 ## Copyright
 
@@ -14,3 +15,9 @@ This project may be used under the terms of
 the GNU General Public License version 3.0
 and the Mozilla Public License version 2.0.
 The details are outlined in the file [LICENSE.md](LICENSE.md).
+
+
+[web]: https://vremenar.tano.si
+[release]: https://github.com/ntadej/tano/releases/latest
+[web-img]: https://img.shields.io/badge/web-vremenar.tano.si-yellow.svg
+[release-img]: https://img.shields.io/github/release/ntadej/Vremenar.svg
