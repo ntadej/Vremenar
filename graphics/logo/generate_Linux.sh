@@ -15,13 +15,13 @@ area_bkg="48:48:552:552"
 for (( i=0; i<${#sizes[@]}; i++ )); do
   CURRENT=$OUT/${sizes[$i]}x${sizes[$i]}
 
-  $inkscape -z -o $CURRENT/background.png --export-area=$area_bkg -w ${sizes[$i]} $DIR/background_desktop.svg
-  $inkscape -z -o $CURRENT/background@2x.png --export-area=$area_bkg -w ${sizes_hidpi[$i]} $DIR/background_desktop.svg
+  $inkscape -o $CURRENT/background.png --export-area=$area_bkg -w ${sizes[$i]} $DIR/background_desktop.svg
+  $inkscape -o $CURRENT/background@2x.png --export-area=$area_bkg -w ${sizes_hidpi[$i]} $DIR/background_desktop.svg
 
-  $inkscape -z -o $CURRENT/shape.png --export-area=$area -w ${sizes[$i]} $DIR/shape.svg
-  $inkscape -z -o $CURRENT/shape@2x.png --export-area=$area -w ${sizes_hidpi[$i]} $DIR/shape.svg
-  $inkscape -z -o $CURRENT/shape_flat.png --export-area=$area -w ${sizes[$i]} $DIR/shape_flat.svg
-  $inkscape -z -o $CURRENT/shape_flat@2x.png --export-area=$area -w ${sizes_hidpi[$i]} $DIR/shape_flat.svg
+  $inkscape -o $CURRENT/shape.png --export-area=$area -w ${sizes[$i]} $DIR/shape.svg
+  $inkscape -o $CURRENT/shape@2x.png --export-area=$area -w ${sizes_hidpi[$i]} $DIR/shape.svg
+  $inkscape -o $CURRENT/shape_flat.png --export-area=$area -w ${sizes[$i]} $DIR/shape_flat.svg
+  $inkscape -o $CURRENT/shape_flat@2x.png --export-area=$area -w ${sizes_hidpi[$i]} $DIR/shape_flat.svg
 
   magick composite -gravity center $CURRENT/shape.png $CURRENT/background.png $CURRENT/vremenar.png
   magick composite -gravity center $CURRENT/shape@2x.png $CURRENT/background@2x.png $CURRENT/vremenar@2x.png

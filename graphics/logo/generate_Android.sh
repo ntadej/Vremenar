@@ -17,9 +17,9 @@ area="28:28:572:572"
 
 for (( i=0; i<${#android[@]}; i++ ));
 do
-    $inkscape -z -o $OUT_gen/${android[$i]}/shape.png --export-area=$area -w ${android_sizes[$i]} $DIR/shape.svg
-    $inkscape -z -o $OUT_gen/${android[$i]}/shape_adaptive.png --export-area=$area -w ${android_adaptive[$i]} $DIR/shape.svg
-    $inkscape -z -o $OUT_gen/${android[$i]}/shape_adaptive_large.png --export-area=$area -w ${android_adaptive_large[$i]} $DIR/shape.svg
+    $inkscape -o $OUT_gen/${android[$i]}/shape.png --export-area=$area -w ${android_sizes[$i]} $DIR/shape.svg
+    $inkscape -o $OUT_gen/${android[$i]}/shape_adaptive.png --export-area=$area -w ${android_adaptive[$i]} $DIR/shape.svg
+    $inkscape -o $OUT_gen/${android[$i]}/shape_adaptive_large.png --export-area=$area -w ${android_adaptive_large[$i]} $DIR/shape.svg
 
     magick composite -gravity center $OUT_gen/${android[$i]}/shape.png $OUT_gen/${android[$i]}/ic_launcher.png $OUT_res/${android[$i]}/ic_launcher.png
     magick composite -gravity center $OUT_gen/${android[$i]}/shape.png $OUT_gen/${android[$i]}/ic_launcher_round.png $OUT_res/${android[$i]}/ic_launcher_round.png
@@ -30,13 +30,13 @@ do
 done
 
 # For web
-$inkscape -z -o $OUT/generated/shape.png --export-area=$area -w 512 $DIR/shape.svg
+$inkscape -o $OUT/generated/shape.png --export-area=$area -w 512 $DIR/shape.svg
 magick composite -gravity center $OUT/generated/shape.png $OUT/generated/ic_launcher-web.png $OUT/ic_launcher-web.png
 rm $OUT/generated/shape.png
 
 # TV
-$inkscape -z -o $OUT_gen/background.png -w 320 -h 180 $DIR/background_square.svg
-$inkscape -z -o $OUT_gen/shape.png --export-area=80:80:520:520 -w 180 $DIR/shape.svg
+$inkscape -o $OUT_gen/background.png -w 320 -h 180 $DIR/background_square.svg
+$inkscape -o $OUT_gen/shape.png --export-area=80:80:520:520 -w 180 $DIR/shape.svg
 
 echo magick composite -gravity center $OUT_gen/shape.png $OUT_gen/background.png $OUT_res/drawable/tv_banner.png
 magick composite -gravity center $OUT_gen/shape.png $OUT_gen/background.png $OUT_res/drawable/tv_banner.png

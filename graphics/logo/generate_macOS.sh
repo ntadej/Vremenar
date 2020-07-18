@@ -19,11 +19,11 @@ iconset_retina=(32 64 256 512 1024)
 for (( i=0; i<${#iconset[@]}; i++ )); do
   size=${iconset[$i]}x${iconset[$i]}
 
-  $inkscape -z -o $OUT_iconset/background_${size}.png --export-area=$area_bkg -w ${iconset[$i]} $DIR/background_desktop.svg
-  $inkscape -z -o $OUT_iconset/background_${size}@2x.png --export-area=$area_bkg -w ${iconset_retina[$i]} $DIR/background_desktop.svg
+  $inkscape -o $OUT_iconset/background_${size}.png --export-area=$area_bkg -w ${iconset[$i]} $DIR/background_desktop.svg
+  $inkscape -o $OUT_iconset/background_${size}@2x.png --export-area=$area_bkg -w ${iconset_retina[$i]} $DIR/background_desktop.svg
 
-  $inkscape -z -o $OUT_iconset/shape_${size}.png --export-area=$area -w ${iconset[$i]} $DIR/shape_flat.svg
-  $inkscape -z -o $OUT_iconset/shape_${size}@2x.png --export-area=$area -w ${iconset_retina[$i]} $DIR/shape_flat.svg
+  $inkscape -o $OUT_iconset/shape_${size}.png --export-area=$area -w ${iconset[$i]} $DIR/shape_flat.svg
+  $inkscape -o $OUT_iconset/shape_${size}@2x.png --export-area=$area -w ${iconset_retina[$i]} $DIR/shape_flat.svg
 
   echo magick composite -gravity center $OUT_iconset/shape_${size}.png $OUT_iconset/background_${size}.png $OUT_iconset/icon_${size}.png
   magick composite -gravity center $OUT_iconset/shape_${size}.png $OUT_iconset/background_${size}.png $OUT_iconset/icon_${size}.png
