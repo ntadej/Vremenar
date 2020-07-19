@@ -1,6 +1,8 @@
 # Vremenar
 
-[![Homepage][web-img]][web] [![Latest release][release-img]][release]
+[![Homepage][web-img]][web] [![Latest release][release-img]][release] [![Continuous Integration][ci-img]][ci]
+
+[![Vremenar][screen]][web]
 
 ## Copyright
 
@@ -19,5 +21,8 @@ The details are outlined in the file [LICENSE.md](LICENSE.md).
 
 [web]: https://vremenar.tano.si
 [release]: https://github.com/ntadej/Vremenar/releases/latest
+[ci]: https://github.com/ntadej/Vremenar/actions
 [web-img]: https://img.shields.io/badge/web-vremenar.tano.si-yellow.svg
 [release-img]: https://img.shields.io/github/release/ntadej/Vremenar.svg
+[ci-img]: https://github.com/ntadej/Vremenar/workflows/Continuous%20Integration/badge.svg
+[screen]: graphics/screen1.png
