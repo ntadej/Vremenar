@@ -24,7 +24,7 @@
 #include "common/LocaleManager.h"
 #include "common/NetworkManagerFactory.h"
 #include "location/LocationProvider.h"
-#include "weather/arso/ARSOWeatherProvider.h"
+#include "weather/backend/WeatherProvider.h"
 
 #ifndef VREMENAR_MOBILE
 #include "application/TrayIcon.h"
@@ -91,7 +91,7 @@ private:
     std::unique_ptr<Updates> _updates{};
 
     // API
-    std::unique_ptr<ARSO::WeatherProvider> _weatherProvider{};
+    std::unique_ptr<Backend::WeatherProvider> _weatherProvider{};
 
     // QML
     gsl::owner<QQmlFileSelector *> _qmlFileSelector{}; // owned by Qt internally
