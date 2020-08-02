@@ -17,14 +17,6 @@ isEmpty(API_ENDPOINT) {
     error("'API_ENDPOINT' is not defined or empty!")
 }
 
-isEmpty(ARSO_API_ENDPOINT) {
-    error("'ARSO_API_ENDPOINT' is not defined or empty!")
-}
-
-isEmpty(ARSO_API_RESOURCES) {
-    error("'ARSO_API_RESOURCES' is not defined or empty!")
-}
-
 isEmpty(COUNTLY_APPKEY) {
     error("'COUNTLY_APPKEY' is not defined or empty!")
 }

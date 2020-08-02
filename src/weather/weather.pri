@@ -24,15 +24,6 @@ SOURCES += \
     src/weather/common/models/MapLayersProxyModel.cpp \
     src/weather/common/models/MapLegendModelBase.cpp \
     src/weather/common/models/MapLegendProxyModel.cpp \
-    src/weather/arso/ARSOCommon.cpp \
-    src/weather/arso/ARSOCurrentWeather.cpp \
-    src/weather/arso/ARSOWeatherProvider.cpp \
-    src/weather/arso/api/ARSOAPILocations.cpp \
-    src/weather/arso/api/ARSOAPIMapLayers.cpp \
-    src/weather/arso/api/ARSOAPIRequest.cpp \
-    src/weather/arso/models/ARSOForecastModel.cpp \
-    src/weather/arso/models/ARSOMapLayersModel.cpp \
-    src/weather/arso/models/ARSOMapLegendModel.cpp \
     src/weather/backend/Common.cpp \
     src/weather/backend/CurrentWeather.cpp \
     src/weather/backend/WeatherProvider.cpp \
@@ -58,15 +49,6 @@ HEADERS += \
     src/weather/common/models/MapLayersProxyModel.h \
     src/weather/common/models/MapLegendModelBase.h \
     src/weather/common/models/MapLegendProxyModel.h \
-    src/weather/arso/ARSOCommon.h \
-    src/weather/arso/ARSOCurrentWeather.h \
-    src/weather/arso/ARSOWeatherProvider.h \
-    src/weather/arso/api/ARSOAPILocations.h \
-    src/weather/arso/api/ARSOAPIMapLayers.h \
-    src/weather/arso/api/ARSOAPIRequest.h \
-    src/weather/arso/models/ARSOForecastModel.h \
-    src/weather/arso/models/ARSOMapLayersModel.h \
-    src/weather/arso/models/ARSOMapLegendModel.h \
     src/weather/backend/Common.h \
     src/weather/backend/CurrentWeather.h \
     src/weather/backend/WeatherProvider.h \

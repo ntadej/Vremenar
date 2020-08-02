@@ -61,8 +61,6 @@ jobs:
         env:
           MAPS_ENDPOINT: ${{ secrets.MAPS_ENDPOINT }}
           API_ENDPOINT: ${{ secrets.API_ENDPOINT }}
-          ARSO_API_ENDPOINT: ${{ secrets.ARSO_API_ENDPOINT }}
-          ARSO_API_RESOURCES: ${{ secrets.ARSO_API_RESOURCES }}
           COUNTLY_APPKEY: ${{ secrets.COUNTLY_APPKEY }}
           COUNTLY_APPKEY_DEV: ${{ secrets.COUNTLY_APPKEY_DEV }}
           COUNTLY_ENDPOINT: ${{ secrets.COUNTLY_ENDPOINT }}
@@ -72,8 +70,6 @@ jobs:
           cat <<EOT > config.pri
           MAPS_ENDPOINT="${MAPS_ENDPOINT}"
           API_ENDPOINT="${API_ENDPOINT}"
-          ARSO_API_ENDPOINT="${ARSO_API_ENDPOINT}"
-          ARSO_API_RESOURCES="${ARSO_API_RESOURCES}"
           COUNTLY_APPKEY="${COUNTLY_APPKEY}"
           COUNTLY_ENDPOINT="${COUNTLY_ENDPOINT}"
           COUNTLY_SALT="${COUNTLY_SALT}"

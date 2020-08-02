@@ -190,7 +190,7 @@ void ApplicationWindow::createModels()
 {
     _location = std::make_unique<LocationProvider>(this);
     _updates = std::make_unique<Updates>(_network, this);
-    _weatherProvider = std::make_unique<ARSO::WeatherProvider>(_network, this);
+    _weatherProvider = std::make_unique<Backend::WeatherProvider>(_network, this);
     connect(_weatherProvider.get(), &WeatherProviderBase::recordEvent, _analytics.get(), &Analytics::recordEvent);
     connect(_weatherProvider.get(), &WeatherProviderBase::storeState, this, &ApplicationWindow::writeSettingsStartupMap);
 
