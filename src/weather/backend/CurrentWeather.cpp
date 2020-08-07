@@ -22,26 +22,19 @@ Backend::CurrentWeather::CurrentWeather(QObject *parent)
 {
 }
 
-void Backend::CurrentWeather::updateCurrentWeather(const QJsonObject &data)
+void Backend::CurrentWeather::updateCurrentWeather(const QJsonArray &data)
 {
-    QJsonArray features = data[QStringLiteral("features")].toArray();
+    for (QJsonValue feature : data) {
+        QJsonObject obj = feature.toObject();
 
-    for (QJsonValueRef obj : features) {
-        QJsonObject properties = obj.toObject()[QStringLiteral("properties")].toObject();
-
-        QString title = properties[QStringLiteral("title")].toString();
+        QString title = obj[QStringLiteral("title")].toString();
         if (title != location()) {
             continue;
         }
 
-        QJsonObject day = properties[QStringLiteral("days")].toArray()[0].toObject();
-        QJsonObject timeline = day[QStringLiteral("timeline")].toArray()[0].toObject();
-
-        QDateTime time = QDateTime::fromString(timeline[QStringLiteral("valid")].toString(), Qt::ISODate);
-        time.setTimeSpec(Qt::UTC);
-
-        double temperature = timeline[QStringLiteral("t")].toString().toDouble();
-        QString icon = timeline[QStringLiteral("clouds_icon_wwsyn_icon")].toString();
+        QDateTime time = QDateTime::fromMSecsSinceEpoch(obj[QStringLiteral("timestamp")].toString().toULongLong());
+        QString icon = obj[QStringLiteral("icon")].toString();
+        double temperature = obj[QStringLiteral("temperature")].toDouble();
 
         setCurrentWeather(title, temperature, icon, time);
     }

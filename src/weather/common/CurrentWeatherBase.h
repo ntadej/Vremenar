@@ -30,7 +30,7 @@ public:
     Q_PROPERTY(QString icon READ icon NOTIFY weatherChanged)
     Q_PROPERTY(QDateTime time READ time NOTIFY weatherChanged)
 
-    virtual void updateCurrentWeather(const QJsonObject &data) = 0;
+    virtual void updateCurrentWeather(const QJsonArray &data) = 0;
 
     inline void setLocation(const QString &location) { _location = location; }
     [[nodiscard]] inline const QString &location() const { return _location; }

@@ -25,7 +25,7 @@ class CurrentWeather : public CurrentWeatherBase
 public:
     explicit CurrentWeather(QObject *parent = nullptr);
 
-    void updateCurrentWeather(const QJsonObject &data) final;
+    void updateCurrentWeather(const QJsonArray &data) final;
 };
 
 } // namespace Backend

@@ -134,16 +134,15 @@ void Backend::WeatherProvider::response(QNetworkReply *reply)
 
     // JSON
     QJsonDocument document = QJsonDocument::fromJson(reply->readAll());
-    if (currentReplies()->value(reply).call() == QStringLiteral("/locations/coordinate")) {
-        QJsonObject properties = document.object()[QStringLiteral("properties")].toObject();
-        QString title = properties[QStringLiteral("title")].toString();
+    if (currentReplies()->value(reply).call() == QStringLiteral("/location/coordinate")) {
+        QString title = document.array().first().toObject()[QStringLiteral("title")].toString();
         current()->setLocation(title);
         requestCurrentWeatherInfo(QGeoCoordinate());
         removeResponse(reply);
         return;
     }
-    if (currentReplies()->value(reply).call() == QStringLiteral("/locations/string")) {
-        current()->updateCurrentWeather(document.object());
+    if (currentReplies()->value(reply).call() == QStringLiteral("/location/string")) {
+        current()->updateCurrentWeather(document.array());
 
         setLastUpdatedTimeCurrent(QDateTime::currentDateTime());
         startTimerCurrent();

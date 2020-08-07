@@ -19,12 +19,14 @@ namespace Vremenar
 Backend::APIRequest Backend::locations(const QGeoCoordinate &coordinate)
 {
     QUrlQuery query;
-    query.addQueryItem(QStringLiteral("lat"), QString::number(coordinate.latitude()));
-    query.addQueryItem(QStringLiteral("lon"), QString::number(coordinate.longitude()));
+    query.addQueryItem(QStringLiteral("country"), QStringLiteral("si"));
+    query.addQueryItem(QStringLiteral("latitude"), QString::number(coordinate.latitude()));
+    query.addQueryItem(QStringLiteral("longitude"), QString::number(coordinate.longitude()));
 
     APIRequest request;
-    request.setCall(QStringLiteral("/locations/coordinate"));
-    request.setUrl(QStringLiteral("/locations/"), query);
+    request.setOperation(QNetworkAccessManager::PostOperation);
+    request.setCall(QStringLiteral("/location/coordinate"));
+    request.setUrl(QStringLiteral("/location/find"), query);
     request.setExtra(coordinate.toString());
 
     return request;
@@ -33,11 +35,13 @@ Backend::APIRequest Backend::locations(const QGeoCoordinate &coordinate)
 Backend::APIRequest Backend::locations(const QString &location)
 {
     QUrlQuery query;
-    query.addQueryItem(QStringLiteral("loc"), location);
+    query.addQueryItem(QStringLiteral("country"), QStringLiteral("si"));
+    query.addQueryItem(QStringLiteral("string"), location);
 
     APIRequest request;
-    request.setCall(QStringLiteral("/locations/string"));
-    request.setUrl(QStringLiteral("/locations/"), query);
+    request.setOperation(QNetworkAccessManager::PostOperation);
+    request.setCall(QStringLiteral("/location/string"));
+    request.setUrl(QStringLiteral("/location/find"), query);
     request.setExtra(location);
 
     return request;
