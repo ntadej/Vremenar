@@ -12,8 +12,8 @@
 #ifndef VREMENAR_APIMAPLAYERS_H_
 #define VREMENAR_APIMAPLAYERS_H_
 
-#include "weather/common/Weather.h"
 #include "weather/backend/api/APIRequest.h"
+#include "weather/common/Weather.h"
 
 namespace Vremenar
 {
@@ -21,8 +21,7 @@ namespace Backend
 {
 
 APIRequest mapImage(const QString &url);
-APIRequest mapForecast();
-APIRequest mapForecastDetails(const QString &url);
+APIRequest mapWeatherDetails(const QString &url);
 APIRequest mapLayers(Weather::MapType type);
 
 } // namespace Backend

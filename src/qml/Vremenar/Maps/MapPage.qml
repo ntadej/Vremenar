@@ -77,8 +77,8 @@ MapPageBase {
         }
 
         MapItemView {
-             model: VForecastModel
-             delegate: ForecastEntry {
+             model: VWeatherMapModel
+             delegate: WeatherEntry {
                  icon: model.icon
                  title: model.display
                  coordinate: model.coordinate
@@ -90,7 +90,7 @@ MapPageBase {
         CurrentLocationIndicator {
         }
 
-        Binding { target: VForecastModel; property: "zoomLevel"; value: map.zoomLevel }
+        Binding { target: VWeatherMapModel; property: "zoomLevel"; value: map.zoomLevel }
         Binding { target: map; property: "currentUrl"; value: VMapLayersModel.image }
 
         Binding {

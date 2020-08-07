@@ -9,21 +9,23 @@
 * SPDX-License-Identifier: (GPL-3.0-or-later AND MPL-2.0)
 */
 
-#include "weather/common/containers/ForecastEntry.h"
+#include "weather/common/containers/WeatherInfo.h"
 
 namespace Vremenar
 {
 
-ForecastEntry::ForecastEntry(const QString &id,
-                             qint64 time,
-                             QString title,
-                             QString icon,
-                             int temperature,
-                             int temperatureLow,
-                             const QGeoCoordinate &coordinate,
-                             qreal zoomLevel,
-                             QObject *parent)
+WeatherInfo::WeatherInfo(const QString &id,
+                         Weather::ObservationType observation,
+                         qint64 time,
+                         QString title,
+                         QString icon,
+                         qreal temperature,
+                         qreal temperatureLow,
+                         const QGeoCoordinate &coordinate,
+                         qreal zoomLevel,
+                         QObject *parent)
     : ListItem(parent),
+      _observation(observation),
       _time(time),
       _title(std::move(title)),
       _icon(std::move(icon)),
@@ -35,18 +37,20 @@ ForecastEntry::ForecastEntry(const QString &id,
     setId(id);
 }
 
-QString ForecastEntry::display() const
+QString WeatherInfo::display() const
 {
     return _title;
 }
 
-QVariant ForecastEntry::data(int role) const
+QVariant WeatherInfo::data(int role) const
 {
     switch (role) {
     case IdRole:
         return id();
     case DisplayRole:
         return display();
+    case ObservationRole:
+        return observation();
     case TimeRole:
         return time();
     case IconRole:
@@ -64,7 +68,7 @@ QVariant ForecastEntry::data(int role) const
     return QVariant();
 }
 
-void ForecastEntry::update(const ForecastEntry *source)
+void WeatherInfo::update(const WeatherInfo *source)
 {
     if (source == nullptr) {
         return;

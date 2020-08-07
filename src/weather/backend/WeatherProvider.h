@@ -13,9 +13,9 @@
 #define VREMENAR_WEATHERPROVIDER_H_
 
 #include "weather/backend/Common.h"
-#include "weather/backend/models/ForecastModel.h"
 #include "weather/backend/models/MapLayersModel.h"
 #include "weather/backend/models/MapLegendModel.h"
+#include "weather/backend/models/WeatherMapModel.h"
 #include "weather/common/Weather.h"
 #include "weather/common/WeatherProviderBase.h"
 
@@ -33,7 +33,7 @@ public:
 
     Q_INVOKABLE void requestCurrentWeatherInfo(const QGeoCoordinate &coordinate) final;
     Q_INVOKABLE void requestImage(const QString &url) final;
-    Q_INVOKABLE void requestForecastDetails(const QString &url) final;
+    Q_INVOKABLE void requestWeatherMapDetails(const QString &url) final;
     Q_INVOKABLE void requestMapLayers(Weather::MapType type) final;
 
     [[nodiscard]] bool currentMapLayerHasLegend() const final;
@@ -48,15 +48,15 @@ private Q_SLOTS:
 
 private:
     const std::vector<Weather::MapType> _supportedMapTypes{
-        Weather::ForecastMap,
+        Weather::WeatherConditionMap,
         Weather::PrecipitationMap,
         Weather::CloudCoverageMap,
         Weather::WindSpeedMap,
         Weather::TemperatureMap,
         Weather::HailProbabilityMap};
 
-    std::unique_ptr<ForecastModel> _forecastModelBase;
-    std::unique_ptr<ForecastModel> _forecastModel;
+    std::unique_ptr<WeatherMapModel> _weatherMapModelBase;
+    std::unique_ptr<WeatherMapModel> _weatherMapModel;
     std::unique_ptr<MapLayersModel> _mapLayersModel;
     std::unique_ptr<MapLegendModel> _mapLegendModel;
 

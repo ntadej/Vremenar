@@ -9,27 +9,27 @@
 * SPDX-License-Identifier: (GPL-3.0-or-later AND MPL-2.0)
 */
 
-#ifndef VREMENAR_FORECASTMODEL_H_
-#define VREMENAR_FORECASTMODEL_H_
+#ifndef VREMENAR_WEATHERMAPMODEL_H_
+#define VREMENAR_WEATHERMAPMODEL_H_
 
-#include "weather/common/models/ForecastModelBase.h"
+#include "weather/common/models/WeatherMapModelBase.h"
 
 namespace Vremenar
 {
 namespace Backend
 {
 
-class ForecastModel : public ForecastModelBase
+class WeatherMapModel : public WeatherMapModelBase
 {
     Q_OBJECT
 public:
-    explicit ForecastModel(QObject *parent = nullptr);
+    explicit WeatherMapModel(QObject *parent = nullptr);
 
-    ForecastEntry *createEntry(const QJsonObject &data) final;
+    WeatherInfo *createEntry(const QJsonObject &data) final;
     void addEntries(const QJsonArray &data) final;
 };
 
 } // namespace Backend
 } // namespace Vremenar
 
-#endif // VREMENAR_FORECASTMODEL_H_
+#endif // VREMENAR_WEATHERMAPMODEL_H_

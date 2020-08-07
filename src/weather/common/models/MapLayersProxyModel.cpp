@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -125,7 +125,7 @@ void MapLayersProxyModel::setImage(const QString &image)
 void MapLayersProxyModel::setDefaultTimestamp()
 {
     auto type = data(index(0, 0), MapLayer::TypeRole).value<Weather::MapType>();
-    if (type == Weather::ForecastMap) {
+    if (type == Weather::WeatherConditionMap) {
         _timer->setInterval(timerIntervalLong);
         setTimestamp(data(index(0, 0), MapLayer::TimeRole).toDateTime().toMSecsSinceEpoch());
         return;

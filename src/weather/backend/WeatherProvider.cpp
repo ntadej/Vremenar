@@ -31,13 +31,13 @@ namespace Vremenar
 Backend::WeatherProvider::WeatherProvider(NetworkManager *network,
                                           QObject *parent)
     : WeatherProviderBase(network, parent),
-      _forecastModelBase(std::make_unique<ForecastModel>(this)),
-      _forecastModel(std::make_unique<ForecastModel>(this)),
+      _weatherMapModelBase(std::make_unique<WeatherMapModel>(this)),
+      _weatherMapModel(std::make_unique<WeatherMapModel>(this)),
       _mapLayersModel(std::make_unique<MapLayersModel>(this)),
       _mapLegendModel(std::make_unique<MapLegendModel>(this))
 {
     setupCurrentWeather(std::make_unique<CurrentWeather>(this));
-    forecast()->setSourceModel(_forecastModel.get());
+    weatherMap()->setSourceModel(_weatherMapModel.get());
     mapInfo()->generateModel(supportedMapTypes());
     mapLayers()->setDefaultCoordinates(MapLayer::geoRectangleToList(defaultMapCoordinates()));
     mapLayers()->setSourceModel(_mapLayersModel.get());
@@ -52,7 +52,7 @@ Backend::WeatherProvider::WeatherProvider(NetworkManager *network,
 
 bool Backend::WeatherProvider::currentMapLayerHasLegend() const
 {
-    return !(currentType() == Weather::ForecastMap || currentType() == Weather::CloudCoverageMap);
+    return !(currentType() == Weather::WeatherConditionMap || currentType() == Weather::CloudCoverageMap);
 }
 
 void Backend::WeatherProvider::requestCurrentWeatherInfo(const QGeoCoordinate &coordinate)
@@ -70,13 +70,13 @@ void Backend::WeatherProvider::requestCurrentWeatherInfo(const QGeoCoordinate &c
     }
 }
 
-void Backend::WeatherProvider::requestForecastDetails(const QString &url)
+void Backend::WeatherProvider::requestWeatherMapDetails(const QString &url)
 {
-    qDebug() << "Requesting forecast details:" << url;
+    qDebug() << "Requesting weather details:" << url;
 
     setLoading(true);
 
-    APIRequest request = Backend::mapForecastDetails(url);
+    APIRequest request = Backend::mapWeatherDetails(url);
     currentReplies()->insert(network()->request(request), request);
 }
 
@@ -97,17 +97,12 @@ void Backend::WeatherProvider::requestMapLayers(Weather::MapType type)
     setLoading(true);
 
     mapLayers()->setUpdating(true);
-    _forecastModelBase->clear();
-    _forecastModel->clear();
+    _weatherMapModelBase->clear();
+    _weatherMapModel->clear();
     _mapLayersModel->clear();
 
-    if (type == Weather::ForecastMap) {
-        APIRequest request = Backend::mapForecast();
-        currentReplies()->insert(network()->request(request), request);
-    } else {
-        APIRequest request = Backend::mapLayers(type);
-        currentReplies()->insert(network()->request(request), request);
-    }
+    APIRequest request = Backend::mapLayers(type);
+    currentReplies()->insert(network()->request(request), request);
 }
 
 void Backend::WeatherProvider::response(QNetworkReply *reply)
@@ -158,12 +153,12 @@ void Backend::WeatherProvider::response(QNetworkReply *reply)
         return;
     }
 
-    if (currentReplies()->value(reply).call() == QStringLiteral("/forecast_data_details")) {
-        _forecastModelBase->addEntries(document.object()[QStringLiteral("features")].toArray());
-        if (currentReplies()->value(reply).url().toString().contains(QStringLiteral("latest"))) {
-            _forecastModel->addEntries(document.object()[QStringLiteral("features")].toArray());
+    if (currentReplies()->value(reply).call() == QStringLiteral("/weather_map")) {
+        _weatherMapModelBase->addEntries(document.array());
+        if (currentReplies()->value(reply).url().toString().contains(QStringLiteral("current"))) {
+            _weatherMapModel->addEntries(document.array());
         } else {
-            _forecastModel->update(_forecastModelBase.get(), mapLayers()->timestamp());
+            _weatherMapModel->update(_weatherMapModelBase.get(), mapLayers()->timestamp());
         }
         mapLayers()->playResume();
         removeResponse(reply);
@@ -183,12 +178,12 @@ void Backend::WeatherProvider::response(QNetworkReply *reply)
             return;
         }
 
-        _forecastModelBase->clear();
-        _forecastModel->clear();
+        _weatherMapModelBase->clear();
+        _weatherMapModel->clear();
         _mapLayersModel->clear();
         _mapLayersModel->addMapLayers(type, data);
 
-        if (type == Weather::ForecastMap) {
+        if (type == Weather::WeatherConditionMap) {
             currentTimeChanged();
             return;
         }
@@ -210,12 +205,12 @@ void Backend::WeatherProvider::response(QNetworkReply *reply)
 
 void Backend::WeatherProvider::currentTimeChanged()
 {
-    if (currentType() != Weather::ForecastMap) {
+    if (currentType() != Weather::WeatherConditionMap) {
         requestImage(mapLayers()->url());
         return;
     }
 
-    MapLayer *layer = _mapLayersModel->findLayer(Weather::ForecastMap, mapLayers()->timestamp());
+    MapLayer *layer = _mapLayersModel->findLayer(Weather::WeatherConditionMap, mapLayers()->timestamp());
     if (layer == nullptr) {
         return;
     }
@@ -223,10 +218,10 @@ void Backend::WeatherProvider::currentTimeChanged()
     mapLayers()->setImage(QStringLiteral("data:image/jpeg;base64,") + Weather::blankPng);
 
     if (!layer->loaded()) {
-        requestForecastDetails(layer->url().toString());
+        requestWeatherMapDetails(layer->url().toString());
         layer->setLoaded();
     } else {
-        _forecastModel->update(_forecastModelBase.get(), mapLayers()->timestamp());
+        _weatherMapModel->update(_weatherMapModelBase.get(), mapLayers()->timestamp());
         mapLayers()->playResume();
     }
 }

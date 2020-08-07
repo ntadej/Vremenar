@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -9,8 +9,8 @@
 * SPDX-License-Identifier: (GPL-3.0-or-later AND MPL-2.0)
 */
 
-#ifndef VREMENAR_FORECASTPROXYMODEL_H_
-#define VREMENAR_FORECASTPROXYMODEL_H_
+#ifndef VREMENAR_WEATHERMAPPROXYMODEL_H_
+#define VREMENAR_WEATHERMAPPROXYMODEL_H_
 
 #include <QtCore/QDateTime>
 #include <QtCore/QSortFilterProxyModel>
@@ -18,7 +18,7 @@
 namespace Vremenar
 {
 
-class ForecastProxyModel : public QSortFilterProxyModel
+class WeatherMapProxyModel : public QSortFilterProxyModel
 {
     Q_OBJECT
 
@@ -26,7 +26,7 @@ class ForecastProxyModel : public QSortFilterProxyModel
     Q_PROPERTY(qint64 time READ time NOTIFY timeChanged)
 
 public:
-    explicit ForecastProxyModel(QObject *parent = nullptr);
+    explicit WeatherMapProxyModel(QObject *parent = nullptr);
 
     [[nodiscard]] inline qreal zoomLevel() const { return _zoomLevel; }
     void setZoomLevel(qreal level);
@@ -48,4 +48,4 @@ private:
 
 } // namespace Vremenar
 
-#endif // VREMENAR_FORECASTPROXYMODEL_H_
+#endif // VREMENAR_WEATHERMAPPROXYMODEL_H_

@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -16,7 +16,7 @@ namespace Vremenar
 
 // Map startup settings
 const bool Settings::DEFAULT_STARTUP_MAP_ENABLED = true;
-const Weather::MapType Settings::DEFAULT_STARTUP_MAP_TYPE = Weather::ForecastMap;
+const Weather::MapType Settings::DEFAULT_STARTUP_MAP_TYPE = Weather::WeatherConditionMap;
 const qreal Settings::DEFAULT_STARTUP_MAP_ZOOM_LEVEL = 8;
 const double Settings::DEFAULT_STARTUP_MAP_LATITUDE = 46.119944;
 const double Settings::DEFAULT_STARTUP_MAP_LONGITUDE = 14.815333;

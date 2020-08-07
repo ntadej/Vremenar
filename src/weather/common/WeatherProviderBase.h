@@ -20,10 +20,10 @@
 #include "common/containers/Hyperlink.h"
 #include "weather/common/CurrentWeatherBase.h"
 #include "weather/common/Weather.h"
-#include "weather/common/models/ForecastProxyModel.h"
 #include "weather/common/models/MapInfoModel.h"
 #include "weather/common/models/MapLayersProxyModel.h"
 #include "weather/common/models/MapLegendProxyModel.h"
+#include "weather/common/models/WeatherMapProxyModel.h"
 
 namespace Vremenar
 {
@@ -45,13 +45,13 @@ public:
     Q_PROPERTY(int currentMapLayerHasLegend READ currentMapLayerHasLegend NOTIFY currentMapLayerChangedSignal)
 
     inline CurrentWeatherBase *current() { return _currentWeather.get(); }
-    inline ForecastProxyModel *forecast() { return _forecastProxyModel.get(); }
+    inline WeatherMapProxyModel *weatherMap() { return _weatherMapProxyModel.get(); }
     inline MapInfoModel *mapInfo() { return _mapInfoModel.get(); }
     inline MapLayersProxyModel *mapLayers() { return _mapLayersProxyModel.get(); }
     inline MapLegendProxyModel *mapLegend() { return _mapLegendProxyModel.get(); }
 
     virtual void requestCurrentWeatherInfo(const QGeoCoordinate &coordinate) = 0;
-    virtual void requestForecastDetails(const QString &url) = 0;
+    virtual void requestWeatherMapDetails(const QString &url) = 0;
     virtual void requestImage(const QString &url) = 0;
     virtual void requestMapLayers(Weather::MapType type) = 0;
 
@@ -95,7 +95,7 @@ private:
     void timerCallbackCurrent();
 
     std::unique_ptr<CurrentWeatherBase> _currentWeather{};
-    std::unique_ptr<ForecastProxyModel> _forecastProxyModel{};
+    std::unique_ptr<WeatherMapProxyModel> _weatherMapProxyModel{};
     std::unique_ptr<MapInfoModel> _mapInfoModel{};
     std::unique_ptr<MapLayersProxyModel> _mapLayersProxyModel{};
     std::unique_ptr<MapLegendProxyModel> _mapLegendProxyModel{};

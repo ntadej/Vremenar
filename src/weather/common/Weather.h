@@ -29,7 +29,7 @@ enum ObservationType {
 
 enum MapType {
     UnknownMap,
-    ForecastMap,
+    WeatherConditionMap,
     PrecipitationMap,
     CloudCoverageMap,
     WindSpeedMap,

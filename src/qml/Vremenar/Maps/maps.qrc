@@ -8,7 +8,7 @@
         <file>MapPage.qml</file>
         <file>elements/MapSettingsDialog.qml</file>
         <file>MapControls.qml</file>
-        <file>elements/ForecastEntry.qml</file>
+        <file>elements/WeatherEntry.qml</file>
         <file>elements/MapLegendView.qml</file>
         <file>elements/MapLegendItem.qml</file>
         <file>MapTime.qml</file>

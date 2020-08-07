@@ -22,10 +22,10 @@
 #include "qml/Qml.h"
 #include "settings/Settings.h"
 #include "weather/common/CurrentWeatherBase.h"
-#include "weather/common/models/ForecastProxyModel.h"
 #include "weather/common/models/MapInfoModel.h"
 #include "weather/common/models/MapLayersProxyModel.h"
 #include "weather/common/models/MapLegendProxyModel.h"
+#include "weather/common/models/WeatherMapProxyModel.h"
 
 #ifndef VREMENAR_MOBILE
 #include "application/DesktopApplication.h"
@@ -201,7 +201,7 @@ void ApplicationWindow::createModels()
     _engine->rootContext()->setContextProperty(QStringLiteral("VLocation"), _location.get());
     _engine->rootContext()->setContextProperty(QStringLiteral("VWeather"), _weatherProvider.get());
     _engine->rootContext()->setContextProperty(QStringLiteral("VCurrent"), _weatherProvider->current());
-    _engine->rootContext()->setContextProperty(QStringLiteral("VForecastModel"), _weatherProvider->forecast());
+    _engine->rootContext()->setContextProperty(QStringLiteral("VWeatherMapModel"), _weatherProvider->weatherMap());
     _engine->rootContext()->setContextProperty(QStringLiteral("VMapInfoModel"), _weatherProvider->mapInfo());
     _engine->rootContext()->setContextProperty(QStringLiteral("VMapLayersModel"), _weatherProvider->mapLayers());
     _engine->rootContext()->setContextProperty(QStringLiteral("VMapLegendModel"), _weatherProvider->mapLegend());
@@ -277,7 +277,7 @@ void ApplicationWindow::startCompleted()
     if (settings.startupMapEnabled()) {
         _weatherProvider->changeMapType(settings.startupMapType());
     } else {
-        _weatherProvider->changeMapType(Weather::ForecastMap);
+        _weatherProvider->changeMapType(Weather::WeatherConditionMap);
     }
 
     _ready = true;

@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -28,8 +28,8 @@ Weather::ObservationType Weather::observationTypeFromString(const QString &type)
 
 Weather::MapType Weather::mapTypeFromString(const QString &type)
 {
-    if (type == "forecast") {
-        return Weather::ForecastMap;
+    if (type == "condition") {
+        return Weather::WeatherConditionMap;
     }
     if (type == "precipitation") {
         return Weather::PrecipitationMap;
@@ -53,8 +53,8 @@ Weather::MapType Weather::mapTypeFromString(const QString &type)
 QString Weather::mapTypeToString(MapType type)
 {
     switch (type) {
-    case ForecastMap:
-        return QStringLiteral("forecast");
+    case WeatherConditionMap:
+        return QStringLiteral("condition");
     case PrecipitationMap:
         return QStringLiteral("precipitation");
     case CloudCoverageMap:
@@ -75,8 +75,8 @@ QString Weather::mapTypeToString(MapType type)
 QString Weather::mapTypeToLocalizedString(MapType type)
 {
     switch (type) {
-    case ForecastMap:
-        return QObject::tr("Forecast");
+    case WeatherConditionMap:
+        return QObject::tr("Weather condition");
     case PrecipitationMap:
         return QObject::tr("Precipitation");
     case CloudCoverageMap:

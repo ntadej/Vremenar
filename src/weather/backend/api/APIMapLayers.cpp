@@ -27,20 +27,14 @@ Backend::APIRequest Backend::mapImage(const QString &url)
     return request;
 }
 
-Backend::APIRequest Backend::mapForecast()
+Backend::APIRequest Backend::mapWeatherDetails(const QString &url)
 {
-    APIRequest request;
-    request.setCall(QStringLiteral("/forecast_data"));
-    request.setUrl(QStringLiteral("/forecast_si_data/"));
+    QUrlQuery query;
+    query.addQueryItem(QStringLiteral("country"), QStringLiteral("si"));
 
-    return request;
-}
-
-Backend::APIRequest Backend::mapForecastDetails(const QString &url)
-{
     APIRequest request;
-    request.setCall(QStringLiteral("/forecast_data_details"));
-    request.setUrl(url);
+    request.setCall(QStringLiteral("/weather_map"));
+    request.setUrl(url, query);
 
     return request;
 }
@@ -49,8 +43,9 @@ Backend::APIRequest Backend::mapLayers(Weather::MapType type)
 {
     QString id;
     switch (type) {
-    case Weather::ForecastMap:
-        throw std::runtime_error("not supported");
+    case Weather::WeatherConditionMap:
+        id = QStringLiteral("condition");
+        break;
     case Weather::PrecipitationMap:
         id = QStringLiteral("precipitation");
         break;
