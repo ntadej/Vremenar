@@ -26,17 +26,21 @@ class MapLayer : public ListItem
 {
     Q_OBJECT
     Q_PROPERTY(QString display READ display CONSTANT)
+    Q_PROPERTY(Weather::ObservationType observation READ observation CONSTANT)
     Q_PROPERTY(Weather::MapType type READ type CONSTANT)
+    Q_PROPERTY(Weather::MapRenderingType rendering READ rendering CONSTANT)
     Q_PROPERTY(QDateTime time READ time CONSTANT)
     Q_PROPERTY(QUrl url READ url CONSTANT)
-    Q_PROPERTY(QGeoRectangle range READ range CONSTANT)
+    Q_PROPERTY(QGeoRectangle bbox READ bbox CONSTANT)
     Q_PROPERTY(bool loaded READ loaded NOTIFY loadedChanged)
 
 public:
     enum Roles {
         DisplayRole = Qt::DisplayRole,
         IdRole = Qt::UserRole + 1,
+        ObservationRole,
         TypeRole,
+        RenderingRole,
         TimeRole,
         TimestampRole,
         UrlRole,
@@ -49,19 +53,24 @@ public:
     };
 
     explicit MapLayer(Weather::MapType type,
+                      Weather::MapRenderingType rendering,
+                      Weather::ObservationType observation,
                       const QDateTime &time,
                       const QUrl &url,
-                      const QGeoRectangle &range,
+                      const QGeoRectangle &bbox = QGeoRectangle(),
                       QObject *parent = nullptr);
 
     // Implemented virtual functions
     [[nodiscard]] QVariant data(int role) const final;
     [[nodiscard]] QString display() const final;
 
+    [[nodiscard]] inline Weather::ObservationType observation() const { return _observation; }
     [[nodiscard]] inline Weather::MapType type() const { return _type; }
+    [[nodiscard]] inline Weather::MapRenderingType rendering() const { return _rendering; }
     [[nodiscard]] inline const QDateTime &time() const { return _time; }
     [[nodiscard]] inline const QUrl &url() const { return _url; }
-    [[nodiscard]] inline const QGeoRectangle &range() const { return _range; }
+    [[nodiscard]] inline const QGeoRectangle &bbox() const { return _bbox; }
+    void setBbox(const QGeoRectangle &bbox);
     [[nodiscard]] inline const QVariant &coordinates() const { return _coordinates; }
     [[nodiscard]] inline bool loaded() const { return _loaded; }
     void setLoaded();
@@ -71,7 +80,9 @@ public:
         return {
             {IdRole, "id"},
             {DisplayRole, "display"},
+            {ObservationRole, "observation"},
             {TypeRole, "type"},
+            {RenderingRole, "rendering"},
             {TimeRole, "time"},
             {TimestampRole, "timestamp"},
             {UrlRole, "url"},
@@ -89,10 +100,12 @@ Q_SIGNALS:
     void loadedChanged();
 
 private:
+    Weather::ObservationType _observation{Weather::Recent};
     Weather::MapType _type{Weather::UnknownMap};
+    Weather::MapRenderingType _rendering{Weather::ImageRendering};
     QDateTime _time;
     QUrl _url;
-    QGeoRectangle _range;
+    QGeoRectangle _bbox;
     QVariant _coordinates;
     bool _loaded{false};
 };

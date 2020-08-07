@@ -87,7 +87,7 @@ QString MapLayersProxyModel::day() const
 QString MapLayersProxyModel::title() const
 {
     auto type = data(index(0, 0), MapLayer::TypeRole).value<Weather::MapType>();
-    return Weather::mapTypeStringLocale(type);
+    return Weather::mapTypeToLocalizedString(type);
 }
 
 void MapLayersProxyModel::setTimestamp(qint64 time)

@@ -12,12 +12,12 @@
 #ifndef VREMENAR_WEATHERPROVIDER_H_
 #define VREMENAR_WEATHERPROVIDER_H_
 
-#include "weather/common/Weather.h"
-#include "weather/common/WeatherProviderBase.h"
 #include "weather/backend/Common.h"
 #include "weather/backend/models/ForecastModel.h"
 #include "weather/backend/models/MapLayersModel.h"
 #include "weather/backend/models/MapLegendModel.h"
+#include "weather/common/Weather.h"
+#include "weather/common/WeatherProviderBase.h"
 
 namespace Vremenar
 {

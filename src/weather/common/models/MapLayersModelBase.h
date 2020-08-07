@@ -25,11 +25,12 @@ public:
     explicit MapLayersModelBase(QObject *parent = nullptr);
 
     virtual MapLayer *createMapLayer(Weather::MapType type,
+                                     Weather::MapRenderingType rendering,
                                      const QJsonObject &data)
         = 0;
 
     virtual void addMapLayers(Weather::MapType type,
-                              const QJsonArray &data)
+                              const QJsonObject &data)
         = 0;
 
     [[nodiscard]] MapLayer *findLayer(Weather::MapType type,

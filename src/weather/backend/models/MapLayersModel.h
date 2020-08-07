@@ -26,10 +26,11 @@ public:
     explicit MapLayersModel(QObject *parent = nullptr);
 
     MapLayer *createMapLayer(Weather::MapType type,
+                             Weather::MapRenderingType rendering,
                              const QJsonObject &data) final;
 
     void addMapLayers(Weather::MapType type,
-                      const QJsonArray &data) final;
+                      const QJsonObject &data) final;
 };
 
 } // namespace Backend

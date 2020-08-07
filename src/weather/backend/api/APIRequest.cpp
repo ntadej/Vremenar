@@ -18,7 +18,7 @@ namespace Vremenar
 
 Backend::APIRequest::APIRequest()
 {
-    setBaseUrl(Vremenar::ARSOAPIEndpoint);
+    setBaseUrl(Vremenar::APIEndpoint);
 }
 
 } // namespace Vremenar

@@ -17,19 +17,23 @@ namespace Vremenar
 {
 
 MapLayer::MapLayer(Weather::MapType type,
+                   Weather::MapRenderingType rendering,
+                   Weather::ObservationType observation,
                    const QDateTime &time,
                    const QUrl &url,
-                   const QGeoRectangle &range,
+                   const QGeoRectangle &bbox,
                    QObject *parent)
     : ListItem(parent)
 {
-    setId(Weather::mapTypeString(type) + "_" + QString::number(time.toMSecsSinceEpoch()));
+    setId(Weather::mapTypeToString(type) + "_" + QString::number(time.toMSecsSinceEpoch()));
 
+    _observation = observation;
     _type = type;
+    _rendering = rendering;
     _time = time;
     _url = url;
-    _range = range;
-    _coordinates = geoRectangleToList(range);
+    _bbox = bbox;
+    _coordinates = geoRectangleToList(bbox);
 }
 
 QString MapLayer::display() const
@@ -44,8 +48,12 @@ QVariant MapLayer::data(int role) const
         return id();
     case DisplayRole:
         return display();
+    case ObservationRole:
+        return observation();
     case TypeRole:
         return type();
+    case RenderingRole:
+        return rendering();
     case TimeRole:
         return time();
     case TimestampRole:
@@ -53,13 +61,13 @@ QVariant MapLayer::data(int role) const
     case UrlRole:
         return url();
     case MinLatitudeRole:
-        return range().bottomLeft().latitude();
+        return bbox().bottomLeft().latitude();
     case MinLongitudeRole:
-        return range().bottomLeft().longitude();
+        return bbox().bottomLeft().longitude();
     case MaxLatitudeRole:
-        return range().topRight().latitude();
+        return bbox().topRight().latitude();
     case MaxLongitudeRole:
-        return range().topRight().longitude();
+        return bbox().topRight().longitude();
     case CoordinatesRole:
         return coordinates();
     case LoadedRole:
@@ -67,6 +75,11 @@ QVariant MapLayer::data(int role) const
     default:
         return QVariant();
     }
+}
+
+void MapLayer::setBbox(const QGeoRectangle &bbox)
+{
+    _bbox = bbox;
 }
 
 void MapLayer::setLoaded()

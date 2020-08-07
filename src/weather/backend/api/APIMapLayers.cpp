@@ -39,7 +39,6 @@ Backend::APIRequest Backend::mapForecast()
 Backend::APIRequest Backend::mapForecastDetails(const QString &url)
 {
     APIRequest request;
-    request.setBaseUrl(Vremenar::ARSOAPIResources);
     request.setCall(QStringLiteral("/forecast_data_details"));
     request.setUrl(url);
 
@@ -53,28 +52,31 @@ Backend::APIRequest Backend::mapLayers(Weather::MapType type)
     case Weather::ForecastMap:
         throw std::runtime_error("not supported");
     case Weather::PrecipitationMap:
-        id = QStringLiteral("inca_precip_data");
+        id = QStringLiteral("precipitation");
         break;
     case Weather::CloudCoverageMap:
-        id = QStringLiteral("inca_cloud_data");
+        id = QStringLiteral("cloud");
         break;
     case Weather::WindSpeedMap:
-        id = QStringLiteral("inca_wind_data");
+        id = QStringLiteral("wind");
         break;
     case Weather::TemperatureMap:
-        id = QStringLiteral("inca_t2m_data");
+        id = QStringLiteral("temperature");
         break;
     case Weather::HailProbabilityMap:
-        id = QStringLiteral("inca_hail_data");
+        id = QStringLiteral("hail");
         break;
     case Weather::UnknownMap:
         throw std::runtime_error("unknown map");
     }
 
+    QUrlQuery query;
+    query.addQueryItem(QStringLiteral("country"), QStringLiteral("si"));
+
     APIRequest request;
-    request.setCall(QStringLiteral("/inca_data"));
-    request.setUrl("/" + id + "/");
-    request.setExtra(type);
+    request.setCall(QStringLiteral("/maps"));
+    request.setUrl("/maps/" + id, query);
+    request.setExtra(static_cast<int>(type));
 
     return request;
 }

@@ -14,7 +14,43 @@
 namespace Vremenar
 {
 
-QString Weather::mapTypeString(MapType type)
+Weather::ObservationType Weather::observationTypeFromString(const QString &type)
+{
+    if (type == "historical") {
+        return Weather::Historical;
+    }
+    if (type == "forecast") {
+        return Weather::Forecast;
+    }
+
+    return Weather::Recent;
+}
+
+Weather::MapType Weather::mapTypeFromString(const QString &type)
+{
+    if (type == "forecast") {
+        return Weather::ForecastMap;
+    }
+    if (type == "precipitation") {
+        return Weather::PrecipitationMap;
+    }
+    if (type == "cloud") {
+        return Weather::CloudCoverageMap;
+    }
+    if (type == "wind") {
+        return Weather::WindSpeedMap;
+    }
+    if (type == "temperature") {
+        return Weather::TemperatureMap;
+    }
+    if (type == "hail") {
+        return Weather::HailProbabilityMap;
+    }
+
+    return Weather::UnknownMap;
+}
+
+QString Weather::mapTypeToString(MapType type)
 {
     switch (type) {
     case ForecastMap:
@@ -36,7 +72,7 @@ QString Weather::mapTypeString(MapType type)
     return QString();
 }
 
-QString Weather::mapTypeStringLocale(MapType type)
+QString Weather::mapTypeToLocalizedString(MapType type)
 {
     switch (type) {
     case ForecastMap:
@@ -56,6 +92,18 @@ QString Weather::mapTypeStringLocale(MapType type)
     }
 
     return QString();
+}
+
+Weather::MapRenderingType Weather::mapRenderingTypeFromString(const QString &type)
+{
+    if (type == "image") {
+        return Weather::ImageRendering;
+    }
+    if (type == "tiles") {
+        return Weather::TilesRendering;
+    }
+
+    return Weather::ImageRendering;
 }
 
 } // namespace Vremenar

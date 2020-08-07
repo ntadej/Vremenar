@@ -20,7 +20,7 @@ MapLayersModelBase::MapLayersModelBase(QObject *parent)
 MapLayer *MapLayersModelBase::findLayer(Weather::MapType type,
                                         qint64 time) const
 {
-    return find<MapLayer>(Weather::mapTypeString(type) + "_" + QString::number(time));
+    return find<MapLayer>(Weather::mapTypeToString(type) + "_" + QString::number(time));
 }
 
 } // namespace Vremenar

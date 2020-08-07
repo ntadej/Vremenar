@@ -16,12 +16,12 @@
 #include <QtGui/QImage>
 
 #include "common/NetworkManager.h"
-#include "weather/common/models/MapInfoModel.h"
-#include "weather/common/models/MapLayersProxyModel.h"
-#include "weather/common/models/MapLegendProxyModel.h"
 #include "weather/backend/CurrentWeather.h"
 #include "weather/backend/api/APILocations.h"
 #include "weather/backend/api/APIMapLayers.h"
+#include "weather/common/models/MapInfoModel.h"
+#include "weather/common/models/MapLayersProxyModel.h"
+#include "weather/common/models/MapLegendProxyModel.h"
 
 #include "weather/backend/WeatherProvider.h"
 
@@ -158,20 +158,6 @@ void Backend::WeatherProvider::response(QNetworkReply *reply)
         return;
     }
 
-    if (currentReplies()->value(reply).call() == QStringLiteral("/forecast_data")) {
-        mapLayers()->setUpdating(true);
-
-        _forecastModelBase->clear();
-        _forecastModel->clear();
-        _mapLayersModel->clear();
-        _mapLayersModel->addMapLayers(Weather::ForecastMap, document.array());
-
-        removeResponse(reply);
-
-        currentTimeChanged();
-        return;
-    }
-
     if (currentReplies()->value(reply).call() == QStringLiteral("/forecast_data_details")) {
         _forecastModelBase->addEntries(document.object()[QStringLiteral("features")].toArray());
         if (currentReplies()->value(reply).url().toString().contains(QStringLiteral("latest"))) {
@@ -182,14 +168,31 @@ void Backend::WeatherProvider::response(QNetworkReply *reply)
         mapLayers()->playResume();
         removeResponse(reply);
         valid = true;
-    } else if (currentReplies()->value(reply).call() == QStringLiteral("/inca_data")) {
-        mapLayers()->setUpdating(true);
-
+    } else if (currentReplies()->value(reply).call() == QStringLiteral("/maps")) {
         auto type = Weather::MapType(currentReplies()->value(reply).extra().toInt());
-        _mapLayersModel->clear();
-        _mapLayersModel->addMapLayers(type, document.array());
 
         removeResponse(reply);
+
+        mapLayers()->setUpdating(true);
+
+        const QJsonObject data = document.object();
+
+        auto reportedType = Weather::mapTypeFromString(data[QStringLiteral("map_type")].toString());
+        if (reportedType == Weather::UnknownMap || reportedType != type) {
+            qDebug() << "Invalid map type " << reportedType << ", expected " << type;
+            return;
+        }
+
+        _forecastModelBase->clear();
+        _forecastModel->clear();
+        _mapLayersModel->clear();
+        _mapLayersModel->addMapLayers(type, data);
+
+        if (type == Weather::ForecastMap) {
+            currentTimeChanged();
+            return;
+        }
+
         valid = true;
     }
 

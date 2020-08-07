@@ -50,7 +50,7 @@ void WeatherProviderBase::changeMapType(Weather::MapType type,
     }
 
     if (action) {
-        Q_EMIT recordEvent(Analytics::MapTypeChanged, Weather::mapTypeString(type));
+        Q_EMIT recordEvent(Analytics::MapTypeChanged, Weather::mapTypeToString(type));
     }
 
     _currentType = type;

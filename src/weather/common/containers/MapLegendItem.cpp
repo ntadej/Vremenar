@@ -25,7 +25,7 @@ MapLegendItem::MapLegendItem(Weather::MapType type,
       _color(std::move(color)),
       _placeholder(placeholder)
 {
-    setId(Weather::mapTypeString(type) + "_" + value);
+    setId(Weather::mapTypeToString(type) + "_" + value);
 }
 
 QString MapLegendItem::display() const

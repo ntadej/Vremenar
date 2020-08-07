@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -21,6 +21,12 @@ namespace Vremenar::Weather
 
 Q_NAMESPACE
 
+enum ObservationType {
+    Historical,
+    Recent,
+    Forecast
+};
+
 enum MapType {
     UnknownMap,
     ForecastMap,
@@ -31,10 +37,22 @@ enum MapType {
     HailProbabilityMap
 };
 
-Q_ENUM_NS(MapType)
+enum MapRenderingType {
+    ImageRendering,
+    TilesRendering
+};
 
-QString mapTypeString(Vremenar::Weather::MapType type);
-Q_INVOKABLE QString mapTypeStringLocale(Vremenar::Weather::MapType type);
+Q_ENUM_NS(ObservationType)
+Q_ENUM_NS(MapType)
+Q_ENUM_NS(MapRenderingType)
+
+ObservationType observationTypeFromString(const QString &type);
+
+MapType mapTypeFromString(const QString &type);
+QString mapTypeToString(Vremenar::Weather::MapType type);
+Q_INVOKABLE QString mapTypeToLocalizedString(Vremenar::Weather::MapType type);
+
+MapRenderingType mapRenderingTypeFromString(const QString &type);
 
 constexpr CString blankPng{"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="};
 

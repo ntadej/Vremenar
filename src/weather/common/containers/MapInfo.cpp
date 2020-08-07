@@ -18,9 +18,9 @@ MapInfo::MapInfo(Weather::MapType type,
                  QObject *parent)
     : ListItem(parent),
       _type(type),
-      _description(Weather::mapTypeStringLocale(type))
+      _description(Weather::mapTypeToLocalizedString(type))
 {
-    setId(Weather::mapTypeString(type));
+    setId(Weather::mapTypeToString(type));
 }
 
 QString MapInfo::display() const
