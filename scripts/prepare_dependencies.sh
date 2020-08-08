@@ -19,8 +19,8 @@ if [[ "${1}" == "macos" ]] || [[ "${1}" == "macOS" ]]; then
   brew install graphicsmagick imagemagick
 
   echo "Countly"
-  wget -nv -O "${LOCATION}/3rdparty/Countly/macOS/countly-sdk_20.04.tar.bz2" "https://dl.bintray.com/tano-si/Vremenar-Dependencies/countly/20.04/clang_x64/countly-sdk_20.04.tar.bz2"
-  tar -C "${LOCATION}/3rdparty/Countly/macOS/" -xf "${LOCATION}/3rdparty/Countly/macOS/countly-sdk_20.04.tar.bz2"
+  wget -nv -O "${LOCATION}/3rdparty/Countly/macOS/countly-sdk_20.04.2.tar.bz2" "https://dl.bintray.com/tano-si/Vremenar-Dependencies/countly/20.04.2/clang_x64/countly-sdk_20.04.2.tar.bz2"
+  tar -C "${LOCATION}/3rdparty/Countly/macOS/" -xf "${LOCATION}/3rdparty/Countly/macOS/countly-sdk_20.04.2.tar.bz2"
 
   echo "Sparkle"
   wget -nv -O "${LOCATION}/3rdparty/Sparkle/macOS/Sparkle-1.23.0.tar.xz" "https://github.com/sparkle-project/Sparkle/releases/download/1.23.0/Sparkle-1.23.0.tar.xz"
@@ -35,10 +35,10 @@ if [[ "${1}" == "macos" ]] || [[ "${1}" == "macOS" ]]; then
 elif [[ "${1}" == "ios" ]] || [[ "${1}" == "iOS" ]]; then
   echo "Downloading for iOS"
   echo "Countly"
-  wget -nv -O "${LOCATION}/3rdparty/Countly/iOS/countly-sdk_20.04.tar.bz2" "https://dl.bintray.com/tano-si/Vremenar-Dependencies/countly/20.04/ios/countly-sdk_20.04.tar.bz2"
-  tar -C "${LOCATION}/3rdparty/Countly/iOS/" -xf "${LOCATION}/3rdparty/Countly/iOS/countly-sdk_20.04.tar.bz2"
-  wget -nv -O "${LOCATION}/3rdparty/Countly/iOSSimulator/countly-sdk_20.04.tar.bz2" "https://dl.bintray.com/tano-si/Vremenar-Dependencies/countly/20.04/iossimulator/countly-sdk_20.04.tar.bz2"
-  tar -C "${LOCATION}/3rdparty/Countly/iOSSimulator/" -xf "${LOCATION}/3rdparty/Countly/iOSSimulator/countly-sdk_20.04.tar.bz2"
+  wget -nv -O "${LOCATION}/3rdparty/Countly/iOS/countly-sdk_20.04.2.tar.bz2" "https://dl.bintray.com/tano-si/Vremenar-Dependencies/countly/20.04.2/ios/countly-sdk_20.04.2.tar.bz2"
+  tar -C "${LOCATION}/3rdparty/Countly/iOS/" -xf "${LOCATION}/3rdparty/Countly/iOS/countly-sdk_20.04.2.tar.bz2"
+  wget -nv -O "${LOCATION}/3rdparty/Countly/iOSSimulator/countly-sdk_20.04.2.tar.bz2" "https://dl.bintray.com/tano-si/Vremenar-Dependencies/countly/20.04.2/iossimulator/countly-sdk_20.04.2.tar.bz2"
+  tar -C "${LOCATION}/3rdparty/Countly/iOSSimulator/" -xf "${LOCATION}/3rdparty/Countly/iOSSimulator/countly-sdk_20.04.2.tar.bz2"
 elif [[ "${1}" == "linux" ]] || [[ "${1}" == "Linux" ]]; then
   echo "Downloading for Linux"
   echo "Qt Patches"
