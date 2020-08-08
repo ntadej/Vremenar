@@ -44,8 +44,8 @@ void Updates::request()
 {
     APIRequestBase request;
     request.setBaseUrl(Vremenar::APIEndpoint);
-    request.setCall(QStringLiteral("/version.json"));
-    request.setUrl(QStringLiteral("/version.json"));
+    request.setCall(QStringLiteral("/version"));
+    request.setUrl(QStringLiteral("/version"));
     request.setAttribute(QNetworkRequest::CacheLoadControlAttribute, QNetworkRequest::AlwaysNetwork);
     currentReplies()->insert(network()->request(request), request);
 }
@@ -57,7 +57,7 @@ void Updates::response(QNetworkReply *reply)
     }
 
     QJsonDocument document = QJsonDocument::fromJson(reply->readAll());
-    if (currentReplies()->value(reply).call() == QStringLiteral("/version.json")) {
+    if (currentReplies()->value(reply).call() == QStringLiteral("/version")) {
         QString stable = document[QStringLiteral("stable")].toString();
         QString beta = document[QStringLiteral("beta")].toString();
         compareVersion(stable, beta);
