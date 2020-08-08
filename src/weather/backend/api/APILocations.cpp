@@ -9,6 +9,7 @@
 * SPDX-License-Identifier: (GPL-3.0-or-later AND MPL-2.0)
 */
 
+#include <QtCore/QJsonDocument>
 #include <QtCore/QUrlQuery>
 
 #include "weather/backend/api/APILocations.h"
@@ -20,13 +21,16 @@ Backend::APIRequest Backend::locations(const QGeoCoordinate &coordinate)
 {
     QUrlQuery query;
     query.addQueryItem(QStringLiteral("country"), QStringLiteral("si"));
-    query.addQueryItem(QStringLiteral("latitude"), QString::number(coordinate.latitude()));
-    query.addQueryItem(QStringLiteral("longitude"), QString::number(coordinate.longitude()));
+
+    QJsonObject data;
+    data[QStringLiteral("latitude")] = coordinate.latitude();
+    data[QStringLiteral("longitude")] = coordinate.longitude();
 
     APIRequest request;
     request.setOperation(QNetworkAccessManager::PostOperation);
     request.setCall(QStringLiteral("/location/coordinate"));
     request.setUrl(QStringLiteral("/location/find"), query);
+    request.setData(data);
     request.setExtra(coordinate.toString());
 
     return request;
@@ -36,12 +40,15 @@ Backend::APIRequest Backend::locations(const QString &location)
 {
     QUrlQuery query;
     query.addQueryItem(QStringLiteral("country"), QStringLiteral("si"));
-    query.addQueryItem(QStringLiteral("string"), location);
+
+    QJsonObject data;
+    data[QStringLiteral("string")] = location;
 
     APIRequest request;
     request.setOperation(QNetworkAccessManager::PostOperation);
     request.setCall(QStringLiteral("/location/string"));
     request.setUrl(QStringLiteral("/location/find"), query);
+    request.setData(data);
     request.setExtra(location);
 
     return request;
