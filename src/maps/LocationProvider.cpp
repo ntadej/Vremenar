@@ -13,7 +13,7 @@
 #include <QtLocation/QGeoCodingManager>
 #include <QtPositioning/QGeoAddress>
 
-#include "location/LocationProvider.h"
+#include "maps/LocationProvider.h"
 #include "settings/Settings.h"
 
 #include "Config.h"

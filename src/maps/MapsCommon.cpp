@@ -9,7 +9,7 @@
 * SPDX-License-Identifier: (GPL-3.0-or-later AND MPL-2.0)
 */
 
-#include "location/MapsCommon.h"
+#include "maps/MapsCommon.h"
 
 namespace Vremenar::Maps
 {

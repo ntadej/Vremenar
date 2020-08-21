@@ -20,7 +20,7 @@
 #include <QtLocation/QGeoServiceProvider>
 #include <QtPositioning/QGeoPositionInfoSource>
 
-#include "location/LocationProviderPlatform.h"
+#include "maps/LocationProviderPlatform.h"
 
 namespace Vremenar
 {

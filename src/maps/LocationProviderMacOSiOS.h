@@ -14,7 +14,7 @@
 
 #import <CoreLocation/CoreLocation.h>
 
-#include "location/LocationProviderPlatform.h"
+#include "maps/LocationProviderPlatform.h"
 
 @interface LocationProviderDelegate : NSObject <CLLocationManagerDelegate>
 @end

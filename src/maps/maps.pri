@@ -1,6 +1,6 @@
 #
 # Vremenar
-# Copyright (C) 2019 Tadej Novak <tadej@tano.si>
+# Copyright (C) 2020 Tadej Novak <tadej@tano.si>
 #
 # This application is bi-licensed under the GNU General Public License
 # Version 3 or later as well as Mozilla Public License Version 2.
@@ -10,19 +10,19 @@
 #
 
 SOURCES += \
-    src/location/LocationProvider.cpp \
-    src/location/MapsCommon.cpp
+    src/maps/LocationProvider.cpp \
+    src/maps/MapsCommon.cpp
 
 HEADERS += \
-    src/location/LocationProvider.h \
-    src/location/LocationProviderPlatform.h \
-    src/location/MapsCommon.h
+    src/maps/LocationProvider.h \
+    src/maps/LocationProviderPlatform.h \
+    src/maps/MapsCommon.h
 
 # macOS/iOS specific
 macx|ios {
     HEADERS += \
-        src/location/LocationProviderMacOSiOS.h
+        src/maps/LocationProviderMacOSiOS.h
 
     OBJECTIVE_SOURCES += \
-        src/location/LocationProviderMacOSiOS.mm
+        src/maps/LocationProviderMacOSiOS.mm
 }

@@ -28,7 +28,7 @@ OTHER_FILES += \
 # Include subfolders
 include(common/common.pri)
 include(settings/settings.pri)
-include(location/location.pri)
+include(maps/maps.pri)
 include(weather/weather.pri)
 include(qml/qml.pri)
 include(application/application.pri)

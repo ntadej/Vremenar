@@ -9,8 +9,8 @@
 * SPDX-License-Identifier: (GPL-3.0-or-later AND MPL-2.0)
 */
 
-#include "location/LocationProviderMacOSiOS.h"
-#include "location/LocationProvider.h"
+#include "maps/LocationProviderMacOSiOS.h"
+#include "maps/LocationProvider.h"
 
 @implementation LocationProviderDelegate {
     Vremenar::LocationProvider *_locationProvider;

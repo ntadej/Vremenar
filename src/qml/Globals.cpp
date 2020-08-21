@@ -12,7 +12,7 @@
 #include <QtCore/QJsonObject>
 
 #include "common/About.h"
-#include "location/MapsCommon.h"
+#include "maps/MapsCommon.h"
 #include "settings/Settings.h"
 
 #include "qml/Globals.h"
