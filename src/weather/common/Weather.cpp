@@ -16,10 +16,10 @@ namespace Vremenar
 
 Weather::ObservationType Weather::observationTypeFromString(const QString &type)
 {
-    if (type == "historical") {
+    if (type == QStringLiteral("historical")) {
         return Weather::Historical;
     }
-    if (type == "forecast") {
+    if (type == QStringLiteral("forecast")) {
         return Weather::Forecast;
     }
 
@@ -28,22 +28,22 @@ Weather::ObservationType Weather::observationTypeFromString(const QString &type)
 
 Weather::MapType Weather::mapTypeFromString(const QString &type)
 {
-    if (type == "condition") {
+    if (type == QStringLiteral("condition")) {
         return Weather::WeatherConditionMap;
     }
-    if (type == "precipitation") {
+    if (type == QStringLiteral("precipitation")) {
         return Weather::PrecipitationMap;
     }
-    if (type == "cloud") {
+    if (type == QStringLiteral("cloud")) {
         return Weather::CloudCoverageMap;
     }
-    if (type == "wind") {
+    if (type == QStringLiteral("wind")) {
         return Weather::WindSpeedMap;
     }
-    if (type == "temperature") {
+    if (type == QStringLiteral("temperature")) {
         return Weather::TemperatureMap;
     }
-    if (type == "hail") {
+    if (type == QStringLiteral("hail")) {
         return Weather::HailProbabilityMap;
     }
 
@@ -96,10 +96,10 @@ QString Weather::mapTypeToLocalizedString(MapType type)
 
 Weather::MapRenderingType Weather::mapRenderingTypeFromString(const QString &type)
 {
-    if (type == "image") {
+    if (type == QStringLiteral("image")) {
         return Weather::ImageRendering;
     }
-    if (type == "tiles") {
+    if (type == QStringLiteral("tiles")) {
         return Weather::TilesRendering;
     }
 

@@ -24,7 +24,7 @@ Backend::CurrentWeather::CurrentWeather(QObject *parent)
 
 void Backend::CurrentWeather::updateCurrentWeather(const QJsonArray &data)
 {
-    for (QJsonValue feature : data) {
+    for (const QJsonValue &feature : data) {
         QJsonObject obj = feature.toObject();
 
         QString title = obj[QStringLiteral("title")].toString();

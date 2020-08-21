@@ -23,7 +23,7 @@ void Application::preInit()
 {
     QCoreApplication::setOrganizationDomain(Vremenar::domain);
 #if defined(Q_OS_MACOS) && defined(QT_DEBUG)
-    QCoreApplication::setApplicationName("VremenarDevel");
+    QCoreApplication::setApplicationName(QStringLiteral("VremenarDevel"));
 #else
     QCoreApplication::setApplicationName(Vremenar::name);
 #endif

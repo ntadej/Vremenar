@@ -42,7 +42,7 @@ public:
     Q_PROPERTY(QDateTime lastUpdateTime READ lastUpdateTime NOTIFY lastUpdateTimeChanged)
     Q_PROPERTY(bool loading READ loading NOTIFY loadingChanged)
     Q_PROPERTY(int currentMapLayer READ currentMapLayer WRITE currentMapLayerChanged NOTIFY currentMapLayerChangedSignal)
-    Q_PROPERTY(int currentMapLayerHasLegend READ currentMapLayerHasLegend NOTIFY currentMapLayerChangedSignal)
+    Q_PROPERTY(bool currentMapLayerHasLegend READ currentMapLayerHasLegend NOTIFY currentMapLayerChangedSignal)
 
     inline CurrentWeatherBase *current() { return _currentWeather.get(); }
     inline WeatherMapProxyModel *weatherMap() { return _weatherMapProxyModel.get(); }
