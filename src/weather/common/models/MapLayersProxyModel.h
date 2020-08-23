@@ -57,7 +57,6 @@ public:
     [[nodiscard]] inline const QString &image() const { return _image; }
     void setImage(const QString &image);
     [[nodiscard]] inline const QVariant &coordinates() const { return _coordinates; }
-    void setDefaultCoordinates(QVariant coordinates);
 
     [[nodiscard]] inline bool animated() const { return _animated; }
 

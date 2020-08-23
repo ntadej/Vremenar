@@ -13,7 +13,6 @@
 #include <QtCore/QJsonArray>
 #include <QtCore/QJsonObject>
 
-#include "weather/backend/Common.h"
 #include "weather/backend/models/WeatherMapModel.h"
 
 namespace Vremenar

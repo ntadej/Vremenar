@@ -14,7 +14,6 @@
 #include <QtCore/QTimeZone>
 #include <QtPositioning/QGeoCoordinate>
 
-#include "weather/backend/Common.h"
 #include "weather/backend/models/MapLayersModel.h"
 
 #include "Config.h"

@@ -288,6 +288,7 @@ void ApplicationWindow::startCompleted()
     _updates->checkForUpdates();
 #endif
 
+    // NOLINTNEXTLINE(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
     QTimer::singleShot(1000, this, &ApplicationWindow::startLoadInitialMap);
 }
 

@@ -48,7 +48,7 @@ void MapsManager::mapChanged(Weather::MapRenderingType type,
 
 bool MapsManager::getMapObject()
 {
-    QQuickWindow *window = qobject_cast<QQuickWindow *>(_engine->rootObjects().constFirst());
+    auto *window = qobject_cast<QQuickWindow *>(_engine->rootObjects().constFirst());
     _mapObject = window->findChild<QObject *>(QStringLiteral("mapObject"));
     if (_mapObject != nullptr) {
         qDebug() << "Map object found";

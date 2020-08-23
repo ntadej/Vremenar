@@ -39,7 +39,6 @@ Backend::WeatherProvider::WeatherProvider(NetworkManager *network,
     setupCurrentWeather(std::make_unique<CurrentWeather>(this));
     weatherMap()->setSourceModel(_weatherMapModel.get());
     mapInfo()->generateModel(supportedMapTypes());
-    mapLayers()->setDefaultCoordinates(MapLayer::geoRectangleToList(defaultMapCoordinates()));
     mapLayers()->setSourceModel(_mapLayersModel.get());
     mapLegend()->setSourceModel(_mapLegendModel.get());
 

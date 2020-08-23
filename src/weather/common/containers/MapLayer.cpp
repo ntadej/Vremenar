@@ -96,10 +96,10 @@ void MapLayer::setLoaded()
 QVariant MapLayer::geoRectangleToList(const QGeoRectangle &rect)
 {
     QVariantList list{
-        QVariant::fromValue(QVariantList({QVariant(rect.topLeft().latitude()), QVariant(rect.topLeft().longitude())})),
-        QVariant::fromValue(QVariantList({QVariant(rect.bottomRight().latitude()), QVariant(rect.topLeft().longitude())})),
-        QVariant::fromValue(QVariantList({QVariant(rect.bottomRight().latitude()), QVariant(rect.bottomRight().longitude())})),
-        QVariant::fromValue(QVariantList({QVariant(rect.topLeft().latitude()), QVariant(rect.bottomRight().longitude())}))};
+        QVariant::fromValue(QVariantList({QVariant(rect.topLeft().longitude()), QVariant(rect.topLeft().latitude())})),
+        QVariant::fromValue(QVariantList({QVariant(rect.bottomRight().longitude()), QVariant(rect.topLeft().latitude())})),
+        QVariant::fromValue(QVariantList({QVariant(rect.bottomRight().longitude()), QVariant(rect.bottomRight().latitude())})),
+        QVariant::fromValue(QVariantList({QVariant(rect.topLeft().longitude()), QVariant(rect.bottomRight().latitude())}))};
     return QVariant::fromValue(list);
 }
 

@@ -24,7 +24,6 @@ SOURCES += \
     src/weather/common/models/MapLegendProxyModel.cpp \
     src/weather/common/models/WeatherMapModelBase.cpp \
     src/weather/common/models/WeatherMapProxyModel.cpp \
-    src/weather/backend/Common.cpp \
     src/weather/backend/CurrentWeather.cpp \
     src/weather/backend/WeatherProvider.cpp \
     src/weather/backend/api/APILocations.cpp \
@@ -49,7 +48,6 @@ HEADERS += \
     src/weather/common/models/MapLegendProxyModel.h \
     src/weather/common/models/WeatherMapModelBase.h \
     src/weather/common/models/WeatherMapProxyModel.h \
-    src/weather/backend/Common.h \
     src/weather/backend/CurrentWeather.h \
     src/weather/backend/WeatherProvider.h \
     src/weather/backend/api/APILocations.h \

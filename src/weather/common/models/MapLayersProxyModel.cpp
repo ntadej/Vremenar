@@ -48,11 +48,6 @@ void MapLayersProxyModel::setUpdating(bool updating,
     }
 }
 
-void MapLayersProxyModel::setDefaultCoordinates(QVariant coordinates)
-{
-    _coordinates = std::move(coordinates);
-}
-
 qint64 MapLayersProxyModel::timestamp() const
 {
     if (rowCount() == 0) {
