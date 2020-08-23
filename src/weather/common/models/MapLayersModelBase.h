@@ -26,7 +26,8 @@ public:
 
     virtual MapLayer *createMapLayer(Weather::MapType type,
                                      Weather::MapRenderingType rendering,
-                                     const QJsonObject &data)
+                                     const QJsonObject &data,
+                                     const QGeoRectangle &bbox = QGeoRectangle())
         = 0;
 
     virtual void addMapLayers(Weather::MapType type,

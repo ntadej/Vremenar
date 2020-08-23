@@ -31,7 +31,7 @@ class MapLayer : public ListItem
     Q_PROPERTY(Weather::MapRenderingType rendering READ rendering CONSTANT)
     Q_PROPERTY(QDateTime time READ time CONSTANT)
     Q_PROPERTY(QUrl url READ url CONSTANT)
-    Q_PROPERTY(QGeoRectangle bbox READ bbox CONSTANT)
+    Q_PROPERTY(QGeoRectangle bbox READ bbox NOTIFY bboxChanged)
     Q_PROPERTY(bool loaded READ loaded NOTIFY loadedChanged)
 
 public:
@@ -98,6 +98,7 @@ public:
 
 Q_SIGNALS:
     void loadedChanged();
+    void bboxChanged();
 
 private:
     Weather::ObservationType _observation{Weather::Recent};

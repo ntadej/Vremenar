@@ -33,7 +33,9 @@ MapLayer::MapLayer(Weather::MapType type,
     _time = time;
     _url = url;
     _bbox = bbox;
-    _coordinates = geoRectangleToList(bbox);
+    if (!bbox.isEmpty()) {
+        _coordinates = geoRectangleToList(bbox);
+    }
 }
 
 QString MapLayer::display() const
@@ -80,6 +82,8 @@ QVariant MapLayer::data(int role) const
 void MapLayer::setBbox(const QGeoRectangle &bbox)
 {
     _bbox = bbox;
+    _coordinates = geoRectangleToList(bbox);
+    Q_EMIT bboxChanged();
 }
 
 void MapLayer::setLoaded()

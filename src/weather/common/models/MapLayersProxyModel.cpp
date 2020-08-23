@@ -44,6 +44,7 @@ void MapLayersProxyModel::setUpdating(bool updating,
 
     if (!_updating && !silent) {
         Q_EMIT timestampChanged();
+        Q_EMIT typeChanged(_type, _url);
     }
 }
 
@@ -98,6 +99,7 @@ void MapLayersProxyModel::setTimestamp(qint64 time)
         for (int i = 0; i < rowCount(); i++) {
             const QModelIndex in = index(i, 0);
             if (data(in, MapLayer::TimeRole).toDateTime().toMSecsSinceEpoch() == _time) {
+                _type = Weather::MapRenderingType(data(in, MapLayer::RenderingRole).toInt());
                 _url = data(in, MapLayer::UrlRole).toUrl().toString();
                 if (_url.contains(QStringLiteral("json"))) {
                     _url = QString();
@@ -110,6 +112,7 @@ void MapLayersProxyModel::setTimestamp(qint64 time)
 
         if (!_updating) {
             Q_EMIT timestampChanged();
+            Q_EMIT typeChanged(_type, _url);
         }
     }
 }
@@ -133,15 +136,14 @@ void MapLayersProxyModel::setDefaultTimestamp()
 
     _timer->setInterval(timerInterval);
 
-    qint64 now = QDateTime::currentDateTime().toMSecsSinceEpoch();
     qint64 newDefault{};
     for (int i = 0; i < rowCount(); i++) {
         const QModelIndex in = index(i, 0);
-        qint64 candidate = data(in, MapLayer::TimeRole).toDateTime().toMSecsSinceEpoch();
-        if (candidate > now) {
+        auto observation = data(in, MapLayer::ObservationRole).value<Weather::ObservationType>();
+        if (observation == Weather::Recent) {
+            newDefault = data(in, MapLayer::TimeRole).toDateTime().toMSecsSinceEpoch();
             break;
         }
-        newDefault = candidate;
     }
     setTimestamp(newDefault);
 }

@@ -102,6 +102,9 @@ Weather::MapRenderingType Weather::mapRenderingTypeFromString(const QString &typ
     if (type == QStringLiteral("tiles")) {
         return Weather::TilesRendering;
     }
+    if (type == QStringLiteral("icons")) {
+        return Weather::IconsRendering;
+    }
 
     return Weather::ImageRendering;
 }

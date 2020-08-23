@@ -27,13 +27,14 @@ Backend::MapLayersModel::MapLayersModel(QObject *parent)
 
 MapLayer *Backend::MapLayersModel::createMapLayer(Weather::MapType type,
                                                   Weather::MapRenderingType rendering,
-                                                  const QJsonObject &data)
+                                                  const QJsonObject &data,
+                                                  const QGeoRectangle &bbox)
 {
     QDateTime time = QDateTime::fromMSecsSinceEpoch(data[QStringLiteral("timestamp")].toString().toULongLong());
     QUrl url(data[QStringLiteral("url")].toString());
     auto observation = Weather::observationTypeFromString(data[QStringLiteral("observation")].toString());
 
-    return appendRow(std::make_unique<MapLayer>(type, rendering, observation, time, url));
+    return appendRow(std::make_unique<MapLayer>(type, rendering, observation, time, url, bbox));
 }
 
 void Backend::MapLayersModel::addMapLayers(Weather::MapType type,
@@ -52,8 +53,7 @@ void Backend::MapLayersModel::addMapLayers(Weather::MapType type,
 
     QJsonArray layers = data[QStringLiteral("layers")].toArray();
     for (const QJsonValueRef &obj : layers) {
-        MapLayer *layer = createMapLayer(type, rendering, obj.toObject());
-        layer->setBbox(bbox);
+        createMapLayer(type, rendering, obj.toObject(), bbox);
     }
 }
 

@@ -24,6 +24,7 @@
 #include "common/LocaleManager.h"
 #include "common/NetworkManagerFactory.h"
 #include "maps/LocationProvider.h"
+#include "maps/MapsManager.h"
 #include "weather/backend/WeatherProvider.h"
 
 #ifndef VREMENAR_MOBILE
@@ -52,6 +53,7 @@ public Q_SLOTS:
     void visibilityChanged(bool visible);
     void processUrl(const QString &url);
     void startCompleted();
+    void startLoadInitialMap();
 
 #ifndef VREMENAR_MOBILE
     void showAboutDialog();
@@ -64,6 +66,9 @@ public Q_SLOTS:
 Q_SIGNALS:
     void dockVisibilityChanged(bool);
 #endif
+
+Q_SIGNALS:
+    void loadInitialMap();
 
 private Q_SLOTS:
 #ifndef VREMENAR_MOBILE
@@ -87,6 +92,7 @@ private:
     std::unique_ptr<Analytics> _analytics{};
     std::unique_ptr<LocaleManager> _localeManager{};
     std::unique_ptr<LocationProvider> _location{};
+    std::unique_ptr<MapsManager> _mapsManager{};
     std::unique_ptr<NetworkManagerFactory> _networkFactory{};
     std::unique_ptr<Updates> _updates{};
 

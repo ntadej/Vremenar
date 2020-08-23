@@ -11,12 +11,14 @@
 
 SOURCES += \
     src/maps/LocationProvider.cpp \
-    src/maps/MapsCommon.cpp
+    src/maps/MapsCommon.cpp \
+    src/maps/MapsManager.cpp
 
 HEADERS += \
     src/maps/LocationProvider.h \
     src/maps/LocationProviderPlatform.h \
-    src/maps/MapsCommon.h
+    src/maps/MapsCommon.h \
+    src/maps/MapsManager.h
 
 # macOS/iOS specific
 macx|ios {

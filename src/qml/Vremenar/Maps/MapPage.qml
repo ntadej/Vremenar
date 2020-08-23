@@ -51,29 +51,55 @@ MapPageBase {
         property bool loading: false
         property string currentUrl: "data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII"
 
-        MapParameter {
-            type: "source"
+        property var paramSource: null
+        property var paramLayer: null
+        property var paramPaint: null
 
-            property var name: "weatherSource"
-            property var sourceType: "image"
-            property var url: map.currentUrl
-            property var coordinates: VMapLayersModel.coordinates
-        }
+        function addParameters(type, url: string) {
+            if (paramPaint) {
+                map.removeMapParameter(paramPaint)
+                paramPaint.destroy()
+                paramPaint = null
+            }
+            if (paramLayer) {
+                map.removeMapParameter(paramLayer)
+                paramLayer.destroy()
+                paramLayer = null
+            }
+            if (paramSource) {
+                map.removeMapParameter(paramSource)
+                paramSource.destroy()
+                paramSource = null
+            }
 
-        MapParameter {
-            type: "layer"
+            if (type === Weather.IconsRendering) {
+                return
+            }
 
-            property var name: "weather"
-            property var layerType: "raster"
-            property var source: "weatherSource"
-            property var before: "settlement"
-        }
+            console.log(VMapLayersModel.coordinates)
 
-        MapParameter {
-            type: "paint"
+            if (type === Weather.TilesRendering) {
+                url += '&bbox={bbox-epsg-3857}'
+                paramSource = Qt.createQmlObject(`import QtLocation 5.15; DynamicParameter {type: "source"; objectName: "weatherSourceObj"; property var name: "weatherSource"; property var sourceType: "raster"; property var tiles: ["${url}"]; property var tileSize: 512;}`,
+                                                 map,
+                                                 "sourceParam")
+            } else {
+                paramSource = Qt.createQmlObject(`import QtLocation 5.15; DynamicParameter {type: "source"; objectName: "weatherSourceObj"; property var name: "weatherSource"; property var sourceType: "image"; property var url: map.currentUrl; property var coordinates: VMapLayersModel.coordinates;}`,
+                                                 map,
+                                                 "sourceParam")
+            }
 
-            property var layer: "weather"
-            property var rasterOpacity: 0.75
+            paramLayer = Qt.createQmlObject('import QtLocation 5.15; DynamicParameter {type: "layer"; objectName: "weatherLayerObj"; property var name: "weatherLayer"; property var layerType: "raster"; property var source: "weatherSource"; property var before: "settlement";}',
+                                            map,
+                                            "layerParam")
+
+            paramPaint = Qt.createQmlObject('import QtLocation 5.15; DynamicParameter {type: "paint";  objectName: "weatherPaintObj"; property var layer: "weatherLayer"; property var rasterOpacity: 0.75;}',
+                                            map,
+                                            "paintParam")
+
+            map.addMapParameter(paramSource)
+            map.addMapParameter(paramLayer)
+            map.addMapParameter(paramPaint)
         }
 
         MapItemView {

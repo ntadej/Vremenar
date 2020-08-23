@@ -89,6 +89,8 @@ ApplicationWindow::ApplicationWindow(QObject *parent)
     connect(this, &ApplicationWindow::dockVisibilityChanged, application, &DesktopApplication::dockSetVisibility);
 #endif
 
+    connect(this, &ApplicationWindow::loadInitialMap, this, &ApplicationWindow::startLoadInitialMap);
+
     // Setup and load main QML
     _engine->setNetworkAccessManagerFactory(_networkFactory.get());
     _engine->load(QUrl(QStringLiteral("qrc:/Vremenar/main.qml")));
@@ -189,6 +191,7 @@ void ApplicationWindow::writeSettingsStartupMap()
 void ApplicationWindow::createModels()
 {
     _location = std::make_unique<LocationProvider>(this);
+    _mapsManager = std::make_unique<MapsManager>(_engine.get(), this);
     _updates = std::make_unique<Updates>(_network, this);
     _weatherProvider = std::make_unique<Backend::WeatherProvider>(_network, this);
     connect(_weatherProvider.get(), &WeatherProviderBase::recordEvent, _analytics.get(), &Analytics::recordEvent);
@@ -207,6 +210,7 @@ void ApplicationWindow::createModels()
     _engine->rootContext()->setContextProperty(QStringLiteral("VMapLegendModel"), _weatherProvider->mapLegend());
 
     connect(_location.get(), &LocationProvider::positionChanged, _weatherProvider.get(), &WeatherProviderBase::requestCurrentWeatherInfo);
+    connect(_weatherProvider->mapLayers(), &MapLayersProxyModel::typeChanged, _mapsManager.get(), &MapsManager::mapChanged);
 }
 
 #ifndef VREMENAR_MOBILE
@@ -274,12 +278,6 @@ void ApplicationWindow::startCompleted()
     QtAndroid::hideSplashScreen();
 #endif
 
-    if (settings.startupMapEnabled()) {
-        _weatherProvider->changeMapType(settings.startupMapType());
-    } else {
-        _weatherProvider->changeMapType(Weather::WeatherConditionMap);
-    }
-
     _ready = true;
 
     _analytics->beginSession();
@@ -289,6 +287,18 @@ void ApplicationWindow::startCompleted()
 #ifndef Q_OS_MACOS
     _updates->checkForUpdates();
 #endif
+
+    QTimer::singleShot(1000, this, &ApplicationWindow::startLoadInitialMap);
+}
+
+void ApplicationWindow::startLoadInitialMap()
+{
+    Settings settings(this);
+    if (settings.startupMapEnabled()) {
+        _weatherProvider->changeMapType(settings.startupMapType());
+    } else {
+        _weatherProvider->changeMapType(Weather::WeatherConditionMap);
+    }
 }
 
 } // namespace Vremenar

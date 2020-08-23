@@ -39,7 +39,8 @@ enum MapType {
 
 enum MapRenderingType {
     ImageRendering,
-    TilesRendering
+    TilesRendering,
+    IconsRendering
 };
 
 Q_ENUM_NS(ObservationType)

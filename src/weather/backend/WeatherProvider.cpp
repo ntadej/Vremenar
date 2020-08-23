@@ -204,6 +204,11 @@ void Backend::WeatherProvider::response(QNetworkReply *reply)
 
 void Backend::WeatherProvider::currentTimeChanged()
 {
+    if (mapLayers()->type() == Weather::TilesRendering) {
+        mapLayers()->playResume();
+        return;
+    }
+
     if (currentType() != Weather::WeatherConditionMap) {
         requestImage(mapLayers()->url());
         return;
