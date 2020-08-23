@@ -42,7 +42,7 @@ ColumnLayout {
             count: view.count
             checked: model.index === view.currentIndex
             text: model.display
-            width: parent.width
+            width: view.width
             onClicked: view.currentIndex = model.index
         }
     }
