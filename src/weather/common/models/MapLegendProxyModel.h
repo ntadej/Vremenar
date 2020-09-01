@@ -38,7 +38,7 @@ protected:
                                         const QModelIndex &sourceParent) const override;
 
 private:
-    Weather::MapType _type{Weather::UnknownMap};
+    Weather::MapType _type{Weather::UnknownMapType};
 };
 
 } // namespace Vremenar

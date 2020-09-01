@@ -34,6 +34,7 @@ MapPageBase {
         id: map
         objectName: "mapObject"
         anchors.fill: parent
+        activeMapType: supportedMapTypes[VWeather.currentMapStyle]
 
         plugin: mapPlugin
         copyrightsVisible: false
@@ -76,7 +77,8 @@ MapPageBase {
                 return
             }
 
-            console.log(VMapLayersModel.coordinates)
+            // let beforeLayer = "settlement";
+            let beforeLayer = "place_label";
 
             if (type === Weather.TilesRendering) {
                 url += '&bbox={bbox-epsg-3857}'
@@ -89,7 +91,7 @@ MapPageBase {
                                                  "sourceParam")
             }
 
-            paramLayer = Qt.createQmlObject('import QtLocation 5.15; DynamicParameter {type: "layer"; objectName: "weatherLayerObj"; property var name: "weatherLayer"; property var layerType: "raster"; property var source: "weatherSource"; property var before: "settlement";}',
+            paramLayer = Qt.createQmlObject(`import QtLocation 5.15; DynamicParameter {type: "layer"; objectName: "weatherLayerObj"; property var name: "weatherLayer"; property var layerType: "raster"; property var source: "weatherSource"; property var before: "${beforeLayer}";}`,
                                             map,
                                             "layerParam")
 

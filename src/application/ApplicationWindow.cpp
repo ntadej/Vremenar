@@ -174,6 +174,7 @@ void ApplicationWindow::writeSettingsStartupMap()
     if (_ready && settings.startupMapEnabled()) {
         auto *mapObject = _qmlMainWindow->findChild<QObject *>(QStringLiteral("mapObject"));
 
+        settings.setStartupMapStyle(_weatherProvider->currentStyle());
         settings.setStartupMapType(_weatherProvider->currentType());
 
         if (mapObject != nullptr) {
@@ -220,13 +221,15 @@ void ApplicationWindow::createWidgets()
 
     _trayIcon = std::make_unique<TrayIcon>(this);
     _trayIcon->setVisible(settings.showInTray());
-    _trayIcon->createMenu(_weatherProvider->mapInfo()->list());
+    _trayIcon->createMenu({tr("Satellite"), tr("Streets")}, _weatherProvider->mapInfo()->list());
     _trayIcon->setCurrentMap(_weatherProvider->currentMapLayer());
 
     connect(_trayIcon.get(), &TrayIcon::triggered, this, &ApplicationWindow::toggleVisibility);
     connect(_trayIcon.get(), &TrayIcon::settings, this, &ApplicationWindow::showSettingsDialog);
     connect(_trayIcon.get(), &TrayIcon::quit, QCoreApplication::instance(), &QCoreApplication::quit);
+    connect(_trayIcon.get(), &TrayIcon::styleSelected, _weatherProvider.get(), &WeatherProviderBase::currentMapStyleChanged);
     connect(_trayIcon.get(), &TrayIcon::mapSelected, _weatherProvider.get(), &WeatherProviderBase::currentMapLayerChanged);
+    connect(_weatherProvider.get(), &WeatherProviderBase::currentMapStyleChangedSignal, _trayIcon.get(), &TrayIcon::setCurrentStyle);
     connect(_weatherProvider.get(), &WeatherProviderBase::currentMapLayerChangedSignal, _trayIcon.get(), &TrayIcon::setCurrentMap);
     connect(_weatherProvider->current(), &CurrentWeatherBase::weatherChanged, _trayIcon.get(), &TrayIcon::setCurrentWeather);
 }
@@ -298,8 +301,10 @@ void ApplicationWindow::startLoadInitialMap()
     if (settings.startupMapEnabled()) {
         _weatherProvider->changeMapType(settings.startupMapType());
     } else {
-        _weatherProvider->changeMapType(Weather::WeatherConditionMap);
+        _weatherProvider->changeMapStyle(Weather::MapStyle::SatelliteMapStyle);
     }
+
+    _weatherProvider->startupCompleted();
 }
 
 } // namespace Vremenar

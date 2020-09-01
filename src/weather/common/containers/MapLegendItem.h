@@ -62,7 +62,7 @@ public:
     }
 
 private:
-    Weather::MapType _type{Weather::UnknownMap};
+    Weather::MapType _type{Weather::UnknownMapType};
     QString _value;
     QColor _color;
     bool _placeholder;

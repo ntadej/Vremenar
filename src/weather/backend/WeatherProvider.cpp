@@ -171,7 +171,7 @@ void Backend::WeatherProvider::response(QNetworkReply *reply)
         const QJsonObject data = document.object();
 
         auto reportedType = Weather::mapTypeFromString(data[QStringLiteral("map_type")].toString());
-        if (reportedType == Weather::UnknownMap || reportedType != type) {
+        if (reportedType == Weather::UnknownMapType || reportedType != type) {
             qDebug() << "Invalid map type " << reportedType << ", expected " << type;
             return;
         }

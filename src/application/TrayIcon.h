@@ -27,7 +27,9 @@ public:
     explicit TrayIcon(QObject *parent = nullptr);
 
 public Q_SLOTS:
-    void createMenu(const QStringList &maps);
+    void createMenu(const QStringList &styles,
+                    const QStringList &maps);
+    void setCurrentStyle(int index);
     void setCurrentMap(int index);
     void setCurrentWeather(const QString &location,
                            double temperature,
@@ -37,16 +39,19 @@ Q_SIGNALS:
     void triggered();
     void settings();
     void quit();
+    void styleSelected(int index);
     void mapSelected(int index);
 
 private Q_SLOTS:
     void activatedCallback(QSystemTrayIcon::ActivationReason reason);
+    void styleSelectedCallback();
     void mapSelectedCallback();
 
 private:
     std::unique_ptr<QMenu> _menu{};
     std::unique_ptr<QMenu> _menuDock{};
-    std::unique_ptr<QActionGroup> _actionGroup{};
+    std::unique_ptr<QActionGroup> _actionGroupStyles{};
+    std::unique_ptr<QActionGroup> _actionGroupMaps{};
     std::unique_ptr<QAction> _actionShow{};
     std::unique_ptr<QAction> _actionSettings{};
     std::unique_ptr<QAction> _actionQuit{};

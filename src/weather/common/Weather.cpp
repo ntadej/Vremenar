@@ -26,6 +26,46 @@ Weather::ObservationType Weather::observationTypeFromString(const QString &type)
     return Weather::Recent;
 }
 
+Weather::MapStyle Weather::mapStyleFromString(const QString &style)
+{
+    if (style == QStringLiteral("satellite")) {
+        return Weather::SatelliteMapStyle;
+    }
+    if (style == QStringLiteral("streets")) {
+        return Weather::StreetsMapStyle;
+    }
+
+    return Weather::UnknownMapStyle;
+}
+
+QString Weather::mapStyleToString(MapStyle style)
+{
+    switch (style) {
+    case SatelliteMapStyle:
+        return QStringLiteral("satellite");
+    case StreetsMapStyle:
+        return QStringLiteral("streets");
+    case UnknownMapStyle:
+        return QString();
+    }
+
+    return QString();
+}
+
+QString Weather::mapStyleToLocalizedString(MapStyle style)
+{
+    switch (style) {
+    case SatelliteMapStyle:
+        return QObject::tr("Satellite");
+    case StreetsMapStyle:
+        return QObject::tr("Streets");
+    case UnknownMapStyle:
+        return QString();
+    }
+
+    return QString();
+}
+
 Weather::MapType Weather::mapTypeFromString(const QString &type)
 {
     if (type == QStringLiteral("condition")) {
@@ -47,7 +87,7 @@ Weather::MapType Weather::mapTypeFromString(const QString &type)
         return Weather::HailProbabilityMap;
     }
 
-    return Weather::UnknownMap;
+    return Weather::UnknownMapType;
 }
 
 QString Weather::mapTypeToString(MapType type)
@@ -65,7 +105,7 @@ QString Weather::mapTypeToString(MapType type)
         return QStringLiteral("temperature");
     case HailProbabilityMap:
         return QStringLiteral("hail");
-    case UnknownMap:
+    case UnknownMapType:
         return QString();
     }
 
@@ -87,7 +127,7 @@ QString Weather::mapTypeToLocalizedString(MapType type)
         return QObject::tr("Temperature");
     case HailProbabilityMap:
         return QObject::tr("Hail probability");
-    case UnknownMap:
+    case UnknownMapType:
         return QString();
     }
 

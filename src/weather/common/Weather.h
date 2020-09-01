@@ -27,8 +27,14 @@ enum ObservationType {
     Forecast
 };
 
+enum MapStyle {
+    UnknownMapStyle,
+    SatelliteMapStyle,
+    StreetsMapStyle
+};
+
 enum MapType {
-    UnknownMap,
+    UnknownMapType,
     WeatherConditionMap,
     PrecipitationMap,
     CloudCoverageMap,
@@ -44,10 +50,15 @@ enum MapRenderingType {
 };
 
 Q_ENUM_NS(ObservationType)
+Q_ENUM_NS(MapStyle)
 Q_ENUM_NS(MapType)
 Q_ENUM_NS(MapRenderingType)
 
 ObservationType observationTypeFromString(const QString &type);
+
+MapStyle mapStyleFromString(const QString &style);
+QString mapStyleToString(Vremenar::Weather::MapStyle style);
+Q_INVOKABLE QString mapStyleToLocalizedString(Vremenar::Weather::MapStyle style);
 
 MapType mapTypeFromString(const QString &type);
 QString mapTypeToString(Vremenar::Weather::MapType type);

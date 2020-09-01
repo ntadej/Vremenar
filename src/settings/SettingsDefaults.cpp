@@ -16,6 +16,7 @@ namespace Vremenar
 
 // Map startup settings
 const bool Settings::DEFAULT_STARTUP_MAP_ENABLED = true;
+const Weather::MapStyle Settings::DEFAULT_STARTUP_MAP_STYLE = Weather::SatelliteMapStyle;
 const Weather::MapType Settings::DEFAULT_STARTUP_MAP_TYPE = Weather::WeatherConditionMap;
 const qreal Settings::DEFAULT_STARTUP_MAP_ZOOM_LEVEL = 8;
 const double Settings::DEFAULT_STARTUP_MAP_LATITUDE = 46.119944;

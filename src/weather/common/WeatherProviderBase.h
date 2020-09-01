@@ -41,6 +41,7 @@ public:
     Q_PROPERTY(QJsonObject copyrightLink READ copyrightLinkJson CONSTANT)
     Q_PROPERTY(QDateTime lastUpdateTime READ lastUpdateTime NOTIFY lastUpdateTimeChanged)
     Q_PROPERTY(bool loading READ loading NOTIFY loadingChanged)
+    Q_PROPERTY(int currentMapStyle READ currentMapStyle WRITE currentMapStyleChanged NOTIFY currentMapStyleChangedSignal)
     Q_PROPERTY(int currentMapLayer READ currentMapLayer WRITE currentMapLayerChanged NOTIFY currentMapLayerChangedSignal)
     Q_PROPERTY(bool currentMapLayerHasLegend READ currentMapLayerHasLegend NOTIFY currentMapLayerChangedSignal)
 
@@ -61,22 +62,29 @@ public:
     [[nodiscard]] virtual qreal maxZoomLevel() const = 0;
     [[nodiscard]] virtual Hyperlink *copyrightLink() const = 0;
 
+    [[nodiscard]] inline Weather::MapStyle currentStyle() const { return _currentStyle; }
     [[nodiscard]] inline Weather::MapType currentType() const { return _currentType; }
+    [[nodiscard]] int currentMapStyle() const;
+    [[nodiscard]] int currentMapLayer() const;
     [[nodiscard]] inline const QDateTime &lastUpdateTime() const { return _lastUpdateResponseTime; }
     [[nodiscard]] inline bool loading() const { return _loading; }
-    [[nodiscard]] int currentMapLayer() const;
 
 public Q_SLOTS:
+    Q_INVOKABLE void changeMapStyle(Weather::MapStyle style,
+                                    bool action = false);
     Q_INVOKABLE void changeMapType(Weather::MapType type,
                                    bool action = false);
+    Q_INVOKABLE void currentMapStyleChanged(int index);
     Q_INVOKABLE void currentMapLayerChanged(int index);
     Q_INVOKABLE void refresh();
+    Q_INVOKABLE void startupCompleted();
 
 Q_SIGNALS:
     void recordEvent(Analytics::EventType, const QString &payload);
     void lastUpdateTimeChanged();
     void lastUpdateTimeChangedCurrent();
     void loadingChanged();
+    void currentMapStyleChangedSignal(int);
     void currentMapLayerChangedSignal(int);
     void storeState();
 
@@ -104,7 +112,8 @@ private:
     QDateTime _lastUpdateResponseTimeCurrent{};
     bool _loading{false};
 
-    Weather::MapType _currentType{Weather::UnknownMap};
+    Weather::MapStyle _currentStyle{Weather::UnknownMapStyle};
+    Weather::MapType _currentType{Weather::UnknownMapType};
 
     std::unique_ptr<QTimer> _timer{};
     std::unique_ptr<QTimer> _timerCurrent{};

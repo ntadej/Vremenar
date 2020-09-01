@@ -16,6 +16,7 @@ namespace Vremenar
 
 // Map startup settings
 const QString Settings::KEY_STARTUP_MAP_ENABLED = QStringLiteral("map/startup");
+const QString Settings::KEY_STARTUP_MAP_STYLE = QStringLiteral("map/style");
 const QString Settings::KEY_STARTUP_MAP_TYPE = QStringLiteral("map/type");
 const QString Settings::KEY_STARTUP_MAP_ZOOM_LEVEL = QStringLiteral("map/zoom-level");
 const QString Settings::KEY_STARTUP_MAP_LATITUDE = QStringLiteral("map/latitude");

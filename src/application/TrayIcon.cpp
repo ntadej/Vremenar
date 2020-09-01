@@ -48,6 +48,16 @@ void TrayIcon::activatedCallback(QSystemTrayIcon::ActivationReason reason)
     }
 }
 
+void TrayIcon::styleSelectedCallback()
+{
+    auto *action = qobject_cast<QAction *>(sender());
+    if (action == nullptr) {
+        return;
+    }
+
+    Q_EMIT styleSelected(_actionGroupStyles->actions().indexOf(action));
+}
+
 void TrayIcon::mapSelectedCallback()
 {
     auto *action = qobject_cast<QAction *>(sender());
@@ -55,23 +65,35 @@ void TrayIcon::mapSelectedCallback()
         return;
     }
 
-    Q_EMIT mapSelected(_actionGroup->actions().indexOf(action));
+    Q_EMIT mapSelected(_actionGroupMaps->actions().indexOf(action));
 }
 
-void TrayIcon::createMenu(const QStringList &maps)
+void TrayIcon::createMenu(const QStringList &styles,
+                          const QStringList &maps)
 {
     _menu->clear();
     _menuDock->clear();
-    _actionGroup = std::make_unique<QActionGroup>(_menu.get());
-    _actionGroup->setExclusive(true);
+
+    _actionGroupStyles = std::make_unique<QActionGroup>(_menu.get());
+    _actionGroupStyles->setExclusive(true);
+    _actionGroupMaps = std::make_unique<QActionGroup>(_menu.get());
+    _actionGroupMaps->setExclusive(true);
 
     _menu->addAction(_actionShow.get());
-    _menu->addSeparator()->setText(tr("Map Type"));
 
+    _menu->addSeparator()->setText(tr("Map Style"));
+    for (const QString &style : styles) {
+        QAction *a = _menu->addAction(style);
+        a->setCheckable(true);
+        _actionGroupStyles->addAction(a);
+        connect(a, &QAction::triggered, this, &TrayIcon::styleSelectedCallback);
+    }
+
+    _menu->addSeparator()->setText(tr("Map Type"));
     for (const QString &map : maps) {
         QAction *a = _menu->addAction(map);
         a->setCheckable(true);
-        _actionGroup->addAction(a);
+        _actionGroupMaps->addAction(a);
         _menuDock->addAction(a);
         connect(a, &QAction::triggered, this, &TrayIcon::mapSelectedCallback);
     }
@@ -81,14 +103,25 @@ void TrayIcon::createMenu(const QStringList &maps)
     _menu->addAction(_actionQuit.get());
 }
 
-void TrayIcon::setCurrentMap(int index)
+void TrayIcon::setCurrentStyle(int index)
 {
-    if (_actionGroup == nullptr || _actionGroup->actions().empty()) {
+    if (_actionGroupStyles == nullptr || _actionGroupStyles->actions().empty()) {
         return;
     }
 
-    if (index < _actionGroup->actions().size()) {
-        _actionGroup->actions().at(index)->setChecked(true);
+    if (index < _actionGroupStyles->actions().size()) {
+        _actionGroupStyles->actions().at(index)->setChecked(true);
+    }
+}
+
+void TrayIcon::setCurrentMap(int index)
+{
+    if (_actionGroupMaps == nullptr || _actionGroupMaps->actions().empty()) {
+        return;
+    }
+
+    if (index < _actionGroupMaps->actions().size()) {
+        _actionGroupMaps->actions().at(index)->setChecked(true);
     }
 }
 

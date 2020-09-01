@@ -45,6 +45,11 @@ public:
     static const QString KEY_STARTUP_MAP_ENABLED;
     static const bool DEFAULT_STARTUP_MAP_ENABLED;
 
+    [[nodiscard]] inline Weather::MapStyle startupMapStyle() const { return _startupMapStyle; }
+    inline void setStartupMapStyle(Weather::MapStyle s) { _startupMapStyle = s; }
+    static const QString KEY_STARTUP_MAP_STYLE;
+    static const Weather::MapStyle DEFAULT_STARTUP_MAP_STYLE;
+
     [[nodiscard]] inline Weather::MapType startupMapType() const { return _startupMapType; }
     inline void setStartupMapType(Weather::MapType t) { _startupMapType = t; }
     static const QString KEY_STARTUP_MAP_TYPE;
@@ -124,6 +129,7 @@ private:
 
     // Map startup settings
     bool _startupMapEnabled;
+    Weather::MapStyle _startupMapStyle;
     Weather::MapType _startupMapType;
     qreal _startupMapZoomLevel;
     double _startupMapLatitude;

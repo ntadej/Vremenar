@@ -12,6 +12,7 @@
 #include <QtCore/QDebug>
 
 #include "common/NetworkManager.h"
+#include "settings/Settings.h"
 #include "weather/common/containers/MapInfo.h"
 
 #include "weather/common/WeatherProviderBase.h"
@@ -40,6 +41,32 @@ WeatherProviderBase::WeatherProviderBase(NetworkManager *network,
 
     connect(_timer.get(), &QTimer::timeout, this, &WeatherProviderBase::timerCallback);
     connect(_timerCurrent.get(), &QTimer::timeout, this, &WeatherProviderBase::timerCallbackCurrent);
+
+    Settings settings(this);
+    if (settings.startupMapEnabled()) {
+        changeMapStyle(settings.startupMapStyle());
+    } else {
+        changeMapStyle(Weather::MapStyle::SatelliteMapStyle);
+    }
+}
+
+void WeatherProviderBase::changeMapStyle(Weather::MapStyle style,
+                                         bool action)
+{
+    if (_currentStyle == style) {
+        return;
+    }
+
+    if (action) {
+        Q_EMIT recordEvent(Analytics::MapStyleChanged, Weather::mapStyleToString(style));
+    }
+
+    _currentStyle = style;
+
+    Q_EMIT currentMapStyleChangedSignal(currentMapStyle());
+    Q_EMIT storeState();
+
+    qDebug() << "Map style changed" << style;
 }
 
 void WeatherProviderBase::changeMapType(Weather::MapType type,
@@ -64,6 +91,11 @@ void WeatherProviderBase::changeMapType(Weather::MapType type,
     Q_EMIT storeState();
 }
 
+void WeatherProviderBase::currentMapStyleChanged(int index)
+{
+    changeMapStyle(Weather::MapStyle(index + 1), true);
+}
+
 void WeatherProviderBase::currentMapLayerChanged(int index)
 {
     if (index < 0 || index >= static_cast<int>(supportedMapTypes().size())) {
@@ -71,6 +103,15 @@ void WeatherProviderBase::currentMapLayerChanged(int index)
     }
 
     changeMapType(_mapInfoModel->row<MapInfo>(index)->type(), true);
+}
+
+int WeatherProviderBase::currentMapStyle() const
+{
+    if (_currentStyle == Weather::MapStyle::StreetsMapStyle) {
+        return 1;
+    }
+
+    return 0;
 }
 
 int WeatherProviderBase::currentMapLayer() const
@@ -158,6 +199,11 @@ void WeatherProviderBase::setLoading(bool loading)
         _loading = loading;
         Q_EMIT loadingChanged();
     }
+}
+
+void WeatherProviderBase::startupCompleted()
+{
+    Q_EMIT currentMapStyleChangedSignal(currentMapStyle());
 }
 
 } // namespace Vremenar

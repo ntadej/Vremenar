@@ -93,6 +93,9 @@ QString Analytics::eventString(EventType type,
 {
     QString string;
     switch (type) {
+    case MapStyleChanged:
+        string = QStringLiteral("map_style_changed");
+        break;
     case MapTypeChanged:
         string = QStringLiteral("map_changed");
         break;

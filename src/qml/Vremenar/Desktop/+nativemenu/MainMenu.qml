@@ -16,6 +16,12 @@ import Qt.labs.platform 1.1
 Item {
     property alias mapTypeMenu: mapTypeMenu
 
+    ListModel {
+        id: styleModel
+        ListElement { display: "Satellite" }
+        ListElement { display: "Streets" }
+    }
+
     MenuBar {
         // File menu
         Menu {
@@ -28,9 +34,34 @@ Item {
             }
 
             MenuItem {
-                text: Qt.platform.os === "osx" ? "Preferences" : qsTr(
-                                                     "Settings") + VL.R
+                text: Qt.platform.os === "osx" ? "Preferences" : qsTr("Settings") + VL.R
                 onTriggered: Vremenar.showSettingsDialog()
+            }
+        }
+
+        // Map Style
+        Menu {
+            id: mapStyleMenu
+
+            title: qsTr("Map Style") + VL.R
+
+            MenuItemGroup {
+                id: mapStyleMenuGroup
+                items: mapStyleMenu.items
+            }
+
+            Instantiator {
+                model: styleModel
+
+                MenuItem {
+                    text: model.display
+                    checkable: true
+                    checked: VWeather.currentMapStyle === index
+                    onTriggered: VWeather.currentMapStyleChanged(index)
+                }
+
+                onObjectAdded: mapStyleMenu.insertItem(index, object)
+                onObjectRemoved: mapStyleMenu.removeItem(object)
             }
         }
 

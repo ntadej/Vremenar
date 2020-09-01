@@ -29,6 +29,7 @@ public:
     explicit Analytics(QObject *parent = nullptr);
 
     enum EventType {
+        MapStyleChanged,
         MapTypeChanged
     };
 

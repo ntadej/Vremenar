@@ -102,7 +102,7 @@ Q_SIGNALS:
 
 private:
     Weather::ObservationType _observation{Weather::Recent};
-    Weather::MapType _type{Weather::UnknownMap};
+    Weather::MapType _type{Weather::UnknownMapType};
     Weather::MapRenderingType _rendering{Weather::ImageRendering};
     QDateTime _time;
     QUrl _url;

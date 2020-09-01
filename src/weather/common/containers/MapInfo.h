@@ -48,7 +48,7 @@ public:
     }
 
 private:
-    Weather::MapType _type{Weather::UnknownMap};
+    Weather::MapType _type{Weather::UnknownMapType};
     QString _description;
 };
 

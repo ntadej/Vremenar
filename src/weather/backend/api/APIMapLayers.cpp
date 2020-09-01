@@ -61,7 +61,7 @@ Backend::APIRequest Backend::mapLayers(Weather::MapType type)
     case Weather::HailProbabilityMap:
         id = QStringLiteral("hail");
         break;
-    case Weather::UnknownMap:
+    case Weather::UnknownMapType:
         throw std::runtime_error("unknown map");
     }
 

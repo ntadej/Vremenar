@@ -35,6 +35,31 @@ MenuBar {
 
     }
 
+    ListModel {
+        id: styleModel
+        ListElement { display: "Satellite" }
+        ListElement { display: "Streets" }
+    }
+
+    // Map Style
+    Menu {
+        id: mapStyleMenu
+
+        title: qsTr("Map Style") + VL.R
+
+        Instantiator {
+            model: styleModel
+
+            MenuItem {
+                text: model.display
+                onTriggered: VWeather.currentMapStyleChanged(index)
+            }
+
+            onObjectAdded: mapStyleMenu.insertItem(index, object)
+            onObjectRemoved: mapStyleMenu.removeItem(object)
+        }
+    }
+
     // Map Type
     Menu {
         id: mapTypeMenu
