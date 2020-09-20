@@ -51,7 +51,7 @@ void Backend::MapLayersModel::addMapLayers(Weather::MapType type,
     }
 
     QJsonArray layers = data[QStringLiteral("layers")].toArray();
-    for (const QJsonValueRef &obj : layers) {
+    for (QJsonValueRef obj : layers) {
         createMapLayer(type, rendering, obj.toObject(), bbox);
     }
 }

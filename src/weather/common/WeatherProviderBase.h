@@ -43,7 +43,7 @@ public:
     Q_PROPERTY(bool loading READ loading NOTIFY loadingChanged)
     Q_PROPERTY(int currentMapStyle READ currentMapStyle WRITE currentMapStyleChanged NOTIFY currentMapStyleChangedSignal)
     Q_PROPERTY(int currentMapLayer READ currentMapLayer WRITE currentMapLayerChanged NOTIFY currentMapLayerChangedSignal)
-    Q_PROPERTY(bool currentMapLayerHasLegend READ currentMapLayerHasLegend NOTIFY currentMapLayerChangedSignal)
+    Q_PROPERTY(bool currentMapLayerHasLegend READ currentMapLayerHasLegend NOTIFY currentMapLayerHasLegendChangedSignal)
 
     inline CurrentWeatherBase *current() { return _currentWeather.get(); }
     inline WeatherMapProxyModel *weatherMap() { return _weatherMapProxyModel.get(); }
@@ -86,6 +86,7 @@ Q_SIGNALS:
     void loadingChanged();
     void currentMapStyleChangedSignal(int);
     void currentMapLayerChangedSignal(int);
+    void currentMapLayerHasLegendChangedSignal(bool);
     void storeState();
 
 protected:
