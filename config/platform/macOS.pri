@@ -14,7 +14,7 @@ QT += macextras
 LIBS += -weak_framework ApplicationServices -weak_framework Cocoa -weak_framework CoreLocation
 
 # Deployment target and rpath
-QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.12
+QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.13
 QMAKE_RPATHDIR = @executable_path/../Frameworks
 
 # Info.plist & icons
