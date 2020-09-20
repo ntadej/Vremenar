@@ -2,7 +2,7 @@ name: Continuous Integration
 on: [push]
 
 env:
-  QT_VERSION: 5.15.0
+  QT_VERSION: 5.15.1
 
 jobs:
   build:
@@ -44,6 +44,11 @@ jobs:
           auth_header="$(git config --local --get http.https://github.com/.extraheader)"
           git submodule sync --recursive
           git -c "http.extraheader=$auth_header" -c protocol.version=2 submodule update --init --force --recursive --depth=1
+
+      - name: Setup Xcode
+        if: matrix.config.platform == 'ios' || matrix.config.platform == 'macos'
+        shell: bash
+        run: sudo xcode-select -switch /Applications/Xcode_12.app
 
       - name: Download Qt
         uses: jurplel/install-qt-action@v2
@@ -104,6 +109,7 @@ jobs:
           qmake $VREMENAR_PATH/Vremenar.pro -spec macx-ios-clang CONFIG+=release CONFIG+=iphoneos CONFIG+=device CONFIG+=qtquickcompiler
           xcodebuild archive -scheme Vremenar -configuration Release -sdk iphoneos CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -archivePath Vremenar.xcarchive
           mv Vremenar.xcarchive/Products/Applications Payload
+          ldid -S Payload/Vremenar.app/Vremenar
           zip -r Vremenar.zip Payload
           mv Vremenar.zip $ARTIFACT_NAME
 
