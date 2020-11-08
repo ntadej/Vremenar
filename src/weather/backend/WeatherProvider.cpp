@@ -16,11 +16,11 @@
 #include <QtGui/QImage>
 
 #include "common/NetworkManager.h"
-#include "weather/backend/api/APIMapLayers.h"
-#include "weather/backend/api/APIStations.h"
-#include "weather/common/models/MapInfoModel.h"
-#include "weather/common/models/MapLayersProxyModel.h"
-#include "weather/common/models/MapLegendProxyModel.h"
+#include "weather/api/APIMapLayers.h"
+#include "weather/api/APIStations.h"
+#include "weather/models/MapInfoModel.h"
+#include "weather/models/MapLayersProxyModel.h"
+#include "weather/models/MapLegendProxyModel.h"
 
 #include "weather/backend/WeatherProvider.h"
 
@@ -58,11 +58,11 @@ void Backend::WeatherProvider::requestCurrentWeatherInfo(const QGeoCoordinate &c
 
     if (coordinate.isValid()) {
         qDebug() << "Requesting current weather details:" << coordinate;
-        APIRequest request = Backend::stations(coordinate);
+        APIRequest request = API::stations(coordinate);
         currentReplies()->insert(network()->request(request), request);
     } else if (current()->hasStation()) {
         qDebug() << "Requesting current weather details:" << current()->station()->display();
-        APIRequest request = Backend::stations(current()->station()->display());
+        APIRequest request = API::stations(current()->station()->display());
         currentReplies()->insert(network()->request(request), request);
     }
 }
@@ -73,7 +73,7 @@ void Backend::WeatherProvider::requestWeatherMapDetails(const QString &url)
 
     setLoading(true);
 
-    APIRequest request = Backend::stationsMap(url);
+    APIRequest request = API::stationsMap(url);
     currentReplies()->insert(network()->request(request), request);
 }
 
@@ -83,7 +83,7 @@ void Backend::WeatherProvider::requestImage(const QString &url)
 
     setLoading(true);
 
-    APIRequest request = Backend::mapImage(url);
+    APIRequest request = API::mapImage(url);
     currentReplies()->insert(network()->request(request), request);
 }
 
@@ -98,7 +98,7 @@ void Backend::WeatherProvider::requestMapLayers(Weather::MapType type)
     _weatherMapModel->clear();
     _mapLayersModel->clear();
 
-    APIRequest request = Backend::mapLayers(type);
+    APIRequest request = API::mapLayers(type);
     currentReplies()->insert(network()->request(request), request);
 }
 

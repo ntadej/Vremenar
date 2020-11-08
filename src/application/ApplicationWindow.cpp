@@ -21,11 +21,11 @@
 #include "common/NetworkManager.h"
 #include "qml/Qml.h"
 #include "settings/Settings.h"
-#include "weather/common/CurrentWeather.h"
-#include "weather/common/models/MapInfoModel.h"
-#include "weather/common/models/MapLayersProxyModel.h"
-#include "weather/common/models/MapLegendProxyModel.h"
-#include "weather/common/models/WeatherMapProxyModel.h"
+#include "weather/CurrentWeather.h"
+#include "weather/models/MapInfoModel.h"
+#include "weather/models/MapLayersProxyModel.h"
+#include "weather/models/MapLegendProxyModel.h"
+#include "weather/models/WeatherMapProxyModel.h"
 
 #ifndef VREMENAR_MOBILE
 #include "application/DesktopApplication.h"

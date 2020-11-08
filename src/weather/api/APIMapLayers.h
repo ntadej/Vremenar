@@ -9,24 +9,21 @@
 * SPDX-License-Identifier: (GPL-3.0-or-later AND MPL-2.0)
 */
 
-#ifndef VREMENAR_MAPLEGENDMODEL_H_
-#define VREMENAR_MAPLEGENDMODEL_H_
+#ifndef VREMENAR_APIMAPLAYERS_H_
+#define VREMENAR_APIMAPLAYERS_H_
 
-#include "weather/models/MapLegendModelBase.h"
+#include "weather/Weather.h"
+#include "weather/api/APIRequest.h"
 
 namespace Vremenar
 {
-namespace Backend
+namespace API
 {
 
-class MapLegendModel : public MapLegendModelBase
-{
-    Q_OBJECT
-public:
-    explicit MapLegendModel(QObject *parent = nullptr);
-};
+APIRequest mapImage(const QString &url);
+APIRequest mapLayers(Weather::MapType type);
 
-} // namespace Backend
+} // namespace API
 } // namespace Vremenar
 
-#endif // VREMENAR_MAPLEGENDMODEL_H_
+#endif // VREMENAR_APIMAPLAYERS_H_

@@ -16,7 +16,7 @@
 
 #include <QtWidgets/QDialog>
 
-#include "weather/common/WeatherProviderBase.h"
+#include "weather/WeatherProviderBase.h"
 
 #include "ui_AboutDialog.h"
 

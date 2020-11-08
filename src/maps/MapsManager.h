@@ -15,7 +15,7 @@
 #include <QtCore/QObject>
 #include <QtQml/QQmlApplicationEngine>
 
-#include "weather/common/Weather.h"
+#include "weather/Weather.h"
 
 namespace Vremenar
 {

@@ -12,7 +12,7 @@
 #ifndef VREMENAR_MAPLAYERSMODEL_H_
 #define VREMENAR_MAPLAYERSMODEL_H_
 
-#include "weather/common/models/MapLayersModelBase.h"
+#include "weather/models/MapLayersModelBase.h"
 
 namespace Vremenar
 {

@@ -107,11 +107,11 @@ MapPageBase {
         MapItemView {
              model: VWeatherMapModel
              delegate: WeatherEntry {
-                 icon: model.icon
+                 icon: model.condition.icon
                  title: model.display
-                 coordinate: model.coordinate
-                 temperature: model.temperature
-                 temperatureLow: model.temperatureLow
+                 coordinate: model.station.coordinate
+                 temperature: model.condition.temperature
+                 temperatureLow: model.condition.temperatureLow
              }
         }
 

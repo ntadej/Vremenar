@@ -9,17 +9,16 @@
 * SPDX-License-Identifier: (GPL-3.0-or-later AND MPL-2.0)
 */
 
-#ifndef VREMENAR_QML_H_
-#define VREMENAR_QML_H_
+#include "weather/api/APIRequest.h"
+
+#include "Config.h"
 
 namespace Vremenar
 {
-namespace Qml
+
+APIRequest::APIRequest()
 {
+    setBaseUrl(Vremenar::APIEndpoint);
+}
 
-void registerTypes();
-
-} // namespace Qml
 } // namespace Vremenar
-
-#endif // VREMENAR_QML_H_

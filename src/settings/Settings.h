@@ -14,7 +14,7 @@
 
 #include <QtCore/QSettings>
 
-#include "weather/common/Weather.h"
+#include "weather/Weather.h"
 
 namespace Vremenar
 {

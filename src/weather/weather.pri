@@ -10,51 +10,49 @@
 #
 
 SOURCES += \
-    src/weather/common/CurrentWeather.cpp \
-    src/weather/common/Weather.cpp \
-    src/weather/common/WeatherProviderBase.cpp \
-    src/weather/common/containers/MapInfo.cpp \
-    src/weather/common/containers/MapLayer.cpp \
-    src/weather/common/containers/MapLegendItem.cpp \
-    src/weather/common/containers/StationInfo.cpp \
-    src/weather/common/containers/WeatherCondition.cpp \
-    src/weather/common/containers/WeatherInfo.cpp \
-    src/weather/common/models/MapInfoModel.cpp \
-    src/weather/common/models/MapLayersModelBase.cpp \
-    src/weather/common/models/MapLayersProxyModel.cpp \
-    src/weather/common/models/MapLegendModelBase.cpp \
-    src/weather/common/models/MapLegendProxyModel.cpp \
-    src/weather/common/models/WeatherMapModelBase.cpp \
-    src/weather/common/models/WeatherMapProxyModel.cpp \
+    src/weather/CurrentWeather.cpp \
+    src/weather/Weather.cpp \
+    src/weather/WeatherProviderBase.cpp \
+    src/weather/api/APIMapLayers.cpp \
+    src/weather/api/APIRequest.cpp \
+    src/weather/api/APIStations.cpp \
+    src/weather/containers/MapInfo.cpp \
+    src/weather/containers/MapLayer.cpp \
+    src/weather/containers/MapLegendItem.cpp \
+    src/weather/containers/StationInfo.cpp \
+    src/weather/containers/WeatherCondition.cpp \
+    src/weather/containers/WeatherInfo.cpp \
+    src/weather/models/MapInfoModel.cpp \
+    src/weather/models/MapLayersModelBase.cpp \
+    src/weather/models/MapLayersProxyModel.cpp \
+    src/weather/models/MapLegendModelBase.cpp \
+    src/weather/models/MapLegendProxyModel.cpp \
+    src/weather/models/WeatherMapModel.cpp \
+    src/weather/models/WeatherMapProxyModel.cpp \
     src/weather/backend/WeatherProvider.cpp \
-    src/weather/backend/api/APIMapLayers.cpp \
-    src/weather/backend/api/APIRequest.cpp \
-    src/weather/backend/api/APIStations.cpp \
     src/weather/backend/models/MapLayersModel.cpp \
-    src/weather/backend/models/MapLegendModel.cpp \
-    src/weather/backend/models/WeatherMapModel.cpp
+    src/weather/backend/models/MapLegendModel.cpp
 
 HEADERS += \
-    src/weather/common/CurrentWeather.h \
-    src/weather/common/Weather.h \
-    src/weather/common/WeatherProviderBase.h \
-    src/weather/common/containers/MapInfo.h \
-    src/weather/common/containers/MapLayer.h \
-    src/weather/common/containers/MapLegendItem.h \
-    src/weather/common/containers/StationInfo.h \
-    src/weather/common/containers/WeatherCondition.h \
-    src/weather/common/containers/WeatherInfo.h \
-    src/weather/common/models/MapInfoModel.h \
-    src/weather/common/models/MapLayersModelBase.h \
-    src/weather/common/models/MapLayersProxyModel.h \
-    src/weather/common/models/MapLegendModelBase.h \
-    src/weather/common/models/MapLegendProxyModel.h \
-    src/weather/common/models/WeatherMapModelBase.h \
-    src/weather/common/models/WeatherMapProxyModel.h \
+    src/weather/CurrentWeather.h \
+    src/weather/Weather.h \
+    src/weather/WeatherProviderBase.h \
+    src/weather/api/APIMapLayers.h \
+    src/weather/api/APIRequest.h \
+    src/weather/api/APIStations.h \
+    src/weather/containers/MapInfo.h \
+    src/weather/containers/MapLayer.h \
+    src/weather/containers/MapLegendItem.h \
+    src/weather/containers/StationInfo.h \
+    src/weather/containers/WeatherCondition.h \
+    src/weather/containers/WeatherInfo.h \
+    src/weather/models/MapInfoModel.h \
+    src/weather/models/MapLayersModelBase.h \
+    src/weather/models/MapLayersProxyModel.h \
+    src/weather/models/MapLegendModelBase.h \
+    src/weather/models/MapLegendProxyModel.h \
+    src/weather/models/WeatherMapModel.h \
+    src/weather/models/WeatherMapProxyModel.h \
     src/weather/backend/WeatherProvider.h \
-    src/weather/backend/api/APIMapLayers.h \
-    src/weather/backend/api/APIRequest.h \
-    src/weather/backend/api/APIStations.h \
     src/weather/backend/models/MapLayersModel.h \
-    src/weather/backend/models/MapLegendModel.h \
-    src/weather/backend/models/WeatherMapModel.h
+    src/weather/backend/models/MapLegendModel.h

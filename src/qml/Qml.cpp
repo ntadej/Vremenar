@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -16,9 +16,9 @@
 
 #include "common/Enums.h"
 #include "settings/Settings.h"
-#include "weather/common/Weather.h"
-#include "weather/common/containers/StationInfo.h"
-#include "weather/common/containers/WeatherCondition.h"
+#include "weather/Weather.h"
+#include "weather/containers/StationInfo.h"
+#include "weather/containers/WeatherCondition.h"
 
 #include "qml/Qml.h"
 
@@ -33,8 +33,8 @@ void Qml::registerTypes()
     qmlRegisterSingletonType<UIManager>(uri, 1, 0, "UI", UIManager::provider);
     qmlRegisterSingletonType<Settings>(uri, 1, 0, "Settings", Globals::providerSettings);
 
-    qRegisterMetaType<StationInfo *>("StationInfo*");
-    qRegisterMetaType<WeatherCondition *>("WeatherCondition*");
+    //    qRegisterMetaType<StationInfo *>("StationInfo*");
+    //    qRegisterMetaType<WeatherCondition *>("WeatherCondition*");
 
     qmlRegisterUncreatableType<StationInfo>(uri, 1, 0, "StationInfo", "");
     qmlRegisterUncreatableType<WeatherCondition>(uri, 1, 0, "WeatherCondition", "");

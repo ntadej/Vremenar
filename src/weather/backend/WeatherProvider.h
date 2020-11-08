@@ -14,9 +14,10 @@
 
 #include "weather/backend/models/MapLayersModel.h"
 #include "weather/backend/models/MapLegendModel.h"
-#include "weather/backend/models/WeatherMapModel.h"
-#include "weather/common/Weather.h"
-#include "weather/common/WeatherProviderBase.h"
+
+#include "weather/Weather.h"
+#include "weather/WeatherProviderBase.h"
+#include "weather/models/WeatherMapModel.h"
 
 namespace Vremenar
 {
