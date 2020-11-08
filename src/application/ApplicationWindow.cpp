@@ -21,7 +21,7 @@
 #include "common/NetworkManager.h"
 #include "qml/Qml.h"
 #include "settings/Settings.h"
-#include "weather/common/CurrentWeatherBase.h"
+#include "weather/common/CurrentWeather.h"
 #include "weather/common/models/MapInfoModel.h"
 #include "weather/common/models/MapLayersProxyModel.h"
 #include "weather/common/models/MapLegendProxyModel.h"
@@ -231,7 +231,7 @@ void ApplicationWindow::createWidgets()
     connect(_trayIcon.get(), &TrayIcon::mapSelected, _weatherProvider.get(), &WeatherProviderBase::currentMapLayerChanged);
     connect(_weatherProvider.get(), &WeatherProviderBase::currentMapStyleChangedSignal, _trayIcon.get(), &TrayIcon::setCurrentStyle);
     connect(_weatherProvider.get(), &WeatherProviderBase::currentMapLayerChangedSignal, _trayIcon.get(), &TrayIcon::setCurrentMap);
-    connect(_weatherProvider->current(), &CurrentWeatherBase::weatherChanged, _trayIcon.get(), &TrayIcon::setCurrentWeather);
+    connect(_weatherProvider->current(), &CurrentWeather::weatherChanged, _trayIcon.get(), &TrayIcon::setCurrentWeather);
 }
 
 void ApplicationWindow::showAboutDialog()

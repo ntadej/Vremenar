@@ -29,6 +29,7 @@ namespace Vremenar
 WeatherProviderBase::WeatherProviderBase(NetworkManager *network,
                                          QObject *parent)
     : APILoader(network, parent),
+      _currentWeather(std::make_unique<CurrentWeather>(this)),
       _weatherMapProxyModel(std::make_unique<WeatherMapProxyModel>(this)),
       _mapInfoModel(std::make_unique<MapInfoModel>(this)),
       _mapLayersProxyModel(std::make_unique<MapLayersProxyModel>(this)),

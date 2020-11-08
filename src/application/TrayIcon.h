@@ -15,6 +15,9 @@
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QSystemTrayIcon>
 
+#include "weather/common/containers/StationInfo.h"
+#include "weather/common/containers/WeatherCondition.h"
+
 class QMenu;
 
 namespace Vremenar
@@ -31,9 +34,8 @@ public Q_SLOTS:
                     const QStringList &maps);
     void setCurrentStyle(int index);
     void setCurrentMap(int index);
-    void setCurrentWeather(const QString &location,
-                           double temperature,
-                           const QString &icon);
+    void setCurrentWeather(const StationInfo *station,
+                           const WeatherCondition *condition);
 
 Q_SIGNALS:
     void triggered();

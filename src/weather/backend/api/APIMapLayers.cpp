@@ -27,18 +27,6 @@ Backend::APIRequest Backend::mapImage(const QString &url)
     return request;
 }
 
-Backend::APIRequest Backend::mapWeatherDetails(const QString &url)
-{
-    QUrlQuery query;
-    query.addQueryItem(QStringLiteral("country"), QStringLiteral("si"));
-
-    APIRequest request;
-    request.setCall(QStringLiteral("/weather_map"));
-    request.setUrl(url, query);
-
-    return request;
-}
-
 Backend::APIRequest Backend::mapLayers(Weather::MapType type)
 {
     QString id;
@@ -66,7 +54,7 @@ Backend::APIRequest Backend::mapLayers(Weather::MapType type)
     }
 
     QUrlQuery query;
-    query.addQueryItem(QStringLiteral("country"), QStringLiteral("si"));
+    query.addQueryItem(QStringLiteral("country"), QStringLiteral("de"));
 
     APIRequest request;
     request.setCall(QStringLiteral("/maps"));

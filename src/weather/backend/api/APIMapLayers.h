@@ -21,7 +21,6 @@ namespace Backend
 {
 
 APIRequest mapImage(const QString &url);
-APIRequest mapWeatherDetails(const QString &url);
 APIRequest mapLayers(Weather::MapType type);
 
 } // namespace Backend

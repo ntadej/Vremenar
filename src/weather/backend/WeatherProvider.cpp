@@ -16,9 +16,8 @@
 #include <QtGui/QImage>
 
 #include "common/NetworkManager.h"
-#include "weather/backend/CurrentWeather.h"
-#include "weather/backend/api/APILocations.h"
 #include "weather/backend/api/APIMapLayers.h"
+#include "weather/backend/api/APIStations.h"
 #include "weather/common/models/MapInfoModel.h"
 #include "weather/common/models/MapLayersProxyModel.h"
 #include "weather/common/models/MapLegendProxyModel.h"
@@ -36,7 +35,6 @@ Backend::WeatherProvider::WeatherProvider(NetworkManager *network,
       _mapLayersModel(std::make_unique<MapLayersModel>(this)),
       _mapLegendModel(std::make_unique<MapLegendModel>(this))
 {
-    setupCurrentWeather(std::make_unique<CurrentWeather>(this));
     weatherMap()->setSourceModel(_weatherMapModel.get());
     mapInfo()->generateModel(supportedMapTypes());
     mapLayers()->setSourceModel(_mapLayersModel.get());
@@ -60,11 +58,11 @@ void Backend::WeatherProvider::requestCurrentWeatherInfo(const QGeoCoordinate &c
 
     if (coordinate.isValid()) {
         qDebug() << "Requesting current weather details:" << coordinate;
-        APIRequest request = Backend::locations(coordinate);
+        APIRequest request = Backend::stations(coordinate);
         currentReplies()->insert(network()->request(request), request);
-    } else if (!current()->location().isEmpty()) {
-        qDebug() << "Requesting current weather details:" << current()->location();
-        APIRequest request = Backend::locations(current()->location());
+    } else if (current()->hasStation()) {
+        qDebug() << "Requesting current weather details:" << current()->station()->display();
+        APIRequest request = Backend::stations(current()->station()->display());
         currentReplies()->insert(network()->request(request), request);
     }
 }
@@ -75,7 +73,7 @@ void Backend::WeatherProvider::requestWeatherMapDetails(const QString &url)
 
     setLoading(true);
 
-    APIRequest request = Backend::mapWeatherDetails(url);
+    APIRequest request = Backend::stationsMap(url);
     currentReplies()->insert(network()->request(request), request);
 }
 
@@ -133,15 +131,15 @@ void Backend::WeatherProvider::response(QNetworkReply *reply)
 
     // JSON
     QJsonDocument document = QJsonDocument::fromJson(reply->readAll());
-    if (currentReplies()->value(reply).call() == QStringLiteral("/location/coordinate")) {
-        QString title = document.array().first().toObject()[QStringLiteral("title")].toString();
-        current()->setLocation(title);
+    if (currentReplies()->value(reply).call() == QStringLiteral("/stations/coordinate")) {
+        current()->setStation(StationInfo::fromJson(document.array().first().toObject()));
         requestCurrentWeatherInfo(QGeoCoordinate());
         removeResponse(reply);
         return;
     }
-    if (currentReplies()->value(reply).call() == QStringLiteral("/location/string")) {
-        current()->updateCurrentWeather(document.array());
+    if (currentReplies()->value(reply).call() == QStringLiteral("/stations/string")) {
+        QJsonObject station = document.array().first().toObject();
+        current()->updateCurrentWeather(WeatherCondition::fromJson(station[QStringLiteral("current_condition")].toObject()));
 
         setLastUpdatedTimeCurrent(QDateTime::currentDateTime());
         startTimerCurrent();
@@ -151,7 +149,7 @@ void Backend::WeatherProvider::response(QNetworkReply *reply)
         return;
     }
 
-    if (currentReplies()->value(reply).call() == QStringLiteral("/weather_map")) {
+    if (currentReplies()->value(reply).call() == QStringLiteral("/stations/map")) {
         _weatherMapModelBase->addEntries(document.array());
         if (currentReplies()->value(reply).url().toString().contains(QStringLiteral("current"))) {
             _weatherMapModel->addEntries(document.array());

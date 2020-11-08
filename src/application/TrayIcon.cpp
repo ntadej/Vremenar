@@ -125,13 +125,12 @@ void TrayIcon::setCurrentMap(int index)
     }
 }
 
-void TrayIcon::setCurrentWeather(const QString &location,
-                                 double temperature,
-                                 const QString &icon)
+void TrayIcon::setCurrentWeather(const StationInfo *station,
+                                 const WeatherCondition *condition)
 {
-    if (!location.isEmpty()) {
-        setToolTip(QStringLiteral("%1°").arg(temperature));
-        QIcon i(QStringLiteral(":/Vremenar/Maps/TrayMask/%1.png").arg(icon));
+    if (station != nullptr) {
+        setToolTip(condition->displayTemperatureShort());
+        QIcon i(QStringLiteral(":/Vremenar/Maps/TrayMask/%1.png").arg(condition->icon()));
         i.setIsMask(true);
         setIcon(i);
     } else {

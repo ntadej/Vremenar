@@ -9,8 +9,8 @@
 * SPDX-License-Identifier: (GPL-3.0-or-later AND MPL-2.0)
 */
 
-#ifndef VREMENAR_APILOCATIONS_H_
-#define VREMENAR_APILOCATIONS_H_
+#ifndef VREMENAR_APISTATIONS_H_
+#define VREMENAR_APISTATIONS_H_
 
 #include <QtPositioning/QGeoCoordinate>
 
@@ -21,10 +21,11 @@ namespace Vremenar
 namespace Backend
 {
 
-APIRequest locations(const QGeoCoordinate &coordinate);
-APIRequest locations(const QString &location);
+APIRequest stations(const QGeoCoordinate &coordinate);
+APIRequest stations(const QString &string);
+APIRequest stationsMap(const QString &url);
 
 } // namespace Backend
 } // namespace Vremenar
 
-#endif // VREMENAR_APILOCATIONS_H_
+#endif // VREMENAR_APISTATIONS_H_

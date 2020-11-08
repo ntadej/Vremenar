@@ -12,12 +12,12 @@
 #include <QtCore/QJsonDocument>
 #include <QtCore/QUrlQuery>
 
-#include "weather/backend/api/APILocations.h"
+#include "weather/backend/api/APIStations.h"
 
 namespace Vremenar
 {
 
-Backend::APIRequest Backend::locations(const QGeoCoordinate &coordinate)
+Backend::APIRequest Backend::stations(const QGeoCoordinate &coordinate)
 {
     QUrlQuery query;
     query.addQueryItem(QStringLiteral("country"), QStringLiteral("si"));
@@ -28,28 +28,40 @@ Backend::APIRequest Backend::locations(const QGeoCoordinate &coordinate)
 
     APIRequest request;
     request.setOperation(QNetworkAccessManager::PostOperation);
-    request.setCall(QStringLiteral("/location/coordinate"));
-    request.setUrl(QStringLiteral("/location/find"), query);
+    request.setCall(QStringLiteral("/stations/coordinate"));
+    request.setUrl(QStringLiteral("/stations/find"), query);
     request.setData(data);
     request.setExtra(coordinate.toString());
 
     return request;
 }
 
-Backend::APIRequest Backend::locations(const QString &location)
+Backend::APIRequest Backend::stations(const QString &string)
 {
     QUrlQuery query;
     query.addQueryItem(QStringLiteral("country"), QStringLiteral("si"));
 
     QJsonObject data;
-    data[QStringLiteral("string")] = location;
+    data[QStringLiteral("string")] = string;
 
     APIRequest request;
     request.setOperation(QNetworkAccessManager::PostOperation);
-    request.setCall(QStringLiteral("/location/string"));
-    request.setUrl(QStringLiteral("/location/find"), query);
+    request.setCall(QStringLiteral("/stations/string"));
+    request.setUrl(QStringLiteral("/stations/find"), query);
     request.setData(data);
-    request.setExtra(location);
+    request.setExtra(string);
+
+    return request;
+}
+
+Backend::APIRequest Backend::stationsMap(const QString &url)
+{
+    QUrlQuery query;
+    query.addQueryItem(QStringLiteral("country"), QStringLiteral("de"));
+
+    APIRequest request;
+    request.setCall(QStringLiteral("/stations/map"));
+    request.setUrl(url, query);
 
     return request;
 }

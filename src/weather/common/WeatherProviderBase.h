@@ -18,7 +18,7 @@
 #include "application/analytics/Analytics.h"
 #include "common/api/APILoader.h"
 #include "common/containers/Hyperlink.h"
-#include "weather/common/CurrentWeatherBase.h"
+#include "weather/common/CurrentWeather.h"
 #include "weather/common/Weather.h"
 #include "weather/common/models/MapInfoModel.h"
 #include "weather/common/models/MapLayersProxyModel.h"
@@ -45,7 +45,7 @@ public:
     Q_PROPERTY(int currentMapLayer READ currentMapLayer WRITE currentMapLayerChanged NOTIFY currentMapLayerChangedSignal)
     Q_PROPERTY(bool currentMapLayerHasLegend READ currentMapLayerHasLegend NOTIFY currentMapLayerHasLegendChangedSignal)
 
-    inline CurrentWeatherBase *current() { return _currentWeather.get(); }
+    inline CurrentWeather *current() { return _currentWeather.get(); }
     inline WeatherMapProxyModel *weatherMap() { return _weatherMapProxyModel.get(); }
     inline MapInfoModel *mapInfo() { return _mapInfoModel.get(); }
     inline MapLayersProxyModel *mapLayers() { return _mapLayersProxyModel.get(); }
@@ -90,7 +90,6 @@ Q_SIGNALS:
     void storeState();
 
 protected:
-    void setupCurrentWeather(std::unique_ptr<CurrentWeatherBase> ptr) { _currentWeather = std::move(ptr); }
     void startTimer();
     void startTimerCurrent();
     void stopTimerCurrent();
@@ -103,7 +102,7 @@ private:
     void timerCallback();
     void timerCallbackCurrent();
 
-    std::unique_ptr<CurrentWeatherBase> _currentWeather{};
+    std::unique_ptr<CurrentWeather> _currentWeather{};
     std::unique_ptr<WeatherMapProxyModel> _weatherMapProxyModel{};
     std::unique_ptr<MapInfoModel> _mapInfoModel{};
     std::unique_ptr<MapLayersProxyModel> _mapLayersProxyModel{};

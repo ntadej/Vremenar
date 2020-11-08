@@ -17,6 +17,8 @@
 #include "common/Enums.h"
 #include "settings/Settings.h"
 #include "weather/common/Weather.h"
+#include "weather/common/containers/StationInfo.h"
+#include "weather/common/containers/WeatherCondition.h"
 
 #include "qml/Qml.h"
 
@@ -30,6 +32,12 @@ void Qml::registerTypes()
     qmlRegisterSingletonType<Globals>(uri, 1, 0, "Globals", Globals::provider);
     qmlRegisterSingletonType<UIManager>(uri, 1, 0, "UI", UIManager::provider);
     qmlRegisterSingletonType<Settings>(uri, 1, 0, "Settings", Globals::providerSettings);
+
+    qRegisterMetaType<StationInfo *>("StationInfo*");
+    qRegisterMetaType<WeatherCondition *>("WeatherCondition*");
+
+    qmlRegisterUncreatableType<StationInfo>(uri, 1, 0, "StationInfo", "");
+    qmlRegisterUncreatableType<WeatherCondition>(uri, 1, 0, "WeatherCondition", "");
 
     qmlRegisterUncreatableMetaObject(Common::staticMetaObject, uri, 1, 0, "Common", QStringLiteral("Error: only enums"));
     qmlRegisterUncreatableMetaObject(Weather::staticMetaObject, uri, 1, 0, "Weather", QStringLiteral("Error: only enums"));

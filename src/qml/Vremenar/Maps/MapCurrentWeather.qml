@@ -18,7 +18,7 @@ Item {
     width: UI.paddingCommon + icon.width + textTemperature.width + UI.paddingCommon / 2
     height: UI.paddingCommon + UI.mapIconSizeHeight + Math.round(textLocation.height) + UI.paddingCommon
 
-    opacity: VCurrent.icon !== "" ? 1 : 0
+    opacity: VCurrent.station ? 1 : 0
 
     Rectangle {
         id: rounded
@@ -38,7 +38,7 @@ Item {
     TextCore {
         id: textLocation
         padding: 0
-        text: VCurrent.location
+        text: VCurrent.station ? VCurrent.station.display : ""
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignTop
         wrapMode: Text.WordWrap
@@ -57,7 +57,7 @@ Item {
 
     Image {
         id: icon
-        source: VCurrent.icon ? "icons/" + VCurrent.icon + ".png" : ""
+        source: VCurrent.condition ? "icons/" + VCurrent.condition.icon + ".png" : ""
         width: UI.mapIconSize
         height: UI.mapIconSize
         anchors {
@@ -70,7 +70,7 @@ Item {
 
     TextCommon {
         id: textTemperature
-        text: VCurrent.temperature
+        text: VCurrent.condition ? VCurrent.condition.displayTemperature : ""
         font.weight: Font.DemiBold
         width: UI.mapIconSize
         height: UI.mapIconSizeHeight
