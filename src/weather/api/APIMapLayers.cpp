@@ -9,6 +9,8 @@
 * SPDX-License-Identifier: (GPL-3.0-or-later AND MPL-2.0)
 */
 
+#include "weather/Sources.h"
+
 #include "weather/api/APIMapLayers.h"
 
 #include "Config.h"
@@ -53,8 +55,7 @@ APIRequest API::mapLayers(Weather::MapType type)
         throw std::runtime_error("unknown map");
     }
 
-    QUrlQuery query;
-    query.addQueryItem(QStringLiteral("country"), QStringLiteral("si"));
+    QUrlQuery query = Sources::sourceQuery();
 
     APIRequest request;
     request.setCall(QStringLiteral("/maps"));

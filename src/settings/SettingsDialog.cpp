@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -9,6 +9,9 @@
 * SPDX-License-Identifier: (GPL-3.0-or-later AND MPL-2.0)
 */
 
+#include <QtWidgets/QMessageBox>
+
+#include "application/BaseApplication.h"
 #include "common/LocaleManager.h"
 #include "settings/Settings.h"
 
@@ -52,6 +55,7 @@ SettingsDialog::SettingsDialog(QWidget *parent)
 
     readSettings();
     loadLocales();
+    loadSources();
 }
 
 void SettingsDialog::changeEvent(QEvent *e)
@@ -64,6 +68,7 @@ void SettingsDialog::changeEvent(QEvent *e)
         retranslateMacOS();
 #endif
         loadLocales();
+        loadSources();
         break;
     default:
         break;
@@ -111,6 +116,20 @@ void SettingsDialog::localeChangedSlot()
     Q_EMIT localeChanged();
 }
 
+void SettingsDialog::sourceChangedSlot()
+{
+    QMessageBox::information(this, tr("Weather source changed"),
+                             tr("The weather source has been changed.\n"
+                                "The application will now restart."),
+                             QMessageBox::Ok);
+
+    Settings settings(this);
+    settings.setWeatherSource(_sources[ui->comboSource->currentIndex()]);
+    settings.writeSettings();
+
+    QCoreApplication::exit(Application::RESTART_CODE);
+}
+
 void SettingsDialog::loadLocales()
 {
     Settings settings(this);
@@ -129,6 +148,24 @@ void SettingsDialog::loadLocales()
     }
 
     connect(ui->comboLocale, &QComboBox::currentTextChanged, this, &SettingsDialog::localeChangedSlot);
+}
+
+void SettingsDialog::loadSources()
+{
+    Settings settings(this);
+
+    disconnect(ui->comboSource, &QComboBox::currentTextChanged, this, &SettingsDialog::sourceChangedSlot);
+
+    _sources = {Sources::Slovenia, Sources::Germany};
+    ui->comboSource->clear();
+    for (Sources::Country country : _sources) {
+        ui->comboSource->addItem(Sources::countryToLocalizedString(country));
+        if (settings.weatherSource() == country) {
+            ui->comboSource->setCurrentIndex(ui->comboSource->count() - 1);
+        }
+    }
+
+    connect(ui->comboSource, &QComboBox::currentTextChanged, this, &SettingsDialog::sourceChangedSlot);
 }
 
 void SettingsDialog::showInTrayChangedSlot(bool checked)

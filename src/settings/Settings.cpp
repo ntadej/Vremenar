@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -16,6 +16,7 @@ namespace Vremenar
 
 Settings::Settings(QObject *parent)
     : QSettings(parent),
+      _weatherSource(DEFAULT_WEATHER_SOURCE),
       _startupMapEnabled(DEFAULT_STARTUP_MAP_ENABLED),
       _startupMapStyle(DEFAULT_STARTUP_MAP_STYLE),
       _startupMapType(DEFAULT_STARTUP_MAP_TYPE),
@@ -34,6 +35,7 @@ Settings::Settings(QObject *parent)
       _posX(DEFAULT_POS_X),
       _posY(DEFAULT_POS_Y)
 {
+    _map[KEY_WEATHER_SOURCE] = DEFAULT_WEATHER_SOURCE;
     _map[KEY_STARTUP_MAP_ENABLED] = DEFAULT_STARTUP_MAP_ENABLED;
     _map[KEY_STARTUP_MAP_STYLE] = DEFAULT_STARTUP_MAP_STYLE;
     _map[KEY_STARTUP_MAP_TYPE] = DEFAULT_STARTUP_MAP_TYPE;
@@ -57,6 +59,8 @@ Settings::Settings(QObject *parent)
 
 void Settings::writeSettings()
 {
+    setValue(KEY_WEATHER_SOURCE, static_cast<int>(weatherSource()));
+
     setValue(KEY_STARTUP_MAP_ENABLED, startupMapEnabled());
     setValue(KEY_STARTUP_MAP_STYLE, static_cast<int>(startupMapStyle()));
     setValue(KEY_STARTUP_MAP_TYPE, static_cast<int>(startupMapType()));
@@ -83,6 +87,8 @@ void Settings::writeSettings()
 
 void Settings::readSettings()
 {
+    setWeatherSource(Sources::Country(value(KEY_WEATHER_SOURCE, defaultValue(KEY_WEATHER_SOURCE)).toInt()));
+
     setStartupMapEnabled(value(KEY_STARTUP_MAP_ENABLED, defaultValue(KEY_STARTUP_MAP_ENABLED)).toBool());
     setStartupMapStyle(Weather::MapStyle(value(KEY_STARTUP_MAP_STYLE, defaultValue(KEY_STARTUP_MAP_STYLE)).toInt()));
     setStartupMapType(Weather::MapType(value(KEY_STARTUP_MAP_TYPE, defaultValue(KEY_STARTUP_MAP_TYPE)).toInt()));

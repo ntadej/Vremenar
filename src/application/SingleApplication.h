@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -31,7 +31,7 @@ public:
                                char **argv,
                                QObject *parent = nullptr);
 
-    [[nodiscard]] inline bool shouldContinue() const { return _shouldContinue; }
+    [[nodiscard]] static bool shouldContinue();
 
 Q_SIGNALS:
     void activate();
@@ -40,7 +40,6 @@ private:
 #ifndef Q_OS_MACOS
     std::unique_ptr<LocalServer> _server;
 #endif
-    bool _shouldContinue;
 };
 
 } // namespace Vremenar

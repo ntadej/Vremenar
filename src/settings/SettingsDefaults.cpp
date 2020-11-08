@@ -14,6 +14,9 @@
 namespace Vremenar
 {
 
+// Country selection
+const Sources::Country Settings::DEFAULT_WEATHER_SOURCE = Sources::Slovenia;
+
 // Map startup settings
 const bool Settings::DEFAULT_STARTUP_MAP_ENABLED = true;
 const Weather::MapStyle Settings::DEFAULT_STARTUP_MAP_STYLE = Weather::SatelliteMapStyle;

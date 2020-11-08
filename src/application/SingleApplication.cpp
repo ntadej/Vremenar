@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -23,29 +23,29 @@ namespace Vremenar
 SingleApplication::SingleApplication(int &argc,
                                      char **argv,
                                      QObject *parent)
-    : QApplication(argc, argv),
-#ifndef Q_OS_MACOS
-      _shouldContinue(false) // By default this is not the main process
-#else
-      _shouldContinue(true) // It is default on OS X
-#endif
+    : QApplication(argc, argv)
 {
     Q_UNUSED(parent)
 
 #ifndef Q_OS_MACOS
-    auto socket = std::make_unique<QLocalSocket>(this);
+    _server = std::make_unique<LocalServer>(this);
+    connect(_server.get(), &LocalServer::connected, this, &SingleApplication::activate);
+#endif
+}
+
+bool SingleApplication::shouldContinue()
+{
+#ifndef Q_OS_MACOS
+    auto socket = std::make_unique<QLocalSocket>();
 
     // Attempt to connect to the LocalServer
     socket->connectToServer(QString(Vremenar::name) + "_localserver");
     if (socket->waitForConnected(100)) {
         socket->close();
-    } else {
-        // The attempt was insuccessful, so we continue the program
-        _shouldContinue = true;
-        _server = std::make_unique<LocalServer>(this);
-        connect(_server.get(), &LocalServer::connected, this, &SingleApplication::activate);
+        return false;
     }
 #endif
+    return true;
 }
 
 } // namespace Vremenar

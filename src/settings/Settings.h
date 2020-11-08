@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -14,6 +14,7 @@
 
 #include <QtCore/QSettings>
 
+#include "weather/Sources.h"
 #include "weather/Weather.h"
 
 namespace Vremenar
@@ -38,6 +39,12 @@ public:
     void writeSettings();
 
     Q_INVOKABLE [[nodiscard]] QVariant defaultValue(const QString &key) const;
+
+    // Country selection
+    [[nodiscard]] inline Sources::Country weatherSource() const { return _weatherSource; }
+    inline void setWeatherSource(Sources::Country s) { _weatherSource = s; }
+    static const QString KEY_WEATHER_SOURCE;
+    static const Sources::Country DEFAULT_WEATHER_SOURCE;
 
     // Map startup settings
     [[nodiscard]] inline bool startupMapEnabled() const { return _startupMapEnabled; }
@@ -126,6 +133,9 @@ Q_SIGNALS:
 
 private:
     QVariantMap _map;
+
+    // Country selection
+    Sources::Country _weatherSource;
 
     // Map startup settings
     bool _startupMapEnabled;

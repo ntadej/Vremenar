@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -22,20 +22,27 @@ int main(int argc, char *argv[])
 {
     Vremenar::Application::preInit();
 
-#ifdef VREMENAR_MOBILE
-    Vremenar::MobileApplication instance(argc, argv);
-#else
-    Vremenar::DesktopApplication instance(argc, argv);
-
-    // Is another instance of the program is already running
-    if (!instance.shouldContinue()) {
+#ifndef VREMENAR_MOBILE
+    // Is another instance of the program already running?
+    if (!Vremenar::DesktopApplication::shouldContinue()) {
         return 0;
     }
 #endif
 
-    instance.postInit();
+    int result{};
 
-    Vremenar::ApplicationWindow main;
+    do {
+#ifdef VREMENAR_MOBILE
+        Vremenar::MobileApplication instance(argc, argv);
+#else
+        Vremenar::DesktopApplication instance(argc, argv);
+#endif
+        instance.postInit();
 
-    return instance.exec(); // NOLINT(readability-static-accessed-through-instance)
+        Vremenar::ApplicationWindow main;
+
+        result = instance.exec();
+    } while (result == Vremenar::Application::RESTART_CODE);
+
+    return result;
 }

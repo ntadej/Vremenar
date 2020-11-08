@@ -10,7 +10,8 @@
 */
 
 #include <QtCore/QJsonDocument>
-#include <QtCore/QUrlQuery>
+
+#include "weather/Sources.h"
 
 #include "weather/api/APIStations.h"
 
@@ -19,8 +20,7 @@ namespace Vremenar
 
 APIRequest API::stations(const QGeoCoordinate &coordinate)
 {
-    QUrlQuery query;
-    query.addQueryItem(QStringLiteral("country"), QStringLiteral("si"));
+    QUrlQuery query = Sources::sourceQuery();
 
     QJsonObject data;
     data[QStringLiteral("latitude")] = coordinate.latitude();
@@ -38,8 +38,7 @@ APIRequest API::stations(const QGeoCoordinate &coordinate)
 
 APIRequest API::stations(const QString &string)
 {
-    QUrlQuery query;
-    query.addQueryItem(QStringLiteral("country"), QStringLiteral("si"));
+    QUrlQuery query = Sources::sourceQuery();
 
     QJsonObject data;
     data[QStringLiteral("string")] = string;
@@ -56,8 +55,7 @@ APIRequest API::stations(const QString &string)
 
 APIRequest API::stationsMap(const QString &url)
 {
-    QUrlQuery query;
-    query.addQueryItem(QStringLiteral("country"), QStringLiteral("si"));
+    QUrlQuery query = Sources::sourceQuery();
 
     APIRequest request;
     request.setCall(QStringLiteral("/stations/map"));

@@ -11,6 +11,7 @@
 
 SOURCES += \
     src/weather/CurrentWeather.cpp \
+    src/weather/Sources.cpp \
     src/weather/Weather.cpp \
     src/weather/WeatherProviderBase.cpp \
     src/weather/api/APIMapLayers.cpp \
@@ -35,6 +36,7 @@ SOURCES += \
 
 HEADERS += \
     src/weather/CurrentWeather.h \
+    src/weather/Sources.h \
     src/weather/Weather.h \
     src/weather/WeatherProviderBase.h \
     src/weather/api/APIMapLayers.h \

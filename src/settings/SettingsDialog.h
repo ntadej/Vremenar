@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -20,6 +20,8 @@
 #if defined(Q_OS_MACOS)
 #include <QtMacExtras>
 #endif
+
+#include "weather/Sources.h"
 
 #include "ui_SettingsDialog.h"
 
@@ -46,6 +48,7 @@ private Q_SLOTS:
     void actionToggled();
 
     void localeChangedSlot();
+    void sourceChangedSlot();
     void showInTrayChangedSlot(bool checked);
 #if defined(Q_OS_MACOS)
     void showInDockChangedSlot(bool checked);
@@ -60,7 +63,9 @@ private:
 
     void readSettings();
     void loadLocales();
+    void loadSources();
     QStringList _locales;
+    QList<Sources::Country> _sources;
 
 #if defined(Q_OS_MACOS)
     void initializeMacOS();

@@ -72,37 +72,20 @@
           </property>
          </widget>
         </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="labelSource">
+          <property name="text">
+           <string>Weather source:</string>
+          </property>
+         </widget>
+        </item>
         <item row="1" column="1">
-         <widget class="QLabel" name="labelSpacer1">
-          <property name="text">
-           <string/>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="1">
-         <widget class="QLabel" name="labelSpacer2">
-          <property name="text">
-           <string/>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="1">
-         <widget class="QPushButton" name="pushButton">
+         <widget class="QComboBox" name="comboSource">
           <property name="minimumSize">
            <size>
             <width>200</width>
             <height>0</height>
            </size>
-          </property>
-          <property name="text">
-           <string>Reset application</string>
-          </property>
-         </widget>
-        </item>
-        <item row="5" column="1">
-         <widget class="QLabel" name="label">
-          <property name="text">
-           <string>Completely reset application and start over.</string>
           </property>
          </widget>
         </item>
@@ -196,7 +179,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="../../resources/icons/icons.qrc">
+    <iconset resource="../../resources/Common/icons/icons.qrc">
      <normaloff>:/Vremenar/Icons/32x32/preferences-system.png</normaloff>:/Vremenar/Icons/32x32/preferences-system.png</iconset>
    </property>
    <property name="text">
@@ -208,7 +191,7 @@
     <bool>true</bool>
    </property>
    <property name="icon">
-    <iconset resource="../../resources/icons/icons.qrc">
+    <iconset resource="../../resources/Common/icons/icons.qrc">
      <normaloff>:/Vremenar/Icons/32x32/preferences-system-windows-actions.png</normaloff>:/Vremenar/Icons/32x32/preferences-system-windows-actions.png</iconset>
    </property>
    <property name="text">
@@ -217,7 +200,7 @@
   </action>
  </widget>
  <resources>
-  <include location="../../resources/icons/icons.qrc"/>
+  <include location="../../resources/Common/icons/icons.qrc"/>
  </resources>
  <connections/>
 </ui>
