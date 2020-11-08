@@ -119,6 +119,7 @@ MapPageBase {
         }
 
         Binding { target: VWeatherMapModel; property: "zoomLevel"; value: map.zoomLevel }
+        Binding { target: VWeatherMapModel; property: "visibleRegion"; value: map.visibleRegion }
         Binding { target: map; property: "currentUrl"; value: VMapLayersModel.image }
 
         Binding {

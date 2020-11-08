@@ -13,28 +13,58 @@
 
 #include "weather/common/models/WeatherMapProxyModel.h"
 
+namespace
+{
+constexpr int updateInterval{100};
+} // namespace
+
 namespace Vremenar
 {
 
 WeatherMapProxyModel::WeatherMapProxyModel(QObject *parent)
-    : QSortFilterProxyModel(parent)
+    : QSortFilterProxyModel(parent),
+      _timer(std::make_unique<QTimer>(this))
 {
+    _timer->setInterval(updateInterval);
+    _timer->setSingleShot(true);
+
     connect(this, &WeatherMapProxyModel::rowsInserted, this, &WeatherMapProxyModel::rowCountChanged);
     connect(this, &WeatherMapProxyModel::rowsRemoved, this, &WeatherMapProxyModel::rowCountChanged);
+
+    connect(_timer.get(), &QTimer::timeout, this, &WeatherMapProxyModel::invalidateFilter);
 }
 
 void WeatherMapProxyModel::setZoomLevel(qreal level)
 {
     if (level != _zoomLevel) {
+        _timer->stop();
+
         _zoomLevel = level;
-        invalidateFilter();
+
         Q_EMIT zoomLevelChanged();
+
+        _timer->start();
+    }
+}
+
+void WeatherMapProxyModel::setVisibleRegion(const QGeoShape &shape)
+{
+    if (shape != _visibleRegion) {
+        _timer->stop();
+
+        _visibleRegion = shape;
+
+        Q_EMIT visibleRegionChanged();
+
+        _timer->start();
     }
 }
 
 void WeatherMapProxyModel::setTime(qint64 time)
 {
     if (time != _time) {
+        _timer->stop();
+
         _time = time;
         invalidateFilter();
         Q_EMIT timeChanged();
@@ -44,13 +74,16 @@ void WeatherMapProxyModel::setTime(qint64 time)
 bool WeatherMapProxyModel::filterAcceptsRow(int sourceRow,
                                             const QModelIndex &sourceParent) const
 {
+    _timer->stop();
+
     QModelIndex index = sourceModel()->index(sourceRow, 0, sourceParent);
 
     bool name = index.data(WeatherInfo::DisplayRole).toString().contains(filterRegExp());
     bool zoomLevel = index.data(WeatherInfo::ZoomLevelRole).toReal() <= _zoomLevel;
+    bool visibleRegion = _visibleRegion.contains(index.data(WeatherInfo::CoordinateRole).value<QGeoCoordinate>());
     bool time = _time == 0 || index.data(WeatherInfo::TimeRole).toLongLong() == _time;
 
-    return name && zoomLevel && time;
+    return name && zoomLevel && visibleRegion && time;
 }
 
 } // namespace Vremenar
