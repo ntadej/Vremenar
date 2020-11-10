@@ -23,6 +23,7 @@ namespace API
 
 APIRequest stations(const QGeoCoordinate &coordinate);
 APIRequest stations(const QString &string);
+APIRequest stationWeatherCondition(const QString &id);
 APIRequest stationsMap(const QString &url);
 
 } // namespace API

@@ -61,8 +61,8 @@ void Backend::WeatherProvider::requestCurrentWeatherInfo(const QGeoCoordinate &c
         APIRequest request = API::stations(coordinate);
         currentReplies()->insert(network()->request(request), request);
     } else if (current()->hasStation()) {
-        qDebug() << "Requesting current weather details:" << current()->station()->display();
-        APIRequest request = API::stations(current()->station()->display());
+        qDebug() << "Requesting current weather details:" << current()->station()->id();
+        APIRequest request = API::stationWeatherCondition(current()->station()->id());
         currentReplies()->insert(network()->request(request), request);
     }
 }
@@ -132,14 +132,19 @@ void Backend::WeatherProvider::response(QNetworkReply *reply)
     // JSON
     QJsonDocument document = QJsonDocument::fromJson(reply->readAll());
     if (currentReplies()->value(reply).call() == QStringLiteral("/stations/coordinate")) {
-        current()->setStation(StationInfo::fromJson(document.array().first().toObject()));
+        QJsonArray stations = document.array();
+        if (stations.empty()) {
+            removeResponse(reply);
+            return;
+        }
+        current()->setStation(StationInfo::fromJson(stations.first().toObject()));
         requestCurrentWeatherInfo(QGeoCoordinate());
         removeResponse(reply);
         return;
     }
-    if (currentReplies()->value(reply).call() == QStringLiteral("/stations/string")) {
-        QJsonObject station = document.array().first().toObject();
-        current()->updateCurrentWeather(WeatherCondition::fromJson(station[QStringLiteral("current_condition")].toObject()));
+    if (currentReplies()->value(reply).call() == QStringLiteral("/stations/condition")) {
+        QJsonObject weatherInfo = document.object();
+        current()->updateCurrentWeather(WeatherCondition::fromJson(weatherInfo[QStringLiteral("condition")].toObject()));
 
         setLastUpdatedTimeCurrent(QDateTime::currentDateTime());
         startTimerCurrent();

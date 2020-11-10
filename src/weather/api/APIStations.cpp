@@ -53,6 +53,18 @@ APIRequest API::stations(const QString &string)
     return request;
 }
 
+APIRequest API::stationWeatherCondition(const QString &id)
+{
+    QUrlQuery query = Sources::sourceQuery();
+
+    APIRequest request;
+    request.setCall(QStringLiteral("/stations/condition"));
+    request.setUrl("/stations/condition/" + id, query);
+    request.setExtra(id);
+
+    return request;
+}
+
 APIRequest API::stationsMap(const QString &url)
 {
     QUrlQuery query = Sources::sourceQuery();
