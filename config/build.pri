@@ -41,11 +41,7 @@ desktop {
 DEFINES += QT_DEPRECATED_WARNINGS
 
 # All warnings
-QMAKE_CXXFLAGS += -Wall -Wextra -Wno-unknown-pragmas -pedantic
-# Warnings as errors on desktop
-desktop {
-    QMAKE_CXXFLAGS += -Werror
-}
+QMAKE_CXXFLAGS += -Wall -Wextra -Werror -Wno-unknown-pragmas -pedantic
 
 # Add GSL
 INCLUDEPATH += $$top_srcdir/3rdparty/GSL/include

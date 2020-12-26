@@ -12,6 +12,11 @@
 # Private module for the safe area margins
 QT += gui-private
 
+# Ignore some warnings on iOS
+ios {
+    QMAKE_CXXFLAGS += -Wno-shorten-64-to-32 -Wno-unused-command-line-argument
+}
+
 # Define substitution files
 iOSPlist.input = $$top_srcdir/resources/iOS/Info.plist.in
 iOSPlist.output = $$OUT_PWD/Info.plist
@@ -35,7 +40,10 @@ TRANSLATE_sl.path = sl.lproj
 QMAKE_BUNDLE_DATA += TRANSLATE_sl
 
 # Countly
-INCLUDEPATH += $$top_srcdir/3rdparty/Countly/iOS
-iphoneos {
+forsimulator {
+    INCLUDEPATH += $$top_srcdir/3rdparty/Countly/iOSSimulator
+    LIBS += -L$$top_srcdir/3rdparty/Countly/iOSSimulator -lCountlyStatic
+} else {
+    INCLUDEPATH += $$top_srcdir/3rdparty/Countly/iOS
     LIBS += -L$$top_srcdir/3rdparty/Countly/iOS -lCountlyStatic
 }
