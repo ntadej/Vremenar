@@ -12,14 +12,13 @@
 #ifndef VREMENAR_MAPLAYERSMODEL_H_
 #define VREMENAR_MAPLAYERSMODEL_H_
 
-#include "weather/models/MapLayersModelBase.h"
+#include "common/ListModel.h"
+#include "weather/containers/MapLayer.h"
 
 namespace Vremenar
 {
-namespace Backend
-{
 
-class MapLayersModel : public MapLayersModelBase
+class MapLayersModel : public ListModel
 {
     Q_OBJECT
 public:
@@ -28,13 +27,15 @@ public:
     MapLayer *createMapLayer(Weather::MapType type,
                              Weather::MapRenderingType rendering,
                              const QJsonObject &data,
-                             const QGeoRectangle &bbox) final;
+                             const QGeoRectangle &bbox);
 
     void addMapLayers(Weather::MapType type,
-                      const QJsonObject &data) final;
+                      const QJsonObject &data);
+
+    [[nodiscard]] MapLayer *findLayer(Weather::MapType type,
+                                      qint64 time) const;
 };
 
-} // namespace Backend
 } // namespace Vremenar
 
 #endif // VREMENAR_MAPLAYERSMODEL_H_

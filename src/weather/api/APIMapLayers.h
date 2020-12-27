@@ -22,6 +22,7 @@ namespace API
 
 APIRequest mapImage(const QString &url);
 APIRequest mapLayers(Weather::MapType type);
+APIRequest mapLegends();
 
 } // namespace API
 } // namespace Vremenar

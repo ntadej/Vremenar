@@ -9,8 +9,8 @@
 * SPDX-License-Identifier: (GPL-3.0-or-later AND MPL-2.0)
 */
 
-#ifndef VREMENAR_MAPLEGENDMODELBASE_H_
-#define VREMENAR_MAPLEGENDMODELBASE_H_
+#ifndef VREMENAR_MAPLEGENDMODEL_H_
+#define VREMENAR_MAPLEGENDMODEL_H_
 
 #include "common/ListModel.h"
 #include "weather/containers/MapLegendItem.h"
@@ -18,19 +18,22 @@
 namespace Vremenar
 {
 
-class MapLegendModelBase : public ListModel
+class MapLegendModel : public ListModel
 {
     Q_OBJECT
 public:
-    explicit MapLegendModelBase(QObject *parent = nullptr);
+    explicit MapLegendModel(QObject *parent = nullptr);
 
-protected:
+    void addMapLegends(const QJsonArray &data);
+
+private:
     MapLegendItem *emplace(Weather::MapType type,
                            const QString &value,
                            const QColor &color,
                            bool placeholder = false);
+    QString translate(const QString &string);
 };
 
 } // namespace Vremenar
 
-#endif // VREMENAR_MAPLEGENDMODELBASE_H_
+#endif // VREMENAR_MAPLEGENDMODEL_H_

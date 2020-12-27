@@ -14,20 +14,18 @@
 #include <QtCore/QTimeZone>
 #include <QtPositioning/QGeoCoordinate>
 
-#include "weather/backend/models/MapLayersModel.h"
-
-#include "Config.h"
+#include "weather/models/MapLayersModel.h"
 
 namespace Vremenar
 {
 
-Backend::MapLayersModel::MapLayersModel(QObject *parent)
-    : MapLayersModelBase(parent) {}
+MapLayersModel::MapLayersModel(QObject *parent)
+    : ListModel(MapLayer::roleNames(), parent) {}
 
-MapLayer *Backend::MapLayersModel::createMapLayer(Weather::MapType type,
-                                                  Weather::MapRenderingType rendering,
-                                                  const QJsonObject &data,
-                                                  const QGeoRectangle &bbox)
+MapLayer *MapLayersModel::createMapLayer(Weather::MapType type,
+                                         Weather::MapRenderingType rendering,
+                                         const QJsonObject &data,
+                                         const QGeoRectangle &bbox)
 {
     QDateTime time = QDateTime::fromMSecsSinceEpoch(data[QStringLiteral("timestamp")].toString().toULongLong());
     QUrl url(data[QStringLiteral("url")].toString());
@@ -36,8 +34,8 @@ MapLayer *Backend::MapLayersModel::createMapLayer(Weather::MapType type,
     return appendRow(std::make_unique<MapLayer>(type, rendering, observation, time, url, bbox));
 }
 
-void Backend::MapLayersModel::addMapLayers(Weather::MapType type,
-                                           const QJsonObject &data)
+void MapLayersModel::addMapLayers(Weather::MapType type,
+                                  const QJsonObject &data)
 {
     auto rendering = Weather::mapRenderingTypeFromString(data[QStringLiteral("rendering")].toString());
 
@@ -54,6 +52,12 @@ void Backend::MapLayersModel::addMapLayers(Weather::MapType type,
     for (QJsonValueRef obj : layers) {
         createMapLayer(type, rendering, obj.toObject(), bbox);
     }
+}
+
+MapLayer *MapLayersModel::findLayer(Weather::MapType type,
+                                    qint64 time) const
+{
+    return find<MapLayer>(Weather::mapTypeToString(type) + "_" + QString::number(time));
 }
 
 } // namespace Vremenar

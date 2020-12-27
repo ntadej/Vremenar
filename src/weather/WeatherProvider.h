@@ -9,8 +9,8 @@
 * SPDX-License-Identifier: (GPL-3.0-or-later AND MPL-2.0)
 */
 
-#ifndef VREMENAR_WEATHERPROVIDERBASE_H_
-#define VREMENAR_WEATHERPROVIDERBASE_H_
+#ifndef VREMENAR_WEATHERPROVIDER_H_
+#define VREMENAR_WEATHERPROVIDER_H_
 
 #include <QtCore/QTimer>
 #include <QtPositioning/QGeoCoordinate>
@@ -21,20 +21,23 @@
 #include "weather/CurrentWeather.h"
 #include "weather/Weather.h"
 #include "weather/models/MapInfoModel.h"
+#include "weather/models/MapLayersModel.h"
 #include "weather/models/MapLayersProxyModel.h"
+#include "weather/models/MapLegendModel.h"
 #include "weather/models/MapLegendProxyModel.h"
+#include "weather/models/WeatherMapModel.h"
 #include "weather/models/WeatherMapProxyModel.h"
 
 namespace Vremenar
 {
 class NetworkManager;
 
-class WeatherProviderBase : public APILoader
+class WeatherProvider : public APILoader
 {
     Q_OBJECT
 public:
-    explicit WeatherProviderBase(NetworkManager *network,
-                                 QObject *parent = nullptr);
+    explicit WeatherProvider(NetworkManager *network,
+                             QObject *parent = nullptr);
 
     Q_PROPERTY(qreal minZoomLevel READ minZoomLevel CONSTANT)
     Q_PROPERTY(qreal maxZoomLevel READ maxZoomLevel CONSTANT)
@@ -51,16 +54,18 @@ public:
     inline MapLayersProxyModel *mapLayers() { return _mapLayersProxyModel.get(); }
     inline MapLegendProxyModel *mapLegend() { return _mapLegendProxyModel.get(); }
 
-    virtual void requestCurrentWeatherInfo(const QGeoCoordinate &coordinate) = 0;
-    virtual void requestWeatherMapDetails(const QString &url) = 0;
-    virtual void requestImage(const QString &url) = 0;
-    virtual void requestMapLayers(Weather::MapType type) = 0;
+    Q_INVOKABLE void requestBaseInfo();
+    Q_INVOKABLE void requestCurrentWeatherInfo(const QGeoCoordinate &coordinate);
+    Q_INVOKABLE void requestWeatherMapDetails(const QString &url);
+    Q_INVOKABLE void requestImage(const QString &url);
+    Q_INVOKABLE void requestMapLayers(Weather::MapType type);
 
-    [[nodiscard]] virtual bool currentMapLayerHasLegend() const = 0;
-    [[nodiscard]] virtual const std::vector<Weather::MapType> &supportedMapTypes() const = 0;
-    [[nodiscard]] virtual qreal minZoomLevel() const = 0;
-    [[nodiscard]] virtual qreal maxZoomLevel() const = 0;
-    [[nodiscard]] virtual Hyperlink *copyrightLink() const = 0;
+    [[nodiscard]] bool currentMapLayerHasLegend() const;
+    [[nodiscard]] inline const std::vector<Weather::MapType> &supportedMapTypes() const { return _supportedMapTypes; }
+    [[nodiscard]] inline qreal minZoomLevel() const { return 7.5; }
+    [[nodiscard]] inline qreal maxZoomLevel() const { return 11; }
+    [[nodiscard]] inline Hyperlink *copyrightLink() const { return _copyrightLink.get(); }
+    [[nodiscard]] inline QJsonObject copyrightLinkJson() const { return _copyrightLink->asJson(); }
 
     [[nodiscard]] inline Weather::MapStyle currentStyle() const { return _currentStyle; }
     [[nodiscard]] inline Weather::MapType currentType() const { return _currentType; }
@@ -89,24 +94,32 @@ Q_SIGNALS:
     void currentMapLayerHasLegendChangedSignal(bool);
     void storeState();
 
-protected:
+private Q_SLOTS:
+    void response(QNetworkReply *reply) final;
+    void currentTimeChanged();
+
+private:
     void startTimer();
     void startTimerCurrent();
     void stopTimerCurrent();
-    void setLastUpdatedTime(const QDateTime &time) { _lastUpdateResponseTime = time; }
-    void setLastUpdatedTimeCurrent(const QDateTime &time) { _lastUpdateResponseTimeCurrent = time; }
     void setLoading(bool loading);
 
-private:
-    [[nodiscard]] inline QJsonObject copyrightLinkJson() const { return copyrightLink()->asJson(); }
     void timerCallback();
     void timerCallbackCurrent();
 
+    std::vector<Weather::MapType> _supportedMapTypes;
+
     std::unique_ptr<CurrentWeather> _currentWeather{};
+    std::unique_ptr<WeatherMapModel> _weatherMapModelBase{};
+    std::unique_ptr<WeatherMapModel> _weatherMapModel{};
     std::unique_ptr<WeatherMapProxyModel> _weatherMapProxyModel{};
     std::unique_ptr<MapInfoModel> _mapInfoModel{};
+    std::unique_ptr<MapLayersModel> _mapLayersModel{};
     std::unique_ptr<MapLayersProxyModel> _mapLayersProxyModel{};
+    std::unique_ptr<MapLegendModel> _mapLegendModel{};
     std::unique_ptr<MapLegendProxyModel> _mapLegendProxyModel{};
+
+    std::unique_ptr<Hyperlink> _copyrightLink{};
 
     QDateTime _lastUpdateResponseTime{};
     QDateTime _lastUpdateResponseTimeCurrent{};

@@ -58,9 +58,20 @@ APIRequest API::mapLayers(Weather::MapType type)
     QUrlQuery query = Sources::sourceQuery();
 
     APIRequest request;
-    request.setCall(QStringLiteral("/maps"));
-    request.setUrl("/maps/" + id, query);
+    request.setCall(QStringLiteral("/maps/list"));
+    request.setUrl("/maps/list/" + id, query);
     request.setExtra(static_cast<int>(type));
+
+    return request;
+}
+
+APIRequest API::mapLegends()
+{
+    QUrlQuery query = Sources::sourceQuery();
+
+    APIRequest request;
+    request.setCall(QStringLiteral("/maps/legend"));
+    request.setUrl("/maps/legend", query);
 
     return request;
 }

@@ -194,9 +194,9 @@ void ApplicationWindow::createModels()
     _location = std::make_unique<LocationProvider>(this);
     _mapsManager = std::make_unique<MapsManager>(_engine.get(), this);
     _updates = std::make_unique<Updates>(_network, this);
-    _weatherProvider = std::make_unique<Backend::WeatherProvider>(_network, this);
-    connect(_weatherProvider.get(), &WeatherProviderBase::recordEvent, _analytics.get(), &Analytics::recordEvent);
-    connect(_weatherProvider.get(), &WeatherProviderBase::storeState, this, &ApplicationWindow::writeSettingsStartupMap);
+    _weatherProvider = std::make_unique<WeatherProvider>(_network, this);
+    connect(_weatherProvider.get(), &WeatherProvider::recordEvent, _analytics.get(), &Analytics::recordEvent);
+    connect(_weatherProvider.get(), &WeatherProvider::storeState, this, &ApplicationWindow::writeSettingsStartupMap);
 
     _engine->rootContext()->setContextProperty(QStringLiteral("Vremenar"), this);
     _engine->rootContext()->setContextProperty(QStringLiteral("VL"), _localeManager.get());
@@ -210,7 +210,7 @@ void ApplicationWindow::createModels()
     _engine->rootContext()->setContextProperty(QStringLiteral("VMapLayersModel"), _weatherProvider->mapLayers());
     _engine->rootContext()->setContextProperty(QStringLiteral("VMapLegendModel"), _weatherProvider->mapLegend());
 
-    connect(_location.get(), &LocationProvider::positionChanged, _weatherProvider.get(), &WeatherProviderBase::requestCurrentWeatherInfo);
+    connect(_location.get(), &LocationProvider::positionChanged, _weatherProvider.get(), &WeatherProvider::requestCurrentWeatherInfo);
     connect(_weatherProvider->mapLayers(), &MapLayersProxyModel::typeChanged, _mapsManager.get(), &MapsManager::mapChanged);
 }
 
@@ -227,10 +227,10 @@ void ApplicationWindow::createWidgets()
     connect(_trayIcon.get(), &TrayIcon::triggered, this, &ApplicationWindow::toggleVisibility);
     connect(_trayIcon.get(), &TrayIcon::settings, this, &ApplicationWindow::showSettingsDialog);
     connect(_trayIcon.get(), &TrayIcon::quit, QCoreApplication::instance(), &QCoreApplication::quit);
-    connect(_trayIcon.get(), &TrayIcon::styleSelected, _weatherProvider.get(), &WeatherProviderBase::currentMapStyleChanged);
-    connect(_trayIcon.get(), &TrayIcon::mapSelected, _weatherProvider.get(), &WeatherProviderBase::currentMapLayerChanged);
-    connect(_weatherProvider.get(), &WeatherProviderBase::currentMapStyleChangedSignal, _trayIcon.get(), &TrayIcon::setCurrentStyle);
-    connect(_weatherProvider.get(), &WeatherProviderBase::currentMapLayerChangedSignal, _trayIcon.get(), &TrayIcon::setCurrentMap);
+    connect(_trayIcon.get(), &TrayIcon::styleSelected, _weatherProvider.get(), &WeatherProvider::currentMapStyleChanged);
+    connect(_trayIcon.get(), &TrayIcon::mapSelected, _weatherProvider.get(), &WeatherProvider::currentMapLayerChanged);
+    connect(_weatherProvider.get(), &WeatherProvider::currentMapStyleChangedSignal, _trayIcon.get(), &TrayIcon::setCurrentStyle);
+    connect(_weatherProvider.get(), &WeatherProvider::currentMapLayerChangedSignal, _trayIcon.get(), &TrayIcon::setCurrentMap);
     connect(_weatherProvider->current(), &CurrentWeather::weatherChanged, _trayIcon.get(), &TrayIcon::setCurrentWeather);
 }
 
@@ -284,6 +284,7 @@ void ApplicationWindow::startCompleted()
     _ready = true;
 
     _analytics->beginSession();
+    _weatherProvider->requestBaseInfo();
 
     qDebug() << "Initialization completed";
 

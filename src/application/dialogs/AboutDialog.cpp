@@ -21,7 +21,7 @@
 namespace Vremenar
 {
 
-AboutDialog::AboutDialog(WeatherProviderBase *weatherProvider,
+AboutDialog::AboutDialog(WeatherProvider *weatherProvider,
                          QWidget *parent)
     : QDialog(parent),
       ui(std::make_unique<Ui::AboutDialog>())
