@@ -66,6 +66,7 @@ jobs:
         env:
           MAPS_ENDPOINT: ${{ secrets.MAPS_ENDPOINT }}
           API_ENDPOINT: ${{ secrets.API_ENDPOINT }}
+          APPCAST_ENDPOINT: ${{ secrets.APPCAST_ENDPOINT }}
           COUNTLY_APPKEY: ${{ secrets.COUNTLY_APPKEY }}
           COUNTLY_APPKEY_DEV: ${{ secrets.COUNTLY_APPKEY_DEV }}
           COUNTLY_ENDPOINT: ${{ secrets.COUNTLY_ENDPOINT }}
@@ -75,6 +76,7 @@ jobs:
           cat <<EOT > config.pri
           MAPS_ENDPOINT="${MAPS_ENDPOINT}"
           API_ENDPOINT="${API_ENDPOINT}"
+          APPCAST_ENDPOINT="${APPCAST_ENDPOINT}"
           COUNTLY_APPKEY="${COUNTLY_APPKEY}"
           COUNTLY_ENDPOINT="${COUNTLY_ENDPOINT}"
           COUNTLY_SALT="${COUNTLY_SALT}"

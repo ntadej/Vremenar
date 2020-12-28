@@ -17,6 +17,10 @@ isEmpty(API_ENDPOINT) {
     error("'API_ENDPOINT' is not defined or empty!")
 }
 
+isEmpty(APPCAST_ENDPOINT) {
+    error("'APPCAST_ENDPOINT' is not defined or empty!")
+}
+
 isEmpty(COUNTLY_APPKEY) {
     error("'COUNTLY_APPKEY' is not defined or empty!")
 }
