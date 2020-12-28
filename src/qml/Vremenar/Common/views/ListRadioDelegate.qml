@@ -35,7 +35,7 @@ RadioDelegate {
         font.family: UI.iconTheme
         x: control.width - width - control.rightPadding
         y: parent.height / 2 - height / 2
-        color: UI.colorPrimary
+        color: UI.theme === Vremenar.Common.LightTheme ? UI.colorPrimaryDark : UI.colorPrimary
         visible: control.checked
     }
 

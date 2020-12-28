@@ -35,18 +35,21 @@ class UIManager : public QObject
     Q_PROPERTY(bool debugging READ debugging CONSTANT)
     Q_PROPERTY(bool isMobile READ isMobile CONSTANT)
     Q_PROPERTY(Vremenar::Common::DeviceType deviceType READ getDeviceType CONSTANT)
+    Q_PROPERTY(Vremenar::Common::Theme theme READ theme WRITE setTheme NOTIFY themeChanged)
     Q_PROPERTY(QString iconTheme READ iconTheme CONSTANT)
     Q_PROPERTY(QString iconPrefix READ iconPrefix CONSTANT)
 
     Q_PROPERTY(bool showButtonMapType READ showButtonMapType CONSTANT)
     Q_PROPERTY(bool showButtonMapPosition READ showButtonMapPosition NOTIFY showMapButonPositionChanged)
 
-    Q_PROPERTY(QColor colorPrimary READ colorPrimary CONSTANT)
-    Q_PROPERTY(QColor colorPrimaryDark READ colorPrimaryDark CONSTANT)
+    Q_PROPERTY(QColor colorPrimary READ colorPrimary NOTIFY themeChanged)
+    Q_PROPERTY(QColor colorPrimaryDark READ colorPrimaryDark NOTIFY themeChanged)
 
-    Q_PROPERTY(QColor separatorColor READ separatorColor CONSTANT)
+    Q_PROPERTY(QColor separatorColor READ separatorColor NOTIFY themeChanged)
 
     Q_PROPERTY(int blurLevel READ blurLevel CONSTANT)
+    Q_PROPERTY(int shadowRadius READ shadowRadius CONSTANT)
+    Q_PROPERTY(QColor shadowColor READ shadowColor NOTIFY themeChanged)
 
     Q_PROPERTY(int mapElementSize READ mapElementSize CONSTANT)
     Q_PROPERTY(int mapElementOffset READ mapElementOffset CONSTANT)
@@ -58,7 +61,7 @@ class UIManager : public QObject
     Q_PROPERTY(int radiusCommon READ radiusCommon CONSTANT)
 
     Q_PROPERTY(int rowHeight READ rowHeight CONSTANT)
-    Q_PROPERTY(QColor navBarColor READ navBarColor CONSTANT)
+    Q_PROPERTY(QColor navBarColor READ navBarColor NOTIFY themeChanged)
     Q_PROPERTY(int navBarHeight READ navBarHeight CONSTANT)
 
     Q_PROPERTY(int bottomSheetBaseHeight READ bottomSheetBaseHeight CONSTANT)
@@ -76,12 +79,17 @@ class UIManager : public QObject
     Q_PROPERTY(int textCommon READ textCommon CONSTANT)
     Q_PROPERTY(int textHeader READ textHeader CONSTANT)
     Q_PROPERTY(int textSmall READ textSmall CONSTANT)
-    Q_PROPERTY(QColor textColor READ textColor CONSTANT)
-    Q_PROPERTY(QColor textColorPrimary READ textColorPrimary CONSTANT)
-    Q_PROPERTY(QColor textColorDisabled READ textColorDisabled CONSTANT)
-    Q_PROPERTY(QColor textColorSpecialLink READ textColorSpecialLink CONSTANT)
+    Q_PROPERTY(QColor textColor READ textColor NOTIFY themeChanged)
+    Q_PROPERTY(QColor textColorPrimary READ textColorPrimary NOTIFY themeChanged)
+    Q_PROPERTY(QColor textColorSpecialLink READ textColorSpecialLink NOTIFY themeChanged)
+    Q_PROPERTY(QColor textColorMap READ textColorMap NOTIFY themeChanged)
+    Q_PROPERTY(QColor textColorMapSecondary READ textColorMapSecondary NOTIFY themeChanged)
 
-    Q_PROPERTY(QColor hoverColor READ hoverColor CONSTANT)
+    Q_PROPERTY(QColor buttonColor READ buttonColor NOTIFY themeChanged)
+    Q_PROPERTY(QColor buttonColorHover READ buttonColorHover NOTIFY themeChanged)
+    Q_PROPERTY(QColor buttonColorDisabled READ buttonColorDisabled NOTIFY themeChanged)
+
+    Q_PROPERTY(QColor hoverColor READ hoverColor NOTIFY themeChanged)
     Q_PROPERTY(int hoverDuration READ hoverDuration CONSTANT)
 
     Q_PROPERTY(int loadingDelay READ loadingDelay CONSTANT)
@@ -97,6 +105,8 @@ public:
 
     [[nodiscard]] bool debugging() const;
     [[nodiscard]] bool isMobile() const;
+    [[nodiscard]] Common::Theme theme() const;
+    void setTheme(Common::Theme theme);
     [[nodiscard]] QString iconTheme() const;
     [[nodiscard]] QString iconPrefix() const;
 
@@ -110,6 +120,8 @@ public:
     [[nodiscard]] QColor separatorColor() const;
 
     [[nodiscard]] int blurLevel() const;
+    [[nodiscard]] int shadowRadius() const;
+    [[nodiscard]] QColor shadowColor() const;
 
     [[nodiscard]] int mapElementSize() const;
     [[nodiscard]] int mapElementOffset() const;
@@ -141,8 +153,13 @@ public:
     [[nodiscard]] int textSmall() const;
     [[nodiscard]] QColor textColor() const;
     [[nodiscard]] QColor textColorPrimary() const;
-    [[nodiscard]] QColor textColorDisabled() const;
     [[nodiscard]] QColor textColorSpecialLink() const;
+    [[nodiscard]] QColor textColorMap() const;
+    [[nodiscard]] QColor textColorMapSecondary() const;
+
+    [[nodiscard]] QColor buttonColor() const;
+    [[nodiscard]] QColor buttonColorHover() const;
+    [[nodiscard]] QColor buttonColorDisabled() const;
 
     [[nodiscard]] QColor hoverColor() const;
     [[nodiscard]] int hoverDuration() const;
@@ -163,6 +180,7 @@ public:
 Q_SIGNALS:
     void geometryChanged();
     void safetyMarginsChanged();
+    void themeChanged();
 
     void showMapButonPositionChanged();
 
@@ -189,9 +207,10 @@ private:
 #endif
 
     const Common::DeviceType _device;
+    Common::Theme _theme{Common::DarkTheme};
 
     QScreen *_currentPrimaryScreen{}; // owned by Qt
-    Qt::ScreenOrientation _currentOrientation = Qt::PrimaryOrientation;
+    Qt::ScreenOrientation _currentOrientation{Qt::PrimaryOrientation};
     QWindow *_currentWindow{}; // owned by Qt
 
     int _currentWidth;

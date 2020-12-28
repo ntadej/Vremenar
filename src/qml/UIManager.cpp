@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -55,6 +55,19 @@ bool Qml::UIManager::isMobile() const
 #else
     return false;
 #endif
+}
+
+Common::Theme Qml::UIManager::theme() const
+{
+    return _theme;
+}
+
+void Qml::UIManager::setTheme(Common::Theme theme)
+{
+    if (_theme != theme) {
+        _theme = theme;
+        Q_EMIT themeChanged();
+    }
 }
 
 QString Qml::UIManager::iconTheme() const

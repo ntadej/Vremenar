@@ -13,20 +13,31 @@ import QtQuick 2.12
 import QtLocation 5.12
 
 import Vremenar 1.0
+import Vremenar.Common 1.0
 
 MapQuickItem {
-    anchorPoint.x: rectangle.width / 2
-    anchorPoint.y: rectangle.width / 2
+    anchorPoint.x: sourceItem.width / 2
+    anchorPoint.y: sourceItem.width / 2
     coordinate: VLocation.position
 
-    sourceItem: Rectangle {
-        id: rectangle
+    sourceItem: Item {
+        id: sourceItem
         width: 16
         height: width
-        radius: width / 2
-        color: UI.colorPrimary
-        border.color: "white"
-        border.width: 2
+
+        Rectangle {
+            id: rectangle
+            anchors.fill: parent
+            radius: width / 2
+            color: UI.theme === Vremenar.Common.LightTheme ? UI.colorPrimaryDark : UI.colorPrimary
+            border.color: "white"
+            border.width: 2
+            visible: false
+        }
+
+        CommonShadow {
+            source: rectangle
+        }
     }
 
     visible: VLocation.enabled

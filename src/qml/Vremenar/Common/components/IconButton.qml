@@ -37,7 +37,7 @@ MouseArea {
             font.pixelSize: UI.iconSizeCommon
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
-            color: UI.textColor
+            color: UI.buttonColor
         }
     }
 
@@ -57,7 +57,7 @@ MouseArea {
 
             PropertyChanges {
                 target: textLabel
-                color: UI.colorPrimary
+                color: UI.buttonColorHover
             }
         },
         State {
@@ -66,7 +66,7 @@ MouseArea {
 
             PropertyChanges {
                 target: textLabel
-                color: UI.textColorDisabled
+                color: UI.buttonColorDisabled
             }
         }
 

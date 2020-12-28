@@ -10,12 +10,14 @@
 */
 
 import QtQuick 2.12
+import QtGraphicalEffects 1.0
 
 import Vremenar 1.0
 
-Core {
-    font.pixelSize: UI.textCommon
-    font.weight: Font.DemiBold
-    style: Text.Raised
-    styleColor: UI.shadowColor
+DropShadow {
+    id: shadow
+    anchors.fill: source
+    radius: UI.shadowRadius
+    samples: 17
+    color: UI.shadowColor
 }

@@ -6,6 +6,7 @@ LoadFonts 1.0 fonts/Loader.qml
 CommonLine 1.0 components/CommonLine.qml
 CommonBlur 1.0 components/CommonBlur.qml
 MaskedBlur 1.0 components/MaskedBlur.qml
+CommonShadow 1.0 components/CommonShadow.qml
 SimpleButton 1.0 components/SimpleButton.qml
 IconButton 1.0 components/IconButton.qml
 Spinner 1.0 components/Spinner.qml

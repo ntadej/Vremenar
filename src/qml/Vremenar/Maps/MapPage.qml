@@ -35,6 +35,15 @@ MapPageBase {
         objectName: "mapObject"
         anchors.fill: parent
         activeMapType: supportedMapTypes[VWeather.currentMapStyle]
+        property int activeMapIndex: VWeather.currentMapStyle
+
+        onActiveMapIndexChanged: function () {
+            if (activeMapIndex === 1) {
+                UI.theme = Vremenar.Common.LightTheme
+            } else {
+                UI.theme = Vremenar.Common.DarkTheme
+            }
+        }
 
         plugin: mapPlugin
         copyrightsVisible: false

@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -14,7 +14,8 @@
 namespace Vremenar
 {
 
-int Qml::UIManager::blurLevel() const { return 64; } // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+int Qml::UIManager::blurLevel() const { return 64; }   // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+int Qml::UIManager::shadowRadius() const { return 7; } // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
 
 int Qml::UIManager::mapCoordinateChangeDuration() const { return 1000; } // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
 int Qml::UIManager::mapIconFadeDuration() const { return 100; }          // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)

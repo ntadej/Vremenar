@@ -71,6 +71,7 @@ MapQuickItem {
 
         TextCommonShadow {
             id: textTemperature
+            color: UI.textColorMap
             text: temperature
             horizontalAlignment: Text.AlignRight
             verticalAlignment: Text.AlignVCenter
@@ -82,7 +83,7 @@ MapQuickItem {
 
         TextCommonShadow {
             id: textTemperatureLow
-            color: UI.textColorDisabled
+            color: UI.textColorMapSecondary
             text: temperatureLow
             horizontalAlignment: Text.AlignRight
             verticalAlignment: Text.AlignTop

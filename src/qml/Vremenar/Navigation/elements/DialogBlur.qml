@@ -24,16 +24,32 @@ Dialog {
     modal: true
     padding: 0
 
-    background: MaskedBlur {
-        blurSource: contentPlaceholder
-        color: UI.navBarColor
-        sourceX: parent.x
-        sourceY: parent.y
-        maskSource: Rectangle {
+    background: Item {
+        Rectangle {
+            id: shadowSource
             width: dialog.width
             height: dialog.height
+            color: UI.shadowColor
             radius: UI.radiusCommon
             visible: false
+        }
+
+        CommonShadow {
+            source: shadowSource
+        }
+
+        MaskedBlur {
+            anchors.fill: parent
+            blurSource: contentPlaceholder
+            color: UI.navBarColor
+            sourceX: parent.x
+            sourceY: parent.y
+            maskSource: Rectangle {
+                width: dialog.width
+                height: dialog.height
+                radius: UI.radiusCommon
+                visible: false
+            }
         }
     }
 

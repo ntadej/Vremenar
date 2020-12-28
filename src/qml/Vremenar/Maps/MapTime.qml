@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -16,14 +16,26 @@ import Vremenar 1.0
 import Vremenar.Common 1.0
 
 Item {
-    width: Math.max(textTime.width, textDay.text !== "" ? textDay.width : 0, Math.ceil(textRef.width / 10) * 10) + UI.paddingCommon
-    height: textTime.height + (textDay.text !== "" ? textDay.height : 0) + UI.paddingCommon
+    width: Math.ceil(Math.max(textTime.width, textDay.text !== "" ? textDay.width : 0, Math.ceil(textRef.width / 10) * 10) + UI.paddingCommon)
+    height: Math.ceil(textTime.height + (textDay.text !== "" ? textDay.height : 0) + UI.paddingCommon)
 
     Rectangle {
         id: rounded
         radius: UI.radiusCommon
         anchors.fill: parent
         visible: false
+    }
+
+    Rectangle {
+        id: shadowSource
+        color: UI.shadowColor
+        radius: UI.radiusCommon
+        anchors.fill: parent
+        visible: false
+    }
+
+    CommonShadow {
+        source: shadowSource
     }
 
     MaskedBlur {

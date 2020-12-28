@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -25,6 +25,18 @@ Item {
         radius: UI.radiusCommon
         anchors.fill: parent
         visible: false
+    }
+
+    Rectangle {
+        id: shadowSource
+        color: UI.shadowColor
+        radius: UI.radiusCommon
+        anchors.fill: parent
+        visible: false
+    }
+
+    CommonShadow {
+        source: shadowSource
     }
 
     MaskedBlur {

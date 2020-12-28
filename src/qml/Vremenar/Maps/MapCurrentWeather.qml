@@ -15,8 +15,8 @@ import Vremenar 1.0
 import Vremenar.Common 1.0
 
 Item {
-    width: UI.paddingCommon + icon.width + textTemperature.width + UI.paddingCommon / 2
-    height: UI.paddingCommon + UI.mapIconSizeHeight + Math.round(textLocation.height) + UI.paddingCommon
+    width: Math.ceil(UI.paddingCommon + icon.width + textTemperature.width + UI.paddingCommon / 2)
+    height: Math.ceil(UI.paddingCommon + UI.mapIconSizeHeight + Math.round(textLocation.height) + UI.paddingCommon)
 
     opacity: VCurrent.station ? 1 : 0
 
@@ -25,6 +25,18 @@ Item {
         radius: UI.radiusCommon
         anchors.fill: parent
         visible: false
+    }
+
+    Rectangle {
+        id: shadowSource
+        color: UI.shadowColor
+        radius: UI.radiusCommon
+        anchors.fill: parent
+        visible: false
+    }
+
+    CommonShadow {
+        source: shadowSource
     }
 
     MaskedBlur {
