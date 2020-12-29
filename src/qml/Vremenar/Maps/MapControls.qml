@@ -181,7 +181,7 @@ ColumnLayout {
         }
 
         function generateWeather() {
-            if (UI.deviceType === Common.Desktop || UI.deviceType === Common.AndroidTV) {
+            if (UI.deviceType === Common.Desktop || UI.deviceType === Common.AndroidTV || UI.deviceType === Common.FireTV) {
                 return " " + VWeather.copyrightLink.html
             }
 

@@ -26,6 +26,11 @@ Common::DeviceType Qml::UIManager::getDeviceTypeAndroid()
         qFatal("Android activity could not be loaded!");
     }
 
+    auto isFireTV = activity.callMethod<jboolean>("isFireTV");
+    if (isFireTV) {
+        return Common::FireTV;
+    }
+
     auto isAndroidTV = activity.callMethod<jboolean>("isAndroidTV");
     if (isAndroidTV) {
         return Common::AndroidTV;

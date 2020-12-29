@@ -63,6 +63,8 @@ private Q_SLOTS:
 private:
 #if defined(Q_OS_MACOS) || defined(Q_OS_IOS)
     void initMacOSiOS();
+#elif defined(Q_OS_ANDROID)
+    bool initAndroid();
 #endif
 
     std::unique_ptr<LocationProviderPlatform> _platform{};

@@ -25,6 +25,7 @@ enum DeviceType {
     iPad,
     Android,
     AndroidTV,
+    FireTV,
     DebuggingDevice,
     UnknownDevice
 };

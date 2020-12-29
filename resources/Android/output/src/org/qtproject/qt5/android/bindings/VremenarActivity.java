@@ -41,6 +41,11 @@ public class VremenarActivity extends QtActivity
         return false;
     }
 
+    public boolean isFireTV() {
+        final String AMAZON_FEATURE_FIRE_TV = "amazon.hardware.fire_tv";
+        return getPackageManager().hasSystemFeature(AMAZON_FEATURE_FIRE_TV);
+    }
+
     public int[] getSafeAreMargins() {
         int[] margins = new int[4];
 

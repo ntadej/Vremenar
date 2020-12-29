@@ -43,6 +43,12 @@ LocationProvider::LocationProvider(QObject *parent)
     Settings settings(this);
     _initialPosition = QGeoPositionInfo(QGeoCoordinate(settings.startupMapLatitude(), settings.startupMapLongitude()), QDateTime::currentDateTime());
 
+#if defined(Q_OS_ANDROID)
+    if (!initAndroid()) {
+        return;
+    }
+#endif
+
     QMap<QString, QVariant> params;
     params[QStringLiteral("osm.useragent")] = QString(Vremenar::name) + " " + Vremenar::version;
 
@@ -81,6 +87,7 @@ bool LocationProvider::enabled()
     if (_position != nullptr) {
         QGeoPositionInfoSource::PositioningMethods methods = _position->supportedPositioningMethods();
         if (_currentSupportedMethods != methods) {
+            qDebug() << "Supported positioning methods:" << methods;
             Q_EMIT enabledChanged();
             _currentSupportedMethods = methods;
         }

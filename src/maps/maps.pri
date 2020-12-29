@@ -28,3 +28,9 @@ macx|ios {
     OBJECTIVE_SOURCES += \
         src/maps/LocationProviderMacOSiOS.mm
 }
+
+# Android
+android {
+    SOURCES += \
+        src/maps/LocationProviderAndroid.cpp
+}

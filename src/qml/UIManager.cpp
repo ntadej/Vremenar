@@ -179,12 +179,12 @@ void Qml::UIManager::debugAction()
 
 bool Qml::UIManager::showButtonMapType() const
 {
-    return _device != Common::AndroidTV;
+    return _device != Common::AndroidTV && _device != Common::FireTV;
 }
 
 bool Qml::UIManager::showButtonMapPosition() const
 {
-    return _device != Common::AndroidTV;
+    return _device != Common::AndroidTV && _device != Common::FireTV;
 }
 
 QObject *Qml::UIManager::provider(QQmlEngine *engine,
