@@ -23,6 +23,7 @@ namespace Vremenar
 class Settings : public QSettings
 {
     Q_OBJECT
+    Q_PROPERTY(Vremenar::Sources::Country weatherSource READ weatherSource CONSTANT)
     Q_PROPERTY(bool startupMapEnabled READ startupMapEnabled CONSTANT)
     Q_PROPERTY(qreal startupMapZoomLevel READ startupMapZoomLevel CONSTANT)
     Q_PROPERTY(bool rememberPosition READ rememberPosition CONSTANT)

@@ -170,8 +170,4 @@ MapPageBase {
             }
         }
     }
-
-    bottomSheetContents: MapControls {
-        id: mapControls
-    }
 }

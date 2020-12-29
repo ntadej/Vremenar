@@ -46,16 +46,26 @@ WeatherProvider::WeatherProvider(NetworkManager *network,
       _timer(std::make_unique<QTimer>(this)),
       _timerCurrent(std::make_unique<QTimer>(this))
 {
-    _supportedMapTypes = {
-        Weather::WeatherConditionMap,
-        Weather::PrecipitationMap,
-        Weather::CloudCoverageMap,
-        Weather::WindSpeedMap,
-        Weather::TemperatureMap,
-        Weather::HailProbabilityMap};
-    _copyrightLink = std::make_unique<Hyperlink>(
-        QStringLiteral("© ") + tr("Slovenian Environment Agency"),
-        QStringLiteral("https://www.arso.gov.si"));
+    Settings settings(this);
+    if (settings.weatherSource() == Sources::Germany) {
+        _supportedMapTypes = {
+            Weather::WeatherConditionMap,
+            Weather::PrecipitationMap};
+        _copyrightLink = std::make_unique<Hyperlink>(
+            QStringLiteral("© Deutscher Wetterdienst"),
+            QStringLiteral("https://dwd.de"));
+    } else {
+        _supportedMapTypes = {
+            Weather::WeatherConditionMap,
+            Weather::PrecipitationMap,
+            Weather::CloudCoverageMap,
+            Weather::WindSpeedMap,
+            Weather::TemperatureMap,
+            Weather::HailProbabilityMap};
+        _copyrightLink = std::make_unique<Hyperlink>(
+            QStringLiteral("© ") + tr("Slovenian Environment Agency"),
+            QStringLiteral("https://www.arso.gov.si"));
+    }
 
     weatherMap()->setSourceModel(_weatherMapModel.get());
     mapInfo()->generateModel(supportedMapTypes());
@@ -70,7 +80,6 @@ WeatherProvider::WeatherProvider(NetworkManager *network,
     connect(_timer.get(), &QTimer::timeout, this, &WeatherProvider::timerCallback);
     connect(_timerCurrent.get(), &QTimer::timeout, this, &WeatherProvider::timerCallbackCurrent);
 
-    Settings settings(this);
     if (settings.startupMapEnabled()) {
         changeMapStyle(settings.startupMapStyle());
     } else {

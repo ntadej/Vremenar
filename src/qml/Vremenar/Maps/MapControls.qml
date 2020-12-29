@@ -172,10 +172,20 @@ ColumnLayout {
 
         Layout.maximumWidth: parent.width
 
-        onLinkActivated: Qt.openUrlExternally(link)
+        onLinkActivated: {
+            if (link == 'change_country') {
+                countrySettingsDialog.open()
+            } else {
+                Qt.openUrlExternally(link)
+            }
+        }
 
         function generateWeather() {
-            return " " + VWeather.copyrightLink.html
+            if (UI.deviceType === Common.Desktop || UI.deviceType === Common.AndroidTV) {
+                return " " + VWeather.copyrightLink.html
+            }
+
+            return " " + VWeather.copyrightLink.html + " " + "<a href=\"change_country\">" + (qsTr("Change country") + VL.R) + "</a>"
         }
 
         function generateMaps() {

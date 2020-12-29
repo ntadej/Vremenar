@@ -54,6 +54,7 @@ public Q_SLOTS:
     void processUrl(const QString &url);
     void startCompleted();
     void startLoadInitialMap();
+    void weatherSourceChanged(int source);
 
 #ifndef VREMENAR_MOBILE
     void showAboutDialog();

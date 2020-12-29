@@ -54,6 +54,7 @@ Rectangle {
             topMargin: UI.navBarHeight + UI.mapElementOffset + UI.safetyMarginTop
             leftMargin: UI.mapElementOffset + UI.safetyMarginLeft
         }
+        opacity: textVisible
     }
 
     MapCurrentWeather {
@@ -108,6 +109,18 @@ Rectangle {
                 anchors.right = parent.right
             }
         }
+
+        MapControls {
+            id: mapControls
+        }
+    }
+
+    CountrySelectionDialog {
+        id: countrySettingsDialog
+        anchors.centerIn: parent
+
+        onAboutToShow: dialogActive = true
+        onAboutToHide: dialogActive = false
     }
 
     MapSettingsDialog {

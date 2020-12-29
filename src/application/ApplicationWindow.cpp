@@ -18,6 +18,7 @@
 #include <QtQuick/QQuickWindow>
 #include <QtQuickControls2/QQuickStyle>
 
+#include "application/BaseApplication.h"
 #include "common/NetworkManager.h"
 #include "qml/Qml.h"
 #include "settings/Settings.h"
@@ -299,13 +300,28 @@ void ApplicationWindow::startCompleted()
 void ApplicationWindow::startLoadInitialMap()
 {
     Settings settings(this);
-    if (settings.startupMapEnabled()) {
+    if (settings.startupMapEnabled()
+        && std::find(_weatherProvider->supportedMapTypes().begin(), _weatherProvider->supportedMapTypes().end(), settings.startupMapType()) != _weatherProvider->supportedMapTypes().end()) {
         _weatherProvider->changeMapType(settings.startupMapType());
     } else {
-        _weatherProvider->changeMapStyle(Weather::MapStyle::SatelliteMapStyle);
+        _weatherProvider->changeMapType(Weather::MapType::WeatherConditionMap);
     }
 
     _weatherProvider->startupCompleted();
+}
+
+void ApplicationWindow::weatherSourceChanged(int source)
+{
+    std::vector<Sources::Country> sources = {Sources::Slovenia, Sources::Germany};
+    Sources::Country weatherSource = sources[source];
+
+    Settings settings(this);
+    if (weatherSource != settings.weatherSource()) {
+        settings.setWeatherSource(sources[source]);
+        settings.writeSettings();
+
+        QCoreApplication::exit(Application::RESTART_CODE);
+    }
 }
 
 } // namespace Vremenar

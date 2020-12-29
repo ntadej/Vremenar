@@ -7,4 +7,5 @@ LoadingOverlay 1.0 LoadingOverlay.qml
 
 NavBar 1.0 elements/NavBar.qml
 BottomSheet 1.0 elements/BottomSheet.qml
+CountrySelectionDialog 1.0 elements/CountrySelectionDialog.qml
 DialogBlur 1.0 elements/DialogBlur.qml

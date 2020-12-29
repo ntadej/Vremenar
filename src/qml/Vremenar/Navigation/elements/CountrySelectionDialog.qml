@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -13,24 +13,36 @@ import QtQuick 2.12
 
 import Vremenar 1.0
 import Vremenar.Common 1.0
-import Vremenar.Navigation 1.0
 
 DialogBlur {
     id: dialog
 
+    ListModel {
+        id: countryModel
+
+        ListElement {
+            display: QT_TR_NOOP("Slovenia (ARSO)")
+            translatable: true
+        }
+        ListElement {
+            display: QT_TR_NOOP("Germany (DWD, preliminary)")
+            translatable: true
+        }
+    }
+
     ListRadioView {
         id: view
-        title:  qsTr("Map type") + VL.R
+        title: qsTr("Weather source selection") + VL.R
         shouldHaveFocus: dialog.opened
-        model: VMapInfoModel
+        model: countryModel
         anchors.fill: parent
 
-        selectedIndex: VWeather.currentMapLayer
+        selectedIndex: Settings.weatherSource
 
         onSelectedIndexChanged: {
             if (applicationWindow.ready) {
-                VWeather.currentMapLayerChanged(selectedIndex)
                 dialog.accept()
+                Vremenar.weatherSourceChanged(selectedIndex)
             }
         }
         onConfirmed: {
@@ -39,6 +51,4 @@ DialogBlur {
             }
         }
     }
-
-    Binding { target: view; property: "selectedIndex"; value: VWeather.currentMapLayer }
 }

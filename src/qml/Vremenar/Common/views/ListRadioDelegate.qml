@@ -18,13 +18,14 @@ import Vremenar.Navigation 1.0
 
 RadioDelegate {
     property int count
+    property bool translatable: false
 
     id: control
     height: UI.rowHeight
     padding: UI.paddingCommon
 
     contentItem: TextCommon {
-        text: control.text
+        text: control.translatable ? qsTr(control.text) : control.text
         opacity: enabled ? 1.0 : 0.3
         elide: Text.ElideRight
         verticalAlignment: Text.AlignVCenter
@@ -40,8 +41,9 @@ RadioDelegate {
     }
 
     background: Rectangle {
+        id: backgroundRectangle
         height: parent.height
-        color: (control.down || control.highlighted || control.hovered) ? UI.hoverColor : "transparent"
+        color: "transparent"
 
         CommonLine {
             anchors {
@@ -51,5 +53,30 @@ RadioDelegate {
                 leftMargin: model.index != control.count - 1 ? control.leftPadding : 0
             }
         }
+    }
+
+    states: [
+        State {
+            name: "down"
+            when: control.down
+
+            PropertyChanges {
+                target: backgroundRectangle
+                color: Qt.darker(UI.hoverColor, 1.1)
+            }
+        },
+        State {
+            name: "active"
+            when: control.highlighted
+
+            PropertyChanges {
+                target: backgroundRectangle
+                color: UI.hoverColor
+            }
+        }
+    ]
+
+    transitions: Transition {
+        ColorAnimation { duration: UI.hoverDuration / 2 }
     }
 }

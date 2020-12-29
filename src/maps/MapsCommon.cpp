@@ -11,21 +11,33 @@
 
 #include "maps/MapsCommon.h"
 
+#include "Config.h"
+
 namespace Vremenar::Maps
 {
 
 std::vector<std::unique_ptr<Hyperlink>> copyright()
 {
+    bool selfHosted = !QString(Vremenar::mapsEndpoint).contains("maptiler");
+
     std::vector<std::unique_ptr<Hyperlink>> list;
-    list.emplace_back(std::make_unique<Hyperlink>(
-        QStringLiteral("© OpenMapTiles"),
-        QStringLiteral("https://openmaptiles.org")));
+    if (selfHosted) {
+        list.emplace_back(std::make_unique<Hyperlink>(
+            QStringLiteral("© OpenMapTiles"),
+            QStringLiteral("https://openmaptiles.org")));
+    } else {
+        list.emplace_back(std::make_unique<Hyperlink>(
+            QStringLiteral("© MapTiler"),
+            QStringLiteral("https://www.maptiler.com/copyright/")));
+    }
     list.emplace_back(std::make_unique<Hyperlink>(
         QStringLiteral("© OpenStreetMap contributors"),
         QStringLiteral("https://www.openstreetmap.org/copyright")));
-    list.emplace_back(std::make_unique<Hyperlink>(
-        QStringLiteral("© Sentinel-2 cloudless by EOX IT Services GmbH (Contains modified Copernicus Sentinel data 2017 & 2018)"),
-        QStringLiteral("https://s2maps.eu")));
+    if (selfHosted) {
+        list.emplace_back(std::make_unique<Hyperlink>(
+            QStringLiteral("© Sentinel-2 cloudless by EOX IT Services GmbH (Contains modified Copernicus Sentinel data 2017 & 2018)"),
+            QStringLiteral("https://s2maps.eu")));
+    }
     return list;
 }
 

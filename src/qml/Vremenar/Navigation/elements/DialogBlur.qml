@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -22,6 +22,7 @@ Dialog {
     height: Math.min(parent.height, 400)
 
     modal: true
+    focus: true
     padding: 0
 
     background: Item {
@@ -42,8 +43,8 @@ Dialog {
             anchors.fill: parent
             blurSource: contentPlaceholder
             color: UI.navBarColor
-            sourceX: parent.x
-            sourceY: parent.y
+            sourceX: parent.parent.x
+            sourceY: parent.parent.y
             maskSource: Rectangle {
                 width: dialog.width
                 height: dialog.height

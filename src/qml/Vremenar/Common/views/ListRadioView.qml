@@ -17,8 +17,13 @@ import Vremenar.Common 1.0
 
 ColumnLayout {
     property alias model: view.model
+    property alias view: view
+    property alias selectedIndex: view.selectedIndex
     property alias currentIndex: view.currentIndex
     property alias title: header.text
+    property bool shouldHaveFocus: false
+
+    signal confirmed()
 
     spacing: 0
 
@@ -33,6 +38,10 @@ ColumnLayout {
 
     ListView {
         id: view
+        focus: parent.shouldHaveFocus
+
+        property int selectedIndex: 0
+        currentIndex: -1
 
         Layout.fillWidth: true
 
@@ -40,10 +49,34 @@ ColumnLayout {
 
         delegate: ListRadioDelegate {
             count: view.count
-            checked: model.index === view.currentIndex
             text: model.display
+            highlighted: ListView.isCurrentItem
+            checked: model.index === view.selectedIndex
+            translatable: model.translatable ? model.translatable : false
             width: view.width
-            onClicked: view.currentIndex = model.index
+            onClicked: {
+                if (ListView.view.selectedIndex === model.index) {
+                    ListView.view.parent.confirmed()
+                }
+                ListView.view.selectedIndex = model.index
+            }
+            onHoveredChanged: {
+                if (hovered) {
+                    ListView.view.currentIndex = model.index
+                }
+            }
+            Keys.onReturnPressed: {
+                if (ListView.view.selectedIndex === model.index) {
+                    ListView.view.parent.confirmed()
+                }
+                ListView.view.selectedIndex = model.index
+            }
+        }
+
+        onFocusChanged: {
+            if (!focus) {
+                currentIndex = -1
+            }
         }
     }
 
