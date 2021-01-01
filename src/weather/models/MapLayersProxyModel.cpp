@@ -63,11 +63,18 @@ QString MapLayersProxyModel::day() const
         return QString();
     }
 
+    if (_timeDefault == _time) {
+        return tr("recent");
+    }
+
     auto current = QDateTime::currentDateTime();
     auto selected = QDateTime::fromMSecsSinceEpoch(_time);
 
     qint64 diff = current.daysTo(selected);
     if (diff == 0) {
+        if (_time > _timeDefault) {
+            return tr("forecast");
+        }
         return QString();
     }
     if (diff == 1) {
@@ -78,6 +85,11 @@ QString MapLayersProxyModel::day() const
     }
 
     return QLocale::system().toString(selected.date(), QLocale::ShortFormat);
+}
+
+bool MapLayersProxyModel::dayHighlighted() const
+{
+    return _timeDefault == _time;
 }
 
 QString MapLayersProxyModel::title() const
@@ -124,8 +136,9 @@ void MapLayersProxyModel::setDefaultTimestamp()
 {
     auto type = data(index(0, 0), MapLayer::TypeRole).value<Weather::MapType>();
     if (type == Weather::WeatherConditionMap) {
+        _timeDefault = data(index(0, 0), MapLayer::TimeRole).toDateTime().toMSecsSinceEpoch();
         _timer->setInterval(timerIntervalLong);
-        setTimestamp(data(index(0, 0), MapLayer::TimeRole).toDateTime().toMSecsSinceEpoch());
+        setTimestamp(_timeDefault);
         return;
     }
 
@@ -140,7 +153,8 @@ void MapLayersProxyModel::setDefaultTimestamp()
             break;
         }
     }
-    setTimestamp(newDefault);
+    _timeDefault = newDefault;
+    setTimestamp(_timeDefault);
 }
 
 qint64 MapLayersProxyModel::minTimestamp() const
@@ -161,6 +175,19 @@ qint64 MapLayersProxyModel::maxTimestamp() const
     return data(index(rowCount() - 1, 0), MapLayer::TimeRole).toDateTime().toMSecsSinceEpoch();
 }
 
+void MapLayersProxyModel::first()
+{
+    if (_row > 0) {
+        setTimestamp(data(index(0, 0), MapLayer::TimeRole).toDateTime().toMSecsSinceEpoch());
+
+        if (_animated) {
+            _timer->stop();
+            _animated = false;
+            Q_EMIT animatedChanged();
+        }
+    }
+}
+
 void MapLayersProxyModel::previous()
 {
     if (_row > 0) {
@@ -178,6 +205,19 @@ void MapLayersProxyModel::next()
 {
     if (_row < rowCount() - 1) {
         setTimestamp(data(index(_row + 1, 0), MapLayer::TimeRole).toDateTime().toMSecsSinceEpoch());
+
+        if (_animated) {
+            _timer->stop();
+            _animated = false;
+            Q_EMIT animatedChanged();
+        }
+    }
+}
+
+void MapLayersProxyModel::last()
+{
+    if (_row < rowCount() - 1) {
+        setTimestamp(data(index(rowCount() - 1, 0), MapLayer::TimeRole).toDateTime().toMSecsSinceEpoch());
 
         if (_animated) {
             _timer->stop();

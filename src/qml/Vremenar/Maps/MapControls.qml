@@ -85,6 +85,17 @@ ColumnLayout {
         }
 
         IconButton {
+            id: buttonFirst
+            icon: UI.iconPrefix + "skip-backward"
+            family: UI.iconTheme
+            size: UI.iconSizeSpecialControl
+            width: UI.mapElementSize
+            disabled: VMapLayersModel.minTimestamp === VMapLayersModel.time
+
+            onClicked: VMapLayersModel.first()
+        }
+
+        IconButton {
             id: buttonPrevious
             icon: UI.iconPrefix + "rewind"
             family: UI.iconTheme
@@ -111,6 +122,17 @@ ColumnLayout {
             disabled: VMapLayersModel.maxTimestamp === VMapLayersModel.time
 
             onClicked: VMapLayersModel.next()
+        }
+
+        IconButton {
+            id: buttonLast
+            icon: UI.iconPrefix + "skip-forward"
+            family: UI.iconTheme
+            size: UI.iconSizeSpecialControl
+            width: UI.mapElementSize
+            disabled: VMapLayersModel.maxTimestamp === VMapLayersModel.time
+
+            onClicked: VMapLayersModel.last()
         }
 
         Item {

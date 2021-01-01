@@ -32,6 +32,7 @@ class MapLayersProxyModel : public QSortFilterProxyModel
 
     Q_PROPERTY(qint64 time READ timestamp WRITE setTimestamp NOTIFY timestampChanged)
     Q_PROPERTY(QString day READ day NOTIFY timestampChanged)
+    Q_PROPERTY(bool dayHighlighted READ dayHighlighted NOTIFY timestampChanged)
 
     Q_PROPERTY(Weather::MapRenderingType type READ type NOTIFY typeChanged)
     Q_PROPERTY(QString title READ title NOTIFY timestampChanged)
@@ -50,6 +51,7 @@ public:
     [[nodiscard]] qint64 timestamp() const;
     void setTimestamp(qint64 time);
     [[nodiscard]] QString day() const;
+    [[nodiscard]] bool dayHighlighted() const;
 
     QString title() const;
     [[nodiscard]] inline Weather::MapRenderingType type() const { return _type; }
@@ -63,9 +65,11 @@ public:
     void setUpdating(bool updating,
                      bool silent = false);
 
+    Q_INVOKABLE void first();
     Q_INVOKABLE void previous();
     Q_INVOKABLE void next();
     Q_INVOKABLE void nextTimer();
+    Q_INVOKABLE void last();
     Q_INVOKABLE void play();
     Q_INVOKABLE void playResume();
 
@@ -89,6 +93,7 @@ private:
     bool _updating{false};
 
     qint64 _time{};
+    qint64 _timeDefault{};
     Weather::MapRenderingType _type{Weather::ImageRendering};
     QString _url;
     QString _image{Weather::blankPng};

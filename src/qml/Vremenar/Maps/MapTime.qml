@@ -66,6 +66,7 @@ Item {
         padding: 0
         text: VMapLayersModel.day
         opacity: text !== "" ? 1 : 0
+        color: VMapLayersModel.dayHighlighted ? (UI.theme === Vremenar.Common.LightTheme ? UI.colorPrimaryDark : UI.colorPrimary) : UI.textColor
 
         anchors {
             bottom: parent.bottom
