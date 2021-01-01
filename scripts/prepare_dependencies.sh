@@ -24,12 +24,12 @@ if [[ "${1}" == "macos" ]] || [[ "${1}" == "macOS" ]]; then
   echo
   echo "Countly"
   wget -nv -O "${LOCATION}/3rdparty/Countly/macOS/countly-sdk.tar.bz2" "https://github.com/ntadej/countly-sdk-ios/releases/download/v${COUNTLY_VERSION}/countly-sdk_${COUNTLY_VERSION}_macOS.tar.bz2"
-  tar -C "${LOCATION}/3rdparty/Countly/macOS/" -xf "${LOCATION}/3rdparty/Countly/macOS/countly-sdk.tar.bz2"
+  tar -C "${LOCATION}/3rdparty/Countly/macOS/" -xvf "${LOCATION}/3rdparty/Countly/macOS/countly-sdk.tar.bz2"
 
   echo
   echo "Sparkle"
   wget -nv -O "${LOCATION}/3rdparty/Sparkle/macOS/Sparkle-${SPARKLE_VERSION}.tar.xz" "https://github.com/sparkle-project/Sparkle/releases/download/${SPARKLE_VERSION}/Sparkle-${SPARKLE_VERSION}.tar.xz"
-  tar -C "${LOCATION}/3rdparty/Sparkle/macOS/" -xf "${LOCATION}/3rdparty/Sparkle/macOS/Sparkle-${SPARKLE_VERSION}.tar.xz"
+  tar -C "${LOCATION}/3rdparty/Sparkle/macOS/" -xvf "${LOCATION}/3rdparty/Sparkle/macOS/Sparkle-${SPARKLE_VERSION}.tar.xz"
 
   echo
   echo "Qt Patches"
@@ -48,19 +48,20 @@ elif [[ "${1}" == "ios" ]] || [[ "${1}" == "iOS" ]]; then
   echo
   echo "Countly"
   wget -nv -O "${LOCATION}/3rdparty/Countly/iOS/countly-sdk.tar.bz2" "https://github.com/ntadej/countly-sdk-ios/releases/download/v${COUNTLY_VERSION}/countly-sdk_${COUNTLY_VERSION}_iOS.tar.bz2"
-  tar -C "${LOCATION}/3rdparty/Countly/iOS/" -xf "${LOCATION}/3rdparty/Countly/iOS/countly-sdk.tar.bz2"
+  tar -C "${LOCATION}/3rdparty/Countly/iOS/" -xvf "${LOCATION}/3rdparty/Countly/iOS/countly-sdk.tar.bz2"
   wget -nv -O "${LOCATION}/3rdparty/Countly/iOSSimulator/countly-sdk.tar.bz2" "https://github.com/ntadej/countly-sdk-ios/releases/download/v${COUNTLY_VERSION}/countly-sdk_${COUNTLY_VERSION}_iOSSimulator.tar.bz2"
-  tar -C "${LOCATION}/3rdparty/Countly/iOSSimulator/" -xf "${LOCATION}/3rdparty/Countly/iOSSimulator/countly-sdk.tar.bz2"
+  tar -C "${LOCATION}/3rdparty/Countly/iOSSimulator/" -xvf "${LOCATION}/3rdparty/Countly/iOSSimulator/countly-sdk.tar.bz2"
 
   echo
   echo "Qt Patches"
   if [[ $QT -eq 1 ]]; then
-    pushd "$Qt5_Dir" || exit 1
-    # patch -p1 < "${LOCATION}/3rdparty/Xcode_12.patch"
-    popd || exit 1
     wget -nv -O "$Qt5_Dir/plugins/geoservices/libqtgeoservices_mapboxgl.tar.bz2" "https://github.com/ntadej/qt-geoservices-mapboxgl/releases/download/v${QT_VERSION}/libqtgeoservices_mapboxgl_ios.tar.bz2"
-    tar -C "$Qt5_Dir/plugins/geoservices/" -xf "$Qt5_Dir/plugins/geoservices/libqtgeoservices_mapboxgl.tar.bz2"
+    tar -C "$Qt5_Dir/plugins/geoservices/" -xvf "$Qt5_Dir/plugins/geoservices/libqtgeoservices_mapboxgl.tar.bz2"
     rm "$Qt5_Dir/plugins/geoservices/libqtgeoservices_mapboxgl.tar.bz2"
+
+    wget -nv -O "$Qt5_Dir/plugins/platforms/libqios.tar.bz2" "https://github.com/ntadej/qios/releases/download/v${QT_VERSION}/libqios.tar.bz2"
+    tar -C "$Qt5_Dir/plugins/platforms/" -xvf "$Qt5_Dir/plugins/platforms/libqios.tar.bz2"
+    rm "$Qt5_Dir/plugins/platforms/libqios.tar.bz2"
   else
     echo "skipping..."
   fi
@@ -85,8 +86,12 @@ elif [[ "${1}" == "android" ]] || [[ "${1}" == "Android" ]]; then
   echo "Qt Patches"
   if [[ $QT -eq 1 ]]; then
     wget -nv -O "$Qt5_Dir/plugins/geoservices/libqtgeoservices_mapboxgl.tar.bz2" "https://github.com/ntadej/qt-geoservices-mapboxgl/releases/download/v${QT_VERSION}/libqtgeoservices_mapboxgl_android.tar.bz2"
-    tar -C "$Qt5_Dir/plugins/geoservices/" -xf "$Qt5_Dir/plugins/geoservices/libqtgeoservices_mapboxgl.tar.bz2"
+    tar -C "$Qt5_Dir/plugins/geoservices/" -xvf "$Qt5_Dir/plugins/geoservices/libqtgeoservices_mapboxgl.tar.bz2"
     rm "$Qt5_Dir/plugins/geoservices/libqtgeoservices_mapboxgl.tar.bz2"
+
+    wget -nv -O "$Qt5_Dir/lib/Qt5Network_dependencies_android.tar.bz2" "https://github.com/ntadej/qt-geoservices-mapboxgl/releases/download/v5.15.2/Qt5Network_dependencies_android.tar.bz2"
+    tar -C "$Qt5_Dir/lib/" -xvf "$Qt5_Dir/lib/Qt5Network_dependencies_android.tar.bz2"
+    rm "$Qt5_Dir/lib/Qt5Network_dependencies_android.tar.bz2"
   else
     echo "skipping..."
   fi

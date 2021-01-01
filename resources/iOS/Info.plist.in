@@ -41,7 +41,7 @@
         <key>UIFileSharingEnabled</key>
         <true/>
         <key>UIViewControllerBasedStatusBarAppearance</key>
-        <false/>
+        <true/>
         <key>UIStatusBarStyle</key>
         <string>UIStatusBarStyleLightContent</string>
         <key>NSLocationWhenInUseUsageDescription</key>

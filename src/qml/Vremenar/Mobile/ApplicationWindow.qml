@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -12,13 +12,17 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12 as Controls
 
+import Vremenar 1.0
+
 Controls.ApplicationWindow {
     id: app
 
     property Controls.ApplicationWindow applicationWindow : app
     property bool ready: false
 
-    flags: Qt.Window | Qt.MaximizeUsingFullscreenGeometryHint
+    flags: UI.theme === Vremenar.Common.LightTheme
+           ? Qt.Window | Qt.MaximizeUsingFullscreenGeometryHint | Qt.MacWindowToolBarButtonHint
+           : Qt.Window | Qt.MaximizeUsingFullscreenGeometryHint
 
     Component.onCompleted: {
         Vremenar.startCompleted()

@@ -23,6 +23,7 @@ iOSPlist.output = $$OUT_PWD/Info.plist
 QMAKE_SUBSTITUTES += iOSPlist
 
 # Info.plist
+QMAKE_TARGET_BUNDLE_PREFIX = si.tano
 QMAKE_INFO_PLIST = $$OUT_PWD/Info.plist
 
 ios_icon.files = $$files($$top_srcdir/resources/iOS/logo/*.png)

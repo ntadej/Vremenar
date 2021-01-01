@@ -47,8 +47,9 @@ jobs:
 
       - name: Setup Xcode
         if: matrix.config.platform == 'ios' || matrix.config.platform == 'macos'
-        shell: bash
-        run: sudo xcode-select -switch /Applications/Xcode_12.app
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
 
       - name: Download Qt
         uses: jurplel/install-qt-action@v2
