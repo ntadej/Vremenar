@@ -32,7 +32,7 @@ Item {
         anchors.fill: parent
 
         onPressed: {
-            if (UI.isMobile) {
+            if (UI.isMobile || UI.isTV) {
                 return
             }
 
@@ -40,7 +40,7 @@ Item {
         }
 
         onPositionChanged: {
-            if (UI.isMobile) {
+            if (UI.isMobile || UI.isTV) {
                 return
             }
 

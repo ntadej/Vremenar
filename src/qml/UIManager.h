@@ -34,6 +34,7 @@ class UIManager : public QObject
 
     Q_PROPERTY(bool debugging READ debugging CONSTANT)
     Q_PROPERTY(bool isMobile READ isMobile CONSTANT)
+    Q_PROPERTY(bool isTV READ isTV CONSTANT)
     Q_PROPERTY(Vremenar::Common::DeviceType deviceType READ getDeviceType CONSTANT)
     Q_PROPERTY(Vremenar::Common::Theme theme READ theme WRITE setTheme NOTIFY themeChanged)
     Q_PROPERTY(QString iconTheme READ iconTheme CONSTANT)
@@ -48,13 +49,15 @@ class UIManager : public QObject
     Q_PROPERTY(QColor separatorColor READ separatorColor NOTIFY themeChanged)
 
     Q_PROPERTY(int blurLevel READ blurLevel CONSTANT)
-    Q_PROPERTY(int shadowRadius READ shadowRadius CONSTANT)
+    Q_PROPERTY(int shadowRadius READ shadowRadius NOTIFY themeChanged)
     Q_PROPERTY(QColor shadowColor READ shadowColor NOTIFY themeChanged)
 
     Q_PROPERTY(int mapElementSize READ mapElementSize CONSTANT)
     Q_PROPERTY(int mapElementOffset READ mapElementOffset CONSTANT)
 
     Q_PROPERTY(int iconSizeCommon READ iconSizeCommon CONSTANT)
+    Q_PROPERTY(int iconSizeLarge READ iconSizeLarge CONSTANT)
+    Q_PROPERTY(int iconBorderThickness READ iconBorderThickness CONSTANT)
     Q_PROPERTY(int lineThickness READ lineThickness CONSTANT)
     Q_PROPERTY(int paddingCommon READ paddingCommon CONSTANT)
     Q_PROPERTY(int paddingHeader READ paddingHeader CONSTANT)
@@ -105,6 +108,7 @@ public:
 
     [[nodiscard]] bool debugging() const;
     [[nodiscard]] bool isMobile() const;
+    [[nodiscard]] bool isTV() const;
     [[nodiscard]] Common::Theme theme() const;
     void setTheme(Common::Theme theme);
     [[nodiscard]] QString iconTheme() const;
@@ -127,6 +131,8 @@ public:
     [[nodiscard]] int mapElementOffset() const;
 
     [[nodiscard]] int iconSizeCommon() const;
+    [[nodiscard]] int iconSizeLarge() const;
+    [[nodiscard]] int iconBorderThickness() const;
     [[nodiscard]] int lineThickness() const;
     [[nodiscard]] int paddingCommon() const;
     [[nodiscard]] int paddingHeader() const;

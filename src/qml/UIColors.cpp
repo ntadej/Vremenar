@@ -30,7 +30,7 @@ QColor Qml::UIManager::shadowColor() const
     if (_theme == Common::LightTheme) {
         return {124, 124, 128}; // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
     }
-    return {0, 0, 0, 128}; // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+    return {27, 27, 27}; // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
 }
 
 QColor Qml::UIManager::navBarColor() const

@@ -16,6 +16,9 @@ import Vremenar 1.0
 import Vremenar.Common 1.0
 
 ColumnLayout {
+    property alias header: headerContent.visible
+    property alias headerContents: headerContent.children
+
     property alias model: view.model
     property alias view: view
     property alias selectedIndex: view.selectedIndex
@@ -26,6 +29,11 @@ ColumnLayout {
     signal confirmed()
 
     spacing: 0
+
+    ColumnLayout {
+        id: headerContent
+        spacing: 0
+    }
 
     TextHeader {
         id: header
@@ -39,6 +47,7 @@ ColumnLayout {
     ListView {
         id: view
         focus: parent.shouldHaveFocus
+        clip: true
 
         property int selectedIndex: 0
         currentIndex: -1
@@ -46,6 +55,7 @@ ColumnLayout {
         Layout.fillWidth: true
 
         height: count * UI.rowHeight
+        Layout.fillHeight: true
 
         delegate: ListRadioDelegate {
             count: view.count
@@ -78,9 +88,5 @@ ColumnLayout {
                 currentIndex = -1
             }
         }
-    }
-
-    Item {
-        Layout.fillHeight: true
     }
 }

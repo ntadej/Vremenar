@@ -52,7 +52,7 @@ MenuBar {
 
             MenuItem {
                 text: model.display
-                onTriggered: VWeather.currentMapStyleChanged(index)
+                onTriggered: VWeather.currentMapStyle = index
             }
 
             onObjectAdded: mapStyleMenu.insertItem(index, object)
@@ -71,7 +71,7 @@ MenuBar {
 
             MenuItem {
                 text: model.display
-                onTriggered: VWeather.currentMapLayerChanged(index)
+                onTriggered: VWeather.currentMapStyle = index
             }
 
             onObjectAdded: mapTypeMenu.insertItem(index, object)

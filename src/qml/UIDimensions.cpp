@@ -17,11 +17,13 @@ namespace Vremenar
 int Qml::UIManager::mapElementSize() const { return 44; }  // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
 int Qml::UIManager::mapElementOffset() const { return 8; } // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
 
-int Qml::UIManager::iconSizeCommon() const { return 32; } // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
-int Qml::UIManager::lineThickness() const { return 1; }   // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
-int Qml::UIManager::paddingCommon() const { return 15; }  // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
-int Qml::UIManager::paddingHeader() const { return 5; }   // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
-int Qml::UIManager::radiusCommon() const { return 10; }   // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+int Qml::UIManager::iconSizeCommon() const { return 32; }     // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+int Qml::UIManager::iconSizeLarge() const { return 48; }      // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+int Qml::UIManager::iconBorderThickness() const { return 3; } // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+int Qml::UIManager::lineThickness() const { return 1; }       // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+int Qml::UIManager::paddingCommon() const { return 15; }      // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+int Qml::UIManager::paddingHeader() const { return 5; }       // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+int Qml::UIManager::radiusCommon() const { return 10; }       // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
 
 int Qml::UIManager::rowHeight() const { return 44; }    // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
 int Qml::UIManager::navBarHeight() const { return 44; } // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)

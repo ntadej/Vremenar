@@ -3,5 +3,11 @@
         <file>spinner.png</file>
         <file>spinner@3x.png</file>
         <file>spinner@2x.png</file>
+        <file>satellite.png</file>
+        <file>satellite@2x.png</file>
+        <file>satellite@3x.png</file>
+        <file>streets.png</file>
+        <file>streets@2x.png</file>
+        <file>streets@3x.png</file>
     </qresource>
 </RCC>

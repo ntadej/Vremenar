@@ -16,5 +16,6 @@
         <file>components/Spinner.qml</file>
         <file>text/CommonShadow.qml</file>
         <file>components/CommonShadow.qml</file>
+        <file>components/ImageButton.qml</file>
     </qresource>
 </RCC>

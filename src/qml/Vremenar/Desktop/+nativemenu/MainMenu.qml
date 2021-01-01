@@ -57,7 +57,7 @@ Item {
                     text: model.display
                     checkable: true
                     checked: VWeather.currentMapStyle === index
-                    onTriggered: VWeather.currentMapStyleChanged(index)
+                    onTriggered: VWeather.currentMapStyle = index
                 }
 
                 onObjectAdded: mapStyleMenu.insertItem(index, object)

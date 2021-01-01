@@ -14,8 +14,14 @@
 namespace Vremenar
 {
 
-int Qml::UIManager::blurLevel() const { return 64; }   // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
-int Qml::UIManager::shadowRadius() const { return 7; } // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+int Qml::UIManager::blurLevel() const { return 64; } // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+int Qml::UIManager::shadowRadius() const
+{
+    if (_theme == Common::LightTheme) {
+        return 9; // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+    }
+    return 12; // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+}
 
 int Qml::UIManager::mapCoordinateChangeDuration() const { return 1000; } // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
 int Qml::UIManager::mapIconFadeDuration() const { return 100; }          // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)

@@ -24,6 +24,7 @@ Dialog {
     modal: true
     focus: true
     padding: 0
+    topPadding: 0
 
     background: Item {
         Rectangle {

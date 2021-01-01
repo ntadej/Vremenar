@@ -48,7 +48,7 @@ MouseArea {
 
             PropertyChanges {
                 target: textLabel
-                color: Qt.darker(UI.colorPrimary, 1.1)
+                color: Qt.darker(UI.buttonColorHover, 1.1)
             }
         },
         State {

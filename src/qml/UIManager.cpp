@@ -57,6 +57,11 @@ bool Qml::UIManager::isMobile() const
 #endif
 }
 
+bool Qml::UIManager::isTV() const
+{
+    return _device == Common::AndroidTV || _device == Common::FireTV;
+}
+
 Common::Theme Qml::UIManager::theme() const
 {
     return _theme;

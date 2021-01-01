@@ -18,6 +18,6 @@ DropShadow {
     id: shadow
     anchors.fill: source
     radius: UI.shadowRadius
-    samples: 17
+    samples: UI.shadowRadius * 2 + 1
     color: UI.shadowColor
 }
