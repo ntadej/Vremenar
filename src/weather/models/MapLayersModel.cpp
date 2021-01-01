@@ -43,9 +43,11 @@ void MapLayersModel::addMapLayers(Weather::MapType type,
     QGeoRectangle bbox;
     if (data.contains(QStringLiteral("bbox"))) {
         QJsonArray c = data[QStringLiteral("bbox")].toArray();
-        QGeoCoordinate topLeft(c[2].toDouble(), c[1].toDouble());
-        QGeoCoordinate bottomRight(c[0].toDouble(), c[3].toDouble());
-        bbox = QGeoRectangle(topLeft, bottomRight);
+        if (!c.empty()) {
+            QGeoCoordinate topLeft(c[2].toDouble(), c[1].toDouble());
+            QGeoCoordinate bottomRight(c[0].toDouble(), c[3].toDouble());
+            bbox = QGeoRectangle(topLeft, bottomRight);
+        }
     }
 
     QJsonArray layers = data[QStringLiteral("layers")].toArray();
