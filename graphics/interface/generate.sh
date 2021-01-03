@@ -1,7 +1,7 @@
 #!/bin/bash
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-OUT=$DIR/../../resources/Common/ui
+OUT="$DIR/../../resources/Common/ui"
 
 # Inkscape
 if [[ $(uname) = "Darwin" ]]; then
@@ -16,5 +16,5 @@ suffixes=("" "@2x" "@3x")
 
 for (( i=0; i<${#sizes[@]}; i++ ));
 do
-    $inkscape -z -C -o $OUT/spinner${suffixes[$i]}.png -w ${sizes[$i]} -h ${sizes[$i]} $DIR/src/load-c.svg
+    $inkscape -z -C -o "$OUT/spinner${suffixes[$i]}.png" -w "${sizes[$i]}" -h "${sizes[$i]}" "$DIR/src/load-c.svg"
 done

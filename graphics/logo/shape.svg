@@ -76,7 +76,7 @@
          id="feFlood824-1"
          result="flood"
          flood-color="rgb(0,0,0)"
-         flood-opacity="0.5" />
+         flood-opacity="0.3" />
       <feComposite
          id="feComposite826-3"
          result="composite1"
@@ -138,7 +138,7 @@
        x="-0.25"
        y="-0.25">
       <feFlood
-         flood-opacity="0.498039"
+         flood-opacity="0.3"
          flood-color="rgb(0,0,0)"
          result="flood"
          id="feFlood838" />

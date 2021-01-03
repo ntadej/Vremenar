@@ -5,7 +5,8 @@ config.pri
 /3rdparty/Countly
 /3rdparty/Sparkle
 
-/graphics/logo/web/*.png
+/graphics/logo/Web/*.ico
+/graphics/logo/Web/*.png
 /graphics/weather/components/*.png
 /graphics/weather/modifiers/*.png
 /graphics/weather/mask/components/*.svg
