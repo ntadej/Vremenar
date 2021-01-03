@@ -18,7 +18,7 @@ import Vremenar.Common 1.0
 Item {
     width: UI.mapElementSize
     height: (UI.showButtonMapType + (UI.showButtonMapPosition && VLocation.enabled)) * UI.mapElementSize + UI.lineThickness
-    visible: UI.showButtonMapType || (UI.showButtonMapPosition && VLocation.enabled)
+    visible: !UI.mapOnly && (UI.showButtonMapType || (UI.showButtonMapPosition && VLocation.enabled))
 
     Rectangle {
         id: rounded
@@ -58,7 +58,7 @@ Item {
             visible: UI.showButtonMapType
 
             onClicked: {
-                if (UI.deviceType === Common.Desktop || UI.deviceType === Common.DebuggingDevice) {
+                if (!UI.isTV && (UI.deviceType === Common.Desktop || UI.deviceType === Common.DebuggingDevice)) {
                     if (typeof applicationWindow.mainMenu.mapTypeMenu.open !== 'undefined') {
                         applicationWindow.mainMenu.mapTypeMenu.open()
                     } else {

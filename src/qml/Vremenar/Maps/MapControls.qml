@@ -24,6 +24,9 @@ ColumnLayout {
 
     property bool active: false
     property alias legend: mapLegend
+    property var navigation: Vremenar.Common.TypeNavigation
+    property int delta: 48
+    property real zoomDelta: 0.1
 
     anchors {
         top: parent.top
@@ -36,20 +39,23 @@ ColumnLayout {
     Shortcut {
         sequences: ["Space", "Media Play", "Media Pause", "Toggle Media Play/Pause"]
         onActivated: {
+            console.log("'Media Previous/Rewind' pressed")
             buttonPlay.downAnimation()
             VMapLayersModel.play()
         }
     }
     Shortcut {
-        sequences: ["Left", "Media Previous"]
+        sequences: ["Media Rewind", "Media Previous"]
         onActivated: {
+            console.log("'Media Previous/Rewind' pressed")
             buttonPrevious.downAnimation()
             VMapLayersModel.previous()
         }
     }
     Shortcut {
-        sequences: ["Right", "Media Next"]
+        sequences: ["Media Fast Forward", "Media Next"]
         onActivated: {
+            console.log("'Media Next/Forward' pressed")
             buttonNext.downAnimation()
             VMapLayersModel.next()
         }
@@ -57,13 +63,76 @@ ColumnLayout {
     Shortcut {
         sequences: ["Up"]
         onActivated: {
-            VWeather.currentMapLayer -= 1
+            console.log("'Up' pressed")
+            if (navigation === Vremenar.Common.TypeNavigation) {
+                VWeather.currentMapLayer -= 1
+            } else if (navigation === Vremenar.Common.MoveNavigation) {
+                map.pan(0, -delta)
+            } else if (navigation === Vremenar.Common.ZoomNavigation) {
+                map.zoomLevel += zoomDelta
+            }
         }
     }
     Shortcut {
         sequences: ["Down"]
         onActivated: {
-            VWeather.currentMapLayer += 1
+            console.log("'Down' pressed")
+            if (navigation === Vremenar.Common.TypeNavigation) {
+                VWeather.currentMapLayer += 1
+            } else if (navigation === Vremenar.Common.MoveNavigation) {
+                map.pan(0, delta)
+            } else if (navigation === Vremenar.Common.ZoomNavigation) {
+                map.zoomLevel -= zoomDelta
+            }
+        }
+    }
+    Shortcut {
+        sequences: ["Left"]
+        onActivated: {
+            console.log("'Left' pressed")
+            if (navigation === Vremenar.Common.MoveNavigation) {
+                map.pan(-delta, 0)
+            }
+        }
+    }
+    Shortcut {
+        sequences: ["Right"]
+        onActivated: {
+            console.log("'Right' pressed")
+            if (navigation === Vremenar.Common.MoveNavigation) {
+                map.pan(delta, 0)
+            }
+        }
+    }
+    Shortcut {
+        sequences: ["Enter", "Return"]
+        onActivated: {
+            console.log("'Enter'/'Return' pressed")
+            if (UI.isTV) {
+                if (navigation === Vremenar.Common.TypeNavigation) {
+                    navigation = Vremenar.Common.MoveNavigation
+                    UI.toast(qsTr("Map can now be moved around with direction keys"))
+                } else if (navigation === Vremenar.Common.MoveNavigation) {
+                    navigation = Vremenar.Common.ZoomNavigation
+                    UI.toast(qsTr("Map can now be zoomed using up and down keys"))
+                } else if (navigation === Vremenar.Common.ZoomNavigation) {
+                    navigation = Vremenar.Common.TypeNavigation
+                    UI.toast(qsTr("Map type can now be switched using up and down keys"))
+                }
+            }
+        }
+    }
+    Shortcut {
+        sequences: ["Back"]
+        onActivated: {
+            console.log("'Back' pressed")
+        }
+    }
+    Shortcut {
+        sequences: ["Menu"]
+        onActivated: {
+            console.log("'Menu' pressed")
+            mapSettingsDialog.open()
         }
     }
 
@@ -73,6 +142,7 @@ ColumnLayout {
 
         IconButton {
             id: buttonInfo
+            visible: !UI.isTV
             icon: mapPage.state === "sheet" ? UI.iconPrefix + "information-circle" : UI.iconPrefix + "information-circle-outline"
             family: UI.iconTheme
             width: UI.mapElementSize
@@ -141,6 +211,7 @@ ColumnLayout {
 
         IconButton {
             id: buttonRefresh
+            visible: !UI.isTV
             icon: UI.iconPrefix + "refresh"
             family: UI.iconTheme
             width: UI.mapElementSize
@@ -166,10 +237,6 @@ ColumnLayout {
     }
 
     Item {
-        Layout.preferredHeight: UI.radiusCommon
-    }
-
-    Item {
         Layout.fillHeight: true
     }
 
@@ -183,10 +250,10 @@ ColumnLayout {
 
     TextSmall {
         id: labelAbout
-        text: qsTr("Weather data") + generateWeather() + "<br>"
-              + qsTr("Maps") + generateMaps() + "<br>"
-              + Globals.name + " " + Globals.version + " (" + Globals.build + ")"
-              + generateAboutLinks()
+        text: qsTr("Weather data") + generateWeather() + (UI.isTV ? " " : "<br>")
+              + qsTr("Maps") + generateMaps() + (UI.isTV ? " " : "<br>")
+              + (UI.isTV ? "" : Globals.name + " " + Globals.version + " (" + Globals.build + ")")
+              + (UI.isTV ? "" : generateAboutLinks())
               + VL.R
         wrapMode: Text.WordWrap
         linkColor: UI.textColorSpecialLink
@@ -196,14 +263,14 @@ ColumnLayout {
 
         onLinkActivated: {
             if (link == 'change_country') {
-                countrySettingsDialog.open()
+                sourceSettingsDialog.open()
             } else {
                 Qt.openUrlExternally(link)
             }
         }
 
         function generateWeather() {
-            if (UI.deviceType === Common.Desktop || UI.deviceType === Common.AndroidTV || UI.deviceType === Common.FireTV) {
+            if (UI.deviceType === Common.Desktop || UI.isTV) {
                 return " " + VWeather.copyrightLink.html
             }
 

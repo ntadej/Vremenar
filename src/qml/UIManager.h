@@ -35,6 +35,7 @@ class UIManager : public QObject
     Q_PROPERTY(bool debugging READ debugging CONSTANT)
     Q_PROPERTY(bool isMobile READ isMobile CONSTANT)
     Q_PROPERTY(bool isTV READ isTV CONSTANT)
+    Q_PROPERTY(bool mapOnly READ mapOnly CONSTANT)
     Q_PROPERTY(Vremenar::Common::DeviceType deviceType READ getDeviceType CONSTANT)
     Q_PROPERTY(Vremenar::Common::Theme theme READ theme WRITE setTheme NOTIFY themeChanged)
     Q_PROPERTY(QString iconTheme READ iconTheme CONSTANT)
@@ -110,6 +111,7 @@ public:
     [[nodiscard]] bool debugging() const;
     [[nodiscard]] bool isMobile() const;
     [[nodiscard]] bool isTV() const;
+    [[nodiscard]] bool mapOnly() const;
     [[nodiscard]] Common::Theme theme() const;
     void setTheme(Common::Theme theme);
     [[nodiscard]] QString iconTheme() const;
@@ -180,7 +182,9 @@ public:
     [[nodiscard]] inline int safetyMarginLeft() const { return _currentSafeAreaMargins.left(); }
     [[nodiscard]] inline int safetyMarginRight() const { return _currentSafeAreaMargins.right(); }
 
-    Q_INVOKABLE void debugAction();
+    Q_INVOKABLE void toast(const QString &message);
+
+    Q_INVOKABLE void debugAction(int key);
 
     static QObject *provider(QQmlEngine *engine,
                              QJSEngine *scriptEngine);
@@ -208,6 +212,7 @@ private:
 #endif
 #ifdef Q_OS_ANDROID
     static Common::DeviceType getDeviceTypeAndroid();
+    static void toastAndroid(const QString &message);
 #endif
 
 #if defined(Q_OS_IOS) || defined(Q_OS_ANDROID)

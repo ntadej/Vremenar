@@ -35,8 +35,15 @@ enum Theme {
     LightTheme
 };
 
+enum Navigation {
+    TypeNavigation,
+    MoveNavigation,
+    ZoomNavigation
+};
+
 Q_ENUM_NS(DeviceType)
 Q_ENUM_NS(Theme)
+Q_ENUM_NS(Navigation)
 
 } // namespace Vremenar::Common
 

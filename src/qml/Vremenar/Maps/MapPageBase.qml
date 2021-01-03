@@ -69,10 +69,12 @@ Rectangle {
 
     CommonShadow {
         source: navBar
+        visible: !UI.mapOnly
     }
 
     NavBar {
         id: navBar
+        visible: !UI.mapOnly
         anchors {
             top: parent.top
             left: parent.left
@@ -83,6 +85,7 @@ Rectangle {
     CommonShadow {
         source: bottomSheet.frameItem
         anchors.fill: bottomSheet
+        visible: !UI.mapOnly
     }
 
     BottomSheet {
@@ -94,7 +97,8 @@ Rectangle {
            rightMargin: UI.safetyMarginRight
         }
 
-        height: UI.bottomSheetBaseHeight + mapControls.legend.height + UI.radiusCommon + UI.safetyMarginBottom
+        height: UI.isTV ? mapControls.height + UI.radiusCommon + UI.safetyMarginBottom
+                        : UI.bottomSheetBaseHeight + mapControls.legend.height + UI.radiusCommon + UI.safetyMarginBottom
 
         onFullWidthChanged: {
             anchors.left = undefined
@@ -112,11 +116,12 @@ Rectangle {
 
         MapControls {
             id: mapControls
+            active: UI.isTV
         }
     }
 
-    CountrySelectionDialog {
-        id: countrySettingsDialog
+    SourceSelectionDialog {
+        id: sourceSettingsDialog
         anchors.centerIn: parent
 
         onAboutToShow: dialogActive = true

@@ -22,6 +22,7 @@ MouseArea {
 
     height: UI.bottomSheetBaseHeight + UI.radiusCommon + UI.safetyMarginBottom
     clip: true
+    visible: !UI.mapOnly
 
     Rectangle {
         id: rounded

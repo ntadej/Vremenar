@@ -18,6 +18,7 @@ import Vremenar.Common 1.0
 Item {
     property alias textVisible: textTime.opacity
 
+    visible: !UI.mapOnly
     width: Math.ceil(Math.max(textTime.width, textDay.text !== "" ? textDay.width : 0, Math.ceil(textRef.width / 10) * 10) + UI.paddingCommon)
     height: Math.ceil(textTime.height + (textDay.text !== "" ? textDay.height : 0) + UI.paddingCommon)
 

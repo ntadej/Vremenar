@@ -38,6 +38,13 @@ MainWindow {
         color: "transparent"
         border.color: "red"
         border.width: 1
+
+        // focus: true
+
+        // Keys.onPressed: {
+        //     UI.debugAction(event.key)
+        //     event.accepted = true
+        // }
     }
 
     MessageDialog {

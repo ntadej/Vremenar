@@ -14,10 +14,11 @@ import QtQuick 2.12
 import Vremenar 1.0
 import Vremenar.Common 1.0
 
-DialogBlur {
-    id: dialog
-
-    ListModel {
+ListRadioView {
+    id: view
+    title: qsTr("Weather source selection") + VL.R
+    shouldHaveFocus: dialog.opened
+    model: ListModel {
         id: countryModel
 
         ListElement {
@@ -30,25 +31,17 @@ DialogBlur {
         }
     }
 
-    ListRadioView {
-        id: view
-        title: qsTr("Weather source selection") + VL.R
-        shouldHaveFocus: dialog.opened
-        model: countryModel
-        anchors.fill: parent
+    selectedIndex: Settings.weatherSource
 
-        selectedIndex: Settings.weatherSource
-
-        onSelectedIndexChanged: {
-            if (applicationWindow.ready) {
-                dialog.accept()
-                Vremenar.weatherSourceChanged(selectedIndex)
-            }
+    onSelectedIndexChanged: {
+        if (applicationWindow.ready) {
+            dialog.accept()
+            Vremenar.weatherSourceChanged(selectedIndex)
         }
-        onConfirmed: {
-            if (applicationWindow.ready) {
-                dialog.accept()
-            }
+    }
+    onConfirmed: {
+        if (applicationWindow.ready) {
+            dialog.accept()
         }
     }
 }

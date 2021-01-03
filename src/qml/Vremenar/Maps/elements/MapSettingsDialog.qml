@@ -18,7 +18,7 @@ import Vremenar.Navigation 1.0
 
 DialogBlur {
     id: dialog
-    height: Math.min(parent.height, Math.max(400, view.view.count * UI.rowHeight + 175))
+    height: Math.min(parent.height, view.view.count * UI.rowHeight + (viewSource.visible ? (viewSource.view.count + 1) * UI.rowHeight + 70 : 175))
 
     ListRadioView {
         id: view
@@ -28,6 +28,7 @@ DialogBlur {
         anchors.fill: parent
 
         selectedIndex: VWeather.currentMapLayer
+        additionalView: viewSource
 
         onSelectedIndexChanged: {
             if (applicationWindow.ready) {
@@ -65,20 +66,46 @@ DialogBlur {
                 }
 
                 ImageButton {
+                    id: buttonSatellite
                     width: UI.iconSizeLarge + 2 * UI.iconBorderThickness
                     active: VWeather.currentMapStyle === 0
                     image: "../../Common/satellite.png"
-                    onClicked: {
+                    onClicked: select()
+                    onConfirmed: select()
+                    KeyNavigation.right: buttonStreets
+                    KeyNavigation.down: view.view
+
+                    onFocusChanged: {
+                        if (!focus && !buttonStreets.focus) {
+                            view.currentIndex = 0
+                            view.view.focus = true
+                        }
+                    }
+
+                    function select() {
                         VWeather.currentMapStyle = 0
                         dialog.accept()
                     }
                 }
 
                 ImageButton {
+                    id: buttonStreets
                     width: UI.iconSizeLarge + 2 * UI.iconBorderThickness
                     active: VWeather.currentMapStyle === 1
                     image: "../../Common/streets.png"
-                    onClicked: {
+                    onClicked: select()
+                    onConfirmed: select()
+                    KeyNavigation.left: buttonSatellite
+                    KeyNavigation.down: view.view
+
+                    onFocusChanged: {
+                        if (!focus && !buttonSatellite.focus) {
+                            view.currentIndex = 0
+                            view.view.focus = true
+                        }
+                    }
+
+                    function select() {
                         VWeather.currentMapStyle = 1
                         dialog.accept()
                     }
@@ -93,6 +120,29 @@ DialogBlur {
                 height: UI.rowHeight / 4
             }
         ]
+
+        KeyNavigation.up: header ? buttonSatellite : null
+        KeyNavigation.down: viewSource.visible ? viewSource.view : null
+        onLostFocus: {
+            if (viewSource.visible && !buttonSatellite.focus) {
+                viewSource.currentIndex = 0
+                viewSource.view.focus = true
+            }
+        }
+
+        SourceSelection {
+            id: viewSource
+            visible: UI.isTV
+            additionalView: view
+            shouldHaveFocus: false
+
+            KeyNavigation.up: view.view
+
+            onLostFocus: {
+                view.currentIndex = view.view.count - 1
+                view.view.focus = true
+            }
+        }
     }
 
     Binding { target: view; property: "selectedIndex"; value: VWeather.currentMapLayer }

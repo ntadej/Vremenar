@@ -286,7 +286,7 @@ void WeatherProvider::currentTimeChanged()
 
 bool WeatherProvider::currentMapLayerHasLegend() const
 {
-    return !(currentType() == Weather::WeatherConditionMap || currentType() == Weather::CloudCoverageMap);
+    return !(currentType() == Weather::WeatherConditionMap || currentType() == Weather::CloudCoverageMap || currentType() == Weather::UnknownMapType);
 }
 
 void WeatherProvider::changeMapStyle(Weather::MapStyle style,

@@ -42,7 +42,7 @@ Qml::UIManager::UIManager(QObject *parent)
 bool Qml::UIManager::debugging() const
 {
 #if defined(Q_OS_MACOS) && defined(QT_DEBUG)
-    return true;
+    return !mapOnly();
 #else
     return false;
 #endif
@@ -60,6 +60,11 @@ bool Qml::UIManager::isMobile() const
 bool Qml::UIManager::isTV() const
 {
     return _device == Common::AndroidTV || _device == Common::FireTV;
+}
+
+bool Qml::UIManager::mapOnly() const
+{
+    return false;
 }
 
 Common::Theme Qml::UIManager::theme() const
@@ -178,8 +183,19 @@ void Qml::UIManager::updateSafeAreaMargins()
 #endif
 }
 
-void Qml::UIManager::debugAction()
+void Qml::UIManager::toast(const QString &message)
 {
+    qDebug() << message;
+#ifdef Q_OS_ANDROID
+    toastAndroid(message);
+#endif
+}
+
+void Qml::UIManager::debugAction(int key)
+{
+    Qt::Key keyEnum(static_cast<Qt::Key>(key));
+
+    qDebug() << keyEnum;
 }
 
 bool Qml::UIManager::showButtonMapType() const

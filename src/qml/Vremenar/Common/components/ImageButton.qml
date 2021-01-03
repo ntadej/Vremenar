@@ -21,8 +21,13 @@ MouseArea {
     property alias image: image.source
     property bool active: false
 
+    signal confirmed()
+
     height: width
     hoverEnabled: true
+
+    Keys.onReturnPressed: confirmed()
+    Keys.onEnterPressed: confirmed()
 
     Rectangle {
         id: background
@@ -58,7 +63,7 @@ MouseArea {
         },
         State {
             name: "hover"
-            when: containsMouse
+            when: containsMouse || focus
 
             PropertyChanges {
                 target: background

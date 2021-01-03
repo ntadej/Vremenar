@@ -11,6 +11,7 @@
 
 #include <QtAndroidExtras/QAndroidJniEnvironment>
 #include <QtAndroidExtras/QAndroidJniObject>
+#include <QtAndroidExtras/QtAndroid>
 #include <QtCore/QDebug>
 #include <QtGui/QScreen>
 
@@ -60,6 +61,20 @@ QMargins Qml::UIManager::safeAreaMargins()
     env->ReleaseIntArrayElements(m.object<jintArray>(), mArray, JNI_ABORT);
 
     return margins;
+}
+
+void Qml::UIManager::toastAndroid(const QString &message)
+{
+    // all the magic must happen on Android UI thread
+    QtAndroid::runOnAndroidThread([message] {
+        QAndroidJniObject javaString = QAndroidJniObject::fromString(message);
+        QAndroidJniObject toast = QAndroidJniObject::callStaticObjectMethod("android/widget/Toast", "makeText",
+                                                                            "(Landroid/content/Context;Ljava/lang/CharSequence;I)Landroid/widget/Toast;",
+                                                                            QtAndroid::androidActivity().object(),
+                                                                            javaString.object(),
+                                                                            jint(0));
+        toast.callMethod<void>("show");
+    });
 }
 
 } // namespace Vremenar
