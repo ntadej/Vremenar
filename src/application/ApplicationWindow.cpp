@@ -248,6 +248,7 @@ void ApplicationWindow::showSettingsDialog()
     dialog->setAttribute(Qt::WA_DeleteOnClose);
 
     connect(dialog, &SettingsDialog::localeChanged, _localeManager.get(), &LocaleManager::setLocale);
+    connect(dialog, &SettingsDialog::weatherSourceChanged, this, &ApplicationWindow::weatherSourceChanged);
     connect(dialog, &SettingsDialog::showInTrayChanged, _trayIcon.get(), &TrayIcon::setVisible);
 
 #ifdef Q_OS_MACOS
@@ -318,9 +319,16 @@ void ApplicationWindow::weatherSourceChanged(int source)
     Settings settings(this);
     if (weatherSource != settings.weatherSource()) {
         settings.setWeatherSource(sources[source]);
+        settings.setInitialWeatherSourceChosen(true);
+        settings.resetStartupMapCoordinates();
         settings.writeSettings();
 
+        // Do not override startup map coordinates
+        _ready = false;
         QCoreApplication::exit(Application::RESTART_CODE);
+    } else {
+        settings.setInitialWeatherSourceChosen(true);
+        settings.writeSettings();
     }
 }
 

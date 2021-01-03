@@ -17,12 +17,13 @@ namespace Vremenar
 Settings::Settings(QObject *parent)
     : QSettings(parent),
       _weatherSource(DEFAULT_WEATHER_SOURCE),
+      _initialWeatherSourceChosen(DEFAULT_INITIAL_WEATHER_SOURCE_CHOSEN),
       _startupMapEnabled(DEFAULT_STARTUP_MAP_ENABLED),
       _startupMapStyle(DEFAULT_STARTUP_MAP_STYLE),
       _startupMapType(DEFAULT_STARTUP_MAP_TYPE),
-      _startupMapZoomLevel(DEFAULT_STARTUP_MAP_ZOOM_LEVEL),
-      _startupMapLatitude(DEFAULT_STARTUP_MAP_LATITUDE),
-      _startupMapLongitude(DEFAULT_STARTUP_MAP_LONGITUDE),
+      _startupMapZoomLevel(DEFAULT_STARTUP_MAP_ZOOM_LEVEL_SI),
+      _startupMapLatitude(DEFAULT_STARTUP_MAP_LATITUDE_SI),
+      _startupMapLongitude(DEFAULT_STARTUP_MAP_LONGITUDE_SI),
       _locale(DEFAULT_LOCALE),
       _showInTray(DEFAULT_SHOW_IN_TRAY),
 #if defined(Q_OS_MACOS)
@@ -36,12 +37,13 @@ Settings::Settings(QObject *parent)
       _posY(DEFAULT_POS_Y)
 {
     _map[KEY_WEATHER_SOURCE] = DEFAULT_WEATHER_SOURCE;
+    _map[KEY_INITIAL_WEATHER_SOURCE_CHOSEN] = DEFAULT_INITIAL_WEATHER_SOURCE_CHOSEN;
     _map[KEY_STARTUP_MAP_ENABLED] = DEFAULT_STARTUP_MAP_ENABLED;
     _map[KEY_STARTUP_MAP_STYLE] = DEFAULT_STARTUP_MAP_STYLE;
     _map[KEY_STARTUP_MAP_TYPE] = DEFAULT_STARTUP_MAP_TYPE;
-    _map[KEY_STARTUP_MAP_ZOOM_LEVEL] = DEFAULT_STARTUP_MAP_ZOOM_LEVEL;
-    _map[KEY_STARTUP_MAP_LATITUDE] = DEFAULT_STARTUP_MAP_LATITUDE;
-    _map[KEY_STARTUP_MAP_LONGITUDE] = DEFAULT_STARTUP_MAP_LONGITUDE;
+    _map[KEY_STARTUP_MAP_ZOOM_LEVEL] = DEFAULT_STARTUP_MAP_ZOOM_LEVEL_SI;
+    _map[KEY_STARTUP_MAP_LATITUDE] = DEFAULT_STARTUP_MAP_LATITUDE_SI;
+    _map[KEY_STARTUP_MAP_LONGITUDE] = DEFAULT_STARTUP_MAP_LONGITUDE_SI;
     _map[KEY_LOCALE] = DEFAULT_LOCALE;
     _map[KEY_SHOW_IN_TRAY] = DEFAULT_SHOW_IN_TRAY;
 #if defined(Q_OS_MACOS)
@@ -60,6 +62,7 @@ Settings::Settings(QObject *parent)
 void Settings::writeSettings()
 {
     setValue(KEY_WEATHER_SOURCE, static_cast<int>(weatherSource()));
+    setValue(KEY_INITIAL_WEATHER_SOURCE_CHOSEN, initialWeatherSourceChosen());
 
     setValue(KEY_STARTUP_MAP_ENABLED, startupMapEnabled());
     setValue(KEY_STARTUP_MAP_STYLE, static_cast<int>(startupMapStyle()));
@@ -88,6 +91,7 @@ void Settings::writeSettings()
 void Settings::readSettings()
 {
     setWeatherSource(Sources::Country(value(KEY_WEATHER_SOURCE, defaultValue(KEY_WEATHER_SOURCE)).toInt()));
+    setInitialWeatherSourceChosen(value(KEY_INITIAL_WEATHER_SOURCE_CHOSEN, defaultValue(KEY_INITIAL_WEATHER_SOURCE_CHOSEN)).toBool());
 
     setStartupMapEnabled(value(KEY_STARTUP_MAP_ENABLED, defaultValue(KEY_STARTUP_MAP_ENABLED)).toBool());
     setStartupMapStyle(Weather::MapStyle(value(KEY_STARTUP_MAP_STYLE, defaultValue(KEY_STARTUP_MAP_STYLE)).toInt()));
@@ -116,6 +120,21 @@ void Settings::readSettings()
 QVariant Settings::defaultValue(const QString &key) const
 {
     return _map.value(key);
+}
+
+void Settings::resetStartupMapCoordinates()
+{
+    setStartupMapType(Weather::WeatherConditionMap);
+
+    if (weatherSource() == Sources::Germany) {
+        setStartupMapZoomLevel(DEFAULT_STARTUP_MAP_ZOOM_LEVEL_DE);
+        setStartupMapLatitude(DEFAULT_STARTUP_MAP_LATITUDE_DE);
+        setStartupMapLongitude(DEFAULT_STARTUP_MAP_LONGITUDE_DE);
+    } else {
+        setStartupMapZoomLevel(DEFAULT_STARTUP_MAP_ZOOM_LEVEL_SI);
+        setStartupMapLatitude(DEFAULT_STARTUP_MAP_LATITUDE_SI);
+        setStartupMapLongitude(DEFAULT_STARTUP_MAP_LONGITUDE_SI);
+    }
 }
 
 } // namespace Vremenar

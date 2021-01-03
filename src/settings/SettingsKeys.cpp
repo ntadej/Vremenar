@@ -16,6 +16,7 @@ namespace Vremenar
 
 // Country selection
 const QString Settings::KEY_WEATHER_SOURCE = QStringLiteral("weather/source");
+const QString Settings::KEY_INITIAL_WEATHER_SOURCE_CHOSEN = QStringLiteral("weather/initial-source-chosen");
 
 // Map startup settings
 const QString Settings::KEY_STARTUP_MAP_ENABLED = QStringLiteral("map/startup");

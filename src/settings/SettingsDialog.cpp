@@ -123,11 +123,7 @@ void SettingsDialog::sourceChangedSlot()
                                 "The application will now restart."),
                              QMessageBox::Ok);
 
-    Settings settings(this);
-    settings.setWeatherSource(_sources[ui->comboSource->currentIndex()]);
-    settings.writeSettings();
-
-    QCoreApplication::exit(Application::RESTART_CODE);
+    Q_EMIT weatherSourceChanged(ui->comboSource->currentIndex());
 }
 
 void SettingsDialog::loadLocales()

@@ -39,6 +39,7 @@ protected:
 
 Q_SIGNALS:
     void localeChanged();
+    void weatherSourceChanged(int source);
     void showInTrayChanged(bool checked);
 #if defined(Q_OS_MACOS)
     void showInDockChanged(bool checked);

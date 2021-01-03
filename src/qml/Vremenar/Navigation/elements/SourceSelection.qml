@@ -42,6 +42,7 @@ ListRadioView {
     onConfirmed: {
         if (applicationWindow.ready) {
             dialog.accept()
+            Vremenar.weatherSourceChanged(selectedIndex)
         }
     }
 }

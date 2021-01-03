@@ -24,6 +24,7 @@ class Settings : public QSettings
 {
     Q_OBJECT
     Q_PROPERTY(Vremenar::Sources::Country weatherSource READ weatherSource CONSTANT)
+    Q_PROPERTY(bool initialWeatherSourceChosen READ initialWeatherSourceChosen CONSTANT)
     Q_PROPERTY(bool startupMapEnabled READ startupMapEnabled CONSTANT)
     Q_PROPERTY(qreal startupMapZoomLevel READ startupMapZoomLevel CONSTANT)
     Q_PROPERTY(bool rememberPosition READ rememberPosition CONSTANT)
@@ -47,6 +48,11 @@ public:
     static const QString KEY_WEATHER_SOURCE;
     static const Sources::Country DEFAULT_WEATHER_SOURCE;
 
+    [[nodiscard]] inline bool initialWeatherSourceChosen() const { return _initialWeatherSourceChosen; }
+    inline void setInitialWeatherSourceChosen(bool b) { _initialWeatherSourceChosen = b; }
+    static const QString KEY_INITIAL_WEATHER_SOURCE_CHOSEN;
+    static const bool DEFAULT_INITIAL_WEATHER_SOURCE_CHOSEN;
+
     // Map startup settings
     [[nodiscard]] inline bool startupMapEnabled() const { return _startupMapEnabled; }
     inline void setStartupMapEnabled(bool b) { _startupMapEnabled = b; }
@@ -66,17 +72,22 @@ public:
     [[nodiscard]] inline qreal startupMapZoomLevel() const { return _startupMapZoomLevel; }
     inline void setStartupMapZoomLevel(qreal r) { _startupMapZoomLevel = r; }
     static const QString KEY_STARTUP_MAP_ZOOM_LEVEL;
-    static const qreal DEFAULT_STARTUP_MAP_ZOOM_LEVEL;
+    static const qreal DEFAULT_STARTUP_MAP_ZOOM_LEVEL_SI;
+    static const qreal DEFAULT_STARTUP_MAP_ZOOM_LEVEL_DE;
 
     [[nodiscard]] inline double startupMapLatitude() const { return _startupMapLatitude; }
     inline void setStartupMapLatitude(double d) { _startupMapLatitude = d; }
     static const QString KEY_STARTUP_MAP_LATITUDE;
-    static const double DEFAULT_STARTUP_MAP_LATITUDE;
+    static const double DEFAULT_STARTUP_MAP_LATITUDE_SI;
+    static const double DEFAULT_STARTUP_MAP_LATITUDE_DE;
 
     [[nodiscard]] inline double startupMapLongitude() const { return _startupMapLongitude; }
     inline void setStartupMapLongitude(double d) { _startupMapLongitude = d; }
     static const QString KEY_STARTUP_MAP_LONGITUDE;
-    static const double DEFAULT_STARTUP_MAP_LONGITUDE;
+    static const double DEFAULT_STARTUP_MAP_LONGITUDE_SI;
+    static const double DEFAULT_STARTUP_MAP_LONGITUDE_DE;
+
+    void resetStartupMapCoordinates();
 
     // Locale
     [[nodiscard]] inline const QString &locale() const { return _locale; }
@@ -137,6 +148,7 @@ private:
 
     // Country selection
     Sources::Country _weatherSource;
+    bool _initialWeatherSourceChosen;
 
     // Map startup settings
     bool _startupMapEnabled;

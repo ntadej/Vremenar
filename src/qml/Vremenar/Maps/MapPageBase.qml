@@ -126,6 +126,15 @@ Rectangle {
 
         onAboutToShow: dialogActive = true
         onAboutToHide: dialogActive = false
+
+        Connections {
+            target: applicationWindow
+            function onReadyChanged() {
+                if (!Settings.initialWeatherSourceChosen) {
+                    sourceSettingsDialog.open()
+                }
+            }
+        }
     }
 
     MapSettingsDialog {
