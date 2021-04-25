@@ -17,7 +17,7 @@ repositories {
 apply plugin: 'com.android.application'
 
 dependencies {
-    implementation 'ly.count.android:sdk:20.11.2'
+    compile 'ly.count.android:sdk:20.11.6'
     implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
 }
 

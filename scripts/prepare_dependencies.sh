@@ -14,7 +14,7 @@ if [[ -z ${Qt5_Dir+x} ]]; then
 fi
 
 if [[ "${1}" == "macos" ]] || [[ "${1}" == "macOS" ]]; then
-  SPARKLE_VERSION="1.24.0"
+  SPARKLE_VERSION="1.26.0"
   COUNTLY_VERSION="20.11.1"
 
   echo "Downloading for macOS"
