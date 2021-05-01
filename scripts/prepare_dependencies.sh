@@ -34,7 +34,8 @@ if [[ "${1}" == "macos" ]] || [[ "${1}" == "macOS" ]]; then
   echo
   echo "Qt Patches"
   if [[ $QT -eq 1 ]]; then
-    wget -nv -O "$Qt5_Dir/plugins/platforms/libqcocoa.dylib" "https://github.com/ntadej/qcocoa/releases/download/v${QT_VERSION}/libqcocoa.dylib"
+    wget -nv -O "$Qt5_Dir/plugins/platforms/libqcocoa.dylib" "https://github.com/ntadej/qcocoa/releases/download/v${QT_VERSION}.1/libqcocoa.dylib"
+    wget -nv -O "$Qt5_Dir/plugins/styles/libqmacstyle.dylib" "https://github.com/ntadej/qmacstyle/releases/download/v${QT_VERSION}.1/libqmacstyle.dylib"
     wget -nv -O "$Qt5_Dir/plugins/geoservices/libqtgeoservices_mapboxgl.dylib" "https://github.com/ntadej/qt-geoservices-mapboxgl/releases/download/v${QT_VERSION}/libqtgeoservices_mapboxgl_clang_64.dylib"
   else
     echo "skipping..."

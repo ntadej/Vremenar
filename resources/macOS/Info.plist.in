@@ -40,13 +40,15 @@
         <key>NSHighResolutionCapable</key>
         <string>True</string>
         <key>NSHumanReadableCopyright</key>
-        <string>2019 Tadej Novak</string>
+        <string>2021 Tadej Novak</string>
         <key>NSPrincipalClass</key>
         <string>NSApplication</string>
         <key>NSSupportsAutomaticGraphicsSwitching</key>
         <true/>
         <key>NSLocationWhenInUseUsageDescription</key>
         <string>Location for weather info.</string>
+        <key>NSAccentColorName</key>
+        <string>AccentColor</string>
         <key>SUFeedURL</key>
         <string>$${APPCAST_ENDPOINT}/appcast.xml</string>
         <key>SUPublicEDKey</key>

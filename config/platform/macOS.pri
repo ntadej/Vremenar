@@ -1,6 +1,6 @@
 #
 # Vremenar
-# Copyright (C) 2019 Tadej Novak <tadej@tano.si>
+# Copyright (C) 2021 Tadej Novak <tadej@tano.si>
 #
 # This application is bi-licensed under the GNU General Public License
 # Version 3 or later as well as Mozilla Public License Version 2.
@@ -23,6 +23,7 @@ macOSPlist.output = $$OUT_PWD/Info.plist
 QMAKE_SUBSTITUTES += macOSPlist
 QMAKE_INFO_PLIST = $$OUT_PWD/Info.plist
 ICON = $$top_srcdir/resources/macOS/Vremenar.icns
+QMAKE_ASSET_CATALOGS += $$top_srcdir/resources/macOS/Assets.xcassets
 
 # Countly
 QMAKE_CXXFLAGS += -F$$top_srcdir/3rdparty/Countly/macOS

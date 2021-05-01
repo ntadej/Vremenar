@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -35,12 +35,6 @@ AboutDialog::AboutDialog(WeatherProvider *weatherProvider,
                    | Qt::CustomizeWindowHint);
 
     QString additionalStyle;
-#ifdef Q_OS_MAC
-    auto *application = qobject_cast<DesktopApplication *>(QCoreApplication::instance());
-    if (application->isDark()) {
-        additionalStyle.append("color: #cccccc;");
-    }
-#endif
 
     QString copyrightMaps;
     for (const std::unique_ptr<Hyperlink> &link : Maps::copyright()) {
