@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -125,10 +125,14 @@ void TrayIcon::setCurrentMap(int index)
     }
 }
 
-void TrayIcon::setCurrentWeather(const StationInfo *station,
-                                 const WeatherCondition *condition)
+void TrayIcon::setCurrentStation(const StationInfo *station)
 {
-    if (station != nullptr) {
+    Q_UNUSED(station)
+}
+
+void TrayIcon::setCurrentCondition(const WeatherCondition *condition)
+{
+    if (condition != nullptr) {
         setToolTip(condition->displayTemperatureShort());
         QIcon i(QStringLiteral(":/Vremenar/Maps/TrayMask/%1.png").arg(condition->icon()));
         i.setIsMask(true);

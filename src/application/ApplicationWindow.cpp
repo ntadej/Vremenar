@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -8,6 +8,8 @@
 *
 * SPDX-License-Identifier: (GPL-3.0-or-later AND MPL-2.0)
 */
+
+#include <chrono>
 
 #include <QtCore/QCoreApplication>
 #include <QtCore/QDebug>
@@ -232,7 +234,8 @@ void ApplicationWindow::createWidgets()
     connect(_trayIcon.get(), &TrayIcon::mapSelected, _weatherProvider.get(), &WeatherProvider::currentMapLayerChanged);
     connect(_weatherProvider.get(), &WeatherProvider::currentMapStyleChangedSignal, _trayIcon.get(), &TrayIcon::setCurrentStyle);
     connect(_weatherProvider.get(), &WeatherProvider::currentMapLayerChangedSignal, _trayIcon.get(), &TrayIcon::setCurrentMap);
-    connect(_weatherProvider->current(), &CurrentWeather::weatherChanged, _trayIcon.get(), &TrayIcon::setCurrentWeather);
+    connect(_weatherProvider->current(), &CurrentWeather::stationChanged, _trayIcon.get(), &TrayIcon::setCurrentStation);
+    connect(_weatherProvider->current(), &CurrentWeather::conditionChanged, _trayIcon.get(), &TrayIcon::setCurrentCondition);
 }
 
 void ApplicationWindow::showAboutDialog()
@@ -274,6 +277,8 @@ void ApplicationWindow::processUrl(const QString &url)
 
 void ApplicationWindow::startCompleted()
 {
+    using namespace std::chrono_literals;
+
     Settings settings(this);
 #ifdef Q_OS_MACOS
     Q_EMIT dockVisibilityChanged(settings.showInDock());
@@ -294,8 +299,7 @@ void ApplicationWindow::startCompleted()
     _updates->checkForUpdates();
 #endif
 
-    // NOLINTNEXTLINE(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
-    QTimer::singleShot(1000, this, &ApplicationWindow::startLoadInitialMap);
+    QTimer::singleShot(1s, this, &ApplicationWindow::startLoadInitialMap);
 }
 
 void ApplicationWindow::startLoadInitialMap()

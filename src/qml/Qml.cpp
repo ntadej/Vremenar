@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -33,11 +33,8 @@ void Qml::registerTypes()
     qmlRegisterSingletonType<UIManager>(uri, 1, 0, "UI", UIManager::provider);
     qmlRegisterSingletonType<Settings>(uri, 1, 0, "Settings", Globals::providerSettings);
 
-    //    qRegisterMetaType<StationInfo *>("StationInfo*");
-    //    qRegisterMetaType<WeatherCondition *>("WeatherCondition*");
-
-    qmlRegisterUncreatableType<StationInfo>(uri, 1, 0, "StationInfo", "");
-    qmlRegisterUncreatableType<WeatherCondition>(uri, 1, 0, "WeatherCondition", "");
+    qmlRegisterUncreatableType<StationInfo>(uri, 1, 0, "StationInfo", QStringLiteral("Error: only creatable in C++"));
+    qmlRegisterUncreatableType<WeatherCondition>(uri, 1, 0, "WeatherCondition", QStringLiteral("Error: only creatable in C++"));
 
     qmlRegisterUncreatableMetaObject(Common::staticMetaObject, uri, 1, 0, "Common", QStringLiteral("Error: only enums"));
     qmlRegisterUncreatableMetaObject(Weather::staticMetaObject, uri, 1, 0, "Weather", QStringLiteral("Error: only enums"));

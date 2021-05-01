@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -30,8 +30,8 @@ public:
     explicit CurrentWeather(QObject *parent = nullptr);
     virtual ~CurrentWeather() = default;
 
-    Q_PROPERTY(StationInfo *station READ station NOTIFY weatherChanged)
-    Q_PROPERTY(WeatherCondition *condition READ condition NOTIFY weatherChanged)
+    Q_PROPERTY(StationInfo *station READ station NOTIFY stationChanged)
+    Q_PROPERTY(WeatherCondition *condition READ condition NOTIFY conditionChanged)
 
     [[nodiscard]] inline bool hasStation() const { return _station != nullptr; }
 
@@ -42,8 +42,8 @@ public:
     [[nodiscard]] inline WeatherCondition *condition() const { return _condition.get(); }
 
 Q_SIGNALS:
-    void weatherChanged(const StationInfo *station,
-                        const WeatherCondition *condition);
+    void stationChanged(Vremenar::StationInfo *station);
+    void conditionChanged(Vremenar::WeatherCondition *condition);
 
 private:
     std::unique_ptr<StationInfo> _station{};

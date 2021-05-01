@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -50,27 +50,28 @@ LocationProvider::LocationProvider(QObject *parent)
 #endif
 
     QMap<QString, QVariant> params;
-    params[QStringLiteral("osm.useragent")] = QString(Vremenar::name) + " " + Vremenar::version;
+    params.insert(QStringLiteral("osm.useragent"), QString(Vremenar::name) + " " + Vremenar::version);
 
     _provider = std::make_unique<QGeoServiceProvider>("osm", params);
     if (_provider->geocodingManager() != nullptr) {
-        connect(_provider->geocodingManager(), SIGNAL(finished(QGeoCodeReply *)),
-                this, SLOT(reverseGeocodingFinished(QGeoCodeReply *)));
-        connect(_provider->geocodingManager(), SIGNAL(error(QGeoCodeReply *, QGeoCodeReply::Error, QString)),
-                this, SLOT(reverseGeocodingError(QGeoCodeReply *, QGeoCodeReply::Error, QString)));
+        connect(_provider->geocodingManager(), &QGeoCodingManager::finished,
+                this, &LocationProvider::reverseGeocodingFinished);
+        connect(_provider->geocodingManager(), &QGeoCodingManager::error,
+                this, &LocationProvider::reverseGeocodingError);
     }
 
     _position.reset(QGeoPositionInfoSource::createDefaultSource(this));
     if (_position) {
         connect(_timer.get(), &QTimer::timeout, this, &LocationProvider::requestPositionUpdate);
 
-        connect(_position.get(), SIGNAL(supportedPositioningMethodsChanged()),
-                this, SLOT(supportedMethodsChanged()));
-        connect(_position.get(), SIGNAL(positionUpdated(QGeoPositionInfo)),
-                this, SLOT(positionUpdated(QGeoPositionInfo)));
-        connect(_position.get(), SIGNAL(error(QGeoPositionInfoSource::Error)),
-                this, SLOT(positionError(QGeoPositionInfoSource::Error)));
-        connect(_position.get(), SIGNAL(updateTimeout()), this, SLOT(positionTimeout()));
+        connect(_position.get(), &QGeoPositionInfoSource::supportedPositioningMethodsChanged,
+                this, &LocationProvider::supportedMethodsChanged);
+        connect(_position.get(), &QGeoPositionInfoSource::positionUpdated,
+                this, &LocationProvider::positionUpdated);
+        connect(_position.get(), QOverload<QGeoPositionInfoSource::Error>::of(&QGeoPositionInfoSource::error),
+                this, &LocationProvider::positionError);
+        connect(_position.get(), &QGeoPositionInfoSource::updateTimeout,
+                this, &LocationProvider::positionTimeout);
 
         positionUpdated(_position->lastKnownPosition());
         requestPositionUpdate();

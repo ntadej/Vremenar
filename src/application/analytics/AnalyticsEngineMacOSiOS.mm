@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -24,7 +24,8 @@ namespace Vremenar
 AnalyticsEngineMacOSiOS::AnalyticsEngineMacOSiOS()
 {
     CountlyConfig *config = [[CountlyConfig alloc] init];
-    config.appKey = [NSString stringWithUTF8String:Vremenar::CountlyAppKey.data()]; // NOLINT(clang-analyzer-nullability.NullPassedToNonnull,clang-analyzer-nullability.NullabilityBase)
+    // NOLINTNEXTLINE(clang-analyzer-nullability.NullPassedToNonnull,clang-analyzer-nullability.NullablePassedToNonnull,clang-analyzer-nullability.NullabilityBase)
+    config.appKey = [NSString stringWithUTF8String:Vremenar::CountlyAppKey.data()];
     config.host = [NSString stringWithUTF8String:Vremenar::CountlyEndpoint.data()];
     config.secretSalt = [NSString stringWithUTF8String:Vremenar::CountlySalt.data()];
     config.features = @[ CLYCrashReporting ];
