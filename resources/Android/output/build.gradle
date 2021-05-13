@@ -1,7 +1,7 @@
 buildscript {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
 
     dependencies {
@@ -11,13 +11,13 @@ buildscript {
 
 repositories {
     google()
-    jcenter()
+    mavenCentral()
 }
 
 apply plugin: 'com.android.application'
 
 dependencies {
-    compile 'ly.count.android:sdk:20.11.6'
+    implementation 'ly.count.android:sdk:20.11.8'
     implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
 }
 
@@ -72,7 +72,7 @@ android {
 
     defaultConfig {
         resConfig "en"
-        minSdkVersion = qtMinSdkVersion
-        targetSdkVersion = qtTargetSdkVersion
+        minSdkVersion 21
+        targetSdkVersion 30
     }
 }

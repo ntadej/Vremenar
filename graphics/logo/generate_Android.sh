@@ -32,10 +32,12 @@ done
 
 # For web & Amazon
 $inkscape -o "$OUT/generated/shape.png" --export-area "$area" -w 512 "$DIR/shape.svg"
+$inkscape -o "$OUT/generated/background.png" -w 512 "$DIR/background_square.svg"
 magick composite -gravity center "$OUT/generated/shape.png" "$OUT/generated/ic_launcher-web.png" "$OUT/ic_launcher-web.png"
+magick composite -gravity center "$OUT/generated/shape.png" "$OUT/generated/background.png" "$OUT/icon_large.png"
 cp "$OUT/ic_launcher-web.png" "$OUT/amazon_large.png"
 convert "$OUT_res/mipmap-xxhdpi/ic_launcher.png" -gravity center -crop 114x114+0+0 +repage "$OUT/amazon_small.png"
-rm "$OUT/generated/shape.png"
+rm "$OUT/generated/shape.png" "$OUT/generated/background.png"
 
 # TV
 $inkscape -o "$OUT_gen/background.png" -w 320 -h 180 "$DIR/background_square.svg"
