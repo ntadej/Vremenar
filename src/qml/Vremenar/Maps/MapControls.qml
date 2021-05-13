@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -24,7 +24,7 @@ ColumnLayout {
 
     property bool active: false
     property alias legend: mapLegend
-    property var navigation: Vremenar.Common.TypeNavigation
+    property var navigation: UI.isTV ? Vremenar.Common.ControlsNavigation : Vremenar.Common.TypeNavigation
     property int delta: 48
     property real zoomDelta: 0.1
 
@@ -40,31 +40,30 @@ ColumnLayout {
         sequences: ["Space", "Media Play", "Media Pause", "Toggle Media Play/Pause"]
         onActivated: {
             console.log("'Media Previous/Rewind' pressed")
-            buttonPlay.downAnimation()
-            VMapLayersModel.play()
+            buttonPlay.action()
         }
     }
     Shortcut {
         sequences: ["Media Rewind", "Media Previous"]
         onActivated: {
             console.log("'Media Previous/Rewind' pressed")
-            buttonPrevious.downAnimation()
-            VMapLayersModel.previous()
+            buttonPrevious.action()
         }
     }
     Shortcut {
         sequences: ["Media Fast Forward", "Media Next"]
         onActivated: {
             console.log("'Media Next/Forward' pressed")
-            buttonNext.downAnimation()
-            VMapLayersModel.next()
+            buttonNext.action()
         }
     }
     Shortcut {
         sequences: ["Up"]
         onActivated: {
             console.log("'Up' pressed")
-            if (navigation === Vremenar.Common.TypeNavigation) {
+            if (navigation === Vremenar.Common.ControlsNavigation) {
+                buttonRow.disableFocus()
+            } else if (navigation === Vremenar.Common.TypeNavigation) {
                 VWeather.currentMapLayer -= 1
             } else if (navigation === Vremenar.Common.MoveNavigation) {
                 map.pan(0, -delta)
@@ -77,7 +76,9 @@ ColumnLayout {
         sequences: ["Down"]
         onActivated: {
             console.log("'Down' pressed")
-            if (navigation === Vremenar.Common.TypeNavigation) {
+            if (navigation === Vremenar.Common.ControlsNavigation) {
+                buttonRow.enableFocus()
+            } else if (navigation === Vremenar.Common.TypeNavigation) {
                 VWeather.currentMapLayer += 1
             } else if (navigation === Vremenar.Common.MoveNavigation) {
                 map.pan(0, delta)
@@ -88,6 +89,7 @@ ColumnLayout {
     }
     Shortcut {
         sequences: ["Left"]
+        enabled: navigation !== Vremenar.Common.ControlsNavigation
         onActivated: {
             console.log("'Left' pressed")
             if (navigation === Vremenar.Common.MoveNavigation) {
@@ -97,6 +99,7 @@ ColumnLayout {
     }
     Shortcut {
         sequences: ["Right"]
+        enabled: navigation !== Vremenar.Common.ControlsNavigation
         onActivated: {
             console.log("'Right' pressed")
             if (navigation === Vremenar.Common.MoveNavigation) {
@@ -106,18 +109,22 @@ ColumnLayout {
     }
     Shortcut {
         sequences: ["Enter", "Return"]
+        enabled: !buttonRow.hasFocus()
         onActivated: {
             console.log("'Enter'/'Return' pressed")
             if (UI.isTV) {
-                if (navigation === Vremenar.Common.TypeNavigation) {
+                if (navigation === Vremenar.Common.ControlsNavigation) {
+                    navigation = Vremenar.Common.TypeNavigation
+                    UI.toast(qsTr("Map type can now be switched using up and down keys"))
+                } else if (navigation === Vremenar.Common.TypeNavigation) {
                     navigation = Vremenar.Common.MoveNavigation
                     UI.toast(qsTr("Map can now be moved around with direction keys"))
                 } else if (navigation === Vremenar.Common.MoveNavigation) {
                     navigation = Vremenar.Common.ZoomNavigation
                     UI.toast(qsTr("Map can now be zoomed using up and down keys"))
                 } else if (navigation === Vremenar.Common.ZoomNavigation) {
-                    navigation = Vremenar.Common.TypeNavigation
-                    UI.toast(qsTr("Map type can now be switched using up and down keys"))
+                    navigation = Vremenar.Common.ControlsNavigation
+                    UI.toast(qsTr("Map control buttons are now accessible"))
                 }
             }
         }
@@ -137,8 +144,25 @@ ColumnLayout {
     }
 
     RowLayout {
+        id: buttonRow
         height: UI.mapElementSize
         Layout.maximumHeight: UI.mapElementSize
+
+        function enableFocus() {
+            buttonPlay.forceActiveFocus()
+        }
+
+        function disableFocus() {
+            buttonFirst.focus = false
+            buttonPrevious.focus = false
+            buttonPlay.focus = false
+            buttonNext.focus = false
+            buttonLast.focus = false
+        }
+
+        function hasFocus() {
+            return buttonFirst.focus || buttonPrevious.focus || buttonPlay.focus || buttonNext.focus || buttonLast.focus
+        }
 
         IconButton {
             id: buttonInfo
@@ -162,7 +186,15 @@ ColumnLayout {
             width: UI.mapElementSize
             disabled: VMapLayersModel.minTimestamp === VMapLayersModel.time
 
-            onClicked: VMapLayersModel.first()
+            onClicked: action()
+            onConfirmed: action()
+
+            function action() {
+                downAnimation()
+                VMapLayersModel.first()
+            }
+
+            KeyNavigation.right: buttonPrevious.disabled ? buttonPlay : buttonPrevious
         }
 
         IconButton {
@@ -172,7 +204,16 @@ ColumnLayout {
             width: UI.mapElementSize
             disabled: VMapLayersModel.minTimestamp === VMapLayersModel.time
 
-            onClicked: VMapLayersModel.previous()
+            onClicked: action()
+            onConfirmed: action()
+
+            function action() {
+                downAnimation()
+                VMapLayersModel.previous()
+            }
+
+            KeyNavigation.left: buttonFirst.disabled ? null : buttonFirst
+            KeyNavigation.right: buttonPlay
         }
 
         IconButton {
@@ -181,7 +222,16 @@ ColumnLayout {
             family: UI.iconTheme
             width: UI.mapElementSize
 
-            onClicked: VMapLayersModel.play()
+            onClicked: action()
+            onConfirmed: action()
+
+            function action() {
+                downAnimation()
+                VMapLayersModel.play()
+            }
+
+            KeyNavigation.left: buttonPrevious.disabled ? null : buttonPrevious
+            KeyNavigation.right: buttonNext.disabled ? null : buttonNext
         }
 
         IconButton {
@@ -191,7 +241,16 @@ ColumnLayout {
             width: UI.mapElementSize
             disabled: VMapLayersModel.maxTimestamp === VMapLayersModel.time
 
-            onClicked: VMapLayersModel.next()
+            onClicked: action()
+            onConfirmed: action()
+
+            function action() {
+                downAnimation()
+                VMapLayersModel.next()
+            }
+
+            KeyNavigation.left: buttonPlay
+            KeyNavigation.right: buttonLast.disabled ? null : buttonLast
         }
 
         IconButton {
@@ -202,7 +261,15 @@ ColumnLayout {
             width: UI.mapElementSize
             disabled: VMapLayersModel.maxTimestamp === VMapLayersModel.time
 
-            onClicked: VMapLayersModel.last()
+            onClicked: action()
+            onConfirmed: action()
+
+            function action() {
+                downAnimation()
+                VMapLayersModel.last()
+            }
+
+            KeyNavigation.left: buttonNext.disabled ? buttonPlay : buttonNext
         }
 
         Item {

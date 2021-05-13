@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -22,10 +22,15 @@ MouseArea {
     property alias size: textLabel.font.pixelSize
     property bool disabled: false
 
+    signal confirmed()
+
     height: width
 
     enabled: !disabled
     hoverEnabled: !disabled
+
+    Keys.onReturnPressed: confirmed()
+    Keys.onEnterPressed: confirmed()
 
     Rectangle {
         id: background
@@ -54,7 +59,7 @@ MouseArea {
         },
         State {
             name: "hover"
-            when: containsMouse
+            when: containsMouse || focus
 
             PropertyChanges {
                 target: textLabel
@@ -89,9 +94,11 @@ MouseArea {
         id: timer
         interval: UI.hoverDuration; running: false; repeat: false
         onTriggered: {
-            if (disabled) {
+            if (focus) {
+                button.state = "hover"
+            } else if (disabled) {
                 button.state = "disabled"
-            } else {
+            } else  {
                 button.state = ""
             }
         }

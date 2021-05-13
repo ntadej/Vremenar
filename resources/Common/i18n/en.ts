@@ -55,37 +55,42 @@
 <context>
     <name>MapControls</name>
     <message>
-        <location filename="../../../src/qml/Vremenar/Maps/MapControls.qml" line="114"/>
+        <location filename="../../../src/qml/Vremenar/Maps/MapControls.qml" line="121"/>
         <source>Map can now be moved around with direction keys</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Maps/MapControls.qml" line="117"/>
+        <location filename="../../../src/qml/Vremenar/Maps/MapControls.qml" line="124"/>
         <source>Map can now be zoomed using up and down keys</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Maps/MapControls.qml" line="120"/>
+        <location filename="../../../src/qml/Vremenar/Maps/MapControls.qml" line="118"/>
         <source>Map type can now be switched using up and down keys</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Maps/MapControls.qml" line="245"/>
+        <location filename="../../../src/qml/Vremenar/Maps/MapControls.qml" line="127"/>
+        <source>Map control buttons are now accessible</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../src/qml/Vremenar/Maps/MapControls.qml" line="312"/>
         <source>Last updated:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Maps/MapControls.qml" line="253"/>
+        <location filename="../../../src/qml/Vremenar/Maps/MapControls.qml" line="320"/>
         <source>Weather data</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Maps/MapControls.qml" line="254"/>
+        <location filename="../../../src/qml/Vremenar/Maps/MapControls.qml" line="321"/>
         <source>Maps</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Maps/MapControls.qml" line="277"/>
+        <location filename="../../../src/qml/Vremenar/Maps/MapControls.qml" line="344"/>
         <source>Change country</source>
         <translation type="unfinished"></translation>
     </message>

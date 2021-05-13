@@ -77,37 +77,42 @@
 <context>
     <name>MapControls</name>
     <message>
-        <location filename="../../../src/qml/Vremenar/Maps/MapControls.qml" line="114"/>
+        <location filename="../../../src/qml/Vremenar/Maps/MapControls.qml" line="121"/>
         <source>Map can now be moved around with direction keys</source>
         <translation>Po zemljevidu se lahko premikaš s smernimi gumbi</translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Maps/MapControls.qml" line="117"/>
+        <location filename="../../../src/qml/Vremenar/Maps/MapControls.qml" line="124"/>
         <source>Map can now be zoomed using up and down keys</source>
         <translation>Zemljevid lahko približaš z gumboma gor in dol</translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Maps/MapControls.qml" line="120"/>
+        <location filename="../../../src/qml/Vremenar/Maps/MapControls.qml" line="118"/>
         <source>Map type can now be switched using up and down keys</source>
         <translation>Tip zemljevida lahko izbereš z gumboma gor in dol</translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Maps/MapControls.qml" line="245"/>
+        <location filename="../../../src/qml/Vremenar/Maps/MapControls.qml" line="127"/>
+        <source>Map control buttons are now accessible</source>
+        <translation>Gumbi za upravljanje z zemljevidom so sedaj dostopni</translation>
+    </message>
+    <message>
+        <location filename="../../../src/qml/Vremenar/Maps/MapControls.qml" line="312"/>
         <source>Last updated:</source>
         <translation>Nazadnje osveženo:</translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Maps/MapControls.qml" line="253"/>
+        <location filename="../../../src/qml/Vremenar/Maps/MapControls.qml" line="320"/>
         <source>Weather data</source>
         <translation>Vremenski podatki</translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Maps/MapControls.qml" line="254"/>
+        <location filename="../../../src/qml/Vremenar/Maps/MapControls.qml" line="321"/>
         <source>Maps</source>
         <translation>Zemljevidi</translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Maps/MapControls.qml" line="277"/>
+        <location filename="../../../src/qml/Vremenar/Maps/MapControls.qml" line="344"/>
         <source>Change country</source>
         <translation>Zamenjaj državo</translation>
     </message>
