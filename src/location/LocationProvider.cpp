@@ -13,11 +13,12 @@
 #include <QtLocation/QGeoCodingManager>
 #include <QtPositioning/QGeoAddress>
 
-#include "maps/LocationProvider.h"
+#include "location/LocationProvider.h"
 #include "settings/Settings.h"
 
 #include "Config.h"
 
+#ifdef VREMENAR_POSITIONING
 namespace
 {
 constexpr int updateInterval{60000000};
@@ -25,6 +26,7 @@ constexpr int updateInterval{60000000};
 constexpr int androidQuickUpdate{3000};
 #endif
 } // namespace
+#endif
 
 namespace Vremenar
 {
@@ -33,21 +35,22 @@ LocationProvider::LocationProvider(QObject *parent)
     : QObject(parent),
       _timer(std::make_unique<QTimer>(this))
 {
-#if defined(Q_OS_MACOS) || defined(Q_OS_IOS)
+#if defined(VREMENAR_POSITIONING) && (defined(Q_OS_MACOS) || defined(Q_OS_IOS))
     initMacOSiOS();
 #endif
-
-    _timer->setInterval(updateInterval);
-    _timer->setSingleShot(true);
 
     Settings settings(this);
     _initialPosition = QGeoPositionInfo(QGeoCoordinate(settings.startupMapLatitude(), settings.startupMapLongitude()), QDateTime::currentDateTime());
 
+#ifdef VREMENAR_POSITIONING
 #if defined(Q_OS_ANDROID)
     if (!initAndroid()) {
         return;
     }
 #endif
+
+    _timer->setInterval(updateInterval);
+    _timer->setSingleShot(true);
 
     QMap<QString, QVariant> params;
     params.insert(QStringLiteral("osm.useragent"), QString(Vremenar::name) + " " + Vremenar::version);
@@ -78,11 +81,14 @@ LocationProvider::LocationProvider(QObject *parent)
     } else {
         qWarning() << "Positioning source could not be initialised.";
     }
+#endif
 }
 
 bool LocationProvider::enabled()
 {
-#if defined(Q_OS_MACOS) || defined(Q_OS_IOS)
+#ifndef VREMENAR_POSITIONING
+    return false;
+#elif defined(Q_OS_MACOS) || defined(Q_OS_IOS)
     return _platform->servicesEnabled() && _platform->servicesAllowed();
 #else
     if (_position != nullptr) {
@@ -101,6 +107,7 @@ bool LocationProvider::enabled()
 
 void LocationProvider::requestPositionUpdate()
 {
+#ifdef VREMENAR_POSITIONING
     _timer->stop();
     if (_position && enabled()) {
         qDebug() << "Request position update.";
@@ -110,6 +117,7 @@ void LocationProvider::requestPositionUpdate()
         _position->requestUpdate();
 #endif
     }
+#endif
 }
 
 QGeoCoordinate LocationProvider::initialPosition() const

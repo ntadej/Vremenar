@@ -1,6 +1,6 @@
 #
 # Vremenar
-# Copyright (C) 2019 Tadej Novak <tadej@tano.si>
+# Copyright (C) 2021 Tadej Novak <tadej@tano.si>
 #
 # This application is bi-licensed under the GNU General Public License
 # Version 3 or later as well as Mozilla Public License Version 2.
@@ -29,6 +29,7 @@ OTHER_FILES += \
 include(common/common.pri)
 include(settings/settings.pri)
 include(maps/maps.pri)
+include(location/location.pri)
 include(weather/weather.pri)
 include(qml/qml.pri)
 include(application/application.pri)

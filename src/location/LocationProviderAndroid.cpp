@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -12,7 +12,7 @@
 #include <QtAndroidExtras/QAndroidJniObject>
 #include <QtCore/QDebug>
 
-#include "maps/LocationProvider.h"
+#include "location/LocationProvider.h"
 
 namespace Vremenar
 {
@@ -26,7 +26,7 @@ bool LocationProvider::initAndroid()
 
     auto isFireTV = activity.callMethod<jboolean>("isFireTV");
     if (isFireTV) {
-        qDebug() << "Disabling location services on Fire TV.";
+        qDebug() << "Disabling positioning services on Fire TV.";
         return false;
     }
 

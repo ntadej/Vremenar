@@ -1,7 +1,7 @@
 <RCC>
     <qresource prefix="/Vremenar/Maps">
         <file>qmldir</file>
-        <file>LocationProvider.qml</file>
+        <file>MappingProvider.qml</file>
         <file>MapButtons.qml</file>
         <file>elements/CurrentLocationIndicator.qml</file>
         <file>MapPageBase.qml</file>

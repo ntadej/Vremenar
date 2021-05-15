@@ -23,7 +23,7 @@
 #include "application/analytics/Analytics.h"
 #include "common/LocaleManager.h"
 #include "common/NetworkManagerFactory.h"
-#include "maps/LocationProvider.h"
+#include "location/LocationProvider.h"
 #include "maps/MapsManager.h"
 #include "weather/WeatherProvider.h"
 

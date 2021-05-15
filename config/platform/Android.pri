@@ -11,6 +11,21 @@
 # Android extras
 QT += androidextras
 
+# Manifest defines
+!defaultmanifest {
+    VREMENAR_ANDROID_PERMISSIONS = '<uses-permission android:name="android.permission.INTERNET" />' \
+        '<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />' \
+        '<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />'
+
+    positioning {
+        VREMENAR_ANDROID_FEATURES += '<uses-feature android:name="android.hardware.location.gps" android:required="false" />'
+        VREMENAR_ANDROID_PERMISSIONS += '<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />'
+    }
+} else {
+    VREMENAR_ANDROID_PERMISSIONS = '<!-- %%INSERT_PERMISSIONS -->'
+    VREMENAR_ANDROID_FEATURES = '<!-- %%INSERT_FEATURES -->'
+}
+
 # Define substitution files
 iOSPlist.input = $$top_srcdir/resources/Android/AndroidManifest.xml.in
 iOSPlist.output = $$top_srcdir/resources/Android/output/AndroidManifest.xml

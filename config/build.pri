@@ -1,6 +1,6 @@
 #
 # Vremenar
-# Copyright (C) 2020 Tadej Novak <tadej@tano.si>
+# Copyright (C) 2021 Tadej Novak <tadej@tano.si>
 #
 # This application is bi-licensed under the GNU General Public License
 # Version 3 or later as well as Mozilla Public License Version 2.
@@ -21,6 +21,12 @@ CONFIG += c++17
 QT += qml quick
 QT += location positioning sql
 QT += quickcontrols2
+!firetv {
+    CONFIG += positioning
+}
+positioning {
+    DEFINES += VREMENAR_POSITIONING
+}
 
 # Define common platforms
 macx|linux:!android {
