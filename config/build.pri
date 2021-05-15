@@ -21,11 +21,18 @@ CONFIG += c++17
 QT += qml quick
 QT += location positioning sql
 QT += quickcontrols2
+
+# Positioning
 !firetv {
     CONFIG += positioning
 }
 positioning {
     DEFINES += VREMENAR_POSITIONING
+}
+
+# Store
+store {
+    DEFINES += VREMENAR_STORE
 }
 
 # Define common platforms

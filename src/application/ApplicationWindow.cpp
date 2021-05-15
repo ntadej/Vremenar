@@ -295,7 +295,7 @@ void ApplicationWindow::startCompleted()
 
     qDebug() << "Initialization completed";
 
-#ifndef Q_OS_MACOS
+#if !defined(Q_OS_MACOS) && !defined(VREMENAR_STORE)
     _updates->checkForUpdates();
 #endif
 
