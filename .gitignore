@@ -11,5 +11,7 @@ config.pri
 /graphics/weather/modifiers/*.png
 /graphics/weather/mask/components/*.svg
 /graphics/weather/mask/modifiers/*.svg
+/graphics/weather/tray/components/**/*.png
+/graphics/weather/tray/modifiers/**/*.png
 
 /resources/Android/output/AndroidManifest.xml

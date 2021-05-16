@@ -49,6 +49,26 @@ RESOURCES += \
 desktop {
     RESOURCES += \
         resources/Common/icons/icons.qrc \
-        resources/Linux/logo.qrc \
-        resources/Weather/TrayMask/tray_mask.qrc
+        resources/Linux/logo.qrc
+}
+macx {
+    RESOURCES += resources/Weather/TrayMask/tray_mask.qrc
+}
+linux:!android {
+    RESOURCES += \
+        resources/Weather/Tray/tray_clear_16.qrc \
+        resources/Weather/Tray/tray_clear_24.qrc \
+        resources/Weather/Tray/tray_clear_32.qrc \
+        resources/Weather/Tray/tray_overcast_16.qrc \
+        resources/Weather/Tray/tray_overcast_24.qrc \
+        resources/Weather/Tray/tray_overcast_32.qrc \
+        resources/Weather/Tray/tray_partCloudy_16.qrc \
+        resources/Weather/Tray/tray_partCloudy_24.qrc \
+        resources/Weather/Tray/tray_partCloudy_32.qrc \
+        resources/Weather/Tray/tray_prevCloudy_16.qrc \
+        resources/Weather/Tray/tray_prevCloudy_24.qrc \
+        resources/Weather/Tray/tray_prevCloudy_32.qrc \
+        resources/Weather/Tray/tray_FG_16.qrc \
+        resources/Weather/Tray/tray_FG_24.qrc \
+        resources/Weather/Tray/tray_FG_32.qrc
 }

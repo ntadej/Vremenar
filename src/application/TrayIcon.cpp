@@ -22,9 +22,7 @@ TrayIcon::TrayIcon(QObject *parent)
       _actionSettings(std::make_unique<QAction>(tr("Settings"))),
       _actionQuit(std::make_unique<QAction>(tr("Quit")))
 {
-    QIcon icon(QStringLiteral(":/Vremenar/Logo/logo_tray.png"));
-    icon.setIsMask(true);
-    setIcon(icon);
+    setCurrentCondition(nullptr);
 
     setContextMenu(_menu.get());
 #ifdef Q_OS_MAC
@@ -134,13 +132,27 @@ void TrayIcon::setCurrentCondition(const WeatherCondition *condition)
 {
     if (condition != nullptr) {
         setToolTip(condition->displayTemperatureShort());
-        QIcon i(QStringLiteral(":/Vremenar/Maps/TrayMask/%1.png").arg(condition->icon()));
+#ifdef Q_OS_MACOS
+        QIcon i(QStringLiteral(":/Vremenar/Weather/TrayMask/%1.png").arg(condition->icon()));
         i.setIsMask(true);
+#else
+        QIcon i;
+        i.addFile(QStringLiteral(":/Vremenar/Weather/Tray/16/%1.png").arg(condition->icon()), QSize(16, 16)); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+        i.addFile(QStringLiteral(":/Vremenar/Weather/Tray/24/%1.png").arg(condition->icon()), QSize(24, 24)); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+        i.addFile(QStringLiteral(":/Vremenar/Weather/Tray/32/%1.png").arg(condition->icon()), QSize(32, 32)); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+#endif
         setIcon(i);
     } else {
         setToolTip(QString());
+#ifdef Q_OS_MACOS
         QIcon i(QStringLiteral(":/Vremenar/Logo/logo_tray.png"));
         i.setIsMask(true);
+#else
+        QIcon i;
+        i.addFile(":/Vremenar/Logo/logo/16x16/vremenar.png", QSize(16, 16)); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+        i.addFile(":/Vremenar/Logo/logo/24x24/vremenar.png", QSize(24, 24)); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+        i.addFile(":/Vremenar/Logo/logo/32x32/vremenar.png", QSize(32, 32)); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+#endif
         setIcon(i);
     }
 }

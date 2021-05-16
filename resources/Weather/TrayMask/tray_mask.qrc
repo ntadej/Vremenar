@@ -1,5 +1,5 @@
 <RCC>
-    <qresource prefix="/Vremenar/Maps/TrayMask">
+    <qresource prefix="/Vremenar/Weather/TrayMask">
         <file>clear_day.png</file>
         <file>clear_day@2x.png</file>
         <file>clear_day@3x.png</file>

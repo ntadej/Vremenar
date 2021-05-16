@@ -1,3 +1,4 @@
+blank
 cloud_big_day
 cloud_big_night
 cloud_small_day
