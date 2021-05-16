@@ -56,6 +56,8 @@ ApplicationWindow::ApplicationWindow(QObject *parent)
     // Set the style
 #if defined(Q_OS_LINUX)
     QQuickStyle::setStyle("Material");
+#elif defined(Q_OS_WIN)
+    QQuickStyle::setStyle("Universal");
 #endif
 
     createModels();
@@ -73,7 +75,7 @@ ApplicationWindow::ApplicationWindow(QObject *parent)
     _qmlFileSelector->setExtraSelectors({QStringLiteral("nativemenu")});
 #elif defined(Q_OS_IOS) || defined(Q_OS_ANDROID)
     _qmlFileSelector->setExtraSelectors({QStringLiteral("mobile")});
-#elif defined(Q_OS_LINUX)
+#elif defined(Q_OS_LINUX) || defined(Q_OS_WIN)
     _qmlFileSelector->setExtraSelectors({QStringLiteral("custommenu")});
 #endif
 

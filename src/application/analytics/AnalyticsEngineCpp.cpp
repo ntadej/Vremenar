@@ -26,6 +26,11 @@ namespace Vremenar
 AnalyticsEngineCpp::AnalyticsEngineCpp()
 {
     std::string deviceId = QSysInfo::machineUniqueId().toStdString();
+#ifdef Q_OS_WIN
+    std::string platform = "Windows";
+#else
+    std::string platform = "Linux";
+#endif
 
     QScreen *screen = QGuiApplication::primaryScreen();
     QRect screenGeometry = screen->geometry();
@@ -40,7 +45,7 @@ AnalyticsEngineCpp::AnalyticsEngineCpp()
 
     Countly &ct = Countly::getInstance();
     // OS, OS_version, device, resolution, carrier, app_version);
-    ct.SetMetrics("Linux", kernelVersion, productName, screenSize, "", Vremenar::version.data());
+    ct.SetMetrics(platform, kernelVersion, productName, screenSize, "", Vremenar::version.data());
     ct.setDeviceID(deviceId);
     ct.setSalt(Vremenar::CountlySalt.data());
     ct.Start(Vremenar::CountlyAppKey.data(), Vremenar::CountlyEndpoint.data());

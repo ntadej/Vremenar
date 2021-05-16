@@ -1,6 +1,6 @@
 #
 # Vremenar
-# Copyright (C) 2020 Tadej Novak <tadej@tano.si>
+# Copyright (C) 2021 Tadej Novak <tadej@tano.si>
 #
 # This application is bi-licensed under the GNU General Public License
 # Version 3 or later as well as Mozilla Public License Version 2.
@@ -78,8 +78,8 @@ android {
         src/application/analytics/AnalyticsEngineAndroid.h
 }
 
-# Linux specific
-linux:!android {
+# Linux/Windows specific
+if(linux:!android)|if(win32:mingw) {
     SOURCES += \
         src/application/analytics/AnalyticsEngineCpp.cpp
 

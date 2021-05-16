@@ -36,7 +36,9 @@ store {
 }
 
 # Define common platforms
-macx|linux:!android {
+macx|if(linux:!android) {
+    CONFIG += desktop
+} else:win32:mingw {
     CONFIG += desktop
 } else:ios|android {
     DEFINES += VREMENAR_MOBILE
@@ -71,12 +73,14 @@ macx {
     message("Building for platform: macOS")
 } else:linux:!android {
     message("Building for platform: Linux")
+} else:win32:mingw {
+    message("Building for platform: Windows (MinGW)")
 } else:ios {
     message("Building for platform: iOS")
 } else:android {
     message("Building for platform: Android")
 } else {
-    error("Unknown platform!")
+    error("Unknown platform '$${QMAKE_PLATFORM}'!")
 }
 
 equals(LOGGING, true) {

@@ -17,7 +17,7 @@
 #include "application/analytics/AnalyticsEngineMacOSiOS.h"
 #elif defined(Q_OS_ANDROID)
 #include "application/analytics/AnalyticsEngineAndroid.h"
-#elif defined(Q_OS_LINUX)
+#elif defined(Q_OS_LINUX) || defined(Q_OS_WIN)
 #include "application/analytics/AnalyticsEngineCpp.h"
 #endif
 
@@ -37,7 +37,7 @@ Analytics::Analytics(QObject *parent)
     _engine = std::make_unique<AnalyticsEngineMacOSiOS>();
 #elif defined(Q_OS_ANDROID)
     _engine = std::make_unique<AnalyticsEngineAndroid>();
-#elif defined(Q_OS_LINUX)
+#elif defined(Q_OS_LINUX) || defined(Q_OS_WIN)
     _engine = std::make_unique<AnalyticsEngineCpp>();
 #endif
 

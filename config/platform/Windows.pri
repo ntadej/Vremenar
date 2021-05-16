@@ -9,8 +9,6 @@
 # SPDX-License-Identifier: (GPL-3.0-or-later AND MPL-2.0)
 #
 
-macx: include(platform/macOS.pri)
-linux:!android: include(platform/Linux.pri)
-win32:mingw: include(platform/Windows.pri)
-ios: include(platform/iOS.pri)
-android: include(platform/Android.pri)
+# Countly
+INCLUDEPATH += $$top_srcdir/3rdparty/Countly/Windows
+LIBS += -L$$top_srcdir/3rdparty/Countly/Windows -lcountly
