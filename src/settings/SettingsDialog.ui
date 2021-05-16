@@ -140,7 +140,7 @@
          </widget>
         </item>
         <item row="3" column="1">
-         <widget class="QLabel" name="labelSpacer3">
+         <widget class="QLabel" name="labelSpacerMacOS">
           <property name="text">
            <string/>
           </property>

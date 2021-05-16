@@ -236,7 +236,11 @@ void ApplicationWindow::createWidgets()
     Settings settings(this);
 
     _trayIcon = std::make_unique<TrayIcon>(this);
+#ifdef Q_OS_MACOS
     _trayIcon->setVisible(settings.showInTray());
+#else
+    _trayIcon->setVisible(true);
+#endif
     _trayIcon->createMenu({tr("Satellite"), tr("Streets")}, _weatherProvider->mapInfo()->list());
     _trayIcon->setCurrentMap(_weatherProvider->currentMapLayer());
 
@@ -265,9 +269,9 @@ void ApplicationWindow::showSettingsDialog()
 
     connect(dialog, &SettingsDialog::localeChanged, _localeManager.get(), &LocaleManager::setLocale);
     connect(dialog, &SettingsDialog::weatherSourceChanged, this, &ApplicationWindow::weatherSourceChanged);
-    connect(dialog, &SettingsDialog::showInTrayChanged, _trayIcon.get(), &TrayIcon::setVisible);
 
 #ifdef Q_OS_MACOS
+    connect(dialog, &SettingsDialog::showInTrayChanged, _trayIcon.get(), &TrayIcon::setVisible);
     connect(dialog, &SettingsDialog::showInDockChanged, this, &ApplicationWindow::dockVisibilityChanged);
 #endif
 

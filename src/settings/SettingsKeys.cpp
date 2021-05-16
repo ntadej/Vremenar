@@ -30,8 +30,8 @@ const QString Settings::KEY_STARTUP_MAP_LONGITUDE = QStringLiteral("map/longitud
 const QString Settings::KEY_LOCALE = QStringLiteral("locale");
 
 // GUI
-const QString Settings::KEY_SHOW_IN_TRAY = QStringLiteral("gui/tray");
 #if defined(Q_OS_MACOS)
+const QString Settings::KEY_SHOW_IN_TRAY = QStringLiteral("gui/tray");
 const QString Settings::KEY_SHOW_IN_DOCK = QStringLiteral("gui/dock");
 #endif
 

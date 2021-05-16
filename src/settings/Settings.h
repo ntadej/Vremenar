@@ -96,13 +96,13 @@ public:
     static const QString DEFAULT_LOCALE;
 
     // GUI
+#if defined(Q_OS_MACOS)
+    // macOS special
     [[nodiscard]] inline bool showInTray() const { return _showInTray; }
     inline void setShowInTray(bool b) { _showInTray = b; }
     static const QString KEY_SHOW_IN_TRAY;
     static const bool DEFAULT_SHOW_IN_TRAY;
 
-#if defined(Q_OS_MACOS)
-    // macOS special
     [[nodiscard]] inline bool showInDock() const { return _showInDock; }
     inline void setShowInDock(bool b) { _showInDock = b; }
     static const QString KEY_SHOW_IN_DOCK;

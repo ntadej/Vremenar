@@ -41,8 +41,8 @@ protected:
 Q_SIGNALS:
     void localeChanged();
     void weatherSourceChanged(int source);
-    void showInTrayChanged(bool checked);
 #if defined(Q_OS_MACOS)
+    void showInTrayChanged(bool checked);
     void showInDockChanged(bool checked);
 #endif
 
@@ -51,8 +51,8 @@ private Q_SLOTS:
 
     void localeChangedSlot();
     void sourceChangedSlot();
-    void showInTrayChangedSlot(bool checked);
 #if defined(Q_OS_MACOS)
+    void showInTrayChangedSlot(bool checked);
     void showInDockChangedSlot(bool checked);
 #endif
     void rememberPositionChangedSlot(bool checked);

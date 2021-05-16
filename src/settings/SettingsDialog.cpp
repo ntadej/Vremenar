@@ -43,13 +43,15 @@ SettingsDialog::SettingsDialog(QWidget *parent)
     connect(ui->actionInterface, &QAction::toggled, this, &SettingsDialog::actionToggled);
 #endif
 
-    connect(ui->checkShowInTray, &QCheckBox::toggled, this, &SettingsDialog::showInTrayChangedSlot);
     connect(ui->checkRememberPosition, &QCheckBox::toggled, this, &SettingsDialog::rememberPositionChangedSlot);
     connect(ui->checkRememberSize, &QCheckBox::toggled, this, &SettingsDialog::rememberSizeChangedSlot);
 
 #ifdef Q_OS_MACOS
+    connect(ui->checkShowInTray, &QCheckBox::toggled, this, &SettingsDialog::showInTrayChangedSlot);
     connect(ui->checkShowInDock, &QCheckBox::toggled, this, &SettingsDialog::showInDockChangedSlot);
 #else
+    ui->labelSpacerMacOS->hide();
+    ui->checkShowInTray->hide();
     ui->checkShowInDock->hide();
 #endif
 
@@ -106,8 +108,8 @@ void SettingsDialog::readSettings()
 {
     Settings settings(this);
 
-    ui->checkShowInTray->setChecked(settings.showInTray());
 #ifdef Q_OS_MACOS
+    ui->checkShowInTray->setChecked(settings.showInTray());
     ui->checkShowInDock->setChecked(settings.showInDock());
 #endif
     ui->checkRememberPosition->setChecked(settings.rememberPosition());
@@ -174,6 +176,7 @@ void SettingsDialog::loadSources()
     connect(ui->comboSource, &QComboBox::currentTextChanged, this, &SettingsDialog::sourceChangedSlot);
 }
 
+#ifdef Q_OS_MACOS
 void SettingsDialog::showInTrayChangedSlot(bool checked)
 {
     Settings settings(this);
@@ -182,15 +185,12 @@ void SettingsDialog::showInTrayChangedSlot(bool checked)
 
     Q_EMIT showInTrayChanged(checked);
 
-#ifdef Q_OS_MACOS
     ui->checkShowInDock->setEnabled(checked);
     if (!checked) {
         ui->checkShowInDock->setChecked(true);
     }
-#endif
 }
 
-#ifdef Q_OS_MACOS
 void SettingsDialog::showInDockChangedSlot(bool checked)
 {
     Settings settings(this);
