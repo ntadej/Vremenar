@@ -10,7 +10,11 @@
 #
 
 VERSION = $$cat($$top_srcdir/config/VERSION)
-VERSION_BUILD = $$system(git -C \""$$top_srcdir"\" rev-list --count HEAD)
+!isEmpty(CUSTOM_BUILD) {
+    VERSION_BUILD = $$CUSTOM_BUILD
+} else {
+    VERSION_BUILD = $$system(git -C \""$$top_srcdir"\" rev-list --count HEAD)
+}
 
 OTHER_FILES += $$top_srcdir/config/VERSION
 
