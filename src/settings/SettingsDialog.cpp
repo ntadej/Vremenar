@@ -56,6 +56,17 @@ SettingsDialog::SettingsDialog(QWidget *parent)
     readSettings();
     loadLocales();
     loadSources();
+
+#ifndef Q_OS_MACOS
+    // Set application icon
+    QIcon icon;
+    icon.addFile(":/Vremenar/Icons/16x16/preferences-system.png", QSize(16, 16)); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+    icon.addFile(":/Vremenar/Icons/24x24/preferences-system.png", QSize(24, 24)); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+    icon.addFile(":/Vremenar/Icons/32x32/preferences-system.png", QSize(32, 32)); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+    icon.addFile(":/Vremenar/Icons/48x48/preferences-system.png", QSize(48, 48)); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+    icon.addFile(":/Vremenar/Icons/64x64/preferences-system.png", QSize(64, 64)); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+    setWindowIcon(icon);
+#endif
 }
 
 void SettingsDialog::changeEvent(QEvent *e)

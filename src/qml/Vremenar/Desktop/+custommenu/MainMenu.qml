@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -71,7 +71,7 @@ MenuBar {
 
             MenuItem {
                 text: model.display
-                onTriggered: VWeather.currentMapStyle = index
+                onTriggered: VWeather.currentMapLayerChanged(index)
             }
 
             onObjectAdded: mapTypeMenu.insertItem(index, object)
@@ -88,9 +88,9 @@ MenuBar {
             onTriggered: Vremenar.showAboutDialog()
         }
 
-        MenuItem {
-            text: qsTr("&Check for updates") + VL.R
-            onTriggered: VUpdates.checkForUpdates()
-        }
+        // MenuItem {
+        //    text: qsTr("&Check for updates") + VL.R
+        //    onTriggered: VUpdates.checkForUpdates()
+        // }
     }
 }

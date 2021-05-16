@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -22,7 +22,7 @@ Controls.ApplicationWindow {
     property alias mainMenu: mainMenu
     property bool ready: false
 
-    Material.theme: Material.Dark
+    Material.theme: UI.theme === Vremenar.Common.DarkTheme ? Material.Dark : Material.Light
     Material.accent: UI.colorPrimaryDark
     Material.primary: UI.colorPrimary
 
