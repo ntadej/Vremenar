@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -17,6 +17,8 @@
 #include "application/analytics/AnalyticsEngineMacOSiOS.h"
 #elif defined(Q_OS_ANDROID)
 #include "application/analytics/AnalyticsEngineAndroid.h"
+#elif defined(Q_OS_LINUX)
+#include "application/analytics/AnalyticsEngineCpp.h"
 #endif
 
 namespace
@@ -35,6 +37,8 @@ Analytics::Analytics(QObject *parent)
     _engine = std::make_unique<AnalyticsEngineMacOSiOS>();
 #elif defined(Q_OS_ANDROID)
     _engine = std::make_unique<AnalyticsEngineAndroid>();
+#elif defined(Q_OS_LINUX)
+    _engine = std::make_unique<AnalyticsEngineCpp>();
 #endif
 
     _timer->setInterval(updateInterval);

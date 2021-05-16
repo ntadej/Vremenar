@@ -1,6 +1,6 @@
 #
 # Vremenar
-# Copyright (C) 2019 Tadej Novak <tadej@tano.si>
+# Copyright (C) 2021 Tadej Novak <tadej@tano.si>
 #
 # This application is bi-licensed under the GNU General Public License
 # Version 3 or later as well as Mozilla Public License Version 2.
@@ -9,13 +9,16 @@
 # SPDX-License-Identifier: (GPL-3.0-or-later AND MPL-2.0)
 #
 
+# Countly
+INCLUDEPATH += $$top_srcdir/3rdparty/Countly/Linux
+LIBS += -L$$top_srcdir/3rdparty/Countly/Linux -lcountly
+
 # Installation rules
 target.path = /usr/bin
 
 # Install desktop file
 desktop.path = /usr/share/applications
 desktop.files = $$top_srcdir/resources/Linux/vremenar.desktop
-
 
 # Install icons
 icons_16.path = /usr/share/icons/hicolor/16x16/apps

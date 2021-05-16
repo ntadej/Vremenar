@@ -77,3 +77,12 @@ android {
     HEADERS += \
         src/application/analytics/AnalyticsEngineAndroid.h
 }
+
+# Linux specific
+linux:!android {
+    SOURCES += \
+        src/application/analytics/AnalyticsEngineCpp.cpp
+
+    HEADERS += \
+        src/application/analytics/AnalyticsEngineCpp.h
+}
