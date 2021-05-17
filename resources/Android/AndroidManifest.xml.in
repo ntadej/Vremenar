@@ -15,7 +15,7 @@
         android:required=\"false\"/>
     <uses-feature
         android:name=\"android.software.leanback\"
-        android:required=\"true\"/>
+        android:required=\"false\"/>
 
     <application android:hardwareAccelerated=\"true\" android:name=\"org.qtproject.qt5.android.bindings.QtApplication\" android:label=\"Vremenar\" android:extractNativeLibs=\"true\"
         android:allowBackup=\"true\"
