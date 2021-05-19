@@ -67,14 +67,7 @@ elif [[ "${1}" == "ios" ]] || [[ "${1}" == "iOS" ]]; then
     echo "skipping..."
   fi
 elif [[ "${1}" == "linux" ]] || [[ "${1}" == "Linux" ]]; then
-  COUNTLY_VERSION="21.05.1"
-
   echo "Downloading for Linux"
-
-  echo
-  echo "Countly"
-  wget -nv -O "${LOCATION}/3rdparty/Countly/Linux/countly-sdk.tar.bz2" "https://github.com/ntadej/countly-sdk-cpp/releases/download/${COUNTLY_VERSION}/countly-sdk_${COUNTLY_VERSION}_Linux.tar.bz2"
-  tar -C "${LOCATION}/3rdparty/Countly/Linux/" -xvf "${LOCATION}/3rdparty/Countly/Linux/countly-sdk.tar.bz2"
 
   echo "Qt Patches"
   if [[ $QT -eq 1 ]]; then

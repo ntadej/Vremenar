@@ -79,10 +79,13 @@ android {
 }
 
 # Linux/Windows specific
-if(linux:!android)|if(win32:mingw) {
+desktop {
     SOURCES += \
-        src/application/analytics/AnalyticsEngineCpp.cpp
+        src/application/analytics/AnalyticsEngineCpp.cpp \
+        src/application/analytics/Countly.cpp \
+        src/application/analytics/CountlyEvent.cpp
 
     HEADERS += \
-        src/application/analytics/AnalyticsEngineCpp.h
+        src/application/analytics/AnalyticsEngineCpp.h \
+        src/application/analytics/Countly.h
 }

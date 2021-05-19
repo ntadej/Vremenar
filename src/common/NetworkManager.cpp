@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -34,7 +34,9 @@ NetworkManager::NetworkManager(QObject *parent)
 
 QNetworkReply *NetworkManager::request(const APIRequestBase &request)
 {
-    qDebug() << "Requesting:" << request.url();
+    if (!request.silent()) {
+        qDebug() << "Requesting:" << request.url();
+    }
 
     QNetworkReply *reply{};
     switch (request.operation()) {

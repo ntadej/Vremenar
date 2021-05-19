@@ -8,7 +8,3 @@
 #
 # SPDX-License-Identifier: (GPL-3.0-or-later AND MPL-2.0)
 #
-
-# Countly
-INCLUDEPATH += $$top_srcdir/3rdparty/Countly/Windows
-LIBS += -L$$top_srcdir/3rdparty/Countly/Windows -lcountly

@@ -14,8 +14,6 @@
 #include <QtGui/QGuiApplication>
 #include <QtGui/QScreen>
 
-#include <Countly/Countly.h>
-
 #include "application/analytics/AnalyticsEngineCpp.h"
 
 #include "Config.h"
@@ -23,50 +21,47 @@
 namespace Vremenar
 {
 
-AnalyticsEngineCpp::AnalyticsEngineCpp()
+AnalyticsEngineCpp::AnalyticsEngineCpp(NetworkManager *network)
 {
-    std::string deviceId = QSysInfo::machineUniqueId().toStdString();
+    QString deviceId = QSysInfo::machineUniqueId();
 #ifdef Q_OS_WIN
-    std::string platform = "Windows";
+    QString platform = QStringLiteral("Windows");
 #else
-    std::string platform = "Linux";
+    QString platform = QStringLiteral("Linux");
 #endif
 
     QScreen *screen = QGuiApplication::primaryScreen();
     QRect screenGeometry = screen->geometry();
     int height = screenGeometry.height();
     int width = screenGeometry.width();
-    std::string screenSize = (QString::number(width) + "x" + QString::number(height)).toStdString();
+    QString screenSize = QString::number(width) + "x" + QString::number(height);
 
-    std::string productName = QSysInfo::prettyProductName().toStdString();
-    std::string kernelVersion = QSysInfo::kernelVersion().split("-").first().toStdString();
+    QString productName = QSysInfo::prettyProductName();
+    QString kernelVersion = QSysInfo::kernelVersion().split(QStringLiteral("-")).first();
 
-    qDebug() << "Initializing Countly" << productName.c_str() << kernelVersion.c_str() << screenSize.c_str();
+    qDebug() << "Initializing Countly" << productName << kernelVersion << screenSize;
 
-    Countly &ct = Countly::getInstance();
+    _countly = std::make_unique<Countly>(network);
     // OS, OS_version, device, resolution, carrier, app_version);
-    ct.SetMetrics(platform, kernelVersion, productName, screenSize, "", Vremenar::version.data());
-    ct.setDeviceID(deviceId);
-    ct.setSalt(Vremenar::CountlySalt.data());
-    ct.Start(Vremenar::CountlyAppKey.data(), Vremenar::CountlyEndpoint.data());
+    _countly->setMetrics(platform, kernelVersion, productName, screenSize, Vremenar::version.data());
+    _countly->setDeviceID(deviceId);
+    _countly->setSalt(Vremenar::CountlySalt.data());
+    _countly->start(Vremenar::CountlyAppKey.data(), Vremenar::CountlyEndpoint.data());
 }
 
 void AnalyticsEngineCpp::beginSession() const
 {
-    Countly &ct = Countly::getInstance();
-    ct.beginSession();
+    _countly->beginSession();
 }
 
 void AnalyticsEngineCpp::updateSession() const
 {
-    Countly &ct = Countly::getInstance();
-    ct.updateSession();
+    _countly->updateSession();
 }
 
 void AnalyticsEngineCpp::endSession() const
 {
-    Countly &ct = Countly::getInstance();
-    ct.endSession();
+    _countly->endSession();
 }
 
 void AnalyticsEngineCpp::recordEvent(const QString &event) const
@@ -74,8 +69,7 @@ void AnalyticsEngineCpp::recordEvent(const QString &event) const
     Q_UNUSED(event)
 
     // Events not supported at the moment
-    // Countly &ct = Countly::getInstance();
-    // ct.RecordEvent(event.toStdString(), 1);
+    // _countly->recordEvent(event, 1);
 }
 
 } // namespace Vremenar

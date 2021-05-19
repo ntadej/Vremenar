@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -29,6 +29,7 @@ public:
     [[nodiscard]] inline QNetworkAccessManager::Operation operation() const { return _operation; }
     [[nodiscard]] inline const QVariant &extra() const { return _extra; }
     [[nodiscard]] QByteArray data() const;
+    [[nodiscard]] inline bool silent() const { return _silent; }
 
     void setBaseUrl(const QString &url);
     void setCall(const QString &call);
@@ -37,6 +38,8 @@ public:
     void setOperation(QNetworkAccessManager::Operation operation);
     void setExtra(const QVariant &extra);
     void setData(const QJsonObject &data);
+    void setData(const QString &data);
+    void setSilent(bool silent);
 
 private:
     QString _baseUrl;
@@ -44,6 +47,8 @@ private:
     QNetworkAccessManager::Operation _operation{QNetworkAccessManager::GetOperation};
     QVariant _extra;
     QJsonObject _data;
+    QString _stringData;
+    bool _silent{};
 };
 
 } // namespace Vremenar

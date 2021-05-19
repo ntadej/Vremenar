@@ -29,16 +29,19 @@ constexpr int updateInterval{60000};
 namespace Vremenar
 {
 
-Analytics::Analytics(QObject *parent)
+Analytics::Analytics(NetworkManager *network,
+                     QObject *parent)
     : QObject(parent),
       _timer(std::make_unique<QTimer>(this))
 {
 #if defined(Q_OS_MACOS) || defined(Q_OS_IOS)
+    Q_UNUSED(network)
     _engine = std::make_unique<AnalyticsEngineMacOSiOS>();
 #elif defined(Q_OS_ANDROID)
+    Q_UNUSED(network)
     _engine = std::make_unique<AnalyticsEngineAndroid>();
 #elif defined(Q_OS_LINUX) || defined(Q_OS_WIN)
-    _engine = std::make_unique<AnalyticsEngineCpp>();
+    _engine = std::make_unique<AnalyticsEngineCpp>(network);
 #endif
 
     _timer->setInterval(updateInterval);

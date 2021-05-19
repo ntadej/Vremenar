@@ -12,15 +12,20 @@
 #ifndef VREMENAR_ANALYTICSENGINECPP_H_
 #define VREMENAR_ANALYTICSENGINECPP_H_
 
+#include <memory>
+
 #include "application/analytics/AnalyticsEngine.h"
+#include "application/analytics/Countly.h"
 
 namespace Vremenar
 {
 
+class NetworkManager;
+
 class AnalyticsEngineCpp : public AnalyticsEngine
 {
 public:
-    AnalyticsEngineCpp();
+    AnalyticsEngineCpp(NetworkManager *network);
 
     bool manualSessionHandling() const override { return true; }
 
@@ -29,6 +34,9 @@ public:
     void endSession() const override;
 
     void recordEvent(const QString &event) const override;
+
+private:
+    std::unique_ptr<Countly> _countly;
 };
 
 } // namespace Vremenar

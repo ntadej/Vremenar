@@ -11,9 +11,9 @@ jobs:
     strategy:
       matrix:
         config:
-          - name: "Linux Ubuntu 16.04 x64"
+          - name: "Linux Ubuntu 18.04 x64"
             artifact: "Vremenar-x86_64.AppImage"
-            os: ubuntu-16.04
+            os: ubuntu-18.04
             platform: linux
             target: desktop
           - name: "Android Universal"
@@ -124,7 +124,7 @@ jobs:
           ARTIFACT_NAME: ${{ matrix.config.artifact }}
           VREMENAR_PATH: ../Vremenar
         run: |
-          # Install gcc 8
+          # Install gcc 9
           sudo add-apt-repository ppa:ubuntu-toolchain-r/test
           sudo apt update
           sudo apt install libgl-dev \
@@ -132,21 +132,20 @@ jobs:
             libxcb-icccm4-dev libxcb-image0-dev libxcb-keysyms1-dev \
             libxcb-randr0-dev libxcb-render0-dev libxcb-render-util0-dev libxcb-shape0-dev libxcb-shm0-dev \
             libxcb-sync-dev libxcb-xinerama0-dev libxcb-xkb-dev \
-            gcc-8 g++-8
-          sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 500 --slave /usr/bin/g++ g++ /usr/bin/g++-5
-          sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 800 --slave /usr/bin/g++ g++ /usr/bin/g++-8
+            gcc-9 g++-9
+          sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-7 700 --slave /usr/bin/g++ g++ /usr/bin/g++-7
+          sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-9 900 --slave /usr/bin/g++ g++ /usr/bin/g++-9
           gcc --version
           # Build
           qmake $VREMENAR_PATH/Vremenar.pro -spec linux-g++ CONFIG+=qtquickcompiler
           make -j2
           make INSTALL_ROOT=appdir -j2 install ; find appdir/
-          wget -c -nv "https://github.com/probonopd/linuxdeployqt/releases/download/6/linuxdeployqt-6-x86_64.AppImage"
-          chmod a+x linuxdeployqt-6-x86_64.AppImage
-          ./linuxdeployqt-6-x86_64.AppImage appdir/usr/share/applications/vremenar.desktop \
+          wget -c -nv "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage"
+          chmod a+x linuxdeployqt-continuous-x86_64.AppImage
+          ./linuxdeployqt-continuous-x86_64.AppImage appdir/usr/share/applications/vremenar.desktop \
             -qmldir=$VREMENAR_PATH/src/qml/ \
             -extra-plugins=geoservices/libqtgeoservices_mapboxgl.so,geoservices/libqtgeoservices_osm.so,sqldrivers/libqsqlite.so \
             -appimage
-          mv Vremenar--x86_64.AppImage $ARTIFACT_NAME
 
       - name: Build (Android)
         if: matrix.config.platform == 'android'

@@ -9,10 +9,6 @@
 # SPDX-License-Identifier: (GPL-3.0-or-later AND MPL-2.0)
 #
 
-# Countly
-INCLUDEPATH += $$top_srcdir/3rdparty/Countly/Linux
-LIBS += -L$$top_srcdir/3rdparty/Countly/Linux -lcountly
-
 # Installation rules
 target.path = /usr/bin
 
