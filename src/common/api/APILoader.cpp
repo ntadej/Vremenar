@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -36,13 +36,9 @@ void APILoader::removeResponse(QNetworkReply *reply)
 void APILoader::error(QNetworkReply *reply,
                       QNetworkReply::NetworkError err)
 {
+    Q_UNUSED(err)
+
     if (_currentReplies.contains(reply)) {
-        if (err == QNetworkReply::UnknownServerError) {
-            qDebug() << "Retrying:" << _currentReplies[reply].call() << _currentReplies[reply].url();
-
-            _currentReplies.insert(_network->request(_currentReplies[reply]), _currentReplies[reply]);
-        }
-
         removeResponse(reply);
     }
 }

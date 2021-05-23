@@ -68,7 +68,6 @@
         <translation>&amp;O programu</translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Desktop/+custommenu/MainMenu.qml" line="92"/>
         <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="104"/>
         <source>&amp;Check for updates</source>
         <translation>Preveri za &amp;posodobitve</translation>
@@ -355,12 +354,12 @@
 <context>
     <name>Vremenar::ApplicationWindow</name>
     <message>
-        <location filename="../../../src/application/ApplicationWindow.cpp" line="227"/>
+        <location filename="../../../src/application/ApplicationWindow.cpp" line="246"/>
         <source>Satellite</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../../../src/application/ApplicationWindow.cpp" line="227"/>
+        <location filename="../../../src/application/ApplicationWindow.cpp" line="246"/>
         <source>Streets</source>
         <translation></translation>
     </message>
@@ -414,19 +413,19 @@
 <context>
     <name>Vremenar::SettingsDialog</name>
     <message>
-        <location filename="../../../src/settings/SettingsDialog.cpp" line="121"/>
+        <location filename="../../../src/settings/SettingsDialog.cpp" line="134"/>
         <source>Weather source changed</source>
         <translation>Vir vremenskih podatkov se je spremenil</translation>
     </message>
     <message>
-        <location filename="../../../src/settings/SettingsDialog.cpp" line="122"/>
+        <location filename="../../../src/settings/SettingsDialog.cpp" line="135"/>
         <source>The weather source has been changed.
 The application will now restart.</source>
         <translation>Vir vremenskih podatkov se je spremenil.
 Aplikacija se bo ponovno zagnala.</translation>
     </message>
     <message>
-        <location filename="../../../src/settings/SettingsDialog.cpp" line="138"/>
+        <location filename="../../../src/settings/SettingsDialog.cpp" line="151"/>
         <source>System default</source>
         <translation>Sistemsko privzeto</translation>
     </message>
@@ -461,12 +460,12 @@ Aplikacija se bo ponovno zagnala.</translation>
         <translation>Izhod</translation>
     </message>
     <message>
-        <location filename="../../../src/application/TrayIcon.cpp" line="84"/>
+        <location filename="../../../src/application/TrayIcon.cpp" line="82"/>
         <source>Map Style</source>
         <translation>Izgled zemljevida</translation>
     </message>
     <message>
-        <location filename="../../../src/application/TrayIcon.cpp" line="92"/>
+        <location filename="../../../src/application/TrayIcon.cpp" line="90"/>
         <source>Map Type</source>
         <translation>Tip zemljevida</translation>
     </message>
@@ -490,6 +489,24 @@ Aplikacija se bo ponovno zagnala.</translation>
         <location filename="../../../src/weather/WeatherProvider.cpp" line="66"/>
         <source>Slovenian Environment Agency</source>
         <translation>Agencija Republike Slovenije za okolje</translation>
+    </message>
+</context>
+<context>
+    <name>main</name>
+    <message>
+        <location filename="../../../src/qml/Vremenar/main.qml" line="54"/>
+        <source>Update available</source>
+        <translation>Posodobitev</translation>
+    </message>
+    <message>
+        <location filename="../../../src/qml/Vremenar/main.qml" line="70"/>
+        <source>Oops!</source>
+        <translation>Ups!</translation>
+    </message>
+    <message>
+        <location filename="../../../src/qml/Vremenar/main.qml" line="71"/>
+        <source>An error has happened while loading weather data.</source>
+        <translation>Pri prenašanju vremenskih infromacij se je zgodila napaka.</translation>
     </message>
 </context>
 </TS>

@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -137,9 +137,11 @@ void WeatherProvider::requestMapLayers(Weather::MapType type)
     setLoading(true);
 
     mapLayers()->setUpdating(true);
-    _weatherMapModelBase->clear();
-    _weatherMapModel->clear();
-    _mapLayersModel->clear();
+    if (_currentType != type) {
+        _weatherMapModelBase->clear();
+        _weatherMapModel->clear();
+        _mapLayersModel->clear();
+    }
 
     APIRequest request = API::mapLayers(type);
     currentReplies()->insert(network()->request(request), request);
@@ -201,6 +203,7 @@ void WeatherProvider::response(QNetworkReply *reply)
         _lastUpdateResponseTimeCurrent = QDateTime::currentDateTime();
         startTimerCurrent();
         Q_EMIT lastUpdateTimeChangedCurrent();
+        Q_EMIT loadingSuccess();
 
         removeResponse(reply);
         return;
@@ -217,6 +220,8 @@ void WeatherProvider::response(QNetworkReply *reply)
         removeResponse(reply);
         valid = true;
     } else if (currentReplies()->value(reply).call() == QStringLiteral("/maps/list")) {
+        Q_EMIT loadingSuccess();
+
         auto type = Weather::MapType(currentReplies()->value(reply).extra().toInt());
 
         removeResponse(reply);
@@ -254,6 +259,31 @@ void WeatherProvider::response(QNetworkReply *reply)
     setLoading(false);
     startTimer();
     Q_EMIT lastUpdateTimeChanged();
+}
+
+void WeatherProvider::error(QNetworkReply *reply,
+                            QNetworkReply::NetworkError err)
+{
+    Q_UNUSED(err)
+
+    if (!currentReplies()->contains(reply)) {
+        return;
+    }
+
+    mapLayers()->setUpdating(false, true);
+    setLoading(false);
+
+    if (currentReplies()->value(reply).call() == QStringLiteral("/stations/condition")) {
+        startTimerCurrent();
+    } else if (currentReplies()->value(reply).call() != QStringLiteral("/image")
+               && currentReplies()->value(reply).call() != QStringLiteral("/maps/legend")
+               && currentReplies()->value(reply).call() != QStringLiteral("/stations/coordinate")) {
+        startTimer();
+    }
+
+    removeResponse(reply);
+
+    Q_EMIT loadingError();
 }
 
 void WeatherProvider::currentTimeChanged()
@@ -319,14 +349,14 @@ void WeatherProvider::changeMapType(Weather::MapType type,
         Q_EMIT recordEvent(Analytics::MapTypeChanged, Weather::mapTypeToString(type));
     }
 
+    _timer->stop();
+    requestMapLayers(type);
+
     _currentType = type;
     _mapLegendProxyModel->setType(_currentType);
 
     Q_EMIT currentMapLayerChangedSignal(currentMapLayer());
     Q_EMIT currentMapLayerHasLegendChangedSignal(currentMapLayerHasLegend());
-
-    _timer->stop();
-    requestMapLayers(_currentType);
 
     Q_EMIT storeState();
 }

@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -89,6 +89,8 @@ Q_SIGNALS:
     void lastUpdateTimeChanged();
     void lastUpdateTimeChangedCurrent();
     void loadingChanged();
+    void loadingSuccess();
+    void loadingError();
     void currentMapStyleChangedSignal(int);
     void currentMapLayerChangedSignal(int);
     void currentMapLayerHasLegendChangedSignal(bool);
@@ -96,6 +98,8 @@ Q_SIGNALS:
 
 private Q_SLOTS:
     void response(QNetworkReply *reply) final;
+    void error(QNetworkReply *reply,
+               QNetworkReply::NetworkError err) final;
     void currentTimeChanged();
 
 private:

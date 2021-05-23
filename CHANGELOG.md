@@ -3,6 +3,7 @@
 ## Unreleased
 
 Fixes:
+- better error handling
 - proper map controls navigation on TV
 
 ## 0.3 (2020-05-02)

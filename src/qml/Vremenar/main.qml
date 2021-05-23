@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -17,6 +17,7 @@ import Vremenar.Common 1.0
 import Vremenar.Navigation 1.0
 
 MainWindow {
+    id: app
 //    title: centralNavigationStack.currentItem.title ? centralNavigationStack.currentItem.title + " - " + Globals.name : Globals.name
     visible: true
 
@@ -49,8 +50,9 @@ MainWindow {
 
     MessageDialog {
         id: updateDialog
-        buttons: MessageDialog.Yes | MessageDialog.No
-        text: VUpdates.message
+        buttons: UI.isMobile ? MessageDialog.Yes | MessageDialog.No : MessageDialog.Yes | MessageDialog.No
+        text: qsTr("Update available") + VL.R
+        informativeText: VUpdates.message
 
         Connections {
             target: VUpdates
@@ -59,6 +61,35 @@ MainWindow {
 
         onYesClicked: {
             Qt.openUrlExternally(VUpdates.url);
+        }
+    }
+
+    MessageDialog {
+        id: errorDialog
+        buttons: UI.isMobile ? MessageDialog.Retry | MessageDialog.Cancel : MessageDialog.Retry | MessageDialog.Cancel
+        text: qsTr("Oops!") + VL.R
+        informativeText: qsTr("An error has happened while loading weather data.") + VL.R
+
+        Connections {
+            target: VWeather
+            function onLoadingError() {
+                if (app.visible) {
+                    errorDialog.open()
+                }
+            }
+        }
+
+        Connections {
+            target: VWeather
+            function onLoadingSuccess() {
+                if (errorDialog.visible) {
+                    errorDialog.close()
+                }
+            }
+        }
+
+        onRetryClicked: {
+            VWeather.refresh()
         }
     }
 }
