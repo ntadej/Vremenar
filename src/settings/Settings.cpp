@@ -34,7 +34,8 @@ Settings::Settings(QObject *parent)
       _width(DEFAULT_WIDTH),
       _height(DEFAULT_HEIGHT),
       _posX(DEFAULT_POS_X),
-      _posY(DEFAULT_POS_Y)
+      _posY(DEFAULT_POS_Y),
+      _uuid(DEFAULT_UUID)
 {
     _map.insert(KEY_WEATHER_SOURCE, DEFAULT_WEATHER_SOURCE);
     _map.insert(KEY_INITIAL_WEATHER_SOURCE_CHOSEN, DEFAULT_INITIAL_WEATHER_SOURCE_CHOSEN);
@@ -55,6 +56,7 @@ Settings::Settings(QObject *parent)
     _map.insert(KEY_HEIGHT, DEFAULT_HEIGHT);
     _map.insert(KEY_POS_X, DEFAULT_POS_X);
     _map.insert(KEY_POS_Y, DEFAULT_POS_Y);
+    _map.insert(KEY_UUID, DEFAULT_UUID);
 
     readSettings();
 }
@@ -85,6 +87,8 @@ void Settings::writeSettings()
     setValue(KEY_POS_X, posX());
     setValue(KEY_POS_Y, posY());
 
+    setValue(KEY_UUID, uuid());
+
     sync();
 }
 
@@ -113,6 +117,8 @@ void Settings::readSettings()
     setHeight(value(KEY_HEIGHT, defaultValue(KEY_HEIGHT)).toInt());
     setPosX(value(KEY_POS_X, defaultValue(KEY_POS_X)).toInt());
     setPosY(value(KEY_POS_Y, defaultValue(KEY_POS_Y)).toInt());
+
+    setUuid(value(KEY_UUID, defaultValue(KEY_UUID)).toString());
 
     Q_EMIT settingsReloaded();
 }

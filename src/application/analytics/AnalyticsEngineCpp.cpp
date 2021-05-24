@@ -11,10 +11,12 @@
 
 #include <QtCore/QDebug>
 #include <QtCore/QSysInfo>
+#include <QtCore/QUuid>
 #include <QtGui/QGuiApplication>
 #include <QtGui/QScreen>
 
 #include "application/analytics/AnalyticsEngineCpp.h"
+#include "settings/Settings.h"
 
 #include "Config.h"
 
@@ -24,6 +26,15 @@ namespace Vremenar
 AnalyticsEngineCpp::AnalyticsEngineCpp(NetworkManager *network)
 {
     QString deviceId = QSysInfo::machineUniqueId();
+    if (deviceId.isEmpty()) {
+        Settings settings;
+        deviceId = settings.uuid();
+        if (deviceId.isEmpty()) {
+            deviceId = QUuid::createUuid().toString();
+            settings.setUuid(deviceId);
+        }
+    }
+
 #ifdef Q_OS_WIN
     QString platform = QStringLiteral("Windows");
 #else

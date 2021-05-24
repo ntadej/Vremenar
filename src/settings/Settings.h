@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -140,6 +140,12 @@ public:
     static const QString KEY_POS_Y;
     static const int DEFAULT_POS_Y;
 
+    // Special
+    [[nodiscard]] inline const QString &uuid() const { return _uuid; }
+    inline void setUuid(const QString &s) { _uuid = s; }
+    static const QString KEY_UUID;
+    static const QString DEFAULT_UUID;
+
 Q_SIGNALS:
     void settingsReloaded();
 
@@ -174,6 +180,9 @@ private:
     int _height;
     int _posX;
     int _posY;
+
+    // Special
+    QString _uuid;
 };
 
 } // namespace Vremenar

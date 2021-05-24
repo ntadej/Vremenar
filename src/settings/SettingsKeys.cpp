@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -43,5 +43,8 @@ const QString Settings::KEY_WIDTH = QStringLiteral("gui/width");
 const QString Settings::KEY_HEIGHT = QStringLiteral("gui/height");
 const QString Settings::KEY_POS_X = QStringLiteral("gui/posx");
 const QString Settings::KEY_POS_Y = QStringLiteral("gui/posy");
+
+// Special
+const QString Settings::KEY_UUID = QStringLiteral("uuid");
 
 } // namespace Vremenar
