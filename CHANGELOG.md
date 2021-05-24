@@ -1,6 +1,9 @@
 # Vremenar Changelog
 
-## Unreleased
+## 0.3.1 (2020-05-24)
+
+New features:
+- Linux support
 
 Fixes:
 - better error handling
