@@ -202,7 +202,11 @@ void Qml::UIManager::debugAction(int key)
 
 bool Qml::UIManager::showButtonMapType() const
 {
+#if defined(Q_OS_WIN) || defined(Q_OS_LINUX)
+    return false;
+#else
     return _device != Common::AndroidTV && _device != Common::FireTV;
+#endif
 }
 
 bool Qml::UIManager::showButtonMapPosition() const

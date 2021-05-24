@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -85,7 +85,7 @@ Item {
         id: textTemperature
         text: VCurrent.condition ? VCurrent.condition.displayTemperature : ""
         font.weight: Font.DemiBold
-        width: UI.mapIconSize
+        width: Math.max(UI.mapIconSize, contentWidth)
         height: UI.mapIconSizeHeight
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter

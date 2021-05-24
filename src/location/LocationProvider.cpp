@@ -109,7 +109,7 @@ void LocationProvider::requestPositionUpdate()
 {
 #ifdef VREMENAR_POSITIONING
     _timer->stop();
-    if (_position && enabled()) {
+    if (_position != nullptr && enabled()) {
         qDebug() << "Request position update.";
 #ifdef Q_OS_ANDROID
         _position->requestUpdate(androidQuickUpdate);
@@ -163,6 +163,13 @@ void LocationProvider::positionError(QGeoPositionInfoSource::Error error)
     switch (error) {
     case QGeoPositionInfoSource::AccessError:
         qWarning() << "This application is not allowed to do positioning.";
+#ifdef Q_OS_LINUX
+        if (_position != nullptr) {
+            // this leaks a bit but the application crashes otherwise
+            _position.release();
+            Q_EMIT enabledChanged();
+        }
+#endif
         break;
     case QGeoPositionInfoSource::ClosedError:
         qWarning() << "The connection was closed before the position could be obtained.";

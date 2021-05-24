@@ -1,7 +1,9 @@
 [Desktop Entry]
 Type=Application
 Name=Vremenar
-Comment=Weather map app
+Comment=Display weather conditions and forecast on a map
 Exec=vremenar
 Icon=vremenar
 Categories=Utility;
+Keywords=Weather;Forecast;Radar;
+X-Geoclue-Reason=Allows weather information to be displayed for your location.
