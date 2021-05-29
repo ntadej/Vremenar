@@ -137,7 +137,7 @@ jobs:
           sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-9 900 --slave /usr/bin/g++ g++ /usr/bin/g++-9
           gcc --version
           # Build
-          qmake $VREMENAR_PATH/Vremenar.pro -spec linux-g++ CONFIG+=qtquickcompiler
+          qmake $VREMENAR_PATH/Vremenar.pro -spec linux-g++ CONFIG+=release CONFIG+=qtquickcompiler
           make -j2
           make INSTALL_ROOT=appdir -j2 install ; find appdir/
           wget -c -nv "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage"
