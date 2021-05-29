@@ -320,6 +320,7 @@ ColumnLayout {
         text: qsTr("Weather data") + generateWeather() + (UI.isTV ? " " : "<br>")
               + qsTr("Maps") + generateMaps() + (UI.isTV ? " " : "<br>")
               + (UI.isTV ? "" : Globals.name + " " + Globals.version + " (" + Globals.build + ")")
+              + (UI.isTV || VUpdates.server === "" ? "" : ", " + qsTr("backend") + " " + VUpdates.server)
               + (UI.isTV ? "" : generateAboutLinks())
               + VL.R
         wrapMode: Text.WordWrap

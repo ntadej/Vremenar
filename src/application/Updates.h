@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -30,17 +30,21 @@ public:
     explicit Updates(NetworkManager *network,
                      QObject *parent = nullptr);
 
+    Q_PROPERTY(QString server READ server NOTIFY serverChanged)
     Q_PROPERTY(QString message READ message NOTIFY messageChanged)
     Q_PROPERTY(QString url READ url NOTIFY messageChanged)
 
+    inline const QString &server() { return _server; }
     inline const QString &message() { return _message; }
     inline const QString &url() { return _url; }
 
 Q_SIGNALS:
     void messageChanged();
+    void serverChanged();
     void updateAvailable();
 
 public Q_SLOTS:
+    void checkVersion();
     void checkForUpdates();
 
 private Q_SLOTS:
@@ -51,6 +55,7 @@ private:
     void compareVersion(const QString &stable,
                         const QString &beta);
 
+    QString _server;
     QString _message;
     QString _url;
 

@@ -89,7 +89,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Maps/MapControls.qml" line="344"/>
+        <location filename="../../../src/qml/Vremenar/Maps/MapControls.qml" line="323"/>
+        <source>backend</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../src/qml/Vremenar/Maps/MapControls.qml" line="345"/>
         <source>Change country</source>
         <translation type="unfinished"></translation>
     </message>
@@ -390,12 +395,12 @@ The application will now restart.</source>
 <context>
     <name>Vremenar::Updates</name>
     <message>
-        <location filename="../../../src/application/Updates.cpp" line="83"/>
+        <location filename="../../../src/application/Updates.cpp" line="93"/>
         <source>An update is available. Do you want to download it now?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/application/Updates.cpp" line="89"/>
+        <location filename="../../../src/application/Updates.cpp" line="99"/>
         <source>A new testing update is available. Do you want to download it now?</source>
         <translation type="unfinished"></translation>
     </message>

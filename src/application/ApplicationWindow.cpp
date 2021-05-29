@@ -314,9 +314,7 @@ void ApplicationWindow::startCompleted()
 
     qDebug() << "Initialization completed";
 
-#if !defined(Q_OS_MACOS) && !defined(VREMENAR_STORE)
-    _updates->checkForUpdates();
-#endif
+    _updates->checkVersion();
 
     QTimer::singleShot(1s, this, &ApplicationWindow::startLoadInitialMap);
 }

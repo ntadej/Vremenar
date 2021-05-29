@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -31,6 +31,11 @@ Updates::Updates(NetworkManager *network,
 #endif
 }
 
+void Updates::checkVersion()
+{
+    request();
+}
+
 void Updates::checkForUpdates()
 {
 #ifdef Q_OS_MACOS
@@ -58,9 +63,14 @@ void Updates::response(QNetworkReply *reply)
 
     QJsonDocument document = QJsonDocument::fromJson(reply->readAll());
     if (currentReplies()->value(reply).call() == QStringLiteral("/version")) {
+        _server = document[QStringLiteral("server")].toString();
+        Q_EMIT serverChanged();
+
+#if !defined(Q_OS_MACOS) && !defined(VREMENAR_STORE)
         QString stable = document[QStringLiteral("stable")].toString();
         QString beta = document[QStringLiteral("beta")].toString();
         compareVersion(stable, beta);
+#endif
     }
 
     removeResponse(reply);
