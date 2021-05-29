@@ -93,6 +93,10 @@ bool LocationProviderMacOSiOS::servicesAllowed() const
 
 void LocationProvider::initMacOSiOS()
 {
+    if (_platform != nullptr) {
+        return;
+    }
+
     _platform = std::make_unique<LocationProviderMacOSiOS>(this);
 }
 

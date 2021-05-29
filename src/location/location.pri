@@ -10,9 +10,11 @@
 #
 
 SOURCES += \
+    src/location/Location.cpp \
     src/location/LocationProvider.cpp
 
 HEADERS += \
+    src/location/Location.h \
     src/location/LocationProvider.h \
     src/location/LocationProviderPlatform.h
 

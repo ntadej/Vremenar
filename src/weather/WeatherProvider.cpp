@@ -370,6 +370,16 @@ void WeatherProvider::changeMapType(Weather::MapType type,
     Q_EMIT storeState();
 }
 
+void WeatherProvider::currentLocationStatusChanged(bool enabled)
+{
+    if (!enabled) {
+        if (_timerCurrent->isActive()) {
+            _timerCurrent->stop();
+        }
+        current()->setStation(nullptr);
+    }
+}
+
 void WeatherProvider::currentMapStyleChanged(int index)
 {
     changeMapStyle(Weather::MapStyle(index + 1), true);
