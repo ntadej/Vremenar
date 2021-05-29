@@ -1,5 +1,11 @@
 # Vremenar Changelog
 
+## 0.3.2 (2020-05-29)
+
+Fixes:
+- do not show errors that are not errors
+- show backend version for easier error reporting
+
 ## 0.3.1 (2020-05-24)
 
 New features:
