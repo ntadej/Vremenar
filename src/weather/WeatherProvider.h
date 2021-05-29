@@ -79,6 +79,7 @@ public Q_SLOTS:
                                     bool action = false);
     Q_INVOKABLE void changeMapType(Weather::MapType type,
                                    bool action = false);
+    Q_INVOKABLE void currentLocationStatusChanged(bool enabled);
     Q_INVOKABLE void currentMapStyleChanged(int index);
     Q_INVOKABLE void currentMapLayerChanged(int index);
     Q_INVOKABLE void refresh();

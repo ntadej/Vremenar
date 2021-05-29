@@ -14,6 +14,7 @@
 
 #include <memory>
 
+#include <QtGui/QDoubleValidator>
 #include <QtWidgets/QActionGroup>
 #include <QtWidgets/QMainWindow>
 
@@ -40,6 +41,7 @@ protected:
 
 Q_SIGNALS:
     void localeChanged();
+    void locationChanged();
     void weatherSourceChanged(int source);
 #if defined(Q_OS_MACOS)
     void showInTrayChanged(bool checked);
@@ -50,6 +52,11 @@ private Q_SLOTS:
     void actionToggled();
 
     void localeChangedSlot();
+    void locationChangedSlot();
+    void locationCoordinateChanged();
+    void locationLatitudeValidationChanged();
+    void locationLongitudeValidationChanged();
+    void locationStationChanged();
     void sourceChangedSlot();
 #if defined(Q_OS_MACOS)
     void showInTrayChangedSlot(bool checked);
@@ -59,9 +66,11 @@ private Q_SLOTS:
     void rememberSizeChangedSlot(bool checked);
 
 private:
-    std::unique_ptr<Ui::SettingsDialog> ui;
+    std::unique_ptr<Ui::SettingsDialog> ui{};
 
-    std::unique_ptr<QActionGroup> _group;
+    std::unique_ptr<QActionGroup> _group{};
+    std::unique_ptr<QDoubleValidator> _latitudeValidator{};
+    std::unique_ptr<QDoubleValidator> _longitudeValidator{};
 
     void readSettings();
     void loadLocales();
@@ -73,9 +82,9 @@ private:
     void retranslateMacOS();
     void actionToggledMacOS();
 
-    std::unique_ptr<QMacToolBar> _macToolbar;
-    std::unique_ptr<QMacToolBarItem> _macItemGeneral;
-    std::unique_ptr<QMacToolBarItem> _macItemInterface;
+    std::unique_ptr<QMacToolBar> _macToolbar{};
+    std::unique_ptr<QMacToolBarItem> _macItemGeneral{};
+    std::unique_ptr<QMacToolBarItem> _macItemInterface{};
 #endif
 };
 

@@ -26,6 +26,11 @@ SettingsDialog::SettingsDialog(QWidget *parent)
 {
     ui->setupUi(this);
 
+    _latitudeValidator = std::make_unique<QDoubleValidator>(-90, 90, 4);    // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+    _longitudeValidator = std::make_unique<QDoubleValidator>(-180, 180, 4); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+    ui->lineEditLatitude->setValidator(_latitudeValidator.get());
+    ui->lineEditLongitude->setValidator(_longitudeValidator.get());
+
     _group = std::make_unique<QActionGroup>(this);
     _group->addAction(ui->actionGeneral);
     _group->addAction(ui->actionInterface);
@@ -54,6 +59,15 @@ SettingsDialog::SettingsDialog(QWidget *parent)
     ui->checkShowInTray->hide();
     ui->checkShowInDock->hide();
 #endif
+
+    connect(ui->radioLocationAuto, &QRadioButton::clicked, this, &SettingsDialog::locationChangedSlot);
+    connect(ui->radioLocationSelect, &QRadioButton::clicked, this, &SettingsDialog::locationChangedSlot);
+    connect(ui->radioLocationCoord, &QRadioButton::clicked, this, &SettingsDialog::locationChangedSlot);
+    connect(ui->radioLocationDisabled, &QRadioButton::clicked, this, &SettingsDialog::locationChangedSlot);
+    connect(ui->lineEditLatitude, &QLineEdit::textChanged, this, &SettingsDialog::locationLatitudeValidationChanged);
+    connect(ui->lineEditLatitude, &QLineEdit::editingFinished, this, &SettingsDialog::locationCoordinateChanged);
+    connect(ui->lineEditLongitude, &QLineEdit::textChanged, this, &SettingsDialog::locationLongitudeValidationChanged);
+    connect(ui->lineEditLongitude, &QLineEdit::editingFinished, this, &SettingsDialog::locationCoordinateChanged);
 
     readSettings();
     loadLocales();
@@ -114,6 +128,31 @@ void SettingsDialog::readSettings()
 #endif
     ui->checkRememberPosition->setChecked(settings.rememberPosition());
     ui->checkRememberSize->setChecked(settings.rememberSize());
+
+    // Location
+    switch (settings.locationSource()) {
+    case Location::Automatic:
+        ui->radioLocationAuto->setChecked(true);
+        break;
+    case Location::Station:
+        ui->radioLocationSelect->setChecked(true);
+        ui->comboLocation->setEnabled(true);
+        break;
+    case Location::Coordinate:
+        ui->radioLocationCoord->setChecked(true);
+        ui->lineEditLatitude->setEnabled(true);
+        ui->lineEditLongitude->setEnabled(true);
+        break;
+    case Location::Disabled:
+        ui->radioLocationDisabled->setChecked(true);
+        break;
+    }
+
+    if (settings.locationLatitude() != 0 || settings.locationLongitude() != 0) {
+        QLocale locale;
+        ui->lineEditLatitude->setText(locale.toString(settings.locationLatitude()));
+        ui->lineEditLongitude->setText(locale.toString(settings.locationLongitude()));
+    }
 }
 
 void SettingsDialog::localeChangedSlot()
@@ -127,6 +166,63 @@ void SettingsDialog::localeChangedSlot()
     settings.writeSettings();
 
     Q_EMIT localeChanged();
+}
+
+void SettingsDialog::locationChangedSlot()
+{
+    Settings settings(this);
+    if (ui->radioLocationAuto->isChecked()) {
+        settings.setLocationSource(Location::Automatic);
+    } else if (ui->radioLocationSelect->isChecked()) {
+        settings.setLocationSource(Location::Station);
+    } else if (ui->radioLocationCoord->isChecked()) {
+        settings.setLocationSource(Location::Coordinate);
+    } else if (ui->radioLocationDisabled->isChecked()) {
+        settings.setLocationSource(Location::Disabled);
+    }
+    settings.writeSettings();
+
+    ui->comboLocation->setEnabled(settings.locationSource() == Location::Station);
+    ui->lineEditLatitude->setEnabled(settings.locationSource() == Location::Coordinate);
+    ui->lineEditLongitude->setEnabled(settings.locationSource() == Location::Coordinate);
+
+    Q_EMIT locationChanged();
+}
+
+void SettingsDialog::locationCoordinateChanged()
+{
+    Settings settings(this);
+    QLocale locale;
+    if (ui->lineEditLatitude->hasAcceptableInput()) {
+        settings.setLocationLatitude(locale.toDouble(ui->lineEditLatitude->text()));
+    }
+    if (ui->lineEditLongitude->hasAcceptableInput()) {
+        settings.setLocationLongitude(locale.toDouble(ui->lineEditLongitude->text()));
+    }
+    settings.writeSettings();
+    Q_EMIT locationChanged();
+}
+
+void SettingsDialog::locationLatitudeValidationChanged()
+{
+    if (!ui->lineEditLatitude->text().isEmpty() && !ui->lineEditLatitude->hasAcceptableInput()) {
+        ui->lineEditLatitude->setStyleSheet(QStringLiteral("color: red;"));
+    } else {
+        ui->lineEditLatitude->setStyleSheet(QString());
+    }
+}
+
+void SettingsDialog::locationLongitudeValidationChanged()
+{
+    if (!ui->lineEditLongitude->text().isEmpty() && !ui->lineEditLongitude->hasAcceptableInput()) {
+        ui->lineEditLongitude->setStyleSheet(QStringLiteral("color: red;"));
+    } else {
+        ui->lineEditLongitude->setStyleSheet(QString());
+    }
+}
+
+void SettingsDialog::locationStationChanged()
+{
 }
 
 void SettingsDialog::sourceChangedSlot()

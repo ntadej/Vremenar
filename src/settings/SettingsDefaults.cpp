@@ -18,6 +18,12 @@ namespace Vremenar
 const Sources::Country Settings::DEFAULT_WEATHER_SOURCE = Sources::Slovenia;
 const bool Settings::DEFAULT_INITIAL_WEATHER_SOURCE_CHOSEN = false;
 
+// Location
+const Location::Source Settings::DEFAULT_LOCATION_SOURCE = Location::Automatic;
+const QString Settings::DEFAULT_LOCATION_STATION = QString();
+const double Settings::DEFAULT_LOCATION_LATITUDE = 0.;
+const double Settings::DEFAULT_LOCATION_LONGITUDE = 0.;
+
 // Map startup settings
 const bool Settings::DEFAULT_STARTUP_MAP_ENABLED = true;
 const Weather::MapStyle Settings::DEFAULT_STARTUP_MAP_STYLE = Weather::SatelliteMapStyle;
