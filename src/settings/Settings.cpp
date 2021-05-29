@@ -18,6 +18,10 @@ Settings::Settings(QObject *parent)
     : QSettings(parent),
       _weatherSource(DEFAULT_WEATHER_SOURCE),
       _initialWeatherSourceChosen(DEFAULT_INITIAL_WEATHER_SOURCE_CHOSEN),
+      _locationSource(DEFAULT_LOCATION_SOURCE),
+      _locationStation(DEFAULT_LOCATION_STATION),
+      _locationLatitude(DEFAULT_LOCATION_LATITUDE),
+      _locationLongitude(DEFAULT_LOCATION_LONGITUDE),
       _startupMapEnabled(DEFAULT_STARTUP_MAP_ENABLED),
       _startupMapStyle(DEFAULT_STARTUP_MAP_STYLE),
       _startupMapType(DEFAULT_STARTUP_MAP_TYPE),
@@ -39,6 +43,10 @@ Settings::Settings(QObject *parent)
 {
     _map.insert(KEY_WEATHER_SOURCE, DEFAULT_WEATHER_SOURCE);
     _map.insert(KEY_INITIAL_WEATHER_SOURCE_CHOSEN, DEFAULT_INITIAL_WEATHER_SOURCE_CHOSEN);
+    _map.insert(KEY_LOCATION_SOURCE, DEFAULT_LOCATION_SOURCE);
+    _map.insert(KEY_LOCATION_STATION, DEFAULT_LOCATION_STATION);
+    _map.insert(KEY_LOCATION_LATITUDE, DEFAULT_LOCATION_LATITUDE);
+    _map.insert(KEY_LOCATION_LONGITUDE, DEFAULT_LOCATION_LONGITUDE);
     _map.insert(KEY_STARTUP_MAP_ENABLED, DEFAULT_STARTUP_MAP_ENABLED);
     _map.insert(KEY_STARTUP_MAP_STYLE, DEFAULT_STARTUP_MAP_STYLE);
     _map.insert(KEY_STARTUP_MAP_TYPE, DEFAULT_STARTUP_MAP_TYPE);
@@ -65,6 +73,11 @@ void Settings::writeSettings()
 {
     setValue(KEY_WEATHER_SOURCE, static_cast<int>(weatherSource()));
     setValue(KEY_INITIAL_WEATHER_SOURCE_CHOSEN, initialWeatherSourceChosen());
+
+    setValue(KEY_LOCATION_SOURCE, static_cast<int>(locationSource()));
+    setValue(KEY_LOCATION_STATION, locationStation());
+    setValue(KEY_LOCATION_LATITUDE, locationLatitude());
+    setValue(KEY_LOCATION_LONGITUDE, locationLongitude());
 
     setValue(KEY_STARTUP_MAP_ENABLED, startupMapEnabled());
     setValue(KEY_STARTUP_MAP_STYLE, static_cast<int>(startupMapStyle()));
@@ -96,6 +109,11 @@ void Settings::readSettings()
 {
     setWeatherSource(Sources::Country(value(KEY_WEATHER_SOURCE, defaultValue(KEY_WEATHER_SOURCE)).toInt()));
     setInitialWeatherSourceChosen(value(KEY_INITIAL_WEATHER_SOURCE_CHOSEN, defaultValue(KEY_INITIAL_WEATHER_SOURCE_CHOSEN)).toBool());
+
+    setLocationSource(Location::Source(value(KEY_LOCATION_SOURCE, defaultValue(KEY_LOCATION_SOURCE)).toInt()));
+    setLocationStation(value(KEY_LOCATION_STATION, defaultValue(KEY_LOCATION_STATION)).toString());
+    setLocationLatitude(value(KEY_LOCATION_LATITUDE, defaultValue(KEY_LOCATION_LATITUDE)).toDouble());
+    setLocationLongitude(value(KEY_LOCATION_LONGITUDE, defaultValue(KEY_LOCATION_LONGITUDE)).toDouble());
 
     setStartupMapEnabled(value(KEY_STARTUP_MAP_ENABLED, defaultValue(KEY_STARTUP_MAP_ENABLED)).toBool());
     setStartupMapStyle(Weather::MapStyle(value(KEY_STARTUP_MAP_STYLE, defaultValue(KEY_STARTUP_MAP_STYLE)).toInt()));

@@ -18,6 +18,12 @@ namespace Vremenar
 const QString Settings::KEY_WEATHER_SOURCE = QStringLiteral("weather/source");
 const QString Settings::KEY_INITIAL_WEATHER_SOURCE_CHOSEN = QStringLiteral("weather/initial-source-chosen");
 
+// Location
+const QString Settings::KEY_LOCATION_SOURCE = QStringLiteral("location/source");
+const QString Settings::KEY_LOCATION_STATION = QStringLiteral("location/station");
+const QString Settings::KEY_LOCATION_LATITUDE = QStringLiteral("location/latitude");
+const QString Settings::KEY_LOCATION_LONGITUDE = QStringLiteral("location/longitude");
+
 // Map startup settings
 const QString Settings::KEY_STARTUP_MAP_ENABLED = QStringLiteral("map/startup");
 const QString Settings::KEY_STARTUP_MAP_STYLE = QStringLiteral("map/style");

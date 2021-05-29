@@ -14,6 +14,7 @@
 
 #include <QtCore/QSettings>
 
+#include "location/Location.h"
 #include "weather/Sources.h"
 #include "weather/Weather.h"
 
@@ -52,6 +53,27 @@ public:
     inline void setInitialWeatherSourceChosen(bool b) { _initialWeatherSourceChosen = b; }
     static const QString KEY_INITIAL_WEATHER_SOURCE_CHOSEN;
     static const bool DEFAULT_INITIAL_WEATHER_SOURCE_CHOSEN;
+
+    // Location
+    [[nodiscard]] inline Location::Source locationSource() const { return _locationSource; }
+    inline void setLocationSource(Location::Source s) { _locationSource = s; }
+    static const QString KEY_LOCATION_SOURCE;
+    static const Location::Source DEFAULT_LOCATION_SOURCE;
+
+    [[nodiscard]] inline const QString &locationStation() const { return _locationStation; }
+    inline void setLocationStation(const QString &s) { _locationStation = s; }
+    static const QString KEY_LOCATION_STATION;
+    static const QString DEFAULT_LOCATION_STATION;
+
+    [[nodiscard]] inline double locationLatitude() const { return _locationLatitude; }
+    inline void setLocationLatitude(double d) { _locationLatitude = d; }
+    static const QString KEY_LOCATION_LATITUDE;
+    static const double DEFAULT_LOCATION_LATITUDE;
+
+    [[nodiscard]] inline double locationLongitude() const { return _locationLongitude; }
+    inline void setLocationLongitude(double d) { _locationLongitude = d; }
+    static const QString KEY_LOCATION_LONGITUDE;
+    static const double DEFAULT_LOCATION_LONGITUDE;
 
     // Map startup settings
     [[nodiscard]] inline bool startupMapEnabled() const { return _startupMapEnabled; }
@@ -165,6 +187,12 @@ private:
     // Country selection
     Sources::Country _weatherSource;
     bool _initialWeatherSourceChosen;
+
+    // Location
+    Location::Source _locationSource;
+    QString _locationStation;
+    double _locationLatitude;
+    double _locationLongitude;
 
     // Map startup settings
     bool _startupMapEnabled;

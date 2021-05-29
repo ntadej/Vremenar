@@ -228,8 +228,11 @@ void ApplicationWindow::createModels()
     _engine->rootContext()->setContextProperty(QStringLiteral("VMapLayersModel"), _weatherProvider->mapLayers());
     _engine->rootContext()->setContextProperty(QStringLiteral("VMapLegendModel"), _weatherProvider->mapLegend());
 
+    connect(_location.get(), &LocationProvider::enabledChanged, _weatherProvider.get(), &WeatherProvider::currentLocationStatusChanged);
     connect(_location.get(), &LocationProvider::positionChanged, _weatherProvider.get(), &WeatherProvider::requestCurrentWeatherInfo);
     connect(_weatherProvider->mapLayers(), &MapLayersProxyModel::typeChanged, _mapsManager.get(), &MapsManager::mapChanged);
+
+    _location->locationSettingsChanged();
 }
 
 #ifndef VREMENAR_MOBILE
@@ -270,6 +273,7 @@ void ApplicationWindow::showSettingsDialog()
     dialog->setAttribute(Qt::WA_DeleteOnClose);
 
     connect(dialog, &SettingsDialog::localeChanged, _localeManager.get(), &LocaleManager::setLocale);
+    connect(dialog, &SettingsDialog::locationChanged, _location.get(), &LocationProvider::locationSettingsChanged);
     connect(dialog, &SettingsDialog::weatherSourceChanged, this, &ApplicationWindow::weatherSourceChanged);
 
 #ifdef Q_OS_MACOS

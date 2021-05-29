@@ -35,14 +35,9 @@ LocationProvider::LocationProvider(QObject *parent)
     : QObject(parent),
       _timer(std::make_unique<QTimer>(this))
 {
-#if defined(VREMENAR_POSITIONING) && (defined(Q_OS_MACOS) || defined(Q_OS_IOS))
-    initMacOSiOS();
-#endif
-
     Settings settings(this);
     _initialPosition = QGeoPositionInfo(QGeoCoordinate(settings.startupMapLatitude(), settings.startupMapLongitude()), QDateTime::currentDateTime());
 
-#ifdef VREMENAR_POSITIONING
 #if defined(Q_OS_ANDROID)
     if (!initAndroid()) {
         return;
@@ -62,9 +57,22 @@ LocationProvider::LocationProvider(QObject *parent)
         connect(_provider->geocodingManager(), &QGeoCodingManager::error,
                 this, &LocationProvider::reverseGeocodingError);
     }
+}
+
+void LocationProvider::initPosition()
+{
+#ifdef VREMENAR_POSITIONING
+    if (_position != nullptr) {
+        requestPositionUpdate();
+        return;
+    }
+
+#if defined(Q_OS_MACOS) || defined(Q_OS_IOS)
+    initMacOSiOS();
+#endif
 
     _position.reset(QGeoPositionInfoSource::createDefaultSource(this));
-    if (_position) {
+    if (_position != nullptr) {
         connect(_timer.get(), &QTimer::timeout, this, &LocationProvider::requestPositionUpdate);
 
         connect(_position.get(), &QGeoPositionInfoSource::supportedPositioningMethodsChanged,
@@ -78,6 +86,7 @@ LocationProvider::LocationProvider(QObject *parent)
 
         positionUpdated(_position->lastKnownPosition());
         requestPositionUpdate();
+        qDebug() << "Positioning initialised";
     } else {
         qWarning() << "Positioning source could not be initialised.";
     }
@@ -86,28 +95,44 @@ LocationProvider::LocationProvider(QObject *parent)
 
 bool LocationProvider::enabled()
 {
-#ifndef VREMENAR_POSITIONING
-    return false;
-#elif defined(Q_OS_MACOS) || defined(Q_OS_IOS)
-    return _platform->servicesEnabled() && _platform->servicesAllowed();
-#else
-    if (_position != nullptr) {
-        QGeoPositionInfoSource::PositioningMethods methods = _position->supportedPositioningMethods();
-        if (_currentSupportedMethods != methods) {
-            qDebug() << "Supported positioning methods:" << methods;
-            Q_EMIT enabledChanged();
-            _currentSupportedMethods = methods;
-        }
-        return !(methods == 0 || methods.testFlag(QGeoPositionInfoSource::NoPositioningMethods));
+    Settings settings(this);
+    if (settings.locationSource() == Location::Disabled) {
+        return false;
     }
 
-    return false;
+    if (settings.locationSource() == Location::Automatic) {
+#ifndef VREMENAR_POSITIONING
+        return false;
+#elif defined(Q_OS_MACOS) || defined(Q_OS_IOS)
+        return _platform != nullptr && _platform->servicesEnabled() && _platform->servicesAllowed();
+#else
+        if (!_hasFatalError && _position != nullptr) {
+            QGeoPositionInfoSource::PositioningMethods methods = _position->supportedPositioningMethods();
+            bool status = !(methods == 0 || methods.testFlag(QGeoPositionInfoSource::NoPositioningMethods));
+            if (_currentSupportedMethods != methods) {
+                qDebug() << "Supported positioning methods:" << methods;
+                Q_EMIT enabledChanged(status);
+                _currentSupportedMethods = methods;
+            }
+            return status;
+        }
+
+        return false;
 #endif
+    }
+
+    return settings.locationSource() == Location::Coordinate;
 }
 
 void LocationProvider::requestPositionUpdate()
 {
 #ifdef VREMENAR_POSITIONING
+    Settings settings(this);
+    if (settings.locationSource() != Location::Automatic) {
+        Q_EMIT positionChanged(_currentPosition.coordinate());
+        return;
+    }
+
     _timer->stop();
     if (_position != nullptr && enabled()) {
         qDebug() << "Request position update.";
@@ -235,11 +260,8 @@ void LocationProvider::positionError(QGeoPositionInfoSource::Error error)
     case QGeoPositionInfoSource::AccessError:
         qWarning() << "This application is not allowed to do positioning.";
 #if defined(Q_OS_LINUX) && !defined(Q_OS_ANDROID)
-        if (_position != nullptr) {
-            // this leaks a bit but the application crashes otherwise
-            _position.release();
-            Q_EMIT enabledChanged();
-        }
+        _hasFatalError = true;
+        Q_EMIT enabledChanged(false);
 #endif
         break;
     case QGeoPositionInfoSource::ClosedError:
@@ -255,6 +277,21 @@ void LocationProvider::positionTimeout()
     qWarning() << "Positioning has timed-out.";
 }
 
+void LocationProvider::locationSettingsChanged()
+{
+    Settings settings(this);
+    if (settings.locationSource() == Location::Automatic) {
+        initPosition();
+    } else if (settings.locationSource() == Location::Station) {
+        // TODO(tadej)
+    } else if (settings.locationSource() == Location::Coordinate) {
+        QGeoPositionInfo info(QGeoCoordinate(settings.locationLatitude(), settings.locationLongitude()), QDateTime::currentDateTime());
+        positionUpdated(info);
+    }
+
+    Q_EMIT enabledChanged(enabled());
+}
+
 void LocationProvider::supportedMethodsChanged()
 {
     if (_position == nullptr) {
@@ -265,7 +302,7 @@ void LocationProvider::supportedMethodsChanged()
 
     qDebug() << "Supported positioning methods changed to:" << _currentSupportedMethods;
 
-    Q_EMIT enabledChanged();
+    Q_EMIT enabledChanged(enabled());
 
     requestPositionUpdate();
 }

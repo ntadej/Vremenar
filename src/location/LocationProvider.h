@@ -45,11 +45,12 @@ public:
     Q_INVOKABLE QGeoCoordinate validateAndCorrect(const QGeoCoordinate &coordinate) const;
 
 Q_SIGNALS:
-    void enabledChanged();
+    void enabledChanged(bool);
     void positionChanged(QGeoCoordinate);
     void locationChanged();
 
 public Q_SLOTS:
+    void locationSettingsChanged();
     void supportedMethodsChanged();
 
 private Q_SLOTS:
@@ -63,6 +64,7 @@ private Q_SLOTS:
                                const QString &errorString);
 
 private:
+    void initPosition();
 #if defined(Q_OS_MACOS) || defined(Q_OS_IOS)
     void initMacOSiOS();
 #elif defined(Q_OS_ANDROID)
@@ -81,6 +83,7 @@ private:
     QGeoLocation _currentLocation;
 
     QGeoPositionInfoSource::PositioningMethods _currentSupportedMethods;
+    bool _hasFatalError{};
 };
 
 } // namespace Vremenar
