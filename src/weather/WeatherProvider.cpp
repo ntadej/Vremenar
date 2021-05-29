@@ -273,6 +273,15 @@ void WeatherProvider::error(QNetworkReply *reply,
     mapLayers()->setUpdating(false, true);
     setLoading(false);
 
+    if (err == QNetworkReply::ContentNotFoundError) {
+        if (currentReplies()->value(reply).call() == QStringLiteral("/stations/coordinate")
+            || currentReplies()->value(reply).call() == QStringLiteral("/stations/condition")) {
+            current()->setStation(nullptr);
+            removeResponse(reply);
+            return;
+        }
+    }
+
     if (currentReplies()->value(reply).call() == QStringLiteral("/stations/condition")) {
         startTimerCurrent();
     } else if (currentReplies()->value(reply).call() != QStringLiteral("/image")
