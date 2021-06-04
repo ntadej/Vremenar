@@ -43,6 +43,7 @@ WeatherProvider::WeatherProvider(NetworkManager *network,
       _mapLayersProxyModel(std::make_unique<MapLayersProxyModel>(this)),
       _mapLegendModel(std::make_unique<MapLegendModel>(this)),
       _mapLegendProxyModel(std::make_unique<MapLegendProxyModel>(this)),
+      _stationsModel(std::make_unique<StationListModel>(this)),
       _timer(std::make_unique<QTimer>(this)),
       _timerCurrent(std::make_unique<QTimer>(this))
 {
@@ -106,8 +107,11 @@ void WeatherProvider::requestBaseInfo()
 {
     qDebug() << "Requesting base weather info";
 
-    APIRequest request = API::mapLegends();
-    currentReplies()->insert(network()->request(request), request);
+    APIRequest requestLegends = API::mapLegends();
+    currentReplies()->insert(network()->request(requestLegends), requestLegends);
+
+    APIRequest requestStations = API::stationsList();
+    currentReplies()->insert(network()->request(requestStations), requestStations);
 }
 
 void WeatherProvider::requestWeatherMapDetails(const QString &url)
@@ -208,6 +212,15 @@ void WeatherProvider::response(QNetworkReply *reply)
         removeResponse(reply);
         return;
     }
+    if (currentReplies()->value(reply).call() == QStringLiteral("/stations/list")) {
+        const QJsonArray data = document.array();
+
+        _stationsModel->clear();
+        _stationsModel->addStations(data);
+
+        removeResponse(reply);
+        return;
+    }
 
     if (currentReplies()->value(reply).call() == QStringLiteral("/stations/map")) {
         _weatherMapModelBase->addEntries(document.array());
@@ -286,7 +299,8 @@ void WeatherProvider::error(QNetworkReply *reply,
         startTimerCurrent();
     } else if (currentReplies()->value(reply).call() != QStringLiteral("/image")
                && currentReplies()->value(reply).call() != QStringLiteral("/maps/legend")
-               && currentReplies()->value(reply).call() != QStringLiteral("/stations/coordinate")) {
+               && currentReplies()->value(reply).call() != QStringLiteral("/stations/coordinate")
+               && currentReplies()->value(reply).call() != QStringLiteral("/stations/list")) {
         startTimer();
     }
 

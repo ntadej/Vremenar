@@ -25,6 +25,7 @@
 #include "weather/models/MapLayersProxyModel.h"
 #include "weather/models/MapLegendModel.h"
 #include "weather/models/MapLegendProxyModel.h"
+#include "weather/models/StationListModel.h"
 #include "weather/models/WeatherMapModel.h"
 #include "weather/models/WeatherMapProxyModel.h"
 
@@ -53,6 +54,7 @@ public:
     inline MapInfoModel *mapInfo() { return _mapInfoModel.get(); }
     inline MapLayersProxyModel *mapLayers() { return _mapLayersProxyModel.get(); }
     inline MapLegendProxyModel *mapLegend() { return _mapLegendProxyModel.get(); }
+    inline StationListModel *stations() { return _stationsModel.get(); }
 
     Q_INVOKABLE void requestBaseInfo();
     Q_INVOKABLE void requestCurrentWeatherInfo(const QGeoCoordinate &coordinate);
@@ -123,6 +125,7 @@ private:
     std::unique_ptr<MapLayersProxyModel> _mapLayersProxyModel{};
     std::unique_ptr<MapLegendModel> _mapLegendModel{};
     std::unique_ptr<MapLegendProxyModel> _mapLegendProxyModel{};
+    std::unique_ptr<StationListModel> _stationsModel{};
 
     std::unique_ptr<Hyperlink> _copyrightLink{};
 
