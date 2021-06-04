@@ -16,6 +16,7 @@
 
 #include <QtGui/QDoubleValidator>
 #include <QtWidgets/QActionGroup>
+#include <QtWidgets/QCompleter>
 #include <QtWidgets/QMainWindow>
 
 #if defined(Q_OS_MACOS)
@@ -30,11 +31,14 @@
 namespace Vremenar
 {
 
+class StationListModel;
+
 class SettingsDialog : public QMainWindow
 {
     Q_OBJECT
 public:
-    explicit SettingsDialog(QWidget *parent = nullptr);
+    explicit SettingsDialog(StationListModel *stationsModel,
+                            QWidget *parent = nullptr);
 
 protected:
     void changeEvent(QEvent *e) final;
@@ -57,6 +61,7 @@ private Q_SLOTS:
     void locationLatitudeValidationChanged();
     void locationLongitudeValidationChanged();
     void locationStationChanged();
+    void locationStationTextChanged();
     void sourceChangedSlot();
 #if defined(Q_OS_MACOS)
     void showInTrayChangedSlot(bool checked);
@@ -69,6 +74,7 @@ private:
     std::unique_ptr<Ui::SettingsDialog> ui{};
 
     std::unique_ptr<QActionGroup> _group{};
+    std::unique_ptr<QCompleter> _stationsCompleter{};
     std::unique_ptr<QDoubleValidator> _latitudeValidator{};
     std::unique_ptr<QDoubleValidator> _longitudeValidator{};
 

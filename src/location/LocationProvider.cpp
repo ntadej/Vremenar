@@ -15,6 +15,8 @@
 
 #include "location/LocationProvider.h"
 #include "settings/Settings.h"
+#include "weather/containers/StationListItem.h"
+#include "weather/models/StationListModel.h"
 
 #include "Config.h"
 
@@ -31,9 +33,10 @@ constexpr int androidQuickUpdate{3000};
 namespace Vremenar
 {
 
-LocationProvider::LocationProvider(QObject *parent)
+LocationProvider::LocationProvider(StationListModel *stations, QObject *parent)
     : QObject(parent),
-      _timer(std::make_unique<QTimer>(this))
+      _timer(std::make_unique<QTimer>(this)),
+      _stations(stations)
 {
     Settings settings(this);
     _initialPosition = QGeoPositionInfo(QGeoCoordinate(settings.startupMapLatitude(), settings.startupMapLongitude()), QDateTime::currentDateTime());
@@ -121,7 +124,8 @@ bool LocationProvider::enabled()
 #endif
     }
 
-    return settings.locationSource() == Location::Coordinate;
+    return (settings.locationSource() == Location::Coordinate && !(settings.locationLatitude() == 0 && settings.locationLongitude() == 0))
+           || (settings.locationSource() == Location::Station && !settings.locationStation().isEmpty());
 }
 
 void LocationProvider::requestPositionUpdate()
@@ -283,8 +287,18 @@ void LocationProvider::locationSettingsChanged()
     if (settings.locationSource() == Location::Automatic) {
         initPosition();
     } else if (settings.locationSource() == Location::Station) {
-        // TODO(tadej)
+        auto *station = _stations->find<StationListItem>(settings.locationStation());
+        if (station == nullptr || station->id().isEmpty()) {
+            Q_EMIT enabledChanged(enabled());
+            return;
+        }
+        QGeoPositionInfo info(station->coordinate(), QDateTime::currentDateTime());
+        positionUpdated(info);
     } else if (settings.locationSource() == Location::Coordinate) {
+        if (settings.locationLatitude() == 0 && settings.locationLongitude() == 0) {
+            Q_EMIT enabledChanged(enabled());
+            return;
+        }
         QGeoPositionInfo info(QGeoCoordinate(settings.locationLatitude(), settings.locationLongitude()), QDateTime::currentDateTime());
         positionUpdated(info);
     }

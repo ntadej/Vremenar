@@ -23,6 +23,7 @@ class StationListModel : public ListModel
 public:
     explicit StationListModel(QObject *parent = nullptr);
 
+    void addEmpty();
     void addStations(const QJsonArray &data);
 };
 

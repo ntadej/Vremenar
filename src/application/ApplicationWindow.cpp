@@ -209,8 +209,6 @@ void ApplicationWindow::writeSettingsStartupMap()
 
 void ApplicationWindow::createModels()
 {
-    _location = std::make_unique<LocationProvider>(this);
-    _mapsManager = std::make_unique<MapsManager>(_engine.get(), this);
     _updates = std::make_unique<Updates>(_network, this);
     _weatherProvider = std::make_unique<WeatherProvider>(_network, this);
     connect(_weatherProvider.get(), &WeatherProvider::recordEvent, _analytics.get(), &Analytics::recordEvent);
@@ -220,7 +218,6 @@ void ApplicationWindow::createModels()
     _engine->rootContext()->setContextProperty(QStringLiteral("VL"), _localeManager.get());
     _engine->rootContext()->setContextProperty(QStringLiteral("VUpdates"), _updates.get());
 
-    _engine->rootContext()->setContextProperty(QStringLiteral("VLocation"), _location.get());
     _engine->rootContext()->setContextProperty(QStringLiteral("VWeather"), _weatherProvider.get());
     _engine->rootContext()->setContextProperty(QStringLiteral("VCurrent"), _weatherProvider->current());
     _engine->rootContext()->setContextProperty(QStringLiteral("VWeatherMapModel"), _weatherProvider->weatherMap());
@@ -228,8 +225,13 @@ void ApplicationWindow::createModels()
     _engine->rootContext()->setContextProperty(QStringLiteral("VMapLayersModel"), _weatherProvider->mapLayers());
     _engine->rootContext()->setContextProperty(QStringLiteral("VMapLegendModel"), _weatherProvider->mapLegend());
 
+    _location = std::make_unique<LocationProvider>(_weatherProvider->stations(), this);
+    _engine->rootContext()->setContextProperty(QStringLiteral("VLocation"), _location.get());
     connect(_location.get(), &LocationProvider::enabledChanged, _weatherProvider.get(), &WeatherProvider::currentLocationStatusChanged);
     connect(_location.get(), &LocationProvider::positionChanged, _weatherProvider.get(), &WeatherProvider::requestCurrentWeatherInfo);
+    connect(_weatherProvider.get(), &WeatherProvider::stationsUpdated, _location.get(), &LocationProvider::locationSettingsChanged);
+
+    _mapsManager = std::make_unique<MapsManager>(_engine.get(), this);
     connect(_weatherProvider->mapLayers(), &MapLayersProxyModel::typeChanged, _mapsManager.get(), &MapsManager::mapChanged);
 
     _location->locationSettingsChanged();
@@ -269,7 +271,7 @@ void ApplicationWindow::showAboutDialog()
 void ApplicationWindow::showSettingsDialog()
 {
     gsl::owner<SettingsDialog *> dialog{};
-    dialog = new SettingsDialog();
+    dialog = new SettingsDialog(_weatherProvider->stations());
     dialog->setAttribute(Qt::WA_DeleteOnClose);
 
     connect(dialog, &SettingsDialog::localeChanged, _localeManager.get(), &LocaleManager::setLocale);

@@ -97,6 +97,7 @@ Q_SIGNALS:
     void currentMapStyleChangedSignal(int);
     void currentMapLayerChangedSignal(int);
     void currentMapLayerHasLegendChangedSignal(bool);
+    void stationsUpdated();
     void storeState();
 
 private Q_SLOTS:

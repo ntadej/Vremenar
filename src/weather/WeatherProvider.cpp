@@ -216,7 +216,10 @@ void WeatherProvider::response(QNetworkReply *reply)
         const QJsonArray data = document.array();
 
         _stationsModel->clear();
+        _stationsModel->addEmpty();
         _stationsModel->addStations(data);
+
+        Q_EMIT stationsUpdated();
 
         removeResponse(reply);
         return;

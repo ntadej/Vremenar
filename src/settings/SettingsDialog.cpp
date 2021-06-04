@@ -14,18 +14,26 @@
 #include "application/BaseApplication.h"
 #include "common/LocaleManager.h"
 #include "settings/Settings.h"
+#include "weather/containers/StationListItem.h"
+#include "weather/models/StationListModel.h"
 
 #include "SettingsDialog.h"
 
 namespace Vremenar
 {
 
-SettingsDialog::SettingsDialog(QWidget *parent)
+SettingsDialog::SettingsDialog(StationListModel *stationsModel,
+                               QWidget *parent)
     : QMainWindow(parent),
       ui(std::make_unique<Ui::SettingsDialog>())
 {
     ui->setupUi(this);
 
+    _stationsCompleter = std::make_unique<QCompleter>(stationsModel, this);
+    _stationsCompleter->setCaseSensitivity(Qt::CaseInsensitive);
+    ui->comboLocation->setModel(stationsModel);
+    ui->comboLocation->setCompleter(_stationsCompleter.get());
+    ui->comboLocation->setInsertPolicy(QComboBox::NoInsert);
     _latitudeValidator = std::make_unique<QDoubleValidator>(-90, 90, 4);    // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
     _longitudeValidator = std::make_unique<QDoubleValidator>(-180, 180, 4); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
     ui->lineEditLatitude->setValidator(_latitudeValidator.get());
@@ -64,6 +72,8 @@ SettingsDialog::SettingsDialog(QWidget *parent)
     connect(ui->radioLocationSelect, &QRadioButton::clicked, this, &SettingsDialog::locationChangedSlot);
     connect(ui->radioLocationCoord, &QRadioButton::clicked, this, &SettingsDialog::locationChangedSlot);
     connect(ui->radioLocationDisabled, &QRadioButton::clicked, this, &SettingsDialog::locationChangedSlot);
+    connect(ui->comboLocation, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &SettingsDialog::locationStationChanged);
+    connect(ui->comboLocation, &QComboBox::currentTextChanged, this, &SettingsDialog::locationStationTextChanged);
     connect(ui->lineEditLatitude, &QLineEdit::textChanged, this, &SettingsDialog::locationLatitudeValidationChanged);
     connect(ui->lineEditLatitude, &QLineEdit::editingFinished, this, &SettingsDialog::locationCoordinateChanged);
     connect(ui->lineEditLongitude, &QLineEdit::textChanged, this, &SettingsDialog::locationLongitudeValidationChanged);
@@ -137,6 +147,7 @@ void SettingsDialog::readSettings()
     case Location::Station:
         ui->radioLocationSelect->setChecked(true);
         ui->comboLocation->setEnabled(true);
+        ui->labelLocationInfo->setEnabled(true);
         break;
     case Location::Coordinate:
         ui->radioLocationCoord->setChecked(true);
@@ -152,6 +163,14 @@ void SettingsDialog::readSettings()
         QLocale locale;
         ui->lineEditLatitude->setText(locale.toString(settings.locationLatitude()));
         ui->lineEditLongitude->setText(locale.toString(settings.locationLongitude()));
+    }
+
+    if (!settings.locationStation().isEmpty()) {
+        auto *model = qobject_cast<StationListModel *>(_stationsCompleter->model());
+        auto *station = model->find<StationListItem>(settings.locationStation());
+        if (station != nullptr) {
+            ui->comboLocation->setCurrentIndex(model->indexFromItem(station).row());
+        }
     }
 }
 
@@ -183,8 +202,12 @@ void SettingsDialog::locationChangedSlot()
     settings.writeSettings();
 
     ui->comboLocation->setEnabled(settings.locationSource() == Location::Station);
+    ui->labelLocationInfo->setEnabled(settings.locationSource() == Location::Station);
     ui->lineEditLatitude->setEnabled(settings.locationSource() == Location::Coordinate);
     ui->lineEditLongitude->setEnabled(settings.locationSource() == Location::Coordinate);
+    if (!ui->radioLocationSelect->isChecked()) {
+        ui->comboLocation->lineEdit()->setStyleSheet(QString());
+    }
 
     Q_EMIT locationChanged();
 }
@@ -223,6 +246,23 @@ void SettingsDialog::locationLongitudeValidationChanged()
 
 void SettingsDialog::locationStationChanged()
 {
+    Settings settings(this);
+    settings.setLocationStation(ui->comboLocation->currentData(StationListItem::IdRole).toString());
+    settings.writeSettings();
+    Q_EMIT locationChanged();
+
+    if (settings.locationSource() == Location::Station) {
+        ui->comboLocation->lineEdit()->setStyleSheet(QStringLiteral("color: green;"));
+    }
+}
+
+void SettingsDialog::locationStationTextChanged()
+{
+    if (!ui->comboLocation->lineEdit()->text().isEmpty() && _stationsCompleter->currentCompletion().isEmpty()) {
+        ui->comboLocation->lineEdit()->setStyleSheet(QStringLiteral("color: red;"));
+    } else {
+        ui->comboLocation->lineEdit()->setStyleSheet(QString());
+    }
 }
 
 void SettingsDialog::sourceChangedSlot()

@@ -25,6 +25,8 @@
 namespace Vremenar
 {
 
+class StationListModel;
+
 class LocationProvider : public QObject
 {
     Q_OBJECT
@@ -33,7 +35,8 @@ class LocationProvider : public QObject
     Q_PROPERTY(QGeoCoordinate position READ currentPosition NOTIFY positionChanged)
     Q_PROPERTY(QString location READ currentLocation NOTIFY locationChanged)
 public:
-    explicit LocationProvider(QObject *parent = nullptr);
+    explicit LocationProvider(StationListModel *stations,
+                              QObject *parent = nullptr);
 
     [[nodiscard]] bool enabled();
     [[nodiscard]] QGeoCoordinate initialPosition() const;
@@ -77,6 +80,8 @@ private:
 
     std::unique_ptr<QGeoPositionInfoSource> _position{};
     std::unique_ptr<QGeoServiceProvider> _provider{};
+
+    StationListModel *_stations{}; // not owned here
 
     QGeoPositionInfo _initialPosition;
     QGeoPositionInfo _currentPosition;

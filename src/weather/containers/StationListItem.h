@@ -15,6 +15,7 @@
 #include <memory>
 
 #include <QtCore/QJsonObject>
+#include <QtPositioning/QGeoCoordinate>
 
 #include "common/ListItem.h"
 
@@ -25,14 +26,18 @@ class StationListItem : public ListItem
 {
     Q_OBJECT
     Q_PROPERTY(QString display READ display CONSTANT)
+    Q_PROPERTY(QGeoCoordinate coordinate READ coordinate CONSTANT)
 public:
     enum Roles {
         DisplayRole = Qt::DisplayRole,
+        EditRole = Qt::EditRole,
         IdRole = Qt::UserRole + 1,
+        CoordinateRole
     };
 
     explicit StationListItem(const QString &id,
                              QString name,
+                             const QGeoCoordinate &coordinate,
                              QObject *parent = nullptr);
 
     // Implemented virtual functions
@@ -41,15 +46,20 @@ public:
 
     [[nodiscard]] static std::unique_ptr<StationListItem> fromJson(const QJsonObject &json);
 
+    [[nodiscard]] inline const QGeoCoordinate &coordinate() const { return _coordinate; }
+
     static inline QHash<int, QByteArray> roleNames()
     {
         return {
             {IdRole, "id"},
-            {DisplayRole, "display"}};
+            {DisplayRole, "display"},
+            {EditRole, "edit"},
+            {CoordinateRole, "coordinate"}};
     }
 
 private:
     QString _name;
+    QGeoCoordinate _coordinate;
 };
 
 } // namespace Vremenar
