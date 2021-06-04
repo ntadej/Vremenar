@@ -16,9 +16,11 @@ namespace Vremenar
 
 StationListItem::StationListItem(const QString &id,
                                  QString name,
+                                 const QGeoCoordinate &coordinate,
                                  QObject *parent)
     : ListItem(parent),
-      _name(std::move(name))
+      _name(std::move(name)),
+      _coordinate(coordinate)
 {
     setId(id);
 }
@@ -28,7 +30,10 @@ std::unique_ptr<StationListItem> StationListItem::fromJson(const QJsonObject &js
     QString id = json[QStringLiteral("id")].toString();
     QString name = json[QStringLiteral("name")].toString();
 
-    return std::make_unique<StationListItem>(id, name);
+    QJsonObject coordinateObj = json[QStringLiteral("coordinate")].toObject();
+    QGeoCoordinate coordinate{coordinateObj[QStringLiteral("latitude")].toDouble(), coordinateObj[QStringLiteral("longitude")].toDouble()};
+
+    return std::make_unique<StationListItem>(id, name, coordinate);
 }
 
 QString StationListItem::display() const
@@ -42,7 +47,10 @@ QVariant StationListItem::data(int role) const
     case IdRole:
         return id();
     case DisplayRole:
+    case EditRole:
         return display();
+    case CoordinateRole:
+        return QVariant::fromValue(coordinate());
     }
 
     return QVariant();

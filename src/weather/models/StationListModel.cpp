@@ -21,6 +21,11 @@ namespace Vremenar
 StationListModel::StationListModel(QObject *parent)
     : ListModel(StationListItem::roleNames(), parent) {}
 
+void StationListModel::addEmpty()
+{
+    appendRow(std::make_unique<StationListItem>("", tr("None"), QGeoCoordinate(0, 0)));
+}
+
 void StationListModel::addStations(const QJsonArray &data)
 {
     for (const QJsonValue &stationRef : data) {
