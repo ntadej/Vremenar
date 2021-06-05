@@ -163,7 +163,7 @@ void LocationProvider::positionError(QGeoPositionInfoSource::Error error)
     switch (error) {
     case QGeoPositionInfoSource::AccessError:
         qWarning() << "This application is not allowed to do positioning.";
-#ifdef Q_OS_LINUX
+#if defined(Q_OS_LINUX) && !defined(Q_OS_ANDROID)
         if (_position != nullptr) {
             // this leaks a bit but the application crashes otherwise
             _position.release();

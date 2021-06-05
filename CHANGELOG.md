@@ -1,5 +1,10 @@
 # Vremenar Changelog
 
+## 0.3.3 (2020-06-05)
+
+Fixes:
+- map selection icon was missing on Android
+
 ## 0.3.2 (2020-05-29)
 
 Fixes:

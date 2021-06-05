@@ -54,7 +54,7 @@ ApplicationWindow::ApplicationWindow(QObject *parent)
       _networkFactory(std::make_unique<NetworkManagerFactory>(this))
 {
     // Set the style
-#if defined(Q_OS_LINUX)
+#if defined(Q_OS_LINUX) || defined(Q_OS_ANDROID)
     QQuickStyle::setStyle("Material");
 #elif defined(Q_OS_WIN)
     QQuickStyle::setStyle("Universal");
