@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -34,7 +34,14 @@ int Qml::UIManager::paddingHeader() const { return 5; }       // NOLINT(cppcoreg
 int Qml::UIManager::radiusCommon() const { return 10; }       // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
 
 int Qml::UIManager::rowHeight() const { return 44; }    // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
-int Qml::UIManager::navBarHeight() const { return 44; } // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+int Qml::UIManager::navBarHeight() const
+{
+#if !defined(Q_OS_ANDROID) && (defined(Q_OS_WINDOWS) || defined(Q_OS_LINUX))
+    return 0;
+#else
+    return 44; // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+#endif
+}
 
 int Qml::UIManager::bottomSheetBaseHeight() const { return 44; } // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
 int Qml::UIManager::bottomSheetMaxWidth() const { return 680; }  // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)

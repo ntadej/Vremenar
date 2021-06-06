@@ -18,7 +18,7 @@ import Vremenar.Navigation 1.0
 
 MainWindow {
     id: app
-//    title: centralNavigationStack.currentItem.title ? centralNavigationStack.currentItem.title + " - " + Globals.name : Globals.name
+    title: centralNavigationStack.currentItem.title ? centralNavigationStack.currentItem.title + " - " + Globals.name : Globals.name
     visible: true
 
     LoadFonts { }

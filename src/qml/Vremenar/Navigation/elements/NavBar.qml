@@ -51,6 +51,7 @@ Item {
 
     RowLayout {
         spacing: 0
+        visible: UI.navBarHeight > 0
         anchors {
             fill: parent
             topMargin: UI.safetyMarginTop
