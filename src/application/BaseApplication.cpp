@@ -32,7 +32,9 @@ void Application::preInit()
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QCoreApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
 
-#if defined(Q_OS_LINUX) && !defined(Q_OS_ANDROID)
+#if defined(Q_OS_WINDOWS)
+    qputenv("QT_QPA_PLATFORM", "windows:darkmode=1");
+#elif defined(Q_OS_LINUX) && !defined(Q_OS_ANDROID)
     qputenv("QT_QUICK_CONTROLS_MATERIAL_VARIANT", "Dense");
     qputenv("QT_GEOCLUE_APP_DESKTOP_ID", QString(Vremenar::appID).toUtf8());
 #endif
