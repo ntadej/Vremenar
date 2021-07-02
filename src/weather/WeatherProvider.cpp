@@ -49,27 +49,16 @@ WeatherProvider::WeatherProvider(NetworkManager *network,
 {
     Settings settings(this);
     if (settings.weatherSource() == Sources::Germany) {
-        _supportedMapTypes = {
-            Weather::WeatherConditionMap,
-            Weather::PrecipitationMap};
         _copyrightLink = std::make_unique<Hyperlink>(
             QStringLiteral("© Deutscher Wetterdienst"),
             QStringLiteral("https://dwd.de"));
     } else {
-        _supportedMapTypes = {
-            Weather::WeatherConditionMap,
-            Weather::PrecipitationMap,
-            Weather::CloudCoverageMap,
-            Weather::WindSpeedMap,
-            Weather::TemperatureMap,
-            Weather::HailProbabilityMap};
         _copyrightLink = std::make_unique<Hyperlink>(
             QStringLiteral("© ") + tr("Slovenian Environment Agency"),
             QStringLiteral("https://www.arso.gov.si"));
     }
 
     weatherMap()->setSourceModel(_weatherMapModel.get());
-    mapInfo()->generateModel(supportedMapTypes());
     mapLayers()->setSourceModel(_mapLayersModel.get());
     mapLegend()->setSourceModel(_mapLegendModel.get());
 
@@ -106,6 +95,9 @@ void WeatherProvider::requestCurrentWeatherInfo(const QGeoCoordinate &coordinate
 void WeatherProvider::requestBaseInfo()
 {
     qDebug() << "Requesting base weather info";
+
+    APIRequest requestTypes = API::mapTypes();
+    currentReplies()->insert(network()->request(requestTypes), requestTypes);
 
     APIRequest requestLegends = API::mapLegends();
     currentReplies()->insert(network()->request(requestLegends), requestLegends);
@@ -180,6 +172,26 @@ void WeatherProvider::response(QNetworkReply *reply)
 
     // JSON
     QJsonDocument document = QJsonDocument::fromJson(reply->readAll());
+    if (currentReplies()->value(reply).call() == QStringLiteral("/maps/types")) {
+        const QJsonArray data = document.array();
+        _mapInfoModel->clear();
+        _mapInfoModel->generateModel(data);
+
+        std::vector<Weather::MapType> types = _mapInfoModel->types();
+
+        Settings settings(this);
+        if (settings.startupMapEnabled()
+            && std::find(types.begin(), types.end(), settings.startupMapType()) != types.end()) {
+            changeMapType(settings.startupMapType());
+        } else {
+            changeMapType(Weather::MapType::WeatherConditionMap);
+        }
+
+        Q_EMIT currentMapStyleChangedSignal(currentMapStyle());
+
+        removeResponse(reply);
+        return;
+    }
     if (currentReplies()->value(reply).call() == QStringLiteral("/maps/legend")) {
         const QJsonArray data = document.array();
 
@@ -301,6 +313,7 @@ void WeatherProvider::error(QNetworkReply *reply,
     if (currentReplies()->value(reply).call() == QStringLiteral("/stations/condition")) {
         startTimerCurrent();
     } else if (currentReplies()->value(reply).call() != QStringLiteral("/image")
+               && currentReplies()->value(reply).call() != QStringLiteral("/maps/types")
                && currentReplies()->value(reply).call() != QStringLiteral("/maps/legend")
                && currentReplies()->value(reply).call() != QStringLiteral("/stations/coordinate")
                && currentReplies()->value(reply).call() != QStringLiteral("/stations/list")) {
@@ -404,7 +417,7 @@ void WeatherProvider::currentMapStyleChanged(int index)
 
 void WeatherProvider::currentMapLayerChanged(int index)
 {
-    if (index < 0 || index >= static_cast<int>(supportedMapTypes().size())) {
+    if (index < 0 || index >= _mapInfoModel->rowCount()) {
         return;
     }
 
@@ -422,7 +435,7 @@ int WeatherProvider::currentMapStyle() const
 
 int WeatherProvider::currentMapLayer() const
 {
-    const std::vector<Weather::MapType> &types = supportedMapTypes();
+    std::vector<Weather::MapType> types = _mapInfoModel->types();
     auto it = std::find(types.begin(), types.end(), _currentType);
     return static_cast<int>(std::distance(types.begin(), it));
 }
@@ -505,11 +518,6 @@ void WeatherProvider::setLoading(bool loading)
         _loading = loading;
         Q_EMIT loadingChanged();
     }
-}
-
-void WeatherProvider::startupCompleted()
-{
-    Q_EMIT currentMapStyleChangedSignal(currentMapStyle());
 }
 
 } // namespace Vremenar

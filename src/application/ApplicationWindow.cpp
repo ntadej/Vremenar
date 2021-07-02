@@ -94,8 +94,6 @@ ApplicationWindow::ApplicationWindow(QObject *parent)
     connect(this, &ApplicationWindow::dockVisibilityChanged, application, &DesktopApplication::dockSetVisibility);
 #endif
 
-    connect(this, &ApplicationWindow::loadInitialMap, this, &ApplicationWindow::startLoadInitialMap);
-
     // Setup and load main QML
     _engine->setNetworkAccessManagerFactory(_networkFactory.get());
     _engine->load(QUrl(QStringLiteral("qrc:/Vremenar/main.qml")));
@@ -321,21 +319,6 @@ void ApplicationWindow::startCompleted()
     qDebug() << "Initialization completed";
 
     _updates->checkVersion();
-
-    QTimer::singleShot(1s, this, &ApplicationWindow::startLoadInitialMap);
-}
-
-void ApplicationWindow::startLoadInitialMap()
-{
-    Settings settings(this);
-    if (settings.startupMapEnabled()
-        && std::find(_weatherProvider->supportedMapTypes().begin(), _weatherProvider->supportedMapTypes().end(), settings.startupMapType()) != _weatherProvider->supportedMapTypes().end()) {
-        _weatherProvider->changeMapType(settings.startupMapType());
-    } else {
-        _weatherProvider->changeMapType(Weather::MapType::WeatherConditionMap);
-    }
-
-    _weatherProvider->startupCompleted();
 }
 
 void ApplicationWindow::weatherSourceChanged(int source)
