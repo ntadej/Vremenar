@@ -120,6 +120,70 @@ void LocationProvider::requestPositionUpdate()
 #endif
 }
 
+bool LocationProvider::validate(const QGeoCoordinate &coordinate) const
+{
+    Settings settings;
+    Sources::Country country = settings.weatherSource();
+    if (country == Sources::Slovenia) {
+        if (Settings::DEFAULT_MIN_MAP_LATITUDE_SI > coordinate.latitude()
+            || Settings::DEFAULT_MAX_MAP_LATITUDE_SI < coordinate.latitude()
+            || Settings::DEFAULT_MIN_MAP_LONGITUDE_SI > coordinate.longitude()
+            || Settings::DEFAULT_MAX_MAP_LONGITUDE_SI < coordinate.longitude()) {
+            return false;
+        }
+    } else if (country == Sources::Germany) {
+        if (Settings::DEFAULT_MIN_MAP_LATITUDE_DE > coordinate.latitude()
+            || Settings::DEFAULT_MAX_MAP_LATITUDE_DE < coordinate.latitude()
+            || Settings::DEFAULT_MIN_MAP_LONGITUDE_DE > coordinate.longitude()
+            || Settings::DEFAULT_MAX_MAP_LONGITUDE_DE < coordinate.longitude()) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+QGeoCoordinate LocationProvider::validateAndCorrect(const QGeoCoordinate &coordinate) const
+{
+    bool valid = validate(coordinate);
+    if (valid) {
+        return coordinate;
+    }
+
+    QGeoCoordinate newCoordinate = coordinate;
+    Settings settings;
+    Sources::Country country = settings.weatherSource();
+    if (country == Sources::Slovenia) {
+        if (Settings::DEFAULT_MIN_MAP_LATITUDE_SI > coordinate.latitude()) {
+            newCoordinate.setLatitude(Settings::DEFAULT_MIN_MAP_LATITUDE_SI);
+        }
+        if (Settings::DEFAULT_MAX_MAP_LATITUDE_SI < coordinate.latitude()) {
+            newCoordinate.setLatitude(Settings::DEFAULT_MAX_MAP_LATITUDE_SI);
+        }
+        if (Settings::DEFAULT_MIN_MAP_LONGITUDE_SI > coordinate.longitude()) {
+            newCoordinate.setLongitude(Settings::DEFAULT_MIN_MAP_LONGITUDE_SI);
+        }
+        if (Settings::DEFAULT_MAX_MAP_LONGITUDE_SI < coordinate.longitude()) {
+            newCoordinate.setLongitude(Settings::DEFAULT_MAX_MAP_LONGITUDE_SI);
+        }
+    } else if (country == Sources::Germany) {
+        if (Settings::DEFAULT_MIN_MAP_LATITUDE_DE > coordinate.latitude()) {
+            newCoordinate.setLatitude(Settings::DEFAULT_MIN_MAP_LATITUDE_DE);
+        }
+        if (Settings::DEFAULT_MAX_MAP_LATITUDE_DE < coordinate.latitude()) {
+            newCoordinate.setLatitude(Settings::DEFAULT_MAX_MAP_LATITUDE_DE);
+        }
+        if (Settings::DEFAULT_MIN_MAP_LONGITUDE_DE > coordinate.longitude()) {
+            newCoordinate.setLongitude(Settings::DEFAULT_MIN_MAP_LONGITUDE_DE);
+        }
+        if (Settings::DEFAULT_MAX_MAP_LONGITUDE_DE < coordinate.longitude()) {
+            newCoordinate.setLongitude(Settings::DEFAULT_MAX_MAP_LONGITUDE_DE);
+        }
+    }
+
+    return newCoordinate;
+}
+
 QGeoCoordinate LocationProvider::initialPosition() const
 {
     return _initialPosition.coordinate();
@@ -145,9 +209,16 @@ void LocationProvider::positionUpdated(const QGeoPositionInfo &info)
 
     _currentPosition = info;
 
+    // validate
+    if (!validate(_currentPosition.coordinate())) {
+        _currentPosition.setCoordinate(QGeoCoordinate());
+    }
+
     // Request location info about position
     if (_provider->geocodingManager() != nullptr) {
-        _provider->geocodingManager()->reverseGeocode(info.coordinate());
+        if (_currentPosition.isValid()) {
+            _provider->geocodingManager()->reverseGeocode(info.coordinate());
+        }
     } else {
         qWarning() << "No geocoding provider available.";
     }

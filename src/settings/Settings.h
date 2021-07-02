@@ -87,6 +87,16 @@ public:
     static const double DEFAULT_STARTUP_MAP_LONGITUDE_SI;
     static const double DEFAULT_STARTUP_MAP_LONGITUDE_DE;
 
+    // specials
+    static const double DEFAULT_MIN_MAP_LATITUDE_SI;
+    static const double DEFAULT_MAX_MAP_LATITUDE_SI;
+    static const double DEFAULT_MIN_MAP_LONGITUDE_SI;
+    static const double DEFAULT_MAX_MAP_LONGITUDE_SI;
+    static const double DEFAULT_MIN_MAP_LATITUDE_DE;
+    static const double DEFAULT_MAX_MAP_LATITUDE_DE;
+    static const double DEFAULT_MIN_MAP_LONGITUDE_DE;
+    static const double DEFAULT_MAX_MAP_LONGITUDE_DE;
+
     void resetStartupMapCoordinates();
 
     // Locale

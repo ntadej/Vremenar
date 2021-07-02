@@ -31,6 +31,15 @@ const double Settings::DEFAULT_STARTUP_MAP_LONGITUDE_SI = 14.815333;
 const double Settings::DEFAULT_STARTUP_MAP_LATITUDE_DE = 52.3759;
 const double Settings::DEFAULT_STARTUP_MAP_LONGITUDE_DE = 10.447683;
 
+const double Settings::DEFAULT_MIN_MAP_LATITUDE_SI = 44.6;
+const double Settings::DEFAULT_MAX_MAP_LATITUDE_SI = 47.5;
+const double Settings::DEFAULT_MIN_MAP_LONGITUDE_SI = 12.;
+const double Settings::DEFAULT_MAX_MAP_LONGITUDE_SI = 17.5;
+const double Settings::DEFAULT_MIN_MAP_LATITUDE_DE = 47.;
+const double Settings::DEFAULT_MAX_MAP_LATITUDE_DE = 55.3;
+const double Settings::DEFAULT_MIN_MAP_LONGITUDE_DE = 5.7;
+const double Settings::DEFAULT_MAX_MAP_LONGITUDE_DE = 15.3;
+
 // Locale
 const QString Settings::DEFAULT_LOCALE = {};
 
