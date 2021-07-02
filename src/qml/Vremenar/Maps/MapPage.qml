@@ -131,6 +131,12 @@ MapPageBase {
         Binding { target: VWeatherMapModel; property: "visibleRegion"; value: map.visibleRegion }
         Binding { target: map; property: "currentUrl"; value: VMapLayersModel.image }
 
+        onCenterChanged: {
+            if (!VLocation.validate(center)) {
+                center = VLocation.validateAndCorrect(center)
+            }
+        }
+
         Binding {
              target: map
              property: "center"
