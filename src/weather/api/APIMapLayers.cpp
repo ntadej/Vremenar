@@ -76,4 +76,15 @@ APIRequest API::mapLegends()
     return request;
 }
 
+APIRequest API::mapTypes()
+{
+    QUrlQuery query = Sources::sourceQuery();
+
+    APIRequest request;
+    request.setCall(QStringLiteral("/maps/types"));
+    request.setUrl(QStringLiteral("/maps/types"), query);
+
+    return request;
+}
+
 } // namespace Vremenar

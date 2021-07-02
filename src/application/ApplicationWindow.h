@@ -53,7 +53,6 @@ public Q_SLOTS:
     void visibilityChanged(bool visible);
     void processUrl(const QString &url);
     void startCompleted();
-    void startLoadInitialMap();
     void weatherSourceChanged(int source);
 
 #ifndef VREMENAR_MOBILE
@@ -67,9 +66,6 @@ public Q_SLOTS:
 Q_SIGNALS:
     void dockVisibilityChanged(bool);
 #endif
-
-Q_SIGNALS:
-    void loadInitialMap();
 
 private Q_SLOTS:
 #ifndef VREMENAR_MOBILE

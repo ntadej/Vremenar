@@ -63,7 +63,6 @@ public:
     Q_INVOKABLE void requestMapLayers(Weather::MapType type);
 
     [[nodiscard]] bool currentMapLayerHasLegend() const;
-    [[nodiscard]] inline const std::vector<Weather::MapType> &supportedMapTypes() const { return _supportedMapTypes; }
     [[nodiscard]] inline qreal minZoomLevel() const { return 7.5; }
     [[nodiscard]] inline qreal maxZoomLevel() const { return 11; }
     [[nodiscard]] inline Hyperlink *copyrightLink() const { return _copyrightLink.get(); }
@@ -85,7 +84,6 @@ public Q_SLOTS:
     Q_INVOKABLE void currentMapStyleChanged(int index);
     Q_INVOKABLE void currentMapLayerChanged(int index);
     Q_INVOKABLE void refresh();
-    Q_INVOKABLE void startupCompleted();
 
 Q_SIGNALS:
     void recordEvent(Analytics::EventType, const QString &payload);
@@ -114,8 +112,6 @@ private:
 
     void timerCallback();
     void timerCallbackCurrent();
-
-    std::vector<Weather::MapType> _supportedMapTypes;
 
     std::unique_ptr<CurrentWeather> _currentWeather{};
     std::unique_ptr<WeatherMapModel> _weatherMapModelBase{};
