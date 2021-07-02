@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -68,6 +68,7 @@ class UIManager : public QObject
     Q_PROPERTY(int rowHeight READ rowHeight CONSTANT)
     Q_PROPERTY(QColor navBarColor READ navBarColor NOTIFY themeChanged)
     Q_PROPERTY(int navBarHeight READ navBarHeight CONSTANT)
+    Q_PROPERTY(bool navBarTitleOnly READ navBarTitleOnly CONSTANT)
 
     Q_PROPERTY(int bottomSheetBaseHeight READ bottomSheetBaseHeight CONSTANT)
     Q_PROPERTY(int bottomSheetMaxWidth READ bottomSheetMaxWidth CONSTANT)
@@ -145,6 +146,7 @@ public:
     [[nodiscard]] int rowHeight() const;
     [[nodiscard]] QColor navBarColor() const;
     [[nodiscard]] int navBarHeight() const;
+    [[nodiscard]] bool navBarTitleOnly() const;
 
     [[nodiscard]] int bottomSheetBaseHeight() const;
     [[nodiscard]] int bottomSheetMaxWidth() const;

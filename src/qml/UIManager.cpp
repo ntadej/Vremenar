@@ -214,6 +214,15 @@ bool Qml::UIManager::showButtonMapPosition() const
     return _device != Common::AndroidTV && _device != Common::FireTV;
 }
 
+bool Qml::UIManager::navBarTitleOnly() const
+{
+#if defined(Q_OS_MACOS)
+    return true;
+#else
+    return _device != Common::Desktop;
+#endif
+}
+
 QObject *Qml::UIManager::provider(QQmlEngine *engine,
                                   QJSEngine *scriptEngine)
 {
