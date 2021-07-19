@@ -17,7 +17,7 @@ import Vremenar.Navigation 1.0
 
 import "elements"
 
-Rectangle {
+Item {
     default property alias contents: content.children
 
     property alias title: navBar.title
@@ -28,7 +28,7 @@ Rectangle {
         id: contentPlaceholder
         anchors.fill: parent
 
-        Rectangle {
+        Item {
             id: content
             anchors {
                 fill: parent
