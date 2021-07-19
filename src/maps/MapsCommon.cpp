@@ -35,7 +35,7 @@ std::vector<std::unique_ptr<Hyperlink>> copyright()
         QStringLiteral("https://www.openstreetmap.org/copyright")));
     if (selfHosted) {
         list.emplace_back(std::make_unique<Hyperlink>(
-            QStringLiteral("© Sentinel-2 cloudless by EOX IT Services GmbH (Contains modified Copernicus Sentinel data 2017 & 2018)"),
+            QStringLiteral("© Sentinel-2 cloudless by EOX IT Services GmbH (Contains modified Copernicus Sentinel data 2020)"),
             QStringLiteral("https://s2maps.eu")));
     }
     return list;
