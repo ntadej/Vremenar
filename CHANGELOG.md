@@ -1,5 +1,11 @@
 # Vremenar Changelog
 
+## 0.3.4 (2020-07-19)
+
+Improvements:
+- updated maps
+- do not allow map navigation outside weather coverage
+
 ## 0.3.3 (2020-06-05)
 
 Fixes:
