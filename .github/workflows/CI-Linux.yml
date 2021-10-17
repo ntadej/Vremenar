@@ -1,4 +1,4 @@
-name: macOS CI
+name: Linux CI
 on: [push, workflow_dispatch]
 
 env:
@@ -6,8 +6,8 @@ env:
 
 jobs:
   build:
-    name: Build Vremenar (macOS 11 x64)
-    runs-on: macos-11
+    name: Build Vremenar (CentOS 7 x64)
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
@@ -17,15 +17,11 @@ jobs:
           submodules: recursive
           fetch-depth: 0
 
-      - name: Setup Xcode
-        uses: maxim-lobanov/setup-xcode@v1
-        with:
-          xcode-version: latest-stable
-
       - name: Download Qt
         uses: jurplel/install-qt-action@v2
         with:
           version: ${{ env.QT_VERSION }}
+          dir: ${{ github.workspace }}
           target: desktop
 
       - name: Configure & prepare
@@ -50,21 +46,13 @@ jobs:
           mkdir build
 
       - name: Setup dependencies
-        run: ./source/scripts/prepare_dependencies.sh macos
+        run: ./source/scripts/prepare_dependencies.sh linux
 
       - name: Build
-        working-directory: build
-        env:
-          ARTIFACT_NAME: Vremenar_macOS.dmg
-          VREMENAR_PATH: ../source
-        run: |
-          qmake $VREMENAR_PATH/Vremenar.pro -spec macx-clang CONFIG+=release CONFIG+=x86_64 CONFIG+=qtquickcompiler
-          make -j2
-          $VREMENAR_PATH/scripts/build_dmg.sh Vremenar.app "$VREMENAR_PATH"
-          mv "Vremenar $(cat "$VREMENAR_PATH/config/VERSION").dmg" $ARTIFACT_NAME
+        uses: ./source/.github/actions/linux-builder
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v1
         with:
-          name: Vremenar_macOS.dmg
-          path: ./build/Vremenar_macOS.dmg
+          name: Vremenar-x86_64.AppImage
+          path: ./build/Vremenar-x86_64.AppImage

@@ -1,4 +1,4 @@
-name: macOS CI
+name: iOS CI
 on: [push, workflow_dispatch]
 
 env:
@@ -6,7 +6,7 @@ env:
 
 jobs:
   build:
-    name: Build Vremenar (macOS 11 x64)
+    name: Build Vremenar (iOS / XCode 12 / macOS 11 x64)
     runs-on: macos-11
 
     steps:
@@ -20,13 +20,13 @@ jobs:
       - name: Setup Xcode
         uses: maxim-lobanov/setup-xcode@v1
         with:
-          xcode-version: latest-stable
+          xcode-version: 12
 
       - name: Download Qt
         uses: jurplel/install-qt-action@v2
         with:
           version: ${{ env.QT_VERSION }}
-          target: desktop
+          target: ios
 
       - name: Configure & prepare
         env:
@@ -50,21 +50,23 @@ jobs:
           mkdir build
 
       - name: Setup dependencies
-        run: ./source/scripts/prepare_dependencies.sh macos
+        run: ./source/scripts/prepare_dependencies.sh ios
 
       - name: Build
         working-directory: build
         env:
-          ARTIFACT_NAME: Vremenar_macOS.dmg
+          ARTIFACT_NAME: Vremenar_iOS.ipa
           VREMENAR_PATH: ../source
         run: |
-          qmake $VREMENAR_PATH/Vremenar.pro -spec macx-clang CONFIG+=release CONFIG+=x86_64 CONFIG+=qtquickcompiler
-          make -j2
-          $VREMENAR_PATH/scripts/build_dmg.sh Vremenar.app "$VREMENAR_PATH"
-          mv "Vremenar $(cat "$VREMENAR_PATH/config/VERSION").dmg" $ARTIFACT_NAME
+          qmake $VREMENAR_PATH/Vremenar.pro -spec macx-ios-clang CONFIG+=release CONFIG+=iphoneos CONFIG+=device CONFIG+=qtquickcompiler
+          xcodebuild archive -scheme Vremenar -configuration Release -sdk iphoneos CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -archivePath Vremenar.xcarchive
+          mv Vremenar.xcarchive/Products/Applications Payload
+          ldid -S Payload/Vremenar.app/Vremenar
+          zip -r Vremenar.zip Payload
+          mv Vremenar.zip $ARTIFACT_NAME
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v1
         with:
-          name: Vremenar_macOS.dmg
-          path: ./build/Vremenar_macOS.dmg
+          name: Vremenar_iOS.ipa
+          path: ./build/Vremenar_iOS.ipa
