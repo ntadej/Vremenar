@@ -75,8 +75,10 @@ ApplicationWindow::ApplicationWindow(QObject *parent)
     _qmlFileSelector->setExtraSelectors({QStringLiteral("nativemenu")});
 #elif defined(Q_OS_IOS) || defined(Q_OS_ANDROID)
     _qmlFileSelector->setExtraSelectors({QStringLiteral("mobile")});
-#elif defined(Q_OS_LINUX) || defined(Q_OS_WIN)
-    _qmlFileSelector->setExtraSelectors({QStringLiteral("custommenu")});
+#elif defined(Q_OS_LINUX)
+    _qmlFileSelector->setExtraSelectors({QStringLiteral("custommenu"), QStringLiteral("materialstyle")});
+#elif defined(Q_OS_WIN)
+    _qmlFileSelector->setExtraSelectors({QStringLiteral("custommenu"), QStringLiteral("universalstyle")});
 #endif
 
 #ifndef VREMENAR_MOBILE

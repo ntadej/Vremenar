@@ -10,25 +10,16 @@
 */
 
 import QtQuick 2.12
-import QtQuick.Controls 2.12 as Controls
+import QtQuick.Controls 2.12
 
 import Vremenar 1.0
-import QtQuick.Controls.Material 2.12
-import QtQuick.Controls.Universal 2.12
 
-Controls.ApplicationWindow {
+BaseApplicationWindow {
     id: app
 
-    property Controls.ApplicationWindow applicationWindow : app
+    property ApplicationWindow applicationWindow : app
     property alias mainMenu: mainMenu
     property bool ready: false
-
-    Material.theme: UI.theme === Vremenar.Common.DarkTheme ? Material.Dark : Material.Light
-    Material.accent: UI.colorPrimaryDark
-    Material.primary: UI.colorPrimary
-
-    Universal.theme: UI.theme === Vremenar.Common.DarkTheme ? Universal.Dark : Universal.Light
-    Universal.accent: UI.theme === Vremenar.Common.DarkTheme ? UI.colorPrimary : UI.colorPrimaryDark
 
     width: 640
     height: 480

@@ -9,6 +9,9 @@
 * SPDX-License-Identifier: (GPL-3.0-or-later AND MPL-2.0)
 */
 
-import Vremenar.Mobile 1.0
+import QtQuick 2.12
+import QtQuick.Controls 2.12
 
-MainApplicationWindow {}
+ApplicationWindow {
+    id: appBase
+}

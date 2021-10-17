@@ -1,6 +1,6 @@
 <RCC>
     <qresource prefix="/Vremenar/Mobile">
         <file>qmldir</file>
-        <file>ApplicationWindow.qml</file>
+        <file>MainApplicationWindow.qml</file>
     </qresource>
 </RCC>
