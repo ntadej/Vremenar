@@ -12,8 +12,8 @@ fi
 if [[ -f "$1/Contents/PlugIns/geoservices/libqtgeoservices_mapbox.dylib" ]]; then
   rm "$1/Contents/PlugIns/geoservices/libqtgeoservices_mapbox.dylib"
 fi
-if [[ -f "$1/Contents/PlugIns/geoservices/libqtgeoservices_maplibre.dylib" ]]; then
-  rm "$1/Contents/PlugIns/geoservices/libqtgeoservices_maplibre.dylib"
+if [[ -f "$1/Contents/PlugIns/geoservices/libqtgeoservices_mapboxgl.dylib" ]]; then
+  rm "$1/Contents/PlugIns/geoservices/libqtgeoservices_mapboxgl.dylib"
 fi
 if [[ -f "$1/Contents/PlugIns/geoservices/libqtgeoservices_nokia.dylib" ]]; then
   rm "$1/Contents/PlugIns/geoservices/libqtgeoservices_nokia.dylib"

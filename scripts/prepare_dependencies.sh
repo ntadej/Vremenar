@@ -14,12 +14,22 @@ if [[ -z ${Qt5_Dir+x} ]]; then
 fi
 
 if [[ "${1}" == "macos" ]] || [[ "${1}" == "macOS" ]]; then
+  MAPLIBRE_VERSION="2.0.0-pre.1"
   SPARKLE_VERSION="1.26.0"
   COUNTLY_VERSION="20.11.1"
 
   echo "Downloading for macOS"
   npm install --global create-dmg
   brew install graphicsmagick imagemagick
+
+  echo
+  echo "MapLibre"
+  if [[ $QT -eq 1 ]]; then
+    wget -nv -O "${LOCATION}/3rdparty/qt-geoservices-maplibre.tar.bz2" "https://github.com/ntadej/qt-geoservices-maplibre/releases/download/v${MAPLIBRE_VERSION}/qt-geoservices-maplibre_${MAPLIBRE_VERSION}_macOS-clang_64.tar.bz2"
+    tar -C "$Qt5_Dir/" -xvf "${LOCATION}/3rdparty/qt-geoservices-maplibre.tar.bz2"
+  else
+    echo "skipping..."
+  fi
 
   echo
   echo "Countly"
@@ -36,7 +46,6 @@ if [[ "${1}" == "macos" ]] || [[ "${1}" == "macOS" ]]; then
   if [[ $QT -eq 1 ]]; then
     wget -nv -O "$Qt5_Dir/plugins/platforms/libqcocoa.dylib" "https://github.com/ntadej/qcocoa/releases/download/v${QT_VERSION}.1/libqcocoa.dylib"
     wget -nv -O "$Qt5_Dir/plugins/styles/libqmacstyle.dylib" "https://github.com/ntadej/qmacstyle/releases/download/v${QT_VERSION}.1/libqmacstyle.dylib"
-    wget -nv -O "$Qt5_Dir/plugins/geoservices/libqtgeoservices_mapboxgl.dylib" "https://github.com/ntadej/qt-geoservices-mapboxgl/releases/download/v${QT_VERSION}/libqtgeoservices_mapboxgl_clang_64.dylib"
   else
     echo "skipping..."
   fi
