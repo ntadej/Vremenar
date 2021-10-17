@@ -1,5 +1,13 @@
 # Vremenar Changelog
 
+## Unreleased
+
+Improvements:
+- Windows support
+- improved location settings (location services, manual coordinate, select from list, disabled)
+- load supported map types from the API
+- do not show navigation bar on Linux
+
 ## 0.3.4 (2020-07-19)
 
 Improvements:
