@@ -60,7 +60,7 @@ qint64 MapLayersProxyModel::timestamp() const
 QString MapLayersProxyModel::day() const
 {
     if (rowCount() == 0) {
-        return QString();
+        return {};
     }
 
     if (_timeDefault == _time) {
@@ -75,7 +75,7 @@ QString MapLayersProxyModel::day() const
         if (_time > _timeDefault) {
             return tr("forecast");
         }
-        return QString();
+        return {};
     }
     if (diff == 1) {
         return tr("tomorrow");

@@ -23,9 +23,7 @@ class QJSEngine;
 class QQmlEngine;
 class QWindow;
 
-namespace Vremenar
-{
-namespace Qml
+namespace Vremenar::Qml
 {
 
 class UIManager : public QObject
@@ -234,7 +232,6 @@ private:
     QMargins _currentSafeAreaMargins{0, 0, 0, 0};
 };
 
-} // namespace Qml
-} // namespace Vremenar
+} // namespace Vremenar::Qml
 
 #endif // VREMENAR_QML_UIMANAGER_H_

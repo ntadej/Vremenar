@@ -16,9 +16,7 @@
 
 #include "weather/api/APIRequest.h"
 
-namespace Vremenar
-{
-namespace API
+namespace Vremenar::API
 {
 
 APIRequest stations(const QGeoCoordinate &coordinate);
@@ -27,7 +25,6 @@ APIRequest stationWeatherCondition(const QString &id);
 APIRequest stationsList();
 APIRequest stationsMap(const QString &url);
 
-} // namespace API
-} // namespace Vremenar
+} // namespace Vremenar::API
 
 #endif // VREMENAR_APISTATIONS_H_

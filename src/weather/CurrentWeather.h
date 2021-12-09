@@ -28,7 +28,6 @@ class CurrentWeather : public QObject
     Q_OBJECT
 public:
     explicit CurrentWeather(QObject *parent = nullptr);
-    virtual ~CurrentWeather() = default;
 
     Q_PROPERTY(StationInfo *station READ station NOTIFY stationChanged)
     Q_PROPERTY(WeatherCondition *condition READ condition NOTIFY conditionChanged)

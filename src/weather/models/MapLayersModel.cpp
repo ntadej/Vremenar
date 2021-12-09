@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -27,7 +27,7 @@ MapLayer *MapLayersModel::createMapLayer(Weather::MapType type,
                                          const QJsonObject &data,
                                          const QGeoRectangle &bbox)
 {
-    QDateTime time = QDateTime::fromMSecsSinceEpoch(data[QStringLiteral("timestamp")].toString().toULongLong());
+    QDateTime time = QDateTime::fromMSecsSinceEpoch(data[QStringLiteral("timestamp")].toString().toLongLong());
     QUrl url(data[QStringLiteral("url")].toString());
     auto observation = Weather::observationTypeFromString(data[QStringLiteral("observation")].toString());
 

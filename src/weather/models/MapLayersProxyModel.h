@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -53,7 +53,7 @@ public:
     [[nodiscard]] QString day() const;
     [[nodiscard]] bool dayHighlighted() const;
 
-    QString title() const;
+    [[nodiscard]] QString title() const;
     [[nodiscard]] inline Weather::MapRenderingType type() const { return _type; }
     [[nodiscard]] inline const QString &url() const { return _url; }
     [[nodiscard]] inline const QString &image() const { return _image; }
@@ -73,7 +73,7 @@ public:
     Q_INVOKABLE void play();
     Q_INVOKABLE void playResume();
 
-Q_SIGNALS:
+signals:
     void rowCountChanged();
     void timestampChanged();
     void imageChanged();
@@ -81,7 +81,7 @@ Q_SIGNALS:
     void typeChanged(Weather::MapRenderingType,
                      const QString &);
 
-private Q_SLOTS:
+private slots:
     void setDefaultTimestamp();
 
 private:

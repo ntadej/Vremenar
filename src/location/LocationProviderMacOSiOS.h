@@ -30,12 +30,12 @@ public:
     explicit LocationProviderMacOSiOS(LocationProvider *provider);
     ~LocationProviderMacOSiOS() override;
 
-    bool servicesEnabled() const final;
-    bool servicesAllowed() const final;
+    [[nodiscard]] bool servicesEnabled() const final;
+    [[nodiscard]] bool servicesAllowed() const final;
 
 private:
-    CLLocationManager *_locationManager;
-    LocationProviderDelegate *_delegate;
+    LocationProviderDelegate *_delegate{};
+    CLLocationManager *_locationManager{};
 };
 
 } // namespace Vremenar

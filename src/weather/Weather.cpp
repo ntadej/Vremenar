@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -46,10 +46,10 @@ QString Weather::mapStyleToString(MapStyle style)
     case StreetsMapStyle:
         return QStringLiteral("streets");
     case UnknownMapStyle:
-        return QString();
+        return {};
     }
 
-    return QString();
+    return {};
 }
 
 QString Weather::mapStyleToLocalizedString(MapStyle style)
@@ -60,10 +60,10 @@ QString Weather::mapStyleToLocalizedString(MapStyle style)
     case StreetsMapStyle:
         return QObject::tr("Streets");
     case UnknownMapStyle:
-        return QString();
+        return {};
     }
 
-    return QString();
+    return {};
 }
 
 Weather::MapType Weather::mapTypeFromString(const QString &type)
@@ -106,10 +106,10 @@ QString Weather::mapTypeToString(MapType type)
     case HailProbabilityMap:
         return QStringLiteral("hail");
     case UnknownMapType:
-        return QString();
+        return {};
     }
 
-    return QString();
+    return {};
 }
 
 QString Weather::mapTypeToLocalizedString(MapType type)
@@ -128,10 +128,10 @@ QString Weather::mapTypeToLocalizedString(MapType type)
     case HailProbabilityMap:
         return QObject::tr("Hail probability");
     case UnknownMapType:
-        return QString();
+        return {};
     }
 
-    return QString();
+    return {};
 }
 
 Weather::MapRenderingType Weather::mapRenderingTypeFromString(const QString &type)

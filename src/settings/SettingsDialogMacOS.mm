@@ -41,7 +41,7 @@ void SettingsDialog::initializeMacOS()
     NSString *toolbarItemId = [toolbarItem itemIdentifier];
     [toolbar setSelectedItemIdentifier:toolbarItemId];
 
-    // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast, performance-no-int-to-ptr)
     auto *view = reinterpret_cast<NSView *>(window()->winId());
     NSWindow *window = [view window];
     if (@available(macOS 11.0, *)) {
@@ -63,7 +63,7 @@ void SettingsDialog::retranslateMacOS()
 
 void SettingsDialog::actionToggledMacOS()
 {
-    // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast, performance-no-int-to-ptr)
     auto *view = reinterpret_cast<NSView *>(window()->winId());
     NSWindow *window = [view window];
     NSRect frame = [window frame];

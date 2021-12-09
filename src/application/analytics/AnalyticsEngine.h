@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -24,7 +24,7 @@ public:
     AnalyticsEngine() = default;
     virtual ~AnalyticsEngine() = default;
 
-    virtual bool manualSessionHandling() const = 0;
+    [[nodiscard]] virtual bool manualSessionHandling() const = 0;
 
     virtual void beginSession() const = 0;
     virtual void updateSession() const = 0;

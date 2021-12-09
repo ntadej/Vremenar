@@ -64,8 +64,8 @@ public:
     Q_INVOKABLE void requestMapLayers(Weather::MapType type);
 
     [[nodiscard]] bool currentMapLayerHasLegend() const;
-    [[nodiscard]] inline qreal minZoomLevel() const { return 7.5; }
-    [[nodiscard]] inline qreal maxZoomLevel() const { return 11; }
+    [[nodiscard]] inline qreal minZoomLevel() const { return 7.5; } // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+    [[nodiscard]] inline qreal maxZoomLevel() const { return 11; }  // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
     [[nodiscard]] inline Hyperlink *copyrightLink() const { return _copyrightLink.get(); }
     [[nodiscard]] inline QJsonObject copyrightLinkJson() const { return _copyrightLink->asJson(); }
 

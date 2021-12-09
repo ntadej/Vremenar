@@ -27,8 +27,8 @@ public:
     LocationProviderPlatform() = default;
     virtual ~LocationProviderPlatform() = default;
 
-    virtual bool servicesEnabled() const = 0;
-    virtual bool servicesAllowed() const = 0;
+    [[nodiscard]] virtual bool servicesEnabled() const = 0;
+    [[nodiscard]] virtual bool servicesAllowed() const = 0;
 };
 
 } // namespace Vremenar

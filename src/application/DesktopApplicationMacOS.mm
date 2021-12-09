@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -114,7 +114,7 @@ void DesktopApplication::dockHide()
     QWindowList windows = QGuiApplication::allWindows();
 
     for (QWindow *window : windows) {
-        // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
+        // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast, performance-no-int-to-ptr)
         auto nativeView = reinterpret_cast<NSView *>(window->winId());
         NSWindow *nativeWindow = [nativeView window];
         [nativeWindow setCanHide:NO];
@@ -132,7 +132,7 @@ void DesktopApplication::setupTitleBarLessWindow(WId winId)
         return;
     }
 
-    // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast, performance-no-int-to-ptr)
     auto nativeView = reinterpret_cast<NSView *>(winId);
     NSWindow *nativeWindow = [nativeView window];
 

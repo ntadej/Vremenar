@@ -25,9 +25,9 @@ class NetworkManager;
 class AnalyticsEngineCpp : public AnalyticsEngine
 {
 public:
-    AnalyticsEngineCpp(NetworkManager *network);
+    explicit AnalyticsEngineCpp(NetworkManager *network);
 
-    bool manualSessionHandling() const override { return true; }
+    [[nodiscard]] bool manualSessionHandling() const override { return true; }
 
     void beginSession() const override;
     void updateSession() const override;

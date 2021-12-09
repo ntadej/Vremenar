@@ -44,8 +44,8 @@ public:
     [[nodiscard]] QString currentLocation() const;
 
     Q_INVOKABLE void requestPositionUpdate();
-    Q_INVOKABLE bool validate(const QGeoCoordinate &coordinate) const;
-    Q_INVOKABLE QGeoCoordinate validateAndCorrect(const QGeoCoordinate &coordinate) const;
+    Q_INVOKABLE [[nodiscard]] bool validate(const QGeoCoordinate &coordinate) const;
+    Q_INVOKABLE [[nodiscard]] QGeoCoordinate validateAndCorrect(const QGeoCoordinate &coordinate) const;
 
 Q_SIGNALS:
     void enabledChanged(bool);

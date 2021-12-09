@@ -51,7 +51,8 @@ ApplicationWindow::ApplicationWindow(QObject *parent)
       _network(new NetworkManager(this)),
       _analytics(std::make_unique<Analytics>(_network, this)),
       _localeManager(std::make_unique<LocaleManager>(this)),
-      _networkFactory(std::make_unique<NetworkManagerFactory>(this))
+      _networkFactory(std::make_unique<NetworkManagerFactory>(this)),
+      _qmlFileSelector(new QQmlFileSelector(_engine.get()))
 {
     // Set the style
 #if defined(Q_OS_LINUX) || defined(Q_OS_ANDROID)
@@ -70,7 +71,6 @@ ApplicationWindow::ApplicationWindow(QObject *parent)
     Qml::registerTypes();
 
     // Custom file selector
-    _qmlFileSelector = new QQmlFileSelector(_engine.get());
 #if defined(Q_OS_MACOS)
     _qmlFileSelector->setExtraSelectors({QStringLiteral("nativemenu")});
 #elif defined(Q_OS_IOS) || defined(Q_OS_ANDROID)

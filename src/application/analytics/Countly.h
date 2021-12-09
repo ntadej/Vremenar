@@ -21,20 +21,18 @@
 
 #include "common/api/APILoader.h"
 
-#define COUNTLY_POST_THRESHOLD 2000
-#define COUNTLY_KEEPALIVE_INTERVAL 3000
-#define COUNTLY_MAX_EVENTS_DEFAULT 200
-
 namespace Vremenar
 {
 
-class Countly : public APILoader
+class Countly final : public APILoader
 {
     Q_OBJECT
 public:
     explicit Countly(NetworkManager *network,
                      QObject *parent = nullptr);
-    ~Countly();
+    Countly(const Countly &reader) = delete;
+    Countly &operator=(const Countly &q) = delete;
+    ~Countly() final;
 
     void setAlwaysUsePost(bool value);
     void setDeviceID(const QString &value);
@@ -58,13 +56,13 @@ public:
     class Event
     {
     public:
-        Event(const QString &key,
-              int count = 1);
-        Event(const QString &key,
-              int count,
-              double sum);
+        explicit Event(const QString &key,
+                       int count = 1);
+        explicit Event(const QString &key,
+                       int count,
+                       double sum);
 
-        QJsonObject json() const { return _object; }
+        [[nodiscard]] QJsonObject json() const { return _object; }
 
     private:
         QJsonObject _object;
@@ -104,7 +102,7 @@ private:
     QMap<QString, QString> _sessionParameters;
     QString _salt;
 
-    size_t _maxEvents{COUNTLY_MAX_EVENTS_DEFAULT};
+    size_t _maxEvents{200}; // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
     std::deque<QJsonObject> _eventQueue;
 };
 

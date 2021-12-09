@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -14,9 +14,7 @@
 
 #include <QtCore/QtGlobal>
 
-namespace Vremenar
-{
-namespace Log
+namespace Vremenar::Log
 {
 
 void output(QtMsgType type,
@@ -25,7 +23,6 @@ void output(QtMsgType type,
 
 void setup();
 
-} // namespace Log
-} // namespace Vremenar
+} // namespace Vremenar::Log
 
 #endif // VREMENAR_LOG_H_

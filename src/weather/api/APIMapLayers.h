@@ -15,9 +15,7 @@
 #include "weather/Weather.h"
 #include "weather/api/APIRequest.h"
 
-namespace Vremenar
-{
-namespace API
+namespace Vremenar::API
 {
 
 APIRequest mapImage(const QString &url);
@@ -25,7 +23,6 @@ APIRequest mapLayers(Weather::MapType type);
 APIRequest mapLegends();
 APIRequest mapTypes();
 
-} // namespace API
-} // namespace Vremenar
+} // namespace Vremenar::API
 
 #endif // VREMENAR_APIMAPLAYERS_H_

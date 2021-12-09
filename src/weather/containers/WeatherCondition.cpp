@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -33,7 +33,7 @@ WeatherCondition::WeatherCondition(Weather::ObservationType observation,
 std::unique_ptr<WeatherCondition> WeatherCondition::fromJson(const QJsonObject &json)
 {
     Weather::ObservationType observation = Weather::observationTypeFromString(json[QStringLiteral("observation")].toString());
-    QDateTime time = QDateTime::fromMSecsSinceEpoch(json[QStringLiteral("timestamp")].toString().toULongLong());
+    QDateTime time = QDateTime::fromMSecsSinceEpoch(json[QStringLiteral("timestamp")].toString().toLongLong());
     QString icon = json[QStringLiteral("icon")].toString();
 
     double temperature{};
@@ -86,7 +86,7 @@ QVariant WeatherCondition::data(int role) const
         return displayTemperatureShort();
     }
 
-    return QVariant();
+    return {};
 }
 
 void WeatherCondition::update(const WeatherCondition *source)

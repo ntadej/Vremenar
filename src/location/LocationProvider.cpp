@@ -303,7 +303,7 @@ void LocationProvider::locationSettingsChanged()
         positionUpdated(info);
     }
 
-    Q_EMIT enabledChanged(enabled());
+    emit enabledChanged(enabled());
 }
 
 void LocationProvider::supportedMethodsChanged()

@@ -25,6 +25,12 @@
 
 #include "Countly.h"
 
+namespace
+{
+constexpr int COUNTLY_POST_THRESHOLD = 2000;
+constexpr int COUNTLY_KEEPALIVE_INTERVAL = 3000;
+} // namespace
+
 namespace Vremenar
 {
 

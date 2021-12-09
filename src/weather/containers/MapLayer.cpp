@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -20,20 +20,20 @@ MapLayer::MapLayer(Weather::MapType type,
                    Weather::MapRenderingType rendering,
                    Weather::ObservationType observation,
                    const QDateTime &time,
-                   const QUrl &url,
+                   QUrl url,
                    const QGeoRectangle &bbox,
                    QObject *parent)
-    : ListItem(parent)
+    : ListItem(parent),
+      _observation(observation),
+      _type(type),
+      _rendering(rendering),
+      _time(time),
+      _url(std::move(url)),
+      _bbox(bbox)
 {
     setId(Weather::mapTypeToString(type) + "_" + QString::number(time.toMSecsSinceEpoch()));
 
-    _observation = observation;
-    _type = type;
-    _rendering = rendering;
-    _time = time;
-    _url = url;
-    _bbox = bbox;
-    if (!bbox.isEmpty()) {
+    if (!_bbox.isEmpty()) {
         _coordinates = geoRectangleToList(bbox);
     }
 }
@@ -74,9 +74,9 @@ QVariant MapLayer::data(int role) const
         return coordinates();
     case LoadedRole:
         return loaded();
-    default:
-        return QVariant();
     }
+
+    return {};
 }
 
 void MapLayer::setBbox(const QGeoRectangle &bbox)

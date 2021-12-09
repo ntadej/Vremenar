@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -24,8 +24,8 @@ class MapsManager : public QObject
 {
     Q_OBJECT
 public:
-    MapsManager(QQmlApplicationEngine *engine,
-                QObject *parent = nullptr);
+    explicit MapsManager(QQmlApplicationEngine *engine,
+                         QObject *parent = nullptr);
 
 public Q_SLOTS:
     void mapChanged(Weather::MapRenderingType type,

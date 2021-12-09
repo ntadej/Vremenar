@@ -37,10 +37,10 @@ namespace Vremenar
 {
 
 LocationProviderMacOSiOS::LocationProviderMacOSiOS(LocationProvider *provider)
+    : _delegate([[LocationProviderDelegate alloc] initWith:provider]),
+      _locationManager([[CLLocationManager alloc] init])
 {
-    _delegate = [[LocationProviderDelegate alloc] initWith:provider];
 
-    _locationManager = [[CLLocationManager alloc] init];
     _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     _locationManager.delegate = _delegate;
 }
