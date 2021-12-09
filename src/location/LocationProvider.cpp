@@ -15,7 +15,7 @@
 
 #include "location/LocationProvider.h"
 #include "settings/Settings.h"
-#include "weather/containers/StationListItem.h"
+#include "weather/containers/StationInfo.h"
 #include "weather/models/StationListModel.h"
 
 #include "Config.h"
@@ -287,7 +287,7 @@ void LocationProvider::locationSettingsChanged()
     if (settings.locationSource() == Location::Automatic) {
         initPosition();
     } else if (settings.locationSource() == Location::Station) {
-        auto *station = _stations->find<StationListItem>(settings.locationStation());
+        auto *station = _stations->find<StationInfo>(settings.locationStation());
         if (station == nullptr || station->id().isEmpty()) {
             Q_EMIT enabledChanged(enabled());
             return;

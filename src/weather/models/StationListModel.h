@@ -25,6 +25,7 @@ public:
 
     void addEmpty();
     void addStations(const QJsonArray &data);
+    void addStationsWithCurrentCondition(StationListModel *model);
 };
 
 } // namespace Vremenar

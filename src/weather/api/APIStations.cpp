@@ -79,6 +79,7 @@ APIRequest API::stationsList()
 APIRequest API::stationsMap(const QString &url)
 {
     QUrlQuery query = Sources::sourceQuery();
+    query.addQueryItem(QStringLiteral("extended"), QStringLiteral("false"));
 
     APIRequest request;
     request.setCall(QStringLiteral("/stations/map"));

@@ -12,25 +12,41 @@
 #include <QtCore/QJsonArray>
 #include <QtCore/QJsonObject>
 
-#include "weather/containers/StationListItem.h"
+#include "weather/containers/StationInfo.h"
 #include "weather/models/StationListModel.h"
 
 namespace Vremenar
 {
 
 StationListModel::StationListModel(QObject *parent)
-    : ListModel(StationListItem::roleNames(), parent) {}
+    : ListModel(StationInfo::roleNames(), parent) {}
 
 void StationListModel::addEmpty()
 {
-    appendRow(std::make_unique<StationListItem>("", tr("None"), QGeoCoordinate(0, 0)));
+    appendRow(std::make_unique<StationInfo>("", tr("None"), QGeoCoordinate(0, 0), 0, false));
 }
 
 void StationListModel::addStations(const QJsonArray &data)
 {
     for (const QJsonValue &stationRef : data) {
         QJsonObject station = stationRef.toObject();
-        appendRow(StationListItem::fromJson(station));
+        appendRow(StationInfo::fromJson(station));
+    }
+}
+
+void StationListModel::addStationsWithCurrentCondition(StationListModel *model)
+{
+    for (int i{}; i < model->rowCount(); i++) {
+        const StationInfo *station = model->row<StationInfo>(i);
+        if (!station->forecastOnly()) {
+            appendRow(std::make_unique<StationInfo>(
+                station->id(),
+                station->display(),
+                station->coordinate(),
+                station->zoomLevel(),
+                station->forecastOnly(),
+                station->parent()));
+        }
     }
 }
 

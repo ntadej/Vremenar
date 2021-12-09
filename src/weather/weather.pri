@@ -21,7 +21,6 @@ SOURCES += \
     src/weather/containers/MapLayer.cpp \
     src/weather/containers/MapLegendItem.cpp \
     src/weather/containers/StationInfo.cpp \
-    src/weather/containers/StationListItem.cpp \
     src/weather/containers/WeatherCondition.cpp \
     src/weather/containers/WeatherInfo.cpp \
     src/weather/models/MapInfoModel.cpp \
@@ -30,6 +29,7 @@ SOURCES += \
     src/weather/models/MapLegendModel.cpp \
     src/weather/models/MapLegendProxyModel.cpp \
     src/weather/models/StationListModel.cpp \
+    src/weather/models/StationListProxyModel.cpp \
     src/weather/models/WeatherMapModel.cpp \
     src/weather/models/WeatherMapProxyModel.cpp
 
@@ -45,7 +45,6 @@ HEADERS += \
     src/weather/containers/MapLayer.h \
     src/weather/containers/MapLegendItem.h \
     src/weather/containers/StationInfo.h \
-    src/weather/containers/StationListItem.h \
     src/weather/containers/WeatherCondition.h \
     src/weather/containers/WeatherInfo.h \
     src/weather/models/MapInfoModel.h \
@@ -54,5 +53,6 @@ HEADERS += \
     src/weather/models/MapLegendModel.h \
     src/weather/models/MapLegendProxyModel.h \
     src/weather/models/StationListModel.h \
+    src/weather/models/StationListProxyModel.h \
     src/weather/models/WeatherMapModel.h \
     src/weather/models/WeatherMapProxyModel.h

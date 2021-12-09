@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -18,13 +18,16 @@
 namespace Vremenar
 {
 
+class StationListModel;
+
 class WeatherMapModel : public ListModel
 {
     Q_OBJECT
 public:
     explicit WeatherMapModel(QObject *parent = nullptr);
 
-    void addEntries(const QJsonArray &data);
+    void addEntries(StationListModel *stations,
+                    const QJsonArray &data);
     void update(WeatherMapModel *model,
                 qint64 time);
 };

@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -18,11 +18,13 @@ StationInfo::StationInfo(const QString &id,
                          QString name,
                          const QGeoCoordinate &coordinate,
                          qreal zoomLevel,
+                         bool forecastOnly,
                          QObject *parent)
     : ListItem(parent),
       _name(std::move(name)),
       _coordinate(coordinate),
-      _zoomLevel(zoomLevel)
+      _zoomLevel(zoomLevel),
+      _forecastOnly(forecastOnly)
 {
     setId(id);
 }
@@ -33,11 +35,19 @@ std::unique_ptr<StationInfo> StationInfo::fromJson(const QJsonObject &json)
     QString name = json[QStringLiteral("name")].toString();
 
     QJsonObject coordinateObj = json[QStringLiteral("coordinate")].toObject();
-    QGeoCoordinate coordinate{coordinateObj[QStringLiteral("latitude")].toDouble(), coordinateObj[QStringLiteral("longitude")].toDouble()};
+    QGeoCoordinate coordinate{
+        coordinateObj[QStringLiteral("latitude")].toDouble(),
+        coordinateObj[QStringLiteral("longitude")].toDouble(),
+        coordinateObj[QStringLiteral("altitude")].toDouble()};
 
     qreal zoomLevel = json[QStringLiteral("zoom_level")].toDouble();
 
-    return std::make_unique<StationInfo>(id, name, coordinate, zoomLevel);
+    bool forecastOnly{};
+    if (json.contains(QStringLiteral("forecast_only"))) {
+        forecastOnly = json[QStringLiteral("forecast_only")].toBool();
+    }
+
+    return std::make_unique<StationInfo>(id, name, coordinate, zoomLevel, forecastOnly);
 }
 
 QString StationInfo::display() const
@@ -51,14 +61,17 @@ QVariant StationInfo::data(int role) const
     case IdRole:
         return id();
     case DisplayRole:
+    case EditRole:
         return display();
     case CoordinateRole:
         return QVariant::fromValue(coordinate());
     case ZoomLevelRole:
         return zoomLevel();
+    case ForecastOnlyRole:
+        return forecastOnly();
     }
 
-    return QVariant();
+    return {};
 }
 
 } // namespace Vremenar

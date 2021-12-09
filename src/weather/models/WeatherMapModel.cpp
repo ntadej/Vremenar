@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -11,6 +11,8 @@
 
 #include <QtCore/QJsonArray>
 
+#include "weather/containers/StationInfo.h"
+#include "weather/models/StationListModel.h"
 #include "weather/models/WeatherMapModel.h"
 
 namespace Vremenar
@@ -19,12 +21,14 @@ namespace Vremenar
 WeatherMapModel::WeatherMapModel(QObject *parent)
     : ListModel(WeatherInfo::roleNames(), parent) {}
 
-void WeatherMapModel::addEntries(const QJsonArray &data)
+void WeatherMapModel::addEntries(StationListModel *stations,
+                                 const QJsonArray &data)
 {
     for (const QJsonValue &obj : data) {
-        QJsonObject object = obj.toObject();
+        const QJsonObject object = obj.toObject();
+        const StationInfo *station = stations->find<StationInfo>(object[QStringLiteral("station")].toObject()[QStringLiteral("id")].toString());
         appendRow(std::make_unique<WeatherInfo>(
-            StationInfo::fromJson(object[QStringLiteral("station")].toObject()),
+            std::make_unique<StationInfo>(station->id(), station->display(), station->coordinate(), station->zoomLevel(), station->forecastOnly()),
             WeatherCondition::fromJson(object[QStringLiteral("condition")].toObject())));
     }
 }

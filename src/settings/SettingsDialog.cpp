@@ -14,7 +14,7 @@
 #include "application/BaseApplication.h"
 #include "common/LocaleManager.h"
 #include "settings/Settings.h"
-#include "weather/containers/StationListItem.h"
+#include "weather/containers/StationInfo.h"
 #include "weather/models/StationListModel.h"
 
 #include "SettingsDialog.h"
@@ -167,7 +167,7 @@ void SettingsDialog::readSettings()
 
     if (!settings.locationStation().isEmpty()) {
         auto *model = qobject_cast<StationListModel *>(_stationsCompleter->model());
-        auto *station = model->find<StationListItem>(settings.locationStation());
+        auto *station = model->find<StationInfo>(settings.locationStation());
         if (station != nullptr) {
             ui->comboLocation->setCurrentIndex(model->indexFromItem(station).row());
         }
@@ -247,7 +247,7 @@ void SettingsDialog::locationLongitudeValidationChanged()
 void SettingsDialog::locationStationChanged()
 {
     Settings settings(this);
-    settings.setLocationStation(ui->comboLocation->currentData(StationListItem::IdRole).toString());
+    settings.setLocationStation(ui->comboLocation->currentData(StationInfo::IdRole).toString());
     settings.writeSettings();
     Q_EMIT locationChanged();
 

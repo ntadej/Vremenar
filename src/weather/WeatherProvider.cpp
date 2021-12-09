@@ -44,6 +44,7 @@ WeatherProvider::WeatherProvider(NetworkManager *network,
       _mapLegendModel(std::make_unique<MapLegendModel>(this)),
       _mapLegendProxyModel(std::make_unique<MapLegendProxyModel>(this)),
       _stationsModel(std::make_unique<StationListModel>(this)),
+      _stationsWithCurrentConditionModel(std::make_unique<StationListModel>(this)),
       _timer(std::make_unique<QTimer>(this)),
       _timerCurrent(std::make_unique<QTimer>(this))
 {
@@ -228,8 +229,10 @@ void WeatherProvider::response(QNetworkReply *reply)
         const QJsonArray data = document.array();
 
         _stationsModel->clear();
-        _stationsModel->addEmpty();
         _stationsModel->addStations(data);
+        _stationsWithCurrentConditionModel->clear();
+        _stationsWithCurrentConditionModel->addEmpty();
+        _stationsWithCurrentConditionModel->addStationsWithCurrentCondition(_stationsModel.get());
 
         Q_EMIT stationsUpdated();
 
@@ -238,9 +241,9 @@ void WeatherProvider::response(QNetworkReply *reply)
     }
 
     if (currentReplies()->value(reply).call() == QStringLiteral("/stations/map")) {
-        _weatherMapModelBase->addEntries(document.array());
+        _weatherMapModelBase->addEntries(_stationsModel.get(), document.array());
         if (currentReplies()->value(reply).url().toString().contains(QStringLiteral("current"))) {
-            _weatherMapModel->addEntries(document.array());
+            _weatherMapModel->addEntries(_stationsModel.get(), document.array());
         } else {
             _weatherMapModel->update(_weatherMapModelBase.get(), mapLayers()->timestamp());
         }

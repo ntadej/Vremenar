@@ -271,7 +271,7 @@ void ApplicationWindow::showAboutDialog()
 void ApplicationWindow::showSettingsDialog()
 {
     gsl::owner<SettingsDialog *> dialog{};
-    dialog = new SettingsDialog(_weatherProvider->stations());
+    dialog = new SettingsDialog(_weatherProvider->stationsWithCurrentCondition());
     dialog->setAttribute(Qt::WA_DeleteOnClose);
 
     connect(dialog, &SettingsDialog::localeChanged, _localeManager.get(), &LocaleManager::setLocale);
