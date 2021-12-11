@@ -93,6 +93,14 @@ void WeatherProvider::requestCurrentWeatherInfo(const QGeoCoordinate &coordinate
     }
 }
 
+void WeatherProvider::requestStations()
+{
+    qDebug() << "Requesting stations list";
+
+    APIRequest requestStations = API::stationsList();
+    currentReplies()->insert(network()->request(requestStations), requestStations);
+}
+
 void WeatherProvider::requestBaseInfo()
 {
     qDebug() << "Requesting base weather info";
@@ -102,9 +110,6 @@ void WeatherProvider::requestBaseInfo()
 
     APIRequest requestLegends = API::mapLegends();
     currentReplies()->insert(network()->request(requestLegends), requestLegends);
-
-    APIRequest requestStations = API::stationsList();
-    currentReplies()->insert(network()->request(requestStations), requestStations);
 }
 
 void WeatherProvider::requestWeatherMapDetails(const QString &url)
@@ -237,6 +242,8 @@ void WeatherProvider::response(QNetworkReply *reply)
         Q_EMIT stationsUpdated();
 
         removeResponse(reply);
+
+        requestBaseInfo();
         return;
     }
 

@@ -57,6 +57,7 @@ public:
     inline StationListModel *stations() { return _stationsModel.get(); }
     inline StationListModel *stationsWithCurrentCondition() { return _stationsWithCurrentConditionModel.get(); }
 
+    Q_INVOKABLE void requestStations();
     Q_INVOKABLE void requestBaseInfo();
     Q_INVOKABLE void requestCurrentWeatherInfo(const QGeoCoordinate &coordinate);
     Q_INVOKABLE void requestWeatherMapDetails(const QString &url);

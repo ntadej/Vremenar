@@ -316,7 +316,7 @@ void ApplicationWindow::startCompleted()
     _ready = true;
 
     _analytics->beginSession();
-    _weatherProvider->requestBaseInfo();
+    _weatherProvider->requestStations();
 
     qDebug() << "Initialization completed";
 
