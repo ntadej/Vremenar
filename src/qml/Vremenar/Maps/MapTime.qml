@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -67,7 +67,7 @@ Item {
         padding: 0
         text: VMapLayersModel.day
         opacity: text !== "" ? 1 : 0
-        color: VMapLayersModel.dayHighlighted ? (UI.theme === Vremenar.Common.LightTheme ? UI.colorPrimaryDark : UI.colorPrimary) : UI.textColor
+        color: VMapLayersModel.dayHighlighted ? UI.colorPrimary : UI.textColor
 
         anchors {
             bottom: parent.bottom

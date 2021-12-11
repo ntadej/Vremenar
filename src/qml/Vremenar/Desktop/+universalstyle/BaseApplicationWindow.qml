@@ -19,5 +19,5 @@ Controls.ApplicationWindow {
     id: appBase
 
     Universal.theme: UI.theme === Vremenar.Common.DarkTheme ? Universal.Dark : Universal.Light
-    Universal.accent: UI.theme === Vremenar.Common.DarkTheme ? UI.colorPrimary : UI.colorPrimaryDark
+    Universal.accent: UI.colorPrimary
 }

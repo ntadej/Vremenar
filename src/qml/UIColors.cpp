@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -14,8 +14,20 @@
 namespace Vremenar
 {
 
-QColor Qml::UIManager::colorPrimary() const { return {255, 219, 79}; }    // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
-QColor Qml::UIManager::colorPrimaryDark() const { return {255, 149, 0}; } // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+QColor Qml::UIManager::colorPrimary() const
+{
+    if (_theme == Common::LightTheme) {
+        return {50, 165, 115}; // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+    }
+    return {255, 219, 79}; // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+}
+QColor Qml::UIManager::colorPrimaryDark() const
+{
+    if (_theme == Common::LightTheme) {
+        return {40, 130, 110}; // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+    }
+    return {255, 181, 36}; // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+}
 
 QColor Qml::UIManager::separatorColor() const
 {
@@ -84,13 +96,16 @@ QColor Qml::UIManager::textColorMapSecondary() const
 QColor Qml::UIManager::buttonColor() const
 {
     if (_theme == Common::LightTheme) {
-        return colorPrimaryDark();
+        return colorPrimary();
     }
     return textColor();
 }
 
 QColor Qml::UIManager::buttonColorHover() const
 {
+    if (_theme == Common::LightTheme) {
+        return colorPrimaryDark();
+    }
     return colorPrimary();
 }
 
