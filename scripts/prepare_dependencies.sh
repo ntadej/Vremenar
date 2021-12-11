@@ -127,6 +127,8 @@ elif [[ "${1}" == "ios" ]] || [[ "${1}" == "iOS" ]]; then
     echo "skipping..."
   fi
 elif [[ "${1}" == "linux" ]] || [[ "${1}" == "Linux" ]]; then
+  MAPLIBRE_VERSION="2.0.0-pre.1"
+
   echo "Downloading for Linux"
 
   echo "MapLibre"
@@ -151,6 +153,8 @@ elif [[ "${1}" == "linux" ]] || [[ "${1}" == "Linux" ]]; then
     echo "skipping..."
   fi
 elif [[ "${1}" == "android" ]] || [[ "${1}" == "Android" ]]; then
+  MAPLIBRE_VERSION="2.0.0-pre.1"
+
   echo "Downloading for Android"
 
   echo "MapLibre"

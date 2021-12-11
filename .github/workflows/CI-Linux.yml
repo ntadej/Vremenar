@@ -51,8 +51,14 @@ jobs:
       - name: Build
         uses: ./source/.github/actions/linux-builder
 
+      - name: Compress
+        run: |
+          cd build
+          mv appdir Vremenar
+          tar cjvf Vremenar.tar.bz2 Vremenar
+
       - name: Upload artifacts
         uses: actions/upload-artifact@v1
         with:
-          name: Vremenar-x86_64.AppImage
-          path: ./build/Vremenar-x86_64.AppImage
+          name: Vremenar.tar.bz2
+          path: ./build/Vremenar.tar.bz2

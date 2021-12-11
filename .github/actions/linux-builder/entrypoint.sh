@@ -15,10 +15,8 @@ cd build
 qmake $VREMENAR_PATH/Vremenar.pro -spec linux-g++ CONFIG+=release CONFIG+=qtquickcompiler
 make -j2
 make INSTALL_ROOT=appdir -j2 install ; find appdir/
-wget -c -nv "https://github.com/probonopd/linuxdeployqt/releases/download/7/linuxdeployqt-7-x86_64.AppImage"
-chmod a+x linuxdeployqt-7-x86_64.AppImage
-./linuxdeployqt-7-x86_64.AppImage \
+/root/linuxdeployqt/AppRun \
   appdir/usr/share/applications/vremenar.desktop \
   -qmldir=$VREMENAR_PATH/src/qml/ \
-  -extra-plugins=geoservices/libqtgeoservices_mapboxgl.so,geoservices/libqtgeoservices_osm.so,sqldrivers/libqsqlite.so \
-  -appimage
+  -extra-plugins=geoservices/libqtgeoservices_maplibre.so,geoservices/libqtgeoservices_osm.so,sqldrivers/libqsqlite.so \
+  -bundle-non-qt-libs
