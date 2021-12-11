@@ -38,7 +38,8 @@ MenuBar {
     ListModel {
         id: styleModel
         ListElement { display: "Satellite" }
-        ListElement { display: "Streets" }
+        ListElement { display: "Streets (Light)" }
+        ListElement { display: "Streets (Dark)" }
     }
 
     // Map Style

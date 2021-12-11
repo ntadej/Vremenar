@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -72,11 +72,11 @@ DialogBlur {
                     image: "../../Common/satellite.png"
                     onClicked: select()
                     onConfirmed: select()
-                    KeyNavigation.right: buttonStreets
+                    KeyNavigation.right: buttonStreetsLight
                     KeyNavigation.down: view.view
 
                     onFocusChanged: {
-                        if (!focus && !buttonStreets.focus) {
+                        if (!focus && !buttonStreetsLight.focus && !buttonStreetsDark.focus) {
                             view.currentIndex = 0
                             view.view.focus = true
                         }
@@ -89,17 +89,18 @@ DialogBlur {
                 }
 
                 ImageButton {
-                    id: buttonStreets
+                    id: buttonStreetsLight
                     width: UI.iconSizeLarge + 2 * UI.iconBorderThickness
                     active: VWeather.currentMapStyle === 1
-                    image: "../../Common/streets.png"
+                    image: "../../Common/streets-light.png"
                     onClicked: select()
                     onConfirmed: select()
                     KeyNavigation.left: buttonSatellite
+                    KeyNavigation.right: buttonStreetsDark
                     KeyNavigation.down: view.view
 
                     onFocusChanged: {
-                        if (!focus && !buttonSatellite.focus) {
+                        if (!focus && !buttonSatellite.focus && !buttonStreetsDark.focus) {
                             view.currentIndex = 0
                             view.view.focus = true
                         }
@@ -107,6 +108,29 @@ DialogBlur {
 
                     function select() {
                         VWeather.currentMapStyle = 1
+                        dialog.accept()
+                    }
+                }
+
+                ImageButton {
+                    id: buttonStreetsDark
+                    width: UI.iconSizeLarge + 2 * UI.iconBorderThickness
+                    active: VWeather.currentMapStyle === 2
+                    image: "../../Common/streets-dark.png"
+                    onClicked: select()
+                    onConfirmed: select()
+                    KeyNavigation.left: buttonStreetsLight
+                    KeyNavigation.down: view.view
+
+                    onFocusChanged: {
+                        if (!focus && !buttonSatellite.focus && !buttonStreetsLight.focus) {
+                            view.currentIndex = 0
+                            view.view.focus = true
+                        }
+                    }
+
+                    function select() {
+                        VWeather.currentMapStyle = 2
                         dialog.accept()
                     }
                 }

@@ -31,8 +31,11 @@ Weather::MapStyle Weather::mapStyleFromString(const QString &style)
     if (style == QStringLiteral("satellite")) {
         return Weather::SatelliteMapStyle;
     }
-    if (style == QStringLiteral("streets")) {
-        return Weather::StreetsMapStyle;
+    if (style == QStringLiteral("streets-light")) {
+        return Weather::StreetsLightMapStyle;
+    }
+    if (style == QStringLiteral("streets-dark")) {
+        return Weather::StreetsDarkMapStyle;
     }
 
     return Weather::UnknownMapStyle;
@@ -43,8 +46,10 @@ QString Weather::mapStyleToString(MapStyle style)
     switch (style) {
     case SatelliteMapStyle:
         return QStringLiteral("satellite");
-    case StreetsMapStyle:
-        return QStringLiteral("streets");
+    case StreetsLightMapStyle:
+        return QStringLiteral("streets-light");
+    case StreetsDarkMapStyle:
+        return QStringLiteral("streets-dark");
     case UnknownMapStyle:
         return {};
     }
@@ -57,8 +62,10 @@ QString Weather::mapStyleToLocalizedString(MapStyle style)
     switch (style) {
     case SatelliteMapStyle:
         return QObject::tr("Satellite");
-    case StreetsMapStyle:
-        return QObject::tr("Streets");
+    case StreetsLightMapStyle:
+        return QObject::tr("Streets (Light)");
+    case StreetsDarkMapStyle:
+        return QObject::tr("Streets (Dark)");
     case UnknownMapStyle:
         return {};
     }

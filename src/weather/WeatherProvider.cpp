@@ -429,8 +429,11 @@ void WeatherProvider::currentMapLayerChanged(int index)
 
 int WeatherProvider::currentMapStyle() const
 {
-    if (_currentStyle == Weather::MapStyle::StreetsMapStyle) {
+    if (_currentStyle == Weather::MapStyle::StreetsLightMapStyle) {
         return 1;
+    }
+    if (_currentStyle == Weather::MapStyle::StreetsDarkMapStyle) {
+        return 2;
     }
 
     return 0;
