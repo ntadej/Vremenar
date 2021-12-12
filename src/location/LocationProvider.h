@@ -47,16 +47,16 @@ public:
     Q_INVOKABLE [[nodiscard]] bool validate(const QGeoCoordinate &coordinate) const;
     Q_INVOKABLE [[nodiscard]] QGeoCoordinate validateAndCorrect(const QGeoCoordinate &coordinate) const;
 
-Q_SIGNALS:
+signals:
     void enabledChanged(bool);
     void positionChanged(QGeoCoordinate);
     void locationChanged();
 
-public Q_SLOTS:
+public slots:
     void locationSettingsChanged();
     void supportedMethodsChanged();
 
-private Q_SLOTS:
+private slots:
     void positionUpdated(const QGeoPositionInfo &info);
     void positionError(QGeoPositionInfoSource::Error error);
     void positionTimeout();

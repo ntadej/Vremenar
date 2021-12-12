@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -41,7 +41,7 @@ void WeatherMapProxyModel::setZoomLevel(qreal level)
 
         _zoomLevel = level;
 
-        Q_EMIT zoomLevelChanged();
+        emit zoomLevelChanged();
 
         _timer->start();
     }
@@ -54,7 +54,7 @@ void WeatherMapProxyModel::setVisibleRegion(const QGeoShape &shape)
 
         _visibleRegion = shape;
 
-        Q_EMIT visibleRegionChanged();
+        emit visibleRegionChanged();
 
         _timer->start();
     }
@@ -67,7 +67,7 @@ void WeatherMapProxyModel::setTime(qint64 time)
 
         _time = time;
         invalidateFilter();
-        Q_EMIT timeChanged();
+        emit timeChanged();
     }
 }
 

@@ -29,7 +29,7 @@ public:
     [[nodiscard]] inline bool ignoreForecastOnly() const { return _ignoreForecastOnly; }
     void setIgnoreForecastOnly(bool ignoreForecastOnly);
 
-Q_SIGNALS:
+signals:
     void ignoreForecastOnlyChanged();
 
 private:

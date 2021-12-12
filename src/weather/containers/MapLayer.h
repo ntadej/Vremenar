@@ -96,7 +96,7 @@ public:
 
     static QVariant geoRectangleToList(const QGeoRectangle &rect);
 
-Q_SIGNALS:
+signals:
     void loadedChanged();
     void bboxChanged();
 

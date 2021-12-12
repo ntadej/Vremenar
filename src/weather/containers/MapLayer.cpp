@@ -83,13 +83,13 @@ void MapLayer::setBbox(const QGeoRectangle &bbox)
 {
     _bbox = bbox;
     _coordinates = geoRectangleToList(bbox);
-    Q_EMIT bboxChanged();
+    emit bboxChanged();
 }
 
 void MapLayer::setLoaded()
 {
     _loaded = true;
-    Q_EMIT loadedChanged();
+    emit loadedChanged();
 }
 
 // clazy:excludeall=inefficient-qlist

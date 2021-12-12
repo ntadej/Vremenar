@@ -43,7 +43,7 @@ public:
 protected:
     void changeEvent(QEvent *e) final;
 
-Q_SIGNALS:
+signals:
     void localeChanged();
     void locationChanged();
     void weatherSourceChanged(int source);
@@ -52,7 +52,7 @@ Q_SIGNALS:
     void showInDockChanged(bool checked);
 #endif
 
-private Q_SLOTS:
+private slots:
     void actionToggled();
 
     void localeChangedSlot();

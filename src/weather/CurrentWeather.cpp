@@ -24,10 +24,10 @@ void CurrentWeather::setStation(std::unique_ptr<StationInfo> station)
     _station = std::move(station);
 
     if (_station != nullptr) {
-        Q_EMIT stationChanged(_station.get());
+        emit stationChanged(_station.get());
     } else {
-        Q_EMIT stationChanged(nullptr);
-        Q_EMIT conditionChanged(nullptr);
+        emit stationChanged(nullptr);
+        emit conditionChanged(nullptr);
     }
 }
 
@@ -40,9 +40,9 @@ void CurrentWeather::updateCurrentWeather(std::unique_ptr<WeatherCondition> cond
     }
 
     if (_station != nullptr && _condition != nullptr) {
-        Q_EMIT conditionChanged(_condition.get());
+        emit conditionChanged(_condition.get());
     } else {
-        Q_EMIT conditionChanged(nullptr);
+        emit conditionChanged(nullptr);
     }
 }
 

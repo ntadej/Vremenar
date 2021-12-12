@@ -76,7 +76,7 @@ void Qml::UIManager::setTheme(Common::Theme theme)
 {
     if (_theme != theme) {
         _theme = theme;
-        Q_EMIT themeChanged();
+        emit themeChanged();
     }
 }
 
@@ -121,7 +121,7 @@ void Qml::UIManager::orientationChanged(Qt::ScreenOrientation orientation)
 
     updateSafeAreaMargins();
 
-    Q_EMIT geometryChanged();
+    emit geometryChanged();
 }
 
 void Qml::UIManager::primaryScreenChanged(QScreen *screen)
@@ -166,21 +166,21 @@ void Qml::UIManager::windowSizeChanged(int width,
 
     updateSafeAreaMargins();
 
-    Q_EMIT geometryChanged();
+    emit geometryChanged();
 }
 
 void Qml::UIManager::updateSafeAreaMargins()
 {
 #if defined(Q_OS_IOS) || defined(Q_OS_ANDROID)
     _currentSafeAreaMargins = safeAreaMargins();
-    Q_EMIT safetyMarginsChanged();
+    emit safetyMarginsChanged();
 #endif
 
 #ifdef Q_OS_MACOS
     if (_device == Common::DebuggingDevice) {
         // NOLINTNEXTLINE(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
         _currentSafeAreaMargins = QMargins(40, 25, 25, 25);
-        Q_EMIT safetyMarginsChanged();
+        emit safetyMarginsChanged();
     }
 #endif
 }

@@ -25,7 +25,7 @@ void StationListProxyModel::setIgnoreForecastOnly(bool ignoreForecastOnly)
     if (ignoreForecastOnly != _ignoreForecastOnly) {
         _ignoreForecastOnly = ignoreForecastOnly;
         invalidateFilter();
-        Q_EMIT ignoreForecastOnlyChanged();
+        emit ignoreForecastOnlyChanged();
     }
 }
 

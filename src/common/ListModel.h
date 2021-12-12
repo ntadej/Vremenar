@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -89,7 +89,7 @@ public:
     QModelIndex indexFromItem(const ListItem *item) const;
     void clear();
 
-private Q_SLOTS:
+private slots:
     void handleItemChange();
 
 private:

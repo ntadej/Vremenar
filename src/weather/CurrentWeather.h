@@ -40,7 +40,7 @@ public:
     void updateCurrentWeather(std::unique_ptr<WeatherCondition> condition);
     [[nodiscard]] inline WeatherCondition *condition() const { return _condition.get(); }
 
-Q_SIGNALS:
+signals:
     void stationChanged(Vremenar::StationInfo *station);
     void conditionChanged(Vremenar::WeatherCondition *condition);
 

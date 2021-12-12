@@ -38,16 +38,16 @@ public:
     inline const QString &message() { return _message; }
     inline const QString &url() { return _url; }
 
-Q_SIGNALS:
+signals:
     void messageChanged();
     void serverChanged();
     void updateAvailable();
 
-public Q_SLOTS:
+public slots:
     void checkVersion();
     void checkForUpdates();
 
-private Q_SLOTS:
+private slots:
     void request();
     void response(QNetworkReply *reply) final;
 

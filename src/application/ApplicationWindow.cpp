@@ -306,7 +306,7 @@ void ApplicationWindow::startCompleted()
 
     Settings settings(this);
 #ifdef Q_OS_MACOS
-    Q_EMIT dockVisibilityChanged(settings.showInDock());
+    emit dockVisibilityChanged(settings.showInDock());
 #endif
 
 #ifdef Q_OS_ANDROID

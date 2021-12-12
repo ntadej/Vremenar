@@ -41,7 +41,7 @@ public:
     static QString eventString(EventType type,
                                const QString &payload);
 
-public Q_SLOTS:
+public slots:
     void beginSession();
     void updateSession();
     void endSession();

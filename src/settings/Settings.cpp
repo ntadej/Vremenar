@@ -138,7 +138,7 @@ void Settings::readSettings()
 
     setUuid(value(KEY_UUID, defaultValue(KEY_UUID)).toString());
 
-    Q_EMIT settingsReloaded();
+    emit settingsReloaded();
 }
 
 QVariant Settings::defaultValue(const QString &key) const

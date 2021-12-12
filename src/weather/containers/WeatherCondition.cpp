@@ -99,7 +99,7 @@ void WeatherCondition::update(const WeatherCondition *source)
     _temperature = source->temperature();
     _temperatureLow = source->temperatureLow();
 
-    Q_EMIT updated();
+    emit updated();
 }
 
 } // namespace Vremenar

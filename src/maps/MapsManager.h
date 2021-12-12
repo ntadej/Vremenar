@@ -27,7 +27,7 @@ public:
     explicit MapsManager(QQmlApplicationEngine *engine,
                          QObject *parent = nullptr);
 
-public Q_SLOTS:
+public slots:
     void mapChanged(Weather::MapRenderingType type,
                     const QString &url);
 

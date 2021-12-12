@@ -84,7 +84,7 @@ public:
             {DisplayTemperatureShortRole, "displayTemperatureShort"}};
     }
 
-Q_SIGNALS:
+signals:
     void updated();
 
 private:

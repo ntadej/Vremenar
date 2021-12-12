@@ -184,7 +184,7 @@ void SettingsDialog::localeChangedSlot()
     }
     settings.writeSettings();
 
-    Q_EMIT localeChanged();
+    emit localeChanged();
 }
 
 void SettingsDialog::locationChangedSlot()
@@ -209,7 +209,7 @@ void SettingsDialog::locationChangedSlot()
         ui->comboLocation->lineEdit()->setStyleSheet(QString());
     }
 
-    Q_EMIT locationChanged();
+    emit locationChanged();
 }
 
 void SettingsDialog::locationCoordinateChanged()
@@ -223,7 +223,7 @@ void SettingsDialog::locationCoordinateChanged()
         settings.setLocationLongitude(locale.toDouble(ui->lineEditLongitude->text()));
     }
     settings.writeSettings();
-    Q_EMIT locationChanged();
+    emit locationChanged();
 }
 
 void SettingsDialog::locationLatitudeValidationChanged()
@@ -249,7 +249,7 @@ void SettingsDialog::locationStationChanged()
     Settings settings(this);
     settings.setLocationStation(ui->comboLocation->currentData(StationInfo::IdRole).toString());
     settings.writeSettings();
-    Q_EMIT locationChanged();
+    emit locationChanged();
 
     if (settings.locationSource() == Location::Station) {
         ui->comboLocation->lineEdit()->setStyleSheet(QStringLiteral("color: green;"));
@@ -272,7 +272,7 @@ void SettingsDialog::sourceChangedSlot()
                                 "The application will now restart."),
                              QMessageBox::Ok);
 
-    Q_EMIT weatherSourceChanged(ui->comboSource->currentIndex());
+    emit weatherSourceChanged(ui->comboSource->currentIndex());
 }
 
 void SettingsDialog::loadLocales()
@@ -319,7 +319,7 @@ void SettingsDialog::showInTrayChangedSlot(bool checked)
     settings.setShowInTray(checked);
     settings.writeSettings();
 
-    Q_EMIT showInTrayChanged(checked);
+    emit showInTrayChanged(checked);
 
     ui->checkShowInDock->setEnabled(checked);
     if (!checked) {
@@ -333,7 +333,7 @@ void SettingsDialog::showInDockChangedSlot(bool checked)
     settings.setShowInDock(checked);
     settings.writeSettings();
 
-    Q_EMIT showInDockChanged(checked);
+    emit showInDockChanged(checked);
 }
 #endif
 

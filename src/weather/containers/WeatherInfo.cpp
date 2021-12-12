@@ -62,7 +62,7 @@ void WeatherInfo::update(const WeatherInfo *source)
                                                     c->temperature(),
                                                     c->temperatureLow());
 
-    Q_EMIT updated();
+    emit updated();
 }
 
 } // namespace Vremenar

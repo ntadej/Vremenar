@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -43,8 +43,8 @@ void MapLayersProxyModel::setUpdating(bool updating,
     _updating = updating;
 
     if (!_updating && !silent) {
-        Q_EMIT timestampChanged();
-        Q_EMIT typeChanged(_type, _url);
+        emit timestampChanged();
+        emit typeChanged(_type, _url);
     }
 }
 
@@ -118,8 +118,8 @@ void MapLayersProxyModel::setTimestamp(qint64 time)
         }
 
         if (!_updating) {
-            Q_EMIT timestampChanged();
-            Q_EMIT typeChanged(_type, _url);
+            emit timestampChanged();
+            emit typeChanged(_type, _url);
         }
     }
 }
@@ -128,7 +128,7 @@ void MapLayersProxyModel::setImage(const QString &image)
 {
     if (_image != image) {
         _image = image;
-        Q_EMIT imageChanged();
+        emit imageChanged();
     }
 }
 
@@ -183,7 +183,7 @@ void MapLayersProxyModel::first()
         if (_animated) {
             _timer->stop();
             _animated = false;
-            Q_EMIT animatedChanged();
+            emit animatedChanged();
         }
     }
 }
@@ -196,7 +196,7 @@ void MapLayersProxyModel::previous()
         if (_animated) {
             _timer->stop();
             _animated = false;
-            Q_EMIT animatedChanged();
+            emit animatedChanged();
         }
     }
 }
@@ -209,7 +209,7 @@ void MapLayersProxyModel::next()
         if (_animated) {
             _timer->stop();
             _animated = false;
-            Q_EMIT animatedChanged();
+            emit animatedChanged();
         }
     }
 }
@@ -222,7 +222,7 @@ void MapLayersProxyModel::last()
         if (_animated) {
             _timer->stop();
             _animated = false;
-            Q_EMIT animatedChanged();
+            emit animatedChanged();
         }
     }
 }
@@ -248,7 +248,7 @@ void MapLayersProxyModel::play()
         _animated = true;
     }
 
-    Q_EMIT animatedChanged();
+    emit animatedChanged();
 }
 
 void MapLayersProxyModel::playResume()

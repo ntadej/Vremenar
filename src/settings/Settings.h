@@ -178,7 +178,7 @@ public:
     static const QString KEY_UUID;
     static const QString DEFAULT_UUID;
 
-Q_SIGNALS:
+signals:
     void settingsReloaded();
 
 private:

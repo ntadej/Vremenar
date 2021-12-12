@@ -47,7 +47,7 @@ public:
     ApplicationWindow &operator=(ApplicationWindow) = delete;
     ~ApplicationWindow() final;
 
-public Q_SLOTS:
+public slots:
     void activate();
     void toggleVisibility();
     void visibilityChanged(bool visible);
@@ -63,11 +63,11 @@ public Q_SLOTS:
 #ifdef Q_OS_MACOS
     void dockClicked();
 
-Q_SIGNALS:
+signals:
     void dockVisibilityChanged(bool);
 #endif
 
-private Q_SLOTS:
+private slots:
 #ifndef VREMENAR_MOBILE
     void writeSettingsStartup();
 #endif

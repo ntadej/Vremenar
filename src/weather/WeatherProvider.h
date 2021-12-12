@@ -77,7 +77,7 @@ public:
     [[nodiscard]] inline const QDateTime &lastUpdateTime() const { return _lastUpdateResponseTime; }
     [[nodiscard]] inline bool loading() const { return _loading; }
 
-public Q_SLOTS:
+public slots:
     Q_INVOKABLE void changeMapStyle(Weather::MapStyle style,
                                     bool action = false);
     Q_INVOKABLE void changeMapType(Weather::MapType type,
@@ -87,7 +87,7 @@ public Q_SLOTS:
     Q_INVOKABLE void currentMapLayerChanged(int index);
     Q_INVOKABLE void refresh();
 
-Q_SIGNALS:
+signals:
     void recordEvent(Analytics::EventType, const QString &payload);
     void lastUpdateTimeChanged();
     void lastUpdateTimeChangedCurrent();
@@ -100,7 +100,7 @@ Q_SIGNALS:
     void stationsUpdated();
     void storeState();
 
-private Q_SLOTS:
+private slots:
     void response(QNetworkReply *reply) final;
     void error(QNetworkReply *reply,
                QNetworkReply::NetworkError err) final;

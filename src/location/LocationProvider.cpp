@@ -114,7 +114,7 @@ bool LocationProvider::enabled()
             bool status = !(methods == 0 || methods.testFlag(QGeoPositionInfoSource::NoPositioningMethods));
             if (_currentSupportedMethods != methods) {
                 qDebug() << "Supported positioning methods:" << methods;
-                Q_EMIT enabledChanged(status);
+                emit enabledChanged(status);
                 _currentSupportedMethods = methods;
             }
             return status;
@@ -133,7 +133,7 @@ void LocationProvider::requestPositionUpdate()
 #ifdef VREMENAR_POSITIONING
     Settings settings(this);
     if (settings.locationSource() != Location::Automatic) {
-        Q_EMIT positionChanged(_currentPosition.coordinate());
+        emit positionChanged(_currentPosition.coordinate());
         return;
     }
 
@@ -254,7 +254,7 @@ void LocationProvider::positionUpdated(const QGeoPositionInfo &info)
 
     _timer->start();
 
-    Q_EMIT positionChanged(_currentPosition.coordinate());
+    emit positionChanged(_currentPosition.coordinate());
 }
 
 void LocationProvider::positionError(QGeoPositionInfoSource::Error error)
@@ -265,7 +265,7 @@ void LocationProvider::positionError(QGeoPositionInfoSource::Error error)
         qWarning() << "This application is not allowed to do positioning.";
 #if defined(Q_OS_LINUX) && !defined(Q_OS_ANDROID)
         _hasFatalError = true;
-        Q_EMIT enabledChanged(false);
+        emit enabledChanged(false);
 #endif
         break;
     case QGeoPositionInfoSource::ClosedError:
@@ -289,14 +289,14 @@ void LocationProvider::locationSettingsChanged()
     } else if (settings.locationSource() == Location::Station) {
         auto *station = _stations->find<StationInfo>(settings.locationStation());
         if (station == nullptr || station->id().isEmpty()) {
-            Q_EMIT enabledChanged(enabled());
+            emit enabledChanged(enabled());
             return;
         }
         QGeoPositionInfo info(station->coordinate(), QDateTime::currentDateTime());
         positionUpdated(info);
     } else if (settings.locationSource() == Location::Coordinate) {
         if (settings.locationLatitude() == 0 && settings.locationLongitude() == 0) {
-            Q_EMIT enabledChanged(enabled());
+            emit enabledChanged(enabled());
             return;
         }
         QGeoPositionInfo info(QGeoCoordinate(settings.locationLatitude(), settings.locationLongitude()), QDateTime::currentDateTime());
@@ -316,7 +316,7 @@ void LocationProvider::supportedMethodsChanged()
 
     qDebug() << "Supported positioning methods changed to:" << _currentSupportedMethods;
 
-    Q_EMIT enabledChanged(enabled());
+    emit enabledChanged(enabled());
 
     requestPositionUpdate();
 }
@@ -337,7 +337,7 @@ void LocationProvider::reverseGeocodingFinished(QGeoCodeReply *reply)
              << _currentLocation.address().street()
              << _currentLocation.address().city();
 
-    Q_EMIT locationChanged();
+    emit locationChanged();
 }
 
 void LocationProvider::reverseGeocodingError(QGeoCodeReply *reply,

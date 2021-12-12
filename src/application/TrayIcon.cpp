@@ -39,7 +39,7 @@ void TrayIcon::activatedCallback(QSystemTrayIcon::ActivationReason reason)
 {
     switch (reason) {
     case QSystemTrayIcon::Trigger:
-        Q_EMIT triggered();
+        emit triggered();
         break;
     default:
         break;
@@ -53,7 +53,7 @@ void TrayIcon::styleSelectedCallback()
         return;
     }
 
-    Q_EMIT styleSelected(_actionGroupStyles->actions().indexOf(action));
+    emit styleSelected(_actionGroupStyles->actions().indexOf(action));
 }
 
 void TrayIcon::mapSelectedCallback()
@@ -63,7 +63,7 @@ void TrayIcon::mapSelectedCallback()
         return;
     }
 
-    Q_EMIT mapSelected(_actionGroupMaps->actions().indexOf(action));
+    emit mapSelected(_actionGroupMaps->actions().indexOf(action));
 }
 
 void TrayIcon::createMenu(const QStringList &styles,

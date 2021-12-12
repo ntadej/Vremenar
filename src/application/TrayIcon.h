@@ -29,7 +29,7 @@ class TrayIcon : public QSystemTrayIcon
 public:
     explicit TrayIcon(QObject *parent = nullptr);
 
-public Q_SLOTS:
+public slots:
     void createMenu(const QStringList &styles,
                     const QStringList &maps);
     void setCurrentStyle(int index);
@@ -37,14 +37,14 @@ public Q_SLOTS:
     void setCurrentStation(const Vremenar::StationInfo *station);
     void setCurrentCondition(const Vremenar::WeatherCondition *condition);
 
-Q_SIGNALS:
+signals:
     void triggered();
     void settings();
     void quit();
     void styleSelected(int index);
     void mapSelected(int index);
 
-private Q_SLOTS:
+private slots:
     void activatedCallback(QSystemTrayIcon::ActivationReason reason);
     void styleSelectedCallback();
     void mapSelectedCallback();

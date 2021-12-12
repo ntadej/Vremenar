@@ -142,7 +142,7 @@ void DesktopApplication::setupTitleBarLessWindow(WId winId)
 
 void DesktopApplication::dockClickedCallback()
 {
-    Q_EMIT dockClicked();
+    emit dockClicked();
 }
 
 } // namespace Vremenar

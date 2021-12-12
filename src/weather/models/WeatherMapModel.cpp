@@ -50,7 +50,7 @@ void WeatherMapModel::update(WeatherMapModel *model,
         toUpdate->update(entry);
     }
 
-    Q_EMIT dataChanged(index(0), index(rowCount() - 1));
+    emit dataChanged(index(0), index(rowCount() - 1));
 }
 
 } // namespace Vremenar

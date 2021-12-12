@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -42,7 +42,7 @@ bool DesktopApplication::eventFilter(QObject *object,
         auto *fileEvent = dynamic_cast<QFileOpenEvent *>(event);
         if (!fileEvent->url().isEmpty()) {
             fileEvent->accept();
-            Q_EMIT urlOpened(fileEvent->url().toString());
+            emit urlOpened(fileEvent->url().toString());
         }
     }
 

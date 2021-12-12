@@ -64,7 +64,7 @@ void Updates::response(QNetworkReply *reply)
     QJsonDocument document = QJsonDocument::fromJson(reply->readAll());
     if (currentReplies()->value(reply).call() == QStringLiteral("/version")) {
         _server = document[QStringLiteral("server")].toString();
-        Q_EMIT serverChanged();
+        emit serverChanged();
 
 #if !defined(Q_OS_MACOS) && !defined(VREMENAR_STORE)
         QString stable = document[QStringLiteral("stable")].toString();
@@ -92,14 +92,14 @@ void Updates::compareVersion(const QString &stable,
             qDebug() << "Update available:" << stableVersion;
             _message = tr("An update is available. Do you want to download it now?");
             _url = QStringLiteral("https://vremenar.tano.si");
-            Q_EMIT messageChanged();
-            Q_EMIT updateAvailable();
+            emit messageChanged();
+            emit updateAvailable();
         } else if (!betaVersion.isNull() && currentVersion < betaVersion) {
             qDebug() << "Testing update available:" << betaVersion;
             _message = tr("A new testing update is available. Do you want to download it now?");
             _url = QStringLiteral("https://vremenar.tano.si");
-            Q_EMIT messageChanged();
-            Q_EMIT updateAvailable();
+            emit messageChanged();
+            emit updateAvailable();
         } else {
             qDebug() << "Running development version:" << currentVersion;
         }

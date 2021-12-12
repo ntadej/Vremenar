@@ -189,14 +189,14 @@ public:
     static QObject *provider(QQmlEngine *engine,
                              QJSEngine *scriptEngine);
 
-Q_SIGNALS:
+signals:
     void geometryChanged();
     void safetyMarginsChanged();
     void themeChanged();
 
     void showMapButonPositionChanged();
 
-private Q_SLOTS:
+private slots:
     void orientationChanged(Qt::ScreenOrientation orientation);
     void primaryScreenChanged(QScreen *screen);
     void windowWidthChanged(int width);

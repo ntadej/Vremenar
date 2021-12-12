@@ -193,7 +193,7 @@ void WeatherProvider::response(QNetworkReply *reply)
             changeMapType(Weather::MapType::WeatherConditionMap);
         }
 
-        Q_EMIT currentMapStyleChangedSignal(currentMapStyle());
+        emit currentMapStyleChangedSignal(currentMapStyle());
 
         removeResponse(reply);
         return;
@@ -224,8 +224,8 @@ void WeatherProvider::response(QNetworkReply *reply)
 
         _lastUpdateResponseTimeCurrent = QDateTime::currentDateTime();
         startTimerCurrent();
-        Q_EMIT lastUpdateTimeChangedCurrent();
-        Q_EMIT loadingSuccess();
+        emit lastUpdateTimeChangedCurrent();
+        emit loadingSuccess();
 
         removeResponse(reply);
         return;
@@ -239,7 +239,7 @@ void WeatherProvider::response(QNetworkReply *reply)
         _stationsWithCurrentConditionModel->addEmpty();
         _stationsWithCurrentConditionModel->addStationsWithCurrentCondition(_stationsModel.get());
 
-        Q_EMIT stationsUpdated();
+        emit stationsUpdated();
 
         removeResponse(reply);
 
@@ -258,7 +258,7 @@ void WeatherProvider::response(QNetworkReply *reply)
         removeResponse(reply);
         valid = true;
     } else if (currentReplies()->value(reply).call() == QStringLiteral("/maps/list")) {
-        Q_EMIT loadingSuccess();
+        emit loadingSuccess();
 
         auto type = Weather::MapType(currentReplies()->value(reply).extra().toInt());
 
@@ -296,7 +296,7 @@ void WeatherProvider::response(QNetworkReply *reply)
     _lastUpdateResponseTime = QDateTime::currentDateTime();
     setLoading(false);
     startTimer();
-    Q_EMIT lastUpdateTimeChanged();
+    emit lastUpdateTimeChanged();
 }
 
 void WeatherProvider::error(QNetworkReply *reply,
@@ -332,7 +332,7 @@ void WeatherProvider::error(QNetworkReply *reply,
 
     removeResponse(reply);
 
-    Q_EMIT loadingError();
+    emit loadingError();
 }
 
 void WeatherProvider::currentTimeChanged()
@@ -376,13 +376,13 @@ void WeatherProvider::changeMapStyle(Weather::MapStyle style,
     }
 
     if (action) {
-        Q_EMIT recordEvent(Analytics::MapStyleChanged, Weather::mapStyleToString(style));
+        emit recordEvent(Analytics::MapStyleChanged, Weather::mapStyleToString(style));
     }
 
     _currentStyle = style;
 
-    Q_EMIT currentMapStyleChangedSignal(currentMapStyle());
-    Q_EMIT storeState();
+    emit currentMapStyleChangedSignal(currentMapStyle());
+    emit storeState();
 
     qDebug() << "Map style changed" << style;
 }
@@ -395,7 +395,7 @@ void WeatherProvider::changeMapType(Weather::MapType type,
     }
 
     if (action) {
-        Q_EMIT recordEvent(Analytics::MapTypeChanged, Weather::mapTypeToString(type));
+        emit recordEvent(Analytics::MapTypeChanged, Weather::mapTypeToString(type));
     }
 
     _timer->stop();
@@ -404,10 +404,10 @@ void WeatherProvider::changeMapType(Weather::MapType type,
     _currentType = type;
     _mapLegendProxyModel->setType(_currentType);
 
-    Q_EMIT currentMapLayerChangedSignal(currentMapLayer());
-    Q_EMIT currentMapLayerHasLegendChangedSignal(currentMapLayerHasLegend());
+    emit currentMapLayerChangedSignal(currentMapLayer());
+    emit currentMapLayerHasLegendChangedSignal(currentMapLayerHasLegend());
 
-    Q_EMIT storeState();
+    emit storeState();
 }
 
 void WeatherProvider::currentLocationStatusChanged(bool enabled)
@@ -461,7 +461,7 @@ void WeatherProvider::refresh()
     requestMapLayers(_currentType);
     requestCurrentWeatherInfo(QGeoCoordinate());
 
-    Q_EMIT storeState();
+    emit storeState();
 }
 
 void WeatherProvider::startTimer()
@@ -503,7 +503,7 @@ void WeatherProvider::timerCallback()
     _lastUpdateResponseTime = now;
     requestMapLayers(_currentType);
 
-    Q_EMIT storeState();
+    emit storeState();
 }
 
 void WeatherProvider::timerCallbackCurrent()
@@ -529,7 +529,7 @@ void WeatherProvider::setLoading(bool loading)
 {
     if (_loading != loading) {
         _loading = loading;
-        Q_EMIT loadingChanged();
+        emit loadingChanged();
     }
 }
 

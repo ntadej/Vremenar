@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -36,12 +36,12 @@ public:
     void setupDockHandler();
     void setupTitleBarLessWindow(WId winId);
 
-public Q_SLOTS:
+public slots:
     void dockClickedCallback();
     void dockSetVisibility(bool visible);
 #endif
 
-Q_SIGNALS:
+signals:
     void urlOpened(const QString &);
 
 #ifdef Q_OS_MACOS
