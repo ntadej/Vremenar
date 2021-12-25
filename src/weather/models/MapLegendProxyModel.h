@@ -23,12 +23,16 @@ class MapLegendProxyModel : public QSortFilterProxyModel
 {
     Q_OBJECT
     Q_PROPERTY(Weather::MapType type READ type WRITE setType NOTIFY typeChanged)
+    Q_PROPERTY(bool wide READ wide NOTIFY typeChanged)
+    Q_PROPERTY(bool textBased READ textBased NOTIFY typeChanged)
 
 public:
     explicit MapLegendProxyModel(QObject *parent = nullptr);
 
     [[nodiscard]] inline Weather::MapType type() const { return _type; }
     void setType(Weather::MapType type);
+    [[nodiscard]] bool wide() const;
+    [[nodiscard]] bool textBased() const;
 
 signals:
     void typeChanged();

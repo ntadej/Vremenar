@@ -19,6 +19,8 @@ namespace
 {
 constexpr int timerInterval{500};
 constexpr int timerIntervalLong{750};
+
+constexpr qint64 msecInDay{86400000};
 } // namespace
 
 namespace Vremenar
@@ -42,9 +44,32 @@ void MapLayersProxyModel::setUpdating(bool updating,
     _updating = updating;
 
     if (!_updating && !silent) {
-        emit timestampChanged();
-        emit mapChanged(_type, _renderingType, _urlPrevious, _urlCurrent, _urlNext);
+        emitUpdate();
     }
+}
+
+void MapLayersProxyModel::emitUpdate()
+{
+    QString urlPrevious;
+    QString urlCurrent = data(index(_row, 0), MapLayer::UrlRole).toUrl().toString();
+    QString urlNext;
+    if (urlCurrent.contains(QStringLiteral("json"))) {
+        urlCurrent = QString();
+    } else {
+        if (_row > 0) {
+            urlPrevious = data(index(_row - 1, 0), MapLayer::UrlRole).toUrl().toString();
+        } else {
+            urlPrevious = data(index(rowCount() - 1, 0), MapLayer::UrlRole).toUrl().toString();
+        }
+        if (_row + 1 < rowCount()) {
+            urlNext = data(index(_row + 1, 0), MapLayer::UrlRole).toUrl().toString();
+        } else {
+            urlNext = data(index(0, 0), MapLayer::UrlRole).toUrl().toString();
+        }
+    }
+
+    emit timestampChanged();
+    emit mapChanged(_type, _renderingType, urlPrevious, urlCurrent, urlNext);
 }
 
 qint64 MapLayersProxyModel::timestamp() const
@@ -63,6 +88,9 @@ QString MapLayersProxyModel::day() const
     }
 
     if (_timeDefault == _time) {
+        if (_daily) {
+            return tr("today");
+        }
         return tr("recent");
     }
 
@@ -107,23 +135,6 @@ void MapLayersProxyModel::setTimestamp(qint64 time)
             if (data(in, MapLayer::TimeRole).toDateTime().toMSecsSinceEpoch() == _time) {
                 _type = Weather::MapType(data(in, MapLayer::TypeRole).toInt());
                 _renderingType = Weather::MapRenderingType(data(in, MapLayer::RenderingRole).toInt());
-                _urlCurrent = data(in, MapLayer::UrlRole).toUrl().toString();
-                if (_urlCurrent.contains(QStringLiteral("json"))) {
-                    _urlPrevious = QString();
-                    _urlCurrent = QString();
-                    _urlNext = QString();
-                } else {
-                    if (i > 0) {
-                        _urlPrevious = data(index(i - 1, 0), MapLayer::UrlRole).toUrl().toString();
-                    } else {
-                        _urlPrevious = data(index(rowCount() - 1, 0), MapLayer::UrlRole).toUrl().toString();
-                    }
-                    if (i + 1 < rowCount()) {
-                        _urlNext = data(index(i + 1, 0), MapLayer::UrlRole).toUrl().toString();
-                    } else {
-                        _urlNext = data(index(0, 0), MapLayer::UrlRole).toUrl().toString();
-                    }
-                }
                 _coordinates = data(in, MapLayer::CoordinatesRole);
                 _row = i;
                 break;
@@ -131,8 +142,7 @@ void MapLayersProxyModel::setTimestamp(qint64 time)
         }
 
         if (!_updating) {
-            emit timestampChanged();
-            emit mapChanged(_type, _renderingType, _urlPrevious, _urlCurrent, _urlNext);
+            emitUpdate();
         }
     }
 }
@@ -149,11 +159,17 @@ void MapLayersProxyModel::setDefaultTimestamp()
 
     _timer->setInterval(timerInterval);
 
+    if (rowCount() > 0) {
+        _daily = data(index(0, 0), MapLayer::TimeRole).toDateTime().msecsTo(data(index(1, 0), MapLayer::TimeRole).toDateTime()) == msecInDay;
+    } else {
+        _daily = false;
+    }
+
     qint64 newDefault{};
     for (int i = 0; i < rowCount(); i++) {
         const QModelIndex in = index(i, 0);
         auto observation = data(in, MapLayer::ObservationRole).value<Weather::ObservationType>();
-        if (observation == Weather::Recent) {
+        if (observation == Weather::Recent || observation == Weather::Forecast) {
             newDefault = data(in, MapLayer::TimeRole).toDateTime().toMSecsSinceEpoch();
             break;
         }

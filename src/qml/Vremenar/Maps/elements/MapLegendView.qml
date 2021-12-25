@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -15,7 +15,6 @@ import QtQuick.Layouts 1.12
 import Vremenar 1.0
 
 Item {
-    property alias model: view.model
     property bool hasLegend: VWeather.currentMapLayerHasLegend
 
     Layout.fillWidth: view.computedWidth > parent.width
@@ -36,17 +35,20 @@ Item {
 
     ListView {
         id: view
+        model: VMapLegendModel
         anchors.fill: parent
         orientation: ListView.Horizontal
 
-        property bool wide: count < 8
-        property int computedWidth: count * (wide ? UI.mapLegendSizeWide : UI.mapLegendSize)
+        property bool wide: VMapLegendModel.wide
+        property bool textBased: VMapLegendModel.textBased
+        property int computedWidth: textBased ? count * UI.mapLegendSizeTextBased : (wide ? (1.5 * count - 1) * UI.mapLegendSize : count * UI.mapLegendSize)
 
         delegate: MapLegendItem {
             color: model.color
             value: model.display
             placeholder: model.placeholder
             wide: view.wide
+            textBased: view.textBased
         }
     }
 }

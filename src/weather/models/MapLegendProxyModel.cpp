@@ -29,6 +29,16 @@ void MapLegendProxyModel::setType(Weather::MapType type)
     }
 }
 
+bool MapLegendProxyModel::wide() const
+{
+    return _type == Weather::UVDoseMap;
+}
+
+bool MapLegendProxyModel::textBased() const
+{
+    return _type == Weather::HailProbabilityMap;
+}
+
 bool MapLegendProxyModel::filterAcceptsRow(int sourceRow,
                                            const QModelIndex &sourceParent) const
 {

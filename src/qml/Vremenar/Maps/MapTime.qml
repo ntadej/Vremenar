@@ -51,7 +51,7 @@ Item {
 
     TextCommon {
         id: textTime
-        text: Qt.formatTime(new Date(VMapLayersModel.time))
+        text: VMapLayersModel.daily ? VMapLayersModel.day : Qt.formatTime(new Date(VMapLayersModel.time))
         opacity: VMapLayersModel.time ? 1 : 0
         font.weight: Font.DemiBold
 
@@ -65,7 +65,7 @@ Item {
     TextSmall {
         id: textDay
         padding: 0
-        text: VMapLayersModel.day
+        text: VMapLayersModel.daily ? "" : VMapLayersModel.day
         opacity: text !== "" ? 1 : 0
         color: VMapLayersModel.dayHighlighted ? UI.colorPrimary : UI.textColor
 

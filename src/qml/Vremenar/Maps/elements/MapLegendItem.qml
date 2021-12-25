@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -19,8 +19,9 @@ Item {
     property alias value: text.text
     property bool placeholder: false
     property bool wide: false
+    property bool textBased: false
 
-    width: wide ? UI.mapLegendSizeWide : UI.mapLegendSize
+    width: textBased ? UI.mapLegendSizeTextBased : (wide && !placeholder ? 1.5 * UI.mapLegendSize : UI.mapLegendSize)
     height: 2 * UI.mapLegendSize
 
     Rectangle {
@@ -28,7 +29,7 @@ Item {
         anchors.top: parent.top
         anchors.left: parent.left
 
-        width: wide ? UI.mapLegendSizeWide : UI.mapLegendSize
+        width: parent.width
         height: UI.mapLegendSize
 
         border.width: !placeholder && Qt.colorEqual(color, "transparent") ? 1 : 0
@@ -37,7 +38,7 @@ Item {
 
     TextCommon {
         id: text
-        width: wide ? UI.mapLegendSizeWide : UI.mapLegendSize
+        width: parent.width
         font.pixelSize: UI.textSmall
         horizontalAlignment: Text.AlignHCenter
         anchors.top: rectangle.bottom

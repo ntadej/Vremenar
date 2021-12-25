@@ -41,7 +41,9 @@ enum MapType {
     CloudCoverageMap,
     WindSpeedMap,
     TemperatureMap,
-    HailProbabilityMap
+    HailProbabilityMap,
+    UVIndexMaxMap,
+    UVDoseMap,
 };
 
 enum MapRenderingType {

@@ -20,30 +20,11 @@ namespace Vremenar
 
 APIRequest API::mapLayers(Weather::MapType type)
 {
-    QString id;
-    switch (type) {
-    case Weather::WeatherConditionMap:
-        id = QStringLiteral("condition");
-        break;
-    case Weather::PrecipitationMap:
-        id = QStringLiteral("precipitation");
-        break;
-    case Weather::CloudCoverageMap:
-        id = QStringLiteral("cloud");
-        break;
-    case Weather::WindSpeedMap:
-        id = QStringLiteral("wind");
-        break;
-    case Weather::TemperatureMap:
-        id = QStringLiteral("temperature");
-        break;
-    case Weather::HailProbabilityMap:
-        id = QStringLiteral("hail");
-        break;
-    case Weather::UnknownMapType:
+    if (type == Weather::UnknownMapType) {
         throw std::runtime_error("unknown map");
     }
 
+    QString id = Weather::mapTypeToString(type);
     QUrlQuery query = Sources::sourceQuery();
 
     APIRequest request;

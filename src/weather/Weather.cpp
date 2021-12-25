@@ -93,6 +93,12 @@ Weather::MapType Weather::mapTypeFromString(const QString &type)
     if (type == QStringLiteral("hail")) {
         return Weather::HailProbabilityMap;
     }
+    if (type == QStringLiteral("uv_index_max")) {
+        return Weather::UVIndexMaxMap;
+    }
+    if (type == QStringLiteral("uv_dose")) {
+        return Weather::UVDoseMap;
+    }
 
     return Weather::UnknownMapType;
 }
@@ -112,6 +118,10 @@ QString Weather::mapTypeToString(MapType type)
         return QStringLiteral("temperature");
     case HailProbabilityMap:
         return QStringLiteral("hail");
+    case UVIndexMaxMap:
+        return QStringLiteral("uv_index_max");
+    case UVDoseMap:
+        return QStringLiteral("uv_dose");
     case UnknownMapType:
         return {};
     }
@@ -134,6 +144,10 @@ QString Weather::mapTypeToLocalizedString(MapType type)
         return QObject::tr("Temperature");
     case HailProbabilityMap:
         return QObject::tr("Hail probability");
+    case UVIndexMaxMap:
+        return QObject::tr("Maximum daily UV index");
+    case UVDoseMap:
+        return QObject::tr("Total daily UV dose");
     case UnknownMapType:
         return {};
     }

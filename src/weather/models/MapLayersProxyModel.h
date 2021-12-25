@@ -33,11 +33,11 @@ class MapLayersProxyModel : public QSortFilterProxyModel
     Q_PROPERTY(qint64 time READ timestamp WRITE setTimestamp NOTIFY timestampChanged)
     Q_PROPERTY(QString day READ day NOTIFY timestampChanged)
     Q_PROPERTY(bool dayHighlighted READ dayHighlighted NOTIFY timestampChanged)
+    Q_PROPERTY(bool daily READ daily NOTIFY timestampChanged)
 
     Q_PROPERTY(Weather::MapType type READ type NOTIFY mapChanged)
     Q_PROPERTY(Weather::MapRenderingType renderingType READ renderingType NOTIFY mapChanged)
     Q_PROPERTY(QString title READ title NOTIFY timestampChanged)
-    Q_PROPERTY(QString url READ url NOTIFY timestampChanged)
     Q_PROPERTY(QVariant coordinates READ coordinates NOTIFY timestampChanged)
 
     Q_PROPERTY(bool animated READ animated NOTIFY animatedChanged)
@@ -52,17 +52,18 @@ public:
     void setTimestamp(qint64 time);
     [[nodiscard]] QString day() const;
     [[nodiscard]] bool dayHighlighted() const;
+    [[nodiscard]] inline bool daily() const { return _daily; };
 
     [[nodiscard]] QString title() const;
     [[nodiscard]] inline Weather::MapType type() const { return _type; }
     [[nodiscard]] inline Weather::MapRenderingType renderingType() const { return _renderingType; }
-    [[nodiscard]] inline const QString &url() const { return _urlCurrent; }
     [[nodiscard]] inline const QVariant &coordinates() const { return _coordinates; }
 
     [[nodiscard]] inline bool animated() const { return _animated; }
 
     void setUpdating(bool updating,
                      bool silent = false);
+    void emitUpdate();
 
     Q_INVOKABLE void first();
     Q_INVOKABLE void previous();
@@ -96,11 +97,9 @@ private:
 
     qint64 _time{};
     qint64 _timeDefault{};
+    bool _daily{};
     Weather::MapType _type{Weather::UnknownMapType};
     Weather::MapRenderingType _renderingType{Weather::ImageRendering};
-    QString _urlPrevious;
-    QString _urlCurrent;
-    QString _urlNext;
     QVariant _coordinates;
     int _row{};
 };

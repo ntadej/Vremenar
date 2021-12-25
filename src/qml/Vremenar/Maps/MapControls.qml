@@ -300,7 +300,6 @@ ColumnLayout {
 
     MapLegendView {
         id: mapLegend
-        model: VMapLegendModel
     }
 
     Item {

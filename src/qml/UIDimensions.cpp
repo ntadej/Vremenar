@@ -49,6 +49,6 @@ int Qml::UIManager::bottomSheetMaxWidth() const { return 680; }  // NOLINT(cppco
 int Qml::UIManager::mapIconSize() const { return 48; }       // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
 int Qml::UIManager::mapIconSizeHeight() const { return 38; } // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
 int Qml::UIManager::mapLegendSize() const { return 20; }     // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
-int Qml::UIManager::mapLegendSizeWide() const { return 50; } // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+int Qml::UIManager::mapLegendSizeTextBased() const { return 50; } // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
 
 } // namespace Vremenar
