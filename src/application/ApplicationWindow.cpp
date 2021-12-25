@@ -232,7 +232,7 @@ void ApplicationWindow::createModels()
     connect(_weatherProvider.get(), &WeatherProvider::stationsUpdated, _location.get(), &LocationProvider::locationSettingsChanged);
 
     _mapsManager = std::make_unique<MapsManager>(_engine.get(), this);
-    connect(_weatherProvider->mapLayers(), &MapLayersProxyModel::typeChanged, _mapsManager.get(), &MapsManager::mapChanged);
+    connect(_weatherProvider->mapLayers(), &MapLayersProxyModel::mapChanged, _mapsManager.get(), &MapsManager::mapChanged);
 
     _location->locationSettingsChanged();
 }

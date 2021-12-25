@@ -61,7 +61,6 @@ public:
     Q_INVOKABLE void requestBaseInfo();
     Q_INVOKABLE void requestCurrentWeatherInfo(const QGeoCoordinate &coordinate);
     Q_INVOKABLE void requestWeatherMapDetails(const QString &url);
-    Q_INVOKABLE void requestImage(const QString &url);
     Q_INVOKABLE void requestMapLayers(Weather::MapType type);
 
     [[nodiscard]] bool currentMapLayerHasLegend() const;

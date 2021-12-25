@@ -18,7 +18,6 @@
 namespace Vremenar::API
 {
 
-APIRequest mapImage(const QString &url);
 APIRequest mapLayers(Weather::MapType type);
 APIRequest mapLegends();
 APIRequest mapTypes();

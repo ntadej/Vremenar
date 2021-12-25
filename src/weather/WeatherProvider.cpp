@@ -122,16 +122,6 @@ void WeatherProvider::requestWeatherMapDetails(const QString &url)
     currentReplies()->insert(network()->request(request), request);
 }
 
-void WeatherProvider::requestImage(const QString &url)
-{
-    qDebug() << "Requesting image:" << url;
-
-    setLoading(true);
-
-    APIRequest request = API::mapImage(url);
-    currentReplies()->insert(network()->request(request), request);
-}
-
 void WeatherProvider::requestMapLayers(Weather::MapType type)
 {
     qDebug() << "Requesting map type:" << type;
@@ -158,23 +148,6 @@ void WeatherProvider::response(QNetworkReply *reply)
     qDebug() << "Request done:" << reply->url() << reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
 
     bool valid{};
-
-    if (currentReplies()->value(reply).call() == QStringLiteral("/image")) {
-        QImage image;
-        image.loadFromData(reply->readAll());
-
-        QByteArray byteArray;
-        QBuffer buffer(&byteArray);
-        image.save(&buffer, "PNG");
-        QString iconBase64 = QString::fromLatin1(byteArray.toBase64().data());
-        mapLayers()->setImage(QStringLiteral("data:image/jpeg;base64,") + iconBase64);
-        mapLayers()->setUpdating(false, true);
-        mapLayers()->playResume();
-
-        removeResponse(reply);
-        setLoading(false);
-        return;
-    }
 
     // JSON
     QJsonDocument document = QJsonDocument::fromJson(reply->readAll());
@@ -322,8 +295,7 @@ void WeatherProvider::error(QNetworkReply *reply,
 
     if (currentReplies()->value(reply).call() == QStringLiteral("/stations/condition")) {
         startTimerCurrent();
-    } else if (currentReplies()->value(reply).call() != QStringLiteral("/image")
-               && currentReplies()->value(reply).call() != QStringLiteral("/maps/types")
+    } else if (currentReplies()->value(reply).call() != QStringLiteral("/maps/types")
                && currentReplies()->value(reply).call() != QStringLiteral("/maps/legend")
                && currentReplies()->value(reply).call() != QStringLiteral("/stations/coordinate")
                && currentReplies()->value(reply).call() != QStringLiteral("/stations/list")) {
@@ -337,13 +309,8 @@ void WeatherProvider::error(QNetworkReply *reply,
 
 void WeatherProvider::currentTimeChanged()
 {
-    if (mapLayers()->type() == Weather::TilesRendering) {
+    if (mapLayers()->renderingType() == Weather::TilesRendering || mapLayers()->renderingType() == Weather::ImageRendering) {
         mapLayers()->playResume();
-        return;
-    }
-
-    if (currentType() != Weather::WeatherConditionMap) {
-        requestImage(mapLayers()->url());
         return;
     }
 
@@ -351,8 +318,6 @@ void WeatherProvider::currentTimeChanged()
     if (layer == nullptr) {
         return;
     }
-
-    mapLayers()->setImage(QStringLiteral("data:image/jpeg;base64,") + Weather::blankPng);
 
     if (!layer->loaded()) {
         requestWeatherMapDetails(layer->url().toString());

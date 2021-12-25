@@ -26,8 +26,7 @@ namespace Vremenar
 
 MapLayersProxyModel::MapLayersProxyModel(QObject *parent)
     : QSortFilterProxyModel(parent),
-      _timer(std::make_unique<QTimer>(this)),
-      _url(QStringLiteral("qrc:/Vremenar/Maps/icons/blank.png"))
+      _timer(std::make_unique<QTimer>(this))
 {
     connect(this, &MapLayersProxyModel::rowsInserted, this, &MapLayersProxyModel::rowCountChanged);
     connect(this, &MapLayersProxyModel::rowsRemoved, this, &MapLayersProxyModel::rowCountChanged);
@@ -44,7 +43,7 @@ void MapLayersProxyModel::setUpdating(bool updating,
 
     if (!_updating && !silent) {
         emit timestampChanged();
-        emit typeChanged(_type, _url);
+        emit mapChanged(_type, _renderingType, _urlPrevious, _urlCurrent, _urlNext);
     }
 }
 
@@ -106,10 +105,24 @@ void MapLayersProxyModel::setTimestamp(qint64 time)
         for (int i = 0; i < rowCount(); i++) {
             const QModelIndex in = index(i, 0);
             if (data(in, MapLayer::TimeRole).toDateTime().toMSecsSinceEpoch() == _time) {
-                _type = Weather::MapRenderingType(data(in, MapLayer::RenderingRole).toInt());
-                _url = data(in, MapLayer::UrlRole).toUrl().toString();
-                if (_url.contains(QStringLiteral("json"))) {
-                    _url = QString();
+                _type = Weather::MapType(data(in, MapLayer::TypeRole).toInt());
+                _renderingType = Weather::MapRenderingType(data(in, MapLayer::RenderingRole).toInt());
+                _urlCurrent = data(in, MapLayer::UrlRole).toUrl().toString();
+                if (_urlCurrent.contains(QStringLiteral("json"))) {
+                    _urlPrevious = QString();
+                    _urlCurrent = QString();
+                    _urlNext = QString();
+                } else {
+                    if (i > 0) {
+                        _urlPrevious = data(index(i - 1, 0), MapLayer::UrlRole).toUrl().toString();
+                    } else {
+                        _urlPrevious = data(index(rowCount() - 1, 0), MapLayer::UrlRole).toUrl().toString();
+                    }
+                    if (i + 1 < rowCount()) {
+                        _urlNext = data(index(i + 1, 0), MapLayer::UrlRole).toUrl().toString();
+                    } else {
+                        _urlNext = data(index(0, 0), MapLayer::UrlRole).toUrl().toString();
+                    }
                 }
                 _coordinates = data(in, MapLayer::CoordinatesRole);
                 _row = i;
@@ -119,16 +132,8 @@ void MapLayersProxyModel::setTimestamp(qint64 time)
 
         if (!_updating) {
             emit timestampChanged();
-            emit typeChanged(_type, _url);
+            emit mapChanged(_type, _renderingType, _urlPrevious, _urlCurrent, _urlNext);
         }
-    }
-}
-
-void MapLayersProxyModel::setImage(const QString &image)
-{
-    if (_image != image) {
-        _image = image;
-        emit imageChanged();
     }
 }
 

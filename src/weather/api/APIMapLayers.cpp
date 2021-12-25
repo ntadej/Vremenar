@@ -18,17 +18,6 @@
 namespace Vremenar
 {
 
-APIRequest API::mapImage(const QString &url)
-{
-    APIRequest request;
-    request.setBaseUrl(QString());
-    request.setCall(QStringLiteral("/image"));
-    request.setUrl(url);
-    request.setAttribute(QNetworkRequest::CacheLoadControlAttribute, QNetworkRequest::PreferCache);
-
-    return request;
-}
-
 APIRequest API::mapLayers(Weather::MapType type)
 {
     QString id;

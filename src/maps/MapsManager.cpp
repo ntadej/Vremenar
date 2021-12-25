@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -26,24 +26,33 @@ MapsManager::MapsManager(QQmlApplicationEngine *engine,
 {
 }
 
-void MapsManager::mapChanged(Weather::MapRenderingType type,
-                             const QString &url)
+void MapsManager::mapChanged(Weather::MapType type,
+                             Weather::MapRenderingType renderingType,
+                             const QString &urlPrevious,
+                             const QString &urlCurrent,
+                             const QString &urlNext)
 {
-    if (type == _type && _type != Weather::TilesRendering) {
-        return;
+    if (_type != type) {
+        qDebug() << "Map type changed to" << type;
     }
 
-    qDebug() << "Map type changed to" << type;
+    if (_renderingType != renderingType) {
+        qDebug() << "Map rendering type changed to" << type;
+    }
 
     if (_mapObject == nullptr && !getMapObject()) {
         return;
     }
 
     _type = type;
+    _renderingType = renderingType;
 
     QMetaObject::invokeMethod(_mapObject, "addParameters",
                               Q_ARG(QVariant, type),
-                              Q_ARG(QString, url));
+                              Q_ARG(QVariant, renderingType),
+                              Q_ARG(QString, urlPrevious),
+                              Q_ARG(QString, urlCurrent),
+                              Q_ARG(QString, urlNext));
 }
 
 bool MapsManager::getMapObject()

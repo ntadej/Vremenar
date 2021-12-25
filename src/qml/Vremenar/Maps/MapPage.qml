@@ -21,6 +21,8 @@ import Vremenar.Navigation 1.0
 
 import "elements"
 
+import "MapLayers.js" as MapLayers
+
 MapPageBase {
     id: mapPage
 
@@ -59,58 +61,13 @@ MapPageBase {
         }
 
         property bool loading: false
-        property string currentUrl: "data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII"
 
         property var paramSource: null
         property var paramLayer: null
         property var paramPaint: null
 
-        function addParameters(type, url: string) {
-            if (paramPaint) {
-                map.removeMapParameter(paramPaint)
-                paramPaint.destroy()
-                paramPaint = null
-            }
-            if (paramLayer) {
-                map.removeMapParameter(paramLayer)
-                paramLayer.destroy()
-                paramLayer = null
-            }
-            if (paramSource) {
-                map.removeMapParameter(paramSource)
-                paramSource.destroy()
-                paramSource = null
-            }
-
-            if (type === Weather.IconsRendering) {
-                return
-            }
-
-            // let beforeLayer = "settlement";
-            let beforeLayer = "place_label";
-
-            if (type === Weather.TilesRendering) {
-                url += '&bbox={bbox-epsg-3857}'
-                paramSource = Qt.createQmlObject(`import QtLocation 5.15; DynamicParameter {type: "source"; objectName: "weatherSourceObj"; property var name: "weatherSource"; property var sourceType: "raster"; property var tiles: ["${url}"]; property var tileSize: 512;}`,
-                                                 map,
-                                                 "sourceParam")
-            } else {
-                paramSource = Qt.createQmlObject(`import QtLocation 5.15; DynamicParameter {type: "source"; objectName: "weatherSourceObj"; property var name: "weatherSource"; property var sourceType: "image"; property var url: map.currentUrl; property var coordinates: VMapLayersModel.coordinates;}`,
-                                                 map,
-                                                 "sourceParam")
-            }
-
-            paramLayer = Qt.createQmlObject(`import QtLocation 5.15; DynamicParameter {type: "layer"; objectName: "weatherLayerObj"; property var name: "weatherLayer"; property var layerType: "raster"; property var source: "weatherSource"; property var before: "${beforeLayer}";}`,
-                                            map,
-                                            "layerParam")
-
-            paramPaint = Qt.createQmlObject('import QtLocation 5.15; DynamicParameter {type: "paint";  objectName: "weatherPaintObj"; property var layer: "weatherLayer"; property var rasterOpacity: 0.75;}',
-                                            map,
-                                            "paintParam")
-
-            map.addMapParameter(paramSource)
-            map.addMapParameter(paramLayer)
-            map.addMapParameter(paramPaint)
+        function addParameters(type, renderingType, urlPrevious: string, urlCurrent: string, urlNext: string) {
+            MapLayers.addParameters(map, type, renderingType, urlPrevious, urlCurrent, urlNext)
         }
 
         MapItemView {
@@ -129,7 +86,6 @@ MapPageBase {
 
         Binding { target: VWeatherMapModel; property: "zoomLevel"; value: map.zoomLevel }
         Binding { target: VWeatherMapModel; property: "visibleRegion"; value: map.visibleRegion }
-        Binding { target: map; property: "currentUrl"; value: VMapLayersModel.image }
 
         onCenterChanged: {
             if (!VLocation.validate(center)) {

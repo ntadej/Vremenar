@@ -34,10 +34,10 @@ class MapLayersProxyModel : public QSortFilterProxyModel
     Q_PROPERTY(QString day READ day NOTIFY timestampChanged)
     Q_PROPERTY(bool dayHighlighted READ dayHighlighted NOTIFY timestampChanged)
 
-    Q_PROPERTY(Weather::MapRenderingType type READ type NOTIFY typeChanged)
+    Q_PROPERTY(Weather::MapType type READ type NOTIFY mapChanged)
+    Q_PROPERTY(Weather::MapRenderingType renderingType READ renderingType NOTIFY mapChanged)
     Q_PROPERTY(QString title READ title NOTIFY timestampChanged)
     Q_PROPERTY(QString url READ url NOTIFY timestampChanged)
-    Q_PROPERTY(QString image READ image NOTIFY imageChanged)
     Q_PROPERTY(QVariant coordinates READ coordinates NOTIFY timestampChanged)
 
     Q_PROPERTY(bool animated READ animated NOTIFY animatedChanged)
@@ -54,10 +54,9 @@ public:
     [[nodiscard]] bool dayHighlighted() const;
 
     [[nodiscard]] QString title() const;
-    [[nodiscard]] inline Weather::MapRenderingType type() const { return _type; }
-    [[nodiscard]] inline const QString &url() const { return _url; }
-    [[nodiscard]] inline const QString &image() const { return _image; }
-    void setImage(const QString &image);
+    [[nodiscard]] inline Weather::MapType type() const { return _type; }
+    [[nodiscard]] inline Weather::MapRenderingType renderingType() const { return _renderingType; }
+    [[nodiscard]] inline const QString &url() const { return _urlCurrent; }
     [[nodiscard]] inline const QVariant &coordinates() const { return _coordinates; }
 
     [[nodiscard]] inline bool animated() const { return _animated; }
@@ -78,8 +77,11 @@ signals:
     void timestampChanged();
     void imageChanged();
     void animatedChanged();
-    void typeChanged(Weather::MapRenderingType,
-                     const QString &);
+    void mapChanged(Weather::MapType,
+                    Weather::MapRenderingType,
+                    const QString &,
+                    const QString &,
+                    const QString &);
 
 private slots:
     void setDefaultTimestamp();
@@ -94,9 +96,11 @@ private:
 
     qint64 _time{};
     qint64 _timeDefault{};
-    Weather::MapRenderingType _type{Weather::ImageRendering};
-    QString _url;
-    QString _image{Weather::blankPng};
+    Weather::MapType _type{Weather::UnknownMapType};
+    Weather::MapRenderingType _renderingType{Weather::ImageRendering};
+    QString _urlPrevious;
+    QString _urlCurrent;
+    QString _urlNext;
     QVariant _coordinates;
     int _row{};
 };

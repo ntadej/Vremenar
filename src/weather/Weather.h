@@ -67,8 +67,6 @@ Q_INVOKABLE QString mapTypeToLocalizedString(Vremenar::Weather::MapType type);
 
 MapRenderingType mapRenderingTypeFromString(const QString &type);
 
-constexpr CString blankPng{"iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="};
-
 } // namespace Vremenar::Weather
 
 #endif // VREMENAR_WEATHER_H_

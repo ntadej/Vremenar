@@ -28,13 +28,17 @@ public:
                          QObject *parent = nullptr);
 
 public slots:
-    void mapChanged(Weather::MapRenderingType type,
-                    const QString &url);
+    void mapChanged(Weather::MapType type,
+                    Weather::MapRenderingType renderingType,
+                    const QString &urlPrevious,
+                    const QString &urlCurrent,
+                    const QString &urlNext);
 
 private:
     bool getMapObject();
 
-    Weather::MapRenderingType _type{Weather::IconsRendering};
+    Weather::MapType _type{Weather::UnknownMapType};
+    Weather::MapRenderingType _renderingType{Weather::IconsRendering};
 
     QQmlApplicationEngine *_engine{}; // not owned here
     QObject *_mapObject{};            // not owned here
