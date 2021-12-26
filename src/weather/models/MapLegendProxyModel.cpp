@@ -10,7 +10,10 @@
 */
 
 #include "weather/models/MapLegendProxyModel.h"
+
 #include "weather/containers/MapLegendItem.h"
+
+#include <cmath>
 
 namespace Vremenar
 {
@@ -18,6 +21,8 @@ namespace Vremenar
 MapLegendProxyModel::MapLegendProxyModel(QObject *parent)
     : QSortFilterProxyModel(parent)
 {
+    connect(this, &MapLegendProxyModel::rowsInserted, this, &MapLegendProxyModel::rowCountChanged);
+    connect(this, &MapLegendProxyModel::rowsRemoved, this, &MapLegendProxyModel::rowCountChanged);
 }
 
 void MapLegendProxyModel::setType(Weather::MapType type)
@@ -31,7 +36,22 @@ void MapLegendProxyModel::setType(Weather::MapType type)
 
 bool MapLegendProxyModel::wide() const
 {
-    return _type == Weather::UVDoseMap;
+    if (textBased()) {
+        return false;
+    }
+
+    for (int i{}; i < rowCount(); i++) {
+        if (index(i, 0).data(MapLegendItem::PlaceholderRole).toBool()) {
+            continue;
+        }
+
+        float value = index(i, 0).data(MapLegendItem::DisplayRole).toString().toFloat();
+        if (std::fmod(value, 1.F) != 0.F) {
+            return true;
+        }
+    }
+
+    return false;
 }
 
 bool MapLegendProxyModel::textBased() const

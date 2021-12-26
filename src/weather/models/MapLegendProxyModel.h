@@ -23,8 +23,8 @@ class MapLegendProxyModel : public QSortFilterProxyModel
 {
     Q_OBJECT
     Q_PROPERTY(Weather::MapType type READ type WRITE setType NOTIFY typeChanged)
-    Q_PROPERTY(bool wide READ wide NOTIFY typeChanged)
-    Q_PROPERTY(bool textBased READ textBased NOTIFY typeChanged)
+    Q_PROPERTY(bool wide READ wide NOTIFY rowCountChanged)
+    Q_PROPERTY(bool textBased READ textBased NOTIFY rowCountChanged)
 
 public:
     explicit MapLegendProxyModel(QObject *parent = nullptr);
@@ -35,6 +35,7 @@ public:
     [[nodiscard]] bool textBased() const;
 
 signals:
+    void rowCountChanged();
     void typeChanged();
 
 protected:
