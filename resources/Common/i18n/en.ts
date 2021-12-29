@@ -350,13 +350,18 @@
 <context>
     <name>Vremenar::ApplicationWindow</name>
     <message>
-        <location filename="../../../src/application/ApplicationWindow.cpp" line="251"/>
+        <location filename="../../../src/application/ApplicationWindow.cpp" line="267"/>
         <source>Satellite</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/application/ApplicationWindow.cpp" line="251"/>
-        <source>Streets</source>
+        <location filename="../../../src/application/ApplicationWindow.cpp" line="267"/>
+        <source>Streets (Light)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../src/application/ApplicationWindow.cpp" line="267"/>
+        <source>Streets (Dark)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

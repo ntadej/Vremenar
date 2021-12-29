@@ -69,6 +69,7 @@ signals:
 
 private slots:
 #ifndef VREMENAR_MOBILE
+    void updateTrayIcon();
     void writeSettingsStartup();
 #endif
     void writeSettingsStartupMap();

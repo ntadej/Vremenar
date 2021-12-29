@@ -248,18 +248,26 @@ void ApplicationWindow::createWidgets()
 #else
     _trayIcon->setVisible(true);
 #endif
-    _trayIcon->createMenu({tr("Satellite"), tr("Streets")}, _weatherProvider->mapInfo()->list());
-    _trayIcon->setCurrentMap(_weatherProvider->currentMapLayer());
+    updateTrayIcon();
 
     connect(_trayIcon.get(), &TrayIcon::triggered, this, &ApplicationWindow::toggleVisibility);
     connect(_trayIcon.get(), &TrayIcon::settings, this, &ApplicationWindow::showSettingsDialog);
     connect(_trayIcon.get(), &TrayIcon::quit, QCoreApplication::instance(), &QCoreApplication::quit);
     connect(_trayIcon.get(), &TrayIcon::styleSelected, _weatherProvider.get(), &WeatherProvider::currentMapStyleChanged);
     connect(_trayIcon.get(), &TrayIcon::mapSelected, _weatherProvider.get(), &WeatherProvider::currentMapLayerChanged);
+    connect(_localeManager.get(), &LocaleManager::localeChanged, this, &ApplicationWindow::updateTrayIcon);
     connect(_weatherProvider.get(), &WeatherProvider::currentMapStyleChangedSignal, _trayIcon.get(), &TrayIcon::setCurrentStyle);
     connect(_weatherProvider.get(), &WeatherProvider::currentMapLayerChangedSignal, _trayIcon.get(), &TrayIcon::setCurrentMap);
     connect(_weatherProvider->current(), &CurrentWeather::stationChanged, _trayIcon.get(), &TrayIcon::setCurrentStation);
     connect(_weatherProvider->current(), &CurrentWeather::conditionChanged, _trayIcon.get(), &TrayIcon::setCurrentCondition);
+    connect(_weatherProvider->mapInfo(), &MapInfoModel::rowsInserted, this, &ApplicationWindow::updateTrayIcon);
+}
+
+void ApplicationWindow::updateTrayIcon()
+{
+    _trayIcon->createMenu({tr("Satellite"), tr("Streets (Light)"), tr("Streets (Dark)")}, _weatherProvider->mapInfo()->list());
+    _trayIcon->setCurrentStyle(_weatherProvider->currentMapStyle());
+    _trayIcon->setCurrentMap(_weatherProvider->currentMapLayer());
 }
 
 void ApplicationWindow::showAboutDialog()

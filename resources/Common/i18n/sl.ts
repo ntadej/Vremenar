@@ -436,14 +436,19 @@
 <context>
     <name>Vremenar::ApplicationWindow</name>
     <message>
-        <location filename="../../../src/application/ApplicationWindow.cpp" line="251"/>
+        <location filename="../../../src/application/ApplicationWindow.cpp" line="267"/>
         <source>Satellite</source>
-        <translation></translation>
+        <translation>Satelit</translation>
     </message>
     <message>
-        <location filename="../../../src/application/ApplicationWindow.cpp" line="251"/>
-        <source>Streets</source>
-        <translation></translation>
+        <location filename="../../../src/application/ApplicationWindow.cpp" line="267"/>
+        <source>Streets (Light)</source>
+        <translation>Ulice (svetlo)</translation>
+    </message>
+    <message>
+        <location filename="../../../src/application/ApplicationWindow.cpp" line="267"/>
+        <source>Streets (Dark)</source>
+        <translation>Ulice (temno)</translation>
     </message>
 </context>
 <context>
