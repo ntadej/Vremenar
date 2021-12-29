@@ -35,20 +35,24 @@ namespace Vremenar
 
 LocationProvider::LocationProvider(StationListModel *stations, QObject *parent)
     : QObject(parent),
+#ifdef VREMENAR_POSITIONING
       _timer(std::make_unique<QTimer>(this)),
+#endif
       _stations(stations)
 {
     Settings settings(this);
     _initialPosition = QGeoPositionInfo(QGeoCoordinate(settings.startupMapLatitude(), settings.startupMapLongitude()), QDateTime::currentDateTime());
 
-#if defined(Q_OS_ANDROID)
+#if defined(VREMENAR_POSITIONING) && defined(Q_OS_ANDROID)
     if (!initAndroid()) {
         return;
     }
 #endif
 
+#ifdef VREMENAR_POSITIONING
     _timer->setInterval(updateInterval);
     _timer->setSingleShot(true);
+#endif
 
     QMap<QString, QVariant> params;
     params.insert(QStringLiteral("osm.useragent"), QString(Vremenar::name) + " " + Vremenar::version);
@@ -252,7 +256,9 @@ void LocationProvider::positionUpdated(const QGeoPositionInfo &info)
         qWarning() << "No geocoding provider available.";
     }
 
+#ifdef VREMENAR_POSITIONING
     _timer->start();
+#endif
 
     emit positionChanged(_currentPosition.coordinate());
 }
