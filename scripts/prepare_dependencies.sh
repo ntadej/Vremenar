@@ -15,7 +15,7 @@ fi
 
 if [[ "${1}" == "macos" ]] || [[ "${1}" == "macOS" ]]; then
   MAPLIBRE_VERSION="2.0.0-pre.1"
-  SPARKLE_VERSION="1.26.0"
+  SPARKLE_VERSION="1.27.1"
   COUNTLY_VERSION="20.11.1"
 
   echo "Downloading for macOS"
