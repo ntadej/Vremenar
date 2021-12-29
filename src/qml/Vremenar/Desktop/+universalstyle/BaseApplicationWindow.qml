@@ -10,12 +10,12 @@
 */
 
 import QtQuick 2.12
-import QtQuick.Controls 2.12 as Controls
-
-import Vremenar 1.0
+import QtQuick.Controls 2.12
 import QtQuick.Controls.Universal 2.12
 
-Controls.ApplicationWindow {
+import Vremenar 1.0
+
+ApplicationWindow {
     id: appBase
 
     Universal.theme: UI.theme === Vremenar.Common.DarkTheme ? Universal.Dark : Universal.Light

@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -45,7 +45,7 @@ Dialog {
             blurSource: contentPlaceholder
             color: UI.navBarColor
             sourceX: parent.parent.x
-            sourceY: parent.parent.y
+            sourceY: parent.parent.y - (menuBar ? menuBar.height : 0)
             maskSource: Rectangle {
                 width: dialog.width
                 height: dialog.height
@@ -59,7 +59,7 @@ Dialog {
         spacing: 0
         Rectangle {
             color: "transparent"
-            height: UI.navBarHeight + UI.safetyMarginTop
+            height: UI.navBarHeight + UI.safetyMarginTop + (menuBar ? menuBar.height : 0)
             Layout.fillWidth: true
         }
         Rectangle {
