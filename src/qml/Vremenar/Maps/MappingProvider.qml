@@ -15,10 +15,15 @@ import QtLocation 5.12
 import Vremenar 1.0
 
 Plugin {
-    preferred: ["maplibre"]
+    preferred: ["maplibre", "mapboxgl"]
 
     PluginParameter {
         name: "maplibre.mapping.additional_style_urls"
+        value: Globals.mapsStyle
+    }
+
+    PluginParameter {
+        name: "mapboxgl.mapping.additional_style_urls"
         value: Globals.mapsStyle
     }
 }

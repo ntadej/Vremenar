@@ -131,10 +131,11 @@ elif [[ "${1}" == "linux" ]] || [[ "${1}" == "Linux" ]]; then
 
   echo "Downloading for Linux"
 
-  echo "MapLibre"
+  # echo "MapLibre"
   if [[ $QT -eq 1 ]]; then
-    wget -nv -O "${LOCATION}/3rdparty/qt-geoservices-maplibre.tar.bz2" "https://github.com/ntadej/qt-geoservices-maplibre/releases/download/v${MAPLIBRE_VERSION}/qt-geoservices-maplibre_${MAPLIBRE_VERSION}_Linux-gcc_64.tar.bz2"
-    tar -C "$Qt5_Dir/" -xvf "${LOCATION}/3rdparty/qt-geoservices-maplibre.tar.bz2"
+    # wget -nv -O "${LOCATION}/3rdparty/qt-geoservices-maplibre.tar.bz2" "https://github.com/ntadej/qt-geoservices-maplibre/releases/download/v${MAPLIBRE_VERSION}/qt-geoservices-maplibre_${MAPLIBRE_VERSION}_Linux-gcc_64.tar.bz2"
+    # tar -C "$Qt5_Dir/" -xvf "${LOCATION}/3rdparty/qt-geoservices-maplibre.tar.bz2"
+    wget -nv -O "$Qt5_Dir/plugins/geoservices/libqtgeoservices_mapboxgl.so" "https://github.com/ntadej/qt-geoservices-mapboxgl/releases/download/v${QT_VERSION}/libqtgeoservices_mapboxgl_gcc_64.so"
   else
     echo "skipping..."
   fi

@@ -18,5 +18,5 @@ make INSTALL_ROOT=appdir -j2 install ; find appdir/
 /root/linuxdeployqt/AppRun \
   appdir/usr/share/applications/vremenar.desktop \
   -qmldir=$VREMENAR_PATH/src/qml/ \
-  -extra-plugins=geoservices/libqtgeoservices_maplibre.so,geoservices/libqtgeoservices_osm.so,sqldrivers/libqsqlite.so \
+  -extra-plugins=geoservices/libqtgeoservices_mapboxgl.so,geoservices/libqtgeoservices_osm.so,sqldrivers/libqsqlite.so \
   -bundle-non-qt-libs
