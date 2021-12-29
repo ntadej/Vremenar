@@ -18,9 +18,9 @@ Item {
 
     ListModel {
         id: styleModel
-        ListElement { display: "Satellite" }
-        ListElement { display: "Streets (Light)" }
-        ListElement { display: "Streets (Dark)" }
+        ListElement { display: qsTr("Satellite") }
+        ListElement { display: qsTr("Streets (Light)") }
+        ListElement { display: qsTr("Streets (Dark)") }
     }
 
     MenuBar {
