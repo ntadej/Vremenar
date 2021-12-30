@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -26,27 +26,16 @@ Item {
         color: UI.navBarColor
     }
 
-    MouseArea {
-        property point clickPosition: Qt.point(0, 0)
+    TapHandler {
+        enabled: !(UI.isMobile || UI.isTV)
+        onTapped: if (tapCount === 2) app.toggleMaximized()
+        gesturePolicy: TapHandler.DragThreshold
+    }
 
-        anchors.fill: parent
-
-        onPressed: {
-            if (UI.isMobile || UI.isTV) {
-                return
-            }
-
-            clickPosition = Qt.point(mouse.x, mouse.y)
-        }
-
-        onPositionChanged: {
-            if (UI.isMobile || UI.isTV) {
-                return
-            }
-
-            applicationWindow.x += mouse.x - clickPosition.x
-            applicationWindow.y += mouse.y - clickPosition.y
-        }
+    DragHandler {
+        enabled: !(UI.isMobile || UI.isTV)
+        grabPermissions: TapHandler.CanTakeOverFromAnything
+        onActiveChanged: if (active) { app.startSystemMove(); }
     }
 
     RowLayout {
