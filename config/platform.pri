@@ -11,6 +11,6 @@
 
 macx: include(platform/macOS.pri)
 linux:!android: include(platform/Linux.pri)
-win32:mingw: include(platform/Windows.pri)
+win32: include(platform/Windows.pri)
 ios: include(platform/iOS.pri)
 android: include(platform/Android.pri)

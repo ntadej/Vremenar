@@ -36,9 +36,7 @@ store {
 }
 
 # Define common platforms
-macx|if(linux:!android) {
-    CONFIG += desktop
-} else:win32:mingw {
+macx|if(linux:!android)|win32 {
     CONFIG += desktop
 } else:ios|android {
     DEFINES += VREMENAR_MOBILE
@@ -56,7 +54,11 @@ desktop {
 DEFINES += QT_DEPRECATED_WARNINGS
 
 # All warnings
-QMAKE_CXXFLAGS += -Wall -Wextra -Werror -Wno-unknown-pragmas -pedantic
+win32:msvc {
+    QMAKE_CXXFLAGS += /WX
+} else {
+    QMAKE_CXXFLAGS += -Wall -Wextra -Werror -Wno-unknown-pragmas -pedantic
+}
 
 # Add GSL
 INCLUDEPATH += $$top_srcdir/3rdparty/GSL/include
@@ -73,8 +75,12 @@ macx {
     message("Building for platform: macOS")
 } else:linux:!android {
     message("Building for platform: Linux")
-} else:win32:mingw {
-    message("Building for platform: Windows (MinGW)")
+} else:win32 {
+    mingw {
+        message("Building for platform: Windows (MinGW)")
+    } else {
+        message("Building for platform: Windows (MSVC)")
+    }
 } else:ios {
     message("Building for platform: iOS")
 } else:android {

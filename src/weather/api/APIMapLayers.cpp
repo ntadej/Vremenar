@@ -9,6 +9,8 @@
 * SPDX-License-Identifier: (GPL-3.0-or-later AND MPL-2.0)
 */
 
+#include <stdexcept>
+
 #include "weather/Sources.h"
 
 #include "weather/api/APIMapLayers.h"

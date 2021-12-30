@@ -54,7 +54,7 @@ desktop {
 macx {
     RESOURCES += resources/Weather/TrayMask/tray_mask.qrc
 }
-if(linux:!android)|if(win32:mingw) {
+if(linux:!android)|if(win32) {
     RESOURCES += \
         resources/Weather/Tray/tray_clear_16.qrc \
         resources/Weather/Tray/tray_clear_24.qrc \
