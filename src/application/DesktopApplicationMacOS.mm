@@ -126,7 +126,7 @@ void DesktopApplication::dockHide()
     qDebug() << "Dock icon hidden";
 }
 
-void DesktopApplication::setupTitleBarLessWindow(WId winId)
+void DesktopApplication::setupTitleBarLessWindow(quintptr winId)
 {
     if (winId == 0) {
         return;

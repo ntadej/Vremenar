@@ -33,6 +33,7 @@ void Application::preInit()
     QCoreApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
 
 #if defined(Q_OS_WINDOWS)
+    QCoreApplication::setAttribute(Qt::AA_UseOpenGLES);
     qputenv("QT_QPA_PLATFORM", "windows:darkmode=1");
 #elif defined(Q_OS_LINUX) && !defined(Q_OS_ANDROID)
     qputenv("QT_QUICK_CONTROLS_MATERIAL_VARIANT", "Dense");

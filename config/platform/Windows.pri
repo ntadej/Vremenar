@@ -9,6 +9,14 @@
 # SPDX-License-Identifier: (GPL-3.0-or-later AND MPL-2.0)
 #
 
+win32-g++ {
+    LIBS += -luser32 -ldwmapi
+}
+
+win32-msvc {
+    LIBS += user32.lib dwmapi.lib
+}
+
 QMAKE_TARGET_COMPANY = "Tadej Novak"
 QMAKE_TARGET_DESCRIPTION = "Display weather conditions and forecast on a map in a quick and simple way."
 QMAKE_TARGET_COPYRIGHT = "Copyright (C) 2021 Tadej Novak"

@@ -35,7 +35,7 @@ AnalyticsEngineCpp::AnalyticsEngineCpp(NetworkManager *network)
         }
     }
 
-#ifdef Q_OS_WIN
+#ifdef Q_OS_WINDOWS
     QString platform = QStringLiteral("Windows");
 #else
     QString platform = QStringLiteral("Linux");

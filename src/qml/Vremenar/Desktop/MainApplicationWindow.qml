@@ -57,7 +57,7 @@ BaseApplicationWindow {
             y = Settings.posY
         }
 
-        Vremenar.startCompleted()
+        Vremenar.startCompleted(this)
         ready = true
     }
 }

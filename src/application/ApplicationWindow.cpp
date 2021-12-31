@@ -57,7 +57,7 @@ ApplicationWindow::ApplicationWindow(QObject *parent)
     // Set the style
 #if defined(Q_OS_LINUX) || defined(Q_OS_ANDROID)
     QQuickStyle::setStyle("Material");
-#elif defined(Q_OS_WIN)
+#elif defined(Q_OS_WINDOWS)
     QQuickStyle::setStyle("Universal");
 #endif
 
@@ -77,13 +77,12 @@ ApplicationWindow::ApplicationWindow(QObject *parent)
     _qmlFileSelector->setExtraSelectors({QStringLiteral("mobile")});
 #elif defined(Q_OS_LINUX)
     _qmlFileSelector->setExtraSelectors({QStringLiteral("custommenu"), QStringLiteral("materialstyle")});
-#elif defined(Q_OS_WIN)
+#elif defined(Q_OS_WINDOWS)
     _qmlFileSelector->setExtraSelectors({QStringLiteral("custommenu"), QStringLiteral("universalstyle")});
 #endif
 
 #ifndef VREMENAR_MOBILE
     auto *application = qobject_cast<DesktopApplication *>(QCoreApplication::instance());
-
     connect(application, &QCoreApplication::aboutToQuit, this, &ApplicationWindow::writeSettingsStartup);
     connect(application, &DesktopApplication::activate, this, &ApplicationWindow::activate);
     connect(application, &DesktopApplication::urlOpened, this, &ApplicationWindow::processUrl);
@@ -99,12 +98,6 @@ ApplicationWindow::ApplicationWindow(QObject *parent)
     // Setup and load main QML
     _engine->setNetworkAccessManagerFactory(_networkFactory.get());
     _engine->load(QUrl(QStringLiteral("qrc:/Vremenar/main.qml")));
-
-    _qmlMainWindow = gsl::owner<QQuickWindow *>(qobject_cast<QQuickWindow *>(_engine->rootObjects().constFirst()));
-    connect(_qmlMainWindow, &QQuickWindow::visibleChanged, this, &ApplicationWindow::visibilityChanged);
-#ifdef Q_OS_MACOS
-    application->setupTitleBarLessWindow(_qmlMainWindow->winId());
-#endif
 
 #ifndef VREMENAR_MOBILE
     // Set application icon
@@ -308,10 +301,8 @@ void ApplicationWindow::processUrl(const QString &url)
     qDebug() << "Opened URL:" << url;
 }
 
-void ApplicationWindow::startCompleted()
+void ApplicationWindow::startCompleted(QQuickWindow *window)
 {
-    using namespace std::chrono_literals;
-
     Settings settings(this);
 #ifdef Q_OS_MACOS
     emit dockVisibilityChanged(settings.showInDock());
@@ -319,6 +310,13 @@ void ApplicationWindow::startCompleted()
 
 #ifdef Q_OS_ANDROID
     QtAndroid::hideSplashScreen();
+#endif
+
+    _qmlMainWindow = gsl::owner<QQuickWindow *>(window);
+    connect(_qmlMainWindow, &QQuickWindow::visibleChanged, this, &ApplicationWindow::visibilityChanged);
+#if defined(Q_OS_MACOS) || defined(Q_OS_WINDOWS)
+    auto *application = qobject_cast<DesktopApplication *>(QCoreApplication::instance());
+    application->setupTitleBarLessWindow(window->winId());
 #endif
 
     _ready = true;

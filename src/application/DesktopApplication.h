@@ -14,6 +14,10 @@
 
 #include "application/SingleApplication.h"
 
+#ifdef Q_OS_WINDOWS
+#include "application/NativeEventFilterWin32.h"
+#endif
+
 namespace Vremenar
 {
 
@@ -30,11 +34,14 @@ public:
     bool eventFilter(QObject *object,
                      QEvent *event) override;
 
+#if defined(Q_OS_MACOS) || defined(Q_OS_WINDOWS)
+    void setupTitleBarLessWindow(quintptr winId);
+#endif
+
 #ifdef Q_OS_MACOS
     bool isDark();
 
     void setupDockHandler();
-    void setupTitleBarLessWindow(WId winId);
 
 public slots:
     void dockClickedCallback();
@@ -50,6 +57,11 @@ signals:
 private:
     void dockShow();
     void dockHide();
+#endif
+
+#ifdef Q_OS_WINDOWS
+private:
+    std::unique_ptr<NativeEventFilterWin32> _nativeEventFilter{};
 #endif
 };
 

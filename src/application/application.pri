@@ -89,3 +89,13 @@ desktop {
         src/application/analytics/AnalyticsEngineCpp.h \
         src/application/analytics/Countly.h
 }
+
+# Windows specific
+win32 {
+    SOURCES += \
+        src/application/DesktopApplicationWin32.cpp \
+        src/application/NativeEventFilterWin32.cpp
+
+    HEADERS += \
+        src/application/NativeEventFilterWin32.h
+}

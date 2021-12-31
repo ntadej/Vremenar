@@ -36,7 +36,7 @@ int Qml::UIManager::radiusCommon() const { return 10; }       // NOLINT(cppcoreg
 int Qml::UIManager::rowHeight() const { return 44; }    // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
 int Qml::UIManager::navBarHeight() const
 {
-#if !defined(Q_OS_ANDROID) && (defined(Q_OS_WINDOWS) || defined(Q_OS_LINUX))
+#if !defined(Q_OS_ANDROID) && defined(Q_OS_LINUX)
     return 0;
 #else
     return 44; // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)

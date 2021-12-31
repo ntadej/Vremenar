@@ -17,7 +17,7 @@
 #include "application/analytics/AnalyticsEngineMacOSiOS.h"
 #elif defined(Q_OS_ANDROID)
 #include "application/analytics/AnalyticsEngineAndroid.h"
-#elif defined(Q_OS_LINUX) || defined(Q_OS_WIN)
+#elif defined(Q_OS_LINUX) || defined(Q_OS_WINDOWS)
 #include "application/analytics/AnalyticsEngineCpp.h"
 #endif
 
@@ -40,7 +40,7 @@ Analytics::Analytics(NetworkManager *network,
 #elif defined(Q_OS_ANDROID)
     Q_UNUSED(network)
     _engine = std::make_unique<AnalyticsEngineAndroid>();
-#elif defined(Q_OS_LINUX) || defined(Q_OS_WIN)
+#elif defined(Q_OS_LINUX) || defined(Q_OS_WINDOWS)
     _engine = std::make_unique<AnalyticsEngineCpp>(network);
 #endif
 

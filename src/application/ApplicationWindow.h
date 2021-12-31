@@ -52,7 +52,7 @@ public slots:
     void toggleVisibility();
     void visibilityChanged(bool visible);
     void processUrl(const QString &url);
-    void startCompleted();
+    void startCompleted(QQuickWindow *window);
     void weatherSourceChanged(int source);
 
 #ifndef VREMENAR_MOBILE
