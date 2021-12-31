@@ -55,7 +55,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 # All warnings
 win32:msvc {
-    QMAKE_CXXFLAGS += /WX
+    QMAKE_CXXFLAGS += /WX /utf-8
 } else {
     QMAKE_CXXFLAGS += -Wall -Wextra -Werror -Wno-unknown-pragmas -pedantic
 }
