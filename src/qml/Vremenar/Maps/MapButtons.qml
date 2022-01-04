@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -16,8 +16,10 @@ import Vremenar 1.0
 import Vremenar.Common 1.0
 
 Item {
+    property int elements: (UI.showButtonMapType + (UI.showButtonMapPosition && VLocation.enabled) + UI.showButtonMapSettings)
+
     width: UI.mapElementSize
-    height: (UI.showButtonMapType + (UI.showButtonMapPosition && VLocation.enabled)) * UI.mapElementSize + UI.lineThickness
+    height: elements * UI.mapElementSize + (elements - 1) * UI.lineThickness
     visible: !UI.mapOnly && (UI.showButtonMapType || (UI.showButtonMapPosition && VLocation.enabled))
 
     Rectangle {
@@ -59,10 +61,10 @@ Item {
 
             onClicked: {
                 if (!UI.isTV && (UI.deviceType === Common.Desktop || UI.deviceType === Common.DebuggingDevice)) {
-                    if (typeof applicationWindow.mainMenu.mapTypeMenu.open !== 'undefined') {
-                        applicationWindow.mainMenu.mapTypeMenu.open()
+                    if (typeof applicationWindow.mainMenu.mapMenu !== 'undefined') {
+                        applicationWindow.mainMenu.mapMenu.open()
                     } else {
-                        applicationWindow.mainMenu.mapTypeMenu.popup()
+                        Vremenar.showMapsMenu()
                     }
                 } else {
                     mapSettingsDialog.open()
@@ -82,6 +84,26 @@ Item {
             visible: UI.showButtonMapPosition && VLocation.enabled
 
             onClicked: map.resetPosition()
+        }
+
+        CommonLine {
+            width: parent.width
+            visible: (UI.showButtonMapType || (UI.showButtonMapPosition && VLocation.enabled)) && UI.showButtonMapSettings
+        }
+
+        IconButton {
+            icon: UI.iconPrefix + "settings"
+            family: UI.iconTheme
+            width: parent.width
+            visible: UI.showButtonMapSettings
+
+            onClicked: {
+                if (typeof applicationWindow.mainMenu.settingsMenu !== 'undefined') {
+                    applicationWindow.mainMenu.settingsMenu.open()
+                } else {
+                    Vremenar.showSettingsMenu()
+                }
+            }
         }
     }
 }

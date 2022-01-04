@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -29,6 +29,9 @@ class TrayIcon : public QSystemTrayIcon
 public:
     explicit TrayIcon(QObject *parent = nullptr);
 
+    void showMapsMenu(QPoint point);
+    void showSettingsMenu(QPoint point);
+
 public slots:
     void createMenu(const QStringList &styles,
                     const QStringList &maps);
@@ -40,6 +43,8 @@ public slots:
 signals:
     void triggered();
     void settings();
+    void checkForUpdates();
+    void about();
     void quit();
     void styleSelected(int index);
     void mapSelected(int index);
@@ -51,11 +56,15 @@ private slots:
 
 private:
     std::unique_ptr<QMenu> _menu{};
+    std::unique_ptr<QMenu> _menuMaps{};
     std::unique_ptr<QMenu> _menuDock{};
+    std::unique_ptr<QMenu> _menuSettings{};
     std::unique_ptr<QActionGroup> _actionGroupStyles{};
     std::unique_ptr<QActionGroup> _actionGroupMaps{};
     std::unique_ptr<QAction> _actionShow{};
     std::unique_ptr<QAction> _actionSettings{};
+    std::unique_ptr<QAction> _actionCheckForUpdates{};
+    std::unique_ptr<QAction> _actionAbout{};
     std::unique_ptr<QAction> _actionQuit{};
 };
 

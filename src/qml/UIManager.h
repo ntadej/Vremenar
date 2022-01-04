@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -40,7 +40,8 @@ class UIManager : public QObject
     Q_PROPERTY(QString iconPrefix READ iconPrefix CONSTANT)
 
     Q_PROPERTY(bool showButtonMapType READ showButtonMapType CONSTANT)
-    Q_PROPERTY(bool showButtonMapPosition READ showButtonMapPosition NOTIFY showMapButonPositionChanged)
+    Q_PROPERTY(bool showButtonMapPosition READ showButtonMapPosition CONSTANT)
+    Q_PROPERTY(bool showButtonMapSettings READ showButtonMapSettings CONSTANT)
 
     Q_PROPERTY(QColor colorPrimary READ colorPrimary NOTIFY themeChanged)
     Q_PROPERTY(QColor colorPrimaryDark READ colorPrimaryDark NOTIFY themeChanged)
@@ -118,6 +119,7 @@ public:
 
     [[nodiscard]] bool showButtonMapType() const;
     [[nodiscard]] bool showButtonMapPosition() const;
+    [[nodiscard]] bool showButtonMapSettings() const;
 
     [[nodiscard]] QColor colorPrimary() const;
     [[nodiscard]] QColor colorPrimaryLight() const;
@@ -193,8 +195,6 @@ signals:
     void geometryChanged();
     void safetyMarginsChanged();
     void themeChanged();
-
-    void showMapButonPositionChanged();
 
 private slots:
     void orientationChanged(Qt::ScreenOrientation orientation);

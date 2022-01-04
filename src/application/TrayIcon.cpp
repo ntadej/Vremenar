@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -17,9 +17,13 @@ namespace Vremenar
 TrayIcon::TrayIcon(QObject *parent)
     : QSystemTrayIcon(parent),
       _menu(std::make_unique<QMenu>()),
+      _menuMaps(std::make_unique<QMenu>()),
       _menuDock(std::make_unique<QMenu>()),
+      _menuSettings(std::make_unique<QMenu>()),
       _actionShow(std::make_unique<QAction>(tr("Show"))),
       _actionSettings(std::make_unique<QAction>(tr("Settings"))),
+      _actionCheckForUpdates(std::make_unique<QAction>(tr("Check for updates"))),
+      _actionAbout(std::make_unique<QAction>(tr("About Vremenar"))),
       _actionQuit(std::make_unique<QAction>(tr("Quit")))
 {
     setCurrentCondition(nullptr);
@@ -29,9 +33,17 @@ TrayIcon::TrayIcon(QObject *parent)
     _menuDock->setAsDockMenu();
 #endif
 
+    _menuSettings->addAction(_actionSettings.get());
+#ifndef VREMENAR_STORE
+    _menuSettings->addAction(_actionCheckForUpdates.get());
+#endif
+    _menuSettings->addAction(_actionAbout.get());
+
     connect(this, &TrayIcon::activated, this, &TrayIcon::activatedCallback);
     connect(_actionShow.get(), &QAction::triggered, this, &TrayIcon::triggered);
     connect(_actionSettings.get(), &QAction::triggered, this, &TrayIcon::settings);
+    connect(_actionCheckForUpdates.get(), &QAction::triggered, this, &TrayIcon::checkForUpdates);
+    connect(_actionAbout.get(), &QAction::triggered, this, &TrayIcon::about);
     connect(_actionQuit.get(), &QAction::triggered, this, &TrayIcon::quit);
 }
 
@@ -70,6 +82,7 @@ void TrayIcon::createMenu(const QStringList &styles,
                           const QStringList &maps)
 {
     _menu->clear();
+    _menuMaps->clear();
     _menuDock->clear();
 
     _actionGroupStyles = std::make_unique<QActionGroup>(_menu.get());
@@ -79,21 +92,25 @@ void TrayIcon::createMenu(const QStringList &styles,
 
     _menu->addAction(_actionShow.get());
 
-    _menu->addSeparator()->setText(tr("Map Style"));
-    for (const QString &style : styles) {
-        QAction *a = _menu->addAction(style);
-        a->setCheckable(true);
-        _actionGroupStyles->addAction(a);
-        connect(a, &QAction::triggered, this, &TrayIcon::styleSelectedCallback);
-    }
-
     _menu->addSeparator()->setText(tr("Map Type"));
+    _menuMaps->addSeparator()->setText(tr("Map Type"));
     for (const QString &map : maps) {
         QAction *a = _menu->addAction(map);
         a->setCheckable(true);
         _actionGroupMaps->addAction(a);
+        _menuMaps->addAction(a);
         _menuDock->addAction(a);
         connect(a, &QAction::triggered, this, &TrayIcon::mapSelectedCallback);
+    }
+
+    _menu->addSeparator()->setText(tr("Map Style"));
+    _menuMaps->addSeparator()->setText(tr("Map Style"));
+    for (const QString &style : styles) {
+        QAction *a = _menu->addAction(style);
+        a->setCheckable(true);
+        _actionGroupStyles->addAction(a);
+        _menuMaps->addAction(a);
+        connect(a, &QAction::triggered, this, &TrayIcon::styleSelectedCallback);
     }
 
     _menu->addSeparator();
@@ -155,6 +172,16 @@ void TrayIcon::setCurrentCondition(const WeatherCondition *condition)
 #endif
         setIcon(i);
     }
+}
+
+void TrayIcon::showMapsMenu(QPoint point)
+{
+    _menuMaps->popup(point);
+}
+
+void TrayIcon::showSettingsMenu(QPoint point)
+{
+    _menuSettings->popup(point);
 }
 
 } // namespace Vremenar

@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -212,6 +212,15 @@ bool Qml::UIManager::showButtonMapType() const
 bool Qml::UIManager::showButtonMapPosition() const
 {
     return _device != Common::AndroidTV && _device != Common::FireTV;
+}
+
+bool Qml::UIManager::showButtonMapSettings() const
+{
+#if defined(Q_OS_MACOS) || defined(Q_OS_WINDOWS)
+    return true;
+#else
+    return false;
+#endif
 }
 
 bool Qml::UIManager::navBarTitleOnly() const

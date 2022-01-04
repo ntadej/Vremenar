@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -9,12 +9,15 @@
 * SPDX-License-Identifier: (GPL-3.0-or-later AND MPL-2.0)
 */
 
-import QtQml 2.12
-import QtQuick 2.12
+import QtQml 2.15
+import QtQml.Models 2.15
+import QtQuick 2.15
 import Qt.labs.platform 1.1
 
 Item {
     property alias mapTypeMenu: mapTypeMenu
+    property alias mapMenu: mapMenu
+    property alias settingsMenu: settingsMenu
 
     ListModel {
         id: styleModel
@@ -89,6 +92,83 @@ Item {
 
                 onObjectAdded: mapTypeMenu.insertItem(index, object)
                 onObjectRemoved: mapTypeMenu.removeItem(object)
+            }
+        }
+
+        // Map Settings
+        Menu {
+            id: mapMenu
+            visible: false
+
+            MenuItemGroup {
+                id: mapTypeGroup
+            }
+
+            MenuItemGroup {
+                id: mapStyleGroup
+            }
+
+            Instantiator {
+                model: VMapInfoModel
+
+                MenuItem {
+                    text: model.display
+                    checkable: true
+                    checked: VWeather.currentMapLayer === index
+                    onTriggered: VWeather.currentMapLayerChanged(index)
+                }
+
+                onObjectAdded: {
+                    mapMenu.insertItem(index, object)
+                    mapTypeGroup.addItem(object)
+                }
+                onObjectRemoved: {
+                    mapMenu.removeItem(object)
+                    mapTypeGroup.removeItem(object)
+                }
+            }
+
+            MenuSeparator {}
+
+            Instantiator {
+                model: styleModel
+
+                MenuItem {
+                    text: model.display
+                    checkable: true
+                    checked: VWeather.currentMapStyle === index
+                    onTriggered: VWeather.currentMapStyle = index
+                }
+
+                onObjectAdded: {
+                    mapMenu.insertItem(index + 1, object)
+                    mapStyleGroup.addItem(object)
+                }
+                onObjectRemoved: {
+                    mapMenu.removeItem(object)
+                    mapStyleGroup.removeItem(object)
+                }
+            }
+        }
+
+        // Settings menu
+        Menu {
+            id: settingsMenu
+            visible: false
+
+            MenuItem {
+                text: qsTr("Settings") + VL.R
+                onTriggered: Vremenar.showSettingsDialog()
+            }
+
+            MenuItem {
+                text: qsTr("Check for updates") + VL.R
+                onTriggered: VUpdates.checkForUpdates()
+            }
+
+            MenuItem {
+                text: qsTr("&About") + VL.R
+                onTriggered: Vremenar.showAboutDialog()
             }
         }
 

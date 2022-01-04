@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -245,6 +245,8 @@ void ApplicationWindow::createWidgets()
 
     connect(_trayIcon.get(), &TrayIcon::triggered, this, &ApplicationWindow::toggleVisibility);
     connect(_trayIcon.get(), &TrayIcon::settings, this, &ApplicationWindow::showSettingsDialog);
+    connect(_trayIcon.get(), &TrayIcon::checkForUpdates, _updates.get(), &Updates::checkForUpdates);
+    connect(_trayIcon.get(), &TrayIcon::about, this, &ApplicationWindow::showAboutDialog);
     connect(_trayIcon.get(), &TrayIcon::quit, QCoreApplication::instance(), &QCoreApplication::quit);
     connect(_trayIcon.get(), &TrayIcon::styleSelected, _weatherProvider.get(), &WeatherProvider::currentMapStyleChanged);
     connect(_trayIcon.get(), &TrayIcon::mapSelected, _weatherProvider.get(), &WeatherProvider::currentMapLayerChanged);
@@ -285,6 +287,16 @@ void ApplicationWindow::showSettingsDialog()
 #endif
 
     dialog->show();
+}
+
+void ApplicationWindow::showMapsMenu()
+{
+    _trayIcon->showMapsMenu(QCursor::pos());
+}
+
+void ApplicationWindow::showSettingsMenu()
+{
+    _trayIcon->showSettingsMenu(QCursor::pos());
 }
 #endif
 
