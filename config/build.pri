@@ -1,6 +1,6 @@
 #
 # Vremenar
-# Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+# Copyright (C) 2022 Tadej Novak <tadej@tano.si>
 #
 # This application is bi-licensed under the GNU General Public License
 # Version 3 or later as well as Mozilla Public License Version 2.
@@ -36,7 +36,7 @@ store {
 }
 
 # Define common platforms
-macx|if(linux:!android)|win32 {
+macos|if(linux:!android)|win32 {
     CONFIG += desktop
 } else:ios|android {
     DEFINES += VREMENAR_MOBILE
@@ -71,7 +71,7 @@ include($$top_srcdir/config.pri)
 include($$top_srcdir/config/config_check.pri)
 
 # Config summary
-macx {
+macos {
     message("Building for platform: macOS")
 } else:linux:!android {
     message("Building for platform: Linux")

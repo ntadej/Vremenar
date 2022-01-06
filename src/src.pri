@@ -1,6 +1,6 @@
 #
 # Vremenar
-# Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+# Copyright (C) 2022 Tadej Novak <tadej@tano.si>
 #
 # This application is bi-licensed under the GNU General Public License
 # Version 3 or later as well as Mozilla Public License Version 2.
@@ -51,7 +51,7 @@ desktop {
         resources/Common/icons/icons.qrc \
         resources/Linux/logo.qrc
 }
-macx {
+macos {
     RESOURCES += resources/Weather/TrayMask/tray_mask.qrc
 }
 if(linux:!android)|if(win32) {
