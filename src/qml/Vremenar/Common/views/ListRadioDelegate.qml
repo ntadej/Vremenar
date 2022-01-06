@@ -32,7 +32,7 @@ RadioDelegate {
     }
 
     indicator: TextIcon {
-        icon: UI.iconPrefix + "checkmark"
+        icon: "checkmark"
         family: UI.iconTheme
         x: control.width - width - control.rightPadding
         y: parent.height / 2 - height / 2

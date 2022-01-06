@@ -18,5 +18,10 @@
         <file>components/CommonShadow.qml</file>
         <file>components/ImageButton.qml</file>
         <file>components/WindowButton.qml</file>
+        <file>icons/IconFont.js</file>
+        <file>icons/Ionicons.js</file>
+        <file>icons/Material.js</file>
+        <file>icons/Segoe.js</file>
+        <file>icons/SF.js</file>
     </qresource>
 </RCC>

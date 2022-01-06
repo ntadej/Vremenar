@@ -31,10 +31,10 @@ int Qml::UIManager::iconSizeCommon() const
 #endif
 }
 int Qml::UIManager::iconSizeLarge() const { return 48; }  // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
-int Qml::UIManager::iconSizeSpecialControl() const
+int Qml::UIManager::iconSizeFirstLast() const
 {
 #if defined(Q_OS_ANDROID)
-    return 24; // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+    return iconSizeCommon();
 #elif defined(Q_OS_MACOS) || defined(Q_OS_IOS)
     if (hasSFIcons()) {
         return iconSizeCommon();

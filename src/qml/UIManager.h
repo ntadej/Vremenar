@@ -38,7 +38,6 @@ class UIManager : public QObject
     Q_PROPERTY(Vremenar::Common::Theme theme READ theme WRITE setTheme NOTIFY themeChanged)
     Q_PROPERTY(bool customWindowButtons READ customWindowButtons CONSTANT)
     Q_PROPERTY(QString iconTheme READ iconTheme CONSTANT)
-    Q_PROPERTY(QString iconPrefix READ iconPrefix CONSTANT)
 
     Q_PROPERTY(bool showButtonMapType READ showButtonMapType CONSTANT)
     Q_PROPERTY(bool showButtonMapPosition READ showButtonMapPosition CONSTANT)
@@ -58,7 +57,7 @@ class UIManager : public QObject
 
     Q_PROPERTY(int iconSizeCommon READ iconSizeCommon CONSTANT)
     Q_PROPERTY(int iconSizeLarge READ iconSizeLarge CONSTANT)
-    Q_PROPERTY(int iconSizeSpecialControl READ iconSizeSpecialControl CONSTANT)
+    Q_PROPERTY(int iconSizeFirstLast READ iconSizeFirstLast CONSTANT)
     Q_PROPERTY(int iconBorderThickness READ iconBorderThickness CONSTANT)
     Q_PROPERTY(int lineThickness READ lineThickness CONSTANT)
     Q_PROPERTY(int paddingCommon READ paddingCommon CONSTANT)
@@ -126,7 +125,6 @@ public:
     void setTheme(Common::Theme theme);
     [[nodiscard]] bool customWindowButtons() const;
     [[nodiscard]] QString iconTheme() const;
-    [[nodiscard]] QString iconPrefix() const;
 
     [[nodiscard]] bool showButtonMapType() const;
     [[nodiscard]] bool showButtonMapPosition() const;
@@ -147,7 +145,7 @@ public:
 
     [[nodiscard]] int iconSizeCommon() const;
     [[nodiscard]] int iconSizeLarge() const;
-    [[nodiscard]] int iconSizeSpecialControl() const;
+    [[nodiscard]] int iconSizeFirstLast() const;
     [[nodiscard]] int iconBorderThickness() const;
     [[nodiscard]] int lineThickness() const;
     [[nodiscard]] int paddingCommon() const;

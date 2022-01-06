@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/Vremenar/Fonts">
+        <file>Loader.qml</file>
+        <file>+materialstyle/Loader.qml</file>
+        <file>qmldir</file>
+    </qresource>
+</RCC>

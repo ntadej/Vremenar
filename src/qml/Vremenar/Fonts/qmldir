@@ -1,0 +1,3 @@
+module Vremenar.Fonts
+
+LoadFonts 1.0 Loader.qml

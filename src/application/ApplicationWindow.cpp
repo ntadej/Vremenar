@@ -73,8 +73,10 @@ ApplicationWindow::ApplicationWindow(QObject *parent)
     // Custom file selector
 #if defined(Q_OS_MACOS)
     _qmlFileSelector->setExtraSelectors({QStringLiteral("nativemenu")});
-#elif defined(Q_OS_IOS) || defined(Q_OS_ANDROID)
+#elif defined(Q_OS_IOS)
     _qmlFileSelector->setExtraSelectors({QStringLiteral("mobile")});
+#elif defined(Q_OS_ANDROID)
+    _qmlFileSelector->setExtraSelectors({QStringLiteral("mobile"), QStringLiteral("materialstyle")});
 #elif defined(Q_OS_LINUX)
     _qmlFileSelector->setExtraSelectors({QStringLiteral("custommenu"), QStringLiteral("materialstyle")});
 #elif defined(Q_OS_WINDOWS)

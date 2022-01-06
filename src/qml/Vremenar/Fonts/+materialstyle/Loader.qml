@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -12,8 +12,10 @@
 import QtQuick 2.12
 
 Item {
-    // Load the "Ionicons" font for the monochrome icons.
     FontLoader {
-        source: "Ionicons/ionicons.ttf"
+        source: "data/MaterialIcons-Regular.ttf"
+    }
+    FontLoader {
+        source: "data/MaterialIconsOutlined-Regular.otf"
     }
 }

@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -167,8 +167,8 @@ ColumnLayout {
         IconButton {
             id: buttonInfo
             visible: !UI.isTV
-            icon: mapPage.state === "sheet" ? UI.iconPrefix + "information-circle" : UI.iconPrefix + "information-circle-outline"
-            family: UI.iconTheme
+            icon: mapPage.state === "sheet" ? "information" : "information-outline"
+            family: UI.iconTheme === "Material" && icon === "information-outline" ? "MaterialOutlined" : UI.iconTheme
             width: UI.mapElementSize
 
             onClicked: mapPage.toggleSheetVisibility()
@@ -180,9 +180,9 @@ ColumnLayout {
 
         IconButton {
             id: buttonFirst
-            icon: UI.iconPrefix + "skip-backward"
+            icon: "first"
             family: UI.iconTheme
-            size: UI.iconSizeSpecialControl
+            size: UI.iconSizeFirstLast
             width: UI.mapElementSize
             disabled: VMapLayersModel.minTimestamp === VMapLayersModel.time
 
@@ -199,7 +199,7 @@ ColumnLayout {
 
         IconButton {
             id: buttonPrevious
-            icon: UI.iconPrefix + "rewind"
+            icon: "previous"
             family: UI.iconTheme
             width: UI.mapElementSize
             disabled: VMapLayersModel.minTimestamp === VMapLayersModel.time
@@ -218,7 +218,7 @@ ColumnLayout {
 
         IconButton {
             id: buttonPlay
-            icon: VMapLayersModel.animated ? UI.iconPrefix + "pause" : UI.iconPrefix + "play"
+            icon: VMapLayersModel.animated ? "pause" : "play"
             family: UI.iconTheme
             width: UI.mapElementSize
 
@@ -236,7 +236,7 @@ ColumnLayout {
 
         IconButton {
             id: buttonNext
-            icon: UI.iconPrefix + "fastforward"
+            icon: "next"
             family: UI.iconTheme
             width: UI.mapElementSize
             disabled: VMapLayersModel.maxTimestamp === VMapLayersModel.time
@@ -255,9 +255,9 @@ ColumnLayout {
 
         IconButton {
             id: buttonLast
-            icon: UI.iconPrefix + "skip-forward"
+            icon: "last"
             family: UI.iconTheme
-            size: UI.iconSizeSpecialControl
+            size: UI.iconSizeFirstLast
             width: UI.mapElementSize
             disabled: VMapLayersModel.maxTimestamp === VMapLayersModel.time
 
@@ -279,7 +279,7 @@ ColumnLayout {
         IconButton {
             id: buttonRefresh
             visible: !UI.isTV
-            icon: UI.iconPrefix + "refresh"
+            icon: "refresh"
             family: UI.iconTheme
             width: UI.mapElementSize
 

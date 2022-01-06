@@ -48,18 +48,31 @@ android {
 RESOURCES += \
     src/qml/Vremenar/vremenar.qrc \
     src/qml/Vremenar/Common/common.qrc \
-    src/qml/Vremenar/Common/fonts.qrc \
+    src/qml/Vremenar/Fonts/fonts.qrc \
     src/qml/Vremenar/Maps/maps.qrc \
     src/qml/Vremenar/Navigation/navigation.qrc
 
 # Desktop resources
 desktop {
     RESOURCES += \
-        src/qml/Vremenar/Desktop/desktop.qrc
+        src/qml/Vremenar/Desktop/desktop.qrc \
+        src/qml/Vremenar/Fonts/fonts_Ionicons.qrc
 }
 
 # Mobile resources
 mobile {
     RESOURCES += \
         src/qml/Vremenar/Mobile/mobile.qrc
+}
+
+# Android resources
+android {
+    RESOURCES += \
+        src/qml/Vremenar/Fonts/fonts_Material.qrc
+}
+
+# iOS resources
+ios {
+    RESOURCES += \
+        src/qml/Vremenar/Fonts/fonts_Ionicons.qrc
 }

@@ -13,7 +13,7 @@ import QtQuick 2.12
 
 import Vremenar 1.0
 
-import "../fonts/IconFont.js" as IconFont
+import "../icons/IconFont.js" as IconFont
 
 Core {
     property string icon: ""

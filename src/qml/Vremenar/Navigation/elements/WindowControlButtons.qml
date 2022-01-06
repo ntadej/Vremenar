@@ -21,7 +21,7 @@ Row {
 
     WindowButton {
         id: minimizeButton
-        icon: UI.customWindowButtons ? UI.iconPrefix + "minimize" : ""
+        icon: UI.customWindowButtons ? "minimize" : ""
         family: UI.iconTheme
         onClicked: {
             app.showMinimized()
@@ -30,7 +30,7 @@ Row {
 
     WindowButton {
         id: maximizeButton
-        icon: UI.customWindowButtons ? UI.iconPrefix + (app.visibility === Window.Maximized ? "restore" : "maximize") : ""
+        icon: UI.customWindowButtons ? (app.visibility === Window.Maximized ? "restore" : "maximize") : ""
         family: UI.iconTheme
         onClicked: {
             app.toggleMaximized()
@@ -39,7 +39,7 @@ Row {
 
     WindowButton {
         id: closeButton
-        icon: UI.customWindowButtons ? UI.iconPrefix + "close" : ""
+        icon: UI.customWindowButtons ? "close" : ""
         family: UI.iconTheme
         special: true
         onClicked: {

@@ -91,31 +91,17 @@ bool Qml::UIManager::customWindowButtons() const
 
 QString Qml::UIManager::iconTheme() const
 {
-#if defined(Q_OS_WINDOWS)
+#if defined(Q_OS_ANDROID)
+    return QStringLiteral("Material");
+#elif defined(Q_OS_WINDOWS)
     return QStringLiteral("Segoe");
 #elif defined(Q_OS_MACOS) || defined(Q_OS_IOS)
     if (hasSFIcons()) {
         return QStringLiteral("SF");
     }
-    return QStringLiteral("Ionicons");
+    return QStringLiteral("Ionicons"); // fallback
 #else
     return QStringLiteral("Ionicons");
-#endif
-}
-
-QString Qml::UIManager::iconPrefix() const
-{
-#if defined(Q_OS_WINDOWS)
-    return QStringLiteral("win-");
-#elif defined(Q_OS_MACOS) || defined(Q_OS_IOS)
-    if (hasSFIcons()) {
-        return QStringLiteral("sf-");
-    }
-    return QStringLiteral("ios-");
-#elif defined(Q_OS_ANDROID)
-    return QStringLiteral("md-");
-#else
-    return QStringLiteral("ios-");
 #endif
 }
 
