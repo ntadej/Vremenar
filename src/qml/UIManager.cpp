@@ -82,7 +82,7 @@ void Qml::UIManager::setTheme(Common::Theme theme)
 
 bool Qml::UIManager::customWindowButtons() const
 {
-#ifdef Q_OS_WINDOWS
+#if defined(Q_OS_WINDOWS)
     return true;
 #else
     return false;
@@ -91,8 +91,13 @@ bool Qml::UIManager::customWindowButtons() const
 
 QString Qml::UIManager::iconTheme() const
 {
-#ifdef Q_OS_WINDOWS
+#if defined(Q_OS_WINDOWS)
     return QStringLiteral("Segoe");
+#elif defined(Q_OS_MACOS) || defined(Q_OS_IOS)
+    if (hasSFIcons()) {
+        return QStringLiteral("SF");
+    }
+    return QStringLiteral("Ionicons");
 #else
     return QStringLiteral("Ionicons");
 #endif
@@ -102,6 +107,11 @@ QString Qml::UIManager::iconPrefix() const
 {
 #if defined(Q_OS_WINDOWS)
     return QStringLiteral("win-");
+#elif defined(Q_OS_MACOS) || defined(Q_OS_IOS)
+    if (hasSFIcons()) {
+        return QStringLiteral("sf-");
+    }
+    return QStringLiteral("ios-");
 #elif defined(Q_OS_ANDROID)
     return QStringLiteral("md-");
 #else
@@ -191,7 +201,7 @@ void Qml::UIManager::updateSafeAreaMargins()
     emit safetyMarginsChanged();
 #endif
 
-#ifdef Q_OS_MACOS
+#if defined(Q_OS_MACOS)
     if (_device == Common::DebuggingDevice) {
         // NOLINTNEXTLINE(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
         _currentSafeAreaMargins = QMargins(40, 25, 25, 25);
@@ -203,7 +213,7 @@ void Qml::UIManager::updateSafeAreaMargins()
 void Qml::UIManager::toast(const QString &message)
 {
     qDebug() << message;
-#ifdef Q_OS_ANDROID
+#if defined(Q_OS_ANDROID)
     toastAndroid(message);
 #endif
 }

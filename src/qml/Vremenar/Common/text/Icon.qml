@@ -22,6 +22,7 @@ Core {
     text: icon != "" && family != "" ? IconFont.icon[family][icon] : ""
     font.family: family != "" ? IconFont.family[family] : ""
     font.pixelSize: UI.iconSizeCommon
+    font.weight: IconFont.hasWeights[family] && icon != "" && family != "" ? IconFont.weight[family][icon] : Font.Normal
     color: UI.textColor
     horizontalAlignment: Text.AlignHCenter
     verticalAlignment: Text.AlignVCenter

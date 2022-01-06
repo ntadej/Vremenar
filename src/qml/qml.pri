@@ -1,6 +1,6 @@
 #
 # Vremenar
-# Copyright (C) 2019 Tadej Novak <tadej@tano.si>
+# Copyright (C) 2022 Tadej Novak <tadej@tano.si>
 #
 # This application is bi-licensed under the GNU General Public License
 # Version 3 or later as well as Mozilla Public License Version 2.
@@ -26,16 +26,22 @@ HEADERS += \
     src/qml/Qml.h \
     src/qml/UIManager.h
 
+# macOS specific
+macos {
+    OBJECTIVE_SOURCES += \
+        src/qml/UIManagerMacOS.mm
+}
+
 # iOS specific
 ios {
     OBJECTIVE_SOURCES += \
-       src/qml/UIManagerIOS.mm
+        src/qml/UIManagerIOS.mm
 }
 
 # Android specific
 android {
     SOURCES += \
-       src/qml/UIManagerAndroid.cpp
+        src/qml/UIManagerAndroid.cpp
 }
 
 # Define resources

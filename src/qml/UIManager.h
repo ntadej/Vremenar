@@ -230,6 +230,9 @@ private:
 #ifdef Q_OS_IOS
     static Common::DeviceType getDeviceTypeIOS();
 #endif
+#if defined(Q_OS_IOS) || defined(Q_OS_MACOS)
+    static bool hasSFIcons();
+#endif
 #ifdef Q_OS_ANDROID
     static Common::DeviceType getDeviceTypeAndroid();
     static void toastAndroid(const QString &message);
