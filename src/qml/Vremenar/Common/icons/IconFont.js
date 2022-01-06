@@ -22,7 +22,7 @@ const family =
     "Material": "Material Icons",
     "MaterialOutlined": "Material Icons Outlined",
     "Segoe": hasSegoeFluentIcons ? "Segoe Fluent Icons" : "Segoe MDL2 Assets",
-    "SF": "SF Pro Display"
+    "SF": "SF Pro"
 }
 
 const icon =
