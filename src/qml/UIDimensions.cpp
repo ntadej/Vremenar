@@ -17,7 +17,14 @@ namespace Vremenar
 int Qml::UIManager::mapElementSize() const { return 44; }  // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
 int Qml::UIManager::mapElementOffset() const { return 8; } // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
 
-int Qml::UIManager::iconSizeCommon() const { return 32; } // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+int Qml::UIManager::iconSizeCommon() const
+{
+#if defined(Q_OS_WINDOWS)
+    return 28; // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+#else
+    return 32; // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+#endif
+}
 int Qml::UIManager::iconSizeLarge() const { return 48; }  // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
 int Qml::UIManager::iconSizeSpecialControl() const
 {
