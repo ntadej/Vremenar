@@ -25,7 +25,7 @@ ApplicationWindow {
            : Qt.Window | Qt.MaximizeUsingFullscreenGeometryHint
 
     Component.onCompleted: {
-        Vremenar.startCompleted()
+        Vremenar.startCompleted(this)
         ready = true
     }
 }
