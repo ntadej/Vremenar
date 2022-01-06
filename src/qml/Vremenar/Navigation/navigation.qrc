@@ -11,5 +11,7 @@
         <file>LoadingOverlay.qml</file>
         <file>elements/SourceSelectionDialog.qml</file>
         <file>elements/SourceSelection.qml</file>
+        <file>elements/WindowControlButtons.qml</file>
+        <file>elements/+mobile/WindowControlButtons.qml</file>
     </qresource>
 </RCC>

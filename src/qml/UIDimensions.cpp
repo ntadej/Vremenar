@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -50,5 +50,9 @@ int Qml::UIManager::mapIconSize() const { return 48; }       // NOLINT(cppcoregu
 int Qml::UIManager::mapIconSizeHeight() const { return 38; } // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
 int Qml::UIManager::mapLegendSize() const { return 20; }     // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
 int Qml::UIManager::mapLegendSizeTextBased() const { return 50; } // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+
+int Qml::UIManager::windowButtonWidth() const { return 45; }    // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+int Qml::UIManager::windowButtonHeight() const { return 28; }   // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+int Qml::UIManager::windowButtonIconSize() const { return 10; } // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
 
 } // namespace Vremenar

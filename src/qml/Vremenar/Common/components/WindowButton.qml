@@ -21,10 +21,12 @@ MouseArea {
     property alias family: textLabel.family
     property alias size: textLabel.font.pixelSize
     property bool disabled: false
+    property bool special: false
 
     signal confirmed()
 
-    height: width
+    width: UI.windowButtonWidth
+    height: UI.windowButtonHeight
 
     enabled: !disabled
     hoverEnabled: !disabled
@@ -40,10 +42,10 @@ MouseArea {
         TextIcon {
             id: textLabel
             anchors.fill: parent
-            font.pixelSize: UI.iconSizeCommon
+            font.pixelSize: UI.windowButtonIconSize
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
-            color: UI.buttonColor
+            color: UI.textColor
         }
     }
 
@@ -54,7 +56,12 @@ MouseArea {
 
             PropertyChanges {
                 target: textLabel
-                color: Qt.darker(UI.buttonColorHover, 1.1)
+                color: button.special && UI.theme === Vremenar.Common.LightTheme ? UI.textColorInverted : UI.textColor
+            }
+
+            PropertyChanges {
+                target: background
+                color: button.special ? Qt.lighter(UI.windowButtonSpecialColor, 1.1) : UI.windowButtonDownColor
             }
         },
         State {
@@ -63,16 +70,12 @@ MouseArea {
 
             PropertyChanges {
                 target: textLabel
-                color: UI.buttonColorHover
+                color: button.special && UI.theme === Vremenar.Common.LightTheme ? UI.textColorInverted : UI.textColor
             }
-        },
-        State {
-            name: "disabled"
-            when: disabled
 
             PropertyChanges {
-                target: textLabel
-                color: UI.buttonColorDisabled
+                target: background
+                color: button.special ? UI.windowButtonSpecialColor : UI.windowButtonHoverColor
             }
         }
 
@@ -96,8 +99,6 @@ MouseArea {
         onTriggered: {
             if (focus) {
                 button.state = "hover"
-            } else if (disabled) {
-                button.state = "disabled"
             } else  {
                 button.state = ""
             }

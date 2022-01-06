@@ -36,6 +36,7 @@ class UIManager : public QObject
     Q_PROPERTY(bool mapOnly READ mapOnly CONSTANT)
     Q_PROPERTY(Vremenar::Common::DeviceType deviceType READ getDeviceType CONSTANT)
     Q_PROPERTY(Vremenar::Common::Theme theme READ theme WRITE setTheme NOTIFY themeChanged)
+    Q_PROPERTY(bool customWindowButtons READ customWindowButtons CONSTANT)
     Q_PROPERTY(QString iconTheme READ iconTheme CONSTANT)
     Q_PROPERTY(QString iconPrefix READ iconPrefix CONSTANT)
 
@@ -85,6 +86,8 @@ class UIManager : public QObject
     Q_PROPERTY(int textHeader READ textHeader CONSTANT)
     Q_PROPERTY(int textSmall READ textSmall CONSTANT)
     Q_PROPERTY(QColor textColor READ textColor NOTIFY themeChanged)
+    Q_PROPERTY(QColor textColorInverted READ textColorInverted NOTIFY themeChanged)
+    Q_PROPERTY(QColor textColorInactive READ textColorInactive NOTIFY themeChanged)
     Q_PROPERTY(QColor textColorPrimary READ textColorPrimary NOTIFY themeChanged)
     Q_PROPERTY(QColor textColorSpecialLink READ textColorSpecialLink NOTIFY themeChanged)
     Q_PROPERTY(QColor textColorMap READ textColorMap NOTIFY themeChanged)
@@ -96,6 +99,13 @@ class UIManager : public QObject
 
     Q_PROPERTY(QColor hoverColor READ hoverColor NOTIFY themeChanged)
     Q_PROPERTY(int hoverDuration READ hoverDuration CONSTANT)
+
+    Q_PROPERTY(int windowButtonWidth READ windowButtonWidth CONSTANT)
+    Q_PROPERTY(int windowButtonHeight READ windowButtonHeight CONSTANT)
+    Q_PROPERTY(int windowButtonIconSize READ windowButtonIconSize CONSTANT)
+    Q_PROPERTY(QColor windowButtonHoverColor READ windowButtonHoverColor NOTIFY themeChanged)
+    Q_PROPERTY(QColor windowButtonDownColor READ windowButtonDownColor NOTIFY themeChanged)
+    Q_PROPERTY(QColor windowButtonSpecialColor READ windowButtonSpecialColor NOTIFY themeChanged)
 
     Q_PROPERTY(int loadingDelay READ loadingDelay CONSTANT)
     Q_PROPERTY(int loadingTransitionDuration READ loadingTransitionDuration CONSTANT)
@@ -114,6 +124,7 @@ public:
     [[nodiscard]] bool mapOnly() const;
     [[nodiscard]] Common::Theme theme() const;
     void setTheme(Common::Theme theme);
+    [[nodiscard]] bool customWindowButtons() const;
     [[nodiscard]] QString iconTheme() const;
     [[nodiscard]] QString iconPrefix() const;
 
@@ -164,6 +175,8 @@ public:
     [[nodiscard]] int textHeader() const;
     [[nodiscard]] int textSmall() const;
     [[nodiscard]] QColor textColor() const;
+    [[nodiscard]] QColor textColorInverted() const;
+    [[nodiscard]] QColor textColorInactive() const;
     [[nodiscard]] QColor textColorPrimary() const;
     [[nodiscard]] QColor textColorSpecialLink() const;
     [[nodiscard]] QColor textColorMap() const;
@@ -175,6 +188,13 @@ public:
 
     [[nodiscard]] QColor hoverColor() const;
     [[nodiscard]] int hoverDuration() const;
+
+    [[nodiscard]] int windowButtonWidth() const;
+    [[nodiscard]] int windowButtonHeight() const;
+    [[nodiscard]] int windowButtonIconSize() const;
+    [[nodiscard]] QColor windowButtonHoverColor() const;
+    [[nodiscard]] QColor windowButtonDownColor() const;
+    [[nodiscard]] QColor windowButtonSpecialColor() const;
 
     [[nodiscard]] int loadingDelay() const;
     [[nodiscard]] int loadingTransitionDuration() const;

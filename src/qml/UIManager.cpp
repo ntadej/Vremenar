@@ -80,6 +80,15 @@ void Qml::UIManager::setTheme(Common::Theme theme)
     }
 }
 
+bool Qml::UIManager::customWindowButtons() const
+{
+#ifdef Q_OS_WINDOWS
+    return true;
+#else
+    return false;
+#endif
+}
+
 QString Qml::UIManager::iconTheme() const
 {
     return QStringLiteral("Ionicons");
@@ -202,7 +211,7 @@ void Qml::UIManager::debugAction(int key)
 
 bool Qml::UIManager::showButtonMapType() const
 {
-#if !defined(Q_OS_ANDROID) && (defined(Q_OS_WINDOWS) || defined(Q_OS_LINUX))
+#if !defined(Q_OS_ANDROID) && defined(Q_OS_LINUX)
     return false;
 #else
     return _device != Common::AndroidTV && _device != Common::FireTV;

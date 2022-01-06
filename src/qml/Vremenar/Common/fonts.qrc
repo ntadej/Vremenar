@@ -4,5 +4,6 @@
         <file>fonts/Ionicons/ionicons.ttf</file>
         <file>fonts/Loader.qml</file>
         <file>fonts/Ionicons/icons.js</file>
+        <file>fonts/Segoe/icons.js</file>
     </qresource>
 </RCC>

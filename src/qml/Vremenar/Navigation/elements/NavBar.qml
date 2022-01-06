@@ -54,4 +54,11 @@ Item {
             Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
         }
     }
+
+    WindowControlButtons {
+        anchors {
+            top: parent.top
+            right: parent.right
+        }
+    }
 }

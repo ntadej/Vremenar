@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -59,6 +59,22 @@ QColor Qml::UIManager::textColor() const
         return {0, 0, 0}; // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
     }
     return {255, 255, 255}; // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+}
+
+QColor Qml::UIManager::textColorInverted() const
+{
+    if (_theme == Common::LightTheme) {
+        return {255, 255, 255}; // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+    }
+    return {0, 0, 0}; // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+}
+
+QColor Qml::UIManager::textColorInactive() const
+{
+    if (_theme == Common::LightTheme) {
+        return {149, 149, 149}; // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+    }
+    return {200, 200, 200}; // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
 }
 
 QColor Qml::UIManager::textColorPrimary() const
@@ -123,6 +139,27 @@ QColor Qml::UIManager::hoverColor() const
         return {0, 0, 0, 16}; // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
     }
     return {255, 255, 255, 16}; // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+}
+
+QColor Qml::UIManager::windowButtonHoverColor() const
+{
+    if (_theme == Common::LightTheme) {
+        return {0, 0, 0, 32}; // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+    }
+    return {255, 255, 255, 32}; // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+}
+
+QColor Qml::UIManager::windowButtonDownColor() const
+{
+    if (_theme == Common::LightTheme) {
+        return {0, 0, 0, 16}; // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+    }
+    return {255, 255, 255, 16}; // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+}
+
+QColor Qml::UIManager::windowButtonSpecialColor() const
+{
+    return {196, 42, 28, 254}; // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
 }
 
 } // namespace Vremenar

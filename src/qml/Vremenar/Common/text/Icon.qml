@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -17,7 +17,10 @@ import "../fonts/IconFont.js" as IconFont
 
 Core {
     property string icon: ""
-    text: icon != "" && font.family != "" ? IconFont.icon[font.family][icon] : ""
+    property string family: ""
+
+    text: icon != "" && family != "" ? IconFont.icon[family][icon] : ""
+    font.family: family != "" ? IconFont.family[family] : ""
     font.pixelSize: UI.iconSizeCommon
     color: UI.textColor
     horizontalAlignment: Text.AlignHCenter

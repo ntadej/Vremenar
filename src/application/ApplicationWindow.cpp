@@ -78,7 +78,7 @@ ApplicationWindow::ApplicationWindow(QObject *parent)
 #elif defined(Q_OS_LINUX)
     _qmlFileSelector->setExtraSelectors({QStringLiteral("custommenu"), QStringLiteral("materialstyle")});
 #elif defined(Q_OS_WINDOWS)
-    _qmlFileSelector->setExtraSelectors({QStringLiteral("custommenu"), QStringLiteral("universalstyle")});
+    _qmlFileSelector->setExtraSelectors({QStringLiteral("universalstyle")});
 #endif
 
 #ifndef VREMENAR_MOBILE

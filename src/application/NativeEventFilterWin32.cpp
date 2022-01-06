@@ -66,10 +66,8 @@ bool NativeEventFilterWin32::nativeEventFilter(const QByteArray &eventType,
 
             // caption, a.k.a. title bar
             auto wndScaleFactor = qgetenv("QT_SCALE_FACTOR").toDouble(); // TODO(tadej): do properly
-            int titleBarHeight = 40;                                     // TODO(tadej): configurable
-            titleBarHeight = static_cast<int>(titleBarHeight * wndScaleFactor);
-            int titleBarBtnsWidth = 100; // TODO(tadej): configurable
-            titleBarBtnsWidth = static_cast<int>(titleBarBtnsWidth * wndScaleFactor);
+            auto titleBarHeight = static_cast<int>(28. * wndScaleFactor);     // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+            auto titleBarBtnsWidth = static_cast<int>(135. * wndScaleFactor); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
             if (x >= winrect.left && x < winrect.right - titleBarBtnsWidth &&
                     y > winrect.top + borderWidth && y < winrect.top + titleBarHeight) {
                 *result = HTCAPTION;

@@ -17,5 +17,6 @@
         <file>text/CommonShadow.qml</file>
         <file>components/CommonShadow.qml</file>
         <file>components/ImageButton.qml</file>
+        <file>components/WindowButton.qml</file>
     </qresource>
 </RCC>
