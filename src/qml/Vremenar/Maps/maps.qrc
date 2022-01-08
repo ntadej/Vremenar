@@ -14,5 +14,8 @@
         <file>MapTime.qml</file>
         <file>MapCurrentWeather.qml</file>
         <file>MapLayers.js</file>
+        <file>elements/MapSlider.qml</file>
+        <file>elements/+materialstyle/MapSlider.qml</file>
+        <file>elements/+universalstyle/MapSlider.qml</file>
     </qresource>
 </RCC>

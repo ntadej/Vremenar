@@ -23,6 +23,8 @@ ColumnLayout {
     id: layout
 
     property bool active: false
+    property alias slider: mapSlider
+    property alias sliderRow: mapSliderRow
     property alias legend: mapLegend
     property var navigation: UI.isTV ? Vremenar.Common.ControlsNavigation : Vremenar.Common.TypeNavigation
     property int delta: 48
@@ -297,6 +299,38 @@ ColumnLayout {
                 VWeather.refresh()
                 buttonRefreshAnimator.running = true
             }
+        }
+    }
+
+    RowLayout {
+        id: mapSliderRow
+        Layout.minimumHeight: mapSlider.implicitHeight + UI.mapElementOffset
+
+        Item {
+            Layout.fillWidth: true
+        }
+
+        MapSlider {
+            id: mapSlider
+
+            Layout.alignment: Qt.AlignTop
+            Layout.preferredWidth: buttonRow.spacing * 4 + UI.mapElementSize * 5
+
+            from: 0
+            to: VMapLayersModel.count - 1
+            value: VMapLayersModel.index
+            onValueChanged: {
+                if (VMapLayersModel.index !== value) {
+                    VMapLayersModel.index = value
+                }
+            }
+
+            stepSize: 1
+            snapMode: Slider.SnapAlways
+        }
+
+        Item {
+            Layout.fillWidth: true
         }
     }
 

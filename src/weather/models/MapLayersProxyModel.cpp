@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -72,6 +72,15 @@ void MapLayersProxyModel::emitUpdate()
     emit mapChanged(_type, _renderingType, urlPrevious, urlCurrent, urlNext);
 }
 
+int MapLayersProxyModel::currentIndex() const
+{
+    if (rowCount() == 0) {
+        return 0;
+    }
+
+    return _row;
+}
+
 qint64 MapLayersProxyModel::timestamp() const
 {
     if (rowCount() == 0) {
@@ -123,6 +132,23 @@ QString MapLayersProxyModel::title() const
 {
     auto type = data(index(0, 0), MapLayer::TypeRole).value<Weather::MapType>();
     return Weather::mapTypeToLocalizedString(type);
+}
+
+void MapLayersProxyModel::setCurrentIndex(int newIndex)
+{
+    if (newIndex != _row) {
+        _row = newIndex;
+
+        const QModelIndex in = index(_row, 0);
+        _time = data(in, MapLayer::TimeRole).toDateTime().toMSecsSinceEpoch();
+        _type = Weather::MapType(data(in, MapLayer::TypeRole).toInt());
+        _renderingType = Weather::MapRenderingType(data(in, MapLayer::RenderingRole).toInt());
+        _coordinates = data(in, MapLayer::CoordinatesRole);
+
+        if (!_updating) {
+            emitUpdate();
+        }
+    }
 }
 
 void MapLayersProxyModel::setTimestamp(qint64 time)

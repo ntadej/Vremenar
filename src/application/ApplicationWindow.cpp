@@ -61,10 +61,10 @@ ApplicationWindow::ApplicationWindow(QObject *parent)
       _qmlFileSelector(new QQmlFileSelector(_engine.get()))
 {
     // Set the style
-#if defined(Q_OS_LINUX) || defined(Q_OS_ANDROID)
-    QQuickStyle::setStyle("Material");
-#elif defined(Q_OS_WINDOWS)
-    QQuickStyle::setStyle("Universal");
+#if defined(Q_OS_ANDROID)
+    QQuickStyle::setStyle(QStringLiteral("Material"));
+#elif defined(Q_OS_LINUX) || defined(Q_OS_WINDOWS)
+    QQuickStyle::setStyle(QStringLiteral("Universal"));
 #endif
 
     createModels();
@@ -96,7 +96,7 @@ ApplicationWindow::ApplicationWindow(QObject *parent)
 #elif defined(Q_OS_ANDROID)
     _qmlFileSelector->setExtraSelectors({QStringLiteral("mobile"), QStringLiteral("materialstyle")});
 #elif defined(Q_OS_LINUX)
-    _qmlFileSelector->setExtraSelectors({QStringLiteral("custommenu"), QStringLiteral("materialstyle")});
+    _qmlFileSelector->setExtraSelectors({QStringLiteral("custommenu"), QStringLiteral("universalstyle")});
 #elif defined(Q_OS_WINDOWS)
     _qmlFileSelector->setExtraSelectors({QStringLiteral("universalstyle")});
 #endif

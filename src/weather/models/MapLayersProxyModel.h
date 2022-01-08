@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -26,10 +26,11 @@ namespace Vremenar
 class MapLayersProxyModel : public QSortFilterProxyModel
 {
     Q_OBJECT
-
+    Q_PROPERTY(int count READ rowCount NOTIFY rowCountChanged)
     Q_PROPERTY(qint64 minTimestamp READ minTimestamp NOTIFY rowCountChanged)
     Q_PROPERTY(qint64 maxTimestamp READ maxTimestamp NOTIFY rowCountChanged)
 
+    Q_PROPERTY(int index READ currentIndex WRITE setCurrentIndex NOTIFY timestampChanged)
     Q_PROPERTY(qint64 time READ timestamp WRITE setTimestamp NOTIFY timestampChanged)
     Q_PROPERTY(QString day READ day NOTIFY timestampChanged)
     Q_PROPERTY(bool dayHighlighted READ dayHighlighted NOTIFY timestampChanged)
@@ -48,6 +49,8 @@ public:
     [[nodiscard]] qint64 minTimestamp() const;
     [[nodiscard]] qint64 maxTimestamp() const;
 
+    [[nodiscard]] int currentIndex() const;
+    void setCurrentIndex(int newIndex);
     [[nodiscard]] qint64 timestamp() const;
     void setTimestamp(qint64 time);
     [[nodiscard]] QString day() const;

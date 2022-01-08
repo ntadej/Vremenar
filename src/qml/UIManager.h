@@ -54,6 +54,7 @@ class UIManager : public QObject
 
     Q_PROPERTY(int mapElementSize READ mapElementSize CONSTANT)
     Q_PROPERTY(int mapElementOffset READ mapElementOffset CONSTANT)
+    Q_PROPERTY(int mapSliderSize READ mapSliderSize CONSTANT)
 
     Q_PROPERTY(int iconSizeCommon READ iconSizeCommon CONSTANT)
     Q_PROPERTY(int iconSizeLarge READ iconSizeLarge CONSTANT)
@@ -143,6 +144,7 @@ public:
 
     [[nodiscard]] int mapElementSize() const;
     [[nodiscard]] int mapElementOffset() const;
+    [[nodiscard]] int mapSliderSize() const;
 
     [[nodiscard]] int iconSizeCommon() const;
     [[nodiscard]] int iconSizeLarge() const;

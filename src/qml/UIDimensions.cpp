@@ -16,6 +16,7 @@ namespace Vremenar
 
 int Qml::UIManager::mapElementSize() const { return 44; }  // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
 int Qml::UIManager::mapElementOffset() const { return 8; } // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+int Qml::UIManager::mapSliderSize() const { return 24; }   // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
 
 int Qml::UIManager::iconSizeCommon() const
 {

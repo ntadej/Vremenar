@@ -11,14 +11,7 @@
 
 import QtQuick 2.12
 import QtQuick.Controls 2.12
-import QtQuick.Controls.Material 2.12
-
-import Vremenar 1.0
 
 ApplicationWindow {
     id: appBase
-
-    Material.theme: UI.theme === Vremenar.Common.DarkTheme ? Material.Dark : Material.Light
-    Material.accent: UI.buttonColor
-    Material.primary: UI.buttonColorHover
 }

@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -98,7 +98,7 @@ Item {
         }
 
         height: UI.isTV ? mapControls.height + UI.radiusCommon + UI.safetyMarginBottom
-                        : UI.bottomSheetBaseHeight + mapControls.legend.height + UI.radiusCommon + UI.safetyMarginBottom
+                        : UI.bottomSheetBaseHeight + mapControls.sliderRow.height + mapControls.legend.height + UI.radiusCommon + UI.safetyMarginBottom
 
         onFullWidthChanged: {
             anchors.left = undefined
