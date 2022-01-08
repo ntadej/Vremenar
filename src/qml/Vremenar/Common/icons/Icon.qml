@@ -12,17 +12,17 @@
 import QtQuick 2.12
 
 import Vremenar 1.0
+import Vremenar.Common 1.0
 
-import "../icons/IconFont.js" as IconFont
-
-Core {
+TextCore {
     property string icon: ""
     property string family: ""
+    property alias size: textIcon.font.pixelSize
 
+    id: textIcon
     text: icon != "" && family != "" ? IconFont.icon[family][icon] : ""
     font.family: family != "" ? IconFont.family[family] : ""
     font.pixelSize: UI.iconSizeCommon
-    font.weight: IconFont.hasWeights[family] && icon != "" && family != "" ? IconFont.weight[family][icon] : Font.Normal
     color: UI.textColor
     horizontalAlignment: Text.AlignHCenter
     verticalAlignment: Text.AlignVCenter

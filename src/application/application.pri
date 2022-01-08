@@ -63,10 +63,18 @@ macos {
 # macOS/iOS specific
 macos|ios {
     OBJECTIVE_SOURCES += \
+        src/application/ImageProviderMacOSiOS.mm \
         src/application/analytics/AnalyticsEngineMacOSiOS.mm
 
     HEADERS += \
+        src/application/ImageProviderMacOSiOS.h \
         src/application/analytics/AnalyticsEngineMacOSiOS.h
+}
+
+# iOS specific
+ios {
+    OBJECTIVE_SOURCES += \
+        src/application/MobileApplicationIOS.mm
 }
 
 # Android specific

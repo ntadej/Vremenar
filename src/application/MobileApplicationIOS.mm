@@ -9,14 +9,14 @@
 * SPDX-License-Identifier: (GPL-3.0-or-later AND MPL-2.0)
 */
 
-#include "qml/UIManager.h"
+#include "application/MobileApplication.h"
 
 namespace Vremenar
 {
 
-bool Qml::UIManager::supportsSFSymbols()
+bool MobileApplication::supportsSFSymbols()
 {
-    if (@available(macOS 11.0, *)) {
+    if (@available(iOS 13.0, *)) {
         return true;
     } else {
         return false;

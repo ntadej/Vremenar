@@ -10,11 +10,13 @@ ImageButton 1.0 components/ImageButton.qml
 Spinner 1.0 components/Spinner.qml
 WindowButton 1.0 components/WindowButton.qml
 
+Icon 1.0 icons/Icon.qml
+IconFont 1.0 icons/IconFont.js
+
 ListRadioView 1.0 views/ListRadioView.qml
 
 TextCore 1.0 text/Core.qml
 TextCommon 1.0 text/Common.qml
 TextCommonShadow 1.0 text/CommonShadow.qml
 TextHeader 1.0 text/Header.qml
-TextIcon 1.0 text/Icon.qml
 TextSmall 1.0 text/Small.qml

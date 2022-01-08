@@ -12,7 +12,7 @@
 .import "Ionicons.js" as Ionicons
 .import "Material.js" as Material
 .import "Segoe.js" as Segoe
-.import "SF.js" as SF
+.import "SFSymbols.js" as SFSymbols
 
 const hasSegoeFluentIcons = Qt.fontFamilies().includes("Segoe Fluent Icons")
 
@@ -22,7 +22,6 @@ const family =
     "Material": "Material Icons",
     "MaterialOutlined": "Material Icons Outlined",
     "Segoe": hasSegoeFluentIcons ? "Segoe Fluent Icons" : "Segoe MDL2 Assets",
-    "SF": "SF Pro"
 }
 
 const icon =
@@ -31,19 +30,14 @@ const icon =
     "Material": Material.icons,
     "MaterialOutlined": Material.icons,
     "Segoe": Segoe.icons,
-    "SF": SF.icons
 }
 
-const hasWeights =
+const label =
 {
-    "Ionicons": false,
-    "Material": false,
-    "MaterialOutlined": false,
-    "Segoe": false,
-    "SF": true
+    "SFSymbols": SFSymbols.labels
 }
 
 const weight =
 {
-    "SF": SF.weights
+    "SFSymbols": SFSymbols.weights
 }

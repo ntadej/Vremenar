@@ -7,7 +7,8 @@
         <file>components/MaskedBlur.qml</file>
         <file>components/SimpleButton.qml</file>
         <file>components/IconButton.qml</file>
-        <file>text/Icon.qml</file>
+        <file>icons/Icon.qml</file>
+        <file>icons/+nativeicons/Icon.qml</file>
         <file>components/CommonLine.qml</file>
         <file>views/ListRadioDelegate.qml</file>
         <file>views/ListRadioView.qml</file>
@@ -22,6 +23,6 @@
         <file>icons/Ionicons.js</file>
         <file>icons/Material.js</file>
         <file>icons/Segoe.js</file>
-        <file>icons/SF.js</file>
+        <file>icons/SFSymbols.js</file>
     </qresource>
 </RCC>

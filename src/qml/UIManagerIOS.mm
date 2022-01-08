@@ -44,7 +44,7 @@ QMargins Qml::UIManager::safeAreaMargins()
     return QMargins();
 }
 
-bool Qml::UIManager::hasSFIcons()
+bool Qml::UIManager::supportsSFSymbols()
 {
     if (@available(iOS 13.0, *)) {
         return true;

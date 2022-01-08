@@ -47,6 +47,15 @@ bool DesktopApplication::isDark()
     return false;
 }
 
+bool DesktopApplication::supportsSFSymbols()
+{
+    if (@available(macOS 11.0, *)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 void DesktopApplication::setupDockHandler()
 {
     NSApplication *appInst = [NSApplication sharedApplication];

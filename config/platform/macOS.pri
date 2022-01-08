@@ -8,7 +8,8 @@
 #
 # SPDX-License-Identifier: (GPL-3.0-or-later AND MPL-2.0)
 #
-
+# Private module for the icons
+QT += gui-private
 # Extra libraries
 QT += macextras
 LIBS += -weak_framework ApplicationServices -weak_framework Cocoa -weak_framework CoreLocation

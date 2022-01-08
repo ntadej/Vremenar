@@ -17,9 +17,9 @@ import Vremenar.Common 1.0
 MouseArea {
     id: button
 
-    property alias icon: textLabel.icon
-    property alias family: textLabel.family
-    property alias size: textLabel.font.pixelSize
+    property alias icon: iconObject.icon
+    property alias family: iconObject.family
+    property alias size: iconObject.size
     property bool disabled: false
     property bool special: false
 
@@ -39,12 +39,10 @@ MouseArea {
         anchors.fill: parent
         color: "transparent"
 
-        TextIcon {
-            id: textLabel
+        Icon {
+            id: iconObject
             anchors.fill: parent
-            font.pixelSize: UI.windowButtonIconSize
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignVCenter
+            size: UI.windowButtonIconSize
             color: UI.textColor
         }
     }
@@ -55,7 +53,7 @@ MouseArea {
             when: pressedButtons & Qt.LeftButton
 
             PropertyChanges {
-                target: textLabel
+                target: iconObject
                 color: button.special && UI.theme === Vremenar.Common.LightTheme ? UI.textColorInverted : UI.textColor
             }
 
@@ -69,7 +67,7 @@ MouseArea {
             when: containsMouse || focus
 
             PropertyChanges {
-                target: textLabel
+                target: iconObject
                 color: button.special && UI.theme === Vremenar.Common.LightTheme ? UI.textColorInverted : UI.textColor
             }
 

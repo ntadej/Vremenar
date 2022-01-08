@@ -34,10 +34,16 @@
 #include "application/DesktopApplication.h"
 #include "application/dialogs/AboutDialog.h"
 #include "settings/SettingsDialog.h"
+#else
+#include "application/MobileApplication.h"
 #endif
 
 #ifdef Q_OS_ANDROID
 #include <QtAndroidExtras/QtAndroid>
+#endif
+
+#if defined(Q_OS_MACOS) || defined(Q_OS_IOS)
+#include "application/ImageProviderMacOSiOS.h"
 #endif
 
 #include "ApplicationWindow.h"
@@ -67,14 +73,26 @@ ApplicationWindow::ApplicationWindow(QObject *parent)
 #endif
 
     _engine->addImportPath(QStringLiteral("qrc:/"));
+#if defined(Q_OS_MACOS) || defined(Q_OS_IOS)
+    // NOLINTNEXTLINE(cppcoreguidelines-owning-memory)
+    _engine->addImageProvider(QStringLiteral("SFSymbols"), new SFSymbolsImageProvider);
+#endif
 
     Qml::registerTypes();
 
     // Custom file selector
 #if defined(Q_OS_MACOS)
-    _qmlFileSelector->setExtraSelectors({QStringLiteral("nativemenu")});
+    if (DesktopApplication::supportsSFSymbols()) {
+        _qmlFileSelector->setExtraSelectors({QStringLiteral("nativemenu"), QStringLiteral("nativeicons")});
+    } else {
+        _qmlFileSelector->setExtraSelectors({QStringLiteral("nativemenu")});
+    }
 #elif defined(Q_OS_IOS)
-    _qmlFileSelector->setExtraSelectors({QStringLiteral("mobile")});
+    if (MobileApplication::supportsSFSymbols()) {
+        _qmlFileSelector->setExtraSelectors({QStringLiteral("mobile"), QStringLiteral("nativeicons")});
+    } else {
+        _qmlFileSelector->setExtraSelectors({QStringLiteral("mobile")});
+    }
 #elif defined(Q_OS_ANDROID)
     _qmlFileSelector->setExtraSelectors({QStringLiteral("mobile"), QStringLiteral("materialstyle")});
 #elif defined(Q_OS_LINUX)

@@ -31,9 +31,10 @@ RadioDelegate {
         verticalAlignment: Text.AlignVCenter
     }
 
-    indicator: TextIcon {
+    indicator: Icon {
         icon: "checkmark"
         family: UI.iconTheme
+        size: UI.iconSizeCheckMark
         x: control.width - width - control.rightPadding
         y: parent.height / 2 - height / 2
         color: UI.colorPrimary

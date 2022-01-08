@@ -96,8 +96,8 @@ QString Qml::UIManager::iconTheme() const
 #elif defined(Q_OS_WINDOWS)
     return QStringLiteral("Segoe");
 #elif defined(Q_OS_MACOS) || defined(Q_OS_IOS)
-    if (hasSFIcons()) {
-        return QStringLiteral("SF");
+    if (supportsSFSymbols()) {
+        return QStringLiteral("SFSymbols");
     }
     return QStringLiteral("Ionicons"); // fallback
 #else

@@ -148,6 +148,8 @@ ColumnLayout {
         height: UI.mapElementSize
         Layout.maximumHeight: UI.mapElementSize
 
+        spacing: parent.width < 400 ? 0 : 5
+
         function enableFocus() {
             buttonPlay.forceActiveFocus()
         }
