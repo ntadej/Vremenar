@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -59,12 +59,10 @@ SettingsDialog::SettingsDialog(StationListModel *stationsModel,
     connect(ui->checkRememberPosition, &QCheckBox::toggled, this, &SettingsDialog::rememberPositionChangedSlot);
     connect(ui->checkRememberSize, &QCheckBox::toggled, this, &SettingsDialog::rememberSizeChangedSlot);
 
-#ifdef Q_OS_MACOS
     connect(ui->checkShowInTray, &QCheckBox::toggled, this, &SettingsDialog::showInTrayChangedSlot);
+#ifdef Q_OS_MACOS
     connect(ui->checkShowInDock, &QCheckBox::toggled, this, &SettingsDialog::showInDockChangedSlot);
 #else
-    ui->labelSpacerMacOS->hide();
-    ui->checkShowInTray->hide();
     ui->checkShowInDock->hide();
 #endif
 
@@ -139,8 +137,8 @@ void SettingsDialog::readSettings()
 {
     Settings settings(this);
 
-#ifdef Q_OS_MACOS
     ui->checkShowInTray->setChecked(settings.showInTray());
+#ifdef Q_OS_MACOS
     ui->checkShowInDock->setChecked(settings.showInDock());
 #endif
     ui->checkRememberPosition->setChecked(settings.rememberPosition());
@@ -319,7 +317,6 @@ void SettingsDialog::loadSources()
     connect(ui->comboSource, &QComboBox::currentTextChanged, this, &SettingsDialog::sourceChangedSlot);
 }
 
-#ifdef Q_OS_MACOS
 void SettingsDialog::showInTrayChangedSlot(bool checked)
 {
     Settings settings(this);
@@ -334,6 +331,7 @@ void SettingsDialog::showInTrayChangedSlot(bool checked)
     }
 }
 
+#ifdef Q_OS_MACOS
 void SettingsDialog::showInDockChangedSlot(bool checked)
 {
     Settings settings(this);

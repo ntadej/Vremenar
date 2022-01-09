@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -47,8 +47,8 @@ signals:
     void localeChanged();
     void locationChanged();
     void weatherSourceChanged(int source);
-#if defined(Q_OS_MACOS)
     void showInTrayChanged(bool checked);
+#if defined(Q_OS_MACOS)
     void showInDockChanged(bool checked);
 #endif
 
@@ -63,8 +63,8 @@ private slots:
     void locationStationChanged();
     void locationStationTextChanged();
     void sourceChangedSlot();
-#if defined(Q_OS_MACOS)
     void showInTrayChangedSlot(bool checked);
+#if defined(Q_OS_MACOS)
     void showInDockChangedSlot(bool checked);
 #endif
     void rememberPositionChangedSlot(bool checked);

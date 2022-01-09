@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -128,13 +128,12 @@ public:
     static const QString DEFAULT_LOCALE;
 
     // GUI
-#if defined(Q_OS_MACOS)
-    // macOS special
     [[nodiscard]] inline bool showInTray() const { return _showInTray; }
     inline void setShowInTray(bool b) { _showInTray = b; }
     static const QString KEY_SHOW_IN_TRAY;
     static const bool DEFAULT_SHOW_IN_TRAY;
 
+#if defined(Q_OS_MACOS)
     [[nodiscard]] inline bool showInDock() const { return _showInDock; }
     inline void setShowInDock(bool b) { _showInDock = b; }
     static const QString KEY_SHOW_IN_DOCK;

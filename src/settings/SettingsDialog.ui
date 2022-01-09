@@ -199,28 +199,14 @@
         <property name="bottomMargin">
          <number>24</number>
         </property>
-        <item row="4" column="1">
-         <widget class="QCheckBox" name="checkRememberSize">
-          <property name="text">
-           <string>Remember size on exit</string>
-          </property>
-         </widget>
-        </item>
-        <item row="5" column="1">
-         <widget class="QCheckBox" name="checkRememberPosition">
-          <property name="text">
-           <string>Remember position on exit</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
+        <item row="0" column="1">
          <widget class="QCheckBox" name="checkShowInTray">
           <property name="text">
            <string>Show in tray</string>
           </property>
          </widget>
         </item>
-        <item row="2" column="1">
+        <item row="1" column="1">
          <widget class="QCheckBox" name="checkShowInDock">
           <property name="enabled">
            <bool>false</bool>
@@ -233,10 +219,24 @@
           </property>
          </widget>
         </item>
-        <item row="3" column="1">
-         <widget class="QLabel" name="labelSpacerMacOS">
+        <item row="2" column="1">
+         <widget class="QLabel" name="labelSpacerInterface">
           <property name="text">
            <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QCheckBox" name="checkRememberSize">
+          <property name="text">
+           <string>Remember size on exit</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1">
+         <widget class="QCheckBox" name="checkRememberPosition">
+          <property name="text">
+           <string>Remember position on exit</string>
           </property>
          </widget>
         </item>

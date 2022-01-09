@@ -52,7 +52,7 @@ desktop {
 }
 macos {
     RESOURCES += \
-        resources/macOS/logo.qrc
+        resources/macOS/logo.qrc \
         resources/Weather/TrayMask/tray_mask.qrc
 } else {
     RESOURCES += \

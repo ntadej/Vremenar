@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -29,8 +29,8 @@ Settings::Settings(QObject *parent)
       _startupMapLatitude(DEFAULT_STARTUP_MAP_LATITUDE_SI),
       _startupMapLongitude(DEFAULT_STARTUP_MAP_LONGITUDE_SI),
       _locale(DEFAULT_LOCALE),
-#if defined(Q_OS_MACOS)
       _showInTray(DEFAULT_SHOW_IN_TRAY),
+#if defined(Q_OS_MACOS)
       _showInDock(DEFAULT_SHOW_IN_DOCK),
 #endif
       _rememberPosition(DEFAULT_REMEMBER_POSITION),
@@ -54,8 +54,8 @@ Settings::Settings(QObject *parent)
     _map.insert(KEY_STARTUP_MAP_LATITUDE, DEFAULT_STARTUP_MAP_LATITUDE_SI);
     _map.insert(KEY_STARTUP_MAP_LONGITUDE, DEFAULT_STARTUP_MAP_LONGITUDE_SI);
     _map.insert(KEY_LOCALE, DEFAULT_LOCALE);
-#if defined(Q_OS_MACOS)
     _map.insert(KEY_SHOW_IN_TRAY, DEFAULT_SHOW_IN_TRAY);
+#if defined(Q_OS_MACOS)
     _map.insert(KEY_SHOW_IN_DOCK, DEFAULT_SHOW_IN_DOCK);
 #endif
     _map.insert(KEY_REMEMBER_POSITION, DEFAULT_REMEMBER_POSITION);
@@ -88,8 +88,8 @@ void Settings::writeSettings()
 
     setValue(KEY_LOCALE, locale());
 
-#if defined(Q_OS_MACOS)
     setValue(KEY_SHOW_IN_TRAY, showInTray());
+#if defined(Q_OS_MACOS)
     setValue(KEY_SHOW_IN_DOCK, showInDock());
 #endif
 
@@ -124,8 +124,8 @@ void Settings::readSettings()
 
     setLocale(value(KEY_LOCALE, defaultValue(KEY_LOCALE)).toString());
 
-#if defined(Q_OS_MACOS)
     setShowInTray(value(KEY_SHOW_IN_TRAY, defaultValue(KEY_SHOW_IN_TRAY)).toBool());
+#if defined(Q_OS_MACOS)
     setShowInDock(value(KEY_SHOW_IN_DOCK, defaultValue(KEY_SHOW_IN_DOCK)).toBool());
 #endif
 

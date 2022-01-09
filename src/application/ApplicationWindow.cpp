@@ -256,11 +256,7 @@ void ApplicationWindow::createWidgets()
     Settings settings(this);
 
     _trayIcon = std::make_unique<TrayIcon>(this);
-#ifdef Q_OS_MACOS
     _trayIcon->setVisible(settings.showInTray());
-#else
-    _trayIcon->setVisible(true);
-#endif
     updateTrayIcon();
 
     connect(_trayIcon.get(), &TrayIcon::triggered, this, &ApplicationWindow::toggleVisibility);
@@ -301,8 +297,8 @@ void ApplicationWindow::showSettingsDialog()
     connect(dialog, &SettingsDialog::locationChanged, _location.get(), &LocationProvider::locationSettingsChanged);
     connect(dialog, &SettingsDialog::weatherSourceChanged, this, &ApplicationWindow::weatherSourceChanged);
 
-#ifdef Q_OS_MACOS
     connect(dialog, &SettingsDialog::showInTrayChanged, _trayIcon.get(), &TrayIcon::setVisible);
+#ifdef Q_OS_MACOS
     connect(dialog, &SettingsDialog::showInDockChanged, this, &ApplicationWindow::dockVisibilityChanged);
 #endif
 
@@ -317,6 +313,11 @@ void ApplicationWindow::showMapsMenu()
 void ApplicationWindow::showSettingsMenu()
 {
     _trayIcon->showSettingsMenu(QCursor::pos());
+}
+
+bool ApplicationWindow::shouldQuit()
+{
+    return !_trayIcon->isVisible();
 }
 #endif
 

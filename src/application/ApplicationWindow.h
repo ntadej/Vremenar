@@ -60,6 +60,7 @@ public slots:
     void showSettingsDialog();
     void showMapsMenu();
     void showSettingsMenu();
+    bool shouldQuit();
 #endif
 
 #ifdef Q_OS_MACOS

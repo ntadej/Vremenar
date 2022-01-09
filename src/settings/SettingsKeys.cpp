@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -36,8 +36,8 @@ const QString Settings::KEY_STARTUP_MAP_LONGITUDE = QStringLiteral("map/longitud
 const QString Settings::KEY_LOCALE = QStringLiteral("locale");
 
 // GUI
-#if defined(Q_OS_MACOS)
 const QString Settings::KEY_SHOW_IN_TRAY = QStringLiteral("gui/tray");
+#if defined(Q_OS_MACOS)
 const QString Settings::KEY_SHOW_IN_DOCK = QStringLiteral("gui/dock");
 #endif
 
