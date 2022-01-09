@@ -130,6 +130,10 @@ bool MapLayersProxyModel::dayHighlighted() const
 
 QString MapLayersProxyModel::title() const
 {
+    if (rowCount() == 0) {
+        return tr("Vremenar");
+    }
+
     auto type = data(index(0, 0), MapLayer::TypeRole).value<Weather::MapType>();
     return Weather::mapTypeToLocalizedString(type);
 }

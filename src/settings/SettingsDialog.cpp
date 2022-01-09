@@ -93,6 +93,13 @@ SettingsDialog::SettingsDialog(StationListModel *stationsModel,
     icon.addFile(":/Vremenar/Icons/64x64/preferences-system.png", QSize(64, 64)); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
     setWindowIcon(icon);
 #endif
+
+#ifdef Q_OS_MACOS
+    ui->buttons->hide();
+#else
+    ui->buttonsLayout->setContentsMargins(24, 0, 24, 24); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+    connect(ui->buttons, &QDialogButtonBox::accepted, this, &SettingsDialog::close);
+#endif
 }
 
 void SettingsDialog::changeEvent(QEvent *e)

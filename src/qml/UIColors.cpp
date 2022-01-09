@@ -72,7 +72,7 @@ QColor Qml::UIManager::textColorInverted() const
 QColor Qml::UIManager::textColorInactive() const
 {
     if (_theme == Common::LightTheme) {
-        return {149, 149, 149}; // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+        return {80, 80, 80}; // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
     }
     return {200, 200, 200}; // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
 }

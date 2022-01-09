@@ -19,7 +19,9 @@ import Vremenar.Navigation 1.0
 
 MainWindow {
     id: app
-    title: !UI.navBarTitleOnly ? centralNavigationStack.currentItem.title ? centralNavigationStack.currentItem.title + " - " + Globals.name : Globals.name : ''
+    title: !UI.navBarTitleOnly ?
+           centralNavigationStack.currentItem.title ? centralNavigationStack.currentItem.title + " - " + qsTr("Vremenar") + VL.R :
+           qsTr("Vremenar") + VL.R : ''
     visible: true
 
     LoadFonts { }

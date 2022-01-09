@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -28,7 +28,7 @@ AboutDialog::AboutDialog(WeatherProvider *weatherProvider,
 {
     ui->setupUi(this);
 
-    setWindowTitle(tr("About %1").arg(Vremenar::name));
+    setWindowTitle(tr("About Vremenar"));
     setWindowFlags(Qt::Dialog
                    | Qt::WindowTitleHint
                    | Qt::WindowCloseButtonHint
@@ -66,7 +66,7 @@ AboutDialog::AboutDialog(WeatherProvider *weatherProvider,
         QStringLiteral("https://vremenar.tano.si"),
         QStringLiteral("https://vremenar.tano.si"));
 
-    ui->labelVremenar->setText(QStringLiteral("Vremenar"));
+    ui->labelVremenar->setText(tr("Vremenar"));
     ui->labelVersion->setText(tr("Version %1 (%2)").arg(Vremenar::version, QString::number(Vremenar::build)));
     ui->labelCopyright->setText(QStringLiteral("© %1 Tadej Novak").arg(QDate::currentDate().toString(QStringLiteral("yyyy"))));
     ui->labelHomepage->setText(homepage->asHtml(additionalStyle));
@@ -75,6 +75,12 @@ AboutDialog::AboutDialog(WeatherProvider *weatherProvider,
     ui->labelMaps->setText(tr("Maps") + copyrightMaps);
     ui->labelIcons->setText(tr("Icons") + copyrightIcons);
     ui->labelAbout->setText(aboutLabels);
+
+#ifdef Q_OS_MACOS
+    ui->buttons->hide();
+#else
+    connect(ui->buttons, &QDialogButtonBox::accepted, this, &AboutDialog::close);
+#endif
 }
 
 } // namespace Vremenar

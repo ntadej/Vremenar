@@ -50,6 +50,7 @@ Item {
 
         TextCommon {
             id: textTitle
+            color: app.active ? UI.textColor : UI.textColorInactive
             font.weight: Font.DemiBold
             Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
         }

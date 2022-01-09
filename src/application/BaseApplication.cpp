@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -34,7 +34,6 @@ void Application::preInit()
 
 #if defined(Q_OS_WINDOWS)
     QCoreApplication::setAttribute(Qt::AA_UseOpenGLES);
-    qputenv("QT_QPA_PLATFORM", "windows:darkmode=1");
 #elif defined(Q_OS_LINUX) && !defined(Q_OS_ANDROID)
     qputenv("QT_QUICK_CONTROLS_MATERIAL_VARIANT", "Dense");
     qputenv("QT_GEOCLUE_APP_DESKTOP_ID", QString(Vremenar::appID).toUtf8());

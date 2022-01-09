@@ -22,6 +22,7 @@ MouseArea {
     property alias size: iconObject.size
     property bool disabled: false
     property bool special: false
+    property bool active: true
 
     signal confirmed()
 
@@ -43,7 +44,7 @@ MouseArea {
             id: iconObject
             anchors.fill: parent
             size: UI.windowButtonIconSize
-            color: UI.textColor
+            color: active ? UI.textColor : UI.textColorInactive
         }
     }
 
@@ -54,7 +55,7 @@ MouseArea {
 
             PropertyChanges {
                 target: iconObject
-                color: button.special && UI.theme === Vremenar.Common.LightTheme ? UI.textColorInverted : UI.textColor
+                color: button.special && UI.theme === Vremenar.Common.LightTheme ? UI.textColorInverted : (active ? UI.textColor : UI.textColorInactive)
             }
 
             PropertyChanges {
@@ -68,7 +69,7 @@ MouseArea {
 
             PropertyChanges {
                 target: iconObject
-                color: button.special && UI.theme === Vremenar.Common.LightTheme ? UI.textColorInverted : UI.textColor
+                color: button.special && UI.theme === Vremenar.Common.LightTheme ? UI.textColorInverted : (active ? UI.textColor : UI.textColorInactive)
             }
 
             PropertyChanges {
