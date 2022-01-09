@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -15,6 +15,10 @@
 
 #include "application/DesktopApplication.h"
 
+#if defined(Q_OS_WINDOWS)
+#include <Windows.h>
+#endif
+
 namespace Vremenar
 {
 
@@ -25,8 +29,12 @@ DesktopApplication::DesktopApplication(int &argc,
 {
     installEventFilter(this);
 
-#ifdef Q_OS_MACOS
+#if defined(Q_OS_MACOS)
     setupDockHandler();
+#elif defined(Q_OS_WINDOWS)
+    // restart
+    std::wstring args;
+    RegisterApplicationRestart(args.data(), 0);
 #endif
 }
 

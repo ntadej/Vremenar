@@ -1,6 +1,6 @@
 #
 # Vremenar
-# Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+# Copyright (C) 2022 Tadej Novak <tadej@tano.si>
 #
 # This application is bi-licensed under the GNU General Public License
 # Version 3 or later as well as Mozilla Public License Version 2.
@@ -35,9 +35,11 @@ countly.path = Contents/Frameworks
 QMAKE_BUNDLE_DATA += countly
 
 # Sparkle
-QMAKE_CXXFLAGS += -F$$top_srcdir/3rdparty/Sparkle/macOS
-LIBS += -F$$top_srcdir/3rdparty/Sparkle/macOS -framework Sparkle
+!store {
+    QMAKE_CXXFLAGS += -F$$top_srcdir/3rdparty/Sparkle/macOS
+    LIBS += -F$$top_srcdir/3rdparty/Sparkle/macOS -framework Sparkle
 
-sparkle.files = $$top_srcdir/3rdparty/Sparkle/macOS/Sparkle.framework
-sparkle.path = Contents/Frameworks
-QMAKE_BUNDLE_DATA += sparkle
+    sparkle.files = $$top_srcdir/3rdparty/Sparkle/macOS/Sparkle.framework
+    sparkle.path = Contents/Frameworks
+    QMAKE_BUNDLE_DATA += sparkle
+}

@@ -30,3 +30,9 @@ QMAKE_SUBSTITUTES += SetupFile
 
 OTHER_FILES += \
     $$top_srcdir/resources/Windows/setup.iss.in
+
+# Sparkle
+!store {
+    QMAKE_CXXFLAGS += -I$$top_srcdir/3rdparty/Sparkle/Windows/include
+    LIBS += -L$$top_srcdir/3rdparty/Sparkle/Windows/lib -lWinSparkle
+}

@@ -54,6 +54,7 @@ Source: \"{#VremenarAppInstallFolder}\\Qt5QuickControls2.dll\"; DestDir: \"{app}
 Source: \"{#VremenarAppInstallFolder}\\Qt5QuickTemplates2.dll\"; DestDir: \"{app}\"; Flags: ignoreversion
 Source: \"{#VremenarAppInstallFolder}\\Qt5Sql.dll\"; DestDir: \"{app}\"; Flags: ignoreversion
 Source: \"{#VremenarAppInstallFolder}\\Qt5Widgets.dll\"; DestDir: \"{app}\"; Flags: ignoreversion
+Source: \"{#VremenarAppInstallFolder}\\WinSparkle.dll\"; DestDir: \"{app}\"; Flags: ignoreversion
 Source: \"{#VremenarAppInstallFolder}\\bearer\\*\"; DestDir: \"{app}\\bearer\"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: \"{#VremenarAppInstallFolder}\\geoservices\\*\"; DestDir: \"{app}\\geoservices\"; Flags: ignoreversion recursesubdirs createallsubdirs
 Source: \"{#VremenarAppInstallFolder}\\imageformats\\*\"; DestDir: \"{app}\\imageformats\"; Flags: ignoreversion recursesubdirs createallsubdirs

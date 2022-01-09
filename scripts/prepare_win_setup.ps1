@@ -12,6 +12,8 @@ if (-Not (Test-Path "setup")) { mkdir "setup" > $null }
 Copy-Item "..\setup.iss" "setup\setup.iss"
 Copy-Item "$vremenar\resources\Windows\vremenar.ico" "setup\vremenar.ico"
 
+Copy-Item "$vremenar\3rdparty\Sparkle\Windows\lib\WinSparkle.dll" "WinSparkle.dll"
+
 Copy-Item "$env:Qt5_BaseDir\Tools\OpenSSL\Win_x64\bin\libcrypto-1_1-x64.dll" "."
 Copy-Item "$env:Qt5_BaseDir\Tools\OpenSSL\Win_x64\bin\libssl-1_1-x64.dll" "."
 

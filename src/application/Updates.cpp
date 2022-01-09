@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -26,7 +26,7 @@ Updates::Updates(NetworkManager *network,
                  QObject *parent)
     : APILoader(network, parent)
 {
-#ifdef Q_OS_MACOS
+#if !defined(VREMENAR_STORE) && (defined(Q_OS_MACOS) || defined(Q_OS_WINDOWS))
     _sparkle = std::make_unique<SparkleHelper>();
 #endif
 }
@@ -38,7 +38,9 @@ void Updates::checkVersion()
 
 void Updates::checkForUpdates()
 {
-#ifdef Q_OS_MACOS
+#if defined(VREMENAR_STORE)
+    // pass
+#elif defined(Q_OS_MACOS) || defined(Q_OS_WINDOWS)
     _sparkle->checkForUpdates();
 #else
     request();
@@ -66,7 +68,7 @@ void Updates::response(QNetworkReply *reply)
         _server = document[QStringLiteral("server")].toString();
         emit serverChanged();
 
-#if !defined(Q_OS_MACOS) && !defined(VREMENAR_STORE)
+#if !defined(VREMENAR_STORE) && !defined(Q_OS_MACOS) && !defined(Q_OS_WINDOWS)
         QString stable = document[QStringLiteral("stable")].toString();
         QString beta = document[QStringLiteral("beta")].toString();
         compareVersion(stable, beta);

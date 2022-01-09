@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -28,6 +28,7 @@ constexpr bool loggingEnabled = $${LOGGING};
 
 constexpr CString mapsEndpoint = \"$${MAPS_ENDPOINT}\";
 constexpr CString APIEndpoint = \"$${API_ENDPOINT}\";
+constexpr CString AppCastEndpoint = \"$${APPCAST_ENDPOINT}\";
 
 constexpr CString CountlyAppKey = \"$${COUNTLY_APPKEY}\";
 constexpr CString CountlyEndpoint = \"$${COUNTLY_ENDPOINT}\";

@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -18,7 +18,11 @@ namespace Vremenar
 {
 
 SparkleHelper::SparkleHelper()
-    : sharedUpdater([[SUUpdater alloc] init])
+    : updaterController([[SPUStandardUpdaterController alloc] initWithStartingUpdater:TRUE updaterDelegate:NULL userDriverDelegate:NULL])
+{
+}
+
+SparkleHelper::~SparkleHelper()
 {
 }
 
@@ -26,7 +30,7 @@ void SparkleHelper::checkForUpdates()
 {
     qDebug() << "Update check requested";
 
-    [sharedUpdater checkForUpdates:nullptr];
+    [updaterController checkForUpdates:nullptr];
 }
 
 } // namespace Vremenar

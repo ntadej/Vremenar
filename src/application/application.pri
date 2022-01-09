@@ -54,7 +54,7 @@ mobile {
 macos {
     OBJECTIVE_SOURCES += \
         src/application/DesktopApplicationMacOS.mm \
-        src/application/SparkleHelper.mm
+        src/application/SparkleHelperMacOS.mm
 
     HEADERS += \
         src/application/SparkleHelper.h
@@ -102,8 +102,10 @@ desktop {
 win32 {
     SOURCES += \
         src/application/DesktopApplicationWin32.cpp \
-        src/application/NativeEventFilterWin32.cpp
+        src/application/NativeEventFilterWin32.cpp \
+        src/application/SparkleHelperWin32.cpp
 
     HEADERS += \
-        src/application/NativeEventFilterWin32.h
+        src/application/NativeEventFilterWin32.h \
+        src/application/SparkleHelper.h
 }

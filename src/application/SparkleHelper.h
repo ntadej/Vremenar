@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -23,12 +23,15 @@ class SparkleHelper
 {
 public:
     explicit SparkleHelper();
+    SparkleHelper(const SparkleHelper &) = delete;
+    SparkleHelper &operator=(SparkleHelper) = delete;
+    ~SparkleHelper();
 
     void checkForUpdates();
 
 private:
 #ifdef VREMENAR_SPARKLE
-    SUUpdater *sharedUpdater;
+    SPUStandardUpdaterController *updaterController;
 #endif
 };
 

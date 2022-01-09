@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -14,7 +14,7 @@
 
 #include "common/api/APILoader.h"
 
-#ifdef Q_OS_MACOS
+#if !defined(VREMENAR_STORE) && (defined(Q_OS_MACOS) || defined(Q_OS_WINDOWS))
 #include "application/SparkleHelper.h"
 #endif
 
@@ -59,7 +59,7 @@ private:
     QString _message;
     QString _url;
 
-#ifdef Q_OS_MACOS
+#if !defined(VREMENAR_STORE) && (defined(Q_OS_MACOS) || defined(Q_OS_WINDOWS))
     std::unique_ptr<SparkleHelper> _sparkle{};
 #endif
 };
