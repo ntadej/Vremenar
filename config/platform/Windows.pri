@@ -1,6 +1,6 @@
 #
 # Vremenar
-# Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+# Copyright (C) 2022 Tadej Novak <tadej@tano.si>
 #
 # This application is bi-licensed under the GNU General Public License
 # Version 3 or later as well as Mozilla Public License Version 2.
@@ -18,7 +18,15 @@ win32-msvc {
 }
 
 QMAKE_TARGET_COMPANY = "Tadej Novak"
-QMAKE_TARGET_DESCRIPTION = "Display weather conditions and forecast on a map in a quick and simple way."
-QMAKE_TARGET_COPYRIGHT = "Copyright (C) 2021 Tadej Novak"
+QMAKE_TARGET_DESCRIPTION = "Vremenar"
+QMAKE_TARGET_COPYRIGHT = "Copyright (C) 2022 Tadej Novak"
 
 RC_ICONS = $$top_srcdir/resources/Windows/vremenar.ico
+
+# Define substitution files
+SetupFile.input = $$top_srcdir/resources/Windows/setup.iss.in
+SetupFile.output = $$OUT_PWD/setup.iss
+QMAKE_SUBSTITUTES += SetupFile
+
+OTHER_FILES += \
+    $$top_srcdir/resources/Windows/setup.iss.in

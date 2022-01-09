@@ -1,0 +1,107 @@
+#define VremenarAppName \"Vremenar\"
+#define VremenarAppVersion \"$${VERSION}\"
+#define VremenarAppPublisher \"Tadej Novak\"
+#define VremenarAppURL \"https://vremenar.tano.si\"
+#define VremenarAppExeName \"Vremenar.exe\"
+#define VremenarAppId \"si.tano.Vremenar\"
+#define VremenarAppInstallFolder \"..\"
+
+[Setup]
+AppId={#VremenarAppId}
+AppName={#VremenarAppName}
+AppVersion={#VremenarAppVersion}
+AppPublisher={#VremenarAppPublisher}
+AppPublisherURL={#VremenarAppURL}
+AppSupportURL={#VremenarAppURL}
+AppUpdatesURL={#VremenarAppURL}
+DefaultDirName={autopf}\\{#VremenarAppName}
+DisableProgramGroupPage=yes
+OutputDir={#VremenarAppInstallFolder}\\setup
+OutputBaseFilename=Vremenar_win64
+SetupIconFile=vremenar.ico
+Compression=lzma
+SolidCompression=yes
+WizardStyle=modern
+ArchitecturesAllowed=x64
+ArchitecturesInstallIn64BitMode=x64
+
+[Languages]
+Name: \"english\"; MessagesFile: \"compiler:Default.isl\"
+Name: \"german\"; MessagesFile: \"compiler:Languages\\German.isl\"
+Name: \"slovenian\"; MessagesFile: \"compiler:Languages\\Slovenian.isl\"
+
+[Tasks]
+Name: \"desktopicon\"; Description: \"{cm:CreateDesktopIcon}\"; GroupDescription: \"{cm:AdditionalIcons}\"; Flags: unchecked
+
+[Files]
+Source: \"{#VremenarAppInstallFolder}\\{#VremenarAppExeName}\"; DestDir: \"{app}\"; Flags: ignoreversion
+Source: \"{#VremenarAppInstallFolder}\\D3Dcompiler_47.dll\"; DestDir: \"{app}\"; Flags: ignoreversion
+Source: \"{#VremenarAppInstallFolder}\\libcrypto-1_1-x64.dll\"; DestDir: \"{app}\"; Flags: ignoreversion
+Source: \"{#VremenarAppInstallFolder}\\libEGL.dll\"; DestDir: \"{app}\"; Flags: ignoreversion
+Source: \"{#VremenarAppInstallFolder}\\libGLESv2.dll\"; DestDir: \"{app}\"; Flags: ignoreversion
+Source: \"{#VremenarAppInstallFolder}\\libssl-1_1-x64.dll\"; DestDir: \"{app}\"; Flags: ignoreversion
+Source: \"{#VremenarAppInstallFolder}\\Qt5Core.dll\"; DestDir: \"{app}\"; Flags: ignoreversion
+Source: \"{#VremenarAppInstallFolder}\\Qt5Gui.dll\"; DestDir: \"{app}\"; Flags: ignoreversion
+Source: \"{#VremenarAppInstallFolder}\\Qt5Location.dll\"; DestDir: \"{app}\"; Flags: ignoreversion
+Source: \"{#VremenarAppInstallFolder}\\Qt5Network.dll\"; DestDir: \"{app}\"; Flags: ignoreversion
+Source: \"{#VremenarAppInstallFolder}\\Qt5Positioning.dll\"; DestDir: \"{app}\"; Flags: ignoreversion
+Source: \"{#VremenarAppInstallFolder}\\Qt5PositioningQuick.dll\"; DestDir: \"{app}\"; Flags: ignoreversion
+Source: \"{#VremenarAppInstallFolder}\\Qt5Qml.dll\"; DestDir: \"{app}\"; Flags: ignoreversion
+Source: \"{#VremenarAppInstallFolder}\\Qt5QmlModels.dll\"; DestDir: \"{app}\"; Flags: ignoreversion
+Source: \"{#VremenarAppInstallFolder}\\Qt5QmlWorkerScript.dll\"; DestDir: \"{app}\"; Flags: ignoreversion
+Source: \"{#VremenarAppInstallFolder}\\Qt5Quick.dll\"; DestDir: \"{app}\"; Flags: ignoreversion
+Source: \"{#VremenarAppInstallFolder}\\Qt5QuickControls2.dll\"; DestDir: \"{app}\"; Flags: ignoreversion
+Source: \"{#VremenarAppInstallFolder}\\Qt5QuickTemplates2.dll\"; DestDir: \"{app}\"; Flags: ignoreversion
+Source: \"{#VremenarAppInstallFolder}\\Qt5Sql.dll\"; DestDir: \"{app}\"; Flags: ignoreversion
+Source: \"{#VremenarAppInstallFolder}\\Qt5Widgets.dll\"; DestDir: \"{app}\"; Flags: ignoreversion
+Source: \"{#VremenarAppInstallFolder}\\bearer\\*\"; DestDir: \"{app}\\bearer\"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: \"{#VremenarAppInstallFolder}\\geoservices\\*\"; DestDir: \"{app}\\geoservices\"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: \"{#VremenarAppInstallFolder}\\imageformats\\*\"; DestDir: \"{app}\\imageformats\"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: \"{#VremenarAppInstallFolder}\\platforms\\*\"; DestDir: \"{app}\\platforms\"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: \"{#VremenarAppInstallFolder}\\position\\*\"; DestDir: \"{app}\\position\"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: \"{#VremenarAppInstallFolder}\\Qt\\*\"; DestDir: \"{app}\\Qt\"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: \"{#VremenarAppInstallFolder}\\QtGraphicalEffects\\*\"; DestDir: \"{app}\\QtGraphicalEffects\"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: \"{#VremenarAppInstallFolder}\\QtLocation\\*\"; DestDir: \"{app}\\QtLocation\"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: \"{#VremenarAppInstallFolder}\\QtPositioning\\*\"; DestDir: \"{app}\\QtPositioning\"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: \"{#VremenarAppInstallFolder}\\QtQml\\*\"; DestDir: \"{app}\\QtQml\"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: \"{#VremenarAppInstallFolder}\\QtQuick\\*\"; DestDir: \"{app}\\QtQuick\"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: \"{#VremenarAppInstallFolder}\\QtQuick.2\\*\"; DestDir: \"{app}\\QtQuick.2\"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: \"{#VremenarAppInstallFolder}\\sqldrivers\\*\"; DestDir: \"{app}\\sqldrivers\"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: \"{#VremenarAppInstallFolder}\\styles\\*\"; DestDir: \"{app}\\styles\"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: \"{#VremenarAppInstallFolder}\\translations\\*\"; DestDir: \"{app}\\translations\"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: \"{#VremenarAppInstallFolder}\\vc_redist.x64.exe\"; DestDir: \"{tmp}\"
+
+[Icons]
+Name: \"{autoprograms}\\{#VremenarAppName}\"; Filename: \"{app}\\{#VremenarAppExeName}\"
+Name: \"{autodesktop}\\{#VremenarAppName}\"; Filename: \"{app}\\{#VremenarAppExeName}\"; Tasks: desktopicon
+
+[Run]
+Filename: \"{tmp}\\vc_redist.x64.exe\"; Parameters: \"/q /norestart\"; Check: VCRedistNeedsInstall; Flags: waituntilterminated; StatusMsg: \"Installing VC++ 2019 redistributable...\"
+Filename: \"{app}\\{#VremenarAppExeName}\"; Description: \"{cm:LaunchProgram,{#StringChange(VremenarAppName, \'&\', \'&&\')}}\"; Flags: nowait postinstall skipifsilent
+
+[Code]
+#IFDEF UNICODE
+  #DEFINE AW \"W\"
+#ELSE
+  #DEFINE AW \"A\"
+#ENDIF
+type
+  INSTALLSTATE = Longint;
+const
+  INSTALLSTATE_INVALIDARG = -2;  // An invalid parameter was passed to the function.
+  INSTALLSTATE_UNKNOWN = -1;     // The product is neither advertised or installed.
+  INSTALLSTATE_ADVERTISED = 1;   // The product is advertised but not installed.
+  INSTALLSTATE_ABSENT = 2;       // The product is installed for a different user.
+  INSTALLSTATE_DEFAULT = 5;      // The product is installed for the current user.
+
+function MsiQueryProductState(szProduct: string): INSTALLSTATE;
+  external \'MsiQueryProductState{#AW}@msi.dll stdcall\';
+function VCVersionInstalled(const ProductID: string): Boolean;
+begin
+  Result := MsiQueryProductState(ProductID) = INSTALLSTATE_DEFAULT;
+end;
+
+function VCRedistNeedsInstall: Boolean;
+begin
+  Result := not (VCVersionInstalled(\'{54109AAF-995B-4463-AE95-B9ED6B5631AA}\'));
+end;
