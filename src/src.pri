@@ -48,12 +48,17 @@ RESOURCES += \
 # Desktop common resources
 desktop {
     RESOURCES += \
-        resources/Common/icons/icons.qrc \
-        resources/Linux/logo.qrc
+        resources/Common/icons/icons.qrc
 }
 macos {
-    RESOURCES += resources/Weather/TrayMask/tray_mask.qrc
+    RESOURCES += \
+        resources/macOS/logo.qrc
+        resources/Weather/TrayMask/tray_mask.qrc
+} else {
+    RESOURCES += \
+        resources/Linux/logo.qrc
 }
+
 if(linux:!android)|if(win32) {
     RESOURCES += \
         resources/Weather/Tray/tray_clear_16.qrc \

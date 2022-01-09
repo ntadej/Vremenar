@@ -16,9 +16,6 @@ import Vremenar 1.0
 import Vremenar.Common 1.0
 
 Row {
-    enabled: UI.customWindowButtons
-    visible: UI.customWindowButtons
-
     WindowButton {
         id: minimizeButton
         icon: UI.customWindowButtons ? "minimize" : ""

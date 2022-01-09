@@ -33,7 +33,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="../../../resources/Linux/logo.qrc">
-    <normaloff>:/Vremenar/Logo/logo/48x48/vremenar.png</normaloff>:/Vremenar/Logo/logo/48x48/vremenar.png</iconset>
+    <normaloff>:/Vremenar/Logo/48x48/vremenar.png</normaloff>:/Vremenar/Logo/48x48/vremenar.png</iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -48,7 +48,7 @@
       <string notr="true"/>
      </property>
      <property name="pixmap">
-      <pixmap resource="../../../resources/Linux/logo.qrc">:/Vremenar/Logo/logo/128x128/vremenar.png</pixmap>
+      <pixmap resource="../../../resources/Linux/logo.qrc">:/Vremenar/Logo/128x128/vremenar.png</pixmap>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>

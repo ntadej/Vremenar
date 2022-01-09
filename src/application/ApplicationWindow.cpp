@@ -122,13 +122,13 @@ ApplicationWindow::ApplicationWindow(QObject *parent)
 #ifndef VREMENAR_MOBILE
     // Set application icon
     QIcon appIcon;
-    appIcon.addFile(QStringLiteral(":/Vremenar/Logo/logo/16x16/vremenar.png"), QSize(16, 16)); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
-    appIcon.addFile(QStringLiteral(":/Vremenar/Logo/logo/24x24/vremenar.png"), QSize(24, 24)); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
-    appIcon.addFile(QStringLiteral(":/Vremenar/Logo/logo/32x32/vremenar.png"), QSize(32, 32));  // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
-    appIcon.addFile(QStringLiteral(":/Vremenar/Logo/logo/48x48/vremenar.png"), QSize(48, 48));  // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
-    appIcon.addFile(QStringLiteral(":/Vremenar/Logo/logo/64x64/vremenar.png"), QSize(64, 64));   // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
-    appIcon.addFile(QStringLiteral(":/Vremenar/Logo/logo/128x128/vremenar.png"), QSize(128, 128)); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
-    appIcon.addFile(QStringLiteral(":/Vremenar/Logo/logo/256x256/vremenar.png"), QSize(256, 256)); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+    appIcon.addFile(QStringLiteral(":/Vremenar/Logo/16x16/vremenar.png"), QSize(16, 16));     // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+    appIcon.addFile(QStringLiteral(":/Vremenar/Logo/24x24/vremenar.png"), QSize(24, 24));     // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+    appIcon.addFile(QStringLiteral(":/Vremenar/Logo/32x32/vremenar.png"), QSize(32, 32));     // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+    appIcon.addFile(QStringLiteral(":/Vremenar/Logo/48x48/vremenar.png"), QSize(48, 48));     // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+    appIcon.addFile(QStringLiteral(":/Vremenar/Logo/64x64/vremenar.png"), QSize(64, 64));     // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+    appIcon.addFile(QStringLiteral(":/Vremenar/Logo/128x128/vremenar.png"), QSize(128, 128)); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+    appIcon.addFile(QStringLiteral(":/Vremenar/Logo/256x256/vremenar.png"), QSize(256, 256)); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
     QGuiApplication::setWindowIcon(appIcon);
 #endif
 }

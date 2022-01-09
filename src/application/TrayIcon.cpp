@@ -166,9 +166,9 @@ void TrayIcon::setCurrentCondition(const WeatherCondition *condition)
         i.setIsMask(true);
 #else
         QIcon i;
-        i.addFile(":/Vremenar/Logo/logo/16x16/vremenar.png", QSize(16, 16)); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
-        i.addFile(":/Vremenar/Logo/logo/24x24/vremenar.png", QSize(24, 24)); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
-        i.addFile(":/Vremenar/Logo/logo/32x32/vremenar.png", QSize(32, 32)); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+        i.addFile(":/Vremenar/Logo/16x16/vremenar.png", QSize(16, 16)); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+        i.addFile(":/Vremenar/Logo/24x24/vremenar.png", QSize(24, 24)); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+        i.addFile(":/Vremenar/Logo/32x32/vremenar.png", QSize(32, 32)); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
 #endif
         setIcon(i);
     }
