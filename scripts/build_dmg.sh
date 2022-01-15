@@ -1,6 +1,18 @@
 #!/bin/bash
 
-macdeployqt "$1" -qmldir="$2/src/qml/" -appstore-compliant
+CODE_SIGN_IDENTITY="$4"
+
+if [[ "$CODE_SIGN_IDENTITY" != "" ]]; then
+  macdeployqt "$1" -qmldir="$3/src/qml/" \
+    -appstore-compliant \
+    -hardened-runtime \
+    -timestamp \
+    -codesign="$CODE_SIGN_IDENTITY"
+else
+  macdeployqt "$1" -qmldir="$3/src/qml/" \
+    -appstore-compliant \
+    -hardened-runtime
+fi
 
 # cleanup
 if [[ -f "$1/Contents/PlugIns/geoservices/libqtgeoservices_esri.dylib" ]]; then
@@ -56,9 +68,21 @@ if [[ -d "$1/Contents/Resources/qml/QtQuick/Controls.2/Universal/" ]]; then
   rm -r "$1/Contents/Resources/qml/QtQuick/Controls.2/Universal/"
 fi
 
+# Fix the signing
+if [[ "$CODE_SIGN_IDENTITY" != "" ]]; then
+  echo codesign -s "\"$CODE_SIGN_IDENTITY\"" -f --timestamp -o runtime --entitlements "$2" "$1"
+  codesign -s "$CODE_SIGN_IDENTITY" -f --timestamp -o runtime --entitlements "$2" "$1"
+fi
+
 # dmg
-create-dmg "$1" --overwrite
-result=$?
+if [[ "$CODE_SIGN_IDENTITY" != "" ]]; then
+  create-dmg "$1" --overwrite --identity="$CODE_SIGN_IDENTITY"
+  result=$?
+else
+  create-dmg "$1" --overwrite
+  result=$? 
+fi
+
 if [[ $result -eq 0 || $result -eq 2 ]]; then
   exit 0
 else

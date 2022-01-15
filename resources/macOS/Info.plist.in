@@ -11,7 +11,7 @@
         <key>CFBundleIconFile</key>
         <string>Vremenar.icns</string>
         <key>CFBundleIdentifier</key>
-        <string>si.tano.Vremenar</string>
+        <string>si.tano.Vremenar$${VERSION_SUFFIX}</string>
         <key>CFBundleInfoDictionaryVersion</key>
         <string>6.0</string>
         <key>CFBundleName</key>
@@ -53,5 +53,7 @@
         <string>$${APPCAST_ENDPOINT}/appcast.xml</string>
         <key>SUPublicEDKey</key>
         <string>U2gUlDA3cZYnWfAWTj0qxF30XqWVl0hGbOFDP3sNZIw=</string>
+        <key>SUEnableInstallerLauncherService</key>
+        <true/>
     </dict>
 </plist>

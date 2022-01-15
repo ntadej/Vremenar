@@ -19,7 +19,7 @@ namespace Vremenar
 
 constexpr CString name = \"Vremenar\";
 constexpr CString domain = \"tano.si\";
-constexpr CString appID = \"si.tano.Vremenar\";
+constexpr CString appID = \"si.tano.Vremenar$${VERSION_SUFFIX}\";
 
 constexpr CString version = \"$${VERSION}\";
 constexpr uint32_t build = $${VERSION_BUILD};

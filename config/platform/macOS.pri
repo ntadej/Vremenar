@@ -15,16 +15,25 @@ QT += macextras
 LIBS += -weak_framework ApplicationServices -weak_framework Cocoa -weak_framework CoreLocation
 
 # Deployment target and rpath
-QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.13
+QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.14
 QMAKE_RPATHDIR = @executable_path/../Frameworks
 
 # Info.plist & icons
 macOSPlist.input = $$top_srcdir/resources/macOS/Info.plist.in
 macOSPlist.output = $$OUT_PWD/Info.plist
 QMAKE_SUBSTITUTES += macOSPlist
+
+macOSEntitlements.input = $$top_srcdir/resources/macOS/Vremenar.entitlements
+macOSEntitlements.output = $$OUT_PWD/Vremenar.entitlements
+QMAKE_SUBSTITUTES += macOSEntitlements
+
+QMAKE_ASSET_CATALOGS += $$top_srcdir/resources/macOS/Assets.xcassets
 QMAKE_INFO_PLIST = $$OUT_PWD/Info.plist
 ICON = $$top_srcdir/resources/macOS/Vremenar.icns
-QMAKE_ASSET_CATALOGS += $$top_srcdir/resources/macOS/Assets.xcassets
+
+containerMigration.files = $$top_srcdir/resources/macOS/container-migration.plist
+containerMigration.path = Contents/Resources
+QMAKE_BUNDLE_DATA += containerMigration
 
 # Countly
 QMAKE_CXXFLAGS += -F$$top_srcdir/3rdparty/Countly/macOS
