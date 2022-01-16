@@ -1,6 +1,7 @@
 #!/bin/bash
 
 CODE_SIGN_IDENTITY="$4"
+PKG_SIGN_IDENTITY="$5"
 
 if [[ "$CODE_SIGN_IDENTITY" != "" ]]; then
   macdeployqt "$1" -qmldir="$3/src/qml/" \
@@ -74,13 +75,22 @@ if [[ "$CODE_SIGN_IDENTITY" != "" ]]; then
   codesign -s "$CODE_SIGN_IDENTITY" -f --timestamp -o runtime --entitlements "$2" "$1"
 fi
 
-# dmg
-if [[ "$CODE_SIGN_IDENTITY" != "" ]]; then
-  create-dmg "$1" --overwrite --identity="$CODE_SIGN_IDENTITY"
-  result=$?
+if [[ "$PKG_SIGN_IDENTITY" != "" ]]; then
+  # build pkg
+  productbuild \
+    --component "$1" \
+    /Applications \
+    Vremenar.pkg \
+    --sign "$PKG_SIGN_IDENTITY"
 else
-  create-dmg "$1" --overwrite
-  result=$? 
+  # build dmg
+  if [[ "$CODE_SIGN_IDENTITY" != "" ]]; then
+    create-dmg "$1" --overwrite --identity="$CODE_SIGN_IDENTITY"
+    result=$?
+  else
+    create-dmg "$1" --overwrite
+    result=$? 
+  fi
 fi
 
 if [[ $result -eq 0 || $result -eq 2 ]]; then

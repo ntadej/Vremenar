@@ -3,7 +3,10 @@
 ## Unreleased
 
 Improvements:
+- Improved frameless window handling (macOS and Windows)
+- System icons on Windows and macOS
 - Windows support
+- macOS and iOS store support
 
 ## 0.4.0 (2021-12-29)
 

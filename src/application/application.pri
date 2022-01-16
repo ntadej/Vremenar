@@ -53,11 +53,15 @@ mobile {
 # macOS specific
 macos {
     OBJECTIVE_SOURCES += \
-        src/application/DesktopApplicationMacOS.mm \
-        src/application/SparkleHelperMacOS.mm
+        src/application/DesktopApplicationMacOS.mm
 
-    HEADERS += \
-        src/application/SparkleHelper.h
+    !store {
+        OBJECTIVE_SOURCES += \
+            src/application/SparkleHelperMacOS.mm
+
+        HEADERS += \
+            src/application/SparkleHelper.h
+    }
 }
 
 # macOS/iOS specific

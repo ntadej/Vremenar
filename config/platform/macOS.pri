@@ -23,7 +23,7 @@ macOSPlist.input = $$top_srcdir/resources/macOS/Info.plist.in
 macOSPlist.output = $$OUT_PWD/Info.plist
 QMAKE_SUBSTITUTES += macOSPlist
 
-macOSEntitlements.input = $$top_srcdir/resources/macOS/Vremenar.entitlements
+macOSEntitlements.input = $$top_srcdir/resources/macOS/Vremenar.entitlements.in
 macOSEntitlements.output = $$OUT_PWD/Vremenar.entitlements
 QMAKE_SUBSTITUTES += macOSEntitlements
 

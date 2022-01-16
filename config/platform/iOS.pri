@@ -22,12 +22,17 @@ iOSPlist.input = $$top_srcdir/resources/iOS/Info.plist.in
 iOSPlist.output = $$OUT_PWD/Info.plist
 QMAKE_SUBSTITUTES += iOSPlist
 
+store {
+    iOSExport.input = $$top_srcdir/resources/iOS/AppStoreExport.plist.in
+    iOSExport.output = $$OUT_PWD/AppStoreExport.plist
+    QMAKE_SUBSTITUTES += iOSExport
+}
+
 # Info.plist
 QMAKE_TARGET_BUNDLE_PREFIX = si.tano
 QMAKE_INFO_PLIST = $$OUT_PWD/Info.plist
 
-ios_icon.files = $$files($$top_srcdir/resources/iOS/logo/*.png)
-QMAKE_BUNDLE_DATA += ios_icon
+QMAKE_ASSET_CATALOGS += $$top_srcdir/resources/iOS/Assets.xcassets
 
 launch_storyboard.files = $$top_srcdir/resources/iOS/VremenarLaunchScreen.storyboard
 QMAKE_BUNDLE_DATA += launch_storyboard
