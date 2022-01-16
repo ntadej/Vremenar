@@ -26,6 +26,7 @@ SparkleHelper::SparkleHelper()
     url.append(QStringLiteral("/appcast.xml"));
 
     win_sparkle_set_appcast_url(url.toStdString().c_str());
+    win_sparkle_set_eddsa_pub_base64("U2gUlDA3cZYnWfAWTj0qxF30XqWVl0hGbOFDP3sNZIw=");
     win_sparkle_init();
 }
 
