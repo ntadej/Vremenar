@@ -42,9 +42,17 @@ QMAKE_BUNDLE_DATA += TRANSLATE_sl
 
 # Countly
 forsimulator {
-    INCLUDEPATH += $$top_srcdir/3rdparty/Countly/iOSSimulator
-    LIBS += -L$$top_srcdir/3rdparty/Countly/iOSSimulator -lCountlyStatic
+    QMAKE_CXXFLAGS += -F$$top_srcdir/3rdparty/Countly/iOSSimulator
+    LIBS += -F$$top_srcdir/3rdparty/Countly/iOSSimulator -framework Countly
+
+    countly.files = $$top_srcdir/3rdparty/Countly/iOSSimulator/Countly.framework
+    countly.path = Frameworks
+    QMAKE_BUNDLE_DATA += countly
 } else {
-    INCLUDEPATH += $$top_srcdir/3rdparty/Countly/iOS
-    LIBS += -L$$top_srcdir/3rdparty/Countly/iOS -lCountlyStatic
+    QMAKE_CXXFLAGS += -F$$top_srcdir/3rdparty/Countly/iOS
+    LIBS += -F$$top_srcdir/3rdparty/Countly/iOS -framework Countly
+
+    countly.files = $$top_srcdir/3rdparty/Countly/iOS/Countly.framework
+    countly.path = Frameworks
+    QMAKE_BUNDLE_DATA += countly
 }

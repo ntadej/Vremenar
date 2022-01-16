@@ -21,7 +21,7 @@ OTHER_FILES += $$top_srcdir/config/VERSION
 # special debug setup
 VERSION_SUFFIX = ""
 CONFIG(debug, debug|release) {
-    macos {
+    macos|ios {
         VERSION_SUFFIX = "Devel"
     }
 }

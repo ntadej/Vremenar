@@ -16,7 +16,7 @@ fi
 if [[ "${1}" == "macos" ]] || [[ "${1}" == "macOS" ]]; then
   MAPLIBRE_VERSION="2.0.0-pre.1"
   SPARKLE_VERSION="2.0.0"
-  COUNTLY_VERSION="20.11.1"
+  COUNTLY_VERSION="21.11.1"
 
   echo "Downloading for macOS"
   npm install --global create-dmg
@@ -51,7 +51,7 @@ if [[ "${1}" == "macos" ]] || [[ "${1}" == "macOS" ]]; then
   fi
 elif [[ "${1}" == "ios" ]] || [[ "${1}" == "iOS" ]]; then
   MAPLIBRE_VERSION="2.0.0-pre.1"
-  COUNTLY_VERSION="20.11.1"
+  COUNTLY_VERSION="21.11.1"
 
   echo "Downloading for iOS"
   brew install ldid
