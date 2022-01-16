@@ -35,10 +35,11 @@ public:
                      QEvent *event) override;
 
 #if defined(Q_OS_MACOS) || defined(Q_OS_WINDOWS)
-    void setupTitleBarLessWindow(quintptr winId);
+    void setupTitleBarLessWindow(quintptr winId,
+                                 qreal devicePixelRatio = 1.0);
 #endif
 
-#ifdef Q_OS_MACOS
+#if defined(Q_OS_MACOS)
     bool isDark();
     static bool supportsSFSymbols();
 
@@ -47,6 +48,8 @@ public:
 public slots:
     void dockClickedCallback();
     void dockSetVisibility(bool visible);
+#elif defined(Q_OS_WINDOWS)
+    void setPrimaryWindowDevicePixelRatio(qreal ratio);
 #endif
 
 signals:

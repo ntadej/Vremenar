@@ -44,6 +44,10 @@ BaseApplicationWindow {
         }
     }
 
+    Screen.onDevicePixelRatioChanged: {
+        Vremenar.setPrimaryWindowDevicePixelRatio(Screen.devicePixelRatio)
+    }
+
     Component.onCompleted: {
         if (Settings.rememberSize) {
             console.log("Restoring size:", Settings.width, Settings.height)
@@ -59,7 +63,7 @@ BaseApplicationWindow {
             y = Settings.posY
         }
 
-        Vremenar.startCompleted(this)
+        Vremenar.startCompleted(this, Screen.devicePixelRatio)
         ready = true
     }
 }

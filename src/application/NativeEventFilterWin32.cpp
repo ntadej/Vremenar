@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -19,8 +19,10 @@
 namespace Vremenar
 {
 
-NativeEventFilterWin32::NativeEventFilterWin32(quintptr winId)
-    : _winId(winId)
+NativeEventFilterWin32::NativeEventFilterWin32(quintptr winId,
+                                               qreal devicePixelRatio)
+    : _winId(winId),
+      _devicePixelRatio(devicePixelRatio)
 {
 }
 
@@ -65,9 +67,8 @@ bool NativeEventFilterWin32::nativeEventFilter(const QByteArray &eventType,
             int32_t y = GET_Y_LPARAM(msg->lParam);
 
             // caption, a.k.a. title bar
-            auto wndScaleFactor = qgetenv("QT_SCALE_FACTOR").toDouble(); // TODO(tadej): do properly
-            auto titleBarHeight = static_cast<int>(28. * wndScaleFactor);     // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
-            auto titleBarBtnsWidth = static_cast<int>(135. * wndScaleFactor); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+            auto titleBarHeight = static_cast<int>(28. * _devicePixelRatio);     // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+            auto titleBarBtnsWidth = static_cast<int>(135. * _devicePixelRatio); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
             if (x >= winrect.left && x < winrect.right - titleBarBtnsWidth &&
                     y > winrect.top + borderWidth && y < winrect.top + titleBarHeight) {
                 *result = HTCAPTION;
@@ -125,6 +126,13 @@ bool NativeEventFilterWin32::nativeEventFilter(const QByteArray &eventType,
     }
 
     return false;
+}
+
+void NativeEventFilterWin32::setPrimaryWindowDevicePixelRatio(qreal ratio)
+{
+    if (ratio != _devicePixelRatio) {
+        _devicePixelRatio = ratio;
+    }
 }
 
 } // namespace Vremenar

@@ -52,10 +52,12 @@ public slots:
     void toggleVisibility();
     void visibilityChanged(bool visible);
     void processUrl(const QString &url);
-    void startCompleted(QQuickWindow *window);
+    void startCompleted(QQuickWindow *window,
+                        qreal devicePixelRatio = 1.0);
     void weatherSourceChanged(int source);
 
 #ifndef VREMENAR_MOBILE
+    void setPrimaryWindowDevicePixelRatio(qreal ratio);
     void showAboutDialog();
     void showSettingsDialog();
     void showMapsMenu();

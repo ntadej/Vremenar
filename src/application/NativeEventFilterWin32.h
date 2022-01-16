@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -20,14 +20,18 @@ namespace Vremenar
 class NativeEventFilterWin32 : public QAbstractNativeEventFilter
 {
 public:
-    explicit NativeEventFilterWin32(quintptr winId);
+    explicit NativeEventFilterWin32(quintptr winId,
+                                    qreal devicePixelRatio);
 
     bool nativeEventFilter(const QByteArray &eventType,
                            void *message,
                            long *result) override; // NOLINT(google-runtime-int)
 
+    void setPrimaryWindowDevicePixelRatio(qreal ratio);
+
 private:
     quintptr _winId;
+    qreal _devicePixelRatio{1.0};
 };
 
 } // namespace Vremenar

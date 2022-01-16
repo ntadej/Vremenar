@@ -281,6 +281,16 @@ void ApplicationWindow::updateTrayIcon()
     _trayIcon->setCurrentMap(_weatherProvider->currentMapLayer());
 }
 
+void ApplicationWindow::setPrimaryWindowDevicePixelRatio(qreal ratio)
+{
+#ifdef Q_OS_WINDOWS
+    auto *application = qobject_cast<DesktopApplication *>(QCoreApplication::instance());
+    application->setPrimaryWindowDevicePixelRatio(ratio);
+#else
+    Q_UNUSED(ratio)
+#endif
+}
+
 void ApplicationWindow::showAboutDialog()
 {
     AboutDialog dialog(_weatherProvider.get());
@@ -334,7 +344,8 @@ void ApplicationWindow::processUrl(const QString &url)
     qDebug() << "Opened URL:" << url;
 }
 
-void ApplicationWindow::startCompleted(QQuickWindow *window)
+void ApplicationWindow::startCompleted(QQuickWindow *window,
+                                       qreal devicePixelRatio)
 {
     Settings settings(this);
 #ifdef Q_OS_MACOS
@@ -349,7 +360,9 @@ void ApplicationWindow::startCompleted(QQuickWindow *window)
     connect(_qmlMainWindow, &QQuickWindow::visibleChanged, this, &ApplicationWindow::visibilityChanged);
 #if defined(Q_OS_MACOS) || defined(Q_OS_WINDOWS)
     auto *application = qobject_cast<DesktopApplication *>(QCoreApplication::instance());
-    application->setupTitleBarLessWindow(window->winId());
+    application->setupTitleBarLessWindow(window->winId(), devicePixelRatio);
+#else
+    Q_UNUSED(devicePixelRatio)
 #endif
 
     _ready = true;

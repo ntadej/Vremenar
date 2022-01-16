@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -26,9 +26,10 @@ enum class Style : DWORD {
 namespace Vremenar
 {
 
-void DesktopApplication::setupTitleBarLessWindow(quintptr winId)
+void DesktopApplication::setupTitleBarLessWindow(quintptr winId,
+                                                 qreal devicePixelRatio)
 {
-    _nativeEventFilter = std::make_unique<NativeEventFilterWin32>(winId);
+    _nativeEventFilter = std::make_unique<NativeEventFilterWin32>(winId, devicePixelRatio);
     installNativeEventFilter(_nativeEventFilter.get());
 
     // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast, performance-no-int-to-ptr)
@@ -44,6 +45,13 @@ void DesktopApplication::setupTitleBarLessWindow(quintptr winId)
     //redraw frame
     SetWindowPos(wnd, Q_NULLPTR, 0, 0, 0, 0, SWP_FRAMECHANGED | SWP_NOMOVE | SWP_NOSIZE);
     ShowWindow(wnd, SW_SHOW);
+}
+
+void DesktopApplication::setPrimaryWindowDevicePixelRatio(qreal ratio)
+{
+    if (_nativeEventFilter != nullptr) {
+        _nativeEventFilter->setPrimaryWindowDevicePixelRatio(ratio);
+    }
 }
 
 } // namespace Vremenar

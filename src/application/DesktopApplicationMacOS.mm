@@ -135,7 +135,8 @@ void DesktopApplication::dockHide()
     qDebug() << "Dock icon hidden";
 }
 
-void DesktopApplication::setupTitleBarLessWindow(quintptr winId)
+void DesktopApplication::setupTitleBarLessWindow(quintptr winId,
+                                                 qreal /* devicePixelRatio */)
 {
     if (winId == 0) {
         return;
