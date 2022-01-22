@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -26,7 +26,7 @@ ListRadioView {
             translatable: true
         }
         ListElement {
-            display: QT_TR_NOOP("Germany (DWD, preliminary)")
+            display: QT_TR_NOOP("Germany (DWD)")
             translatable: true
         }
     }

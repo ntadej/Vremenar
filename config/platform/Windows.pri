@@ -18,7 +18,7 @@ win32-msvc {
 }
 
 QMAKE_TARGET_COMPANY = "Tadej Novak"
-QMAKE_TARGET_DESCRIPTION = "Vremenar"
+QMAKE_TARGET_DESCRIPTION = "Vremenar Weather"
 QMAKE_TARGET_COPYRIGHT = "Copyright (C) 2022 Tadej Novak"
 
 RC_ICONS = $$top_srcdir/resources/Windows/vremenar.ico

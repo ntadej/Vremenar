@@ -278,22 +278,22 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/settings/SettingsDialog.ui" line="205"/>
+        <location filename="../../../src/settings/SettingsDialog.ui" line="232"/>
         <source>Remember size on exit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/settings/SettingsDialog.ui" line="212"/>
+        <location filename="../../../src/settings/SettingsDialog.ui" line="239"/>
         <source>Remember position on exit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/settings/SettingsDialog.ui" line="219"/>
+        <location filename="../../../src/settings/SettingsDialog.ui" line="205"/>
         <source>Show in tray</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/settings/SettingsDialog.ui" line="229"/>
+        <location filename="../../../src/settings/SettingsDialog.ui" line="215"/>
         <source>Show in dock</source>
         <translation type="unfinished"></translation>
     </message>
@@ -322,7 +322,7 @@
     </message>
     <message>
         <location filename="../../../src/qml/Vremenar/Navigation/elements/SourceSelection.qml" line="29"/>
-        <source>Germany (DWD, preliminary)</source>
+        <source>Germany (DWD)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -335,7 +335,7 @@
     </message>
     <message>
         <location filename="../../../src/application/dialogs/AboutDialog.cpp" line="69"/>
-        <source>Vremenar</source>
+        <source>Vremenar Weather</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -362,17 +362,17 @@
 <context>
     <name>Vremenar::ApplicationWindow</name>
     <message>
-        <location filename="../../../src/application/ApplicationWindow.cpp" line="283"/>
+        <location filename="../../../src/application/ApplicationWindow.cpp" line="279"/>
         <source>Satellite</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/application/ApplicationWindow.cpp" line="283"/>
+        <location filename="../../../src/application/ApplicationWindow.cpp" line="279"/>
         <source>Streets (Light)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/application/ApplicationWindow.cpp" line="283"/>
+        <location filename="../../../src/application/ApplicationWindow.cpp" line="279"/>
         <source>Streets (Dark)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -406,7 +406,7 @@
     </message>
     <message>
         <location filename="../../../src/weather/models/MapLayersProxyModel.cpp" line="134"/>
-        <source>Vremenar</source>
+        <source>Vremenar Weather</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -436,18 +436,18 @@
 <context>
     <name>Vremenar::SettingsDialog</name>
     <message>
-        <location filename="../../../src/settings/SettingsDialog.cpp" line="277"/>
+        <location filename="../../../src/settings/SettingsDialog.cpp" line="275"/>
         <source>Weather source changed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/settings/SettingsDialog.cpp" line="278"/>
+        <location filename="../../../src/settings/SettingsDialog.cpp" line="276"/>
         <source>The weather source has been changed.
 The application will now restart.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/settings/SettingsDialog.cpp" line="294"/>
+        <location filename="../../../src/settings/SettingsDialog.cpp" line="292"/>
         <source>System default</source>
         <translation type="unfinished"></translation>
     </message>
@@ -515,12 +515,12 @@ The application will now restart.</source>
 <context>
     <name>Vremenar::Updates</name>
     <message>
-        <location filename="../../../src/application/Updates.cpp" line="93"/>
+        <location filename="../../../src/application/Updates.cpp" line="95"/>
         <source>An update is available. Do you want to download it now?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../../../src/application/Updates.cpp" line="99"/>
+        <location filename="../../../src/application/Updates.cpp" line="101"/>
         <source>A new testing update is available. Do you want to download it now?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -538,7 +538,7 @@ The application will now restart.</source>
     <message>
         <location filename="../../../src/qml/Vremenar/main.qml" line="23"/>
         <location filename="../../../src/qml/Vremenar/main.qml" line="24"/>
-        <source>Vremenar</source>
+        <source>Vremenar Weather</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

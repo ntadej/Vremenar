@@ -23,6 +23,7 @@
         <key>CFBundleLocalizations</key>
         <array>
             <string>en</string>
+            <string>de</string>
             <string>sl</string>
         </array>
         <key>CFBundleSignature</key>

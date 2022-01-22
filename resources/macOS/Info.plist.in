@@ -35,6 +35,12 @@
                 </array>
             </dict>
         </array>
+        <key>CFBundleLocalizations</key>
+        <array>
+            <string>en</string>
+            <string>de</string>
+            <string>sl</string>
+        </array>
         <key>ForAppStore</key>
         <string>yes</string>
         <key>NSHighResolutionCapable</key>

@@ -66,7 +66,7 @@ AboutDialog::AboutDialog(WeatherProvider *weatherProvider,
         QStringLiteral("https://vremenar.tano.si"),
         QStringLiteral("https://vremenar.tano.si"));
 
-    ui->labelVremenar->setText(tr("Vremenar"));
+    ui->labelVremenar->setText(tr("Vremenar Weather"));
     ui->labelVersion->setText(tr("Version %1 (%2)").arg(Vremenar::version, QString::number(Vremenar::build)));
     ui->labelCopyright->setText(QStringLiteral("© %1 Tadej Novak").arg(QDate::currentDate().toString(QStringLiteral("yyyy"))));
     ui->labelHomepage->setText(homepage->asHtml(additionalStyle));

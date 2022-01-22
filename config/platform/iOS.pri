@@ -41,6 +41,10 @@ TRANSLATE_en.files = $$top_srcdir/resources/iOS/en.lproj/InfoPlist.strings
 TRANSLATE_en.path = en.lproj
 QMAKE_BUNDLE_DATA += TRANSLATE_en
 
+TRANSLATE_de.files = $$top_srcdir/resources/iOS/de.lproj/InfoPlist.strings
+TRANSLATE_de.path = de.lproj
+QMAKE_BUNDLE_DATA += TRANSLATE_de
+
 TRANSLATE_sl.files = $$top_srcdir/resources/iOS/sl.lproj/InfoPlist.strings
 TRANSLATE_sl.path = sl.lproj
 QMAKE_BUNDLE_DATA += TRANSLATE_sl
