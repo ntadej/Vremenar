@@ -24,7 +24,7 @@ TrayIcon::TrayIcon(QObject *parent)
       _actionSettings(std::make_unique<QAction>(tr("Settings"))),
       _actionCheckForUpdates(std::make_unique<QAction>(tr("Check for updates"))),
       _actionAbout(std::make_unique<QAction>(tr("About Vremenar"))),
-      _actionQuit(std::make_unique<QAction>(tr("Quit")))
+      _actionQuit(std::make_unique<QAction>(tr("Exit")))
 {
     setCurrentCondition(nullptr);
 

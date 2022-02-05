@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -85,7 +85,7 @@ MenuBar {
         title: qsTr("&Help") + VL.R
 
         MenuItem {
-            text: qsTr("&About") + VL.R
+            text: qsTr("About") + VL.R
             onTriggered: Vremenar.showAboutDialog()
         }
 

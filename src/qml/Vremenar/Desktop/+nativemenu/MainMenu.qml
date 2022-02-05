@@ -167,7 +167,7 @@ Item {
             }
 
             MenuItem {
-                text: qsTr("&About") + VL.R
+                text: qsTr("About") + VL.R
                 onTriggered: Vremenar.showAboutDialog()
             }
         }
@@ -177,7 +177,7 @@ Item {
             title: Qt.platform.os === "osx" ? "&Help" : qsTr("&Help") + VL.R
 
             MenuItem {
-                text: Qt.platform.os === "osx" ? "&About" : qsTr("&About") + VL.R
+                text: Qt.platform.os === "osx" ? "&About" : qsTr("About") + VL.R
                 onTriggered: Vremenar.showAboutDialog()
             }
 

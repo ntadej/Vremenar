@@ -62,7 +62,7 @@
         <location filename="../../../src/qml/Vremenar/Desktop/+custommenu/MainMenu.qml" line="88"/>
         <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="170"/>
         <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="180"/>
-        <source>&amp;About</source>
+        <source>About</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -496,7 +496,7 @@ The application will now restart.</source>
     </message>
     <message>
         <location filename="../../../src/application/TrayIcon.cpp" line="27"/>
-        <source>Quit</source>
+        <source>Exit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

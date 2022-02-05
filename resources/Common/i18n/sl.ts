@@ -62,8 +62,8 @@
         <location filename="../../../src/qml/Vremenar/Desktop/+custommenu/MainMenu.qml" line="88"/>
         <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="170"/>
         <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="180"/>
-        <source>&amp;About</source>
-        <translation>&amp;O programu</translation>
+        <source>About</source>
+        <translation>O aplikaciji</translation>
     </message>
     <message>
         <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="165"/>
@@ -497,7 +497,7 @@ Aplikacija se bo ponovno zagnala.</translation>
     </message>
     <message>
         <location filename="../../../src/application/TrayIcon.cpp" line="27"/>
-        <source>Quit</source>
+        <source>Exit</source>
         <translation>Izhod</translation>
     </message>
     <message>
