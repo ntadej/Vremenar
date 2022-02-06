@@ -138,7 +138,7 @@ ColumnLayout {
         }
     }
     Shortcut {
-        sequences: ["Menu"]
+        sequences: UI.isTV ? ["Menu", "M"] : []
         onActivated: {
             console.log("'Menu' pressed")
             mapSettingsDialog.open()
@@ -304,7 +304,7 @@ ColumnLayout {
 
     RowLayout {
         id: mapSliderRow
-        Layout.minimumHeight: mapSlider.implicitHeight + UI.mapElementOffset
+        Layout.minimumHeight: !UI.isTV ? mapSlider.implicitHeight + UI.mapElementOffset : 0
 
         Item {
             Layout.fillWidth: true
@@ -312,6 +312,8 @@ ColumnLayout {
 
         MapSlider {
             id: mapSlider
+            enabled: !UI.isTV
+            visible: !UI.isTV
 
             Layout.alignment: Qt.AlignTop
             Layout.preferredWidth: buttonRow.spacing * 4 + UI.mapElementSize * 5

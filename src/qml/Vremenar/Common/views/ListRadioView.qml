@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -60,6 +60,7 @@ ColumnLayout {
 
         height: count * UI.rowHeight
         Layout.fillHeight: true
+        Layout.minimumHeight: count * UI.rowHeight
 
         delegate: ListRadioDelegate {
             count: view.count
