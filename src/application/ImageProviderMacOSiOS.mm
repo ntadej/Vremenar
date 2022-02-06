@@ -77,8 +77,10 @@ QImage SFSymbolsImageProvider::requestImage(const QString &id,
     if (@available(iOS 13.0, *)) {
         QColor color(idSplit[1]);
         UIImageSymbolWeight uiWeight = idSplit[2] == QStringLiteral("UltraLight") ? UIImageSymbolWeightUltraLight : UIImageSymbolWeightRegular;
+        double devicePixelRatio = idSplit[3].toDouble();
+        int width = devicePixelRatio >= 3 ? requestedSize.width() / 7 * 5 : requestedSize.width();
         auto uiColor = [UIColor colorWithRed:color.redF() green:color.greenF() blue:color.blueF() alpha:1.];
-        auto uiConfig = [UIImageSymbolConfiguration configurationWithPointSize:requestedSize.width() weight:uiWeight];
+        auto uiConfig = [UIImageSymbolConfiguration configurationWithPointSize:width weight:uiWeight];
         auto uiImage = [UIImage systemImageNamed:idSplit[0].toNSString() withConfiguration:uiConfig];
         uiImage = imageWithColor(uiColor, uiImage);
         cgImage = [uiImage CGImage];
