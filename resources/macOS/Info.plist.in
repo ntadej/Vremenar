@@ -51,8 +51,8 @@
         <string>NSApplication</string>
         <key>NSSupportsAutomaticGraphicsSwitching</key>
         <true/>
-        <key>NSLocationWhenInUseUsageDescription</key>
-        <string>Location for weather info.</string>
+        <key>NSLocationUsageDescription</key>
+        <string>Location for providing weather information.</string>
         <key>NSAccentColorName</key>
         <string>AccentColor</string>
         <key>LSApplicationCategoryType</key>

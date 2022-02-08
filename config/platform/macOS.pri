@@ -35,6 +35,18 @@ containerMigration.files = $$top_srcdir/resources/macOS/container-migration.plis
 containerMigration.path = Contents/Resources
 QMAKE_BUNDLE_DATA += containerMigration
 
+TRANSLATE_en.files = $$top_srcdir/resources/macOS/en.lproj/InfoPlist.strings
+TRANSLATE_en.path = Contents/Resources/en.lproj
+QMAKE_BUNDLE_DATA += TRANSLATE_en
+
+TRANSLATE_de.files = $$top_srcdir/resources/macOS/de.lproj/InfoPlist.strings
+TRANSLATE_de.path = Contents/Resources/de.lproj
+QMAKE_BUNDLE_DATA += TRANSLATE_de
+
+TRANSLATE_sl.files = $$top_srcdir/resources/macOS/sl.lproj/InfoPlist.strings
+TRANSLATE_sl.path = Contents/Resources/sl.lproj
+QMAKE_BUNDLE_DATA += TRANSLATE_sl
+
 # Countly
 QMAKE_CXXFLAGS += -F$$top_srcdir/3rdparty/Countly/macOS
 LIBS += -F$$top_srcdir/3rdparty/Countly/macOS -framework Countly
