@@ -30,10 +30,22 @@ public:
     explicit Updates(NetworkManager *network,
                      QObject *parent = nullptr);
 
+    Q_PROPERTY(bool enabled READ enabled CONSTANT)
     Q_PROPERTY(QString server READ server NOTIFY serverChanged)
     Q_PROPERTY(QString message READ message NOTIFY messageChanged)
     Q_PROPERTY(QString url READ url NOTIFY messageChanged)
 
+#ifdef VREMENAR_STORE
+    inline bool enabled()
+    {
+        return false;
+    }
+#else
+    inline bool enabled()
+    {
+        return true;
+    }
+#endif
     inline const QString &server() { return _server; }
     inline const QString &message() { return _message; }
     inline const QString &url() { return _url; }

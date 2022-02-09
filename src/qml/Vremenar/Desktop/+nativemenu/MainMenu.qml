@@ -33,6 +33,7 @@ Item {
 
             MenuItem {
                 text: Qt.platform.os === "osx" ? "E&xit" : qsTr("E&xit") + VL.R
+                role: MenuItem.QuitRole
                 shortcut: StandardKey.Quit
                 onTriggered: Qt.quit()
             }
@@ -40,6 +41,7 @@ Item {
             MenuItem {
                 text: Qt.platform.os === "osx" ? "Preferences" : qsTr("Settings") + VL.R
                 onTriggered: Vremenar.showSettingsDialog()
+                role: MenuItem.PreferencesRole
             }
         }
 
@@ -159,31 +161,36 @@ Item {
             MenuItem {
                 text: qsTr("Settings") + VL.R
                 onTriggered: Vremenar.showSettingsDialog()
+                role: MenuItem.NoRole
             }
 
             MenuItem {
                 text: qsTr("Check for updates") + VL.R
                 onTriggered: VUpdates.checkForUpdates()
+                visible: VUpdates.enabled
             }
 
             MenuItem {
                 text: qsTr("About") + VL.R
                 onTriggered: Vremenar.showAboutDialog()
+                role: MenuItem.NoRole
             }
         }
 
         // Help menu
         Menu {
-            title: Qt.platform.os === "osx" ? "&Help" : qsTr("&Help") + VL.R
+            title: qsTr("&Help") + VL.R
 
             MenuItem {
-                text: Qt.platform.os === "osx" ? "&About" : qsTr("About") + VL.R
+                text: qsTr("About") + VL.R
                 onTriggered: Vremenar.showAboutDialog()
+                role: MenuItem.AboutRole
             }
 
             MenuItem {
-                text: Qt.platform.os === "osx" ? "&Check for updates" : qsTr("&Check for updates") + VL.R
+                text: qsTr("&Check for updates") + VL.R
                 onTriggered: VUpdates.checkForUpdates()
+                visible: VUpdates.enabled
             }
         }
     }
