@@ -2,6 +2,11 @@
 
 CODE_SIGN_IDENTITY="$4"
 PKG_SIGN_IDENTITY="$5"
+PROVISIONING_PROFILE="$6"
+
+if [[ "$PROVISIONING_PROFILE" != "" ]]; then
+  cp "$PROVISIONING_PROFILE" "$1/Contents/embedded.provisionprofile"
+fi
 
 if [[ "$CODE_SIGN_IDENTITY" != "" ]]; then
   macdeployqt "$1" -qmldir="$3/src/qml/" \

@@ -1,4 +1,5 @@
 *.pro.user*
+*.provisionprofile
 *.so
 config.pri
 
