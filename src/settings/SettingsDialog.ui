@@ -7,19 +7,19 @@
     <x>0</x>
     <y>0</y>
     <width>480</width>
-    <height>405</height>
+    <height>440</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
     <width>480</width>
-    <height>405</height>
+    <height>440</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
     <width>480</width>
-    <height>405</height>
+    <height>440</height>
    </size>
   </property>
   <property name="unifiedTitleAndToolBarOnMac">
@@ -179,7 +179,7 @@
            <string notr="true">font-style: italic;</string>
           </property>
           <property name="text">
-           <string>Select from the list or press enter to confirm.</string>
+           <string>Select from the list of stations or press enter to confirm.</string>
           </property>
           <property name="wordWrap">
            <bool>true</bool>

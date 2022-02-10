@@ -20,11 +20,19 @@ TrayIcon::TrayIcon(QObject *parent)
       _menuMaps(std::make_unique<QMenu>()),
       _menuDock(std::make_unique<QMenu>()),
       _menuSettings(std::make_unique<QMenu>()),
-      _actionShow(std::make_unique<QAction>(tr("Show"))),
+      _actionShow(std::make_unique<QAction>(tr("Show Vremenar"))),
+#ifdef Q_OS_MAC
+      _actionSettings(std::make_unique<QAction>(tr("Preferences"))),
+#else
       _actionSettings(std::make_unique<QAction>(tr("Settings"))),
+#endif
       _actionCheckForUpdates(std::make_unique<QAction>(tr("Check for updates"))),
       _actionAbout(std::make_unique<QAction>(tr("About Vremenar"))),
-      _actionQuit(std::make_unique<QAction>(tr("Exit")))
+#ifdef Q_OS_MAC
+      _actionQuit(std::make_unique<QAction>(tr("Quit Vremenar")))
+#else
+      _actionQuit(std::make_unique<QAction>(tr("Exit Vremenar")))
+#endif
 {
     setCurrentCondition(nullptr);
 

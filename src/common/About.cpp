@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -18,7 +18,7 @@ std::vector<std::unique_ptr<Hyperlink>> aboutLinks()
 {
     std::vector<std::unique_ptr<Hyperlink>> list;
     list.emplace_back(std::make_unique<Hyperlink>(
-        QObject::tr("About"),
+        QObject::tr("About Vremenar"),
         QStringLiteral("https://vremenar.tano.si"),
         true));
     list.emplace_back(std::make_unique<Hyperlink>(

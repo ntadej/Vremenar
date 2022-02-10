@@ -85,7 +85,7 @@ MenuBar {
         title: qsTr("&Help") + VL.R
 
         MenuItem {
-            text: qsTr("About") + VL.R
+            text: qsTr("About Vremenar") + VL.R
             onTriggered: Vremenar.showAboutDialog()
         }
 

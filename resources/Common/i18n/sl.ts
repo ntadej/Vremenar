@@ -5,73 +5,83 @@
     <name>MainMenu</name>
     <message>
         <location filename="../../../src/qml/Vremenar/Desktop/+custommenu/MainMenu.qml" line="21"/>
-        <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="32"/>
+        <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="34"/>
         <source>&amp;File</source>
         <translation>&amp;Datoteka</translation>
     </message>
     <message>
         <location filename="../../../src/qml/Vremenar/Desktop/+custommenu/MainMenu.qml" line="24"/>
-        <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="41"/>
-        <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="160"/>
+        <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="44"/>
+        <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="164"/>
         <source>Settings</source>
         <translation>Nastavitve</translation>
     </message>
     <message>
         <location filename="../../../src/qml/Vremenar/Desktop/+custommenu/MainMenu.qml" line="29"/>
-        <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="35"/>
+        <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="37"/>
         <source>E&amp;xit</source>
         <translation>Izho&amp;d</translation>
     </message>
     <message>
         <location filename="../../../src/qml/Vremenar/Desktop/+custommenu/MainMenu.qml" line="40"/>
-        <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="24"/>
+        <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="26"/>
         <source>Satellite</source>
         <translation>Satelit</translation>
     </message>
     <message>
         <location filename="../../../src/qml/Vremenar/Desktop/+custommenu/MainMenu.qml" line="41"/>
-        <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="25"/>
+        <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="27"/>
         <source>Streets (Light)</source>
         <translation>Ulice (svetlo)</translation>
     </message>
     <message>
         <location filename="../../../src/qml/Vremenar/Desktop/+custommenu/MainMenu.qml" line="42"/>
-        <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="26"/>
+        <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="28"/>
         <source>Streets (Dark)</source>
         <translation>Ulice (temno)</translation>
     </message>
     <message>
         <location filename="../../../src/qml/Vremenar/Desktop/+custommenu/MainMenu.qml" line="49"/>
-        <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="50"/>
+        <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="54"/>
         <source>Map Style</source>
         <translation>Izgled zemljevida</translation>
     </message>
     <message>
         <location filename="../../../src/qml/Vremenar/Desktop/+custommenu/MainMenu.qml" line="68"/>
-        <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="76"/>
+        <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="80"/>
         <source>Map Type</source>
         <translation>Tip zemljevida</translation>
     </message>
     <message>
         <location filename="../../../src/qml/Vremenar/Desktop/+custommenu/MainMenu.qml" line="85"/>
-        <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="177"/>
+        <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="191"/>
         <source>&amp;Help</source>
         <translation>&amp;Pomoč</translation>
     </message>
     <message>
         <location filename="../../../src/qml/Vremenar/Desktop/+custommenu/MainMenu.qml" line="88"/>
-        <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="170"/>
-        <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="180"/>
-        <source>About</source>
-        <translation>O aplikaciji</translation>
+        <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="176"/>
+        <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="194"/>
+        <source>About Vremenar</source>
+        <translation>O programu Vremenar</translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="165"/>
+        <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="164"/>
+        <source>Preferences</source>
+        <translation>Nastavitve</translation>
+    </message>
+    <message>
+        <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="170"/>
         <source>Check for updates</source>
         <translation>Preveri za posodobitve</translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="185"/>
+        <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="182"/>
+        <source>Quit Vremenar</source>
+        <translation>Zapri Vremenar</translation>
+    </message>
+    <message>
+        <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="200"/>
         <source>&amp;Check for updates</source>
         <translation>Preveri za &amp;posodobitve</translation>
     </message>
@@ -99,27 +109,27 @@
         <translation>Gumbi za upravljanje z zemljevidom so sedaj dostopni</translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Maps/MapControls.qml" line="347"/>
+        <location filename="../../../src/qml/Vremenar/Maps/MapControls.qml" line="349"/>
         <source>Last updated:</source>
         <translation>Nazadnje osveženo:</translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Maps/MapControls.qml" line="355"/>
+        <location filename="../../../src/qml/Vremenar/Maps/MapControls.qml" line="357"/>
         <source>Weather data</source>
         <translation>Vremenski podatki</translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Maps/MapControls.qml" line="356"/>
+        <location filename="../../../src/qml/Vremenar/Maps/MapControls.qml" line="358"/>
         <source>Maps</source>
         <translation>Zemljevidi</translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Maps/MapControls.qml" line="358"/>
+        <location filename="../../../src/qml/Vremenar/Maps/MapControls.qml" line="360"/>
         <source>backend</source>
         <translation>strežnik</translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Maps/MapControls.qml" line="380"/>
+        <location filename="../../../src/qml/Vremenar/Maps/MapControls.qml" line="382"/>
         <source>Change country</source>
         <translation>Zamenjaj državo</translation>
     </message>
@@ -196,8 +206,8 @@
     </message>
     <message>
         <location filename="../../../src/common/About.cpp" line="21"/>
-        <source>About</source>
-        <translation>O aplikaciji</translation>
+        <source>About Vremenar</source>
+        <translation>O programu Vremenar</translation>
     </message>
     <message>
         <location filename="../../../src/common/About.cpp" line="25"/>
@@ -273,37 +283,37 @@
         <translation>dolžina</translation>
     </message>
     <message>
-        <location filename="../../../src/settings/SettingsDialog.ui" line="182"/>
-        <source>Select from the list or press enter to confirm.</source>
-        <translation>Izberi iz seznama ali pritisni enter za potrditev.</translation>
-    </message>
-    <message>
-        <location filename="../../../src/settings/SettingsDialog.ui" line="232"/>
+        <location filename="../../../src/settings/SettingsDialog.ui" line="235"/>
         <source>Remember size on exit</source>
         <translation>Zapomni si velikost okna ob izhodu</translation>
     </message>
     <message>
-        <location filename="../../../src/settings/SettingsDialog.ui" line="239"/>
+        <location filename="../../../src/settings/SettingsDialog.ui" line="242"/>
         <source>Remember position on exit</source>
         <translation>Zapomni si položaj okna ob izhodu</translation>
     </message>
     <message>
-        <location filename="../../../src/settings/SettingsDialog.ui" line="205"/>
+        <location filename="../../../src/settings/SettingsDialog.ui" line="208"/>
         <source>Show in tray</source>
         <translation>Prikaži v opravilni vrstici</translation>
     </message>
     <message>
-        <location filename="../../../src/settings/SettingsDialog.ui" line="215"/>
+        <location filename="../../../src/settings/SettingsDialog.ui" line="182"/>
+        <source>Select from the list of stations or press enter to confirm.</source>
+        <translation>Izberi iz seznama ali pritisni enter za potrditev.</translation>
+    </message>
+    <message>
+        <location filename="../../../src/settings/SettingsDialog.ui" line="218"/>
         <source>Show in dock</source>
         <translation>Prikaži v docku</translation>
     </message>
     <message>
-        <location filename="../../../src/settings/SettingsDialog.ui" line="291"/>
+        <location filename="../../../src/settings/SettingsDialog.ui" line="294"/>
         <source>General</source>
         <translation>Splošno</translation>
     </message>
     <message>
-        <location filename="../../../src/settings/SettingsDialog.ui" line="303"/>
+        <location filename="../../../src/settings/SettingsDialog.ui" line="306"/>
         <source>Interface</source>
         <translation>Vmesnik</translation>
     </message>
@@ -453,14 +463,14 @@ Aplikacija se bo ponovno zagnala.</translation>
         <translation>Sistemsko privzeto</translation>
     </message>
     <message>
-        <location filename="../../../src/settings/SettingsDialogMacOS.mm" line="28"/>
-        <location filename="../../../src/settings/SettingsDialogMacOS.mm" line="60"/>
+        <location filename="../../../src/settings/SettingsDialogMacOS.mm" line="33"/>
+        <location filename="../../../src/settings/SettingsDialogMacOS.mm" line="65"/>
         <source>General</source>
         <translation>Splošno</translation>
     </message>
     <message>
-        <location filename="../../../src/settings/SettingsDialogMacOS.mm" line="32"/>
-        <location filename="../../../src/settings/SettingsDialogMacOS.mm" line="61"/>
+        <location filename="../../../src/settings/SettingsDialogMacOS.mm" line="37"/>
+        <location filename="../../../src/settings/SettingsDialogMacOS.mm" line="66"/>
         <source>Interface</source>
         <translation>Vmesnik</translation>
     </message>
@@ -477,38 +487,48 @@ Aplikacija se bo ponovno zagnala.</translation>
     <name>Vremenar::TrayIcon</name>
     <message>
         <location filename="../../../src/application/TrayIcon.cpp" line="23"/>
-        <source>Show</source>
-        <translation>Prikaži</translation>
+        <source>Show Vremenar</source>
+        <translation>Prikaži Vremenar</translation>
     </message>
     <message>
-        <location filename="../../../src/application/TrayIcon.cpp" line="24"/>
+        <location filename="../../../src/application/TrayIcon.cpp" line="25"/>
+        <source>Preferences</source>
+        <translation>Nastavitve</translation>
+    </message>
+    <message>
+        <location filename="../../../src/application/TrayIcon.cpp" line="27"/>
         <source>Settings</source>
         <translation>Nastavitve</translation>
     </message>
     <message>
-        <location filename="../../../src/application/TrayIcon.cpp" line="25"/>
+        <location filename="../../../src/application/TrayIcon.cpp" line="29"/>
         <source>Check for updates</source>
         <translation>Preveri za posodobitve</translation>
     </message>
     <message>
-        <location filename="../../../src/application/TrayIcon.cpp" line="26"/>
+        <location filename="../../../src/application/TrayIcon.cpp" line="30"/>
         <source>About Vremenar</source>
         <translation>O programu Vremenar</translation>
     </message>
     <message>
-        <location filename="../../../src/application/TrayIcon.cpp" line="27"/>
-        <source>Exit</source>
-        <translation>Izhod</translation>
+        <location filename="../../../src/application/TrayIcon.cpp" line="32"/>
+        <source>Quit Vremenar</source>
+        <translation>Zapri Vremenar</translation>
     </message>
     <message>
-        <location filename="../../../src/application/TrayIcon.cpp" line="106"/>
-        <location filename="../../../src/application/TrayIcon.cpp" line="107"/>
+        <location filename="../../../src/application/TrayIcon.cpp" line="34"/>
+        <source>Exit Vremenar</source>
+        <translation>Zapri Vremenar</translation>
+    </message>
+    <message>
+        <location filename="../../../src/application/TrayIcon.cpp" line="114"/>
+        <location filename="../../../src/application/TrayIcon.cpp" line="115"/>
         <source>Map Style</source>
         <translation>Izgled zemljevida</translation>
     </message>
     <message>
-        <location filename="../../../src/application/TrayIcon.cpp" line="95"/>
-        <location filename="../../../src/application/TrayIcon.cpp" line="96"/>
+        <location filename="../../../src/application/TrayIcon.cpp" line="103"/>
+        <location filename="../../../src/application/TrayIcon.cpp" line="104"/>
         <source>Map Type</source>
         <translation>Tip zemljevida</translation>
     </message>

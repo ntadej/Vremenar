@@ -34,6 +34,9 @@ class Settings : public QSettings
     Q_PROPERTY(int height READ height CONSTANT)
     Q_PROPERTY(int posX READ posX CONSTANT)
     Q_PROPERTY(int posY READ posY CONSTANT)
+#if defined(Q_OS_MACOS)
+    Q_PROPERTY(bool showInDock READ showInDock CONSTANT)
+#endif
 
 public:
     explicit Settings(QObject *parent = nullptr);

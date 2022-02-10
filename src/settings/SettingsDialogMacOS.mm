@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -15,6 +15,11 @@
 
 #include "SettingsDialog.h"
 #include "ui_SettingsDialog.h"
+
+namespace
+{
+constexpr int offset{12};
+} // namespace
 
 namespace Vremenar
 {
@@ -50,8 +55,8 @@ void SettingsDialog::initializeMacOS()
     NSRect frame = [window frame];
     double extraHeight = frame.size.height - NSHeight([[window contentView] frame]);
     frame.origin.y += frame.size.height;
-    frame.origin.y -= ui->pageGeneral->sizeHint().height() + extraHeight;
-    frame.size.height = ui->pageGeneral->sizeHint().height() + extraHeight;
+    frame.origin.y -= ui->pageGeneral->sizeHint().height() + offset + extraHeight;
+    frame.size.height = ui->pageGeneral->sizeHint().height() + offset + extraHeight;
     [window setFrame:frame display:YES];
 }
 
@@ -74,7 +79,7 @@ void SettingsDialog::actionToggledMacOS()
     ui->stackedWidget->hide();
     if (item == _macItemGeneral.get()) {
         ui->stackedWidget->setCurrentWidget(ui->pageGeneral);
-        stackHeight = ui->pageGeneral->sizeHint().height();
+        stackHeight = ui->pageGeneral->sizeHint().height() + offset;
     } else if (item == _macItemInterface.get()) {
         ui->stackedWidget->setCurrentWidget(ui->pageInterface);
         stackHeight = ui->pageInterface->sizeHint().height();

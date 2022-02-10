@@ -14,6 +14,8 @@ import QtQml.Models 2.15
 import QtQuick 2.15
 import Qt.labs.platform 1.1
 
+import Vremenar 1.0
+
 Item {
     property alias mapTypeMenu: mapTypeMenu
     property alias mapMenu: mapMenu
@@ -159,7 +161,7 @@ Item {
             visible: false
 
             MenuItem {
-                text: qsTr("Settings") + VL.R
+                text: Qt.platform.os === "osx" ? qsTr("Preferences") + VL.R : qsTr("Settings") + VL.R
                 onTriggered: Vremenar.showSettingsDialog()
                 role: MenuItem.NoRole
             }
@@ -171,9 +173,16 @@ Item {
             }
 
             MenuItem {
-                text: qsTr("About") + VL.R
+                text: qsTr("About Vremenar") + VL.R
                 onTriggered: Vremenar.showAboutDialog()
                 role: MenuItem.NoRole
+            }
+
+            MenuItem {
+                text: qsTr("Quit Vremenar") + VL.R
+                onTriggered: Qt.quit()
+                role: MenuItem.NoRole
+                visible: Qt.platform.os === "osx" && !Settings.showInDock
             }
         }
 
@@ -182,7 +191,7 @@ Item {
             title: qsTr("&Help") + VL.R
 
             MenuItem {
-                text: qsTr("About") + VL.R
+                text: qsTr("About Vremenar") + VL.R
                 onTriggered: Vremenar.showAboutDialog()
                 role: MenuItem.AboutRole
             }
