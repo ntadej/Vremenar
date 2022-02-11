@@ -130,6 +130,9 @@ ApplicationWindow::ApplicationWindow(QObject *parent)
     appIcon.addFile(QStringLiteral(":/Vremenar/Logo/128x128/vremenar.png"), QSize(128, 128)); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
     appIcon.addFile(QStringLiteral(":/Vremenar/Logo/256x256/vremenar.png"), QSize(256, 256)); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
     QGuiApplication::setWindowIcon(appIcon);
+
+    Settings settings;
+    QApplication::setQuitOnLastWindowClosed(!settings.showInTray());
 #endif
 }
 
@@ -276,6 +279,11 @@ void ApplicationWindow::createWidgets()
 
 void ApplicationWindow::updateTrayIcon()
 {
+    Settings settings;
+    QApplication::setQuitOnLastWindowClosed(!settings.showInTray());
+
+    _trayIcon->setVisible(settings.showInTray());
+
     _trayIcon->createMenu({tr("Satellite"), tr("Streets (Light)"), tr("Streets (Dark)")}, _weatherProvider->mapInfo()->list());
     _trayIcon->setCurrentStyle(_weatherProvider->currentMapStyle());
     _trayIcon->setCurrentMap(_weatherProvider->currentMapLayer());
@@ -307,7 +315,7 @@ void ApplicationWindow::showSettingsDialog()
     connect(dialog, &SettingsDialog::locationChanged, _location.get(), &LocationProvider::locationSettingsChanged);
     connect(dialog, &SettingsDialog::weatherSourceChanged, this, &ApplicationWindow::weatherSourceChanged);
 
-    connect(dialog, &SettingsDialog::showInTrayChanged, _trayIcon.get(), &TrayIcon::setVisible);
+    connect(dialog, &SettingsDialog::showInTrayChanged, this, &ApplicationWindow::updateTrayIcon);
 #ifdef Q_OS_MACOS
     connect(dialog, &SettingsDialog::showInDockChanged, this, &ApplicationWindow::dockVisibilityChanged);
 #endif
