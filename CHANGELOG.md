@@ -1,11 +1,15 @@
 # Vremenar Changelog
 
-## Unreleased
+## 0.5.0 (2022-02-12)
+
+New features:
+- Windows support
+- map slider
 
 Improvements:
-- Improved frameless window handling (macOS and Windows)
-- System icons on Windows and macOS
-- Windows support
+- full support for Germany
+- improved frameless window handling (macOS and Windows)
+- system icons on Windows, macOS and iOS; updated icons on Android
 - macOS and iOS store support
 
 ## 0.4.0 (2021-12-29)
