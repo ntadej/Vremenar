@@ -205,6 +205,7 @@ ColumnLayout {
             id: buttonPrevious
             icon: "previous"
             family: UI.iconTheme
+            size: UI.iconSizePrevNext
             width: UI.mapElementSize
             disabled: VMapLayersModel.minTimestamp === VMapLayersModel.time
 
@@ -242,6 +243,7 @@ ColumnLayout {
             id: buttonNext
             icon: "next"
             family: UI.iconTheme
+            size: UI.iconSizePrevNext
             width: UI.mapElementSize
             disabled: VMapLayersModel.maxTimestamp === VMapLayersModel.time
 

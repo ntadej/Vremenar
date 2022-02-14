@@ -58,6 +58,7 @@ class UIManager : public QObject
 
     Q_PROPERTY(int iconSizeCommon READ iconSizeCommon CONSTANT)
     Q_PROPERTY(int iconSizeLarge READ iconSizeLarge CONSTANT)
+    Q_PROPERTY(int iconSizePrevNext READ iconSizePrevNext CONSTANT)
     Q_PROPERTY(int iconSizeFirstLast READ iconSizeFirstLast CONSTANT)
     Q_PROPERTY(int iconSizeCheckMark READ iconSizeCheckMark CONSTANT)
     Q_PROPERTY(int iconBorderThickness READ iconBorderThickness CONSTANT)
@@ -148,6 +149,7 @@ public:
 
     [[nodiscard]] int iconSizeCommon() const;
     [[nodiscard]] int iconSizeLarge() const;
+    [[nodiscard]] int iconSizePrevNext() const;
     [[nodiscard]] int iconSizeFirstLast() const;
     [[nodiscard]] int iconSizeCheckMark() const;
     [[nodiscard]] int iconBorderThickness() const;

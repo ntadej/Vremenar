@@ -49,6 +49,10 @@ namespace Vremenar
 SFSymbolsImageProvider::SFSymbolsImageProvider()
     : QQuickImageProvider(QQuickImageProvider::Image)
 {
+    QImage testImage = requestImage("play.fill/UltraLight/1", nullptr, QSize(14, 14)); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+    if (testImage.width() < 24) {                                                      // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+        _scale = 24. / testImage.width();
+    }
 }
 
 QImage SFSymbolsImageProvider::requestImage(const QString &id,
@@ -63,7 +67,7 @@ QImage SFSymbolsImageProvider::requestImage(const QString &id,
         QColor color(idSplit[1]);
         NSFontWeight nsFontWeight = idSplit[2] == QStringLiteral("UltraLight") ? NSFontWeightUltraLight : NSFontWeightRegular;
         auto nsColor = [NSColor colorWithRed:color.redF() green:color.greenF() blue:color.blueF() alpha:1.];
-        auto nsConfig = [NSImageSymbolConfiguration configurationWithPointSize:requestedSize.width() weight:nsFontWeight];
+        auto nsConfig = [NSImageSymbolConfiguration configurationWithPointSize:(requestedSize.width() * _scale) weight:nsFontWeight];
         auto nsImage = [NSImage imageWithSystemSymbolName:idSplit[0].toNSString() accessibilityDescription:nil];
         nsImage = [nsImage imageWithSymbolConfiguration:nsConfig];
         [nsImage lockFocus];

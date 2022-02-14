@@ -28,6 +28,9 @@ public:
     QImage requestImage(const QString &id,
                         QSize *size,
                         const QSize &requestedSize) final;
+
+private:
+    double _scale{1.};
 };
 
 } // namespace Vremenar

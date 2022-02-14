@@ -20,8 +20,8 @@ const icons =
     "refresh": "\ue72c",
     "play": "\uf5b0",
     "pause": "\uf8ae",
-    "next": "\uf08f",
-    "previous": "\uf08d",
+    "next": "\uedda",
+    "previous": "\uedd9",
     "first": "\uf8ac",
     "last": "\uf8ad",
     // special
