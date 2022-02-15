@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -118,6 +118,14 @@ function createSourceGroup(map, renderingType, url, source)
 }
 
 
+function hideAllLayers()
+{
+    for (let param in paramPaints) {
+        paramPaints[param].rasterOpacity = 0
+    }
+}
+
+
 function addParameters(map, type, renderingType, urlPrevious, urlCurrent, urlNext)
 {
     if (currentType !== type || currentRenderingType !== renderingType) {
@@ -139,7 +147,6 @@ function addParameters(map, type, renderingType, urlPrevious, urlCurrent, urlNex
     createSourceGroup(map, renderingType, urlCurrent, labelCurrent)
     createSourceGroup(map, renderingType, urlNext, labelNext)
 
+    hideAllLayers()
     paramPaints[labelCurrent].rasterOpacity = 0.75
-    paramPaints[labelPrevious].rasterOpacity = 0
-    paramPaints[labelNext].rasterOpacity = 0
 }
