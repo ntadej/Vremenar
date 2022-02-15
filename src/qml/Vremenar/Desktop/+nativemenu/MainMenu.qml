@@ -56,12 +56,18 @@ Item {
             MenuItemGroup {
                 id: mapStyleMenuGroup
                 items: mapStyleMenu.items
+                onTriggered: {
+                    if (item.value === VWeather.currentMapStyle) {
+                        item.checked = true
+                    }
+                }
             }
 
             Instantiator {
                 model: styleModel
 
                 MenuItem {
+                    property int value: index
                     text: model.display
                     checkable: true
                     checked: VWeather.currentMapStyle === index
@@ -82,12 +88,18 @@ Item {
             MenuItemGroup {
                 id: mapTypeMenuGroup
                 items: mapTypeMenu.items
+                onTriggered: {
+                    if (item.value === VWeather.currentMapLayer) {
+                        item.checked = true
+                    }
+                }
             }
 
             Instantiator {
                 model: VMapInfoModel
 
                 MenuItem {
+                    property int value: index
                     text: model.display
                     checkable: true
                     checked: VWeather.currentMapLayer === index
@@ -106,16 +118,27 @@ Item {
 
             MenuItemGroup {
                 id: mapTypeGroup
+                onTriggered: {
+                    if (item.value === VWeather.currentMapLayer) {
+                        item.checked = true
+                    }
+                }
             }
 
             MenuItemGroup {
                 id: mapStyleGroup
+                onTriggered: {
+                    if (item.value === VWeather.currentMapStyle) {
+                        item.checked = true
+                    }
+                }
             }
 
             Instantiator {
                 model: VMapInfoModel
 
                 MenuItem {
+                    property int value: index
                     text: model.display
                     checkable: true
                     checked: VWeather.currentMapLayer === index
@@ -138,6 +161,7 @@ Item {
                 model: styleModel
 
                 MenuItem {
+                    property int value: index
                     text: model.display
                     checkable: true
                     checked: VWeather.currentMapStyle === index
