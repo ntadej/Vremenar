@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -87,8 +87,9 @@ void WeatherProvider::requestCurrentWeatherInfo(const QGeoCoordinate &coordinate
         APIRequest request = API::stations(coordinate);
         currentReplies()->insert(network()->request(request), request);
     } else if (current()->hasStation()) {
-        qDebug() << "Requesting current weather details:" << current()->station()->id();
-        APIRequest request = API::stationWeatherCondition(current()->station()->id());
+        QString id = current()->station()->forecastOnly() ? current()->station()->currentWeatherSource()->id() : current()->station()->id();
+        qDebug() << "Requesting current weather details:" << id;
+        APIRequest request = API::stationWeatherCondition(id);
         currentReplies()->insert(network()->request(request), request);
     }
 }
@@ -186,7 +187,17 @@ void WeatherProvider::response(QNetworkReply *reply)
             removeResponse(reply);
             return;
         }
-        current()->setStation(StationInfo::fromJson(stations.first().toObject()));
+        std::unique_ptr<StationInfo> station = StationInfo::fromJson(stations.first().toObject());
+        if (station->forecastOnly()) {
+            if (stations.size() > 1) {
+                station->setCurrentWeatherSource(StationInfo::fromJson(stations[1].toObject()));
+            } else {
+                // not valid
+                removeResponse(reply);
+                return;
+            }
+        }
+        current()->setStation(std::move(station));
         requestCurrentWeatherInfo(QGeoCoordinate());
         removeResponse(reply);
         return;

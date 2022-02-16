@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -55,6 +55,17 @@ QString StationInfo::display() const
     return _name;
 }
 
+QString StationInfo::displayCurrent() const
+{
+    if (forecastOnly()) {
+        QString name = _name;
+        name.append(QStringLiteral(" (")).append(currentWeatherSource()->display()).append(QStringLiteral(")"));
+        return name;
+    }
+
+    return _name;
+}
+
 QVariant StationInfo::data(int role) const
 {
     switch (role) {
@@ -72,6 +83,15 @@ QVariant StationInfo::data(int role) const
     }
 
     return {};
+}
+
+void StationInfo::setCurrentWeatherSource(std::unique_ptr<StationInfo> source)
+{
+    if (!forecastOnly()) {
+        return;
+    }
+
+    _currentWeatherSource = std::move(source);
 }
 
 } // namespace Vremenar

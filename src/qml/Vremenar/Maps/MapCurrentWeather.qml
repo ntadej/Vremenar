@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -51,7 +51,7 @@ Item {
     TextCore {
         id: textLocation
         padding: 0
-        text: VCurrent.station ? VCurrent.station.display : ""
+        text: VCurrent.station ? VCurrent.station.displayCurrent : ""
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignTop
         wrapMode: Text.WordWrap
