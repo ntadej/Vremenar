@@ -1,5 +1,15 @@
 # Vremenar Changelog
 
+## 0.5.1 (2022-02-18)
+
+Fixes:
+- fix issues with system icons on Windows and macOS
+- ensure that menus items for map settings can not be deselected on macOS
+- ensure that no map layers are visible at the same time
+
+Future preparation:
+- support current stations with no forecast but with fallback
+
 ## 0.5.0 (2022-02-12)
 
 New features:
