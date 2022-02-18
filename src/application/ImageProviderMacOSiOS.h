@@ -29,8 +29,10 @@ public:
                         QSize *size,
                         const QSize &requestedSize) final;
 
+#if defined(Q_OS_MACOS)
 private:
     double _scale{1.};
+#endif
 };
 
 } // namespace Vremenar

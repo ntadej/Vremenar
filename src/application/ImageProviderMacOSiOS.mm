@@ -49,10 +49,13 @@ namespace Vremenar
 SFSymbolsImageProvider::SFSymbolsImageProvider()
     : QQuickImageProvider(QQuickImageProvider::Image)
 {
-    QImage testImage = requestImage("play.fill/UltraLight/1", nullptr, QSize(14, 14)); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
-    if (testImage.width() < 24) {                                                      // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
-        _scale = 24. / testImage.width();
+#if defined(Q_OS_MACOS)
+    // NOLINTNEXTLINE(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+    QImage testImage = requestImage(QStringLiteral("play.fill/#ffffff/UltraLight/1"), nullptr, QSize(14, 14));
+    if (testImage.width() < 24) {         // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+        _scale = 24. / testImage.width(); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
     }
+#endif
 }
 
 QImage SFSymbolsImageProvider::requestImage(const QString &id,
