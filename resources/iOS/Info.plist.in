@@ -5,7 +5,7 @@
         <key>CFBundleDevelopmentRegion</key>
         <string>en_GB</string>
         <key>CFBundleExecutable</key>
-        <string>Vremenar</string>
+        <string>Vremenar$${VERSION_SUFFIX}</string>
         <key>CFBundleIdentifier</key>
         <string>si.tano.Vremenar$${VERSION_SUFFIX}</string>
         <key>CFBundleInfoDictionaryVersion</key>
@@ -49,5 +49,9 @@
         <string>Location for providing weather information.</string>
         <key>CFBundleIconName</key>
         <string>AppIcon</string>
+        <key>FirebaseAppDelegateProxyEnabled</key>
+        <false/>
+        <key>FirebaseMessagingAutoInitEnabled</key>
+        <false/>
     </dict>
 </plist>

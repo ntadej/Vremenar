@@ -5,9 +5,9 @@
         <key>CFBundleDevelopmentRegion</key>
         <string>en-US</string>
         <key>CFBundleDisplayName</key>
-        <string>Vremenar</string>
+        <string>Vremenar $${VERSION_SUFFIX}</string>
         <key>CFBundleExecutable</key>
-        <string>Vremenar</string>
+        <string>Vremenar$${VERSION_SUFFIX}</string>
         <key>CFBundleIconFile</key>
         <string>Vremenar.icns</string>
         <key>CFBundleIdentifier</key>
@@ -15,7 +15,7 @@
         <key>CFBundleInfoDictionaryVersion</key>
         <string>6.0</string>
         <key>CFBundleName</key>
-        <string>Vremenar</string>
+        <string>Vremenar$${VERSION_SUFFIX}</string>
         <key>CFBundlePackageType</key>
         <string>APPL</string>
         <key>CFBundleShortVersionString</key>

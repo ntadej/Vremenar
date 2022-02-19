@@ -53,7 +53,11 @@ mobile {
 # macOS specific
 macos {
     OBJECTIVE_SOURCES += \
+        src/application/ApplicationDelegateMacOS.mm \
         src/application/DesktopApplicationMacOS.mm
+
+    HEADERS += \
+        src/application/ApplicationDelegateMacOS.h
 
     !store {
         OBJECTIVE_SOURCES += \
@@ -67,12 +71,10 @@ macos {
 # macOS/iOS specific
 macos|ios {
     OBJECTIVE_SOURCES += \
-        src/application/ApplicationDelegateMacOS.mm \
         src/application/ImageProviderMacOSiOS.mm \
         src/application/analytics/AnalyticsEngineMacOSiOS.mm
 
     HEADERS += \
-        src/application/ApplicationDelegateMacOS.h \
         src/application/ImageProviderMacOSiOS.h \
         src/application/analytics/AnalyticsEngineMacOSiOS.h
 }
@@ -80,6 +82,7 @@ macos|ios {
 # iOS specific
 ios {
     OBJECTIVE_SOURCES += \
+        src/application/ApplicationDelegateIOS.mm \
         src/application/MobileApplicationIOS.mm
 }
 

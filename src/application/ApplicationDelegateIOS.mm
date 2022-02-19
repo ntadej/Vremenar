@@ -11,29 +11,35 @@
 
 #include <QtCore/QDebug>
 
-#include <AppKit/AppKit.h>
+#include <UIKit/UIKit.h>
 
 #include <FirebaseCore/FirebaseCore.h>
 #include <FirebaseMessaging/FirebaseMessaging.h>
 
-#include "application/ApplicationDelegateMacOS.h"
+/*
+* Override UIApplicationDelegate by adding a category to the QIOApplicationDelegate.
+* The only way to do that even if it's a bit like hacking the Qt stuff
+* See: https://bugreports.qt-project.org/browse/QTBUG-38184
+*/
+@interface QIOSApplicationDelegate : NSObject <UIApplicationDelegate, UNUserNotificationCenterDelegate, FIRMessagingDelegate>
+@end
 
-@implementation VremenarApplicationDelegate
+// Add a category to QIOSApplicationDelegate
+@interface QIOSApplicationDelegate (NotificationsApplicationDelegate)
+@end
+
+// Initialise
+@implementation QIOSApplicationDelegate (NotificationsApplicationDelegate)
 
 NSString *const kGCMMessageIDKey = @"gcm.message_id";
 
-- (void)applicationWillFinishLaunching:(NSNotification *)notification
+- (BOOL)application:(UIApplication *)application
+    didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    Q_UNUSED(notification);
-
-    [UNUserNotificationCenter currentNotificationCenter].delegate = self;
-}
-
-- (void)applicationDidFinishLaunching:(NSNotification *)notification
-{
-    Q_UNUSED(notification);
+    Q_UNUSED(launchOptions)
 
     auto notificationCenter = [UNUserNotificationCenter currentNotificationCenter];
+    notificationCenter.delegate = self;
     UNAuthorizationOptions opts = UNAuthorizationOptionAlert | UNAuthorizationOptionBadge | UNAuthorizationOptionSound;
     [notificationCenter requestAuthorizationWithOptions:opts
                                       completionHandler:^(BOOL granted, NSError *_Nullable error) {
@@ -42,20 +48,26 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
                                                      << "Error" << error.code
                                                      << QString::fromNSString(error.localizedDescription);
                                         }
-                                        if (granted != 0) {
+                                        if (granted) {
                                             qDebug() << "Notifications:"
                                                      << "allowed";
                                             [FIRApp configure];
                                             [FIRMessaging messaging].delegate = self;
-                                            [[NSApplication sharedApplication] registerForRemoteNotifications];
+                                            [application registerForRemoteNotifications];
                                         } else {
                                             qDebug() << "Notifications:"
                                                      << "not allowed";
                                         }
                                       }];
+    return YES;
 }
 
-- (void)application:(NSApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+- (void)applicationDidBecomeActive:(UIApplication *)application
+{
+    application.applicationIconBadgeNumber = 0;
+}
+
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
     qDebug() << "Notifications:"
              << "APNs device token retrieved";
@@ -63,14 +75,14 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
     [FIRMessaging messaging].APNSToken = deviceToken;
 }
 
-- (void)application:(NSApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
 {
     qDebug() << "Notifications:"
              << "Unable to register for remote notifications" << error.code
              << QString::fromNSString(error.localizedDescription);
 }
 
-- (void)application:(NSApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
     [[FIRMessaging messaging] appDidReceiveMessage:userInfo];
 
@@ -98,7 +110,7 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
 
     [[FIRMessaging messaging] appDidReceiveMessage:userInfo];
 
-    if (@available(macOS 11.0, *)) {
+    if (@available(iOS 14.0, *)) {
         completionHandler(UNNotificationPresentationOptionBadge | UNNotificationPresentationOptionBanner);
     } else {
         completionHandler(UNNotificationPresentationOptionBadge | UNNotificationPresentationOptionAlert);

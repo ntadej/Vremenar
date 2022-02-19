@@ -22,6 +22,14 @@ iOSPlist.input = $$top_srcdir/resources/iOS/Info.plist.in
 iOSPlist.output = $$OUT_PWD/Info.plist
 QMAKE_SUBSTITUTES += iOSPlist
 
+iOSEntitlements.input = $$top_srcdir/resources/iOS/Vremenar.entitlements.in
+iOSEntitlements.output = $$OUT_PWD/Vremenar.entitlements
+QMAKE_SUBSTITUTES += iOSEntitlements
+
+iOSEntitlementsSettings.name = CODE_SIGN_ENTITLEMENTS
+iOSEntitlementsSettings.value = $$OUT_PWD/Vremenar.entitlements
+QMAKE_MAC_XCODE_SETTINGS += iOSEntitlementsSettings
+
 store {
     iOSExport.input = $$top_srcdir/resources/iOS/AppStoreExport.plist.in
     iOSExport.output = $$OUT_PWD/AppStoreExport.plist
@@ -48,6 +56,27 @@ QMAKE_BUNDLE_DATA += TRANSLATE_de
 TRANSLATE_sl.files = $$top_srcdir/resources/iOS/sl.lproj/InfoPlist.strings
 TRANSLATE_sl.path = sl.lproj
 QMAKE_BUNDLE_DATA += TRANSLATE_sl
+
+# Firebase
+firebase_config.files = $$top_srcdir/GoogleService-Info.plist
+QMAKE_BUNDLE_DATA += firebase_config
+
+forsimulator {
+    QMAKE_CXXFLAGS += -F$$top_srcdir/3rdparty/Firebase/iOSSimulator
+    LIBS += -F$$top_srcdir/3rdparty/Firebase/iOSSimulator
+} else {
+    QMAKE_CXXFLAGS += -F$$top_srcdir/3rdparty/Firebase/iOS
+    LIBS += -F$$top_srcdir/3rdparty/Firebase/iOS
+}
+# these are static frameworks
+LIBS += -ObjC \
+    -framework nanopb \
+    -framework PromisesObjC \
+    -framework GoogleDataTransport \
+    -framework GoogleUtilities \
+    -framework FirebaseCore \
+    -framework FirebaseInstallations \
+    -framework FirebaseMessaging
 
 # Countly
 forsimulator {
