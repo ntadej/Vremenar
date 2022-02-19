@@ -43,6 +43,7 @@ public:
     bool isDark();
     static bool supportsSFSymbols();
 
+    static void setupApplicationDelegate();
     void setupDockHandler();
 
 public slots:

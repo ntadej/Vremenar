@@ -67,10 +67,12 @@ macos {
 # macOS/iOS specific
 macos|ios {
     OBJECTIVE_SOURCES += \
+        src/application/ApplicationDelegateMacOS.mm \
         src/application/ImageProviderMacOSiOS.mm \
         src/application/analytics/AnalyticsEngineMacOSiOS.mm
 
     HEADERS += \
+        src/application/ApplicationDelegateMacOS.h \
         src/application/ImageProviderMacOSiOS.h \
         src/application/analytics/AnalyticsEngineMacOSiOS.h
 }

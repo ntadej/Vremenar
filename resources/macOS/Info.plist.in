@@ -65,5 +65,9 @@
         <string>U2gUlDA3cZYnWfAWTj0qxF30XqWVl0hGbOFDP3sNZIw=</string>
         <key>SUEnableInstallerLauncherService</key>
         <true/>
+        <key>FirebaseAppDelegateProxyEnabled</key>
+        <false/>
+        <key>FirebaseMessagingAutoInitEnabled</key>
+        <false/>
     </dict>
 </plist>

@@ -3,8 +3,11 @@
 *.so
 config.pri
 
+/*.plist
+
 /3rdparty/qt-geoservices-maplibre*
 /3rdparty/Countly
+/3rdparty/Firebase
 /3rdparty/Sparkle
 
 /graphics/logo/Web/*.ico

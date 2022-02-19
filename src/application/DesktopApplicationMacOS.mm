@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -17,6 +17,7 @@
 #include <ApplicationServices/ApplicationServices.h>
 #include <Cocoa/Cocoa.h>
 
+#include "application/ApplicationDelegateMacOS.h"
 #include "application/DesktopApplication.h"
 
 namespace Vremenar
@@ -54,6 +55,14 @@ bool DesktopApplication::supportsSFSymbols()
     } else {
         return false;
     }
+}
+
+void DesktopApplication::setupApplicationDelegate()
+{
+    VremenarApplicationDelegate *delegate = [[VremenarApplicationDelegate alloc] init];
+
+    NSApplication *application = [NSApplication sharedApplication];
+    [application setDelegate:delegate];
 }
 
 void DesktopApplication::setupDockHandler()

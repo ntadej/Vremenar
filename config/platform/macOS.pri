@@ -18,7 +18,7 @@ LIBS += -weak_framework ApplicationServices -weak_framework Cocoa -weak_framewor
 QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.14
 QMAKE_RPATHDIR = @executable_path/../Frameworks
 
-# Info.plist & icons
+# Info.plist & deployment
 macOSPlist.input = $$top_srcdir/resources/macOS/Info.plist.in
 macOSPlist.output = $$OUT_PWD/Info.plist
 QMAKE_SUBSTITUTES += macOSPlist
@@ -27,6 +27,11 @@ macOSEntitlements.input = $$top_srcdir/resources/macOS/Vremenar.entitlements.in
 macOSEntitlements.output = $$OUT_PWD/Vremenar.entitlements
 QMAKE_SUBSTITUTES += macOSEntitlements
 
+macOSProvisioning.files = $$top_srcdir/embedded.provisionprofile
+macOSProvisioning.path = Contents
+QMAKE_BUNDLE_DATA += macOSProvisioning
+
+# Assets
 QMAKE_ASSET_CATALOGS += $$top_srcdir/resources/macOS/Assets.xcassets
 QMAKE_INFO_PLIST = $$OUT_PWD/Info.plist
 ICON = $$top_srcdir/resources/macOS/Vremenar.icns
@@ -54,6 +59,23 @@ LIBS += -F$$top_srcdir/3rdparty/Countly/macOS -framework Countly
 countly.files = $$top_srcdir/3rdparty/Countly/macOS/Countly.framework
 countly.path = Contents/Frameworks
 QMAKE_BUNDLE_DATA += countly
+
+# Firebase
+firebase_config.files = $$top_srcdir/GoogleService-Info.plist
+firebase_config.path = Contents/Resources
+QMAKE_BUNDLE_DATA += firebase_config
+
+QMAKE_CXXFLAGS += -F$$top_srcdir/3rdparty/Firebase/macOS
+# these are static frameworks
+LIBS += -F$$top_srcdir/3rdparty/Firebase/macOS \
+    -ObjC \
+    -framework nanopb \
+    -framework PromisesObjC \
+    -framework GoogleDataTransport \
+    -framework GoogleUtilities \
+    -framework FirebaseCore \
+    -framework FirebaseInstallations \
+    -framework FirebaseMessaging
 
 # Sparkle
 !store {
