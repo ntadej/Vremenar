@@ -53,6 +53,38 @@ QColor Qml::UIManager::navBarColor() const
     return {27, 27, 27, 160}; // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
 }
 
+QColor Qml::UIManager::alertMinorColor() const
+{
+    if (_theme == Common::LightTheme) {
+        return {254, 217, 35}; // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+    }
+    return {254, 217, 35}; // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+}
+
+QColor Qml::UIManager::alertModerateColor() const
+{
+    if (_theme == Common::LightTheme) {
+        return {253, 148, 0}; // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+    }
+    return {254, 148, 0}; // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+}
+
+QColor Qml::UIManager::alertSevereColor() const
+{
+    if (_theme == Common::LightTheme) {
+        return {254, 0, 0}; // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+    }
+    return {254, 0, 0}; // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+}
+
+QColor Qml::UIManager::alertExtremeColor() const
+{
+    if (_theme == Common::LightTheme) {
+        return {174, 15, 67}; // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+    }
+    return {174, 15, 67}; // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+}
+
 QColor Qml::UIManager::textColor() const
 {
     if (_theme == Common::LightTheme) {

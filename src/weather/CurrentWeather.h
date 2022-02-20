@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -19,6 +19,7 @@
 
 #include "weather/containers/StationInfo.h"
 #include "weather/containers/WeatherCondition.h"
+#include "weather/models/WeatherAlertModel.h"
 
 namespace Vremenar
 {
@@ -40,6 +41,8 @@ public:
     void updateCurrentWeather(std::unique_ptr<WeatherCondition> condition);
     [[nodiscard]] inline WeatherCondition *condition() const { return _condition.get(); }
 
+    [[nodiscard]] inline WeatherAlertModel *alerts() const { return _alerts.get(); };
+
 signals:
     void stationChanged(Vremenar::StationInfo *station);
     void conditionChanged(Vremenar::WeatherCondition *condition);
@@ -47,6 +50,7 @@ signals:
 private:
     std::unique_ptr<StationInfo> _station{};
     std::unique_ptr<WeatherCondition> _condition{};
+    std::unique_ptr<WeatherAlertModel> _alerts{};
 };
 
 } // namespace Vremenar

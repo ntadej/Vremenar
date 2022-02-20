@@ -61,9 +61,11 @@ class UIManager : public QObject
     Q_PROPERTY(int iconSizePrevNext READ iconSizePrevNext CONSTANT)
     Q_PROPERTY(int iconSizeFirstLast READ iconSizeFirstLast CONSTANT)
     Q_PROPERTY(int iconSizeCheckMark READ iconSizeCheckMark CONSTANT)
+    Q_PROPERTY(int iconAlertArea READ iconAlertArea CONSTANT)
     Q_PROPERTY(int iconBorderThickness READ iconBorderThickness CONSTANT)
     Q_PROPERTY(int lineThickness READ lineThickness CONSTANT)
     Q_PROPERTY(int paddingCommon READ paddingCommon CONSTANT)
+    Q_PROPERTY(int paddingSmall READ paddingSmall CONSTANT)
     Q_PROPERTY(int paddingHeader READ paddingHeader CONSTANT)
     Q_PROPERTY(int radiusCommon READ radiusCommon CONSTANT)
 
@@ -83,6 +85,11 @@ class UIManager : public QObject
     Q_PROPERTY(int mapLegendSizeTextBased READ mapLegendSizeTextBased CONSTANT)
     Q_PROPERTY(int mapTimeChangeDuration READ mapTimeChangeDuration CONSTANT)
     Q_PROPERTY(int mapRefreshRotationDuration READ mapRefreshRotationDuration CONSTANT)
+
+    Q_PROPERTY(QColor alertMinorColor READ alertMinorColor NOTIFY themeChanged)
+    Q_PROPERTY(QColor alertModerateColor READ alertModerateColor NOTIFY themeChanged)
+    Q_PROPERTY(QColor alertSevereColor READ alertSevereColor NOTIFY themeChanged)
+    Q_PROPERTY(QColor alertExtremeColor READ alertExtremeColor NOTIFY themeChanged)
 
     Q_PROPERTY(int textCommon READ textCommon CONSTANT)
     Q_PROPERTY(int textHeader READ textHeader CONSTANT)
@@ -152,9 +159,11 @@ public:
     [[nodiscard]] int iconSizePrevNext() const;
     [[nodiscard]] int iconSizeFirstLast() const;
     [[nodiscard]] int iconSizeCheckMark() const;
+    [[nodiscard]] int iconAlertArea() const;
     [[nodiscard]] int iconBorderThickness() const;
     [[nodiscard]] int lineThickness() const;
     [[nodiscard]] int paddingCommon() const;
+    [[nodiscard]] int paddingSmall() const;
     [[nodiscard]] int paddingHeader() const;
     [[nodiscard]] int radiusCommon() const;
 
@@ -174,6 +183,11 @@ public:
     [[nodiscard]] int mapLegendSizeTextBased() const;
     [[nodiscard]] int mapTimeChangeDuration() const;
     [[nodiscard]] int mapRefreshRotationDuration() const;
+
+    [[nodiscard]] QColor alertMinorColor() const;
+    [[nodiscard]] QColor alertModerateColor() const;
+    [[nodiscard]] QColor alertSevereColor() const;
+    [[nodiscard]] QColor alertExtremeColor() const;
 
     [[nodiscard]] int textCommon() const;
     [[nodiscard]] int textHeader() const;

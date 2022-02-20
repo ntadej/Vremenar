@@ -67,6 +67,18 @@ Item {
         }
     }
 
+    MapCurrentAlerts {
+        id: mapCurrentAlerts
+        anchors {
+            bottom: bottomSheet.top
+            left: mapCurrentWeather.right
+            right: parent.right
+            bottomMargin: UI.mapElementOffset
+            leftMargin: UI.mapElementOffset
+            rightMargin: UI.mapElementOffset + UI.safetyMarginRight
+        }
+    }
+
     CommonShadow {
         source: navBar
         visible: !UI.mapOnly
@@ -97,8 +109,8 @@ Item {
            rightMargin: UI.safetyMarginRight
         }
 
-        height: UI.isTV ? mapControls.height + UI.radiusCommon + UI.safetyMarginBottom
-                        : UI.bottomSheetBaseHeight + mapControls.sliderRow.height + mapControls.legend.height + UI.radiusCommon + UI.safetyMarginBottom
+        height: UI.isTV ? Math.ceil(mapControls.height + UI.radiusCommon + UI.safetyMarginBottom)
+                        : Math.ceil(UI.bottomSheetBaseHeight + mapControls.sliderRow.height + mapControls.legend.height + UI.radiusCommon + UI.safetyMarginBottom)
 
         onFullWidthChanged: {
             anchors.left = undefined
@@ -165,6 +177,7 @@ Item {
             PropertyChanges { target: mapButtons; opacity: 0 }
             PropertyChanges { target: mapTime; opacity: 0 }
             PropertyChanges { target: mapCurrentWeather; opacity: 0 }
+            PropertyChanges { target: mapCurrentAlerts; opacity: 0 }
         },
         State {
             name: "sheet"

@@ -66,9 +66,11 @@ int Qml::UIManager::iconSizeCheckMark() const
     return iconSizeCommon();
 #endif
 }
+int Qml::UIManager::iconAlertArea() const { return 36; }      // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
 int Qml::UIManager::iconBorderThickness() const { return 3; } // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
 int Qml::UIManager::lineThickness() const { return 1; }       // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
 int Qml::UIManager::paddingCommon() const { return 15; }      // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+int Qml::UIManager::paddingSmall() const { return 8; }        // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
 int Qml::UIManager::paddingHeader() const { return 5; }       // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
 int Qml::UIManager::radiusCommon() const { return 10; }       // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
 

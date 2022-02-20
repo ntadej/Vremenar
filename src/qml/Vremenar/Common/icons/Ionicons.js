@@ -24,4 +24,5 @@ const icons =
     "previous": "\uf4a1",
     "first": "\uf215",
     "last": "\uf217",
+    "alert": "\uf104",
 }

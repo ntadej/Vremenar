@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -60,6 +60,19 @@ QUrlQuery Sources::sourceQuery()
 
     QUrlQuery query;
     query.addQueryItem(QStringLiteral("country"), countryToString(settings.weatherSource()));
+
+    return query;
+}
+
+QUrlQuery Sources::sourceAndLocaleQuery()
+{
+    Settings settings;
+
+    QUrlQuery query;
+    query.addQueryItem(QStringLiteral("country"), countryToString(settings.weatherSource()));
+    if (!settings.locale().isEmpty()) {
+        query.addQueryItem(QStringLiteral("language"), settings.locale());
+    }
 
     return query;
 }

@@ -1,6 +1,6 @@
 #
 # Vremenar
-# Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+# Copyright (C) 2022 Tadej Novak <tadej@tano.si>
 #
 # This application is bi-licensed under the GNU General Public License
 # Version 3 or later as well as Mozilla Public License Version 2.
@@ -14,6 +14,7 @@ SOURCES += \
     src/weather/Sources.cpp \
     src/weather/Weather.cpp \
     src/weather/WeatherProvider.cpp \
+    src/weather/api/APIAlerts.cpp \
     src/weather/api/APIMapLayers.cpp \
     src/weather/api/APIRequest.cpp \
     src/weather/api/APIStations.cpp \
@@ -21,6 +22,7 @@ SOURCES += \
     src/weather/containers/MapLayer.cpp \
     src/weather/containers/MapLegendItem.cpp \
     src/weather/containers/StationInfo.cpp \
+    src/weather/containers/WeatherAlert.cpp \
     src/weather/containers/WeatherCondition.cpp \
     src/weather/containers/WeatherInfo.cpp \
     src/weather/models/MapInfoModel.cpp \
@@ -30,6 +32,7 @@ SOURCES += \
     src/weather/models/MapLegendProxyModel.cpp \
     src/weather/models/StationListModel.cpp \
     src/weather/models/StationListProxyModel.cpp \
+    src/weather/models/WeatherAlertModel.cpp \
     src/weather/models/WeatherMapModel.cpp \
     src/weather/models/WeatherMapProxyModel.cpp
 
@@ -38,6 +41,7 @@ HEADERS += \
     src/weather/Sources.h \
     src/weather/Weather.h \
     src/weather/WeatherProvider.h \
+    src/weather/api/APIAlerts.h \
     src/weather/api/APIMapLayers.h \
     src/weather/api/APIRequest.h \
     src/weather/api/APIStations.h \
@@ -45,6 +49,7 @@ HEADERS += \
     src/weather/containers/MapLayer.h \
     src/weather/containers/MapLegendItem.h \
     src/weather/containers/StationInfo.h \
+    src/weather/containers/WeatherAlert.h \
     src/weather/containers/WeatherCondition.h \
     src/weather/containers/WeatherInfo.h \
     src/weather/models/MapInfoModel.h \
@@ -54,5 +59,6 @@ HEADERS += \
     src/weather/models/MapLegendProxyModel.h \
     src/weather/models/StationListModel.h \
     src/weather/models/StationListProxyModel.h \
+    src/weather/models/WeatherAlertModel.h \
     src/weather/models/WeatherMapModel.h \
     src/weather/models/WeatherMapProxyModel.h

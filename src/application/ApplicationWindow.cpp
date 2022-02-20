@@ -236,6 +236,7 @@ void ApplicationWindow::createModels()
 
     _engine->rootContext()->setContextProperty(QStringLiteral("VWeather"), _weatherProvider.get());
     _engine->rootContext()->setContextProperty(QStringLiteral("VCurrent"), _weatherProvider->current());
+    _engine->rootContext()->setContextProperty(QStringLiteral("VCurrentAlerts"), _weatherProvider->current()->alerts());
     _engine->rootContext()->setContextProperty(QStringLiteral("VWeatherMapModel"), _weatherProvider->weatherMap());
     _engine->rootContext()->setContextProperty(QStringLiteral("VMapInfoModel"), _weatherProvider->mapInfo());
     _engine->rootContext()->setContextProperty(QStringLiteral("VMapLayersModel"), _weatherProvider->mapLayers());

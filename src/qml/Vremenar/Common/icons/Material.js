@@ -24,4 +24,5 @@ const icons =
     "previous": "\ue020",
     "first": "\ue045",
     "last": "\ue044",
+    "alert": "\ue002",
 }

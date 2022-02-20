@@ -18,6 +18,7 @@
 #include "common/NetworkManager.h"
 #include "settings/Settings.h"
 #include "weather/WeatherProvider.h"
+#include "weather/api/APIAlerts.h"
 #include "weather/api/APIMapLayers.h"
 #include "weather/api/APIStations.h"
 #include "weather/containers/MapInfo.h"
@@ -88,9 +89,19 @@ void WeatherProvider::requestCurrentWeatherInfo(const QGeoCoordinate &coordinate
         currentReplies()->insert(network()->request(request), request);
     } else if (current()->hasStation()) {
         QString id = current()->station()->forecastOnly() ? current()->station()->currentWeatherSource()->id() : current()->station()->id();
+        QStringList stations;
+        stations.append(current()->station()->id());
+        if (current()->station()->forecastOnly()) {
+            stations.append(current()->station()->currentWeatherSource()->id());
+        }
+
         qDebug() << "Requesting current weather details:" << id;
-        APIRequest request = API::stationWeatherCondition(id);
-        currentReplies()->insert(network()->request(request), request);
+        APIRequest requestCurrentWeather = API::stationWeatherCondition(id);
+        currentReplies()->insert(network()->request(requestCurrentWeather), requestCurrentWeather);
+
+        qDebug() << "Requesting current alerts:" << stations;
+        APIRequest requestAlerts = API::alerts(stations);
+        currentReplies()->insert(network()->request(requestAlerts), requestAlerts);
     }
 }
 
@@ -210,6 +221,18 @@ void WeatherProvider::response(QNetworkReply *reply)
         startTimerCurrent();
         emit lastUpdateTimeChangedCurrent();
         emit loadingSuccess();
+
+        removeResponse(reply);
+        return;
+    }
+    if (currentReplies()->value(reply).call() == QStringLiteral("/alerts/list")) {
+        const QJsonArray alertsList = document.array();
+        std::vector<std::unique_ptr<WeatherAlert>> alerts;
+        alerts.reserve(alertsList.size());
+        for (const QJsonValue &obj : alertsList) {
+            alerts.push_back(WeatherAlert::fromJson(obj.toObject()));
+        }
+        current()->alerts()->update(alerts);
 
         removeResponse(reply);
         return;

@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -9,10 +9,35 @@
 * SPDX-License-Identifier: (GPL-3.0-or-later AND MPL-2.0)
 */
 
+#include <QtCore/QLocale>
+
 #include "weather/Weather.h"
 
 namespace Vremenar
 {
+
+QString Weather::dateDisplay(const QDateTime &time)
+{
+    auto current = QDateTime::currentDateTime();
+
+    qint64 diff = current.daysTo(time);
+    if (diff == 0) {
+        return QObject::tr("today");
+    }
+    if (diff == 1) {
+        return QObject::tr("tomorrow");
+    }
+    if (diff == -1) {
+        return QObject::tr("yesterday");
+    }
+
+    return QLocale::system().toString(time.date(), QLocale::ShortFormat);
+}
+
+QString Weather::timeDisplay(const QDateTime &time)
+{
+    return QLocale::system().toString(time.time(), QLocale::ShortFormat);
+}
 
 Weather::ObservationType Weather::observationTypeFromString(const QString &type)
 {
@@ -168,6 +193,66 @@ Weather::MapRenderingType Weather::mapRenderingTypeFromString(const QString &typ
     }
 
     return Weather::ImageRendering;
+}
+
+Weather::AlertType Weather::alertTypeFromString(const QString &type)
+{
+    if (type == QStringLiteral("wind")) {
+        return Weather::WindAlert;
+    }
+    if (type == QStringLiteral("snow-ice")) {
+        return Weather::SnowIceAlert;
+    }
+    if (type == QStringLiteral("thunderstorm")) {
+        return Weather::ThunderstormAlert;
+    }
+    if (type == QStringLiteral("fog")) {
+        return Weather::FogAlert;
+    }
+    if (type == QStringLiteral("high-temperature")) {
+        return Weather::HighTemperatureAlert;
+    }
+    if (type == QStringLiteral("low-temperature")) {
+        return Weather::LowTemperatureAlert;
+    }
+    if (type == QStringLiteral("coastalevent")) {
+        return Weather::CoastalEventAlert;
+    }
+    if (type == QStringLiteral("forest-fire")) {
+        return Weather::ForestFireAlert;
+    }
+    if (type == QStringLiteral("avalanches")) {
+        return Weather::AvalanchesAlert;
+    }
+    if (type == QStringLiteral("rain")) {
+        return Weather::RainAlert;
+    }
+    if (type == QStringLiteral("flooding")) {
+        return Weather::FloodingAlert;
+    }
+    if (type == QStringLiteral("rain-flood")) {
+        return Weather::RainFloodAlert;
+    }
+
+    return Weather::GenericAlert;
+}
+
+Weather::AlertSeverity Weather::alertSeverityFromString(const QString &severity)
+{
+    if (severity == QStringLiteral("minor")) {
+        return Weather::MinorSeverity;
+    }
+    if (severity == QStringLiteral("moderate")) {
+        return Weather::ModerateSeverity;
+    }
+    if (severity == QStringLiteral("severe")) {
+        return Weather::SevereSeverity;
+    }
+    if (severity == QStringLiteral("extreme")) {
+        return Weather::ExtremeSeverity;
+    }
+
+    throw std::runtime_error("undefined behaviour");
 }
 
 } // namespace Vremenar

@@ -24,6 +24,7 @@ const icons =
     "previous": "\uedd9",
     "first": "\uf8ac",
     "last": "\uf8ad",
+    "alert": "\ue814",
     // special
     "close": "\ue8bb",
     "minimize": "\ue921",

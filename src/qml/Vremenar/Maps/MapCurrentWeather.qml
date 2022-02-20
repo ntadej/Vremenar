@@ -16,8 +16,8 @@ import Vremenar.Common 1.0
 
 Item {
     visible: !UI.mapOnly
-    width: Math.ceil(UI.paddingCommon + icon.width + textTemperature.width + UI.paddingCommon / 2)
-    height: Math.ceil(UI.paddingCommon + UI.mapIconSizeHeight + Math.round(textLocation.height) + UI.paddingCommon)
+    width: Math.ceil(UI.paddingSmall * 3 + icon.width + textTemperature.width)
+    height: Math.ceil(UI.paddingSmall * 4 + UI.mapIconSizeHeight + Math.round(textLocation.height))
 
     opacity: VCurrent.station ? 1 : 0
 
@@ -59,11 +59,11 @@ Item {
         font.pixelSize: UI.textCommon
         anchors {
             top: parent.top
-            topMargin: UI.paddingCommon / 2
+            topMargin: UI.paddingSmall
             left: parent.left
-            leftMargin: UI.paddingCommon / 2
+            leftMargin: UI.paddingSmall
             right: parent.right
-            rightMargin: UI.paddingCommon / 2
+            rightMargin: UI.paddingSmall
         }
     }
 
@@ -75,9 +75,9 @@ Item {
         height: UI.mapIconSize
         anchors {
             bottom: parent.bottom
-            bottomMargin: UI.paddingCommon / 2
+            bottomMargin: UI.paddingSmall
             left: parent.left
-            leftMargin: UI.paddingCommon / 2
+            leftMargin: UI.paddingSmall
         }
     }
 
@@ -91,9 +91,9 @@ Item {
         verticalAlignment: Text.AlignVCenter
         anchors {
             bottom: parent.bottom
-            bottomMargin: UI.paddingCommon / 2 + (UI.mapIconSize - UI.mapIconSizeHeight)
+            bottomMargin: UI.paddingSmall + (UI.mapIconSize - UI.mapIconSizeHeight)
             right: parent.right
-            rightMargin: UI.paddingCommon / 2
+            rightMargin: UI.paddingSmall
         }
     }
 

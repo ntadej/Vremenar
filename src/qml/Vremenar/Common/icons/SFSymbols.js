@@ -26,6 +26,7 @@ const labels =
     "previous": "backward.fill",
     "first": "backward.end.fill",
     "last": "forward.end.fill",
+    "alert": "exclamationmark.triangle.fill",
 }
 
 const weights =
@@ -43,4 +44,5 @@ const weights =
     "previous": "UltraLight",
     "first": "UltraLight",
     "last": "UltraLight",
+    "alert": "Regular",
 }

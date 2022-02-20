@@ -17,5 +17,6 @@
         <file>elements/MapSlider.qml</file>
         <file>elements/+materialstyle/MapSlider.qml</file>
         <file>elements/+universalstyle/MapSlider.qml</file>
+        <file>MapCurrentAlerts.qml</file>
     </qresource>
 </RCC>
