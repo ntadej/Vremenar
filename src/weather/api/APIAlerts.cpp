@@ -16,11 +16,11 @@
 namespace Vremenar
 {
 
-APIRequest API::alerts(const QStringList &stations)
+APIRequest API::alerts(const QStringList &alertsAreas)
 {
     QUrlQuery query = Sources::sourceAndLocaleQuery();
-    for (const QString &station : stations) {
-        query.addQueryItem(QStringLiteral("station"), station);
+    for (const QString &area : alertsAreas) {
+        query.addQueryItem(QStringLiteral("area"), area);
     }
 
     APIRequest request;

@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -21,6 +21,7 @@ namespace Vremenar
 APIRequest API::stations(const QGeoCoordinate &coordinate)
 {
     QUrlQuery query = Sources::sourceQuery();
+    query.addQueryItem(QStringLiteral("include_forecast_only"), QStringLiteral("true"));
 
     QJsonObject data;
     data[QStringLiteral("latitude")] = coordinate.latitude();
@@ -39,6 +40,7 @@ APIRequest API::stations(const QGeoCoordinate &coordinate)
 APIRequest API::stations(const QString &string)
 {
     QUrlQuery query = Sources::sourceQuery();
+    query.addQueryItem(QStringLiteral("include_forecast_only"), QStringLiteral("true"));
 
     QJsonObject data;
     data[QStringLiteral("string")] = string;

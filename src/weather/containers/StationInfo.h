@@ -37,6 +37,7 @@ public:
         CoordinateRole,
         ZoomLevelRole,
         ForecastOnlyRole,
+        AlertsAreaRole,
     };
 
     explicit StationInfo(const QString &id,
@@ -44,6 +45,7 @@ public:
                          const QGeoCoordinate &coordinate,
                          qreal zoomLevel,
                          bool forecastOnly,
+                         QString alertsArea,
                          QObject *parent = nullptr);
 
     // Implemented virtual functions
@@ -56,6 +58,7 @@ public:
     [[nodiscard]] inline const QGeoCoordinate &coordinate() const { return _coordinate; }
     [[nodiscard]] inline qreal zoomLevel() const { return _zoomLevel; }
     [[nodiscard]] inline bool forecastOnly() const { return _forecastOnly; }
+    [[nodiscard]] inline const QString &alertsArea() const { return _alertsArea; }
     [[nodiscard]] inline const StationInfo *currentWeatherSource() const { return _currentWeatherSource.get(); }
     void setCurrentWeatherSource(std::unique_ptr<StationInfo> source);
 
@@ -67,7 +70,8 @@ public:
             {EditRole, "edit"},
             {CoordinateRole, "coordinate"},
             {ZoomLevelRole, "zoomLevel"},
-            {ForecastOnlyRole, "forecastOnly"}};
+            {ForecastOnlyRole, "forecastOnly"},
+            {AlertsAreaRole, "alertsArea"}};
     }
 
 private:
@@ -75,6 +79,7 @@ private:
     QGeoCoordinate _coordinate;
     qreal _zoomLevel{};
     bool _forecastOnly{};
+    QString _alertsArea;
     std::unique_ptr<StationInfo> _currentWeatherSource{};
 };
 

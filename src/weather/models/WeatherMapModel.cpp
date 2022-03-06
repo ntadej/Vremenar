@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -28,7 +28,7 @@ void WeatherMapModel::addEntries(StationListModel *stations,
         const QJsonObject object = obj.toObject();
         const StationInfo *station = stations->find<StationInfo>(object[QStringLiteral("station")].toObject()[QStringLiteral("id")].toString());
         appendRow(std::make_unique<WeatherInfo>(
-            std::make_unique<StationInfo>(station->id(), station->display(), station->coordinate(), station->zoomLevel(), station->forecastOnly()),
+            std::make_unique<StationInfo>(station->id(), station->display(), station->coordinate(), station->zoomLevel(), station->forecastOnly(), station->alertsArea()),
             WeatherCondition::fromJson(object[QStringLiteral("condition")].toObject())));
     }
 }

@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -23,7 +23,7 @@ StationListModel::StationListModel(QObject *parent)
 
 void StationListModel::addEmpty()
 {
-    appendRow(std::make_unique<StationInfo>("", tr("None"), QGeoCoordinate(0, 0), 0, false));
+    appendRow(std::make_unique<StationInfo>("", tr("None"), QGeoCoordinate(0, 0), 0, false, ""));
 }
 
 void StationListModel::addStations(const QJsonArray &data)
@@ -45,6 +45,7 @@ void StationListModel::addStationsWithCurrentCondition(StationListModel *model)
                 station->coordinate(),
                 station->zoomLevel(),
                 station->forecastOnly(),
+                station->alertsArea(),
                 station->parent()));
         }
     }

@@ -17,7 +17,7 @@
 namespace Vremenar::API
 {
 
-APIRequest alerts(const QStringList &stations);
+APIRequest alerts(const QStringList &alertsAreas);
 
 } // namespace Vremenar::API
 

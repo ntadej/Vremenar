@@ -19,12 +19,14 @@ StationInfo::StationInfo(const QString &id,
                          const QGeoCoordinate &coordinate,
                          qreal zoomLevel,
                          bool forecastOnly,
+                         QString alertsArea,
                          QObject *parent)
     : ListItem(parent),
       _name(std::move(name)),
       _coordinate(coordinate),
       _zoomLevel(zoomLevel),
-      _forecastOnly(forecastOnly)
+      _forecastOnly(forecastOnly),
+      _alertsArea(std::move(alertsArea))
 {
     setId(id);
 }
@@ -46,8 +48,12 @@ std::unique_ptr<StationInfo> StationInfo::fromJson(const QJsonObject &json)
     if (json.contains(QStringLiteral("forecast_only"))) {
         forecastOnly = json[QStringLiteral("forecast_only")].toBool();
     }
+    QString alertsArea;
+    if (json.contains(QStringLiteral("alerts_area"))) {
+        alertsArea = json[QStringLiteral("alerts_area")].toString();
+    }
 
-    return std::make_unique<StationInfo>(id, name, coordinate, zoomLevel, forecastOnly);
+    return std::make_unique<StationInfo>(id, name, coordinate, zoomLevel, forecastOnly, alertsArea);
 }
 
 QString StationInfo::display() const
@@ -80,6 +86,8 @@ QVariant StationInfo::data(int role) const
         return zoomLevel();
     case ForecastOnlyRole:
         return forecastOnly();
+    case AlertsAreaRole:
+        return alertsArea();
     }
 
     return {};

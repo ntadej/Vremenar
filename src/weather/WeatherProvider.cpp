@@ -89,18 +89,18 @@ void WeatherProvider::requestCurrentWeatherInfo(const QGeoCoordinate &coordinate
         currentReplies()->insert(network()->request(request), request);
     } else if (current()->hasStation()) {
         QString id = current()->station()->forecastOnly() ? current()->station()->currentWeatherSource()->id() : current()->station()->id();
-        QStringList stations;
-        stations.append(current()->station()->id());
+        QStringList alertsAreas;
+        alertsAreas.append(current()->station()->alertsArea());
         if (current()->station()->forecastOnly()) {
-            stations.append(current()->station()->currentWeatherSource()->id());
+            alertsAreas.append(current()->station()->currentWeatherSource()->alertsArea());
         }
 
         qDebug() << "Requesting current weather details:" << id;
         APIRequest requestCurrentWeather = API::stationWeatherCondition(id);
         currentReplies()->insert(network()->request(requestCurrentWeather), requestCurrentWeather);
 
-        qDebug() << "Requesting current alerts:" << stations;
-        APIRequest requestAlerts = API::alerts(stations);
+        qDebug() << "Requesting current alerts:" << alertsAreas;
+        APIRequest requestAlerts = API::alerts(alertsAreas);
         currentReplies()->insert(network()->request(requestAlerts), requestAlerts);
     }
 }
