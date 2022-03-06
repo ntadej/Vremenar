@@ -13,7 +13,7 @@ include($$top_srcdir/config/version.pri)
 
 linux:!android {
     TARGET = vremenar
-} macos|ios {
+} else:macos|ios {
     TARGET = Vremenar$$VERSION_SUFFIX
 } else {
     TARGET = Vremenar
