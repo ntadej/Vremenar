@@ -86,6 +86,7 @@ int Qml::UIManager::navBarHeight() const
 
 int Qml::UIManager::bottomSheetBaseHeight() const { return 44; } // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
 int Qml::UIManager::bottomSheetMaxWidth() const { return 680; }  // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+int Qml::UIManager::smallWidthThreshold() const { return 320; }  // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
 
 int Qml::UIManager::mapIconSize() const { return 48; }       // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
 int Qml::UIManager::mapIconSizeHeight() const { return 38; } // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)

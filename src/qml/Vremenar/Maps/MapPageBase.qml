@@ -23,6 +23,7 @@ Item {
     property alias title: navBar.title
     property alias bottomSheetContents: bottomSheet.contents
     property bool dialogActive: false
+    property bool smallWidth: width - UI.safetyMarginLeft - UI.safetyMarginRight <= UI.smallWidthThreshold
 
     Item {
         id: contentPlaceholder
@@ -62,20 +63,25 @@ Item {
         anchors {
             bottom: bottomSheet.top
             left: parent.left
-            bottomMargin: UI.mapElementOffset
-            leftMargin: UI.mapElementOffset + UI.safetyMarginLeft
+            bottomMargin: smallWidth && mapCurrentAlerts.visible ? 2 * UI.mapElementOffset + mapCurrentAlerts.height : UI.mapElementOffset
+            leftMargin: y < mapTime.y + mapTime.height + UI.mapElementOffset ?
+                            2 * UI.mapElementOffset + UI.safetyMarginLeft + mapTime.width :
+                            UI.mapElementOffset + UI.safetyMarginLeft
         }
     }
 
     MapCurrentAlerts {
         id: mapCurrentAlerts
+        smallWidth: parent.smallWidth
         anchors {
             bottom: bottomSheet.top
-            left: mapCurrentWeather.right
+            left: smallWidth ? parent.left : mapCurrentWeather.right
             right: parent.right
             bottomMargin: UI.mapElementOffset
-            leftMargin: UI.mapElementOffset
-            rightMargin: UI.mapElementOffset + UI.safetyMarginRight
+            leftMargin: smallWidth ? UI.mapElementOffset + UI.safetyMarginLeft : UI.mapElementOffset
+            rightMargin: y < mapButtons.y + mapButtons.height + UI.mapElementOffset ?
+                             2 * UI.mapElementOffset + UI.safetyMarginRight + mapButtons.width :
+                             UI.mapElementOffset + UI.safetyMarginRight
         }
     }
 

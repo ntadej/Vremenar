@@ -20,6 +20,7 @@ Item {
     id: container
 
     property int contentWidth: content.width + UI.paddingSmall * 2
+    property bool smallWidth: false
 
     visible: !UI.mapOnly
     height: Math.ceil(layout.height + UI.paddingSmall * 2)
@@ -108,7 +109,8 @@ Item {
                 model: VCurrentAlerts
 
                 Item {
-                    Layout.preferredWidth: Math.max(event.implicitWidth, duration.implicitWidth) + icon.width + UI.paddingSmall / 2
+                    Layout.preferredWidth: container.smallWidth ? container.width - (UI.paddingSmall * 2) :
+                                                                  Math.max(event.implicitWidth, duration.implicitWidth) + icon.width + UI.paddingSmall / 2
                     Layout.maximumWidth: container.width - (UI.paddingSmall * 2)
                     Layout.minimumHeight: event.height + duration.height
 
