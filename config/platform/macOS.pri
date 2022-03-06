@@ -27,9 +27,11 @@ macOSEntitlements.input = $$top_srcdir/resources/macOS/Vremenar.entitlements.in
 macOSEntitlements.output = $$OUT_PWD/Vremenar.entitlements
 QMAKE_SUBSTITUTES += macOSEntitlements
 
-macOSProvisioning.files = $$top_srcdir/embedded.provisionprofile
-macOSProvisioning.path = Contents
-QMAKE_BUNDLE_DATA += macOSProvisioning
+!ci {
+    macOSProvisioning.files = $$top_srcdir/embedded.provisionprofile
+    macOSProvisioning.path = Contents
+    QMAKE_BUNDLE_DATA += macOSProvisioning
+}
 
 # Assets
 QMAKE_ASSET_CATALOGS += $$top_srcdir/resources/macOS/Assets.xcassets
@@ -61,9 +63,11 @@ countly.path = Contents/Frameworks
 QMAKE_BUNDLE_DATA += countly
 
 # Firebase
-firebase_config.files = $$top_srcdir/GoogleService-Info.plist
-firebase_config.path = Contents/Resources
-QMAKE_BUNDLE_DATA += firebase_config
+!ci {
+    firebase_config.files = $$top_srcdir/GoogleService-Info.plist
+    firebase_config.path = Contents/Resources
+    QMAKE_BUNDLE_DATA += firebase_config
+}
 
 QMAKE_CXXFLAGS += -F$$top_srcdir/3rdparty/Firebase/macOS
 # these are static frameworks

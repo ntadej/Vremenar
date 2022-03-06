@@ -58,8 +58,10 @@ TRANSLATE_sl.path = sl.lproj
 QMAKE_BUNDLE_DATA += TRANSLATE_sl
 
 # Firebase
-firebase_config.files = $$top_srcdir/GoogleService-Info.plist
-QMAKE_BUNDLE_DATA += firebase_config
+!ci {
+    firebase_config.files = $$top_srcdir/GoogleService-Info.plist
+    QMAKE_BUNDLE_DATA += firebase_config
+}
 
 forsimulator {
     QMAKE_CXXFLAGS += -F$$top_srcdir/3rdparty/Firebase/iOSSimulator

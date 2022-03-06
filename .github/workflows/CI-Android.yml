@@ -64,10 +64,4 @@ jobs:
           qmake $VREMENAR_PATH/Vremenar.pro -spec android-clang CONFIG+=release CONFIG+=qtquickcompiler ANDROID_ABIS="armeabi-v7a arm64-v8a x86 x86_64"
           make -j2
           make apk
-          mv android-build/build/outputs/apk/debug/android-build-debug.apk $ARTIFACT_NAME
-
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v1
-        with:
-          name: Vremenar_Android_universal.apk
-          path: ./build/Vremenar_Android_universal.apk
+          # mv android-build/build/outputs/apk/debug/android-build-debug.apk $ARTIFACT_NAME

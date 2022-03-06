@@ -58,15 +58,9 @@ jobs:
           ARTIFACT_NAME: Vremenar_iOS.ipa
           VREMENAR_PATH: ../source
         run: |
-          qmake $VREMENAR_PATH/Vremenar.pro -spec macx-ios-clang CONFIG+=release CONFIG+=iphoneos CONFIG+=device CONFIG+=qtquickcompiler
+          qmake $VREMENAR_PATH/Vremenar.pro -spec macx-ios-clang CONFIG+=release CONFIG+=iphoneos CONFIG+=device CONFIG+=qtquickcompiler CONFIG+=ci
           xcodebuild archive -scheme Vremenar -configuration Release -sdk iphoneos CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -archivePath Vremenar.xcarchive
           mv Vremenar.xcarchive/Products/Applications Payload
           ldid -S Payload/Vremenar.app/Vremenar
           zip -r Vremenar.zip Payload
-          mv Vremenar.zip $ARTIFACT_NAME
-
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v1
-        with:
-          name: Vremenar_iOS.ipa
-          path: ./build/Vremenar_iOS.ipa
+          # mv Vremenar.zip $ARTIFACT_NAME

@@ -56,9 +56,3 @@ jobs:
           cd build
           mv appdir Vremenar
           tar cjvf Vremenar.tar.bz2 Vremenar
-
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v1
-        with:
-          name: Vremenar.tar.bz2
-          path: ./build/Vremenar.tar.bz2
