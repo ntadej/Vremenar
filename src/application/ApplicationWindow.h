@@ -19,6 +19,7 @@
 #include <QtGui/QWindow>
 #include <QtQml/QQmlApplicationEngine>
 
+#include "application/NotificationsManager.h"
 #include "application/Updates.h"
 #include "application/analytics/Analytics.h"
 #include "common/LocaleManager.h"
@@ -97,6 +98,7 @@ private:
     std::unique_ptr<LocationProvider> _location{};
     std::unique_ptr<MapsManager> _mapsManager{};
     std::unique_ptr<NetworkManagerFactory> _networkFactory{};
+    std::unique_ptr<NotificationsManager> _notificationsManager{};
     std::unique_ptr<Updates> _updates{};
 
     // API

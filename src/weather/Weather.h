@@ -100,6 +100,7 @@ MapRenderingType mapRenderingTypeFromString(const QString &type);
 
 AlertType alertTypeFromString(const QString &type);
 AlertSeverity alertSeverityFromString(const QString &severity);
+Q_INVOKABLE QString alertSeverityToString(Vremenar::Weather::AlertSeverity severity);
 
 } // namespace Vremenar::Weather
 

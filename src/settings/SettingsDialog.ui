@@ -188,6 +188,84 @@
         </item>
        </layout>
       </widget>
+      <widget class="QWidget" name="pageNotifications">
+       <layout class="QFormLayout" name="formLayout_3">
+        <property name="leftMargin">
+         <number>24</number>
+        </property>
+        <property name="topMargin">
+         <number>24</number>
+        </property>
+        <property name="rightMargin">
+         <number>24</number>
+        </property>
+        <property name="bottomMargin">
+         <number>24</number>
+        </property>
+        <item row="0" column="1">
+         <widget class="QCheckBox" name="checkNotifications">
+          <property name="text">
+           <string>Enable notifications</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QLabel" name="labelWeatherAlerts">
+          <property name="text">
+           <string>Weather alerts:</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QRadioButton" name="radioAlertsMinor">
+          <property name="text">
+           <string>Minor (yellow) alerts and higher (levels 1-4)</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1">
+         <widget class="QRadioButton" name="radioAlertsModerate">
+          <property name="text">
+           <string>Moderate (orange) alerts and higher (levels 2-4)</string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="1">
+         <widget class="QRadioButton" name="radioAlertsSevere">
+          <property name="text">
+           <string>Severe (red) alerts and higher (levels 3-4)</string>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="1">
+         <widget class="QRadioButton" name="radioAlertsExtreme">
+          <property name="text">
+           <string>Extreme (purple) alerts only (level 4)</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QLabel" name="labelSpacerNotifications">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QLabel" name="labelNotificationsStatus">
+          <property name="text">
+           <string/>
+          </property>
+          <property name="wordWrap">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
       <widget class="QWidget" name="pageInterface">
        <layout class="QFormLayout" name="formLayout_2">
         <property name="leftMargin">
@@ -277,6 +355,7 @@
     <bool>false</bool>
    </attribute>
    <addaction name="actionGeneral"/>
+   <addaction name="actionNotifications"/>
    <addaction name="actionInterface"/>
   </widget>
   <action name="actionGeneral">
@@ -304,6 +383,18 @@
    </property>
    <property name="text">
     <string>Interface</string>
+   </property>
+  </action>
+  <action name="actionNotifications">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../../resources/Common/icons/icons.qrc">
+     <normaloff>:/Vremenar/Icons/32x32/preferences-desktop-notification.png</normaloff>:/Vremenar/Icons/32x32/preferences-desktop-notification.png</iconset>
+   </property>
+   <property name="text">
+    <string>Notifications</string>
    </property>
   </action>
  </widget>

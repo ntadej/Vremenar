@@ -16,7 +16,7 @@ namespace Vremenar
 
 // Country selection
 const QString Settings::KEY_WEATHER_SOURCE = QStringLiteral("weather/source");
-const QString Settings::KEY_INITIAL_WEATHER_SOURCE_CHOSEN = QStringLiteral("weather/initial-source-chosen");
+const QString Settings::KEY_WEATHER_SOURCE_INITIAL_CHOICE = QStringLiteral("weather/initial-source-chosen");
 
 // Location
 const QString Settings::KEY_LOCATION_SOURCE = QStringLiteral("location/source");
@@ -34,6 +34,12 @@ const QString Settings::KEY_STARTUP_MAP_LONGITUDE = QStringLiteral("map/longitud
 
 // Locale
 const QString Settings::KEY_LOCALE = QStringLiteral("locale");
+
+// Notifications
+const QString Settings::KEY_NOTIFICATIONS_ENABLED = QStringLiteral("notifications/enabled");
+const QString Settings::KEY_NOTIFICATIONS_INITIAL_CHOICE = QStringLiteral("notifications/initial-choice");
+const QString Settings::KEY_NOTIFICATIONS_ALERT_SEVERITY = QStringLiteral("notifications/alert-severity");
+const QString Settings::KEY_NOTIFICATIONS_ALERT_KEYS = QStringLiteral("notifications/alert-keys");
 
 // GUI
 const QString Settings::KEY_SHOW_IN_TRAY = QStringLiteral("gui/tray");

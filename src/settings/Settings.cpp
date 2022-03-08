@@ -17,7 +17,7 @@ namespace Vremenar
 Settings::Settings(QObject *parent)
     : QSettings(parent),
       _weatherSource(DEFAULT_WEATHER_SOURCE),
-      _initialWeatherSourceChosen(DEFAULT_INITIAL_WEATHER_SOURCE_CHOSEN),
+      _weatherSourceInitialChoice(DEFAULT_WEATHER_SOURCE_INITIAL_CHOICE),
       _locationSource(DEFAULT_LOCATION_SOURCE),
       _locationStation(DEFAULT_LOCATION_STATION),
       _locationLatitude(DEFAULT_LOCATION_LATITUDE),
@@ -29,6 +29,10 @@ Settings::Settings(QObject *parent)
       _startupMapLatitude(DEFAULT_STARTUP_MAP_LATITUDE_SI),
       _startupMapLongitude(DEFAULT_STARTUP_MAP_LONGITUDE_SI),
       _locale(DEFAULT_LOCALE),
+      _notificationsEnabled(DEFAULT_NOTIFICATIONS_ENABLED),
+      _notificationsInitialChoice(DEFAULT_NOTIFICATIONS_INITIAL_CHOICE),
+      _notificationsAlertSeverity(DEFAULT_NOTIFICATIONS_ALERT_SEVERITY),
+      _notificationsAlertKeys(DEFAULT_NOTIFICATIONS_ALERT_KEYS),
       _showInTray(DEFAULT_SHOW_IN_TRAY),
 #if defined(Q_OS_MACOS)
       _showInDock(DEFAULT_SHOW_IN_DOCK),
@@ -42,7 +46,7 @@ Settings::Settings(QObject *parent)
       _uuid(DEFAULT_UUID)
 {
     _map.insert(KEY_WEATHER_SOURCE, DEFAULT_WEATHER_SOURCE);
-    _map.insert(KEY_INITIAL_WEATHER_SOURCE_CHOSEN, DEFAULT_INITIAL_WEATHER_SOURCE_CHOSEN);
+    _map.insert(KEY_WEATHER_SOURCE_INITIAL_CHOICE, DEFAULT_WEATHER_SOURCE_INITIAL_CHOICE);
     _map.insert(KEY_LOCATION_SOURCE, DEFAULT_LOCATION_SOURCE);
     _map.insert(KEY_LOCATION_STATION, DEFAULT_LOCATION_STATION);
     _map.insert(KEY_LOCATION_LATITUDE, DEFAULT_LOCATION_LATITUDE);
@@ -54,6 +58,10 @@ Settings::Settings(QObject *parent)
     _map.insert(KEY_STARTUP_MAP_LATITUDE, DEFAULT_STARTUP_MAP_LATITUDE_SI);
     _map.insert(KEY_STARTUP_MAP_LONGITUDE, DEFAULT_STARTUP_MAP_LONGITUDE_SI);
     _map.insert(KEY_LOCALE, DEFAULT_LOCALE);
+    _map.insert(KEY_NOTIFICATIONS_ENABLED, DEFAULT_NOTIFICATIONS_ENABLED);
+    _map.insert(KEY_NOTIFICATIONS_INITIAL_CHOICE, DEFAULT_NOTIFICATIONS_INITIAL_CHOICE);
+    _map.insert(KEY_NOTIFICATIONS_ALERT_SEVERITY, DEFAULT_NOTIFICATIONS_ALERT_SEVERITY);
+    _map.insert(KEY_NOTIFICATIONS_ALERT_KEYS, DEFAULT_NOTIFICATIONS_ALERT_KEYS);
     _map.insert(KEY_SHOW_IN_TRAY, DEFAULT_SHOW_IN_TRAY);
 #if defined(Q_OS_MACOS)
     _map.insert(KEY_SHOW_IN_DOCK, DEFAULT_SHOW_IN_DOCK);
@@ -72,7 +80,7 @@ Settings::Settings(QObject *parent)
 void Settings::writeSettings()
 {
     setValue(KEY_WEATHER_SOURCE, static_cast<int>(weatherSource()));
-    setValue(KEY_INITIAL_WEATHER_SOURCE_CHOSEN, initialWeatherSourceChosen());
+    setValue(KEY_WEATHER_SOURCE_INITIAL_CHOICE, weatherSourceInitialChoice());
 
     setValue(KEY_LOCATION_SOURCE, static_cast<int>(locationSource()));
     setValue(KEY_LOCATION_STATION, locationStation());
@@ -87,6 +95,11 @@ void Settings::writeSettings()
     setValue(KEY_STARTUP_MAP_LONGITUDE, startupMapLongitude());
 
     setValue(KEY_LOCALE, locale());
+
+    setValue(KEY_NOTIFICATIONS_ENABLED, notificationsEnabled());
+    setValue(KEY_NOTIFICATIONS_INITIAL_CHOICE, notificationsInitialChoice());
+    setValue(KEY_NOTIFICATIONS_ALERT_SEVERITY, notificationsAlertSeverity());
+    setValue(KEY_NOTIFICATIONS_ALERT_KEYS, notificationsAlertKeys());
 
     setValue(KEY_SHOW_IN_TRAY, showInTray());
 #if defined(Q_OS_MACOS)
@@ -108,7 +121,7 @@ void Settings::writeSettings()
 void Settings::readSettings()
 {
     setWeatherSource(Sources::Country(value(KEY_WEATHER_SOURCE, defaultValue(KEY_WEATHER_SOURCE)).toInt()));
-    setInitialWeatherSourceChosen(value(KEY_INITIAL_WEATHER_SOURCE_CHOSEN, defaultValue(KEY_INITIAL_WEATHER_SOURCE_CHOSEN)).toBool());
+    setWeatherSourceInitialChoice(value(KEY_WEATHER_SOURCE_INITIAL_CHOICE, defaultValue(KEY_WEATHER_SOURCE_INITIAL_CHOICE)).toBool());
 
     setLocationSource(Location::Source(value(KEY_LOCATION_SOURCE, defaultValue(KEY_LOCATION_SOURCE)).toInt()));
     setLocationStation(value(KEY_LOCATION_STATION, defaultValue(KEY_LOCATION_STATION)).toString());
@@ -123,6 +136,11 @@ void Settings::readSettings()
     setStartupMapLongitude(value(KEY_STARTUP_MAP_LONGITUDE, defaultValue(KEY_STARTUP_MAP_LONGITUDE)).toDouble());
 
     setLocale(value(KEY_LOCALE, defaultValue(KEY_LOCALE)).toString());
+
+    setNotificationsEnabled(value(KEY_NOTIFICATIONS_ENABLED, defaultValue(KEY_NOTIFICATIONS_ENABLED)).toBool());
+    setNotificationsInitialChoice(value(KEY_NOTIFICATIONS_INITIAL_CHOICE, defaultValue(KEY_NOTIFICATIONS_INITIAL_CHOICE)).toBool());
+    setNotificationsAlertSeverity(Weather::AlertSeverity(value(KEY_NOTIFICATIONS_ALERT_SEVERITY, defaultValue(KEY_NOTIFICATIONS_ALERT_SEVERITY)).toInt()));
+    setNotificationsAlertKeys(value(KEY_NOTIFICATIONS_ALERT_KEYS, defaultValue(KEY_NOTIFICATIONS_ALERT_KEYS)).toStringList());
 
     setShowInTray(value(KEY_SHOW_IN_TRAY, defaultValue(KEY_SHOW_IN_TRAY)).toBool());
 #if defined(Q_OS_MACOS)
@@ -159,6 +177,15 @@ void Settings::resetStartupMapCoordinates()
         setStartupMapLatitude(DEFAULT_STARTUP_MAP_LATITUDE_SI);
         setStartupMapLongitude(DEFAULT_STARTUP_MAP_LONGITUDE_SI);
     }
+}
+
+int Settings::initialNotificationsSetting() const
+{
+    if (notificationsEnabled()) {
+        return notificationsAlertSeverity();
+    }
+
+    return Weather::ExtremeSeverity + 1;
 }
 
 } // namespace Vremenar

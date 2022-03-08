@@ -58,6 +58,7 @@ ApplicationWindow::ApplicationWindow(QObject *parent)
       _analytics(std::make_unique<Analytics>(_network, this)),
       _localeManager(std::make_unique<LocaleManager>(this)),
       _networkFactory(std::make_unique<NetworkManagerFactory>(this)),
+      _notificationsManager(std::make_unique<NotificationsManager>(_localeManager->locale(), this)),
       _qmlFileSelector(new QQmlFileSelector(_engine.get()))
 {
     // Set the style
@@ -232,6 +233,7 @@ void ApplicationWindow::createModels()
 
     _engine->rootContext()->setContextProperty(QStringLiteral("Vremenar"), this);
     _engine->rootContext()->setContextProperty(QStringLiteral("VL"), _localeManager.get());
+    _engine->rootContext()->setContextProperty(QStringLiteral("VNotifications"), _notificationsManager.get());
     _engine->rootContext()->setContextProperty(QStringLiteral("VUpdates"), _updates.get());
 
     _engine->rootContext()->setContextProperty(QStringLiteral("VWeather"), _weatherProvider.get());
@@ -250,6 +252,9 @@ void ApplicationWindow::createModels()
 
     _mapsManager = std::make_unique<MapsManager>(_engine.get(), this);
     connect(_weatherProvider->mapLayers(), &MapLayersProxyModel::mapChanged, _mapsManager.get(), &MapsManager::mapChanged);
+
+    connect(_localeManager.get(), &LocaleManager::localeChanged, _notificationsManager.get(), &NotificationsManager::localeChanged);
+    connect(_weatherProvider->current(), &CurrentWeather::stationChanged, _notificationsManager.get(), &NotificationsManager::currentStationChanged);
 
     _location->locationSettingsChanged();
 }
@@ -320,6 +325,10 @@ void ApplicationWindow::showSettingsDialog()
 #ifdef Q_OS_MACOS
     connect(dialog, &SettingsDialog::showInDockChanged, this, &ApplicationWindow::dockVisibilityChanged);
 #endif
+
+    connect(dialog, &SettingsDialog::notificationsChanged, _notificationsManager.get(), &NotificationsManager::settingsChanged);
+    connect(_notificationsManager.get(), &NotificationsManager::nativeEnabledStatus, dialog, &SettingsDialog::notificationsStatus);
+    _notificationsManager->nativeEnabledCheck();
 
     dialog->show();
 }
@@ -392,7 +401,7 @@ void ApplicationWindow::weatherSourceChanged(int source)
     Settings settings(this);
     if (weatherSource != settings.weatherSource()) {
         settings.setWeatherSource(sources[source]);
-        settings.setInitialWeatherSourceChosen(true);
+        settings.setWeatherSourceInitialChoice(true);
         settings.resetStartupMapCoordinates();
         settings.writeSettings();
 
@@ -400,7 +409,7 @@ void ApplicationWindow::weatherSourceChanged(int source)
         _ready = false;
         QCoreApplication::exit(Application::RESTART_CODE);
     } else {
-        settings.setInitialWeatherSourceChosen(true);
+        settings.setWeatherSourceInitialChoice(true);
         settings.writeSettings();
     }
 }

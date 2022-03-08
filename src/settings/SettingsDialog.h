@@ -43,10 +43,14 @@ public:
 protected:
     void changeEvent(QEvent *e) final;
 
+public slots:
+    void notificationsStatus(bool enabled);
+
 signals:
     void localeChanged();
     void locationChanged();
     void weatherSourceChanged(int source);
+    void notificationsChanged();
     void showInTrayChanged(bool checked);
 #if defined(Q_OS_MACOS)
     void showInDockChanged(bool checked);
@@ -63,6 +67,8 @@ private slots:
     void locationStationChanged();
     void locationStationTextChanged();
     void sourceChangedSlot();
+    void notificationsEnabledChangedSlot(bool checked);
+    void notificationsSeverityChangedSlot();
     void showInTrayChangedSlot(bool checked);
 #if defined(Q_OS_MACOS)
     void showInDockChangedSlot(bool checked);
@@ -90,6 +96,7 @@ private:
 
     std::unique_ptr<QMacToolBar> _macToolbar{};
     std::unique_ptr<QMacToolBarItem> _macItemGeneral{};
+    std::unique_ptr<QMacToolBarItem> _macItemNotifications{};
     std::unique_ptr<QMacToolBarItem> _macItemInterface{};
 #endif
 };

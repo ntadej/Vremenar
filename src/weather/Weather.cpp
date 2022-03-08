@@ -255,4 +255,20 @@ Weather::AlertSeverity Weather::alertSeverityFromString(const QString &severity)
     throw std::runtime_error("undefined behaviour");
 }
 
+QString Weather::alertSeverityToString(AlertSeverity severity)
+{
+    switch (severity) {
+    case MinorSeverity:
+        return QStringLiteral("minor");
+    case ModerateSeverity:
+        return QStringLiteral("moderate");
+    case SevereSeverity:
+        return QStringLiteral("severe");
+    case ExtremeSeverity:
+        return QStringLiteral("extreme");
+    }
+
+    return {};
+}
+
 } // namespace Vremenar

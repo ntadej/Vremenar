@@ -60,15 +60,15 @@ Item {
             visible: UI.showButtonMapType
 
             onClicked: {
-                if (!UI.isTV && (UI.deviceType === Common.Desktop || UI.deviceType === Common.DebuggingDevice)) {
-                    if (typeof applicationWindow.mainMenu.mapMenu !== 'undefined') {
-                        applicationWindow.mainMenu.mapMenu.open()
-                    } else {
-                        Vremenar.showMapsMenu()
-                    }
-                } else {
+//                if (!UI.isTV && (UI.deviceType === Common.Desktop || UI.deviceType === Common.DebuggingDevice)) {
+//                    if (typeof applicationWindow.mainMenu.mapMenu !== 'undefined') {
+//                        applicationWindow.mainMenu.mapMenu.open()
+//                    } else {
+//                        Vremenar.showMapsMenu()
+//                    }
+//                } else {
                     mapSettingsDialog.open()
-                }
+//                }
             }
         }
 
@@ -98,10 +98,15 @@ Item {
             visible: UI.showButtonMapSettings
 
             onClicked: {
-                if (typeof applicationWindow.mainMenu.settingsMenu !== 'undefined') {
-                    applicationWindow.mainMenu.settingsMenu.open()
+                if (UI.deviceType !== Common.Desktop) {
+                    VNotifications.nativeEnabledCheck()
+                    mobileSettingsDialog.open()
                 } else {
-                    Vremenar.showSettingsMenu()
+                    if (typeof applicationWindow.mainMenu.settingsMenu !== 'undefined') {
+                        applicationWindow.mainMenu.settingsMenu.open()
+                    } else {
+                        Vremenar.showSettingsMenu()
+                    }
                 }
             }
         }

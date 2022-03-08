@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -18,8 +18,10 @@ import Vremenar.Common 1.0
 
 Dialog {
     id: dialog
-    width: Math.min(parent.width, 300)
-    height: Math.min(parent.height, 400)
+    width: Math.min(parent.width - 2 * Math.max(UI.safetyMarginLeft, UI.safetyMarginRight), Math.max(300, implicitDialogWidth))
+    height: Math.min(parent.height - 2 * Math.max(UI.safetyMarginTop, UI.safetyMarginBottom), Math.max(400, implicitDialogHeight))
+    property int implicitDialogWidth: 300
+    property int implicitDialogHeight: 400
 
     modal: true
     focus: true

@@ -16,7 +16,7 @@ namespace Vremenar
 
 // Country selection
 const Sources::Country Settings::DEFAULT_WEATHER_SOURCE = Sources::Slovenia;
-const bool Settings::DEFAULT_INITIAL_WEATHER_SOURCE_CHOSEN = false;
+const bool Settings::DEFAULT_WEATHER_SOURCE_INITIAL_CHOICE = false;
 
 // Location
 const Location::Source Settings::DEFAULT_LOCATION_SOURCE = Location::Automatic;
@@ -48,6 +48,12 @@ const double Settings::DEFAULT_MAX_MAP_LONGITUDE_DE = 15.3;
 
 // Locale
 const QString Settings::DEFAULT_LOCALE = {};
+
+// Notifications
+const bool Settings::DEFAULT_NOTIFICATIONS_ENABLED = true;
+const bool Settings::DEFAULT_NOTIFICATIONS_INITIAL_CHOICE = false;
+const Weather::AlertSeverity Settings::DEFAULT_NOTIFICATIONS_ALERT_SEVERITY = Weather::MinorSeverity;
+const QStringList Settings::DEFAULT_NOTIFICATIONS_ALERT_KEYS = QStringList();
 
 // GUI
 #if defined(Q_OS_MACOS)

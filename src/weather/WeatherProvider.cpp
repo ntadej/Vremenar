@@ -195,6 +195,7 @@ void WeatherProvider::response(QNetworkReply *reply)
     if (currentReplies()->value(reply).call() == QStringLiteral("/stations/coordinate")) {
         const QJsonArray stations = document.array();
         if (stations.empty()) {
+            current()->setStation(nullptr);
             removeResponse(reply);
             return;
         }
@@ -204,6 +205,7 @@ void WeatherProvider::response(QNetworkReply *reply)
                 station->setCurrentWeatherSource(StationInfo::fromJson(stations[1].toObject()));
             } else {
                 // not valid
+                current()->setStation(nullptr);
                 removeResponse(reply);
                 return;
             }

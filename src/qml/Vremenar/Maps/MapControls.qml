@@ -356,7 +356,7 @@ ColumnLayout {
 
     TextSmall {
         id: labelAbout
-        text: qsTr("Weather data") + generateWeather() + (UI.isTV ? " " : "<br>")
+        text: qsTr("Weather data") + " " + VWeather.copyrightLink.html + (UI.isTV ? " " : "<br>")
               + qsTr("Maps") + generateMaps() + (UI.isTV ? " " : "<br>")
               + (UI.isTV ? "" : Globals.name + " " + Globals.version + " (" + Globals.build + ")")
               + (UI.isTV || VUpdates.server === "" ? "" : ", " + qsTr("backend") + " " + VUpdates.server)
@@ -369,19 +369,7 @@ ColumnLayout {
         Layout.maximumWidth: parent.width
 
         onLinkActivated: {
-            if (link == 'change_country') {
-                sourceSettingsDialog.open()
-            } else {
-                Qt.openUrlExternally(link)
-            }
-        }
-
-        function generateWeather() {
-            if (UI.deviceType === Common.Desktop || UI.isTV) {
-                return " " + VWeather.copyrightLink.html
-            }
-
-            return " " + VWeather.copyrightLink.html + " " + "<a href=\"change_country\">" + (qsTr("Change country") + VL.R) + "</a>"
+            Qt.openUrlExternally(link)
         }
 
         function generateMaps() {

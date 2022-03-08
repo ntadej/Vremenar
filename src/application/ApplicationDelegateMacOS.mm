@@ -18,7 +18,9 @@
 
 #include "application/ApplicationDelegateMacOS.h"
 
-@implementation VremenarApplicationDelegate
+@implementation VremenarApplicationDelegate {
+    bool _notificationsRequested;
+}
 
 NSString *const kGCMMessageIDKey = @"gcm.message_id";
 
@@ -32,6 +34,15 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
 - (void)applicationDidFinishLaunching:(NSNotification *)notification
 {
     Q_UNUSED(notification);
+
+    [self requestNotifications];
+}
+
+- (void)requestNotifications
+{
+    if (_notificationsRequested) {
+        return;
+    }
 
     auto notificationCenter = [UNUserNotificationCenter currentNotificationCenter];
     UNAuthorizationOptions opts = UNAuthorizationOptionAlert | UNAuthorizationOptionBadge | UNAuthorizationOptionSound;
@@ -53,6 +64,8 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
                                                      << "not allowed";
                                         }
                                       }];
+
+    _notificationsRequested = true;
 }
 
 - (void)application:(NSApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken

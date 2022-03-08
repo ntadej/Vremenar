@@ -227,8 +227,10 @@ bool Qml::UIManager::showButtonMapPosition() const
 
 bool Qml::UIManager::showButtonMapSettings() const
 {
-#if defined(Q_OS_MACOS) || defined(Q_OS_WINDOWS)
+#if defined(Q_OS_MACOS) || defined(Q_OS_IOS) || defined(Q_OS_WINDOWS)
     return true;
+#elif defined(Q_OS_ANDROID)
+    return _device != Common::AndroidTV && _device != Common::FireTV;
 #else
     return false;
 #endif

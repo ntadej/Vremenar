@@ -25,7 +25,9 @@ class Settings : public QSettings
 {
     Q_OBJECT
     Q_PROPERTY(Vremenar::Sources::Country weatherSource READ weatherSource CONSTANT)
-    Q_PROPERTY(bool initialWeatherSourceChosen READ initialWeatherSourceChosen CONSTANT)
+    Q_PROPERTY(bool weatherSourceInitialChoice READ weatherSourceInitialChoice CONSTANT)
+    Q_PROPERTY(bool notificationsInitialChoice READ notificationsInitialChoice CONSTANT)
+    Q_PROPERTY(int initialNotificationsSetting READ initialNotificationsSetting CONSTANT)
     Q_PROPERTY(bool startupMapEnabled READ startupMapEnabled CONSTANT)
     Q_PROPERTY(qreal startupMapZoomLevel READ startupMapZoomLevel CONSTANT)
     Q_PROPERTY(bool rememberPosition READ rememberPosition CONSTANT)
@@ -52,10 +54,10 @@ public:
     static const QString KEY_WEATHER_SOURCE;
     static const Sources::Country DEFAULT_WEATHER_SOURCE;
 
-    [[nodiscard]] inline bool initialWeatherSourceChosen() const { return _initialWeatherSourceChosen; }
-    inline void setInitialWeatherSourceChosen(bool b) { _initialWeatherSourceChosen = b; }
-    static const QString KEY_INITIAL_WEATHER_SOURCE_CHOSEN;
-    static const bool DEFAULT_INITIAL_WEATHER_SOURCE_CHOSEN;
+    [[nodiscard]] inline bool weatherSourceInitialChoice() const { return _weatherSourceInitialChoice; }
+    inline void setWeatherSourceInitialChoice(bool b) { _weatherSourceInitialChoice = b; }
+    static const QString KEY_WEATHER_SOURCE_INITIAL_CHOICE;
+    static const bool DEFAULT_WEATHER_SOURCE_INITIAL_CHOICE;
 
     // Location
     [[nodiscard]] inline Location::Source locationSource() const { return _locationSource; }
@@ -130,6 +132,29 @@ public:
     static const QString KEY_LOCALE;
     static const QString DEFAULT_LOCALE;
 
+    // Notifications
+    [[nodiscard]] int initialNotificationsSetting() const;
+
+    [[nodiscard]] inline bool notificationsEnabled() const { return _notificationsEnabled; }
+    inline void setNotificationsEnabled(bool e) { _notificationsEnabled = e; }
+    static const QString KEY_NOTIFICATIONS_ENABLED;
+    static const bool DEFAULT_NOTIFICATIONS_ENABLED;
+
+    [[nodiscard]] inline bool notificationsInitialChoice() const { return _notificationsInitialChoice; }
+    inline void setNotificationsInitialChoice(bool e) { _notificationsInitialChoice = e; }
+    static const QString KEY_NOTIFICATIONS_INITIAL_CHOICE;
+    static const bool DEFAULT_NOTIFICATIONS_INITIAL_CHOICE;
+
+    [[nodiscard]] inline Weather::AlertSeverity notificationsAlertSeverity() const { return _notificationsAlertSeverity; }
+    inline void setNotificationsAlertSeverity(Weather::AlertSeverity s) { _notificationsAlertSeverity = s; }
+    static const QString KEY_NOTIFICATIONS_ALERT_SEVERITY;
+    static const Weather::AlertSeverity DEFAULT_NOTIFICATIONS_ALERT_SEVERITY;
+
+    [[nodiscard]] inline const QStringList &notificationsAlertKeys() const { return _notificationsAlertKeys; }
+    inline void setNotificationsAlertKeys(const QStringList &l) { _notificationsAlertKeys = l; }
+    static const QString KEY_NOTIFICATIONS_ALERT_KEYS;
+    static const QStringList DEFAULT_NOTIFICATIONS_ALERT_KEYS;
+
     // GUI
     [[nodiscard]] inline bool showInTray() const { return _showInTray; }
     inline void setShowInTray(bool b) { _showInTray = b; }
@@ -188,7 +213,7 @@ private:
 
     // Country selection
     Sources::Country _weatherSource;
-    bool _initialWeatherSourceChosen;
+    bool _weatherSourceInitialChoice;
 
     // Location
     Location::Source _locationSource;
@@ -206,6 +231,12 @@ private:
 
     // Locale
     QString _locale;
+
+    // Notifications
+    bool _notificationsEnabled;
+    bool _notificationsInitialChoice;
+    Weather::AlertSeverity _notificationsAlertSeverity;
+    QStringList _notificationsAlertKeys;
 
     // GUI
     bool _showInTray;

@@ -34,6 +34,10 @@ void SettingsDialog::initializeMacOS()
     _macItemGeneral->setSelectable(true);
     connect(_macItemGeneral.get(), &QMacToolBarItem::activated, this, &SettingsDialog::actionToggled);
 
+    _macItemNotifications = std::unique_ptr<QMacToolBarItem>(_macToolbar->addItem(QIcon(QStringLiteral(":/Vremenar/Icons/32x32/preferences-desktop-notification.png")), tr("Notifications")));
+    _macItemNotifications->setSelectable(true);
+    connect(_macItemNotifications.get(), &QMacToolBarItem::activated, this, &SettingsDialog::actionToggled);
+
     _macItemInterface = std::unique_ptr<QMacToolBarItem>(_macToolbar->addItem(QIcon(QStringLiteral(":/Vremenar/Icons/32x32/preferences-system-windows-actions.png")), tr("Interface")));
     _macItemInterface->setSelectable(true);
     connect(_macItemInterface.get(), &QMacToolBarItem::activated, this, &SettingsDialog::actionToggled);
@@ -80,6 +84,9 @@ void SettingsDialog::actionToggledMacOS()
     if (item == _macItemGeneral.get()) {
         ui->stackedWidget->setCurrentWidget(ui->pageGeneral);
         stackHeight = ui->pageGeneral->sizeHint().height() + offset;
+    } else if (item == _macItemNotifications.get()) {
+        ui->stackedWidget->setCurrentWidget(ui->pageNotifications);
+        stackHeight = ui->pageNotifications->sizeHint().height() + offset;
     } else if (item == _macItemInterface.get()) {
         ui->stackedWidget->setCurrentWidget(ui->pageInterface);
         stackHeight = ui->pageInterface->sizeHint().height();

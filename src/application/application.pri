@@ -12,6 +12,7 @@
 SOURCES += \
     src/application/ApplicationWindow.cpp \
     src/application/BaseApplication.cpp \
+    src/application/NotificationsManager.cpp \
     src/application/Updates.cpp \
     src/application/analytics/Analytics.cpp \
     src/application/analytics/AnalyticsEngine.cpp
@@ -19,6 +20,7 @@ SOURCES += \
 HEADERS += \
     src/application/ApplicationWindow.h \
     src/application/BaseApplication.h \
+    src/application/NotificationsManager.h \
     src/application/Updates.h \
     src/application/analytics/Analytics.h \
     src/application/analytics/AnalyticsEngine.h
@@ -72,6 +74,7 @@ macos {
 macos|ios {
     OBJECTIVE_SOURCES += \
         src/application/ImageProviderMacOSiOS.mm \
+        src/application/NotificationsManagerMacOSiOS.mm \
         src/application/analytics/AnalyticsEngineMacOSiOS.mm
 
     HEADERS += \
