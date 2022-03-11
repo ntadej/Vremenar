@@ -12,7 +12,7 @@
 #ifndef VREMENAR_SPARKLEHELPER_H_
 #define VREMENAR_SPARKLEHELPER_H_
 
-#ifdef VREMENAR_SPARKLE
+#ifdef VREMENAR_OBJC
 #include <Sparkle/Sparkle.h>
 #endif
 
@@ -30,7 +30,7 @@ public:
     void checkForUpdates();
 
 private:
-#ifdef VREMENAR_SPARKLE
+#ifdef VREMENAR_OBJC
     SPUStandardUpdaterController *updaterController;
 #endif
 };

@@ -11,7 +11,7 @@
 
 #include <QtCore/QDebug>
 
-#define VREMENAR_SPARKLE
+#define VREMENAR_OBJC
 #include "application/SparkleHelper.h"
 
 namespace Vremenar
