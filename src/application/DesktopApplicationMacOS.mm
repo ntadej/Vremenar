@@ -17,11 +17,32 @@
 #include <ApplicationServices/ApplicationServices.h>
 #include <Cocoa/Cocoa.h>
 
+#define VREMENAR_OBJC
 #include "application/ApplicationDelegateMacOS.h"
 #include "application/DesktopApplication.h"
 
 namespace Vremenar
 {
+
+DesktopApplication::DesktopApplication(VremenarApplicationDelegate *delegate,
+                                       int &argc,
+                                       char **argv,
+                                       QObject *parent)
+    : DesktopApplication(argc, argv, parent)
+{
+    _applicationDelegate = delegate;
+}
+
+DesktopApplication DesktopApplication::init(int &argc,
+                                            char **argv)
+{
+    VremenarApplicationDelegate *delegate = [[VremenarApplicationDelegate alloc] init];
+
+    NSApplication *application = [NSApplication sharedApplication];
+    [application setDelegate:delegate];
+
+    return DesktopApplication(delegate, argc, argv);
+}
 
 bool dockClickHandler(id self,
                       SEL cmd,
@@ -55,14 +76,6 @@ bool DesktopApplication::supportsSFSymbols()
     } else {
         return false;
     }
-}
-
-void DesktopApplication::setupApplicationDelegate()
-{
-    VremenarApplicationDelegate *delegate = [[VremenarApplicationDelegate alloc] init];
-
-    NSApplication *application = [NSApplication sharedApplication];
-    [application setDelegate:delegate];
 }
 
 void DesktopApplication::setupDockHandler()

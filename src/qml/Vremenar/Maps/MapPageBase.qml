@@ -154,6 +154,23 @@ Item {
         onAboutToHide: dialogActive = false
     }
 
+    WelcomeDialog {
+        id: welcomeDialog
+        anchors.centerIn: parent
+
+        onAboutToShow: dialogActive = true
+        onAboutToHide: dialogActive = false
+
+        Connections {
+            target: applicationWindow
+            function onReadyChanged() {
+                if (!Settings.weatherSourceInitialChoice || !Settings.locationInitialChoice || !Settings.notificationsInitialChoice) {
+                    welcomeDialog.open()
+                }
+            }
+        }
+    }
+
     LoadingOverlay {
         id: loadingOverlay
         active: VWeather.loading || map.loading === true

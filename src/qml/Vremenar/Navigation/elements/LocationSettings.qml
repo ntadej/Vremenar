@@ -16,29 +16,29 @@ import Vremenar.Common 1.0
 
 ListRadioView {
     id: view
-    title: qsTr("Weather source selection") + VL.R
+    title: qsTr("Weather for current location") + VL.R
 
     model: ListModel {
-        id: countryModel
+        id: locationModel
 
         ListElement {
-            display: QT_TR_NOOP("Slovenia (ARSO)")
+            display: QT_TR_NOOP("Enable location")
             translatable: true
         }
         ListElement {
-            display: QT_TR_NOOP("Germany (DWD)")
+            display: QT_TR_NOOP("Disable location")
             translatable: true
         }
     }
 
-    selectedIndex: Settings.weatherSource
+    selectedIndex: Settings.startupLocationSetting
 
     onSelectedIndexChanged: action()
     onConfirmed: action()
 
     function action() {
         if (applicationWindow.ready) {
-            Vremenar.weatherSourceChanged(selectedIndex)
+            Vremenar.locationSettingChanged(selectedIndex)
 
             if (shouldCloseDialog) {
                 dialog.accept()

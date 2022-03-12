@@ -19,6 +19,7 @@ Settings::Settings(QObject *parent)
       _weatherSource(DEFAULT_WEATHER_SOURCE),
       _weatherSourceInitialChoice(DEFAULT_WEATHER_SOURCE_INITIAL_CHOICE),
       _locationSource(DEFAULT_LOCATION_SOURCE),
+      _locationInitialChoice(DEFAULT_LOCATION_INITIAL_CHOICE),
       _locationStation(DEFAULT_LOCATION_STATION),
       _locationLatitude(DEFAULT_LOCATION_LATITUDE),
       _locationLongitude(DEFAULT_LOCATION_LONGITUDE),
@@ -48,6 +49,7 @@ Settings::Settings(QObject *parent)
     _map.insert(KEY_WEATHER_SOURCE, DEFAULT_WEATHER_SOURCE);
     _map.insert(KEY_WEATHER_SOURCE_INITIAL_CHOICE, DEFAULT_WEATHER_SOURCE_INITIAL_CHOICE);
     _map.insert(KEY_LOCATION_SOURCE, DEFAULT_LOCATION_SOURCE);
+    _map.insert(KEY_LOCATION_INITIAL_CHOICE, DEFAULT_LOCATION_INITIAL_CHOICE);
     _map.insert(KEY_LOCATION_STATION, DEFAULT_LOCATION_STATION);
     _map.insert(KEY_LOCATION_LATITUDE, DEFAULT_LOCATION_LATITUDE);
     _map.insert(KEY_LOCATION_LONGITUDE, DEFAULT_LOCATION_LONGITUDE);
@@ -83,6 +85,7 @@ void Settings::writeSettings()
     setValue(KEY_WEATHER_SOURCE_INITIAL_CHOICE, weatherSourceInitialChoice());
 
     setValue(KEY_LOCATION_SOURCE, static_cast<int>(locationSource()));
+    setValue(KEY_LOCATION_INITIAL_CHOICE, locationInitialChoice());
     setValue(KEY_LOCATION_STATION, locationStation());
     setValue(KEY_LOCATION_LATITUDE, locationLatitude());
     setValue(KEY_LOCATION_LONGITUDE, locationLongitude());
@@ -124,6 +127,7 @@ void Settings::readSettings()
     setWeatherSourceInitialChoice(value(KEY_WEATHER_SOURCE_INITIAL_CHOICE, defaultValue(KEY_WEATHER_SOURCE_INITIAL_CHOICE)).toBool());
 
     setLocationSource(Location::Source(value(KEY_LOCATION_SOURCE, defaultValue(KEY_LOCATION_SOURCE)).toInt()));
+    setLocationInitialChoice(value(KEY_LOCATION_INITIAL_CHOICE, defaultValue(KEY_LOCATION_INITIAL_CHOICE)).toBool());
     setLocationStation(value(KEY_LOCATION_STATION, defaultValue(KEY_LOCATION_STATION)).toString());
     setLocationLatitude(value(KEY_LOCATION_LATITUDE, defaultValue(KEY_LOCATION_LATITUDE)).toDouble());
     setLocationLongitude(value(KEY_LOCATION_LONGITUDE, defaultValue(KEY_LOCATION_LONGITUDE)).toDouble());
@@ -179,7 +183,12 @@ void Settings::resetStartupMapCoordinates()
     }
 }
 
-int Settings::initialNotificationsSetting() const
+int Settings::startupLocationSetting() const
+{
+    return locationSource() == Location::Disabled ? 1 : 0;
+}
+
+int Settings::startupNotificationsSetting() const
 {
     if (notificationsEnabled()) {
         return notificationsAlertSeverity();

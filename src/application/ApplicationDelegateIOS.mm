@@ -11,22 +11,10 @@
 
 #include <QtCore/QDebug>
 
-#include <UIKit/UIKit.h>
-
 #include <FirebaseCore/FirebaseCore.h>
-#include <FirebaseMessaging/FirebaseMessaging.h>
 
-/*
-* Override UIApplicationDelegate by adding a category to the QIOApplicationDelegate.
-* The only way to do that even if it's a bit like hacking the Qt stuff
-* See: https://bugreports.qt-project.org/browse/QTBUG-38184
-*/
-@interface QIOSApplicationDelegate : NSObject <UIApplicationDelegate, UNUserNotificationCenterDelegate, FIRMessagingDelegate>
-@end
-
-// Add a category to QIOSApplicationDelegate
-@interface QIOSApplicationDelegate (NotificationsApplicationDelegate)
-@end
+#include "application/ApplicationDelegateIOS.h"
+#include "settings/Settings.h"
 
 // Initialise
 @implementation QIOSApplicationDelegate (NotificationsApplicationDelegate)
@@ -38,7 +26,24 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
 {
     Q_UNUSED(launchOptions)
 
+    Vremenar::Settings settings;
+    if (settings.notificationsEnabled() && settings.notificationsInitialChoice()) {
+        [self requestNotifications];
+    }
+
+    return YES;
+}
+
+- (bool)requestNotifications
+{
     auto notificationCenter = [UNUserNotificationCenter currentNotificationCenter];
+    if (notificationCenter.delegate == self) {
+        return true;
+    }
+
+    [FIRApp configure];
+    [FIRMessaging messaging].delegate = self;
+
     notificationCenter.delegate = self;
     UNAuthorizationOptions opts = UNAuthorizationOptionAlert | UNAuthorizationOptionBadge | UNAuthorizationOptionSound;
     [notificationCenter requestAuthorizationWithOptions:opts
@@ -51,15 +56,15 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
                                         if (granted) {
                                             qDebug() << "Notifications:"
                                                      << "allowed";
-                                            [FIRApp configure];
-                                            [FIRMessaging messaging].delegate = self;
-                                            [application registerForRemoteNotifications];
                                         } else {
                                             qDebug() << "Notifications:"
                                                      << "not allowed";
                                         }
                                       }];
-    return YES;
+
+    [[UIApplication sharedApplication] registerForRemoteNotifications];
+
+    return false;
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application

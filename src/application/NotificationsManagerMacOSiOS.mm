@@ -11,11 +11,23 @@
 
 #include <QtCore/QDebug>
 
+#ifndef VREMENAR_MOBILE
 #include <AppKit/AppKit.h>
+#else
+#include <UIKit/UIKit.h>
+#endif
 
 #include <FirebaseMessaging/FirebaseMessaging.h>
 
+#define VREMENAR_OBJC
 #include "application/NotificationsManager.h"
+
+#ifndef VREMENAR_MOBILE
+#include "application/ApplicationDelegateMacOS.h"
+#include "application/DesktopApplication.h"
+#else
+#include "application/ApplicationDelegateIOS.h"
+#endif
 
 namespace Vremenar
 {
@@ -26,10 +38,10 @@ void NotificationsManager::nativeEnabledCheck()
     [center getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings *settings) {
       switch (settings.authorizationStatus) {
       case UNAuthorizationStatusAuthorized:
+      case UNAuthorizationStatusNotDetermined:
           emit nativeEnabledStatus(true);
           break;
       case UNAuthorizationStatusDenied:
-      case UNAuthorizationStatusNotDetermined:
           emit nativeEnabledStatus(false);
           break;
       default:
@@ -60,6 +72,18 @@ void NotificationsManager::nativeUnsubscribe(const QString &id) const
                                                        << QString::fromNSString(error.localizedDescription);
                                           }
                                         }];
+}
+
+bool NotificationsManager::nativeSetup()
+{
+#ifndef VREMENAR_MOBILE
+    auto *application = qobject_cast<DesktopApplication *>(QCoreApplication::instance());
+    auto *applicationDelegate = application->applicationDelegate();
+    return [applicationDelegate requestNotifications];
+#else
+    auto *applicationDelegate = (QIOSApplicationDelegate *)([[UIApplication sharedApplication] delegate]);
+    return [applicationDelegate requestNotifications];
+#endif
 }
 
 } // namespace Vremenar

@@ -414,4 +414,18 @@ void ApplicationWindow::weatherSourceChanged(int source)
     }
 }
 
+void ApplicationWindow::locationSettingChanged(int setting)
+{
+    Settings settings(this);
+    if (setting == 1) {
+        settings.setLocationSource(Location::Disabled);
+    } else {
+        settings.setLocationSource(Location::Automatic);
+    }
+    settings.setLocationInitialChoice(true);
+    settings.writeSettings();
+
+    _location->locationSettingsChanged();
+}
+
 } // namespace Vremenar

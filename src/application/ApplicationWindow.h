@@ -56,6 +56,7 @@ public slots:
     void startCompleted(QQuickWindow *window,
                         qreal devicePixelRatio = 1.0);
     void weatherSourceChanged(int source);
+    void locationSettingChanged(int setting);
 
 #ifndef VREMENAR_MOBILE
     void setPrimaryWindowDevicePixelRatio(qreal ratio);

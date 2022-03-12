@@ -11,12 +11,10 @@
 
 #include <QtCore/QDebug>
 
-#include <AppKit/AppKit.h>
-
 #include <FirebaseCore/FirebaseCore.h>
-#include <FirebaseMessaging/FirebaseMessaging.h>
 
 #include "application/ApplicationDelegateMacOS.h"
+#include "settings/Settings.h"
 
 @implementation VremenarApplicationDelegate {
     bool _notificationsRequested;
@@ -35,14 +33,20 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
 {
     Q_UNUSED(notification);
 
-    [self requestNotifications];
+    Vremenar::Settings settings;
+    if (settings.notificationsEnabled() && settings.notificationsInitialChoice()) {
+        [self requestNotifications];
+    }
 }
 
-- (void)requestNotifications
+- (bool)requestNotifications
 {
     if (_notificationsRequested) {
-        return;
+        return true;
     }
+
+    [FIRApp configure];
+    [FIRMessaging messaging].delegate = self;
 
     auto notificationCenter = [UNUserNotificationCenter currentNotificationCenter];
     UNAuthorizationOptions opts = UNAuthorizationOptionAlert | UNAuthorizationOptionBadge | UNAuthorizationOptionSound;
@@ -56,16 +60,17 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
                                         if (granted != 0) {
                                             qDebug() << "Notifications:"
                                                      << "allowed";
-                                            [FIRApp configure];
-                                            [FIRMessaging messaging].delegate = self;
-                                            [[NSApplication sharedApplication] registerForRemoteNotifications];
                                         } else {
                                             qDebug() << "Notifications:"
                                                      << "not allowed";
                                         }
                                       }];
 
+    [[NSApplication sharedApplication] registerForRemoteNotifications];
+
     _notificationsRequested = true;
+
+    return false;
 }
 
 - (void)application:(NSApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken

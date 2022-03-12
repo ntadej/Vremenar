@@ -93,6 +93,7 @@ class UIManager : public QObject
     Q_PROPERTY(QColor alertExtremeColor READ alertExtremeColor NOTIFY themeChanged)
 
     Q_PROPERTY(int textCommon READ textCommon CONSTANT)
+    Q_PROPERTY(int textLarge READ textLarge CONSTANT)
     Q_PROPERTY(int textHeader READ textHeader CONSTANT)
     Q_PROPERTY(int textSmall READ textSmall CONSTANT)
     Q_PROPERTY(QColor textColor READ textColor NOTIFY themeChanged)
@@ -192,6 +193,7 @@ public:
     [[nodiscard]] QColor alertExtremeColor() const;
 
     [[nodiscard]] int textCommon() const;
+    [[nodiscard]] int textLarge() const;
     [[nodiscard]] int textHeader() const;
     [[nodiscard]] int textSmall() const;
     [[nodiscard]] QColor textColor() const;

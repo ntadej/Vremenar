@@ -13,6 +13,7 @@
 #define VREMENAR_NOTIFICATIONSMANAGER_H_
 
 #include <QtCore/QObject>
+#include <QtCore/QTimer>
 
 #include "weather/Weather.h"
 
@@ -28,13 +29,13 @@ public:
     explicit NotificationsManager(QString locale,
                                   QObject *parent = nullptr);
 
-    Q_INVOKABLE void nativeEnabledCheck();
     Q_INVOKABLE void setNotificationsLevel(int level);
 
 signals:
     void nativeEnabledStatus(bool);
 
 public slots:
+    void nativeEnabledCheck();
     void settingsChanged();
     void localeChanged(const QString &locale);
     void currentStationChanged(Vremenar::StationInfo *station);
@@ -49,8 +50,12 @@ private:
     void nativeSubscribe(const QString &id) const;
     void nativeUnsubscribe(const QString &id) const;
 
+    [[nodiscard]] bool nativeSetup();
+
     QStringList _coveredAreas;
     QString _currentLocale;
+
+    std::unique_ptr<QTimer> _timer{};
 };
 
 } // namespace Vremenar

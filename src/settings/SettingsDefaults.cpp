@@ -20,6 +20,7 @@ const bool Settings::DEFAULT_WEATHER_SOURCE_INITIAL_CHOICE = false;
 
 // Location
 const Location::Source Settings::DEFAULT_LOCATION_SOURCE = Location::Automatic;
+const bool Settings::DEFAULT_LOCATION_INITIAL_CHOICE = false;
 const QString Settings::DEFAULT_LOCATION_STATION = QString();
 const double Settings::DEFAULT_LOCATION_LATITUDE = 0.;
 const double Settings::DEFAULT_LOCATION_LONGITUDE = 0.;

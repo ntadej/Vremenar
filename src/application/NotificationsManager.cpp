@@ -15,15 +15,25 @@
 #include "settings/Settings.h"
 #include "weather/containers/StationInfo.h"
 
+namespace
+{
+constexpr int updateInterval{2500};
+} // namespace
+
 namespace Vremenar
 {
 
 NotificationsManager::NotificationsManager(QString locale,
                                            QObject *parent)
     : QObject(parent),
-      _currentLocale(std::move(locale))
+      _currentLocale(std::move(locale)),
+      _timer(std::make_unique<QTimer>(this))
 {
+    _timer->setInterval(updateInterval);
+    _timer->setSingleShot(true);
+
     connect(this, &NotificationsManager::nativeEnabledStatus, &NotificationsManager::processCoveredAreas);
+    connect(_timer.get(), &QTimer::timeout, this, &NotificationsManager::settingsChanged);
 
     Settings settings;
     qDebug() << "Notifications:"
@@ -39,6 +49,7 @@ void NotificationsManager::setNotificationsLevel(int level)
         settings.setNotificationsEnabled(true);
         settings.setNotificationsAlertSeverity(Weather::AlertSeverity(level));
     }
+    settings.setNotificationsInitialChoice(true);
     settings.writeSettings();
 
     processCoveredAreas(true);
@@ -60,10 +71,12 @@ void NotificationsManager::localeChanged(const QString &locale)
 void NotificationsManager::currentStationChanged(StationInfo *station)
 {
     QStringList alertsAreas;
-    alertsAreas.append(station->alertsArea());
+    if (station != nullptr) {
+        alertsAreas.append(station->alertsArea());
+    }
 
     Settings settings;
-    if (settings.notificationsEnabled() && alertsAreas != _coveredAreas) {
+    if (settings.notificationsInitialChoice() && settings.notificationsEnabled() && alertsAreas != _coveredAreas) {
         qDebug() << "Notifications:"
                  << "Covered areas changed to:" << alertsAreas;
     }
@@ -79,7 +92,14 @@ void NotificationsManager::processCoveredAreas(bool enabled)
     // build ids
     const QString locale = _currentLocale.split(QStringLiteral("_")).first();
     QStringList existingKeys = settings.notificationsAlertKeys();
-    if (enabled && settings.notificationsEnabled()) {
+    if (enabled && settings.notificationsInitialChoice() && settings.notificationsEnabled()) {
+        if (!nativeSetup()) {
+            qDebug() << "Notifications:"
+                     << "initial setup";
+            _timer->start();
+            return;
+        }
+
         for (const QString &area : _coveredAreas) {
             auto id = QStringLiteral("%1_%2_%3").arg(locale, Weather::alertSeverityToString(settings.notificationsAlertSeverity()), area);
             if (existingKeys.contains(id)) {

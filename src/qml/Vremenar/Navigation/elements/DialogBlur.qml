@@ -18,8 +18,8 @@ import Vremenar.Common 1.0
 
 Dialog {
     id: dialog
-    width: Math.min(parent.width - 2 * Math.max(UI.safetyMarginLeft, UI.safetyMarginRight), Math.max(300, implicitDialogWidth))
-    height: Math.min(parent.height - 2 * Math.max(UI.safetyMarginTop, UI.safetyMarginBottom), Math.max(400, implicitDialogHeight))
+    width: Math.min(parent.width - 2 * Math.max(UI.safetyMarginLeft, UI.safetyMarginRight), implicitDialogWidth)
+    height: Math.min(parent.height - 2 * Math.max(UI.safetyMarginTop, UI.safetyMarginBottom), implicitDialogHeight)
     property int implicitDialogWidth: 300
     property int implicitDialogHeight: 400
 

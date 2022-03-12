@@ -33,15 +33,10 @@ int main(int argc, char *argv[])
 
     do {
 #ifdef VREMENAR_MOBILE
-        Vremenar::MobileApplication instance(argc, argv);
+        auto instance = Vremenar::MobileApplication::init(argc, argv);
 #else
-#ifdef Q_OS_MACOS
-        Vremenar::DesktopApplication::setupApplicationDelegate();
+        auto instance = Vremenar::DesktopApplication::init(argc, argv);
 #endif
-        Vremenar::DesktopApplication instance(argc, argv);
-#endif
-        instance.postInit();
-
         Vremenar::ApplicationWindow main;
 
         result = instance.exec();

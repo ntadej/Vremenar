@@ -103,7 +103,7 @@ void LocationProvider::initPosition()
 bool LocationProvider::enabled()
 {
     Settings settings(this);
-    if (settings.locationSource() == Location::Disabled) {
+    if (!settings.locationInitialChoice() || settings.locationSource() == Location::Disabled) {
         return false;
     }
 

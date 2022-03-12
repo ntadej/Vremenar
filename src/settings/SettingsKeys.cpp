@@ -20,6 +20,7 @@ const QString Settings::KEY_WEATHER_SOURCE_INITIAL_CHOICE = QStringLiteral("weat
 
 // Location
 const QString Settings::KEY_LOCATION_SOURCE = QStringLiteral("location/source");
+const QString Settings::KEY_LOCATION_INITIAL_CHOICE = QStringLiteral("location/initial-choice");
 const QString Settings::KEY_LOCATION_STATION = QStringLiteral("location/station");
 const QString Settings::KEY_LOCATION_LATITUDE = QStringLiteral("location/latitude");
 const QString Settings::KEY_LOCATION_LONGITUDE = QStringLiteral("location/longitude");

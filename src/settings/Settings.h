@@ -26,8 +26,10 @@ class Settings : public QSettings
     Q_OBJECT
     Q_PROPERTY(Vremenar::Sources::Country weatherSource READ weatherSource CONSTANT)
     Q_PROPERTY(bool weatherSourceInitialChoice READ weatherSourceInitialChoice CONSTANT)
+    Q_PROPERTY(bool locationInitialChoice READ locationInitialChoice CONSTANT)
     Q_PROPERTY(bool notificationsInitialChoice READ notificationsInitialChoice CONSTANT)
-    Q_PROPERTY(int initialNotificationsSetting READ initialNotificationsSetting CONSTANT)
+    Q_PROPERTY(int startupLocationSetting READ startupLocationSetting CONSTANT)
+    Q_PROPERTY(int startupNotificationsSetting READ startupNotificationsSetting CONSTANT)
     Q_PROPERTY(bool startupMapEnabled READ startupMapEnabled CONSTANT)
     Q_PROPERTY(qreal startupMapZoomLevel READ startupMapZoomLevel CONSTANT)
     Q_PROPERTY(bool rememberPosition READ rememberPosition CONSTANT)
@@ -60,10 +62,17 @@ public:
     static const bool DEFAULT_WEATHER_SOURCE_INITIAL_CHOICE;
 
     // Location
+    [[nodiscard]] int startupLocationSetting() const;
+
     [[nodiscard]] inline Location::Source locationSource() const { return _locationSource; }
     inline void setLocationSource(Location::Source s) { _locationSource = s; }
     static const QString KEY_LOCATION_SOURCE;
     static const Location::Source DEFAULT_LOCATION_SOURCE;
+
+    [[nodiscard]] inline bool locationInitialChoice() const { return _locationInitialChoice; }
+    inline void setLocationInitialChoice(bool b) { _locationInitialChoice = b; }
+    static const QString KEY_LOCATION_INITIAL_CHOICE;
+    static const bool DEFAULT_LOCATION_INITIAL_CHOICE;
 
     [[nodiscard]] inline const QString &locationStation() const { return _locationStation; }
     inline void setLocationStation(const QString &s) { _locationStation = s; }
@@ -133,7 +142,7 @@ public:
     static const QString DEFAULT_LOCALE;
 
     // Notifications
-    [[nodiscard]] int initialNotificationsSetting() const;
+    [[nodiscard]] int startupNotificationsSetting() const;
 
     [[nodiscard]] inline bool notificationsEnabled() const { return _notificationsEnabled; }
     inline void setNotificationsEnabled(bool e) { _notificationsEnabled = e; }
@@ -217,6 +226,7 @@ private:
 
     // Location
     Location::Source _locationSource;
+    bool _locationInitialChoice;
     QString _locationStation;
     double _locationLatitude;
     double _locationLongitude;

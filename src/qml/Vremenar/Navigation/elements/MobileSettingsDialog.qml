@@ -10,87 +10,107 @@
 */
 
 import QtQuick 2.12
+import QtQuick.Layouts 1.12
 
 import Vremenar 1.0
 import Vremenar.Common 1.0
 
 DialogBlur {
     id: dialog
-    implicitDialogWidth: 400
+    implicitDialogWidth: 360
+    implicitDialogHeight: layout.height
 
-    ListRadioView {
-        id: view
-        title: qsTr("Weather Alert Notifications") + VL.R
-        shouldHaveFocus: dialog.opened
+    property bool notificationsEnabled: true
+
+    Flickable {
         anchors.fill: parent
-        model: ListModel {
-            id: notificationsModel
+        clip: true
+        contentHeight: layout.height
+        focus: dialog.opened
 
-            ListElement {
-                display: QT_TR_NOOP("Minor (yellow) alerts and higher")
-                subtitle: QT_TR_NOOP("Levels 1-4")
-                translatable: true
+        KeyNavigation.down: viewNotificationsSettings.visible ? viewNotificationsSettings.view : viewLocationSettings.view
+
+        ColumnLayout {
+            id: layout
+            anchors {
+                left: parent.left
+                right: parent.right
+                top: parent.top
             }
-            ListElement {
-                display: QT_TR_NOOP("Moderate (orange) alerts and higher")
-                subtitle: QT_TR_NOOP("Levels 2-4")
-                translatable: true
+            spacing: 0
+
+
+            NotificationsSettings {
+                id: viewNotificationsSettings
+                visible: notificationsEnabled
+
+                KeyNavigation.down: viewLocationSettings.view
             }
-            ListElement {
-                display: QT_TR_NOOP("Severe (red) alerts and higher")
-                subtitle: QT_TR_NOOP("Levels 3-4")
-                translatable: true
+
+            ColumnLayout {
+                id: layoutNotificationsDisabled
+                visible: !viewNotificationsSettings.visible
+
+                TextHeader {
+                    text: qsTr("Weather Alert Notifications") + VL.R
+                    Layout.fillWidth: true
+                }
+
+                CommonLine {
+                    Layout.fillWidth: true
+                }
+
+                Item {
+                    Layout.fillWidth: true
+                    Layout.minimumHeight: UI.rowHeight
+
+                    TextCommon {
+                        text: qsTr("Notifications are currently disabled by the operating system.") + VL.R
+                        verticalAlignment: Text.AlignVCenter
+                        wrapMode: Text.WordWrap
+                        anchors {
+                            fill: parent
+                            leftMargin: UI.paddingCommon
+                            rightMargin: UI.paddingCommon
+                        }
+                    }
+                }
             }
-            ListElement {
-                display: QT_TR_NOOP("Extreme (purple) alerts only")
-                subtitle: QT_TR_NOOP("Level 4")
-                translatable: true
+
+            Item {
+                Layout.minimumHeight: UI.rowHeight / 4
+                Layout.maximumHeight: UI.rowHeight / 4
             }
-            ListElement {
-                display: QT_TR_NOOP("No weather alerts")
-                subtitle: QT_TR_NOOP("Disabled")
-                translatable: true
+
+            LocationSettings {
+                id: viewLocationSettings
+
+                KeyNavigation.up: viewNotificationsSettings.visible ? viewNotificationsSettings.view : null
+                KeyNavigation.down: viewSourceSettings.view
+            }
+
+            Item {
+                Layout.minimumHeight: UI.rowHeight / 4
+                Layout.maximumHeight: UI.rowHeight / 4
+            }
+
+            SourceSelection {
+                id: viewSourceSettings
+
+                KeyNavigation.up: viewLocationSettings.view
+            }
+
+            Item {
+                Layout.minimumHeight: UI.radiusCommon
+                Layout.maximumHeight: UI.radiusCommon
             }
         }
+    }
 
-        selectedIndex: Settings.initialNotificationsSetting
-
-        onSelectedIndexChanged: {
-            dialog.accept()
-            VNotifications.setNotificationsLevel(selectedIndex)
-        }
-        onConfirmed: {
-            dialog.accept()
-            VNotifications.setNotificationsLevel(selectedIndex)
-        }
-
-        KeyNavigation.down: viewSource.visible ? viewSource.view : null
-        onLostFocus: {
-            if (viewSource.visible) {
-                viewSource.currentIndex = 0
-                viewSource.view.focus = true
-            }
-        }
-
-        SourceSelection {
-            id: viewSource
-            additionalView: view
-            shouldHaveFocus: false
-
-            KeyNavigation.up: view.view
-
-            onLostFocus: {
-                view.currentIndex = view.view.count - 1
-                view.view.focus = true
-            }
-        }
-
-        Connections {
-            target: VNotifications
-            function onNativeEnabledStatus(enabled) {
-                // TODO: disable
-                console.log(enabled)
-            }
+    Connections {
+        target: VNotifications
+        function onNativeEnabledStatus(enabled) {
+            notificationsEnabled = enabled
         }
     }
 }

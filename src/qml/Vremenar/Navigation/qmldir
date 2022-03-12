@@ -4,9 +4,11 @@ MainWindow 1.0 MainWindow.qml
 NavigationStack 1.0 NavigationStack.qml
 NavigationPage 1.0 Page.qml
 LoadingOverlay 1.0 LoadingOverlay.qml
+WelcomeDialog 1.0 WelcomeDialog.qml
 
 NavBar 1.0 elements/NavBar.qml
 BottomSheet 1.0 elements/BottomSheet.qml
 MobileSettingsDialog 1.0 elements/MobileSettingsDialog.qml
 SourceSelection 1.0 elements/SourceSelection.qml
 DialogBlur 1.0 elements/DialogBlur.qml
+DialogBlurFullWindow 1.0 elements/DialogBlurFullWindow.qml

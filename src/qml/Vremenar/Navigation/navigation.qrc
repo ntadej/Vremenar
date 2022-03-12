@@ -13,5 +13,10 @@
         <file>elements/SourceSelection.qml</file>
         <file>elements/WindowControlButtons.qml</file>
         <file>elements/+mobile/WindowControlButtons.qml</file>
+        <file>elements/NotificationsSettings.qml</file>
+        <file>elements/DialogBlurFullWindow.qml</file>
+        <file>WelcomeDialog.qml</file>
+        <file>elements/LocationSettings.qml</file>
+        <file>elements/PageIndicatorDelegate.qml</file>
     </qresource>
 </RCC>

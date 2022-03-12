@@ -14,7 +14,11 @@
 
 #include "application/SingleApplication.h"
 
-#ifdef Q_OS_WINDOWS
+#if defined(Q_OS_MACOS) && defined(VREMENAR_OBJC)
+@class VremenarApplicationDelegate;
+#endif
+
+#if defined(Q_OS_WINDOWS)
 #include "application/NativeEventFilterWin32.h"
 #endif
 
@@ -25,11 +29,8 @@ class DesktopApplication : public SingleApplication
 {
     Q_OBJECT
 public:
-    explicit DesktopApplication(int &argc, // NOLINT(google-runtime-references)
-                                char **argv,
-                                QObject *parent = nullptr);
-
-    void postInit() const;
+    static DesktopApplication init(int &argc, // NOLINT(google-runtime-references)
+                                   char **argv);
 
     bool eventFilter(QObject *object,
                      QEvent *event) override;
@@ -43,7 +44,6 @@ public:
     bool isDark();
     static bool supportsSFSymbols();
 
-    static void setupApplicationDelegate();
     void setupDockHandler();
 
 public slots:
@@ -56,15 +56,33 @@ public slots:
 signals:
     void urlOpened(const QString &);
 
-#ifdef Q_OS_MACOS
+#if defined(Q_OS_MACOS)
     void dockClicked();
 
 private:
     void dockShow();
     void dockHide();
+
+#ifdef VREMENAR_OBJC
+public:
+    VremenarApplicationDelegate *applicationDelegate() const { return _applicationDelegate; };
+
+private:
+    explicit DesktopApplication(VremenarApplicationDelegate *delegate,
+                                int &argc, // NOLINT(google-runtime-references)
+                                char **argv,
+                                QObject *parent = nullptr);
+
+    VremenarApplicationDelegate *_applicationDelegate{};
+#endif
 #endif
 
-#ifdef Q_OS_WINDOWS
+private:
+    explicit DesktopApplication(int &argc, // NOLINT(google-runtime-references)
+                                char **argv,
+                                QObject *parent = nullptr);
+
+#if defined(Q_OS_WINDOWS)
 private:
     std::unique_ptr<NativeEventFilterWin32> _nativeEventFilter{};
 #endif

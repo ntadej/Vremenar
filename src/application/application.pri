@@ -87,6 +87,9 @@ ios {
     OBJECTIVE_SOURCES += \
         src/application/ApplicationDelegateIOS.mm \
         src/application/MobileApplicationIOS.mm
+
+    HEADERS += \
+        src/application/ApplicationDelegateIOS.h
 }
 
 # Android specific

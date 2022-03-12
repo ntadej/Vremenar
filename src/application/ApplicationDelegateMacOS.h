@@ -12,16 +12,13 @@
 #ifndef VREMENAR_APPLICATIONDELEGATEMACOS_H_
 #define VREMENAR_APPLICATIONDELEGATEMACOS_H_
 
-#include <QtCore/QString>
-#include <QtCore/QtGlobal>
-
 #include <AppKit/AppKit.h>
 #include <UserNotifications/UserNotifications.h>
 
 #include <FirebaseMessaging/FirebaseMessaging.h>
 
 @interface VremenarApplicationDelegate : NSObject <NSApplicationDelegate, UNUserNotificationCenterDelegate, FIRMessagingDelegate>
-- (void)requestNotifications;
+- (bool)requestNotifications;
 @end
 
 #endif // VREMENAR_APPLICATIONDELEGATEMACOS_H_

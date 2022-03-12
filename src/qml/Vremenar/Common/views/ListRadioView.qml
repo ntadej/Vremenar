@@ -24,12 +24,11 @@ ColumnLayout {
     property alias selectedIndex: view.selectedIndex
     property alias currentIndex: view.currentIndex
     property alias title: header.text
-    property bool shouldHaveFocus: false
 
-    property alias additionalView: view.additionalView
+    property bool shouldCloseDialog: true
 
     signal confirmed()
-    signal lostFocus()
+    signal selected()
 
     spacing: 0
 
@@ -49,11 +48,11 @@ ColumnLayout {
 
     ListView {
         id: view
-        focus: parent.shouldHaveFocus
         clip: true
+        interactive: false
+        keyNavigationEnabled: true
 
         property int selectedIndex: 0
-        property var additionalView: undefined
         currentIndex: -1
 
         Layout.fillWidth: true
@@ -73,9 +72,6 @@ ColumnLayout {
                 if (hovered) {
                     ListView.view.focus = true
                     ListView.view.currentIndex = model.index
-                    if (typeof ListView.view.additionalView !== "undefined") {
-                        ListView.view.additionalView.currentIndex = -1
-                    }
                 }
             }
 
@@ -93,9 +89,16 @@ ColumnLayout {
 
         onFocusChanged: {
             if (!focus) {
-                currentIndex = -1
-                lostFocus()
+                view.currentIndex = -1
+            } else {
+                view.currentIndex = 0
             }
+        }
+    }
+
+    onFocusChanged: {
+        if (focus) {
+            view.focus = true
         }
     }
 }

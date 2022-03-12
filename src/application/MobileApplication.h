@@ -21,15 +21,17 @@ class MobileApplication : public QGuiApplication
 {
     Q_OBJECT
 public:
-    explicit MobileApplication(int &argc,
-                               char **argv,
-                               QObject *parent = nullptr);
-
-    void postInit() const;
+    static MobileApplication init(int &argc, // NOLINT(google-runtime-references)
+                                  char **argv);
 
 #ifdef Q_OS_IOS
     static bool supportsSFSymbols();
 #endif
+
+private:
+    explicit MobileApplication(int &argc,
+                               char **argv,
+                               QObject *parent = nullptr);
 };
 
 } // namespace Vremenar

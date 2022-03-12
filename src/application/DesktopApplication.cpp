@@ -36,12 +36,17 @@ DesktopApplication::DesktopApplication(int &argc,
     std::wstring args;
     RegisterApplicationRestart(args.data(), 0);
 #endif
+
+    Output::welcome();
 }
 
-void DesktopApplication::postInit() const
+#if !defined(Q_OS_MACOS)
+DesktopApplication DesktopApplication::init(int &argc,
+                                            char **argv)
 {
-    Vremenar::Output::welcome();
+    return DesktopApplication(argc, argv);
 }
+#endif
 
 bool DesktopApplication::eventFilter(QObject *object,
                                      QEvent *event)
