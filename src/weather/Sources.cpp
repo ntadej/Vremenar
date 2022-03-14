@@ -11,8 +11,9 @@
 
 #include <stdexcept>
 
+#include "application/NativeInterface.h"
+#include "common/LocaleManager.h"
 #include "settings/Settings.h"
-
 #include "weather/Sources.h"
 
 namespace Vremenar
@@ -70,8 +71,13 @@ QUrlQuery Sources::sourceAndLocaleQuery()
 
     QUrlQuery query;
     query.addQueryItem(QStringLiteral("country"), countryToString(settings.weatherSource()));
-    if (!settings.locale().isEmpty()) {
-        query.addQueryItem(QStringLiteral("language"), settings.locale());
+    QString locale;
+    auto *manager = NativeInterface::getInstance().localeManager();
+    if (manager != nullptr) {
+        locale = manager->locale().split(QStringLiteral("_")).first();
+    }
+    if (!locale.isEmpty()) {
+        query.addQueryItem(QStringLiteral("language"), locale);
     }
 
     return query;

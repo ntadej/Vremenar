@@ -15,6 +15,7 @@
 namespace Vremenar
 {
 
+class LocaleManager;
 class NotificationsManager;
 
 class NativeInterface
@@ -26,6 +27,9 @@ public:
                                          // Instantiated on first use.
         return instance;
     }
+
+    [[nodiscard]] inline LocaleManager *localeManager() const { return _localeManager; }
+    void setLocaleManager(LocaleManager *manager) { _localeManager = manager; };
 
     [[nodiscard]] inline NotificationsManager *notificationsManager() const { return _notificationsManager; }
     void setNotificationsManager(NotificationsManager *manager) { _notificationsManager = manager; };
@@ -39,6 +43,7 @@ public:
     void operator=(NativeInterface const &) = delete;
 
 private:
+    LocaleManager *_localeManager{};
     NotificationsManager *_notificationsManager{};
 };
 

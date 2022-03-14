@@ -63,6 +63,7 @@ ApplicationWindow::ApplicationWindow(QObject *parent)
       _qmlFileSelector(new QQmlFileSelector(_engine.get()))
 {
     // Native interface
+    NativeInterface::getInstance().setLocaleManager(_localeManager.get());
     NativeInterface::getInstance().setNotificationsManager(_notificationsManager.get());
 
     // Set the style
