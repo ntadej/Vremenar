@@ -6,6 +6,7 @@ buildscript {
 
     dependencies {
         classpath 'com.android.tools.build:gradle:3.6.0'
+        classpath 'com.google.gms:google-services:4.3.10'
     }
 }
 
@@ -15,9 +16,12 @@ repositories {
 }
 
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
 
 dependencies {
     implementation 'ly.count.android:sdk:20.11.11'
+    implementation platform('com.google.firebase:firebase-bom:29.2.0')
+    implementation 'com.google.firebase:firebase-messaging'
     implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
 }
 
@@ -74,5 +78,9 @@ android {
         resConfig "en"
         minSdkVersion 21
         targetSdkVersion 30
+    }
+
+    packagingOptions {
+        exclude "META-INF/DEPENDENCIES"
     }
 }

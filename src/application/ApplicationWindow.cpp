@@ -21,6 +21,7 @@
 #include <QtQuickControls2/QQuickStyle>
 
 #include "application/BaseApplication.h"
+#include "application/NativeInterface.h"
 #include "common/NetworkManager.h"
 #include "qml/Qml.h"
 #include "settings/Settings.h"
@@ -61,6 +62,9 @@ ApplicationWindow::ApplicationWindow(QObject *parent)
       _notificationsManager(std::make_unique<NotificationsManager>(_localeManager->locale(), this)),
       _qmlFileSelector(new QQmlFileSelector(_engine.get()))
 {
+    // Native interface
+    NativeInterface::getInstance().setNotificationsManager(_notificationsManager.get());
+
     // Set the style
 #if defined(Q_OS_ANDROID)
     QQuickStyle::setStyle(QStringLiteral("Material"));
@@ -314,7 +318,7 @@ void ApplicationWindow::showAboutDialog()
 void ApplicationWindow::showSettingsDialog()
 {
     gsl::owner<SettingsDialog *> dialog{};
-    dialog = new SettingsDialog(_weatherProvider->stationsWithCurrentCondition());
+    dialog = new SettingsDialog(_weatherProvider->stationsWithCurrentCondition(), _notificationsManager->nativeSupported());
     dialog->setAttribute(Qt::WA_DeleteOnClose);
 
     connect(dialog, &SettingsDialog::localeChanged, _localeManager.get(), &LocaleManager::setLocale);
@@ -326,9 +330,11 @@ void ApplicationWindow::showSettingsDialog()
     connect(dialog, &SettingsDialog::showInDockChanged, this, &ApplicationWindow::dockVisibilityChanged);
 #endif
 
-    connect(dialog, &SettingsDialog::notificationsChanged, _notificationsManager.get(), &NotificationsManager::settingsChanged);
-    connect(_notificationsManager.get(), &NotificationsManager::nativeEnabledStatus, dialog, &SettingsDialog::notificationsStatus);
-    _notificationsManager->nativeEnabledCheck();
+    if (_notificationsManager->nativeSupported()) {
+        connect(dialog, &SettingsDialog::notificationsChanged, _notificationsManager.get(), &NotificationsManager::settingsChanged);
+        connect(_notificationsManager.get(), &NotificationsManager::nativeEnabledStatus, dialog, &SettingsDialog::notificationsStatus);
+        _notificationsManager->nativeEnabledCheck();
+    }
 
     dialog->show();
 }

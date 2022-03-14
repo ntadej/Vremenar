@@ -1,6 +1,6 @@
 #
 # Vremenar
-# Copyright (C) 2019 Tadej Novak <tadej@tano.si>
+# Copyright (C) 2022 Tadej Novak <tadej@tano.si>
 #
 # This application is bi-licensed under the GNU General Public License
 # Version 3 or later as well as Mozilla Public License Version 2.
@@ -27,17 +27,26 @@ QT += androidextras
 }
 
 # Define substitution files
-iOSPlist.input = $$top_srcdir/resources/Android/AndroidManifest.xml.in
-iOSPlist.output = $$top_srcdir/resources/Android/output/AndroidManifest.xml
-QMAKE_SUBSTITUTES += iOSPlist
+AndroidManifest.input = $$top_srcdir/resources/Android/AndroidManifest.xml.in
+AndroidManifest.output = $$top_srcdir/resources/Android/output/AndroidManifest.xml
+QMAKE_SUBSTITUTES += AndroidManifest
 
 # Android packaging
 DISTFILES += \
     $$top_srcdir/resources/Android/output/AndroidManifest.xml \
+    $$top_srcdir/resources/Android/output/res/values/colors.xml \
     $$top_srcdir/resources/Android/output/res/values/libs.xml \
     $$top_srcdir/resources/Android/output/res/values/styles.xml \
     $$top_srcdir/resources/Android/output/build.gradle \
-    $$top_srcdir/resources/Android/output/src/org/qtproject/qt5/android/bindings/VremenarActivity.java
+    $$top_srcdir/resources/Android/output/gradle.properties \
+    $$top_srcdir/resources/Android/output/src/org/qtproject/qt5/android/bindings/VremenarActivity.java \
+    $$top_srcdir/resources/Android/output/src/org/qtproject/qt5/android/bindings/VremenarMessagingService.java
+
+# Firebase
+!ci {
+    DISTFILES += \
+        $$top_srcdir/resources/Android/output/google-services.json \
+}
 
 ANDROID_PACKAGE_SOURCE_DIR = \
         $$top_srcdir/resources/Android/output

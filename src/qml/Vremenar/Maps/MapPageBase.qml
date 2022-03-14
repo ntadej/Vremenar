@@ -164,7 +164,7 @@ Item {
         Connections {
             target: applicationWindow
             function onReadyChanged() {
-                if (!Settings.weatherSourceInitialChoice || !Settings.locationInitialChoice || !Settings.notificationsInitialChoice) {
+                if (!Settings.weatherSourceInitialChoice || !Settings.locationInitialChoice || (VNotifications.nativeSupported() && !Settings.notificationsInitialChoice)) {
                     welcomeDialog.open()
                 }
             }

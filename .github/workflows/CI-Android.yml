@@ -39,6 +39,7 @@ jobs:
           COUNTLY_ENDPOINT: ${{ secrets.COUNTLY_ENDPOINT }}
           COUNTLY_SALT: ${{ secrets.COUNTLY_SALT }}
           COUNTLY_SALT_DEV: ${{ secrets.COUNTLY_SALT_DEV }}
+          FIREBASE_CONFIG_DEV: ${{ secrets.FIREBASE_CONFIG_DEV }}
         run: |
           cat <<EOT > source/config.pri
           MAPS_ENDPOINT="${MAPS_ENDPOINT}"
@@ -48,6 +49,7 @@ jobs:
           COUNTLY_ENDPOINT="${COUNTLY_ENDPOINT}"
           COUNTLY_SALT="${COUNTLY_SALT}"
           EOT
+          echo $FIREBASE_CONFIG_DEV | base64 --decode > source/resources/Android/output/google-services.json
           mkdir build
 
       - name: Setup dependencies

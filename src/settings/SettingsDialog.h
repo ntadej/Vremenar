@@ -38,6 +38,7 @@ class SettingsDialog : public QMainWindow
     Q_OBJECT
 public:
     explicit SettingsDialog(StationListModel *stationsModel,
+                            bool notificationsSupported,
                             QWidget *parent = nullptr);
 
 protected:
@@ -90,7 +91,7 @@ private:
     QStringList _locales;
 
 #if defined(Q_OS_MACOS)
-    void initializeMacOS();
+    void initializeMacOS(bool notificationsSupported);
     void retranslateMacOS();
     void actionToggledMacOS();
 

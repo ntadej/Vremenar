@@ -60,9 +60,23 @@
             <meta-data android:value=\"@string/unsupported_android_version\" android:name=\"android.app.unsupported_android_version\"/>
         </activity>
 
+        <meta-data android:name=\"firebase_messaging_auto_init_enabled\" android:value=\"false\" />
+        <meta-data android:name=\"firebase_analytics_collection_enabled\" android:value=\"false\" />
+        <meta-data android:name=\"com.google.firebase.messaging.default_notification_icon\" android:resource=\"@drawable/notification\" />
+        <meta-data android:name=\"com.google.firebase.messaging.default_notification_color\" android:resource=\"@color/colorAccent\" />
+        <meta-data android:name=\"com.google.firebase.messaging.default_notification_channel_id\" android:value=\"vremenar_forecast\" />
+
         <service android:name=\"org.openudid.OpenUDID_service\">
             <intent-filter>
                 <action android:name=\"org.openudid.GETUDID\" />
+            </intent-filter>
+        </service>
+
+        <service
+            android:name=\"si.tano.vremenar.VremenarMessagingService\"
+            android:exported=\"false\">
+            <intent-filter>
+                <action android:name=\"com.google.firebase.MESSAGING_EVENT\" />
             </intent-filter>
         </service>
 

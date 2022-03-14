@@ -15,29 +15,27 @@
 #include "settings/Settings.h"
 #include "weather/containers/StationInfo.h"
 
-namespace
-{
-constexpr int updateInterval{2500};
-} // namespace
-
 namespace Vremenar
 {
 
 NotificationsManager::NotificationsManager(QString locale,
                                            QObject *parent)
     : QObject(parent),
-      _currentLocale(std::move(locale)),
-      _timer(std::make_unique<QTimer>(this))
+      _currentLocale(std::move(locale))
 {
-    _timer->setInterval(updateInterval);
-    _timer->setSingleShot(true);
-
     connect(this, &NotificationsManager::nativeEnabledStatus, &NotificationsManager::processCoveredAreas);
-    connect(_timer.get(), &QTimer::timeout, this, &NotificationsManager::settingsChanged);
 
     Settings settings;
     qDebug() << "Notifications:"
              << "Currently subscribed to" << settings.notificationsAlertKeys();
+}
+
+void NotificationsManager::nativeInitCompleted()
+{
+    if (_waitingForInit) {
+        _waitingForInit = false;
+        settingsChanged();
+    }
 }
 
 void NotificationsManager::setNotificationsLevel(int level)
@@ -76,7 +74,7 @@ void NotificationsManager::currentStationChanged(StationInfo *station)
     }
 
     Settings settings;
-    if (settings.notificationsInitialChoice() && settings.notificationsEnabled() && alertsAreas != _coveredAreas) {
+    if (nativeSupported() && settings.notificationsInitialChoice() && settings.notificationsEnabled() && alertsAreas != _coveredAreas) {
         qDebug() << "Notifications:"
                  << "Covered areas changed to:" << alertsAreas;
     }
@@ -92,11 +90,11 @@ void NotificationsManager::processCoveredAreas(bool enabled)
     // build ids
     const QString locale = _currentLocale.split(QStringLiteral("_")).first();
     QStringList existingKeys = settings.notificationsAlertKeys();
-    if (enabled && settings.notificationsInitialChoice() && settings.notificationsEnabled()) {
+    if (enabled && nativeSupported() && settings.notificationsInitialChoice() && settings.notificationsEnabled()) {
         if (!nativeSetup()) {
             qDebug() << "Notifications:"
                      << "initial setup";
-            _timer->start();
+            _waitingForInit = true;
             return;
         }
 

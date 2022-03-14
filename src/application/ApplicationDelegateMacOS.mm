@@ -14,6 +14,8 @@
 #include <FirebaseCore/FirebaseCore.h>
 
 #include "application/ApplicationDelegateMacOS.h"
+#include "application/NativeInterface.h"
+#include "application/NotificationsManager.h"
 #include "settings/Settings.h"
 
 @implementation VremenarApplicationDelegate {
@@ -152,6 +154,11 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
                                               @"FCMToken"
                                                         object:nil
                                                       userInfo:dataDict];
+
+    auto *manager = Vremenar::NativeInterface::getInstance().notificationsManager();
+    if (manager != nullptr) {
+        manager->nativeInitCompleted();
+    }
 }
 
 @end

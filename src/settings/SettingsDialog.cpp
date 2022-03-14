@@ -23,6 +23,7 @@ namespace Vremenar
 {
 
 SettingsDialog::SettingsDialog(StationListModel *stationsModel,
+                               bool notificationsSupported,
                                QWidget *parent)
     : QMainWindow(parent),
       ui(std::make_unique<Ui::SettingsDialog>())
@@ -51,7 +52,7 @@ SettingsDialog::SettingsDialog(StationListModel *stationsModel,
                    | Qt::CustomizeWindowHint);
 
 #if defined(Q_OS_MACOS)
-    initializeMacOS();
+    initializeMacOS(notificationsSupported);
 #else
     connect(ui->actionGeneral, &QAction::toggled, this, &SettingsDialog::actionToggled);
     connect(ui->actionNotifications, &QAction::toggled, this, &SettingsDialog::actionToggled);
@@ -106,6 +107,11 @@ SettingsDialog::SettingsDialog(StationListModel *stationsModel,
     ui->buttonsLayout->setContentsMargins(24, 0, 24, 24); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
     connect(ui->buttons, &QDialogButtonBox::accepted, this, &SettingsDialog::close);
 #endif
+
+    // Disable notifications if not supported
+    if (!notificationsSupported) {
+        ui->toolBar->removeAction(ui->actionNotifications);
+    }
 }
 
 void SettingsDialog::changeEvent(QEvent *e)

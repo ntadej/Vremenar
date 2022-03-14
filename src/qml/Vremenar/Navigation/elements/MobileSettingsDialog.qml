@@ -39,6 +39,14 @@ DialogBlur {
             }
             spacing: 0
 
+            Component.onCompleted: {
+                if (!VNotifications.nativeSupported()) {
+                    viewNotificationsSettings.visible = false
+                    layoutNotificationsDisabled.visible = false
+                    notificationsSpacer.visible = false
+                }
+            }
+
 
             NotificationsSettings {
                 id: viewNotificationsSettings
@@ -78,6 +86,7 @@ DialogBlur {
             }
 
             Item {
+                id: notificationsSpacer
                 Layout.minimumHeight: UI.rowHeight / 4
                 Layout.maximumHeight: UI.rowHeight / 4
             }

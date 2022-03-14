@@ -20,6 +20,7 @@ SOURCES += \
 HEADERS += \
     src/application/ApplicationWindow.h \
     src/application/BaseApplication.h \
+    src/application/NativeInterface.h \
     src/application/NotificationsManager.h \
     src/application/Updates.h \
     src/application/analytics/Analytics.h \
@@ -95,9 +96,13 @@ ios {
 # Android specific
 android {
     SOURCES += \
+        src/application/AndroidJniInterface.cpp \
+        src/application/NotificationsManagerAndroid.cpp \
         src/application/analytics/AnalyticsEngineAndroid.cpp
 
     HEADERS += \
+        src/application/AndroidJniInterface.h \
+        src/application/NotificationsManagerAndroid.h \
         src/application/analytics/AnalyticsEngineAndroid.h
 }
 

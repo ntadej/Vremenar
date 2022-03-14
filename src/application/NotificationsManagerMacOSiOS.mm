@@ -32,6 +32,11 @@
 namespace Vremenar
 {
 
+bool NotificationsManager::nativeSupported() const
+{
+    return false;
+}
+
 void NotificationsManager::nativeEnabledCheck()
 {
     UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];

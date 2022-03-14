@@ -208,7 +208,7 @@ DialogBlurFullWindow {
                 viewWelcomeLocation.destroy()
                 pageLocation.destroy()
             }
-            if (Settings.notificationsInitialChoice) {
+            if (!VNotifications.nativeSupported() || Settings.notificationsInitialChoice) {
                 viewWelcomeNotifications.destroy()
                 pageNotifications.destroy()
             }

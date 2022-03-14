@@ -20,3 +20,4 @@ config.pri
 /graphics/weather/tray/modifiers/**/*.png
 
 /resources/Android/output/AndroidManifest.xml
+/resources/Android/output/google-services.json
