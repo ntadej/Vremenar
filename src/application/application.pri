@@ -107,7 +107,7 @@ android {
 }
 
 # Linux/Windows specific
-desktop {
+linux:!android|windows {
     SOURCES += \
         src/application/analytics/AnalyticsEngineCpp.cpp \
         src/application/analytics/Countly.cpp \
@@ -118,11 +118,18 @@ desktop {
         src/application/analytics/Countly.h
 }
 
+# Linux specific
+linux:!android {
+    SOURCES += \
+        src/application/NotificationsManagerDummy.cpp
+}
+
 # Windows specific
 win32 {
     SOURCES += \
         src/application/DesktopApplicationWin32.cpp \
         src/application/NativeEventFilterWin32.cpp \
+        src/application/NotificationsManagerDummy.cpp \
         src/application/SparkleHelperWin32.cpp
 
     HEADERS += \
