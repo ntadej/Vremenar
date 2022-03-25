@@ -19,29 +19,25 @@
 
 #define VREMENAR_OBJC
 #include "application/ApplicationDelegateMacOS.h"
+#include "application/ApplicationDelegateMacOSWrapper.h"
 #include "application/DesktopApplication.h"
 
 namespace Vremenar
 {
 
-DesktopApplication::DesktopApplication(VremenarApplicationDelegate *delegate,
-                                       int &argc,
-                                       char **argv,
-                                       QObject *parent)
-    : DesktopApplication(argc, argv, parent)
-{
-    _applicationDelegate = delegate;
-}
-
 DesktopApplication DesktopApplication::init(int &argc,
                                             char **argv)
 {
-    VremenarApplicationDelegate *delegate = [[VremenarApplicationDelegate alloc] init];
+    if (VremenarDelegate::getInstance().ptr() == nullptr) {
+        VremenarApplicationDelegate *delegate = [[VremenarApplicationDelegate alloc] init];
 
-    NSApplication *application = [NSApplication sharedApplication];
-    [application setDelegate:delegate];
+        NSApplication *application = [NSApplication sharedApplication];
+        [application setDelegate:delegate];
 
-    return DesktopApplication(delegate, argc, argv);
+        VremenarDelegate::getInstance().setPtr(delegate);
+    }
+
+    return DesktopApplication(argc, argv);
 }
 
 bool dockClickHandler(id self,

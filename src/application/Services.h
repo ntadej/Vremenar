@@ -9,8 +9,8 @@
 * SPDX-License-Identifier: (GPL-3.0-or-later AND MPL-2.0)
 */
 
-#ifndef VREMENAR_NATIVEINTERFACE_H_
-#define VREMENAR_NATIVEINTERFACE_H_
+#ifndef VREMENAR_SERVICES_H_
+#define VREMENAR_SERVICES_H_
 
 namespace Vremenar
 {
@@ -18,29 +18,29 @@ namespace Vremenar
 class LocaleManager;
 class NotificationsManager;
 
-class NativeInterface
+class Services
 {
 public:
-    static NativeInterface &getInstance()
+    static Services &getInstance()
     {
-        static NativeInterface instance; // Guaranteed to be destroyed.
+        static Services instance; // Guaranteed to be destroyed.
                                          // Instantiated on first use.
         return instance;
     }
 
     [[nodiscard]] inline LocaleManager *localeManager() const { return _localeManager; }
-    void setLocaleManager(LocaleManager *manager) { _localeManager = manager; };
+    void setLocaleManager(LocaleManager *manager) { _localeManager = manager; }
 
     [[nodiscard]] inline NotificationsManager *notificationsManager() const { return _notificationsManager; }
-    void setNotificationsManager(NotificationsManager *manager) { _notificationsManager = manager; };
+    void setNotificationsManager(NotificationsManager *manager) { _notificationsManager = manager; }
 
 private:
-    NativeInterface() = default;
-    ~NativeInterface() = default;
+    Services() = default;
+    ~Services() = default;
 
 public:
-    NativeInterface(NativeInterface const &) = delete;
-    void operator=(NativeInterface const &) = delete;
+    Services(Services const &) = delete;
+    void operator=(Services const &) = delete;
 
 private:
     LocaleManager *_localeManager{};
@@ -49,4 +49,4 @@ private:
 
 } // namespace Vremenar
 
-#endif // VREMENAR_NATIVEINTERFACE_H_
+#endif // VREMENAR_SERVICES_H_

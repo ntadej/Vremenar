@@ -21,7 +21,7 @@
 #include <QtQuickControls2/QQuickStyle>
 
 #include "application/BaseApplication.h"
-#include "application/NativeInterface.h"
+#include "application/Services.h"
 #include "common/NetworkManager.h"
 #include "qml/Qml.h"
 #include "settings/Settings.h"
@@ -62,9 +62,9 @@ ApplicationWindow::ApplicationWindow(QObject *parent)
       _notificationsManager(std::make_unique<NotificationsManager>(_localeManager->locale(), this)),
       _qmlFileSelector(new QQmlFileSelector(_engine.get()))
 {
-    // Native interface
-    NativeInterface::getInstance().setLocaleManager(_localeManager.get());
-    NativeInterface::getInstance().setNotificationsManager(_notificationsManager.get());
+    // Services singleton
+    Services::getInstance().setLocaleManager(_localeManager.get());
+    Services::getInstance().setNotificationsManager(_notificationsManager.get());
 
     // Set the style
 #if defined(Q_OS_ANDROID)

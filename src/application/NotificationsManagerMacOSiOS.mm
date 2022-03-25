@@ -24,6 +24,7 @@
 
 #ifndef VREMENAR_MOBILE
 #include "application/ApplicationDelegateMacOS.h"
+#include "application/ApplicationDelegateMacOSWrapper.h"
 #include "application/DesktopApplication.h"
 #else
 #include "application/ApplicationDelegateIOS.h"
@@ -34,7 +35,7 @@ namespace Vremenar
 
 bool NotificationsManager::nativeSupported() const
 {
-    return false;
+    return true;
 }
 
 void NotificationsManager::nativeEnabledCheck()
@@ -82,8 +83,7 @@ void NotificationsManager::nativeUnsubscribe(const QString &id) const
 bool NotificationsManager::nativeSetup()
 {
 #ifndef VREMENAR_MOBILE
-    auto *application = qobject_cast<DesktopApplication *>(QCoreApplication::instance());
-    auto *applicationDelegate = application->applicationDelegate();
+    auto *applicationDelegate = VremenarDelegate::getInstance().ptr();
     return [applicationDelegate requestNotifications];
 #else
     auto *applicationDelegate = (QIOSApplicationDelegate *)([[UIApplication sharedApplication] delegate]);

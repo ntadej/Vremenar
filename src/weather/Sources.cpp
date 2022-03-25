@@ -11,7 +11,7 @@
 
 #include <stdexcept>
 
-#include "application/NativeInterface.h"
+#include "application/Services.h"
 #include "common/LocaleManager.h"
 #include "settings/Settings.h"
 #include "weather/Sources.h"
@@ -72,7 +72,7 @@ QUrlQuery Sources::sourceAndLocaleQuery()
     QUrlQuery query;
     query.addQueryItem(QStringLiteral("country"), countryToString(settings.weatherSource()));
     QString locale;
-    auto *manager = NativeInterface::getInstance().localeManager();
+    auto *manager = Services::getInstance().localeManager();
     if (manager != nullptr) {
         locale = manager->locale().split(QStringLiteral("_")).first();
     }

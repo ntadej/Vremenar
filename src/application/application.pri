@@ -20,8 +20,8 @@ SOURCES += \
 HEADERS += \
     src/application/ApplicationWindow.h \
     src/application/BaseApplication.h \
-    src/application/NativeInterface.h \
     src/application/NotificationsManager.h \
+    src/application/Services.h \
     src/application/Updates.h \
     src/application/analytics/Analytics.h \
     src/application/analytics/AnalyticsEngine.h
@@ -60,7 +60,8 @@ macos {
         src/application/DesktopApplicationMacOS.mm
 
     HEADERS += \
-        src/application/ApplicationDelegateMacOS.h
+        src/application/ApplicationDelegateMacOS.h \
+        src/application/ApplicationDelegateMacOSWrapper.h
 
     !store {
         OBJECTIVE_SOURCES += \

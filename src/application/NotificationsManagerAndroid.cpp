@@ -15,9 +15,9 @@
 #include <QtAndroidExtras/QAndroidJniObject>
 
 #include "application/AndroidJniInterface.h"
-#include "application/NativeInterface.h"
 #include "application/NotificationsManager.h"
 #include "application/NotificationsManagerAndroid.h"
+#include "application/Services.h"
 
 namespace Vremenar::Android
 {
@@ -25,7 +25,7 @@ namespace Vremenar::Android
 void notificationsSetupCompleted(JNIEnv * /* env */,
                                  jobject /* obj */)
 {
-    auto *manager = NativeInterface::getInstance().notificationsManager();
+    auto *manager = Services::getInstance().notificationsManager();
     if (manager != nullptr) {
         manager->nativeInitCompleted();
     }

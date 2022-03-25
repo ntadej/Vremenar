@@ -14,10 +14,6 @@
 
 #include "application/SingleApplication.h"
 
-#if defined(Q_OS_MACOS) && defined(VREMENAR_OBJC)
-@class VremenarApplicationDelegate;
-#endif
-
 #if defined(Q_OS_WINDOWS)
 #include "application/NativeEventFilterWin32.h"
 #endif
@@ -62,19 +58,6 @@ signals:
 private:
     void dockShow();
     void dockHide();
-
-#ifdef VREMENAR_OBJC
-public:
-    VremenarApplicationDelegate *applicationDelegate() const { return _applicationDelegate; };
-
-private:
-    explicit DesktopApplication(VremenarApplicationDelegate *delegate,
-                                int &argc, // NOLINT(google-runtime-references)
-                                char **argv,
-                                QObject *parent = nullptr);
-
-    VremenarApplicationDelegate *_applicationDelegate{};
-#endif
 #endif
 
 private:
