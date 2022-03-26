@@ -314,7 +314,7 @@ bool MapLayersProxyModel::filterAcceptsRow(int sourceRow,
 {
     QModelIndex index = sourceModel()->index(sourceRow, 0, sourceParent);
 
-    bool name = index.data(MapLayer::DisplayRole).toString().contains(filterRegExp());
+    bool name = index.data(MapLayer::DisplayRole).toString().contains(filterRegularExpression());
     // bool time = !_time || index.data(MapLayer::TimeRole).toDateTime().toMSecsSinceEpoch() == _time;
 
     return name;

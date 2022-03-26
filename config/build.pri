@@ -12,7 +12,8 @@
 CONFIG += qt
 LOGGING = true
 
-lessThan(QT_MINOR_VERSION, 15): error("Requires Qt 5.15 or later!")
+equals(QT_MAJOR_VERSION, 5): CONFIG += legacy
+equals(QT_MAJOR_VERSION, 5):lessThan(QT_MINOR_VERSION, 15): error("Requires Qt 5.15 or later!")
 
 # Use C++17
 CONFIG += c++17

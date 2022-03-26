@@ -15,7 +15,6 @@
 #include <QtCore/QDebug>
 #include <QtCore/QFile>
 #include <QtCore/QMutex>
-#include <QtCore/QTextCodec>
 #include <QtCore/QTextStream>
 
 #ifdef Q_OS_ANDROID

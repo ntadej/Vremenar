@@ -71,6 +71,8 @@ ApplicationWindow::ApplicationWindow(QObject *parent)
     QQuickStyle::setStyle(QStringLiteral("Material"));
 #elif defined(Q_OS_LINUX) || defined(Q_OS_WINDOWS)
     QQuickStyle::setStyle(QStringLiteral("Universal"));
+#elif QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+    QQuickStyle::setStyle(QStringLiteral("Basic"));
 #endif
 
     createModels();

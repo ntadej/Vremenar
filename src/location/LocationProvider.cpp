@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -86,10 +86,15 @@ void LocationProvider::initPosition()
                 this, &LocationProvider::supportedMethodsChanged);
         connect(_position.get(), &QGeoPositionInfoSource::positionUpdated,
                 this, &LocationProvider::positionUpdated);
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+        connect(_position.get(), &QGeoPositionInfoSource::errorOccurred,
+                this, &LocationProvider::positionError);
+#else
         connect(_position.get(), QOverload<QGeoPositionInfoSource::Error>::of(&QGeoPositionInfoSource::error),
                 this, &LocationProvider::positionError);
         connect(_position.get(), &QGeoPositionInfoSource::updateTimeout,
                 this, &LocationProvider::positionTimeout);
+#endif
 
         positionUpdated(_position->lastKnownPosition());
         requestPositionUpdate();

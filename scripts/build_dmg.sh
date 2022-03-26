@@ -38,6 +38,9 @@ fi
 if [[ -f "$1/Contents/PlugIns/quick/libqtquickcontrols2imaginestyleplugin.dylib" ]]; then
   rm "$1/Contents/PlugIns/quick/libqtquickcontrols2imaginestyleplugin.dylib"
 fi
+if [[ -f "$1/Contents/PlugIns/quick/libqtquickcontrols2macosstyleplugin.dylib" ]]; then
+  rm "$1/Contents/PlugIns/quick/libqtquickcontrols2macosstyleplugin.dylib"
+fi
 if [[ -f "$1/Contents/PlugIns/quick/libqtquickcontrols2materialstyleplugin.dylib" ]]; then
   rm "$1/Contents/PlugIns/quick/libqtquickcontrols2materialstyleplugin.dylib"
 fi
@@ -45,28 +48,37 @@ if [[ -f "$1/Contents/PlugIns/quick/libqtquickcontrols2universalstyleplugin.dyli
   rm "$1/Contents/PlugIns/quick/libqtquickcontrols2universalstyleplugin.dylib"
 fi
 
-if [[ -d "$1/Contents/Resources/qml/QtQuick/Controls/" ]]; then
-  rm -r "$1/Contents/Resources/qml/QtQuick/Controls/"
+CONTROLS_DIR="Controls.2"
+if [[ -f "$1/Contents/Resources/qml/QtQuick/Controls/libqtquickcontrols2plugin.dylib" ]]; then
+  CONTROLS_DIR="Controls"
+else
+  if [[ -d "$1/Contents/Resources/qml/QtQuick/Controls/" ]]; then
+    rm -r "$1/Contents/Resources/qml/QtQuick/Controls/"
+  fi
 fi
 
-if [[ -d "$1/Contents/Resources/qml/QtQuick/Controls.2/designer/" ]]; then
-  rm -r "$1/Contents/Resources/qml/QtQuick/Controls.2/designer/"
+if [[ -d "$1/Contents/Resources/qml/QtQuick/$CONTROLS_DIR/designer/" ]]; then
+  rm -r "$1/Contents/Resources/qml/QtQuick/$CONTROLS_DIR/designer/"
 fi
 
-if [[ -d "$1/Contents/Resources/qml/QtQuick/Controls.2/Fusion/" ]]; then
-  rm -r "$1/Contents/Resources/qml/QtQuick/Controls.2/Fusion/"
+if [[ -d "$1/Contents/Resources/qml/QtQuick/$CONTROLS_DIR/Fusion/" ]]; then
+  rm -r "$1/Contents/Resources/qml/QtQuick/$CONTROLS_DIR/Fusion/"
 fi
 
-if [[ -d "$1/Contents/Resources/qml/QtQuick/Controls.2/Imagine/" ]]; then
-  rm -r "$1/Contents/Resources/qml/QtQuick/Controls.2/Imagine/"
+if [[ -d "$1/Contents/Resources/qml/QtQuick/$CONTROLS_DIR/Imagine/" ]]; then
+  rm -r "$1/Contents/Resources/qml/QtQuick/$CONTROLS_DIR/Imagine/"
 fi
 
-if [[ -d "$1/Contents/Resources/qml/QtQuick/Controls.2/Material/" ]]; then
-  rm -r "$1/Contents/Resources/qml/QtQuick/Controls.2/Material/"
+if [[ -d "$1/Contents/Resources/qml/QtQuick/$CONTROLS_DIR/Material/" ]]; then
+  rm -r "$1/Contents/Resources/qml/QtQuick/$CONTROLS_DIR/Material/"
 fi
 
-if [[ -d "$1/Contents/Resources/qml/QtQuick/Controls.2/Universal/" ]]; then
-  rm -r "$1/Contents/Resources/qml/QtQuick/Controls.2/Universal/"
+if [[ -d "$1/Contents/Resources/qml/QtQuick/$CONTROLS_DIR/Universal/" ]]; then
+  rm -r "$1/Contents/Resources/qml/QtQuick/$CONTROLS_DIR/Universal/"
+fi
+
+if [[ -d "$1/Contents/Resources/qml/QtQuick/$CONTROLS_DIR/macOS/" ]]; then
+  rm -r "$1/Contents/Resources/qml/QtQuick/$CONTROLS_DIR/macOS/"
 fi
 
 # Fix the signing

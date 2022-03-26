@@ -56,7 +56,7 @@ Item {
             MenuItemGroup {
                 id: mapStyleMenuGroup
                 items: mapStyleMenu.items
-                onTriggered: {
+                onTriggered: function(item) {
                     if (item.value === VWeather.currentMapStyle) {
                         item.checked = true
                     }
@@ -74,8 +74,12 @@ Item {
                     onTriggered: VWeather.currentMapStyle = index
                 }
 
-                onObjectAdded: mapStyleMenu.insertItem(index, object)
-                onObjectRemoved: mapStyleMenu.removeItem(object)
+                onObjectAdded: function(index, object) {
+                    mapStyleMenu.insertItem(index, object)
+                }
+                onObjectRemoved: function (object) {
+                    mapStyleMenu.removeItem(object)
+                }
             }
         }
 
@@ -88,7 +92,7 @@ Item {
             MenuItemGroup {
                 id: mapTypeMenuGroup
                 items: mapTypeMenu.items
-                onTriggered: {
+                onTriggered: function(item) {
                     if (item.value === VWeather.currentMapLayer) {
                         item.checked = true
                     }
@@ -106,8 +110,12 @@ Item {
                     onTriggered: VWeather.currentMapLayerChanged(index)
                 }
 
-                onObjectAdded: mapTypeMenu.insertItem(index, object)
-                onObjectRemoved: mapTypeMenu.removeItem(object)
+                onObjectAdded: function(index, object) {
+                    mapTypeMenu.insertItem(index, object)
+                }
+                onObjectRemoved: function(object) {
+                    mapTypeMenu.removeItem(object)
+                }
             }
         }
 
@@ -118,7 +126,7 @@ Item {
 
             MenuItemGroup {
                 id: mapTypeGroup
-                onTriggered: {
+                onTriggered: function(item) {
                     if (item.value === VWeather.currentMapLayer) {
                         item.checked = true
                     }
@@ -127,7 +135,7 @@ Item {
 
             MenuItemGroup {
                 id: mapStyleGroup
-                onTriggered: {
+                onTriggered: function(item) {
                     if (item.value === VWeather.currentMapStyle) {
                         item.checked = true
                     }
@@ -145,11 +153,11 @@ Item {
                     onTriggered: VWeather.currentMapLayerChanged(index)
                 }
 
-                onObjectAdded: {
+                onObjectAdded: function(index, object) {
                     mapMenu.insertItem(index, object)
                     mapTypeGroup.addItem(object)
                 }
-                onObjectRemoved: {
+                onObjectRemoved: function(object) {
                     mapMenu.removeItem(object)
                     mapTypeGroup.removeItem(object)
                 }
@@ -168,11 +176,11 @@ Item {
                     onTriggered: VWeather.currentMapStyle = index
                 }
 
-                onObjectAdded: {
+                onObjectAdded: function(index, object) {
                     mapMenu.insertItem(index + 1, object)
                     mapStyleGroup.addItem(object)
                 }
-                onObjectRemoved: {
+                onObjectRemoved: function (object) {
                     mapMenu.removeItem(object)
                     mapStyleGroup.removeItem(object)
                 }

@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -34,7 +34,7 @@ bool StationListProxyModel::filterAcceptsRow(int sourceRow,
 {
     const QModelIndex index = sourceModel()->index(sourceRow, 0, sourceParent);
 
-    const bool name = index.data(StationInfo::DisplayRole).toString().contains(filterRegExp());
+    const bool name = index.data(StationInfo::DisplayRole).toString().contains(filterRegularExpression());
     bool forecastStatus{true};
     if (_ignoreForecastOnly) {
         forecastStatus = !index.data(StationInfo::ForecastOnlyRole).toBool();

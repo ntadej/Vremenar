@@ -15,13 +15,17 @@
 #include <memory>
 
 #include <QtGui/QDoubleValidator>
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+#include <QtGui/QActionGroup>
+#else
 #include <QtWidgets/QActionGroup>
+#endif
 #include <QtWidgets/QCompleter>
 #include <QtWidgets/QMainWindow>
 
 #if defined(Q_OS_MACOS)
-#include <QtMacExtras/QMacToolBar>
-#include <QtMacExtras/QMacToolBarItem>
+#include "3rdparty/QMacToolBar.h"
+#include "3rdparty/QMacToolBarItem.h"
 #endif
 
 #include "weather/Sources.h"

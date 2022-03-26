@@ -26,6 +26,7 @@ OTHER_FILES += \
     src/Config.h.in
 
 # Include subfolders
+include(3rdparty/3rdparty.pri)
 include(common/common.pri)
 include(settings/settings.pri)
 include(maps/maps.pri)

@@ -11,7 +11,9 @@
 # Private module for the icons
 QT += gui-private
 # Extra libraries
-QT += macextras
+!legacy {
+    QMAKE_APPLE_DEVICE_ARCHS = x86_64 arm64
+}
 LIBS += -weak_framework ApplicationServices -weak_framework Cocoa -weak_framework CoreLocation
 
 # Deployment target and rpath

@@ -16,6 +16,10 @@
 
 #include "Config.h"
 
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+#include <QtQuick/QQuickWindow>
+#endif
+
 namespace Vremenar
 {
 
@@ -29,8 +33,12 @@ void Application::preInit()
 #endif
     QCoreApplication::setApplicationVersion(Vremenar::version);
 
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+    QQuickWindow::setGraphicsApi(QSGRendererInterface::OpenGLRhi);
+#else
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QCoreApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
+#endif
 
 #if defined(Q_OS_WINDOWS)
     QCoreApplication::setAttribute(Qt::AA_UseOpenGLES);
