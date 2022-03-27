@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -23,27 +23,21 @@ Item {
     height: Math.ceil(textTime.height + (textDay.text !== "" ? textDay.height : 0) + UI.paddingCommon)
 
     Rectangle {
-        id: rounded
-        radius: UI.radiusCommon
-        anchors.fill: parent
-        visible: false
-    }
-
-    Rectangle {
-        id: shadowSource
+        id: maskSource
         color: UI.shadowColor
         radius: UI.radiusCommon
         anchors.fill: parent
         visible: false
     }
 
-    CommonShadow {
-        source: shadowSource
+    ShadowSource {
+        id: shadowSource
     }
 
-    MaskedBlur {
-        maskSource: rounded
+    MaskedBlurWithShadow {
         blurSource: contentPlaceholder
+        maskSource: maskSource
+        shadowSource: shadowSource
         sourceX: parent.x
         sourceY: parent.y
         color: UI.navBarColor

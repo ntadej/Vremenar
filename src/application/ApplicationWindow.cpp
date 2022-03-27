@@ -89,25 +89,32 @@ ApplicationWindow::ApplicationWindow(QObject *parent)
     Qml::registerTypes();
 
     // Custom file selector
+    QStringList extraSelectors;
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+    extraSelectors.append(QStringLiteral("legacy"));
+#endif
 #if defined(Q_OS_MACOS)
+    extraSelectors.append(QStringLiteral("nativemenu"));
     if (DesktopApplication::supportsSFSymbols()) {
-        _qmlFileSelector->setExtraSelectors({QStringLiteral("nativemenu"), QStringLiteral("nativeicons")});
-    } else {
-        _qmlFileSelector->setExtraSelectors({QStringLiteral("nativemenu")});
+        extraSelectors.append(QStringLiteral("nativeicons"));
     }
 #elif defined(Q_OS_IOS)
+    extraSelectors.append(QStringLiteral("mobile"));
     if (MobileApplication::supportsSFSymbols()) {
-        _qmlFileSelector->setExtraSelectors({QStringLiteral("mobile"), QStringLiteral("nativeicons")});
-    } else {
-        _qmlFileSelector->setExtraSelectors({QStringLiteral("mobile")});
+        extraSelectors.append(QStringLiteral("nativeicons"));
     }
 #elif defined(Q_OS_ANDROID)
-    _qmlFileSelector->setExtraSelectors({QStringLiteral("mobile"), QStringLiteral("materialstyle")});
+    extraSelectors.append(QStringLiteral("mobile"));
+    extraSelectors.append(QStringLiteral("materialstyle"));
 #elif defined(Q_OS_LINUX)
-    _qmlFileSelector->setExtraSelectors({QStringLiteral("custommenu"), QStringLiteral("universalstyle")});
+    extraSelectors.append(QStringLiteral("custommenu"));
+    extraSelectors.append(QStringLiteral("universalstyle"));
 #elif defined(Q_OS_WINDOWS)
-    _qmlFileSelector->setExtraSelectors({QStringLiteral("universalstyle")});
+    extraSelectors.append(QStringLiteral("universalstyle"));
 #endif
+    if (!extraSelectors.isEmpty()) {
+        _qmlFileSelector->setExtraSelectors(extraSelectors);
+    }
 
 #ifndef VREMENAR_MOBILE
     auto *application = qobject_cast<DesktopApplication *>(QCoreApplication::instance());

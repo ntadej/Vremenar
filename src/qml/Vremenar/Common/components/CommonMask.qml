@@ -12,14 +12,6 @@
 import QtQuick 2.12
 import Qt5Compat.GraphicalEffects
 
-import Vremenar 1.0
+OpacityMask {
 
-DropShadow {
-    anchors{
-        margins: -2 * UI.shadowRadius
-        fill: parent
-    }
-    radius: UI.shadowRadius
-//    samples: UI.shadowRadius * 2 + 1
-    color: UI.shadowColor
 }

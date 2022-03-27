@@ -10,16 +10,22 @@
 */
 
 import QtQuick 2.12
-import Qt5Compat.GraphicalEffects
 
 import Vremenar 1.0
 
-DropShadow {
+Item {
     anchors{
         margins: -2 * UI.shadowRadius
         fill: parent
     }
-    radius: UI.shadowRadius
-//    samples: UI.shadowRadius * 2 + 1
-    color: UI.shadowColor
+    visible: false
+
+    Rectangle {
+        color: UI.shadowColor
+        radius: UI.radiusCommon
+        anchors{
+            margins: 2 * UI.shadowRadius
+            fill: parent
+        }
+    }
 }

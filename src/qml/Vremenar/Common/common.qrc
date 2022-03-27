@@ -1,28 +1,37 @@
 <RCC>
     <qresource prefix="/Vremenar/Common">
         <file>qmldir</file>
-        <file>text/Core.qml</file>
-        <file>text/Common.qml</file>
+        <file>components/+legacy/BlurWithShadow.qml</file>
+        <file>components/+legacy/CommonBlur.qml</file>
+        <file>components/+legacy/CommonMask.qml</file>
+        <file>components/+legacy/CommonShadow.qml</file>
+        <file>components/+legacy/MaskedBlurWithShadow.qml</file>
+        <file>components/+legacy/ShadowSource.qml</file>
+        <file>components/BlurWithShadow.qml</file>
         <file>components/CommonBlur.qml</file>
-        <file>components/MaskedBlur.qml</file>
-        <file>components/SimpleButton.qml</file>
-        <file>components/IconButton.qml</file>
-        <file>icons/Icon.qml</file>
-        <file>icons/+nativeicons/Icon.qml</file>
         <file>components/CommonLine.qml</file>
-        <file>views/ListRadioDelegate.qml</file>
-        <file>views/ListRadioView.qml</file>
-        <file>text/Header.qml</file>
-        <file>text/Small.qml</file>
-        <file>components/Spinner.qml</file>
-        <file>text/CommonShadow.qml</file>
+        <file>components/CommonMask.qml</file>
         <file>components/CommonShadow.qml</file>
+        <file>components/IconButton.qml</file>
         <file>components/ImageButton.qml</file>
+        <file>components/MaskedBlurWithShadow.qml</file>
+        <file>components/ShadowSource.qml</file>
+        <file>components/SimpleButton.qml</file>
+        <file>components/Spinner.qml</file>
         <file>components/WindowButton.qml</file>
+        <file>icons/+nativeicons/Icon.qml</file>
+        <file>icons/Icon.qml</file>
         <file>icons/IconFont.js</file>
         <file>icons/Ionicons.js</file>
         <file>icons/Material.js</file>
         <file>icons/Segoe.js</file>
         <file>icons/SFSymbols.js</file>
+        <file>text/Common.qml</file>
+        <file>text/CommonShadow.qml</file>
+        <file>text/Core.qml</file>
+        <file>text/Header.qml</file>
+        <file>text/Small.qml</file>
+        <file>views/ListRadioDelegate.qml</file>
+        <file>views/ListRadioView.qml</file>
     </qresource>
 </RCC>

@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -17,36 +17,31 @@ import Vremenar.Common 1.0
 MouseArea {
     default property alias contents: content.children
     property alias contentItem: content
-    property alias frameItem: shadowSource
     property bool fullWidth: parent.width - 2 * (UI.safetyMarginLeft + UI.safetyMarginRight) <= UI.bottomSheetMaxWidth
 
     height: UI.bottomSheetBaseHeight + UI.radiusCommon + UI.safetyMarginBottom
-    clip: true
     visible: !UI.mapOnly
 
     Rectangle {
-        id: rounded
-        radius: UI.radiusCommon
-        anchors.fill: parent
-        visible: false
-    }
-
-    Rectangle {
-        id: shadowSource
+        id: maskSource
         color: UI.shadowColor
         radius: UI.radiusCommon
         anchors.fill: parent
         visible: false
     }
 
-    MaskedBlur {
-        id: blur
-        color: UI.navBarColor
-        maskSource: rounded
+    ShadowSource {
+        id: shadowSource
+    }
+
+    MaskedBlurWithShadow {
         blurSource: contentPlaceholder
+        maskSource: maskSource
+        shadowSource: shadowSource
         sourceX: parent.x
         sourceY: parent.y
         sourceHeight: parent.height - UI.radiusCommon
+        color: UI.navBarColor
     }
 
     Item {

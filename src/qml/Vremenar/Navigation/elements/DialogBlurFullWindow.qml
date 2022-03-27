@@ -25,17 +25,12 @@ Dialog {
     padding: 0
     topPadding: 0
 
-    background: MaskedBlur {
+    background: CommonBlur {
         anchors.fill: parent
         blurSource: contentPlaceholder
-        color: UI.navBarColor
+        blurColor: UI.navBarColor
         sourceX: parent.x
         sourceY: parent.y
-        maskSource: Rectangle {
-            width: dialog.width
-            height: dialog.height
-            visible: false
-        }
     }
 
     enter: Transition {

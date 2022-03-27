@@ -22,27 +22,21 @@ Item {
     opacity: VCurrent.station ? 1 : 0
 
     Rectangle {
-        id: rounded
-        radius: UI.radiusCommon
-        anchors.fill: parent
-        visible: false
-    }
-
-    Rectangle {
-        id: shadowSource
+        id: maskSource
         color: UI.shadowColor
         radius: UI.radiusCommon
         anchors.fill: parent
         visible: false
     }
 
-    CommonShadow {
-        source: shadowSource
+    ShadowSource {
+        id: shadowSource
     }
 
-    MaskedBlur {
-        maskSource: rounded
+    MaskedBlurWithShadow {
         blurSource: contentPlaceholder
+        maskSource: maskSource
+        shadowSource: shadowSource
         sourceX: parent.x
         sourceY: parent.y
         color: UI.navBarColor

@@ -30,30 +30,24 @@ Dialog {
 
     background: Item {
         Rectangle {
-            id: shadowSource
-            width: dialog.width
-            height: dialog.height
+            id: maskSource
             color: UI.shadowColor
             radius: UI.radiusCommon
+            anchors.fill: parent
             visible: false
         }
 
-        CommonShadow {
-            source: shadowSource
+        ShadowSource {
+            id: shadowSource
         }
 
-        MaskedBlur {
-            anchors.fill: parent
+        MaskedBlurWithShadow {
             blurSource: contentPlaceholder
-            color: UI.navBarColor
+            maskSource: maskSource
+            shadowSource: shadowSource
             sourceX: parent.parent.x
             sourceY: parent.parent.y - (menuBar ? menuBar.height : 0)
-            maskSource: Rectangle {
-                width: dialog.width
-                height: dialog.height
-                radius: UI.radiusCommon
-                visible: false
-            }
+            color: UI.navBarColor
         }
     }
 

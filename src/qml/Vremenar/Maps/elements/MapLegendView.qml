@@ -17,6 +17,8 @@ import Vremenar 1.0
 Item {
     property bool hasLegend: VWeather.currentMapLayerHasLegend
 
+    clip: true
+
     Layout.fillWidth: view.computedWidth > parent.width
     Layout.alignment: Qt.AlignHCenter
     Layout.preferredHeight: hasLegend ? 2 * UI.mapLegendSize : 0

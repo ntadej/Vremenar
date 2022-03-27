@@ -43,7 +43,7 @@ Item {
     }
 
     Rectangle {
-        id: rounded
+        id: maskSource
         radius: UI.radiusCommon
         anchors {
             fill: parent
@@ -52,28 +52,18 @@ Item {
         visible: false
     }
 
-    Rectangle {
+    ShadowSource {
         id: shadowSource
-        color: UI.shadowColor
-        radius: UI.radiusCommon
-        anchors {
-            fill: parent
-            leftMargin: parent.width - contentWidth
-        }
-        visible: false
-    }
-
-    CommonShadow {
-        source: shadowSource
         anchors {
             fill: parent
             leftMargin: parent.width - contentWidth
         }
     }
 
-    MaskedBlur {
-        maskSource: rounded
+    MaskedBlurWithShadow {
         blurSource: contentPlaceholder
+        maskSource: maskSource
+        shadowSource: shadowSource
         sourceX: parent.x + parent.width - contentWidth
         sourceY: parent.y
         color: UI.navBarColor

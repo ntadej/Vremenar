@@ -23,27 +23,20 @@ Item {
     visible: !UI.mapOnly && (UI.showButtonMapType || (UI.showButtonMapPosition && VLocation.enabled))
 
     Rectangle {
-        id: rounded
+        id: maskSource
         radius: UI.radiusCommon
         anchors.fill: parent
         visible: false
     }
 
-    Rectangle {
+    ShadowSource {
         id: shadowSource
-        color: UI.shadowColor
-        radius: UI.radiusCommon
-        anchors.fill: parent
-        visible: false
     }
 
-    CommonShadow {
-        source: shadowSource
-    }
-
-    MaskedBlur {
-        maskSource: rounded
+    MaskedBlurWithShadow {
         blurSource: contentPlaceholder
+        maskSource: maskSource
+        shadowSource: shadowSource
         sourceX: parent.x
         sourceY: parent.y
         color: UI.navBarColor

@@ -10,7 +10,7 @@
 */
 
 import QtQuick 2.12
-import Qt5Compat.GraphicalEffects
+import QtGraphicalEffects 1.0
 
 import Vremenar 1.0
 

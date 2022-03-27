@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -10,7 +10,6 @@
 */
 
 import QtQuick 2.12
-import QtGraphicalEffects 1.0
 
 import Vremenar 1.0
 import Vremenar.Common 1.0
@@ -41,7 +40,7 @@ MouseArea {
             anchors.margins: UI.iconBorderThickness
 
             layer.enabled: true
-            layer.effect: OpacityMask {
+            layer.effect: CommonMask {
                 maskSource: Rectangle {
                     width: image.width
                     height: image.height

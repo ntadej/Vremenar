@@ -85,11 +85,6 @@ Item {
         }
     }
 
-    CommonShadow {
-        source: navBar
-        visible: !UI.mapOnly
-    }
-
     NavBar {
         id: navBar
         visible: !UI.mapOnly
@@ -98,12 +93,6 @@ Item {
             left: parent.left
             right: parent.right
         }
-    }
-
-    CommonShadow {
-        source: bottomSheet.frameItem
-        anchors.fill: bottomSheet
-        visible: !UI.mapOnly
     }
 
     BottomSheet {

@@ -19,9 +19,8 @@ Item {
     property alias title: textTitle.text
 
     height: UI.navBarHeight + UI.safetyMarginTop
-    clip: true
 
-    CommonBlur {
+    BlurWithShadow {
         blurSource: contentPlaceholder
         color: UI.navBarColor
     }

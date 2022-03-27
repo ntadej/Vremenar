@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -25,18 +25,28 @@ MapQuickItem {
         width: 16
         height: width
 
-        Rectangle {
-            id: rectangle
-            anchors.fill: parent
-            radius: width / 2
-            color: UI.colorPrimary
-            border.color: "white"
-            border.width: 2
+        Item {
+            id: shadowSource
+            anchors{
+                fill: parent
+                margins: -2 * UI.shadowRadius
+            }
             visible: false
+
+            Rectangle {
+                radius: width / 2
+                color: UI.colorPrimary
+                border.color: "white"
+                border.width: 2
+                anchors{
+                    fill: parent
+                    margins: 2 * UI.shadowRadius
+                }
+            }
         }
 
         CommonShadow {
-            source: rectangle
+            source: shadowSource
         }
     }
 
