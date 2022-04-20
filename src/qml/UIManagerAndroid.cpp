@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -9,10 +9,10 @@
 * SPDX-License-Identifier: (GPL-3.0-or-later AND MPL-2.0)
 */
 
-#include <QtAndroidExtras/QAndroidJniEnvironment>
-#include <QtAndroidExtras/QAndroidJniObject>
-#include <QtAndroidExtras/QtAndroid>
+#include <QtCore/QCoreApplication>
 #include <QtCore/QDebug>
+#include <QtCore/QJniEnvironment>
+#include <QtCore/QJniObject>
 #include <QtGui/QScreen>
 
 #include "qml/UIManager.h"
@@ -22,7 +22,7 @@ namespace Vremenar
 
 Common::DeviceType Qml::UIManager::getDeviceTypeAndroid()
 {
-    QAndroidJniObject activity = QAndroidJniObject::callStaticObjectMethod("org/qtproject/qt5/android/QtNative", "activity", "()Landroid/app/Activity;");
+    QJniObject activity = QJniObject::callStaticObjectMethod("org/qtproject/qt/android/QtNative", "activity", "()Landroid/app/Activity;");
     if (!activity.isValid()) {
         qFatal("Android activity could not be loaded!");
     }
@@ -42,8 +42,8 @@ Common::DeviceType Qml::UIManager::getDeviceTypeAndroid()
 
 QMargins Qml::UIManager::safeAreaMargins()
 {
-    QAndroidJniEnvironment env;
-    QAndroidJniObject activity = QAndroidJniObject::callStaticObjectMethod("org/qtproject/qt5/android/QtNative", "activity", "()Landroid/app/Activity;");
+    QJniEnvironment env;
+    QJniObject activity = QJniObject::callStaticObjectMethod("org/qtproject/qt/android/QtNative", "activity", "()Landroid/app/Activity;");
     if (!activity.isValid()) {
         qFatal("Android activity could not be loaded!");
     }
@@ -66,13 +66,13 @@ QMargins Qml::UIManager::safeAreaMargins()
 void Qml::UIManager::toastAndroid(const QString &message)
 {
     // all the magic must happen on Android UI thread
-    QtAndroid::runOnAndroidThread([message] {
-        QAndroidJniObject javaString = QAndroidJniObject::fromString(message);
-        QAndroidJniObject toast = QAndroidJniObject::callStaticObjectMethod("android/widget/Toast", "makeText",
-                                                                            "(Landroid/content/Context;Ljava/lang/CharSequence;I)Landroid/widget/Toast;",
-                                                                            QtAndroid::androidActivity().object(),
-                                                                            javaString.object(),
-                                                                            jint(0));
+    QNativeInterface::QAndroidApplication::runOnAndroidMainThread([message] {
+        QJniObject javaString = QJniObject::fromString(message);
+        QJniObject toast = QJniObject::callStaticObjectMethod("android/widget/Toast", "makeText",
+                                                              "(Landroid/content/Context;Ljava/lang/CharSequence;I)Landroid/widget/Toast;",
+                                                              QNativeInterface::QAndroidApplication::context(),
+                                                              javaString.object(),
+                                                              jint(0));
         toast.callMethod<void>("show");
     });
 }

@@ -122,11 +122,11 @@ void DesktopApplication::dockShow()
             [app activateWithOptions:NSApplicationActivateIgnoringOtherApps];
             break;
         }
-        dispatch_time_t one_ms = dispatch_time(DISPATCH_TIME_NOW, USEC_PER_SEC);
-        dispatch_after(one_ms, dispatch_get_main_queue(), ^{
+        dispatch_time_t one_ms_1 = dispatch_time(DISPATCH_TIME_NOW, USEC_PER_SEC);
+        dispatch_after(one_ms_1, dispatch_get_main_queue(), ^{
           TransformProcessType(&psn, kProcessTransformToForegroundApplication);
-          dispatch_time_t one_ms = dispatch_time(DISPATCH_TIME_NOW, USEC_PER_SEC);
-          dispatch_after(one_ms, dispatch_get_main_queue(), ^{
+          dispatch_time_t one_ms_2 = dispatch_time(DISPATCH_TIME_NOW, USEC_PER_SEC);
+          dispatch_after(one_ms_2, dispatch_get_main_queue(), ^{
             [[NSRunningApplication currentApplication]
                 activateWithOptions:NSApplicationActivateIgnoringOtherApps];
           });

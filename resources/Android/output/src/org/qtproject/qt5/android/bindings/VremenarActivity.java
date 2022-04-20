@@ -35,7 +35,7 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import ly.count.android.sdk.Countly;
 import ly.count.android.sdk.CountlyConfig;
 
-import org.qtproject.qt5.android.bindings.QtActivity;
+import org.qtproject.qt.android.bindings.QtActivity;
 
 class VremenarCountlyNativeInterface
 {

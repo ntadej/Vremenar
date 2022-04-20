@@ -12,27 +12,27 @@
 #ifndef VREMENAR_CONFIG_H_
 #define VREMENAR_CONFIG_H_
 
-#include \"common/Helpers.h\"
+#include "common/Helpers.h"
 
 namespace Vremenar
 {
 
-constexpr CString name = \"Vremenar\";
-constexpr CString domain = \"tano.si\";
-constexpr CString appID = \"si.tano.Vremenar$${VERSION_SUFFIX}\";
+constexpr CString name = "Vremenar";
+constexpr CString domain = "tano.si";
+constexpr CString appID = "si.tano.Vremenar@VERSION_SUFFIX@";
 
-constexpr CString version = \"$${VERSION}\";
-constexpr uint32_t build = $${VERSION_BUILD};
+constexpr CString version = "@VREMENAR_VERSION@";
+constexpr uint32_t build = @VREMENAR_BUILD@;
 
-constexpr bool loggingEnabled = $${LOGGING};
+constexpr bool loggingEnabled = @LOGGING_ENABLED@;
 
-constexpr CString mapsEndpoint = \"$${MAPS_ENDPOINT}\";
-constexpr CString APIEndpoint = \"$${API_ENDPOINT}\";
-constexpr CString AppCastEndpoint = \"$${APPCAST_ENDPOINT}\";
+constexpr CString mapsEndpoint = "@MAPS_ENDPOINT@";
+constexpr CString APIEndpoint = "@API_ENDPOINT@";
+constexpr CString AppCastEndpoint = "@APPCAST_ENDPOINT@";
 
-constexpr CString CountlyAppKey = \"$${COUNTLY_APPKEY}\";
-constexpr CString CountlyEndpoint = \"$${COUNTLY_ENDPOINT}\";
-constexpr CString CountlySalt = \"$${COUNTLY_SALT}\";       
+constexpr CString CountlyAppKey = "@COUNTLY_APPKEY@";
+constexpr CString CountlyEndpoint = "@COUNTLY_ENDPOINT@";
+constexpr CString CountlySalt = "@COUNTLY_SALT@";
 
 } // namespace Vremenar
 

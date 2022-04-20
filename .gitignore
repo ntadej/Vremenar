@@ -1,7 +1,9 @@
 *.pro.user*
 *.provisionprofile
 *.so
+CMakeLists.txt.user*
 config.pri
+Config.cmake
 
 /*.plist
 

@@ -1,0 +1,101 @@
+#!/bin/bash
+
+BUNDLE_NAME="@VREMENAR_NAME@.app"
+SOURCE_PATH="@CMAKE_SOURCE_DIR@"
+ENTITLEMENTS="Vremenar.entitlements"
+CODE_SIGN_IDENTITY="@CODE_SIGN_IDENTITY@"
+PKG_SIGN_IDENTITY="@PKG_SIGN_IDENTITY@"
+
+if [[ "$CODE_SIGN_IDENTITY" != "" ]]; then
+  macdeployqt "$BUNDLE_NAME" -qmldir="$SOURCE_PATH/src/qml/" \
+    -appstore-compliant \
+    -hardened-runtime \
+    -timestamp \
+    -codesign="$CODE_SIGN_IDENTITY"
+else
+  macdeployqt "$BUNDLE_NAME" -qmldir="$SOURCE_PATH/src/qml/" \
+    -appstore-compliant \
+    -hardened-runtime
+fi
+
+# cleanup
+if [[ -f "$BUNDLE_NAME/Contents/PlugIns/geoservices/libqtgeoservices_esri.dylib" ]]; then
+  rm "$BUNDLE_NAME/Contents/PlugIns/geoservices/libqtgeoservices_esri.dylib"
+fi
+if [[ -f "$BUNDLE_NAME/Contents/PlugIns/geoservices/libqtgeoservices_itemsoverlay.dylib" ]]; then
+  rm "$BUNDLE_NAME/Contents/PlugIns/geoservices/libqtgeoservices_itemsoverlay.dylib"
+fi
+if [[ -f "$BUNDLE_NAME/Contents/PlugIns/geoservices/libqtgeoservices_mapbox.dylib" ]]; then
+  rm "$BUNDLE_NAME/Contents/PlugIns/geoservices/libqtgeoservices_mapbox.dylib"
+fi
+if [[ -f "$BUNDLE_NAME/Contents/PlugIns/geoservices/libqtgeoservices_mapboxgl.dylib" ]]; then
+  rm "$BUNDLE_NAME/Contents/PlugIns/geoservices/libqtgeoservices_mapboxgl.dylib"
+fi
+if [[ -f "$BUNDLE_NAME/Contents/PlugIns/geoservices/libqtgeoservices_nokia.dylib" ]]; then
+  rm "$BUNDLE_NAME/Contents/PlugIns/geoservices/libqtgeoservices_nokia.dylib"
+fi
+
+if [[ -f "$BUNDLE_NAME/Contents/PlugIns/quick/libqtquickcontrols2fusionstyleplugin.dylib" ]]; then
+  rm "$BUNDLE_NAME/Contents/PlugIns/quick/libqtquickcontrols2fusionstyleplugin.dylib"
+fi
+if [[ -f "$BUNDLE_NAME/Contents/PlugIns/quick/libqtquickcontrols2imaginestyleplugin.dylib" ]]; then
+  rm "$BUNDLE_NAME/Contents/PlugIns/quick/libqtquickcontrols2imaginestyleplugin.dylib"
+fi
+if [[ -f "$BUNDLE_NAME/Contents/PlugIns/quick/libqtquickcontrols2macosstyleplugin.dylib" ]]; then
+  rm "$BUNDLE_NAME/Contents/PlugIns/quick/libqtquickcontrols2macosstyleplugin.dylib"
+fi
+if [[ -f "$BUNDLE_NAME/Contents/PlugIns/quick/libqtquickcontrols2materialstyleplugin.dylib" ]]; then
+  rm "$BUNDLE_NAME/Contents/PlugIns/quick/libqtquickcontrols2materialstyleplugin.dylib"
+fi
+if [[ -f "$BUNDLE_NAME/Contents/PlugIns/quick/libqtquickcontrols2universalstyleplugin.dylib" ]]; then
+  rm "$BUNDLE_NAME/Contents/PlugIns/quick/libqtquickcontrols2universalstyleplugin.dylib"
+fi
+
+if [[ -d "$BUNDLE_NAME/Contents/Resources/qml/QtQuick/Controls/designer/" ]]; then
+  rm -r "$BUNDLE_NAME/Contents/Resources/qml/QtQuick/Controls/designer/"
+fi
+if [[ -d "$BUNDLE_NAME/Contents/Resources/qml/QtQuick/Controls/Fusion/" ]]; then
+  rm -r "$BUNDLE_NAME/Contents/Resources/qml/QtQuick/Controls/Fusion/"
+fi
+if [[ -d "$BUNDLE_NAME/Contents/Resources/qml/QtQuick/Controls/Imagine/" ]]; then
+  rm -r "$BUNDLE_NAME/Contents/Resources/qml/QtQuick/Controls/Imagine/"
+fi
+if [[ -d "$BUNDLE_NAME/Contents/Resources/qml/QtQuick/Controls/Material/" ]]; then
+  rm -r "$BUNDLE_NAME/Contents/Resources/qml/QtQuick/Controls/Material/"
+fi
+if [[ -d "$BUNDLE_NAME/Contents/Resources/qml/QtQuick/Controls/Universal/" ]]; then
+  rm -r "$BUNDLE_NAME/Contents/Resources/qml/QtQuick/Controls/Universal/"
+fi
+if [[ -d "$BUNDLE_NAME/Contents/Resources/qml/QtQuick/Controls/macOS/" ]]; then
+  rm -r "$BUNDLE_NAME/Contents/Resources/qml/QtQuick/Controls/macOS/"
+fi
+
+# Fix the signing
+if [[ "$CODE_SIGN_IDENTITY" != "" ]]; then
+  echo codesign -s "\"$CODE_SIGN_IDENTITY\"" -f --timestamp -o runtime --entitlements "$ENTITLEMENTS" "$BUNDLE_NAME"
+  codesign -s "$CODE_SIGN_IDENTITY" -f --timestamp -o runtime --entitlements "$ENTITLEMENTS" "$BUNDLE_NAME"
+fi
+
+if [[ "$PKG_SIGN_IDENTITY" != "" ]]; then
+  # build pkg
+  productbuild \
+    --component "$BUNDLE_NAME" \
+    /Applications \
+    Vremenar.pkg \
+    --sign "$PKG_SIGN_IDENTITY"
+else
+  # build dmg
+  if [[ "$CODE_SIGN_IDENTITY" != "" ]]; then
+    create-dmg "$BUNDLE_NAME" --overwrite --identity="$CODE_SIGN_IDENTITY"
+    result=$?
+  else
+    create-dmg "$BUNDLE_NAME" --overwrite
+    result=$? 
+  fi
+fi
+
+if [[ $result -eq 0 || $result -eq 2 ]]; then
+  exit 0
+else
+  exit $result
+fi

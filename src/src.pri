@@ -16,7 +16,7 @@ SOURCES += \
     src/main.cpp
 
 # Define substitution files
-ConfigFile.input = src/Config.h.in
+ConfigFile.input = src/Config.h.qmake.in
 ConfigFile.output = $$OUT_PWD/Config.h
 QMAKE_SUBSTITUTES += ConfigFile
 

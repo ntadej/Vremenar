@@ -1,0 +1,18 @@
+#!/bin/bash
+
+BUNDLE_NAME="@VREMENAR_NAME@.app"
+ENTITLEMENTS="Vremenar.entitlements"
+CODE_SIGN_IDENTITY="@CODE_SIGN_IDENTITY@"
+
+# Fix the signing
+if [[ "$CODE_SIGN_IDENTITY" != "" ]]; then
+  echo codesign -s "\"$CODE_SIGN_IDENTITY\"" -f --timestamp -o runtime --entitlements "$ENTITLEMENTS" "$BUNDLE_NAME"
+  codesign -s "$CODE_SIGN_IDENTITY" -f --timestamp -o runtime --entitlements "$ENTITLEMENTS" "$BUNDLE_NAME"
+  result=0
+fi
+
+if [[ $result -eq 0 || $result -eq 2 ]]; then
+  exit 0
+else
+  exit $result
+fi

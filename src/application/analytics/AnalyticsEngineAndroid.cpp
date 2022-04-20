@@ -9,9 +9,9 @@
 * SPDX-License-Identifier: (GPL-3.0-or-later AND MPL-2.0)
 */
 
-#include <QtAndroidExtras/QAndroidJniEnvironment>
-#include <QtAndroidExtras/QAndroidJniObject>
 #include <QtCore/QDebug>
+#include <QtCore/QJniEnvironment>
+#include <QtCore/QJniObject>
 
 #include "application/AndroidJniInterface.h"
 #include "application/analytics/AnalyticsEngineAndroid.h"
@@ -48,9 +48,9 @@ AnalyticsEngineAndroid::AnalyticsEngineAndroid() = default;
 
 void AnalyticsEngineAndroid::recordEvent(const QString &event) const
 {
-    QAndroidJniObject activity = Vremenar::Android::activity();
+    QJniObject activity = Vremenar::Android::activity();
 
-    QAndroidJniEnvironment env;
+    QJniEnvironment env;
     jstring arg = env->NewStringUTF(event.toLatin1().data());
     activity.callMethod<void>("recordEvent", "(Ljava/lang/String;)V", arg); // NOLINT(cppcoreguidelines-pro-type-vararg)
 }

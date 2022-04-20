@@ -5,7 +5,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.6.0'
+        classpath 'com.android.tools.build:gradle:7.1.2'
         classpath 'com.google.gms:google-services:4.3.10'
     }
 }
@@ -30,7 +30,7 @@ android {
      * The following variables:
      * - androidBuildToolsVersion,
      * - androidCompileSdkVersion
-     * - qt5AndroidDir - holds the path to qt android files
+     * - qtAndroidDir - holds the path to qt android files
      *                   needed to build any Qt application
      *                   on Android.
      *
@@ -40,15 +40,15 @@ android {
      *******************************************************/
 
     compileSdkVersion androidCompileSdkVersion.toInteger()
-
-    buildToolsVersion '28.0.3'
+    buildToolsVersion androidBuildToolsVersion
+    ndkVersion androidNdkVersion
 
     sourceSets {
         main {
             manifest.srcFile 'AndroidManifest.xml'
-            java.srcDirs = [qt5AndroidDir + '/src', 'src', 'java']
-            aidl.srcDirs = [qt5AndroidDir + '/src', 'src', 'aidl']
-            res.srcDirs = [qt5AndroidDir + '/res', 'res']
+            java.srcDirs = [qtAndroidDir + '/src', 'src', 'java']
+            aidl.srcDirs = [qtAndroidDir + '/src', 'src', 'aidl']
+            res.srcDirs = [qtAndroidDir + '/res', 'res']
             resources.srcDirs = ['resources']
             renderscript.srcDirs = ['src']
             assets.srcDirs = ['assets']
@@ -74,13 +74,18 @@ android {
         noCompress 'rcc'
     }
 
-    defaultConfig {
-        resConfig "en"
-        minSdkVersion 21
-        targetSdkVersion 30
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
     }
 
-    packagingOptions {
-        exclude "META-INF/DEPENDENCIES"
+    defaultConfig {
+        resConfig "en"
+        minSdkVersion qtMinSdkVersion
+        targetSdkVersion qtTargetSdkVersion
+        ndk.abiFilters = qtTargetAbiList.split(",")
     }
 }

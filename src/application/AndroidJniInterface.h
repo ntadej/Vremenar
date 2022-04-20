@@ -12,12 +12,12 @@
 #ifndef VREMENAR_ANDROIDJNIINTERFACE_H_
 #define VREMENAR_ANDROIDJNIINTERFACE_H_
 
-#include <QtAndroidExtras/QAndroidJniObject>
+#include <QtCore/QJniObject>
 
 namespace Vremenar::Android
 {
 
-QAndroidJniObject activity();
+QJniObject activity();
 
 } // namespace Vremenar::Android
 

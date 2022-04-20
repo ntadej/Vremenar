@@ -78,10 +78,10 @@ JNIEXPORT jint JNI_OnLoad(JavaVM *vm,
 namespace Vremenar::Android
 {
 
-QAndroidJniObject activity()
+QJniObject activity()
 {
     // NOLINTNEXTLINE(cppcoreguidelines-pro-type-vararg)
-    QAndroidJniObject activity = QAndroidJniObject::callStaticObjectMethod("org/qtproject/qt5/android/QtNative", "activity", "()Landroid/app/Activity;");
+    QJniObject activity = QJniObject::callStaticObjectMethod("org/qtproject/qt/android/QtNative", "activity", "()Landroid/app/Activity;");
     if (!activity.isValid()) {
         qFatal("Android activity could not be loaded!"); // NOLINT(cppcoreguidelines-pro-type-vararg)
     }

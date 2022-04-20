@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -25,7 +25,7 @@ class ListItem : public QObject
 public:
     explicit ListItem(QObject *parent = nullptr) : QObject(parent) {}
 
-    [[nodiscard]] inline const QString &id() const { return _id; }
+    [[nodiscard]] inline const QString &id() const { return _itemId; }
 
     [[nodiscard]] virtual QVariant data(int role) const = 0;
     [[nodiscard]] virtual QString display() const = 0;
@@ -34,10 +34,10 @@ signals:
     void dataChanged();
 
 protected:
-    void setId(const QString &id) { _id = id; }
+    void setId(const QString &id) { _itemId = id; }
 
 private:
-    QString _id;
+    QString _itemId;
 };
 
 } // namespace Vremenar

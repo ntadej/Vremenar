@@ -39,10 +39,6 @@
 #include "application/MobileApplication.h"
 #endif
 
-#ifdef Q_OS_ANDROID
-#include <QtAndroidExtras/QtAndroid>
-#endif
-
 #if defined(Q_OS_MACOS) || defined(Q_OS_IOS)
 #include "application/ImageProviderMacOSiOS.h"
 #endif
@@ -387,7 +383,7 @@ void ApplicationWindow::startCompleted(QQuickWindow *window,
 #endif
 
 #ifdef Q_OS_ANDROID
-    QtAndroid::hideSplashScreen();
+    QNativeInterface::QAndroidApplication::hideSplashScreen();
 #endif
 
     _qmlMainWindow = gsl::owner<QQuickWindow *>(window);
