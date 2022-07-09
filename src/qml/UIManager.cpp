@@ -258,3 +258,5 @@ QObject *Qml::UIManager::provider(QQmlEngine *engine,
 }
 
 } // namespace Vremenar
+
+#include "moc_UIManager.cpp"

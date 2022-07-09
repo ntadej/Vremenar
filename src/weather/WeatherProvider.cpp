@@ -230,7 +230,7 @@ void WeatherProvider::response(QNetworkReply *reply)
     if (currentReplies()->value(reply).call() == QStringLiteral("/alerts/list")) {
         const QJsonArray alertsList = document.array();
         std::vector<std::unique_ptr<WeatherAlert>> alerts;
-        alerts.reserve(alertsList.size());
+        alerts.reserve(static_cast<size_t>(alertsList.size()));
         for (const QJsonValue &obj : alertsList) {
             alerts.push_back(WeatherAlert::fromJson(obj.toObject()));
         }
@@ -535,3 +535,5 @@ void WeatherProvider::setLoading(bool loading)
 }
 
 } // namespace Vremenar
+
+#include "moc_WeatherProvider.cpp"

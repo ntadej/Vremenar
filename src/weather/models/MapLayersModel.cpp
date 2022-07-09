@@ -63,3 +63,5 @@ MapLayer *MapLayersModel::findLayer(Weather::MapType type,
 }
 
 } // namespace Vremenar
+
+#include "moc_MapLayersModel.cpp"

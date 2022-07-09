@@ -453,3 +453,5 @@ void SettingsDialog::rememberSizeChangedSlot(bool checked)
 }
 
 } // namespace Vremenar
+
+#include "moc_SettingsDialog.cpp"

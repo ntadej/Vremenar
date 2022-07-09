@@ -49,3 +49,5 @@ bool SingleApplication::shouldContinue()
 }
 
 } // namespace Vremenar
+
+#include "moc_SingleApplication.cpp"

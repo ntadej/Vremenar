@@ -126,24 +126,24 @@ void TrayIcon::createMenu(const QStringList &styles,
     _menu->addAction(_actionQuit.get());
 }
 
-void TrayIcon::setCurrentStyle(int index)
+void TrayIcon::setCurrentStyle(qsizetype index)
 {
     if (_actionGroupStyles == nullptr || _actionGroupStyles->actions().empty()) {
         return;
     }
 
-    if (index < _actionGroupStyles->actions().size()) {
+    if (index >= 0 && index < _actionGroupStyles->actions().size()) {
         _actionGroupStyles->actions().at(index)->setChecked(true);
     }
 }
 
-void TrayIcon::setCurrentMap(int index)
+void TrayIcon::setCurrentMap(qsizetype index)
 {
     if (_actionGroupMaps == nullptr || _actionGroupMaps->actions().empty()) {
         return;
     }
 
-    if (index < _actionGroupMaps->actions().size()) {
+    if (index >= 0 && index < _actionGroupMaps->actions().size()) {
         _actionGroupMaps->actions().at(index)->setChecked(true);
     }
 }
@@ -193,3 +193,5 @@ void TrayIcon::showSettingsMenu(QPoint point)
 }
 
 } // namespace Vremenar
+
+#include "moc_TrayIcon.cpp"

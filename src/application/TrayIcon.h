@@ -41,8 +41,8 @@ public:
 public slots:
     void createMenu(const QStringList &styles,
                     const QStringList &maps);
-    void setCurrentStyle(int index);
-    void setCurrentMap(int index);
+    void setCurrentStyle(qsizetype index);
+    void setCurrentMap(qsizetype index);
     void setCurrentStation(const Vremenar::StationInfo *station);
     void setCurrentCondition(const Vremenar::WeatherCondition *condition);
 
@@ -52,8 +52,8 @@ signals:
     void checkForUpdates();
     void about();
     void quit();
-    void styleSelected(int index);
-    void mapSelected(int index);
+    void styleSelected(qsizetype index);
+    void mapSelected(qsizetype index);
 
 private slots:
     void activatedCallback(QSystemTrayIcon::ActivationReason reason);

@@ -52,3 +52,5 @@ void StationListModel::addStationsWithCurrentCondition(StationListModel *model)
 }
 
 } // namespace Vremenar
+
+#include "moc_StationListModel.cpp"

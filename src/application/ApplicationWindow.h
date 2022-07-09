@@ -55,7 +55,7 @@ public slots:
     void processUrl(const QString &url);
     void startCompleted(QQuickWindow *window,
                         qreal devicePixelRatio = 1.0);
-    void weatherSourceChanged(int source);
+    void weatherSourceChanged(qsizetype source);
     void locationSettingChanged(int setting);
 
 #ifndef VREMENAR_MOBILE

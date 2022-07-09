@@ -103,3 +103,5 @@ void WeatherCondition::update(const WeatherCondition *source)
 }
 
 } // namespace Vremenar
+
+#include "moc_WeatherCondition.cpp"

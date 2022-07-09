@@ -66,3 +66,5 @@ void WeatherInfo::update(const WeatherInfo *source)
 }
 
 } // namespace Vremenar
+
+#include "moc_WeatherInfo.cpp"

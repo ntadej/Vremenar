@@ -98,3 +98,5 @@ bool LocaleManager::setLanguageByString(const QString &lang,
 }
 
 } // namespace Vremenar
+
+#include "moc_LocaleManager.cpp"

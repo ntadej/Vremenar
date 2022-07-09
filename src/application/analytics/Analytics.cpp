@@ -127,3 +127,5 @@ void Analytics::recordEvent(EventType type,
 }
 
 } // namespace Vremenar
+
+#include "moc_Analytics.cpp"

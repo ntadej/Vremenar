@@ -84,3 +84,5 @@ QUrlQuery Sources::sourceAndLocaleQuery()
 }
 
 } // namespace Vremenar
+
+#include "moc_Sources.cpp"

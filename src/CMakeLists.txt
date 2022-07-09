@@ -74,8 +74,10 @@ qt_add_executable(Vremenar WIN32 MACOSX_BUNDLE
 
     common/About.cpp
     common/About.h
+    common/Enums.cpp
     common/Enums.h
     common/Helpers.h
+    common/ListItem.cpp
     common/ListItem.h
     common/ListModel.cpp
     common/ListModel.h

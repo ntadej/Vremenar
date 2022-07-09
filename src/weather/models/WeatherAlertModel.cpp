@@ -26,3 +26,5 @@ void WeatherAlertModel::update(std::vector<std::unique_ptr<WeatherAlert>> &list)
 }
 
 } // namespace Vremenar
+
+#include "moc_WeatherAlertModel.cpp"

@@ -11,6 +11,8 @@
 
 SOURCES += \
     src/common/About.cpp \
+    src/common/Enums.cpp \
+    src/common/ListItem.cpp \
     src/common/ListModel.cpp \
     src/common/LocaleManager.cpp \
     src/common/LocalServer.cpp \

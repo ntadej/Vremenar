@@ -54,3 +54,5 @@ void WeatherMapModel::update(WeatherMapModel *model,
 }
 
 } // namespace Vremenar
+
+#include "moc_WeatherMapModel.cpp"

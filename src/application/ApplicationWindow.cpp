@@ -405,14 +405,15 @@ void ApplicationWindow::startCompleted(QQuickWindow *window,
     _updates->checkVersion();
 }
 
-void ApplicationWindow::weatherSourceChanged(int source)
+void ApplicationWindow::weatherSourceChanged(qsizetype source)
 {
+    auto index = static_cast<size_t>(source);
     std::vector<Sources::Country> sources = {Sources::Slovenia, Sources::Germany};
-    Sources::Country weatherSource = sources[source];
+    Sources::Country weatherSource = sources[index];
 
     Settings settings(this);
     if (weatherSource != settings.weatherSource()) {
-        settings.setWeatherSource(sources[source]);
+        settings.setWeatherSource(sources[index]);
         settings.setWeatherSourceInitialChoice(true);
         settings.resetStartupMapCoordinates();
         settings.writeSettings();
@@ -441,3 +442,5 @@ void ApplicationWindow::locationSettingChanged(int setting)
 }
 
 } // namespace Vremenar
+
+#include "moc_ApplicationWindow.cpp"

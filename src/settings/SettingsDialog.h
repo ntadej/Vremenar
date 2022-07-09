@@ -54,7 +54,7 @@ public slots:
 signals:
     void localeChanged();
     void locationChanged();
-    void weatherSourceChanged(int source);
+    void weatherSourceChanged(qsizetype source);
     void notificationsChanged();
     void showInTrayChanged(bool checked);
 #if defined(Q_OS_MACOS)

@@ -109,3 +109,5 @@ void Updates::compareVersion(const QString &stable,
 }
 
 } // namespace Vremenar
+
+#include "moc_Updates.cpp"

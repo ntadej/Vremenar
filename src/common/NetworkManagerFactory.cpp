@@ -25,3 +25,5 @@ QNetworkAccessManager *NetworkManagerFactory::create(QObject *parent)
 }
 
 } // namespace Vremenar
+
+#include "moc_NetworkManagerFactory.cpp"

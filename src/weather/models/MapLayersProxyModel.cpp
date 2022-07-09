@@ -321,3 +321,5 @@ bool MapLayersProxyModel::filterAcceptsRow(int sourceRow,
 }
 
 } // namespace Vremenar
+
+#include "moc_MapLayersProxyModel.cpp"

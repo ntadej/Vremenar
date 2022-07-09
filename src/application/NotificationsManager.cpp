@@ -151,3 +151,5 @@ void NotificationsManager::unsubscribe(const QString &id) const
 }
 
 } // namespace Vremenar
+
+#include "moc_NotificationsManager.cpp"

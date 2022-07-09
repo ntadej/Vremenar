@@ -69,3 +69,5 @@ bool MapsManager::getMapObject()
 }
 
 } // namespace Vremenar
+
+#include "moc_MapsManager.cpp"

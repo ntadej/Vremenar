@@ -39,3 +39,5 @@ void LocalServer::newConnection()
 }
 
 } // namespace Vremenar
+
+#include "moc_LocalServer.cpp"

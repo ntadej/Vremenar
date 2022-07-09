@@ -64,3 +64,5 @@ QString MapLegendModel::translate(const QString &string)
 }
 
 } // namespace Vremenar
+
+#include "moc_MapLegendModel.cpp"

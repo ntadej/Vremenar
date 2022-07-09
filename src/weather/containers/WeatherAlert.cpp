@@ -93,3 +93,5 @@ QString WeatherAlert::duration() const
 }
 
 } // namespace Vremenar
+
+#include "moc_WeatherAlert.cpp"

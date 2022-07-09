@@ -48,3 +48,5 @@ void CurrentWeather::updateCurrentWeather(std::unique_ptr<WeatherCondition> cond
 }
 
 } // namespace Vremenar
+
+#include "moc_CurrentWeather.cpp"

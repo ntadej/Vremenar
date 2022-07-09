@@ -272,3 +272,5 @@ QString Weather::alertSeverityToString(AlertSeverity severity)
 }
 
 } // namespace Vremenar
+
+#include "moc_Weather.cpp"

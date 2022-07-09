@@ -361,3 +361,5 @@ void LocationProvider::reverseGeocodingError(QGeoCodeReply *reply,
 }
 
 } // namespace Vremenar
+
+#include "moc_LocationProvider.cpp"

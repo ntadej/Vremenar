@@ -78,3 +78,5 @@ void NetworkManager::httpRequestFinished()
 }
 
 } // namespace Vremenar
+
+#include "moc_NetworkManager.cpp"

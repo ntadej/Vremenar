@@ -70,3 +70,5 @@ QObject *Qml::Globals::providerSettings(QQmlEngine *engine,
 }
 
 } // namespace Vremenar
+
+#include "moc_Globals.cpp"

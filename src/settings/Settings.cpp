@@ -198,3 +198,5 @@ int Settings::startupNotificationsSetting() const
 }
 
 } // namespace Vremenar
+
+#include "moc_Settings.cpp"

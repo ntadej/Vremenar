@@ -103,3 +103,5 @@ void StationInfo::setCurrentWeatherSource(std::unique_ptr<StationInfo> source)
 }
 
 } // namespace Vremenar
+
+#include "moc_StationInfo.cpp"

@@ -104,3 +104,5 @@ QVariant MapLayer::geoRectangleToList(const QGeoRectangle &rect)
 }
 
 } // namespace Vremenar
+
+#include "moc_MapLayer.cpp"

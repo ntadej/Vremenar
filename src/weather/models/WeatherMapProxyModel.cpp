@@ -91,3 +91,5 @@ bool WeatherMapProxyModel::filterAcceptsRow(int sourceRow,
 }
 
 } // namespace Vremenar
+
+#include "moc_WeatherMapProxyModel.cpp"

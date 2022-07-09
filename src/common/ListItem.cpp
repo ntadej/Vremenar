@@ -9,6 +9,6 @@
 * SPDX-License-Identifier: (GPL-3.0-or-later AND MPL-2.0)
 */
 
-#include "location/Location.h"
+#include "common/ListItem.h"
 
-#include "moc_Location.cpp"
+#include "moc_ListItem.cpp"

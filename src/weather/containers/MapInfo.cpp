@@ -43,3 +43,5 @@ QVariant MapInfo::data(int role) const
 }
 
 } // namespace Vremenar
+
+#include "moc_MapInfo.cpp"

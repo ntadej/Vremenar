@@ -44,3 +44,5 @@ bool StationListProxyModel::filterAcceptsRow(int sourceRow,
 }
 
 } // namespace Vremenar
+
+#include "moc_StationListProxyModel.cpp"

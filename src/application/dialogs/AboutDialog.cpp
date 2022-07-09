@@ -84,3 +84,5 @@ AboutDialog::AboutDialog(WeatherProvider *weatherProvider,
 }
 
 } // namespace Vremenar
+
+#include "moc_AboutDialog.cpp"

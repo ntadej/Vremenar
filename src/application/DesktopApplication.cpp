@@ -63,3 +63,5 @@ bool DesktopApplication::eventFilter(QObject *object,
 }
 
 } // namespace Vremenar
+
+#include "moc_DesktopApplication.cpp"

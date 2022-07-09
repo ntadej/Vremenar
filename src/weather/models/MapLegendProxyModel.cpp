@@ -71,3 +71,5 @@ bool MapLegendProxyModel::filterAcceptsRow(int sourceRow,
 }
 
 } // namespace Vremenar
+
+#include "moc_MapLegendProxyModel.cpp"

@@ -52,3 +52,5 @@ QVariant MapLegendItem::data(int role) const
 }
 
 } // namespace Vremenar
+
+#include "moc_MapLegendItem.cpp"

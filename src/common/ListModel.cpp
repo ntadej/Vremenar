@@ -94,3 +94,5 @@ QModelIndex ListModel::indexFromItem(const ListItem *item) const
 }
 
 } // namespace Vremenar
+
+#include "moc_ListModel.cpp"
