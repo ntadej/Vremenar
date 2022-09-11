@@ -23,14 +23,14 @@ if [[ "${1}" == "macos" ]] || [[ "${1}" == "macOS" ]]; then
   npm install --global create-dmg
   brew install graphicsmagick imagemagick
 
-  echo
-  echo "MapLibre"
-  if [[ $QT -eq 1 ]]; then
-    wget -nv -O "${LOCATION}/3rdparty/qt-geoservices-maplibre.tar.bz2" "https://github.com/ntadej/qt-geoservices-maplibre/releases/download/v${MAPLIBRE_VERSION}/qt-geoservices-maplibre_${MAPLIBRE_VERSION}_macOS-clang_64.tar.bz2"
-    tar -C "$Qt5_Dir/" -xvf "${LOCATION}/3rdparty/qt-geoservices-maplibre.tar.bz2"
-  else
-    echo "skipping..."
-  fi
+  # echo
+  # echo "MapLibre"
+  # if [[ $QT -eq 1 ]]; then
+  #   wget -nv -O "${LOCATION}/3rdparty/qt-geoservices-maplibre.tar.bz2" "https://github.com/ntadej/qt-geoservices-maplibre/releases/download/v${MAPLIBRE_VERSION}/qt-geoservices-maplibre_${MAPLIBRE_VERSION}_macOS-clang_64.tar.bz2"
+  #   tar -C "$Qt5_Dir/" -xvf "${LOCATION}/3rdparty/qt-geoservices-maplibre.tar.bz2"
+  # else
+  #   echo "skipping..."
+  # fi
 
   echo
   echo "Firebase"

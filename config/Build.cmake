@@ -41,9 +41,12 @@ else()
 endif()
 message(STATUS "Logging: ${LOGGING}")
 
-# Store
+# Special builds for store & CI
 option(STORE "Enable store deployment" OFF)
 message(STATUS "Store deployment: ${STORE}")
+
+option(CIBUILD "Enable CI build" OFF)
+message(STATUS "CI build: ${CIBUILD}")
 
 # compiler
 set(CMAKE_CXX_STANDARD 17)
