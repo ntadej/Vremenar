@@ -56,8 +56,12 @@ MenuBar {
                 onTriggered: VWeather.currentMapStyle = index
             }
 
-            onObjectAdded: mapStyleMenu.insertItem(index, object)
-            onObjectRemoved: mapStyleMenu.removeItem(object)
+            onObjectAdded: function(index, object) {
+                mapStyleMenu.insertItem(index, object)
+            }
+            onObjectRemoved:  function(object) {
+                mapStyleMenu.removeItem(object)
+            }
         }
     }
 
@@ -75,8 +79,12 @@ MenuBar {
                 onTriggered: VWeather.currentMapLayerChanged(index)
             }
 
-            onObjectAdded: mapTypeMenu.insertItem(index, object)
-            onObjectRemoved: mapTypeMenu.removeItem(object)
+            onObjectAdded: function(index, object) {
+                mapTypeMenu.insertItem(index, object)
+            }
+            onObjectRemoved: function(object) {
+                mapTypeMenu.removeItem(object)
+            }
         }
     }
 

@@ -37,7 +37,7 @@ BaseApplicationWindow {
         id: mainMenu
     }
 
-    onClosing: {
+    onClosing: function(close) {
         if (!Vremenar.shouldQuit()) {
             hide()
             close.accepted = false
