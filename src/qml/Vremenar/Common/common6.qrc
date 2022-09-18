@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/Vremenar/Common">
+        <file>components/BlurWithShadow.qml</file>
+        <file>components/CommonBlur.qml</file>
+        <file>components/CommonMask.qml</file>
+        <file>components/CommonShadow.qml</file>
+        <file>components/MaskedBlurWithShadow.qml</file>
+        <file>components/ShadowSource.qml</file>
+    </qresource>
+</RCC>

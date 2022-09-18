@@ -52,6 +52,14 @@ RESOURCES += \
     src/qml/Vremenar/Maps/maps.qrc \
     src/qml/Vremenar/Navigation/navigation.qrc
 
+!legacy {
+    RESOURCES += \
+        src/qml/Vremenar/Common/common6.qrc
+} else {
+    RESOURCES += \
+        src/qml/Vremenar/Common/components/+legacy/common5.qrc
+}
+
 # Desktop resources
 desktop {
     RESOURCES += \

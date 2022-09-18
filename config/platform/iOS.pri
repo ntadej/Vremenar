@@ -13,8 +13,10 @@
 QT += gui-private
 
 # Ignore some warnings on iOS
-ios {
-    QMAKE_CXXFLAGS += -Wno-shorten-64-to-32 -Wno-unused-command-line-argument
+QMAKE_CXXFLAGS += -Wno-shorten-64-to-32 -Wno-unused-command-line-argument
+# qmake seems to require Qt main wrapper with Qt6
+!legacy {
+    LIBS += -Wl,-e,_qt_main_wrapper
 }
 
 # Define substitution files
