@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -15,15 +15,20 @@ import QtLocation 5.12
 import Vremenar 1.0
 
 Plugin {
-    preferred: ["maplibre", "mapboxgl"]
+    preferred: ["maplibregl"]
 
     PluginParameter {
-        name: "maplibre.mapping.additional_style_urls"
+        name: "maplibregl.mapping.additional_style_urls"
         value: Globals.mapsStyle
     }
 
     PluginParameter {
-        name: "mapboxgl.mapping.additional_style_urls"
-        value: Globals.mapsStyle
+        name: "maplibregl.client.name"
+        value: Globals.name
+    }
+
+    PluginParameter {
+        name: "maplibregl.client.version"
+        value: Globals.version
     }
 }
