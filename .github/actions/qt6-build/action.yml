@@ -1,5 +1,5 @@
 # action.yml
-name: 'Linux Builder'
+name: 'Qt6 Linux Builder'
 description: 'Helper action to build in a specific Docker container'
 runs:
   using: 'docker'
