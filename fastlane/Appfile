@@ -4,4 +4,5 @@ package_name "si.tano.Vremenar"
 
 # Publishing Metadata
 apple_id "tadej@tano.si"
+team_id "58RH34XXZH"
 json_key_file "google-play-key.json"
