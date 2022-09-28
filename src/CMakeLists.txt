@@ -236,12 +236,17 @@ if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
 endif()
 
 if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+    target_link_directories(Vremenar PRIVATE
+        ${APPLE_SWIFT_SDK_PATH}
+        ${APPLE_SWIFT_TOOLCHAIN_PATH}
+    )
     target_link_libraries(Vremenar PRIVATE
         -ObjC
         ${nanopb}
-        ${PromisesObjC}
+        ${FBLPromises}
         ${GoogleDataTransport}
         ${GoogleUtilities}
+        ${FirebaseCoreInternal}
         ${FirebaseCore}
         ${FirebaseInstallations}
         ${FirebaseMessaging}

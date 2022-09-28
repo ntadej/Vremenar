@@ -75,9 +75,10 @@ forsimulator {
 # these are static frameworks
 LIBS += -ObjC \
     -framework nanopb \
-    -framework PromisesObjC \
+    -framework FBLPromises \
     -framework GoogleDataTransport \
     -framework GoogleUtilities \
+    -framework FirebaseCoreInternal \
     -framework FirebaseCore \
     -framework FirebaseInstallations \
     -framework FirebaseMessaging

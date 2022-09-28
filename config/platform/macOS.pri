@@ -76,9 +76,10 @@ QMAKE_CXXFLAGS += -F$$top_srcdir/3rdparty/Firebase/macOS
 LIBS += -F$$top_srcdir/3rdparty/Firebase/macOS \
     -ObjC \
     -framework nanopb \
-    -framework PromisesObjC \
+    -framework FBLPromises \
     -framework GoogleDataTransport \
     -framework GoogleUtilities \
+    -framework FirebaseCoreInternal \
     -framework FirebaseCore \
     -framework FirebaseInstallations \
     -framework FirebaseMessaging

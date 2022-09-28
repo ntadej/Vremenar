@@ -14,16 +14,9 @@ if [[ -z ${Qt5_Dir+x} ]]; then
 fi
 
 if [[ "${1}" == "macos" ]] || [[ "${1}" == "macOS" ]]; then
-  MAPLIBRE_VERSION="2.0.0-pre.1"
-  FIREBASE_VERSION="8.12.1"
   COUNTLY_VERSION="21.11.1"
 
   echo "Downloading for macOS"
-
-  echo
-  echo "Firebase"
-  wget -nv -O "${LOCATION}/3rdparty/Firebase/macOS/firebase.tar.bz2" "https://github.com/ntadej/firebase-ios-sdk/releases/download/v${FIREBASE_VERSION}/firebase-macOS.tar.bz2"
-  tar -C "${LOCATION}/3rdparty/Firebase/macOS/" -xvf "${LOCATION}/3rdparty/Firebase/macOS/firebase.tar.bz2"
 
   echo
   echo "Countly"

@@ -18,8 +18,17 @@ set(RESOURCES_OUTPUT_PATH "${BUNDLE_CONTENTS_PATH}/Resources")
 
 # Deployment target and rpath
 set(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
-set(CMAKE_INSTALL_RPATH "@executable_path/../Frameworks")
+set(CMAKE_INSTALL_RPATH
+    "@executable_path/../Frameworks"
+    "/usr/lib/swift"
+)
 
+# Common paths
+set(APPLE_XCODE_PATH "/Applications/Xcode.app")
+set(APPLE_SWIFT_SDK_PATH "${CMAKE_OSX_SYSROOT}/usr/lib/swift")
+set(APPLE_SWIFT_TOOLCHAIN_PATH "${APPLE_XCODE_PATH}/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx")
+
+# Helper scripts
 configure_file("${CMAKE_SOURCE_DIR}/resources/macOS/build_dmg.sh.in" "${CMAKE_BINARY_DIR}/build_dmg.sh" @ONLY)
 configure_file("${CMAKE_SOURCE_DIR}/resources/macOS/resign.sh.in" "${CMAKE_BINARY_DIR}/resign.sh" @ONLY)
 
@@ -56,17 +65,19 @@ endif()
 
 set(FIREBASE_PATH "${CMAKE_SOURCE_DIR}/3rdparty/Firebase/macOS")
 find_library(nanopb nanopb HINTS ${FIREBASE_PATH} REQUIRED)
-find_library(PromisesObjC PromisesObjC HINTS ${FIREBASE_PATH} REQUIRED)
+find_library(FBLPromises FBLPromises HINTS ${FIREBASE_PATH} REQUIRED)
 find_library(GoogleDataTransport GoogleDataTransport HINTS ${FIREBASE_PATH} REQUIRED)
 find_library(GoogleUtilities GoogleUtilities HINTS ${FIREBASE_PATH} REQUIRED)
 find_library(FirebaseCore FirebaseCore HINTS ${FIREBASE_PATH} REQUIRED)
+find_library(FirebaseCoreInternal FirebaseCoreInternal HINTS ${FIREBASE_PATH} REQUIRED)
 find_library(FirebaseInstallations FirebaseInstallations HINTS ${FIREBASE_PATH} REQUIRED)
 find_library(FirebaseMessaging FirebaseMessaging HINTS ${FIREBASE_PATH} REQUIRED)
 file(COPY ${nanopb} DESTINATION "${FRAMEWORKS_OUTPUT_PATH}")
-file(COPY ${PromisesObjC} DESTINATION "${FRAMEWORKS_OUTPUT_PATH}")
+file(COPY ${FBLPromises} DESTINATION "${FRAMEWORKS_OUTPUT_PATH}")
 file(COPY ${GoogleDataTransport} DESTINATION "${FRAMEWORKS_OUTPUT_PATH}")
 file(COPY ${GoogleUtilities} DESTINATION "${FRAMEWORKS_OUTPUT_PATH}")
 file(COPY ${FirebaseCore} DESTINATION "${FRAMEWORKS_OUTPUT_PATH}")
+file(COPY ${FirebaseCoreInternal} DESTINATION "${FRAMEWORKS_OUTPUT_PATH}")
 file(COPY ${FirebaseInstallations} DESTINATION "${FRAMEWORKS_OUTPUT_PATH}")
 file(COPY ${FirebaseMessaging} DESTINATION "${FRAMEWORKS_OUTPUT_PATH}")
 
