@@ -13,16 +13,7 @@ if [[ -z ${Qt5_Dir+x} ]]; then
   QT=0
 fi
 
-if [[ "${1}" == "macos" ]] || [[ "${1}" == "macOS" ]]; then
-  COUNTLY_VERSION="21.11.1"
-
-  echo "Downloading for macOS"
-
-  echo
-  echo "Countly"
-  wget -nv -O "${LOCATION}/3rdparty/Countly/macOS/countly-sdk.tar.bz2" "https://github.com/ntadej/countly-sdk-ios/releases/download/v${COUNTLY_VERSION}/countly-sdk_${COUNTLY_VERSION}_macOS.tar.bz2"
-  tar -C "${LOCATION}/3rdparty/Countly/macOS/" -xvf "${LOCATION}/3rdparty/Countly/macOS/countly-sdk.tar.bz2"
-elif [[ "${1}" == "ios" ]] || [[ "${1}" == "iOS" ]]; then
+if [[ "${1}" == "ios" ]] || [[ "${1}" == "iOS" ]]; then
   MAPLIBRE_VERSION="2.0.0-pre.1"
   FIREBASE_VERSION="8.12.1"
   COUNTLY_VERSION="21.11.1"

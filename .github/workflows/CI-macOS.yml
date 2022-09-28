@@ -63,6 +63,7 @@ jobs:
           brew install graphicsmagick imagemagick
           ./source/3rdparty/Sparkle/macOS/download.sh
           ./source/3rdparty/Firebase/macOS/download.sh
+          ./source/3rdparty/Countly/macOS/download.sh
 
       - name: Setup ninja
         uses: seanmiddleditch/gha-setup-ninja@v3
@@ -97,9 +98,6 @@ jobs:
           patch Qt/$QT_VERSION/macos/lib/cmake/Qt6Qml/Qt6QmlMacros.cmake Vremenar/source/3rdparty/qml.patch
           popd > /dev/null || exit
           mkdir build
-
-      - name: Setup dependencies (legacy)
-        run: ./source/scripts/prepare_dependencies.sh macos
 
       - name: Build
         working-directory: build
