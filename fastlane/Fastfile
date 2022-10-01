@@ -1,0 +1,19 @@
+default_platform(:mac)
+
+platform :ios do
+  desc "Make a development build"
+  lane :testbuild do
+    setup_ci if ENV['CI']
+    match(type: "development")
+    run_qmake()
+    build_app(
+      scheme: "Vremenar",
+      project: lane_context[SharedValues::RUN_QMAKE_PROJECT_PATH],
+      export_method: "development",
+      build_path: "fastlane/build/ios/xcode",
+      derived_data_path: "fastlane/build/ios/derived",
+      output_directory: "fastlane/build/ios",
+      output_name: "Vremenar.ipa",
+    )
+  end
+end

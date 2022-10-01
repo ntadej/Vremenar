@@ -82,6 +82,10 @@ LIBS += -ObjC \
     -framework FirebaseCore \
     -framework FirebaseInstallations \
     -framework FirebaseMessaging
+LIBS += \
+    -L$(SDKROOT)/usr/lib/swift \
+    -L/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/$$QMAKE_MAC_SDK
+QMAKE_RPATHDIR += /usr/lib/swift
 
 # Countly
 forsimulator {

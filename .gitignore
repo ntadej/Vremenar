@@ -7,10 +7,15 @@ Config.cmake
 
 /*.plist
 
+/build
+
 /3rdparty/qt-geoservices-maplibre*
 /3rdparty/Countly
 /3rdparty/Firebase
 /3rdparty/Sparkle
+
+/fastlane/build
+/fastlane/report.xml
 
 /graphics/logo/Web/*.ico
 /graphics/logo/Web/*.png
