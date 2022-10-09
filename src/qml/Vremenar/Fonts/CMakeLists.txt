@@ -23,7 +23,7 @@ qt_add_qml_module(Vremenar
     NO_RESOURCE_TARGET_PATH
 )
 
-if(NOT MOBILE OR iOS)
+if(NOT MOBILE OR IOS)
     qt_add_resources(Vremenar fonts_Ionicons
         PREFIX
             /Vremenar/Fonts

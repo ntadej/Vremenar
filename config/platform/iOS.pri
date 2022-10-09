@@ -9,6 +9,14 @@
 # SPDX-License-Identifier: (GPL-3.0-or-later AND MPL-2.0)
 #
 
+forsimulator {
+    ACTIVE_MAC_SDK=iphonesimulator
+} else {
+    ACTIVE_MAC_SDK=iphoneos
+}
+
+message("Building for $$ACTIVE_MAC_SDK")
+
 # Private module for the safe area margins and icons
 QT += gui-private
 
@@ -20,11 +28,11 @@ QMAKE_CXXFLAGS += -Wno-shorten-64-to-32 -Wno-unused-command-line-argument
 }
 
 # Define substitution files
-iOSPlist.input = $$top_srcdir/resources/iOS/Info.plist.in
+iOSPlist.input = $$top_srcdir/resources/iOS/Info.plist.qmake.in
 iOSPlist.output = $$OUT_PWD/Info.plist
 QMAKE_SUBSTITUTES += iOSPlist
 
-iOSEntitlements.input = $$top_srcdir/resources/iOS/Vremenar.entitlements.in
+iOSEntitlements.input = $$top_srcdir/resources/iOS/Vremenar.entitlements.qmake.in
 iOSEntitlements.output = $$OUT_PWD/Vremenar.entitlements
 QMAKE_SUBSTITUTES += iOSEntitlements
 
@@ -33,7 +41,7 @@ iOSEntitlementsSettings.value = $$OUT_PWD/Vremenar.entitlements
 QMAKE_MAC_XCODE_SETTINGS += iOSEntitlementsSettings
 
 store {
-    iOSExport.input = $$top_srcdir/resources/iOS/AppStoreExport.plist.in
+    iOSExport.input = $$top_srcdir/resources/iOS/AppStoreExport.plist.qmake.in
     iOSExport.output = $$OUT_PWD/AppStoreExport.plist
     QMAKE_SUBSTITUTES += iOSExport
 }
@@ -84,7 +92,7 @@ LIBS += -ObjC \
     -framework FirebaseMessaging
 LIBS += \
     -L$(SDKROOT)/usr/lib/swift \
-    -L/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/$$QMAKE_MAC_SDK
+    -L/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/$$ACTIVE_MAC_SDK
 QMAKE_RPATHDIR += /usr/lib/swift
 
 # Countly

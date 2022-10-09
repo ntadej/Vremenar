@@ -191,6 +191,11 @@ qt_add_executable(Vremenar WIN32 MACOSX_BUNDLE
     weather/models/WeatherMapModel.h
     weather/models/WeatherMapProxyModel.cpp
     weather/models/WeatherMapProxyModel.h
+
+    $<$<PLATFORM_ID:iOS>:${APPLE_IOS_ASSET_CATALOGS}>
+    $<$<PLATFORM_ID:iOS>:${APPLE_IOS_GOOGLESERVICE}>
+    $<$<PLATFORM_ID:iOS>:${APPLE_IOS_STORYBOARD}>
+    $<$<PLATFORM_ID:iOS>:${APPLE_IOS_TRANSLATIONS}>
 )
 
 add_subdirectory(qml/Vremenar)
@@ -217,6 +222,23 @@ set_target_properties(Vremenar
     QT_ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_SOURCE_DIR}/resources/Android/output"
 )
 
+if(IOS)
+    set_target_properties(Vremenar
+        PROPERTIES
+        XCODE_ATTRIBUTE_ASSETCATALOG_COMPILER_APPICON_NAME "AppIcon"
+        XCODE_ATTRIBUTE_CODE_SIGN_ENTITLEMENTS "${CMAKE_BINARY_DIR}/Vremenar.entitlements"
+        XCODE_EMBED_FRAMEWORKS "${APPLE_IOS_EMBED_FRAMEWORKS}"
+    )
+    set_source_files_properties(
+        ${APPLE_IOS_ASSET_CATALOGS}
+        ${APPLE_IOS_GOOGLESERVICE}
+        ${APPLE_IOS_STORYBOARD}
+        ${APPLE_IOS_TRANSLATIONS}
+        PROPERTIES
+        MACOSX_PACKAGE_LOCATION "Resources"
+    )
+endif()
+
 target_link_libraries(Vremenar PRIVATE
     Vremenar-compiler-options
 )
@@ -227,15 +249,19 @@ target_include_directories(Vremenar PRIVATE
 
 if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     add_subdirectory(3rdparty)
-
     target_link_libraries(Vremenar PRIVATE
         QMacToolBar
-        ${Countly}
         $<$<NOT:$<BOOL:${STORE}>>:${Sparkle}>
     )
 endif()
 
-if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin" OR IOS)
+    target_link_libraries(Vremenar PRIVATE
+        ${Countly}
+    )
+endif()
+
+if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin" OR IOS)
     target_link_directories(Vremenar PRIVATE
         ${APPLE_SWIFT_SDK_PATH}
         ${APPLE_SWIFT_TOOLCHAIN_PATH}

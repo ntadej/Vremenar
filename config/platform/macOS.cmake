@@ -36,9 +36,7 @@ configure_file("${CMAKE_SOURCE_DIR}/resources/macOS/resign.sh.in" "${CMAKE_BINAR
 configure_file("${CMAKE_SOURCE_DIR}/resources/macOS/Info.plist.in" "${CMAKE_BINARY_DIR}/Info.plist" @ONLY)
 
 configure_file("${CMAKE_SOURCE_DIR}/resources/macOS/Vremenar.entitlements" "${CMAKE_BINARY_DIR}/Vremenar.entitlements" COPYONLY)
-if (NOT CIBUILD)
-    configure_file("${CMAKE_SOURCE_DIR}/embedded.provisionprofile" "${BUNDLE_CONTENTS_PATH}/embedded.provisionprofile" COPYONLY)
-endif()
+configure_file("${CMAKE_SOURCE_DIR}/embedded.provisionprofile" "${BUNDLE_CONTENTS_PATH}/embedded.provisionprofile" COPYONLY)
 
 # Assets
 execute_process(
@@ -59,9 +57,7 @@ find_library(Countly Countly HINTS ${COUNTLY_PATH} REQUIRED)
 file(COPY ${Countly} DESTINATION "${FRAMEWORKS_OUTPUT_PATH}")
 
 # Firebase
-if (NOT CIBUILD)
-    configure_file("${CMAKE_SOURCE_DIR}/GoogleService-Info.plist" "${CMAKE_BINARY_DIR}/${VREMENAR_NAME}.app/Contents/Resources/GoogleService-Info.plist" COPYONLY)
-endif()
+configure_file("${CMAKE_SOURCE_DIR}/GoogleService-Info.plist" "${RESOURCES_OUTPUT_PATH}/GoogleService-Info.plist" COPYONLY)
 
 set(FIREBASE_PATH "${CMAKE_SOURCE_DIR}/3rdparty/Firebase/macOS")
 find_library(nanopb nanopb HINTS ${FIREBASE_PATH} REQUIRED)

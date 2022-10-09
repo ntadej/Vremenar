@@ -41,12 +41,9 @@ else()
 endif()
 message(STATUS "Logging: ${LOGGING}")
 
-# Special builds for store & CI
+# Special builds for store
 option(STORE "Enable store deployment" OFF)
 message(STATUS "Store deployment: ${STORE}")
-
-option(CIBUILD "Enable CI build" OFF)
-message(STATUS "CI build: ${CIBUILD}")
 
 # compiler
 set(CMAKE_CXX_STANDARD 17)
@@ -86,6 +83,9 @@ target_compile_definitions(
 if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     message(STATUS "Building for platform: macOS")
     include(${CMAKE_CURRENT_LIST_DIR}/platform/macOS.cmake)
+elseif(IOS)
+    message(STATUS "Building for platform: iOS")
+    include(${CMAKE_CURRENT_LIST_DIR}/platform/iOS.cmake)
 elseif(ANDROID)
     message(STATUS "Building for platform: Android")
     include(${CMAKE_CURRENT_LIST_DIR}/platform/Android.cmake)

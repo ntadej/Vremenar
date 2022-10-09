@@ -112,7 +112,6 @@ jobs:
             -DCMAKE_CXX_COMPILER_LAUNCHER="ccache" \
             -DCMAKE_OSX_DEPLOYMENT_TARGET="10.14" \
             -DCMAKE_OSX_ARCHITECTURES="x86_64;arm64" \
-            -DAPPLE_XCODE_PATH="${MD_APPLE_SDK_ROOT}" \
-            -DCIBUILD=ON
+            -DAPPLE_XCODE_PATH="${MD_APPLE_SDK_ROOT}"
           ninja
           ./build_dmg.sh
