@@ -405,7 +405,7 @@ void ApplicationWindow::startCompleted(QQuickWindow *window,
     _updates->checkVersion();
 }
 
-void ApplicationWindow::weatherSourceChanged(qsizetype source)
+void ApplicationWindow::weatherSourceChanged(int source)
 {
     auto index = static_cast<size_t>(source);
     std::vector<Sources::Country> sources = {Sources::Slovenia, Sources::Germany};
