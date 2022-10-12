@@ -6,6 +6,7 @@ config.pri
 Config.cmake
 
 /*.plist
+/.ruby-version
 
 /build
 

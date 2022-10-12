@@ -32,7 +32,7 @@ set(APPLE_SWIFT_TOOLCHAIN_PATH "${APPLE_XCODE_PATH}/Contents/Developer/Toolchain
 # Info.plist & deployment
 configure_file("${CMAKE_SOURCE_DIR}/resources/iOS/Info.plist.in" "${CMAKE_BINARY_DIR}/Info.plist" @ONLY)
 configure_file("${CMAKE_SOURCE_DIR}/resources/iOS/Vremenar.entitlements" "${CMAKE_BINARY_DIR}/Vremenar.entitlements" COPYONLY)
-if(STORE)
+if(VREMENAR_STORE)
     configure_file("${CMAKE_SOURCE_DIR}/resources/iOS/AppStoreExport.plist" "${CMAKE_BINARY_DIR}/AppStoreExport.plist" COPYONLY)
 endif()
 

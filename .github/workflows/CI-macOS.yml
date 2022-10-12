@@ -57,6 +57,16 @@ jobs:
           wget https://github.com/maplibre/qt-geoservices-maplibre-gl/releases/download/v${MAPLIBRE_VERSION}/qt-geoservices-maplibre-gl_v${MAPLIBRE_VERSION}_Qt${QT_VERSION}_macOS.tar.bz2
           tar xvf qt-geoservices-maplibre-gl_v${MAPLIBRE_VERSION}_Qt${QT_VERSION}_macOS.tar.bz2 -C ..
 
+      - name: Setup Fastlane
+        working-directory: source
+        run: |
+          bundle install
+
+      - name: Setup deploy key
+        uses: webfactory/ssh-agent@v0.5.4
+        with:
+          ssh-private-key: ${{ secrets.MATCH_GIT_PRIVATE_KEY }}
+
       - name: Setup dependencies
         run: |
           npm install --global create-dmg
@@ -74,44 +84,22 @@ jobs:
           key: macOS
 
       - name: Configure & prepare
+        working-directory: source
         env:
-          MAPS_ENDPOINT: ${{ secrets.MAPS_ENDPOINT }}
-          API_ENDPOINT: ${{ secrets.API_ENDPOINT }}
-          APPCAST_ENDPOINT: ${{ secrets.APPCAST_ENDPOINT }}
-          COUNTLY_APPKEY: ${{ secrets.COUNTLY_APPKEY }}
-          COUNTLY_APPKEY_DEV: ${{ secrets.COUNTLY_APPKEY_DEV }}
-          COUNTLY_ENDPOINT: ${{ secrets.COUNTLY_ENDPOINT }}
-          COUNTLY_SALT: ${{ secrets.COUNTLY_SALT }}
-          COUNTLY_SALT_DEV: ${{ secrets.COUNTLY_SALT_DEV }}
+          CONFIG_CMAKE: ${{ secrets.CONFIG_CMAKE }}
+          GOOGLE_SERVICES_APPLE: ${{ secrets.GOOGLE_SERVICES_APPLE }}
         run: |
-          cat <<EOT > source/Config.cmake
-          set(MAPS_ENDPOINT "${MAPS_ENDPOINT}")
-          set(API_ENDPOINT "${API_ENDPOINT}")
-          set(APPCAST_ENDPOINT "${APPCAST_ENDPOINT}")
-          set(COUNTLY_APPKEY "${COUNTLY_APPKEY}")
-          set(COUNTLY_ENDPOINT "${COUNTLY_ENDPOINT}")
-          set(COUNTLY_SALT "${COUNTLY_SALT}")
-          set(CODE_SIGN_IDENTITY "")
-          set(PKG_SIGN_IDENTITY "")
-          EOT
-          pushd .. > /dev/null || exit
+          echo $CONFIG_CMAKE | base64 --decode > Config.cmake
+          echo $GOOGLE_SERVICES_APPLE | base64 --decode > GoogleService-Info.plist
+
+          pushd ../.. > /dev/null || exit
           patch Qt/$QT_VERSION/macos/lib/cmake/Qt6Qml/Qt6QmlMacros.cmake Vremenar/source/3rdparty/qml.patch
           popd > /dev/null || exit
-          mkdir build
 
       - name: Build
-        working-directory: build
+        working-directory: source
         env:
-          ARTIFACT_NAME: Vremenar_macOS.dmg
-          VREMENAR_PATH: ../source
+          MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
         run: |
-          qt-cmake $VREMENAR_PATH \
-            -G Ninja \
-            -DCMAKE_BUILD_TYPE="RelWithDebInfo" \
-            -DCMAKE_C_COMPILER_LAUNCHER="ccache" \
-            -DCMAKE_CXX_COMPILER_LAUNCHER="ccache" \
-            -DCMAKE_OSX_DEPLOYMENT_TARGET="10.14" \
-            -DCMAKE_OSX_ARCHITECTURES="x86_64;arm64" \
-            -DAPPLE_XCODE_PATH="${MD_APPLE_SDK_ROOT}"
-          ninja
-          ./build_dmg.sh
+          export FL_RUN_CMAKE_XCODE_PATH="${MD_APPLE_SDK_ROOT}"
+          bundle exec fastlane mac testbuild

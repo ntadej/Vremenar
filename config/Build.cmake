@@ -29,21 +29,21 @@ if(NOT MOBILE)
 endif()
 
 # Positioning
-option(POSITIONING "Enable positioning" ON)
-message(STATUS "Positioning: ${POSITIONING}")
+option(VREMENAR_POSITIONING "Enable positioning" ON)
+message(STATUS "Positioning: ${VREMENAR_POSITIONING}")
 
 # logging
-option(LOGGING "Enable logging" ON)
-if(LOGGING)
+option(VREMENAR_LOGGING "Enable logging" ON)
+if(VREMENAR_LOGGING)
     set(LOGGING_ENABLED true)
 else()
     set(LOGGING_ENABLED false)
 endif()
-message(STATUS "Logging: ${LOGGING}")
+message(STATUS "Logging: ${VREMENAR_LOGGING}")
 
 # Special builds for store
-option(STORE "Enable store deployment" OFF)
-message(STATUS "Store deployment: ${STORE}")
+option(VREMENAR_STORE "Enable store deployment" OFF)
+message(STATUS "Store deployment: ${VREMENAR_STORE}")
 
 # compiler
 set(CMAKE_CXX_STANDARD 17)
@@ -75,8 +75,8 @@ target_compile_definitions(
         QT_DEPRECATED_WARNINGS
         $<$<CONFIG:Debug>:QT_QML_DEBUG>
         $<$<BOOL:${MOBILE}>:VREMENAR_MOBILE>
-        $<$<BOOL:${POSITIONING}>:VREMENAR_POSITIONING>
-        $<$<BOOL:${STORE}>:VREMENAR_STORE>
+        $<$<BOOL:${VREMENAR_POSITIONING}>:VREMENAR_POSITIONING>
+        $<$<BOOL:${VREMENAR_STORE}>:VREMENAR_STORE>
 )
 
 # Config summary

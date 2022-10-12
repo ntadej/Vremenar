@@ -1,0 +1,16 @@
+{
+  "cmake.configureOnEdit": false,
+  "cmake.configureOnOpen": false,
+  "editor.formatOnSave": true,
+  "files.insertFinalNewline": true,
+  "ruby.codeCompletion": "rcodetools",
+  "ruby.format": "rubocop",
+  "ruby.intellisense": "rubyLocate",
+  "ruby.lint": {
+    "rubocop": {
+      "useBundler": true // enable rubocop via bundler
+    }
+  },
+  "ruby.useBundler": true,
+  "ruby.useLanguageServer": true
+}

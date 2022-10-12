@@ -1,5 +1,7 @@
-type "development"
+# frozen_string_literal: true
 
-storage_mode "git"
-git_branch "main"
-git_url "git@github.com:ntadej/fastlane-match.git"
+type 'development'
+
+storage_mode 'git'
+git_branch 'main'
+git_url 'git@github.com:ntadej/fastlane-match.git'

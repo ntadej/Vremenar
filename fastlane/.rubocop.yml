@@ -1,0 +1,16 @@
+Metrics/AbcSize:
+  Enabled: false
+
+Metrics/MethodLength:
+  Enabled: false
+
+Naming/FileName:
+  Enabled: false
+
+Naming/PredicateName:
+  AllowedMethods:
+    - is_a?
+    - is_supported?
+
+Style/Documentation:
+  Enabled: false

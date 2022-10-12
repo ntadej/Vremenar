@@ -48,9 +48,9 @@ qt_add_executable(Vremenar WIN32 MACOSX_BUNDLE
     application/Services.h
     $<$<NOT:$<BOOL:${MOBILE}>>:application/SingleApplication.cpp>
     $<$<NOT:$<BOOL:${MOBILE}>>:application/SingleApplication.h>
-    $<$<AND:$<OR:$<PLATFORM_ID:Darwin>,$<PLATFORM_ID:Windows>>,$<NOT:$<BOOL:${STORE}>>>:application/SparkleHelper.h>
-    $<$<AND:$<PLATFORM_ID:Darwin>,$<NOT:$<BOOL:${STORE}>>>:application/SparkleHelperMacOS.mm>
-    $<$<AND:$<PLATFORM_ID:Windows>,$<NOT:$<BOOL:${STORE}>>>:application/SparkleHelperWin32.cpp>
+    $<$<AND:$<OR:$<PLATFORM_ID:Darwin>,$<PLATFORM_ID:Windows>>,$<NOT:$<BOOL:${VREMENAR_STORE}>>>:application/SparkleHelper.h>
+    $<$<AND:$<PLATFORM_ID:Darwin>,$<NOT:$<BOOL:${VREMENAR_STORE}>>>:application/SparkleHelperMacOS.mm>
+    $<$<AND:$<PLATFORM_ID:Windows>,$<NOT:$<BOOL:${VREMENAR_STORE}>>>:application/SparkleHelperWin32.cpp>
     $<$<NOT:$<BOOL:${MOBILE}>>:application/TrayIcon.cpp>
     $<$<NOT:$<BOOL:${MOBILE}>>:application/TrayIcon.h>
     application/Updates.cpp
@@ -109,9 +109,9 @@ qt_add_executable(Vremenar WIN32 MACOSX_BUNDLE
     location/LocationProvider.cpp
     location/LocationProvider.h
     location/LocationProviderPlatform.h
-    $<$<AND:$<PLATFORM_ID:Android>,$<BOOL:${POSITIONING}>>:location/LocationProviderAndroid.cpp>
-    $<$<AND:$<OR:$<PLATFORM_ID:Darwin>,$<PLATFORM_ID:iOS>>,$<BOOL:${POSITIONING}>>:location/LocationProviderMacOSiOS.h>
-    $<$<AND:$<OR:$<PLATFORM_ID:Darwin>,$<PLATFORM_ID:iOS>>,$<BOOL:${POSITIONING}>>:location/LocationProviderMacOSiOS.mm>
+    $<$<AND:$<PLATFORM_ID:Android>,$<BOOL:${VREMENAR_POSITIONING}>>:location/LocationProviderAndroid.cpp>
+    $<$<AND:$<OR:$<PLATFORM_ID:Darwin>,$<PLATFORM_ID:iOS>>,$<BOOL:${VREMENAR_POSITIONING}>>:location/LocationProviderMacOSiOS.h>
+    $<$<AND:$<OR:$<PLATFORM_ID:Darwin>,$<PLATFORM_ID:iOS>>,$<BOOL:${VREMENAR_POSITIONING}>>:location/LocationProviderMacOSiOS.mm>
 
     maps/MapsCommon.cpp
     maps/MapsCommon.h
@@ -227,6 +227,8 @@ if(IOS)
         PROPERTIES
         XCODE_ATTRIBUTE_ASSETCATALOG_COMPILER_APPICON_NAME "AppIcon"
         XCODE_ATTRIBUTE_CODE_SIGN_ENTITLEMENTS "${CMAKE_BINARY_DIR}/Vremenar.entitlements"
+        XCODE_ATTRIBUTE_INSTALL_PATH "$(inherited)"
+        XCODE_ATTRIBUTE_PRODUCT_BUNDLE_IDENTIFIER "si.tano.${VREMENAR_NAME}"
         XCODE_EMBED_FRAMEWORKS "${APPLE_IOS_EMBED_FRAMEWORKS}"
     )
     set_source_files_properties(
@@ -251,7 +253,7 @@ if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     add_subdirectory(3rdparty)
     target_link_libraries(Vremenar PRIVATE
         QMacToolBar
-        $<$<NOT:$<BOOL:${STORE}>>:${Sparkle}>
+        $<$<NOT:$<BOOL:${VREMENAR_STORE}>>:${Sparkle}>
     )
 endif()
 

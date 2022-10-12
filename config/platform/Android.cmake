@@ -10,7 +10,7 @@
 #
 
 # Manifest defines
-if(POSITIONING)
+if(VREMENAR_POSITIONING)
     set(VREMENAR_ANDROID_FEATURES [=[<uses-feature android:name="android.hardware.location.gps" android:required="false" />]=])
     set(VREMENAR_ANDROID_PERMISSIONS [=[<uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />

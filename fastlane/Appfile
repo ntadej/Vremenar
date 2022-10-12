@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 # App Information
-app_identifier "si.tano.Vremenar"
-package_name "si.tano.Vremenar"
+app_identifier 'si.tano.Vremenar'
+package_name 'si.tano.Vremenar'
 
 # Publishing Metadata
-apple_id "tadej@tano.si"
-team_id "58RH34XXZH"
-json_key_file "google-play-key.json"
+apple_id 'tadej@tano.si'
+team_id '58RH34XXZH'
+json_key_file 'google-play-key.json'

@@ -23,10 +23,27 @@ set(CMAKE_INSTALL_RPATH
     "/usr/lib/swift"
 )
 
-# Common paths
+# Platform specific settings
+set(APPLE_CODE_SIGN_IDENTITY "" CACHE STRING "macOS code signing identity")
+set(APPLE_PKG_SIGN_IDENTITY "" CACHE STRING "macOS PKG signing identity")
+set(APPLE_DEVELOPER_TEAM "" CACHE STRING "macOS Developer Team")
+
 set(APPLE_XCODE_PATH "/Applications/Xcode.app")
 set(APPLE_SWIFT_SDK_PATH "${CMAKE_OSX_SYSROOT}/usr/lib/swift")
 set(APPLE_SWIFT_TOOLCHAIN_PATH "${APPLE_XCODE_PATH}/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx")
+
+if(VREMENAR_STORE)
+  SET(APPLE_ENTITLEMENTS_EXTRA_CONTENT "<key>com.apple.application-identifier</key>
+    <string>${APPLE_DEVELOPER_TEAM}.si.tano.Vremenar</string>
+    <key>com.apple.developer.team-identifier</key>
+    <string>${APPLE_DEVELOPER_TEAM}</string>")
+else()
+  SET(APPLE_ENTITLEMENTS_EXTRA_CONTENT "<key>com.apple.security.temporary-exception.mach-lookup.global-name</key>
+    <array>
+      <string>si.tano.Vremenar-spks</string>
+      <string>si.tano.Vremenar-spki</string>
+    </array>")
+endif()
 
 # Helper scripts
 configure_file("${CMAKE_SOURCE_DIR}/resources/macOS/build_dmg.sh.in" "${CMAKE_BINARY_DIR}/build_dmg.sh" @ONLY)
@@ -35,8 +52,12 @@ configure_file("${CMAKE_SOURCE_DIR}/resources/macOS/resign.sh.in" "${CMAKE_BINAR
 # Info.plist & deployment
 configure_file("${CMAKE_SOURCE_DIR}/resources/macOS/Info.plist.in" "${CMAKE_BINARY_DIR}/Info.plist" @ONLY)
 
-configure_file("${CMAKE_SOURCE_DIR}/resources/macOS/Vremenar.entitlements" "${CMAKE_BINARY_DIR}/Vremenar.entitlements" COPYONLY)
-configure_file("${CMAKE_SOURCE_DIR}/embedded.provisionprofile" "${BUNDLE_CONTENTS_PATH}/embedded.provisionprofile" COPYONLY)
+configure_file("${CMAKE_SOURCE_DIR}/resources/macOS/Vremenar.entitlements.in" "${CMAKE_BINARY_DIR}/Vremenar.entitlements" @ONLY)
+
+set(APPLE_PROVISIONING_PROFILE "${CMAKE_SOURCE_DIR}/embedded.provisionprofile" CACHE FILEPATH "Embedded provisioning profile")
+if (APPLE_PROVISIONING_PROFILE)
+    configure_file("${APPLE_PROVISIONING_PROFILE}" "${BUNDLE_CONTENTS_PATH}/embedded.provisionprofile" COPYONLY)
+endif()
 
 # Assets
 execute_process(
@@ -78,7 +99,7 @@ file(COPY ${FirebaseInstallations} DESTINATION "${FRAMEWORKS_OUTPUT_PATH}")
 file(COPY ${FirebaseMessaging} DESTINATION "${FRAMEWORKS_OUTPUT_PATH}")
 
 # Sparkle
-if(NOT STORE)
+if(NOT VREMENAR_STORE)
     set(SPARKLE_PATH "${CMAKE_SOURCE_DIR}/3rdparty/Sparkle/macOS")
     find_library(Sparkle Sparkle HINTS ${SPARKLE_PATH} REQUIRED)
 

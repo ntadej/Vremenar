@@ -1,4 +1,4 @@
-name: iOS CI (Qt5)
+name: iOS CI (Qt6)
 on:
   workflow_dispatch:
   push:
@@ -12,7 +12,7 @@ on:
       # ignore CI for other platforms
       - ".github/actions/**"
       - ".github/workflows/CI-Android.yml"
-      - ".github/workflows/CI-iOS.yml"
+      - ".github/workflows/CI-iOS-Qt5.yml"
       - ".github/workflows/CI-Linux.yml"
       - ".github/workflows/CI-macOS.yml"
       - ".github/workflows/CI-Windows-Qt5.yml"
@@ -23,7 +23,7 @@ concurrency:
   cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
 env:
-  QT_VERSION: 5.15.2
+  QT_VERSION: 6.3.2
   MAPLIBRE_VERSION: 2.0.2
 
 jobs:
@@ -44,12 +44,21 @@ jobs:
         with:
           xcode-version: latest-stable
 
-      - name: Download Qt
+      - name: Download Qt (desktop)
+        uses: jurplel/install-qt-action@v3
+        with:
+          aqtversion: ==2.1.*
+          version: ${{ env.QT_VERSION }}
+          target: desktop
+          modules: qtpositioning
+
+      - name: Download Qt (iOS)
         uses: jurplel/install-qt-action@v3
         with:
           aqtversion: ==2.1.*
           version: ${{ env.QT_VERSION }}
           target: ios
+          modules: qtpositioning
 
       - name: Download MapLibre
         run: |
@@ -75,17 +84,23 @@ jobs:
       - name: Configure & prepare
         working-directory: source
         env:
-          CONFIG_QMAKE: ${{ secrets.CONFIG_QMAKE }}
+          CONFIG_CMAKE: ${{ secrets.CONFIG_CMAKE }}
           GOOGLE_SERVICES_APPLE: ${{ secrets.GOOGLE_SERVICES_APPLE }}
         run: |
-          bundle exec fastlane ios prepare_qt
+          bundle exec fastlane ios prepare_qt6
 
-          echo $CONFIG_QMAKE | base64 --decode > config.pri
+          echo $CONFIG_CMAKE | base64 --decode > Config.cmake
           echo $GOOGLE_SERVICES_APPLE | base64 --decode > GoogleService-Info.plist
+
+          pushd ../.. > /dev/null || exit
+          patch Qt/$QT_VERSION/ios/lib/cmake/Qt6Qml/Qt6QmlMacros.cmake Vremenar/source/3rdparty/qml.patch
+          popd > /dev/null || exit
 
       - name: Build
         working-directory: source
         env:
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
         run: |
-          bundle exec fastlane ios testbuild || bundle exec fastlane ios testbuild
+          export FL_RUN_CMAKE_XCODE_PATH="${MD_APPLE_SDK_ROOT}"
+          export QT_HOST_PATH="$(readlink -f "$Qt6_DIR/../macos")"
+          bundle exec fastlane ios testbuild_qt6
