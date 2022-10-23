@@ -5,46 +5,50 @@
 default_platform :mac
 
 platform :mac do
-  desc 'Make a test'
-  lane :testbuild do
-    developer_id_build
-  end
-
   desc 'Make a developer ID build'
-  lane :developer_id_build do
+  lane :developer_id do
     setup_ci if ENV['CI']
     match type: 'developer_id'
+    setup_dependencies platform: 'macos',
+                       certificate_name: ENV['sigh_si.tano.Vremenar_developer_id_macos_certificate-name']
     build_number
-    run_cmake(
-      platform: 'macos',
-      build_type: 'developer_id',
-      build_number: lane_context[SharedValues::BUILD_NUMBER_VALUE],
-      build_path: 'fastlane/build/macos/cmake',
-      developer_team: ENV['sigh_si.tano.Vremenar_developer_id_macos_team-id'],
-      certificate_name: ENV['sigh_si.tano.Vremenar_developer_id_macos_certificate-name'],
-      profile_name: ENV['sigh_si.tano.Vremenar_developer_id_macos_profile-path']
-    )
-    ninja path: lane_context[SharedValues::RUN_CMAKE_PROJECT_PATH]
-    create_dmg path: lane_context[SharedValues::RUN_CMAKE_PROJECT_PATH]
+    run_cmake platform: 'macos',
+              build_type: 'developer_id',
+              build_path: 'fastlane/build/macos/cmake',
+              developer_team: ENV['sigh_si.tano.Vremenar_developer_id_macos_team-id'],
+              certificate_name: ENV['sigh_si.tano.Vremenar_developer_id_macos_certificate-name'],
+              profile_name: ENV['sigh_si.tano.Vremenar_developer_id_macos_profile-path']
+    ninja
+    create_dmg
+    if ENV['DEPLOY']
+      notarize package: lane_context[SharedValues::CREATE_DMG_OUTPUT_FILE],
+               bundle_id: CredentialsManager::AppfileConfig.try_fetch_value(:app_identifier),
+               api_key_path: 'appstore_api.json'
+    end
   end
 
   desc 'Make a store build'
-  lane :app_store_build do
+  lane :app_store do
     setup_ci if ENV['CI']
     match type: 'appstore', additional_cert_types: 'mac_installer_distribution'
+    setup_dependencies platform: 'macos',
+                       certificate_name: ENV['sigh_si.tano.Vremenar_appstore_macos_certificate-name']
     build_number
-    run_cmake(
-      platform: 'macos',
-      build_type: 'store',
-      build_number: lane_context[SharedValues::BUILD_NUMBER_VALUE],
-      build_path: 'fastlane/build/macos_store/cmake',
-      developer_team: ENV['sigh_si.tano.Vremenar_appstore_macos_team-id'],
-      certificate_name: ENV['sigh_si.tano.Vremenar_appstore_macos_certificate-name'],
-      pkg_certificate_name: ENV['sigh_si.tano.Vremenar_mac_installer_distribution_macos_certificate-name'],
-      profile_name: ENV['sigh_si.tano.Vremenar_appstore_macos_profile-path']
-    )
-    ninja path: lane_context[SharedValues::RUN_CMAKE_PROJECT_PATH]
-    create_dmg path: lane_context[SharedValues::RUN_CMAKE_PROJECT_PATH]
+    run_cmake platform: 'macos',
+              build_type: 'store',
+              build_path: 'fastlane/build/macos_store/cmake',
+              developer_team: ENV['sigh_si.tano.Vremenar_appstore_macos_team-id'],
+              certificate_name: ENV['sigh_si.tano.Vremenar_appstore_macos_certificate-name'],
+              pkg_certificate_name: ENV['sigh_si.tano.Vremenar_mac_installer_distribution_macos_certificate-name'],
+              profile_name: ENV['sigh_si.tano.Vremenar_appstore_macos_profile-path']
+    ninja
+    create_dmg
+    if ENV['DEPLOY']
+      upload_to_testflight pkg: lane_context[SharedValues::CREATE_DMG_OUTPUT_FILE],
+                           api_key_path: 'appstore_api.json',
+                           skip_submission: true,
+                           skip_waiting_for_build_processing: true
+    end
   end
 end
 
@@ -64,51 +68,56 @@ platform :ios do
     setup_qt platform: 'ios_qt6'
   end
 
-  desc 'Make a development build (Qt5)'
-  lane :testbuild do
-    setup_ci if ENV['CI']
-    match type: 'development'
-    run_qmake
-    update_project_team path: lane_context[SharedValues::RUN_QMAKE_PROJECT_PATH]
-    update_code_signing_settings(
-      use_automatic_signing: false,
-      path: lane_context[SharedValues::RUN_QMAKE_PROJECT_PATH],
-      profile_name: ENV['sigh_si.tano.Vremenar_development_profile-name']
-    )
-    build_app(
-      scheme: 'Vremenar',
-      project: lane_context[SharedValues::RUN_QMAKE_PROJECT_PATH],
-      export_method: 'development',
-      build_path: 'fastlane/build/ios/archive',
-      derived_data_path: 'fastlane/build/ios/derived_data',
-      output_directory: 'fastlane/build/ios',
-      output_name: 'Vremenar.ipa'
-    )
+  desc 'Prepare dependencies'
+  lane :dependencies do
+    setup_dependencies platform: 'ios'
   end
 
   desc 'Make a development build (Qt6)'
-  lane :testbuild_qt6 do
+  lane :testbuild do
     setup_ci if ENV['CI']
     match type: 'development'
+    dependencies
     build_number
-    run_cmake(
-      platform: 'ios',
-      build_type: 'development',
-      build_number: lane_context[SharedValues::BUILD_NUMBER_VALUE],
-      build_path: 'fastlane/build/ios_qt6/cmake',
-      developer_team: ENV['sigh_si.tano.Vremenar_development_team-id'],
-      certificate_name: ENV['sigh_si.tano.Vremenar_development_certificate-name'],
-      profile_name: ENV['sigh_si.tano.Vremenar_development_profile-name']
-    )
-    build_app(
-      scheme: 'Vremenar',
-      project: lane_context[SharedValues::RUN_CMAKE_PROJECT_PATH],
-      export_method: 'development',
-      build_path: 'fastlane/build/ios_qt6/archive',
-      derived_data_path: 'fastlane/build/ios_qt6/derived_data',
-      output_directory: 'fastlane/build/ios_qt6',
-      output_name: 'Vremenar.ipa'
-    )
+    run_cmake platform: 'ios',
+              build_type: 'development',
+              build_path: 'fastlane/build/ios_qt6/cmake',
+              developer_team: ENV['sigh_si.tano.Vremenar_development_team-id'],
+              certificate_name: ENV['sigh_si.tano.Vremenar_development_certificate-name'],
+              profile_name: ENV['sigh_si.tano.Vremenar_development_profile-name']
+    build_app scheme: 'Vremenar',
+              project: lane_context[SharedValues::RUN_CMAKE_PROJECT_PATH],
+              export_method: 'development',
+              build_path: 'fastlane/build/ios_qt6/archive',
+              derived_data_path: 'fastlane/build/ios_qt6/derived_data',
+              output_directory: 'fastlane/build/ios_qt6',
+              output_name: 'Vremenar.ipa'
+  end
+
+  desc 'Make a store build (Qt5)'
+  lane :app_store do
+    setup_ci if ENV['CI']
+    match type: 'appstore'
+    dependencies
+    build_number
+    run_qmake
+    update_project_team path: lane_context[SharedValues::RUN_QMAKE_PROJECT_PATH]
+    update_code_signing_settings use_automatic_signing: false,
+                                 path: lane_context[SharedValues::RUN_QMAKE_PROJECT_PATH],
+                                 code_sign_identity: ENV['sigh_si.tano.Vremenar_appstore_certificate-name'],
+                                 profile_name: ENV['sigh_si.tano.Vremenar_appstore_profile-name']
+    build_app scheme: 'Vremenar',
+              project: lane_context[SharedValues::RUN_QMAKE_PROJECT_PATH],
+              export_method: 'app-store',
+              build_path: 'fastlane/build/ios_store/archive',
+              derived_data_path: 'fastlane/build/ios_store/derived_data',
+              output_directory: 'fastlane/build/ios_store',
+              output_name: 'Vremenar.ipa'
+    if ENV['DEPLOY']
+      upload_to_testflight api_key_path: 'appstore_api.json',
+                           skip_submission: true,
+                           skip_waiting_for_build_processing: true
+    end
   end
 end
 

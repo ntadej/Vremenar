@@ -70,6 +70,8 @@ if [[ -d "$BUNDLE_NAME/Contents/Resources/qml/QtQuick/Controls/macOS/" ]]; then
   rm -r "$BUNDLE_NAME/Contents/Resources/qml/QtQuick/Controls/macOS/"
 fi
 
+find Vremenar.app -iname '*dSYM*' -print0 | xargs -0 rm -r
+
 # Fix the signing
 if [[ "$CODE_SIGN_IDENTITY" != "" ]]; then
   echo codesign -s "\"$CODE_SIGN_IDENTITY\"" -f --timestamp -o runtime --entitlements "$ENTITLEMENTS" "$BUNDLE_NAME"

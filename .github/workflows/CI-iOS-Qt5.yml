@@ -57,29 +57,26 @@ jobs:
           tar xvf qt-geoservices-maplibre-gl_v${MAPLIBRE_VERSION}_Qt${QT_VERSION}_iOS.tar.bz2 -C ..
 
       - name: Setup Fastlane
-        working-directory: source
-        run: |
-          bundle install
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+          working-directory: source
 
       - name: Setup deploy key
         uses: webfactory/ssh-agent@v0.5.4
         with:
           ssh-private-key: ${{ secrets.MATCH_GIT_PRIVATE_KEY }}
 
-      - name: Setup dependencies
-        run: |
-          brew install ldid
-          ./source/3rdparty/Firebase/iOS/download.sh
-          ./source/3rdparty/Countly/iOS/download.sh
-
       - name: Configure & prepare
         working-directory: source
         env:
+          APPLE_DEPLOYMENT_KEY: ${{ secrets.APPLE_DEPLOYMENT_KEY }}
           CONFIG_QMAKE: ${{ secrets.CONFIG_QMAKE }}
           GOOGLE_SERVICES_APPLE: ${{ secrets.GOOGLE_SERVICES_APPLE }}
         run: |
-          bundle exec fastlane ios prepare_qt
+          bundle exec fastlane ios prepare_qt5
 
+          echo $APPLE_DEPLOYMENT_KEY | base64 --decode > appstore_api.json
           echo $CONFIG_QMAKE | base64 --decode > config.pri
           echo $GOOGLE_SERVICES_APPLE | base64 --decode > GoogleService-Info.plist
 
@@ -88,4 +85,8 @@ jobs:
         env:
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
         run: |
-          bundle exec fastlane ios testbuild || bundle exec fastlane ios testbuild
+          if [ "$GITHUB_REF_NAME" = "deploy" ]; then
+            export DEPLOY=true
+          fi
+
+          bundle exec fastlane ios app_store || bundle exec fastlane ios app_store

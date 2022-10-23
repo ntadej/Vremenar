@@ -8,7 +8,10 @@ module Fastlane
 
     class RunQmakeAction < Action
       def self.run(params)
+        build_number = params[:build_number] || Actions.lane_context[SharedValues::BUILD_NUMBER_VALUE]
+
         UI.message "Build path: #{params[:build_path]}"
+        UI.message "Build number: #{build_number}"
 
         FileUtils.mkdir_p params[:build_path]
         relative_path = Pathname.new('.').relative_path_from(Pathname.new(params[:build_path])).to_s
@@ -16,9 +19,12 @@ module Fastlane
         UI.message "Relative pro path: #{relative_path}/Vremenar.pro"
 
         Dir.chdir params[:build_path] do
-          Actions.sh "qmake #{relative_path}/Vremenar.pro" \
-            ' -spec macx-ios-clang' \
-            ' CONFIG+=release CONFIG+=iphoneos CONFIG+=device CONFIG+=qtquickcompiler CONFIG+=store'
+          command = "qmake #{relative_path}/Vremenar.pro"
+          command += ' -spec macx-ios-clang'
+          command += ' CONFIG+=release CONFIG+=iphoneos CONFIG+=device CONFIG+=qtquickcompiler CONFIG+=store'
+          command += " CUSTOM_BUILD=#{build_number}"
+
+          Actions.sh command
         end
 
         Actions.lane_context[SharedValues::RUN_QMAKE_PROJECT_PATH] = "#{params[:build_path]}/Vremenar.xcodeproj"
@@ -43,7 +49,12 @@ module Fastlane
                                        env_name: 'FL_RUN_QMAKE_BUILD_PATH',
                                        description: 'Build path',
                                        is_string: true,
-                                       default_value: 'fastlane/build/ios/qmake')
+                                       default_value: 'fastlane/build/ios/qmake'),
+          FastlaneCore::ConfigItem.new(key: :build_number,
+                                       env_name: 'FL_RUN_QMAKE_BUILD_NUMBER',
+                                       description: 'Build number',
+                                       is_string: false,
+                                       optional: true)
         ]
       end
 

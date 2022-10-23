@@ -66,20 +66,15 @@ jobs:
           tar xvf qt-geoservices-maplibre-gl_v${MAPLIBRE_VERSION}_Qt${QT_VERSION}_iOS.tar.bz2 -C ..
 
       - name: Setup Fastlane
-        working-directory: source
-        run: |
-          bundle install
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+          working-directory: source
 
       - name: Setup deploy key
         uses: webfactory/ssh-agent@v0.5.4
         with:
           ssh-private-key: ${{ secrets.MATCH_GIT_PRIVATE_KEY }}
-
-      - name: Setup dependencies
-        run: |
-          brew install ldid
-          ./source/3rdparty/Firebase/iOS/download.sh
-          ./source/3rdparty/Countly/iOS/download.sh
 
       - name: Configure & prepare
         working-directory: source
@@ -103,4 +98,5 @@ jobs:
         run: |
           export FL_RUN_CMAKE_XCODE_PATH="${MD_APPLE_SDK_ROOT}"
           export QT_HOST_PATH="$(readlink -f "$Qt6_DIR/../macos")"
-          bundle exec fastlane ios testbuild_qt6
+
+          bundle exec fastlane ios testbuild

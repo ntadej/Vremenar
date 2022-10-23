@@ -7,4 +7,6 @@ if [[ "$CODE_SIGN_IDENTITY" == "" ]]; then
   exit 1
 fi
 
-codesign -f -s "$CODE_SIGN_IDENTITY" -o runtime Countly.framework
+LOCATION=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+
+codesign -f -s "$CODE_SIGN_IDENTITY" -o runtime "${LOCATION}/Countly.framework"

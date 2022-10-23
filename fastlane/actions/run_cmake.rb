@@ -31,7 +31,7 @@ module Fastlane
           command += " -G Ninja -DCMAKE_BUILD_TYPE='RelWithDebInfo'"
           command += " -DCMAKE_C_COMPILER_LAUNCHER='ccache' -DCMAKE_CXX_COMPILER_LAUNCHER='ccache'"
           command += " -DCMAKE_OSX_DEPLOYMENT_TARGET='10.14' -DCMAKE_OSX_ARCHITECTURES='x86_64;arm64'"
-          command += " -DAPPLE_DEVELOPER_TEAM='#{params[:developer_team]}'" if params[:developer_team].empty?
+          command += " -DAPPLE_DEVELOPER_TEAM='#{params[:developer_team]}'" unless params[:developer_team].empty?
           unless params[:certificate_name].empty?
             command += " -DAPPLE_CODE_SIGN_IDENTITY='#{params[:certificate_name]}'"
           end

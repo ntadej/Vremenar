@@ -15,26 +15,18 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 ## Mac
 
-### mac testbuild
+### mac developer_id
 
 ```sh
-[bundle exec] fastlane mac testbuild
-```
-
-Make a test
-
-### mac developer_id_build
-
-```sh
-[bundle exec] fastlane mac developer_id_build
+[bundle exec] fastlane mac developer_id
 ```
 
 Make a developer ID build
 
-### mac app_store_build
+### mac app_store
 
 ```sh
-[bundle exec] fastlane mac app_store_build
+[bundle exec] fastlane mac app_store
 ```
 
 Make a store build
@@ -68,21 +60,29 @@ Prepare Qt5
 
 Prepare Qt6
 
+### ios dependencies
+
+```sh
+[bundle exec] fastlane ios dependencies
+```
+
+Prepare dependencies
+
 ### ios testbuild
 
 ```sh
 [bundle exec] fastlane ios testbuild
 ```
 
-Make a development build (Qt5)
+Make a development build (Qt6)
 
-### ios testbuild_qt6
+### ios app_store
 
 ```sh
-[bundle exec] fastlane ios testbuild_qt6
+[bundle exec] fastlane ios app_store
 ```
 
-Make a development build (Qt6)
+Make a store build (Qt5)
 
 ----
 
