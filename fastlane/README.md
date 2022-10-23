@@ -86,6 +86,59 @@ Make a development build (Qt6)
 
 ----
 
+
+## Android
+
+### android testbuild
+
+```sh
+[bundle exec] fastlane android testbuild
+```
+
+Make a development build
+
+### android play
+
+```sh
+[bundle exec] fastlane android play
+```
+
+Make Google Play Build
+
+### android amazon
+
+```sh
+[bundle exec] fastlane android amazon
+```
+
+Make Amazon Build
+
+### android amazon_firetv
+
+```sh
+[bundle exec] fastlane android amazon_firetv
+```
+
+Make Amazon Fire TV build
+
+### android amazon_fire32
+
+```sh
+[bundle exec] fastlane android amazon_fire32
+```
+
+Make Amazon Fire 32-bit build
+
+### android amazon_fire64
+
+```sh
+[bundle exec] fastlane android amazon_fire64
+```
+
+Make Amazon Fire 64-bit build
+
+----
+
 This README.md is auto-generated and will be re-generated every time [_fastlane_](https://fastlane.tools) is run.
 
 More information about _fastlane_ can be found on [fastlane.tools](https://fastlane.tools).

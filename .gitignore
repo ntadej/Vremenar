@@ -5,8 +5,8 @@ CMakeLists.txt.user*
 config.pri
 Config.cmake
 
+/*.json
 /*.plist
-/.ruby-version
 
 /build
 

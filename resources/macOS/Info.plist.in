@@ -21,7 +21,7 @@
         <key>CFBundleShortVersionString</key>
         <string>@VREMENAR_VERSION@</string>
         <key>CFBundleVersion</key>
-        <string>@VREMENAR_BUILD@</string>
+        <string>@VREMENAR_BUILD_NUMBER@</string>
         <key>CFBundleSignature</key>
         <string>????</string>
         <key>CFBundleURLTypes</key>

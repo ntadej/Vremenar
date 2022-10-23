@@ -30,6 +30,9 @@ jobs:
   build:
     name: Build Vremenar (Android)
     runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        type: [play, amazon, amazon_firetv, amazon_fire32, amazon_fire64]
 
     steps:
       - name: Checkout
@@ -49,6 +52,7 @@ jobs:
 
       - name: Download Qt (Android, armv7)
         id: qt-android-armv7
+        if: matrix.type != 'amazon_fire64'
         uses: jurplel/install-qt-action@v3
         with:
           aqtversion: ==2.1.*
@@ -59,6 +63,7 @@ jobs:
 
       - name: Download Qt (Android, arm64_v8a)
         id: qt-android-arm64_v8a
+        if: matrix.type != 'amazon_fire32' && matrix.type != 'amazon_firetv'
         uses: jurplel/install-qt-action@v3
         with:
           aqtversion: ==2.1.*
@@ -69,6 +74,7 @@ jobs:
 
       - name: Download Qt (Android, x86)
         id: qt-android-x86
+        if: matrix.type != 'amazon_fire32' && matrix.type != 'amazon_fire64' && matrix.type != 'amazon_firetv'
         uses: jurplel/install-qt-action@v3
         with:
           aqtversion: ==2.1.*
@@ -79,6 +85,7 @@ jobs:
 
       - name: Download Qt (Android, x86_64)
         id: qt-android-x86_64
+        if: matrix.type != 'amazon_fire32' && matrix.type != 'amazon_fire64' && matrix.type != 'amazon_firetv'
         uses: jurplel/install-qt-action@v3
         with:
           aqtversion: ==2.1.*
@@ -92,6 +99,12 @@ jobs:
           wget https://github.com/maplibre/qt-geoservices-maplibre-gl/releases/download/v${MAPLIBRE_VERSION}/qt-geoservices-maplibre-gl_v${MAPLIBRE_VERSION}_Qt${QT_VERSION}_Android.tar.bz2
           tar xvf qt-geoservices-maplibre-gl_v${MAPLIBRE_VERSION}_Qt${QT_VERSION}_Android.tar.bz2 -C ..
 
+      - name: Setup Fastlane
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+          working-directory: source
+
       - name: Set up OpenJDK 11
         uses: actions/setup-java@v3
         with:
@@ -104,7 +117,7 @@ jobs:
       - name: Set up ccache
         uses: hendrikmuhs/ccache-action@v1
         with:
-          key: Android
+          key: Android_${{ matrix.type }}
 
       - name: Configure & prepare
         working-directory: source
@@ -116,23 +129,25 @@ jobs:
           echo $GOOGLE_SERVICES_ANDROID | base64 --decode > resources/Android/output/google-services.json
 
           pushd ../.. > /dev/null || exit
-          patch Qt/$QT_VERSION/android_armv7/lib/cmake/Qt6Qml/Qt6QmlMacros.cmake Vremenar/source/3rdparty/qml.patch
-          patch Qt/$QT_VERSION/android_arm64_v8a/lib/cmake/Qt6Qml/Qt6QmlMacros.cmake Vremenar/source/3rdparty/qml.patch
-          patch Qt/$QT_VERSION/android_x86_64/lib/cmake/Qt6Qml/Qt6QmlMacros.cmake Vremenar/source/3rdparty/qml.patch
-          patch Qt/$QT_VERSION/android_x86/lib/cmake/Qt6Qml/Qt6QmlMacros.cmake Vremenar/source/3rdparty/qml.patch
+          if [ -f "Qt/$QT_VERSION/android_armv7/lib/cmake/Qt6Qml/Qt6QmlMacros.cmake" ]; then
+            patch Qt/$QT_VERSION/android_armv7/lib/cmake/Qt6Qml/Qt6QmlMacros.cmake Vremenar/source/3rdparty/qml.patch
+          fi
+          if [ -f "Qt/$QT_VERSION/android_arm64_v8a/lib/cmake/Qt6Qml/Qt6QmlMacros.cmake" ]; then
+            patch Qt/$QT_VERSION/android_arm64_v8a/lib/cmake/Qt6Qml/Qt6QmlMacros.cmake Vremenar/source/3rdparty/qml.patch
+          fi
+          if [ -f "Qt/$QT_VERSION/android_x86_64/lib/cmake/Qt6Qml/Qt6QmlMacros.cmake" ]; then
+            patch Qt/$QT_VERSION/android_x86_64/lib/cmake/Qt6Qml/Qt6QmlMacros.cmake Vremenar/source/3rdparty/qml.patch
+          fi
+          if [ -f "Qt/$QT_VERSION/android_x86/lib/cmake/Qt6Qml/Qt6QmlMacros.cmake" ]; then
+            patch Qt/$QT_VERSION/android_x86/lib/cmake/Qt6Qml/Qt6QmlMacros.cmake Vremenar/source/3rdparty/qml.patch
+          fi
           popd > /dev/null || exit
 
-          mkdir ../build
-
       - name: Build
-        working-directory: build
+        working-directory: source
+        env:
+          BUILD_TYPE: ${{ matrix.type }}
         run: |
           export QT_HOST_PATH="$(readlink -f "$Qt6_DIR/../gcc_64")"
-          qt-cmake ../source \
-          -G Ninja \
-          -DCMAKE_BUILD_TYPE="RelWithDebInfo" \
-          -DCMAKE_C_COMPILER_LAUNCHER="ccache" \
-          -DCMAKE_CXX_COMPILER_LAUNCHER="ccache" \
-          -DQT_ANDROID_ABIS="armeabi-v7a;arm64-v8a;x86_64;x86"
-          ninja
-          ninja apk
+
+          bundle exec fastlane android ${BUILD_TYPE}

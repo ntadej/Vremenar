@@ -13,17 +13,22 @@
 file(READ "${CMAKE_SOURCE_DIR}/config/VERSION" VREMENAR_VERSION)
 string(REGEX REPLACE "\n" "" VREMENAR_VERSION "${VREMENAR_VERSION}") # get rid of the newline at the end
 
+set(VREMENAR_BUILD "" CACHE STRING "Vremenar build number override")
+
 # Find Git Version Patch
 FIND_PROGRAM(GIT git)
 IF(GIT)
     EXECUTE_PROCESS(
         COMMAND ${GIT} rev-list --count HEAD
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-        OUTPUT_VARIABLE VREMENAR_BUILD OUTPUT_STRIP_TRAILING_WHITESPACE
+        OUTPUT_VARIABLE VREMENAR_BUILD_NUMBER OUTPUT_STRIP_TRAILING_WHITESPACE
     )
+    if(VREMENAR_BUILD)
+        SET(VREMENAR_BUILD_NUMBER ${VREMENAR_BUILD})
+    endif()
 ELSE()
     message(FATAL_ERROR "Git exectutable not found")
 ENDIF()
 
 message(STATUS "Building Vremenar version ${VREMENAR_VERSION}")
-message(STATUS "Build number: ${VREMENAR_BUILD}")
+message(STATUS "Build number: ${VREMENAR_BUILD_NUMBER}")

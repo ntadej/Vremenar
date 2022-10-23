@@ -35,6 +35,7 @@ module Fastlane
           FastlaneCore::ConfigItem.new(key: :offset,
                                        env_name: 'FL_BUILD_NUMBER_OFFSET',
                                        description: 'Build number offset',
+                                       is_string: false,
                                        default_value: 0)
         ]
       end

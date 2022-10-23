@@ -4,9 +4,11 @@ module Fastlane
   module Actions
     class NinjaAction < Action
       def self.run(params)
-        UI.message "Build path: #{params[:path]}"
+        build_path = params[:path] || Actions.lane_context[SharedValues::RUN_CMAKE_PROJECT_PATH]
 
-        Dir.chdir params[:path] do
+        UI.message "Build path: #{build_path}"
+
+        Dir.chdir build_path do
           Actions.sh 'ninja'
         end
       end
@@ -29,7 +31,7 @@ module Fastlane
                                        env_name: 'FL_NINJA_PATH',
                                        description: 'Build path',
                                        is_string: true,
-                                       default_value: 'fastlane/build/macos/cmake')
+                                       optional: true)
         ]
       end
 
@@ -41,8 +43,8 @@ module Fastlane
         ['@ntadej']
       end
 
-      def self.is_supported?(platform)
-        platform == :mac
+      def self.is_supported?(_platform)
+        true
       end
     end
   end

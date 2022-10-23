@@ -22,7 +22,7 @@ constexpr CString domain = "tano.si";
 constexpr CString appID = "si.tano.Vremenar@VERSION_SUFFIX@";
 
 constexpr CString version = "@VREMENAR_VERSION@";
-constexpr uint32_t build = @VREMENAR_BUILD@;
+constexpr uint32_t build = @VREMENAR_BUILD_NUMBER@;
 
 constexpr bool loggingEnabled = @LOGGING_ENABLED@;
 

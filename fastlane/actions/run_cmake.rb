@@ -5,23 +5,29 @@
 module Fastlane
   module Actions
     module SharedValues
+      RUN_CMAKE_BUILD_TYPE = :RUN_CMAKE_BUILD_TYPE
+      RUN_CMAKE_OUTPUT_PATH = :RUN_CMAKE_OUTPUT_PATH
+      RUN_CMAKE_PLATFORM = :RUN_CMAKE_PLATFORM
       RUN_CMAKE_PROJECT_PATH = :RUN_CMAKE_PROJECT_PATH
     end
 
     class RunCmakeAction < Action
       def self.run(params)
+        build_number = params[:build_number] || Actions.lane_context[SharedValues::BUILD_NUMBER_VALUE]
+
         UI.message "Platform/build type: #{params[:platform]}/#{params[:build_type]}"
-        UI.message "Build number: #{params[:build_number]}"
+        UI.message "Build number: #{build_number}"
         UI.message "Build path: #{params[:build_path]}"
+        UI.message "Output path: #{params[:output_path]}"
 
         FileUtils.mkdir_p params[:build_path]
+        FileUtils.mkdir_p params[:output_path]
         relative_path = '.'
-
-        pkg_certificate_name = get_pkg_certificate_name params
 
         command = "qt-cmake -S #{relative_path} -B #{params[:build_path]}"
         case params[:platform]
         when 'macos'
+          pkg_certificate_name = get_pkg_certificate_name params
           command += " -G Ninja -DCMAKE_BUILD_TYPE='RelWithDebInfo'"
           command += " -DCMAKE_C_COMPILER_LAUNCHER='ccache' -DCMAKE_CXX_COMPILER_LAUNCHER='ccache'"
           command += " -DCMAKE_OSX_DEPLOYMENT_TARGET='10.14' -DCMAKE_OSX_ARCHITECTURES='x86_64;arm64'"
@@ -44,13 +50,34 @@ module Fastlane
           unless params[:profile_name].empty?
             command += " -DCMAKE_XCODE_ATTRIBUTE_PROVISIONING_PROFILE_SPECIFIER='#{params[:profile_name]}'"
           end
+        when 'android'
+          command += " -G Ninja -DCMAKE_BUILD_TYPE='RelWithDebInfo'"
+          command += " -DCMAKE_C_COMPILER_LAUNCHER='ccache' -DCMAKE_CXX_COMPILER_LAUNCHER='ccache'"
+          case params[:build_type]
+          when 'store/play'
+            command += " -DQT_ANDROID_ABIS='armeabi-v7a;arm64-v8a;x86_64;x86'"
+          when 'store/firetv'
+            command += " -DQT_ANDROID_ABIS='armeabi-v7a'"
+            command += ' -DVREMENAR_POSITIONING=OFF'
+          when 'store/fire32'
+            command += " -DQT_ANDROID_ABIS='armeabi-v7a'"
+          when 'store/fire64'
+            command += " -DQT_ANDROID_ABIS='arm64-v8a'"
+          when 'store/amazon'
+            command += " -DQT_ANDROID_ABIS='armeabi-v7a;arm64-v8a;x86_64;x86'"
+          else
+            command += " -DQT_ANDROID_ABIS='armeabi-v7a;arm64-v8a;x86_64;x86'"
+          end
         end
         command += " -DAPPLE_XCODE_PATH='#{params[:xcode_path]}'" unless params[:xcode_path].empty?
-        command += " -DVREMENAR_BUILD='#{params[:build_number]}'"
-        command += ' -DVREMENAR_STORE=ON' if params[:build_type] == 'store'
+        command += " -DVREMENAR_BUILD='#{build_number}'"
+        command += ' -DVREMENAR_STORE=ON' if params[:build_type].include? 'store'
 
         Actions.sh command
 
+        Actions.lane_context[SharedValues::RUN_CMAKE_BUILD_TYPE] = params[:build_type].to_s
+        Actions.lane_context[SharedValues::RUN_CMAKE_OUTPUT_PATH] = params[:output_path].to_s
+        Actions.lane_context[SharedValues::RUN_CMAKE_PLATFORM] = params[:platform].to_s
         Actions.lane_context[SharedValues::RUN_CMAKE_PROJECT_PATH] = if params[:platform] == 'ios'
                                                                        "#{params[:build_path]}/Vremenar.xcodeproj"
                                                                      else
@@ -61,7 +88,7 @@ module Fastlane
       def self.get_pkg_certificate_name(params)
         if !params[:pkg_certificate_name].empty?
           params[:pkg_certificate_name]
-        elsif params[:build_type] == 'store' && !params[:developer_team].empty?
+        elsif (params[:build_type].include? 'store') && !params[:developer_team].empty?
           "3rd Party Mac Developer Installer: Tadej Novak (#{params[:developer_team]})"
         else
           ''
@@ -93,12 +120,18 @@ module Fastlane
           FastlaneCore::ConfigItem.new(key: :build_number,
                                        env_name: 'FL_RUN_CMAKE_BUILD_NUMBER',
                                        description: 'Build number',
-                                       is_string: false),
+                                       is_string: false,
+                                       optional: true),
           FastlaneCore::ConfigItem.new(key: :build_path,
                                        env_name: 'FL_RUN_CMAKE_BUILD_PATH',
                                        description: 'Build path',
                                        is_string: true,
                                        default_value: 'fastlane/build/macos/cmake'),
+          FastlaneCore::ConfigItem.new(key: :output_path,
+                                       env_name: 'FL_RUN_CMAKE_OUTPUT_PATH',
+                                       description: 'Output path',
+                                       is_string: true,
+                                       default_value: 'fastlane/build/macos'),
           FastlaneCore::ConfigItem.new(key: :developer_team,
                                        env_name: 'FL_RUN_CMAKE_DEVELOPER_TEAM',
                                        description: 'Developer team',
@@ -129,6 +162,9 @@ module Fastlane
 
       def self.output
         [
+          ['RUN_CMAKE_BUILD_TYPE', 'Project build type'],
+          ['RUN_CMAKE_OUTPUT_PATH', 'Project output path'],
+          ['RUN_CMAKE_PLATFORM', 'Platform the project is built for'],
           ['RUN_CMAKE_PROJECT_PATH', 'Created project path']
         ]
       end
@@ -137,8 +173,8 @@ module Fastlane
         ['@ntadej']
       end
 
-      def self.is_supported?(platform)
-        platform == :mac
+      def self.is_supported?(_platform)
+        true
       end
     end
   end

@@ -3,7 +3,7 @@
     package="si.tano.Vremenar"
     android:installLocation="auto"
     android:versionName="@VREMENAR_VERSION@"
-    android:versionCode="@VREMENAR_BUILD@">
+    android:versionCode="@VREMENAR_BUILD_NUMBER@">
 
     @VREMENAR_ANDROID_PERMISSIONS@
 
