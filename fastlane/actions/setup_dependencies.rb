@@ -15,17 +15,14 @@ module Fastlane
           Actions.sh './3rdparty/Firebase/iOS/download.sh'
           Actions.sh './3rdparty/Countly/iOS/download.sh'
         when 'macos'
-          Actions.sh './3rdparty/Sparkle/macOS/download.sh'
-          unless params[:certificate_name].empty?
-            Actions.sh "./3rdparty/Sparkle/macOS/sign.sh '#{params[:certificate_name]}'"
-          end
           Actions.sh './3rdparty/Firebase/macOS/download.sh'
-          unless params[:certificate_name].empty?
-            Actions.sh "./3rdparty/Firebase/macOS/sign.sh '#{params[:certificate_name]}'"
-          end
           Actions.sh './3rdparty/Countly/macOS/download.sh'
           unless params[:certificate_name].empty?
             Actions.sh "./3rdparty/Countly/macOS/sign.sh '#{params[:certificate_name]}'"
+          end
+          Actions.sh './3rdparty/Sparkle/macOS/download.sh'
+          unless params[:certificate_name].empty?
+            Actions.sh "./3rdparty/Sparkle/macOS/sign.sh '#{params[:certificate_name]}'"
           end
         end
       end
