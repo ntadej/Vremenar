@@ -25,7 +25,7 @@ else()
 endif()
 
 if(NOT MOBILE)
-    find_package(Qt6 6.3 COMPONENTS Widgets REQUIRED)
+    find_package(Qt6 6.4 COMPONENTS Widgets REQUIRED)
 endif()
 
 # Positioning

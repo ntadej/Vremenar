@@ -1,0 +1,92 @@
+
+if((WIN32) AND (win32-g++))
+    target_link_libraries(Vremenar PRIVATE
+        dwmapi
+        user32
+    )
+endif()
+
+if(WIN32 AND win32-msvc)
+    target_link_libraries(Vremenar PRIVATE
+        dwmapi.lib
+        user32.lib
+    )
+endif()
+
+if(WIN32 AND NOT store)
+    target_link_libraries(Vremenar PRIVATE
+        # Remove: L/3rdparty/Sparkle/Windows/lib
+        WinSparkle
+    )
+
+    target_compile_options(Vremenar
+        -I/3rdparty/Sparkle/Windows/include
+    )
+endif()
+
+if(IOS)
+
+
+    target_link_libraries(Vremenar PRIVATE
+        "-framework FirebaseCore"
+        "-framework FirebaseInstallations"
+        "-framework FirebaseMessaging"
+        "-framework GoogleDataTransport"
+        "-framework GoogleUtilities"
+        "-framework FBLPromises"
+        "-framework nanopb"
+        # Remove: ObjC
+        Qt::GuiPrivate
+    )
+
+    target_compile_options(Vremenar
+        -Wno-shorten-64-to-32
+        -Wno-unused-command-line-argument
+    )
+endif()
+
+if(IOS AND NOT legacy)
+    target_link_libraries(Vremenar PRIVATE
+        # Remove: Wl,-e,_qt_main_wrapper
+    )
+endif()
+
+if(IOS AND forsimulator)
+    target_link_libraries(Vremenar PRIVATE
+        "-framework Countly"
+        # Remove: F/3rdparty/Countly/iOSSimulator
+        # Remove: F/3rdparty/Firebase/iOSSimulator
+    )
+
+    target_compile_options(Vremenar
+        -F/3rdparty/Countly/iOSSimulator
+        -F/3rdparty/Firebase/iOSSimulator
+    )
+endif()
+
+if(IOS AND NOT forsimulator)
+    target_link_libraries(Vremenar PRIVATE
+        "-framework Countly"
+        # Remove: F/3rdparty/Countly/iOS
+        # Remove: F/3rdparty/Firebase/iOS
+    )
+
+    target_compile_options(Vremenar
+        -F/3rdparty/Countly/iOS
+        -F/3rdparty/Firebase/iOS
+    )
+endif()
+
+install(TARGETS Vremenar
+    BUNDLE DESTINATION .
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+)
+
+qt_generate_deploy_qml_app_script(
+    TARGET Vremenar
+    FILENAME_VARIABLE deploy_script
+    NO_UNSUPPORTED_PLATFORM_ERROR
+    DEPLOY_USER_QML_MODULES_ON_UNSUPPORTED_PLATFORM
+    MACOS_BUNDLE_POST_BUILD
+)
+install(SCRIPT ${deploy_script})

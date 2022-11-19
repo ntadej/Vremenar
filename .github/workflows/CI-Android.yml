@@ -23,8 +23,8 @@ concurrency:
   cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
 env:
-  QT_VERSION: 6.3.2
-  MAPLIBRE_VERSION: 2.0.1
+  QT_VERSION: 6.4.1
+  MAPLIBRE_VERSION: 2.1.0
 
 jobs:
   build:
@@ -46,16 +46,17 @@ jobs:
         id: qt-desktop
         uses: jurplel/install-qt-action@v3
         with:
-          aqtversion: ==2.1.*
+          aqtversion: ==3.0.*
           version: ${{ env.QT_VERSION }}
           modules: qtpositioning
+          set-env: false
 
       - name: Download Qt (Android, armv7)
         id: qt-android-armv7
         if: matrix.type != 'amazon_fire64'
         uses: jurplel/install-qt-action@v3
         with:
-          aqtversion: ==2.1.*
+          aqtversion: ==3.0.*
           version: ${{ env.QT_VERSION }}
           target: android
           arch: android_armv7
@@ -66,7 +67,7 @@ jobs:
         if: matrix.type != 'amazon_fire32' && matrix.type != 'amazon_firetv'
         uses: jurplel/install-qt-action@v3
         with:
-          aqtversion: ==2.1.*
+          aqtversion: ==3.0.*
           version: ${{ env.QT_VERSION }}
           target: android
           arch: android_arm64_v8a
@@ -77,7 +78,7 @@ jobs:
         if: matrix.type != 'amazon_fire32' && matrix.type != 'amazon_fire64' && matrix.type != 'amazon_firetv'
         uses: jurplel/install-qt-action@v3
         with:
-          aqtversion: ==2.1.*
+          aqtversion: ==3.0.*
           version: ${{ env.QT_VERSION }}
           target: android
           arch: android_x86
@@ -88,15 +89,26 @@ jobs:
         if: matrix.type != 'amazon_fire32' && matrix.type != 'amazon_fire64' && matrix.type != 'amazon_firetv'
         uses: jurplel/install-qt-action@v3
         with:
-          aqtversion: ==2.1.*
+          aqtversion: ==3.0.*
           version: ${{ env.QT_VERSION }}
           target: android
           arch: android_x86_64
           modules: qtpositioning
 
+      - name: Fix Qt release
+        run: |
+          pushd .. > /dev/null || exit
+          if [ -d "Qt/$QT_VERSION/android_armv7/bin" ]; then
+            sudo apt-get install -y dos2unix
+            chmod +x "Qt/$QT_VERSION/android_armv7/bin/qt-cmake"
+            sed -i 's/C:\/Qt\/Qt-6.4.1/\/usr\/local\/Qt-6.4.1/g' "Qt/$QT_VERSION/android_armv7/lib/cmake/Qt6BuildInternals/QtBuildInternalsExtra.cmake"
+            dos2unix Qt/$QT_VERSION/android_armv7/lib/cmake/Qt6Qml/Qt6QmlMacros.cmake
+          fi
+          popd > /dev/null || exit
+
       - name: Download MapLibre
         run: |
-          wget https://github.com/maplibre/qt-geoservices-maplibre-gl/releases/download/v${MAPLIBRE_VERSION}/qt-geoservices-maplibre-gl_v${MAPLIBRE_VERSION}_Qt${QT_VERSION}_Android.tar.bz2
+          wget https://github.com/ntadej/qt-geoservices-maplibre-gl/releases/download/v${MAPLIBRE_VERSION}/qt-geoservices-maplibre-gl_v${MAPLIBRE_VERSION}_Qt${QT_VERSION}_Android.tar.bz2
           tar xvf qt-geoservices-maplibre-gl_v${MAPLIBRE_VERSION}_Qt${QT_VERSION}_Android.tar.bz2 -C ..
 
       - name: Setup Fastlane

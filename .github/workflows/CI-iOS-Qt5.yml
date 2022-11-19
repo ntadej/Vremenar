@@ -24,7 +24,7 @@ concurrency:
 
 env:
   QT_VERSION: 5.15.2
-  MAPLIBRE_VERSION: 2.0.2
+  MAPLIBRE_VERSION: 2.1.0
 
 jobs:
   build:
@@ -47,7 +47,7 @@ jobs:
       - name: Download Qt
         uses: jurplel/install-qt-action@v3
         with:
-          aqtversion: ==2.1.*
+          aqtversion: ==3.0.*
           version: ${{ env.QT_VERSION }}
           target: ios
 

@@ -23,8 +23,8 @@ concurrency:
   cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
 env:
-  QT_VERSION: 6.3.2
-  MAPLIBRE_VERSION: 2.0.1
+  QT_VERSION: 6.4.1
+  MAPLIBRE_VERSION: 2.1.0
 
 jobs:
   build:
@@ -50,14 +50,19 @@ jobs:
       - name: Download Qt
         uses: jurplel/install-qt-action@v3
         with:
-          aqtversion: ==2.1.*
+          aqtversion: ==3.0.*
           version: ${{ env.QT_VERSION }}
           target: desktop
           modules: qtpositioning
 
+      - name: Download Qt patches
+        run: |
+          wget https://github.com/ntadej/qcocoa/releases/download/v${QT_VERSION}.0/qcocoa_v${QT_VERSION}.0.tar.bz2
+          tar xvf qcocoa_v${QT_VERSION}.0.tar.bz2 -C ..
+
       - name: Download MapLibre
         run: |
-          wget https://github.com/maplibre/qt-geoservices-maplibre-gl/releases/download/v${MAPLIBRE_VERSION}/qt-geoservices-maplibre-gl_v${MAPLIBRE_VERSION}_Qt${QT_VERSION}_macOS.tar.bz2
+          wget https://github.com/ntadej/qt-geoservices-maplibre-gl/releases/download/v${MAPLIBRE_VERSION}/qt-geoservices-maplibre-gl_v${MAPLIBRE_VERSION}_Qt${QT_VERSION}_macOS.tar.bz2
           tar xvf qt-geoservices-maplibre-gl_v${MAPLIBRE_VERSION}_Qt${QT_VERSION}_macOS.tar.bz2 -C ..
 
       - name: Setup Fastlane

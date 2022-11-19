@@ -23,8 +23,8 @@ concurrency:
   cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
 env:
-  QT_VERSION: 6.3.2
-  MAPLIBRE_VERSION: 2.0.2
+  QT_VERSION: 6.4.1
+  MAPLIBRE_VERSION: 2.1.0
 
 jobs:
   build:
@@ -47,18 +47,24 @@ jobs:
       - name: Download Qt (desktop)
         uses: jurplel/install-qt-action@v3
         with:
-          aqtversion: ==2.1.*
+          aqtversion: ==3.0.*
           version: ${{ env.QT_VERSION }}
           target: desktop
           modules: qtpositioning
+          set-env: false
 
       - name: Download Qt (iOS)
         uses: jurplel/install-qt-action@v3
         with:
-          aqtversion: ==2.1.*
+          aqtversion: ==3.0.*
           version: ${{ env.QT_VERSION }}
           target: ios
           modules: qtpositioning
+
+      - name: Download Qt patches
+        run: |
+          wget https://github.com/ntadej/qios/releases/download/v${QT_VERSION}.0/qios_v${QT_VERSION}.0.tar.bz2
+          tar xvf qios_v${QT_VERSION}.0.tar.bz2 -C ..
 
       - name: Download MapLibre
         run: |
