@@ -261,12 +261,12 @@ void Countly::request(const QString &path,
         request.setUrl(path, query);
     }
 
-    currentReplies()->insert(network()->request(request), request);
+    APILoader::request(std::move(request));
 }
 
 void Countly::response(QNetworkReply *reply)
 {
-    if (!currentReplies()->contains(reply)) {
+    if (!validResponse(reply)) {
         return;
     }
 

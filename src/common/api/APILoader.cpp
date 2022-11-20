@@ -25,11 +25,34 @@ APILoader::APILoader(NetworkManager *network,
     connect(_network, &NetworkManager::result, this, &APILoader::response);
 }
 
+void APILoader::request(APIRequestBase request)
+{
+    _currentReplies.insert(network()->request(request), request);
+
+    _requesting = true;
+    emit requestingChanged();
+}
+
+const APIRequestBase APILoader::requestFromResponse(QNetworkReply *reply)
+{
+    return _currentReplies.value(reply);
+}
+
+bool APILoader::validResponse(QNetworkReply *reply)
+{
+    return _currentReplies.contains(reply);
+}
+
 void APILoader::removeResponse(QNetworkReply *reply)
 {
     if (_currentReplies.contains(reply)) {
         _currentReplies.remove(reply);
         reply->deleteLater();
+
+        if (_currentReplies.empty()) {
+            _requesting = false;
+            emit requestingChanged();
+        }
     }
 }
 

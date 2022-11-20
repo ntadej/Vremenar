@@ -54,17 +54,18 @@ void Updates::request()
     request.setCall(QStringLiteral("/version"));
     request.setUrl(QStringLiteral("/version"));
     request.setAttribute(QNetworkRequest::CacheLoadControlAttribute, QNetworkRequest::AlwaysNetwork);
-    currentReplies()->insert(network()->request(request), request);
+
+    APILoader::request(std::move(request));
 }
 
 void Updates::response(QNetworkReply *reply)
 {
-    if (!currentReplies()->contains(reply)) {
+    if (!validResponse(reply)) {
         return;
     }
 
     QJsonDocument document = QJsonDocument::fromJson(reply->readAll());
-    if (currentReplies()->value(reply).call() == QStringLiteral("/version")) {
+    if (requestFromResponse(reply).call() == QStringLiteral("/version")) {
         _server = document[QStringLiteral("server")].toString();
         emit serverChanged();
 

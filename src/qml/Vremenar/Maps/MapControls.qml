@@ -288,6 +288,7 @@ ColumnLayout {
             icon: "refresh"
             family: UI.iconTheme
             width: UI.mapElementSize
+            disabled: VWeather.loading || VWeather.requesting
 
             RotationAnimator {
                 id: buttonRefreshAnimator
@@ -298,8 +299,10 @@ ColumnLayout {
             }
 
             onClicked: {
-                VWeather.refresh()
-                buttonRefreshAnimator.running = true
+                if (!VWeather.loading && !VWeather.requesting) {
+                    VWeather.refresh()
+                    buttonRefreshAnimator.running = true
+                }
             }
         }
     }

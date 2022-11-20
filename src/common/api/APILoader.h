@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -28,7 +28,15 @@ public:
     explicit APILoader(NetworkManager *network,
                        QObject *parent = nullptr);
 
+    Q_PROPERTY(bool requesting READ requesting NOTIFY requestingChanged)
+
+    void request(APIRequestBase request);
+    [[nodiscard]] bool validResponse(QNetworkReply *reply);
+    [[nodiscard]] const APIRequestBase requestFromResponse(QNetworkReply *reply);
     void removeResponse(QNetworkReply *reply);
+
+signals:
+    void requestingChanged();
 
 protected slots:
     virtual void error(QNetworkReply *reply,
@@ -37,10 +45,12 @@ protected slots:
 
 protected:
     NetworkManager *network() { return _network; }
-    QMap<QNetworkReply *, APIRequestBase> *currentReplies() { return &_currentReplies; }
 
 private:
+    [[nodiscard]] inline bool requesting() const { return _requesting; }
+
     NetworkManager *_network; // not owned
+    bool _requesting{false};
 
     QMap<QNetworkReply *, APIRequestBase> _currentReplies;
 };

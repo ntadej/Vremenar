@@ -86,7 +86,7 @@ void WeatherProvider::requestCurrentWeatherInfo(const QGeoCoordinate &coordinate
     if (coordinate.isValid()) {
         qDebug() << "Requesting current weather details:" << coordinate;
         APIRequest request = API::stations(coordinate);
-        currentReplies()->insert(network()->request(request), request);
+        APILoader::request(std::move(request));
     } else if (current()->hasStation()) {
         QString id = current()->station()->forecastOnly() ? current()->station()->currentWeatherSource()->id() : current()->station()->id();
         QStringList alertsAreas;
@@ -97,11 +97,11 @@ void WeatherProvider::requestCurrentWeatherInfo(const QGeoCoordinate &coordinate
 
         qDebug() << "Requesting current weather details:" << id;
         APIRequest requestCurrentWeather = API::stationWeatherCondition(id);
-        currentReplies()->insert(network()->request(requestCurrentWeather), requestCurrentWeather);
+        APILoader::request(std::move(requestCurrentWeather));
 
         qDebug() << "Requesting current alerts:" << alertsAreas;
         APIRequest requestAlerts = API::alerts(alertsAreas);
-        currentReplies()->insert(network()->request(requestAlerts), requestAlerts);
+        APILoader::request(std::move(requestAlerts));
     }
 }
 
@@ -110,7 +110,7 @@ void WeatherProvider::requestStations()
     qDebug() << "Requesting stations list";
 
     APIRequest requestStations = API::stationsList();
-    currentReplies()->insert(network()->request(requestStations), requestStations);
+    APILoader::request(std::move(requestStations));
 }
 
 void WeatherProvider::requestBaseInfo()
@@ -118,10 +118,10 @@ void WeatherProvider::requestBaseInfo()
     qDebug() << "Requesting base weather info";
 
     APIRequest requestTypes = API::mapTypes();
-    currentReplies()->insert(network()->request(requestTypes), requestTypes);
+    APILoader::request(std::move(requestTypes));
 
     APIRequest requestLegends = API::mapLegends();
-    currentReplies()->insert(network()->request(requestLegends), requestLegends);
+    APILoader::request(std::move(requestLegends));
 }
 
 void WeatherProvider::requestWeatherMapDetails(const QString &url)
@@ -131,7 +131,7 @@ void WeatherProvider::requestWeatherMapDetails(const QString &url)
     setLoading(true);
 
     APIRequest request = API::stationsMap(url);
-    currentReplies()->insert(network()->request(request), request);
+    APILoader::request(std::move(request));
 }
 
 void WeatherProvider::requestMapLayers(Weather::MapType type)
@@ -148,12 +148,12 @@ void WeatherProvider::requestMapLayers(Weather::MapType type)
     }
 
     APIRequest request = API::mapLayers(type);
-    currentReplies()->insert(network()->request(request), request);
+    APILoader::request(std::move(request));
 }
 
 void WeatherProvider::response(QNetworkReply *reply)
 {
-    if (!currentReplies()->contains(reply)) {
+    if (!validResponse(reply)) {
         return;
     }
 
@@ -163,7 +163,7 @@ void WeatherProvider::response(QNetworkReply *reply)
 
     // JSON
     QJsonDocument document = QJsonDocument::fromJson(reply->readAll());
-    if (currentReplies()->value(reply).call() == QStringLiteral("/maps/types")) {
+    if (requestFromResponse(reply).call() == QStringLiteral("/maps/types")) {
         const QJsonArray data = document.array();
         _mapInfoModel->clear();
         _mapInfoModel->generateModel(data);
@@ -183,7 +183,7 @@ void WeatherProvider::response(QNetworkReply *reply)
         removeResponse(reply);
         return;
     }
-    if (currentReplies()->value(reply).call() == QStringLiteral("/maps/legend")) {
+    if (requestFromResponse(reply).call() == QStringLiteral("/maps/legend")) {
         const QJsonArray data = document.array();
 
         _mapLegendModel->clear();
@@ -192,7 +192,7 @@ void WeatherProvider::response(QNetworkReply *reply)
         removeResponse(reply);
         return;
     }
-    if (currentReplies()->value(reply).call() == QStringLiteral("/stations/coordinate")) {
+    if (requestFromResponse(reply).call() == QStringLiteral("/stations/coordinate")) {
         const QJsonArray stations = document.array();
         if (stations.empty()) {
             current()->setStation(nullptr);
@@ -215,7 +215,7 @@ void WeatherProvider::response(QNetworkReply *reply)
         removeResponse(reply);
         return;
     }
-    if (currentReplies()->value(reply).call() == QStringLiteral("/stations/condition")) {
+    if (requestFromResponse(reply).call() == QStringLiteral("/stations/condition")) {
         const QJsonObject weatherInfo = document.object();
         current()->updateCurrentWeather(WeatherCondition::fromJson(weatherInfo[QStringLiteral("condition")].toObject()));
 
@@ -227,7 +227,7 @@ void WeatherProvider::response(QNetworkReply *reply)
         removeResponse(reply);
         return;
     }
-    if (currentReplies()->value(reply).call() == QStringLiteral("/alerts/list")) {
+    if (requestFromResponse(reply).call() == QStringLiteral("/alerts/list")) {
         const QJsonArray alertsList = document.array();
         std::vector<std::unique_ptr<WeatherAlert>> alerts;
         alerts.reserve(static_cast<size_t>(alertsList.size()));
@@ -239,7 +239,7 @@ void WeatherProvider::response(QNetworkReply *reply)
         removeResponse(reply);
         return;
     }
-    if (currentReplies()->value(reply).call() == QStringLiteral("/stations/list")) {
+    if (requestFromResponse(reply).call() == QStringLiteral("/stations/list")) {
         const QJsonArray data = document.array();
 
         _stationsModel->clear();
@@ -256,9 +256,9 @@ void WeatherProvider::response(QNetworkReply *reply)
         return;
     }
 
-    if (currentReplies()->value(reply).call() == QStringLiteral("/stations/map")) {
+    if (requestFromResponse(reply).call() == QStringLiteral("/stations/map")) {
         _weatherMapModelBase->addEntries(_stationsModel.get(), document.array());
-        if (currentReplies()->value(reply).url().toString().contains(QStringLiteral("current"))) {
+        if (requestFromResponse(reply).url().toString().contains(QStringLiteral("current"))) {
             _weatherMapModel->addEntries(_stationsModel.get(), document.array());
         } else {
             _weatherMapModel->update(_weatherMapModelBase.get(), mapLayers()->timestamp());
@@ -266,10 +266,10 @@ void WeatherProvider::response(QNetworkReply *reply)
         mapLayers()->playResume();
         removeResponse(reply);
         valid = true;
-    } else if (currentReplies()->value(reply).call() == QStringLiteral("/maps/list")) {
+    } else if (requestFromResponse(reply).call() == QStringLiteral("/maps/list")) {
         emit loadingSuccess();
 
-        auto type = Weather::MapType(currentReplies()->value(reply).extra().toInt());
+        auto type = Weather::MapType(requestFromResponse(reply).extra().toInt());
 
         removeResponse(reply);
 
@@ -313,7 +313,7 @@ void WeatherProvider::error(QNetworkReply *reply,
 {
     Q_UNUSED(err)
 
-    if (!currentReplies()->contains(reply)) {
+    if (!validResponse(reply)) {
         return;
     }
 
@@ -321,20 +321,20 @@ void WeatherProvider::error(QNetworkReply *reply,
     setLoading(false);
 
     if (err == QNetworkReply::ContentNotFoundError) {
-        if (currentReplies()->value(reply).call() == QStringLiteral("/stations/coordinate")
-            || currentReplies()->value(reply).call() == QStringLiteral("/stations/condition")) {
+        if (requestFromResponse(reply).call() == QStringLiteral("/stations/coordinate")
+            || requestFromResponse(reply).call() == QStringLiteral("/stations/condition")) {
             current()->setStation(nullptr);
             removeResponse(reply);
             return;
         }
     }
 
-    if (currentReplies()->value(reply).call() == QStringLiteral("/stations/condition")) {
+    if (requestFromResponse(reply).call() == QStringLiteral("/stations/condition")) {
         startTimerCurrent();
-    } else if (currentReplies()->value(reply).call() != QStringLiteral("/maps/types")
-               && currentReplies()->value(reply).call() != QStringLiteral("/maps/legend")
-               && currentReplies()->value(reply).call() != QStringLiteral("/stations/coordinate")
-               && currentReplies()->value(reply).call() != QStringLiteral("/stations/list")) {
+    } else if (requestFromResponse(reply).call() != QStringLiteral("/maps/types")
+               && requestFromResponse(reply).call() != QStringLiteral("/maps/legend")
+               && requestFromResponse(reply).call() != QStringLiteral("/stations/coordinate")
+               && requestFromResponse(reply).call() != QStringLiteral("/stations/list")) {
         startTimer();
     }
 
