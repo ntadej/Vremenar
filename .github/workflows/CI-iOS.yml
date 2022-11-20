@@ -50,7 +50,7 @@ jobs:
           aqtversion: ==3.0.*
           version: ${{ env.QT_VERSION }}
           target: desktop
-          modules: qtpositioning
+          modules: qtpositioning qtshadertools qt5compat
           set-env: false
 
       - name: Download Qt (iOS)
@@ -59,7 +59,7 @@ jobs:
           aqtversion: ==3.0.*
           version: ${{ env.QT_VERSION }}
           target: ios
-          modules: qtpositioning
+          modules: qtpositioning qtshadertools qt5compat
 
       - name: Download Qt patches
         run: |

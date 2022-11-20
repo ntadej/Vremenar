@@ -48,7 +48,7 @@ jobs:
         with:
           aqtversion: ==3.0.*
           version: ${{ env.QT_VERSION }}
-          modules: qtpositioning
+          modules: qtpositioning qtshadertools qt5compat
           set-env: false
 
       - name: Download Qt (Android, armv7)
@@ -60,7 +60,7 @@ jobs:
           version: ${{ env.QT_VERSION }}
           target: android
           arch: android_armv7
-          modules: qtpositioning
+          modules: qtpositioning qtshadertools qt5compat
 
       - name: Download Qt (Android, arm64_v8a)
         id: qt-android-arm64_v8a
@@ -71,7 +71,7 @@ jobs:
           version: ${{ env.QT_VERSION }}
           target: android
           arch: android_arm64_v8a
-          modules: qtpositioning
+          modules: qtpositioning qtshadertools qt5compat
 
       - name: Download Qt (Android, x86)
         id: qt-android-x86
@@ -82,7 +82,7 @@ jobs:
           version: ${{ env.QT_VERSION }}
           target: android
           arch: android_x86
-          modules: qtpositioning
+          modules: qtpositioning qtshadertools qt5compat
 
       - name: Download Qt (Android, x86_64)
         id: qt-android-x86_64
@@ -93,7 +93,7 @@ jobs:
           version: ${{ env.QT_VERSION }}
           target: android
           arch: android_x86_64
-          modules: qtpositioning
+          modules: qtpositioning qtshadertools qt5compat
 
       - name: Fix Qt release
         run: |

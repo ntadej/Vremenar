@@ -53,7 +53,7 @@ jobs:
           aqtversion: ==3.0.*
           version: ${{ env.QT_VERSION }}
           target: desktop
-          modules: qtpositioning
+          modules: qtpositioning qtshadertools qt5compat
 
       - name: Download Qt patches
         run: |
