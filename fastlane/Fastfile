@@ -143,6 +143,13 @@ platform :android do
     create_android_package
   end
 
+  desc 'Deploy Google Play Build'
+  lane :play_deploy do
+    supply aab: 'fastlane/build/android_play/Vremenar-signed.aab',
+           release_status: 'draft',
+           track: 'alpha'
+  end
+
   desc 'Make Amazon Build'
   lane :amazon do
     build_number offset: 0

@@ -38,6 +38,7 @@
         <activity
             android:name="si.tano.vremenar.VremenarActivity"
             android:configChanges="orientation|uiMode|screenLayout|screenSize|smallestScreenSize|layoutDirection|locale|fontScale|keyboard|keyboardHidden|navigation|mcc|mnc|density"
+            android:exported="true"
             android:label="Vremenar"
             android:launchMode="singleTop"
             android:screenOrientation="unspecified">
@@ -81,7 +82,9 @@
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="vremenar_forecast" />
 
-        <service android:name="org.openudid.OpenUDID_service">
+        <service
+            android:name="org.openudid.OpenUDID_service"
+            android:exported="false">
             <intent-filter>
                 <action android:name="org.openudid.GETUDID" />
             </intent-filter>

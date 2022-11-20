@@ -105,6 +105,14 @@ Make a development build
 
 Make Google Play Build
 
+### android play_deploy
+
+```sh
+[bundle exec] fastlane android play_deploy
+```
+
+Deploy Google Play Build
+
 ### android amazon
 
 ```sh

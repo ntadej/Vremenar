@@ -135,9 +135,11 @@ jobs:
         working-directory: source
         env:
           CONFIG_CMAKE: ${{ secrets.CONFIG_CMAKE }}
+          GOOGLE_DEPLOYMENT_KEY: ${{ secrets.GOOGLE_DEPLOYMENT_KEY }}
           GOOGLE_SERVICES_ANDROID: ${{ secrets.GOOGLE_SERVICES_ANDROID }}
         run: |
           echo $CONFIG_CMAKE | base64 --decode > Config.cmake
+          echo $GOOGLE_DEPLOYMENT_KEY | base64 --decode > google-play_api.json
           echo $GOOGLE_SERVICES_ANDROID | base64 --decode > resources/Android/output/google-services.json
 
           pushd ../.. > /dev/null || exit
@@ -173,3 +175,9 @@ jobs:
           keyAlias: ${{ secrets.ANDROID_KEY_ALIAS }}
           keyStorePassword: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
           buildToolsVersion: 33.0.0
+
+      - name: Deploy
+        working-directory: source
+        if: github.ref_name == 'deploy' && matrix.type == 'play'
+        run: |
+          bundle exec fastlane android play_deploy
