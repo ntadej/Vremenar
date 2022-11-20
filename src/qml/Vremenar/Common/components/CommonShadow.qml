@@ -20,6 +20,6 @@ DropShadow {
         fill: parent
     }
     radius: UI.shadowRadius
-//    samples: UI.shadowRadius * 2 + 1
+    samples: UI.shadowRadius * 2 + 1
     color: UI.shadowColor
 }

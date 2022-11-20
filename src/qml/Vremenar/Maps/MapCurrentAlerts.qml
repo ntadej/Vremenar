@@ -56,7 +56,7 @@ Item {
         id: shadowSource
         anchors {
             fill: parent
-            leftMargin: parent.width - contentWidth
+            leftMargin: parent.width - contentWidth - 2 * UI.shadowRadius
         }
     }
 
