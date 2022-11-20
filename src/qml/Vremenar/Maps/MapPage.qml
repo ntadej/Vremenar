@@ -51,6 +51,7 @@ MapPageBase {
         copyrightsVisible: false
         zoomLevel: Settings.startupMapEnabled ? Settings.startupMapZoomLevel : 8
 
+        gesture.acceptedGestures: MapGestureArea.PinchGesture | MapGestureArea.PanGesture | MapGestureArea.FlickGesture
         minimumZoomLevel: VWeather.minZoomLevel
         maximumZoomLevel: VWeather.maxZoomLevel
         maximumTilt: 0
