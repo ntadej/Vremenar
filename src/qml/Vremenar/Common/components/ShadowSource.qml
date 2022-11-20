@@ -14,6 +14,8 @@ import QtQuick 2.12
 import Vremenar 1.0
 
 Item {
+    property alias radius: rectangle.radius
+
     anchors{
         margins: -2 * UI.shadowRadius
         fill: parent
@@ -21,6 +23,7 @@ Item {
     visible: false
 
     Rectangle {
+        id: rectangle
         color: UI.shadowColor
         radius: UI.radiusCommon
         anchors{

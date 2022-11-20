@@ -25,28 +25,22 @@ MapQuickItem {
         width: 16
         height: width
 
-        Item {
+        ShadowSource {
             id: shadowSource
-            anchors{
-                fill: parent
-                margins: -2 * UI.shadowRadius
-            }
-            visible: false
-
-            Rectangle {
-                radius: width / 2
-                color: UI.colorPrimary
-                border.color: "white"
-                border.width: 2
-                anchors{
-                    fill: parent
-                    margins: 2 * UI.shadowRadius
-                }
-            }
+            radius: width / 2
         }
 
         CommonShadow {
             source: shadowSource
+            anchors.centerIn: parent
+        }
+
+        Rectangle {
+            radius: width / 2
+            color: UI.colorPrimary
+            border.color: "white"
+            border.width: 2
+            anchors.fill: parent
         }
     }
 
