@@ -15,6 +15,7 @@
 #include <QtCore/QJniObject>
 #include <QtGui/QScreen>
 
+#include "application/AndroidJniInterface.h"
 #include "qml/UIManager.h"
 
 namespace Vremenar
@@ -22,17 +23,14 @@ namespace Vremenar
 
 Common::DeviceType Qml::UIManager::getDeviceTypeAndroid()
 {
-    QJniObject activity = QJniObject::callStaticObjectMethod("org/qtproject/qt/android/QtNative", "activity", "()Landroid/app/Activity;");
-    if (!activity.isValid()) {
-        qFatal("Android activity could not be loaded!");
-    }
+    QJniObject activity = Vremenar::Android::activity();
 
-    auto isFireTV = activity.callMethod<jboolean>("isFireTV");
+    auto isFireTV = static_cast<bool>(activity.callMethod<jboolean>("isFireTV"));
     if (isFireTV) {
         return Common::FireTV;
     }
 
-    auto isAndroidTV = activity.callMethod<jboolean>("isAndroidTV");
+    auto isAndroidTV = static_cast<bool>(activity.callMethod<jboolean>("isAndroidTV"));
     if (isAndroidTV) {
         return Common::AndroidTV;
     }
@@ -42,14 +40,11 @@ Common::DeviceType Qml::UIManager::getDeviceTypeAndroid()
 
 QMargins Qml::UIManager::safeAreaMargins()
 {
-    QJniEnvironment env;
-    QJniObject activity = QJniObject::callStaticObjectMethod("org/qtproject/qt/android/QtNative", "activity", "()Landroid/app/Activity;");
-    if (!activity.isValid()) {
-        qFatal("Android activity could not be loaded!");
-    }
+    QJniObject activity = Vremenar::Android::activity();
 
     auto m = activity.callObjectMethod<jintArray>("getSafeAreMargins");
 
+    QJniEnvironment env;
     jint *mArray = env->GetIntArrayElements(m.object<jintArray>(), nullptr);
 
     QMargins margins;

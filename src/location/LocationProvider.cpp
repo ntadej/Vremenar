@@ -105,6 +105,15 @@ void LocationProvider::initPosition()
 #endif
 }
 
+bool LocationProvider::supported()
+{
+#ifndef VREMENAR_POSITIONING
+    return false;
+#else
+    return true;
+#endif
+}
+
 bool LocationProvider::enabled()
 {
     Settings settings(this);

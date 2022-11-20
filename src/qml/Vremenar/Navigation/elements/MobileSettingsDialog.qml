@@ -52,7 +52,7 @@ DialogBlur {
                 id: viewNotificationsSettings
                 visible: notificationsEnabled
 
-                KeyNavigation.down: viewLocationSettings.view
+                KeyNavigation.down: viewLocationSettings.visible ? viewLocationSettings.view : viewSourceSettings.view
             }
 
             ColumnLayout {
@@ -93,12 +93,14 @@ DialogBlur {
 
             LocationSettings {
                 id: viewLocationSettings
+                visible: VLocation.supported
 
                 KeyNavigation.up: viewNotificationsSettings.visible ? viewNotificationsSettings.view : null
                 KeyNavigation.down: viewSourceSettings.view
             }
 
             Item {
+                visible: VLocation.supported
                 Layout.minimumHeight: UI.rowHeight / 4
                 Layout.maximumHeight: UI.rowHeight / 4
             }
@@ -106,7 +108,7 @@ DialogBlur {
             SourceSelection {
                 id: viewSourceSettings
 
-                KeyNavigation.up: viewLocationSettings.view
+                KeyNavigation.up: viewLocationSettings.visible ? viewLocationSettings.view : (viewNotificationsSettings.visible ? viewNotificationsSettings.view : null)
             }
 
             Item {

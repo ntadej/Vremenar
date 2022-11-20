@@ -31,6 +31,7 @@ class StationListModel;
 class LocationProvider : public QObject
 {
     Q_OBJECT
+    Q_PROPERTY(bool supported READ supported CONSTANT)
     Q_PROPERTY(bool enabled READ enabled NOTIFY enabledChanged)
     Q_PROPERTY(QGeoCoordinate initial READ initialPosition CONSTANT)
     Q_PROPERTY(QGeoCoordinate position READ currentPosition NOTIFY positionChanged)
@@ -39,6 +40,7 @@ public:
     explicit LocationProvider(StationListModel *stations,
                               QObject *parent = nullptr);
 
+    [[nodiscard]] bool supported();
     [[nodiscard]] bool enabled();
     [[nodiscard]] QGeoCoordinate initialPosition() const;
     [[nodiscard]] QGeoCoordinate currentPosition() const;

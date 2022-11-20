@@ -39,7 +39,12 @@ bool NotificationsManager::nativeSupported() const
 {
     QJniObject activity = Vremenar::Android::activity();
 
-    QJniEnvironment env;
+    auto isFireTV = static_cast<bool>(activity.callMethod<jboolean>("isFireTV"));
+    auto isAndroidTV = static_cast<bool>(activity.callMethod<jboolean>("isAndroidTV"));
+    if (isFireTV || isAndroidTV) {
+        return false;
+    }
+
     return static_cast<bool>(activity.callMethod<jboolean>("areNotificationsSupported"));
 }
 
@@ -73,7 +78,6 @@ bool NotificationsManager::nativeSetup()
 {
     QJniObject activity = Vremenar::Android::activity();
 
-    QJniEnvironment env;
     return static_cast<bool>(activity.callMethod<jboolean>("requestNotifications"));
 }
 

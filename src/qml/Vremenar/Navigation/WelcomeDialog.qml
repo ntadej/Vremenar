@@ -27,6 +27,7 @@ DialogBlurFullWindow {
         currentIndex: 0
         anchors.fill: parent
         interactive: false
+        focus: dialog.opened
 
         Item {
             id: pageWelcome
@@ -135,6 +136,16 @@ DialogBlurFullWindow {
                             view.currentIndex += 1
                         }
                     }
+
+                    Shortcut {
+                        sequences: ["Down"]
+                        enabled: dialog.opened && view.currentItem == pageSource
+                        onActivated: {
+                            console.log("'Down' pressed")
+                            viewWelcomeSource.view.focus = true
+                            enabled = false
+                        }
+                    }
                 }
             }
         }
@@ -165,6 +176,16 @@ DialogBlurFullWindow {
                             view.currentIndex += 1
                         }
                     }
+
+                    Shortcut {
+                        sequences: ["Down"]
+                        enabled: dialog.opened && view.currentItem == pageLocation
+                        onActivated: {
+                            console.log("'Down' pressed")
+                            viewWelcomeLocation.view.focus = true
+                            enabled = false
+                        }
+                    }
                 }
             }
         }
@@ -177,7 +198,7 @@ DialogBlurFullWindow {
                 width: Math.min(parent.width - 2 * Math.max(UI.safetyMarginLeft, UI.safetyMarginRight), 360)
                 height: Math.min(parent.height - 2 * Math.max(UI.safetyMarginTop, UI.safetyMarginBottom), contentHeight)
                 clip: true
-                contentHeight: viewWelcomeNotifications? viewWelcomeNotifications.height : 0
+                contentHeight: viewWelcomeNotifications ? viewWelcomeNotifications.height : 0
 
                 NotificationsSettings {
                     id: viewWelcomeNotifications
@@ -195,6 +216,16 @@ DialogBlurFullWindow {
                             view.currentIndex += 1
                         }
                     }
+
+                    Shortcut {
+                        sequences: ["Down"]
+                        enabled: dialog.opened && view.currentItem == pageNotifications
+                        onActivated: {
+                            console.log("'Down' pressed")
+                            viewWelcomeNotifications.view.focus = true
+                            enabled = false
+                        }
+                    }
                 }
             }
         }
@@ -204,7 +235,7 @@ DialogBlurFullWindow {
                 viewWelcomeSource.destroy()
                 pageSource.destroy()
             }
-            if (Settings.locationInitialChoice) {
+            if (!VLocation.supported || Settings.locationInitialChoice) {
                 viewWelcomeLocation.destroy()
                 pageLocation.destroy()
             }
