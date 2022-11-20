@@ -59,6 +59,8 @@
         <string>public.app-category.weather</string>
         <key>LSMinimumSystemVersion</key>
         <string>10.14</string>
+        <key>ITSAppUsesNonExemptEncryption</key>
+        <false/>
         <key>SUFeedURL</key>
         <string>@APPCAST_ENDPOINT@/appcast.xml</string>
         <key>SUPublicEDKey</key>
