@@ -37,6 +37,7 @@ platform :mac do
     run_cmake platform: 'macos',
               build_type: 'store',
               build_path: 'fastlane/build/macos_store/cmake',
+              output_path: 'fastlane/build/macos_store',
               developer_team: ENV['sigh_si.tano.Vremenar_appstore_macos_team-id'],
               certificate_name: ENV['sigh_si.tano.Vremenar_appstore_macos_certificate-name'],
               pkg_certificate_name: ENV['sigh_si.tano.Vremenar_mac_installer_distribution_macos_certificate-name'],

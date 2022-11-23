@@ -176,6 +176,12 @@ jobs:
           keyStorePassword: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
           buildToolsVersion: 33.0.0
 
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: Android-package_${{ matrix.type }}
+          path: source/fastlane/build/android_${{ matrix.type }}/Vremenar-signed.*
+
       - name: Deploy
         working-directory: source
         if: github.ref_name == 'deploy' && matrix.type == 'play'

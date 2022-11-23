@@ -116,3 +116,9 @@ jobs:
           fi
 
           bundle exec fastlane mac ${BUILD_TYPE}
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: macOS-package_${{ matrix.type }}
+          path: source/fastlane/build/macos*/Vremenar.*
