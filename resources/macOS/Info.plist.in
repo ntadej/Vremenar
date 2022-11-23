@@ -71,5 +71,23 @@
         <false/>
         <key>FirebaseMessagingAutoInitEnabled</key>
         <false/>
+        <key>DTCompiler</key>
+        <string>com.apple.compilers.llvm.clang.1_0</string>
+        <key>DTPlatformBuild</key>
+        <string>@APPLE_XCODE_BUILD@</string>
+        <key>DTPlatformName</key>
+        <string>macosx</string>
+        <key>DTPlatformVersion</key>
+        <string>@APPLE_SDK_PLATFORM_VERSION@</string>
+        <key>DTSDKBuild</key>
+        <string>@APPLE_SDK_BUILD@</string>
+        <key>DTSDKName</key>
+        <string>macosx@APPLE_SDK_VERSION@</string>
+        <key>DTXcode</key>
+        <string>@APPLE_XCODE_VERSION_CODE@</string>
+        <key>DTXcodeBuild</key>
+        <string>@APPLE_XCODE_BUILD@</string>
+        <key>BuildMachineOSBuild</key>
+        <string>@APPLE_BUILD_MACHINE_OS_BUILD@</string>
     </dict>
 </plist>

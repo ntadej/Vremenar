@@ -37,6 +37,27 @@ module Fastlane
           end
           command += " -DAPPLE_PKG_SIGN_IDENTITY='#{pkg_certificate_name}'" unless pkg_certificate_name.empty?
           command += " -DAPPLE_PROVISIONING_PROFILE='#{params[:profile_name]}'" unless params[:profile_name].empty?
+          if Actions.lane_context[SharedValues::XCODE_METADATA_XCODE_VERSION_CODE]
+            command += ' -DAPPLE_XCODE_VERSION_CODE='
+            command += "'#{Actions.lane_context[SharedValues::XCODE_METADATA_XCODE_VERSION_CODE]}'"
+          end
+          if Actions.lane_context[SharedValues::XCODE_METADATA_XCODE_BUILD]
+            command += " -DAPPLE_XCODE_BUILD='#{Actions.lane_context[SharedValues::XCODE_METADATA_XCODE_BUILD]}'"
+          end
+          if Actions.lane_context[SharedValues::XCODE_METADATA_SDK_VERSION]
+            command += " -DAPPLE_SDK_VERSION='#{Actions.lane_context[SharedValues::XCODE_METADATA_SDK_VERSION]}'"
+          end
+          if Actions.lane_context[SharedValues::XCODE_METADATA_SDK_BUILD]
+            command += " -DAPPLE_SDK_BUILD='#{Actions.lane_context[SharedValues::XCODE_METADATA_SDK_BUILD]}'"
+          end
+          if Actions.lane_context[SharedValues::XCODE_METADATA_SDK_PLATFORM_VERSION]
+            command += ' -DAPPLE_SDK_PLATFORM_VERSION='
+            command += "'#{Actions.lane_context[SharedValues::XCODE_METADATA_SDK_PLATFORM_VERSION]}'"
+          end
+          if Actions.lane_context[SharedValues::XCODE_METADATA_OS_BUILD]
+            command += ' -DAPPLE_BUILD_MACHINE_OS_BUILD='
+            command += "'#{Actions.lane_context[SharedValues::XCODE_METADATA_OS_BUILD]}'"
+          end
         when 'ios'
           command += ' -G Xcode'
           command += " -DCMAKE_OSX_DEPLOYMENT_TARGET='13.0' -DCMAKE_OSX_ARCHITECTURES='arm64'"
