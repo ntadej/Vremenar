@@ -70,11 +70,11 @@ if [[ -d "$BUNDLE_NAME/Contents/Resources/qml/QtQuick/Controls/macOS/" ]]; then
   rm -r "$BUNDLE_NAME/Contents/Resources/qml/QtQuick/Controls/macOS/"
 fi
 
-find Vremenar.app -iname '*dSYM*' -print0 | xargs -0 rm -r
+find "$BUNDLE_NAME" -iname '*.dSYM' -print0 | xargs -0 rm -r
 
 # Make binary Info.plist
-plutil -convert binary1 Vremenar.app/Contents/Info.plist
-plutil -convert binary1 Vremenar.app/Contents/Resources/GoogleService-Info.plist
+plutil -convert binary1 "$BUNDLE_NAME/Contents/Info.plist"
+plutil -convert binary1 "$BUNDLE_NAME/Contents/Resources/GoogleService-Info.plist"
 
 # Fix the signing
 if [[ "$CODE_SIGN_IDENTITY" != "" ]]; then
