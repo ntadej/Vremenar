@@ -16,7 +16,7 @@ include(config/Version.cmake)
 
 project(Vremenar VERSION ${VREMENAR_VERSION} LANGUAGES CXX)
 
-find_package(Qt6 6.4 COMPONENTS Gui LinguistTools Location Positioning Qml Quick QuickControls2 Sql REQUIRED)
+find_package(Qt6 6.4 COMPONENTS Gui Location Positioning Qml Quick QuickControls2 Sql REQUIRED)
 qt_standard_project_setup()
 
 include(Config.cmake)

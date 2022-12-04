@@ -9,9 +9,14 @@
 # SPDX-License-Identifier: (GPL-3.0-or-later AND MPL-2.0)
 #
 
-qt_add_translations(Vremenar
-    TS_FILES
-        en.ts
-        de.ts
-        sl.ts
-)
+find_package(Qt6 6.4 OPTIONAL_COMPONENTS LinguistTools)
+
+if(COMMAND qt_add_translations)
+    message(STATUS "Translations: ON")
+    qt_add_translations(Vremenar
+        TS_FILES
+            en.ts
+            de.ts
+            sl.ts
+    )
+endif()
