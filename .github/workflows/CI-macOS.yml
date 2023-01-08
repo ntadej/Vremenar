@@ -47,7 +47,18 @@ jobs:
         with:
           xcode-version: latest-stable
 
+      - name: Download Static Qt
+        if: matrix.type == 'app_store'
+        run: |
+          cd ..
+          wget https://github.com/ntadej/qt-build/releases/download/v${QT_VERSION}.0/Qt_macOS_static.tar.bz2
+          tar xvf Qt_macOS_static.tar.bz2
+          echo "Qt6_DIR=$PWD/Qt/$QT_VERSION/macos_static" >> $GITHUB_ENV
+          echo "$PWD/Qt/$QT_VERSION/macos_static/bin" >> $GITHUB_PATH
+          cd $GITHUB_WORKSPACE
+
       - name: Download Qt
+        if: matrix.type == 'developer_id'
         uses: jurplel/install-qt-action@v3
         with:
           aqtversion: ==3.0.*
@@ -56,11 +67,13 @@ jobs:
           modules: qtpositioning qtshadertools qt5compat
 
       - name: Download Qt patches
+        if: matrix.type == 'developer_id'
         run: |
           wget https://github.com/ntadej/qcocoa/releases/download/v${QT_VERSION}.0/qcocoa_v${QT_VERSION}.0.tar.bz2
           tar xvf qcocoa_v${QT_VERSION}.0.tar.bz2 -C ..
 
       - name: Download MapLibre
+        if: matrix.type == 'developer_id'
         run: |
           wget https://github.com/ntadej/qt-geoservices-maplibre-gl/releases/download/v${MAPLIBRE_VERSION}/qt-geoservices-maplibre-gl_v${MAPLIBRE_VERSION}_Qt${QT_VERSION}_macOS.tar.bz2
           tar xvf qt-geoservices-maplibre-gl_v${MAPLIBRE_VERSION}_Qt${QT_VERSION}_macOS.tar.bz2 -C ..
@@ -101,7 +114,9 @@ jobs:
           echo $GOOGLE_SERVICES_APPLE | base64 --decode > GoogleService-Info.plist
 
           pushd ../.. > /dev/null || exit
-          patch Qt/$QT_VERSION/macos/lib/cmake/Qt6Qml/Qt6QmlMacros.cmake Vremenar/source/3rdparty/qml.patch
+          if [[ -f "Qt/$QT_VERSION/macos/lib/cmake/Qt6Qml/Qt6QmlMacros.cmake" ]]; then
+            patch Qt/$QT_VERSION/macos/lib/cmake/Qt6Qml/Qt6QmlMacros.cmake Vremenar/source/3rdparty/qml.patch
+          fi
           popd > /dev/null || exit
 
       - name: Build

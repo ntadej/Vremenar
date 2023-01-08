@@ -28,7 +28,23 @@ module Fastlane
         case params[:platform]
         when 'macos'
           pkg_certificate_name = get_pkg_certificate_name params
-          command += " -G Ninja -DCMAKE_BUILD_TYPE='RelWithDebInfo'"
+          if params[:build_type] == 'store'
+            command += ' -G Xcode'
+            unless params[:certificate_name].empty?
+              command += " -DCMAKE_XCODE_ATTRIBUTE_CODE_SIGN_IDENTITY='#{params[:certificate_name]}'"
+            end
+            command += " -DCMAKE_XCODE_ATTRIBUTE_CODE_SIGN_STYLE='Manual'"
+            unless params[:developer_team].empty?
+              command += " -DCMAKE_XCODE_ATTRIBUTE_DEVELOPMENT_TEAM='#{params[:developer_team]}'"
+            end
+            unless params[:profile_name].empty?
+              command += " -DCMAKE_XCODE_ATTRIBUTE_PROVISIONING_PROFILE_SPECIFIER='#{params[:profile_name]}'"
+            end
+          else
+            command += ' -G Ninja'
+            command += " -DCMAKE_BUILD_TYPE='RelWithDebInfo'"
+            command += " -DAPPLE_PROVISIONING_PROFILE='#{params[:profile_name]}'" unless params[:profile_name].empty?
+          end
           command += " -DCMAKE_C_COMPILER_LAUNCHER='ccache' -DCMAKE_CXX_COMPILER_LAUNCHER='ccache'"
           command += " -DCMAKE_OSX_DEPLOYMENT_TARGET='10.14' -DCMAKE_OSX_ARCHITECTURES='x86_64;arm64'"
           command += " -DAPPLE_DEVELOPER_TEAM='#{params[:developer_team]}'" unless params[:developer_team].empty?
@@ -36,7 +52,6 @@ module Fastlane
             command += " -DAPPLE_CODE_SIGN_IDENTITY='#{params[:certificate_name]}'"
           end
           command += " -DAPPLE_PKG_SIGN_IDENTITY='#{pkg_certificate_name}'" unless pkg_certificate_name.empty?
-          command += " -DAPPLE_PROVISIONING_PROFILE='#{params[:profile_name]}'" unless params[:profile_name].empty?
           if Actions.lane_context[SharedValues::XCODE_METADATA_XCODE_VERSION_CODE]
             command += ' -DAPPLE_XCODE_VERSION_CODE='
             command += "'#{Actions.lane_context[SharedValues::XCODE_METADATA_XCODE_VERSION_CODE]}'"
@@ -100,6 +115,8 @@ module Fastlane
         Actions.lane_context[SharedValues::RUN_CMAKE_OUTPUT_PATH] = params[:output_path].to_s
         Actions.lane_context[SharedValues::RUN_CMAKE_PLATFORM] = params[:platform].to_s
         Actions.lane_context[SharedValues::RUN_CMAKE_PROJECT_PATH] = if params[:platform] == 'ios'
+                                                                       "#{params[:build_path]}/Vremenar.xcodeproj"
+                                                                     elsif params[:build_type] == 'store'
                                                                        "#{params[:build_path]}/Vremenar.xcodeproj"
                                                                      else
                                                                        params[:build_path].to_s

@@ -43,12 +43,16 @@ platform :mac do
               developer_team: ENV['sigh_si.tano.Vremenar_appstore_macos_team-id'],
               certificate_name: ENV['sigh_si.tano.Vremenar_appstore_macos_certificate-name'],
               pkg_certificate_name: ENV['sigh_si.tano.Vremenar_mac_installer_distribution_macos_certificate-name'],
-              profile_name: ENV['sigh_si.tano.Vremenar_appstore_macos_profile-path']
-    ninja
-    create_dmg
+              profile_name: ENV['sigh_si.tano.Vremenar_appstore_macos_profile-name']
+    build_app scheme: 'Vremenar',
+              project: lane_context[SharedValues::RUN_CMAKE_PROJECT_PATH],
+              export_method: 'app-store',
+              build_path: 'fastlane/build/macos_store/archive',
+              derived_data_path: 'fastlane/build/macos_store/derived_data',
+              output_directory: 'fastlane/build/macos_store',
+              output_name: 'Vremenar'
     if ENV['DEPLOY']
-      upload_to_testflight pkg: lane_context[SharedValues::CREATE_DMG_OUTPUT_FILE],
-                           api_key_path: 'appstore_api.json',
+      upload_to_testflight api_key_path: 'appstore_api.json',
                            skip_submission: true,
                            skip_waiting_for_build_processing: true
     end
