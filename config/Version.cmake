@@ -1,6 +1,6 @@
 #
 # Vremenar
-# Copyright (C) 2022 Tadej Novak <tadej@tano.si>
+# Copyright (C) 2023 Tadej Novak <tadej@tano.si>
 #
 # This application is bi-licensed under the GNU General Public License
 # Version 3 or later as well as Mozilla Public License Version 2.
@@ -16,19 +16,19 @@ string(REGEX REPLACE "\n" "" VREMENAR_VERSION "${VREMENAR_VERSION}") # get rid o
 set(VREMENAR_BUILD "" CACHE STRING "Vremenar build number override")
 
 # Find Git Version Patch
-FIND_PROGRAM(GIT git)
-IF(GIT)
-    EXECUTE_PROCESS(
+find_program(GIT git)
+if(GIT)
+    execute_process(
         COMMAND ${GIT} rev-list --count HEAD
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
         OUTPUT_VARIABLE VREMENAR_BUILD_NUMBER OUTPUT_STRIP_TRAILING_WHITESPACE
     )
     if(VREMENAR_BUILD)
-        SET(VREMENAR_BUILD_NUMBER ${VREMENAR_BUILD})
+        set(VREMENAR_BUILD_NUMBER ${VREMENAR_BUILD})
     endif()
-ELSE()
+else()
     message(FATAL_ERROR "Git exectutable not found")
-ENDIF()
+endif()
 
 message(STATUS "Building Vremenar version ${VREMENAR_VERSION}")
 message(STATUS "Build number: ${VREMENAR_BUILD_NUMBER}")

@@ -1,6 +1,6 @@
 #
 # Vremenar
-# Copyright (C) 2022 Tadej Novak <tadej@tano.si>
+# Copyright (C) 2023 Tadej Novak <tadej@tano.si>
 #
 # This application is bi-licensed under the GNU General Public License
 # Version 3 or later as well as Mozilla Public License Version 2.
@@ -40,7 +40,7 @@ endif()
 set(APPLE_IOS_ASSET_CATALOGS "${CMAKE_SOURCE_DIR}/resources/iOS/Assets.xcassets")
 set(APPLE_IOS_STORYBOARD "${CMAKE_SOURCE_DIR}/resources/iOS/VremenarLaunchScreen.storyboard")
 
-SET(APPLE_IOS_TRANSLATIONS
+set(APPLE_IOS_TRANSLATIONS
     ${CMAKE_SOURCE_DIR}/resources/iOS/en.lproj
     ${CMAKE_SOURCE_DIR}/resources/iOS/de.lproj
     ${CMAKE_SOURCE_DIR}/resources/iOS/sl.lproj
