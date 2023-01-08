@@ -12,6 +12,10 @@
     <true/>
     <key>com.apple.developer.aps-environment</key>
     <string>production</string>
+    <key>keychain-access-groups</key>
+    <array>
+      <string>@APPLE_DEVELOPER_TEAM@.group.si.tano.@VREMENAR_NAME@</string>
+    </array>
     @APPLE_ENTITLEMENTS_EXTRA_CONTENT@
   </dict>
 </plist>

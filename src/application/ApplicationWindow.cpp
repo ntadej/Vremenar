@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -44,6 +44,11 @@
 #endif
 
 #include "ApplicationWindow.h"
+
+namespace
+{
+constexpr int RESTART_TIMEOUT{1000};
+}
 
 namespace Vremenar
 {
@@ -112,6 +117,7 @@ ApplicationWindow::ApplicationWindow(QObject *parent)
         _qmlFileSelector->setExtraSelectors(extraSelectors);
     }
 
+    connect(this, &ApplicationWindow::requestRestart, this, &ApplicationWindow::restartApp);
 #ifndef VREMENAR_MOBILE
     auto *application = qobject_cast<DesktopApplication *>(QCoreApplication::instance());
     connect(application, &QCoreApplication::aboutToQuit, this, &ApplicationWindow::writeSettingsStartup);
@@ -420,7 +426,7 @@ void ApplicationWindow::weatherSourceChanged(int source)
 
         // Do not override startup map coordinates
         _ready = false;
-        QCoreApplication::exit(Application::RESTART_CODE);
+        QTimer::singleShot(RESTART_TIMEOUT, this, &ApplicationWindow::restartApp);
     } else {
         settings.setWeatherSourceInitialChoice(true);
         settings.writeSettings();
@@ -439,6 +445,11 @@ void ApplicationWindow::locationSettingChanged(int setting)
     settings.writeSettings();
 
     _location->locationSettingsChanged();
+}
+
+void ApplicationWindow::restartApp()
+{
+    QCoreApplication::exit(Application::RESTART_CODE);
 }
 
 } // namespace Vremenar

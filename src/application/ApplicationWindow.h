@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -57,8 +57,13 @@ public slots:
                         qreal devicePixelRatio = 1.0);
     void weatherSourceChanged(int source);
     void locationSettingChanged(int setting);
+    void restartApp();
+
+signals:
+    void requestRestart();
 
 #ifndef VREMENAR_MOBILE
+public slots:
     void setPrimaryWindowDevicePixelRatio(qreal ratio);
     void showAboutDialog();
     void showSettingsDialog();
@@ -68,6 +73,7 @@ public slots:
 #endif
 
 #ifdef Q_OS_MACOS
+public slots:
     void dockClicked();
 
 signals:

@@ -47,9 +47,14 @@ if(VREMENAR_STORE)
 else()
     set(APPLE_ENTITLEMENTS_EXTRA_CONTENT "<key>com.apple.security.temporary-exception.mach-lookup.global-name</key>
     <array>
-      <string>si.tano.Vremenar-spks</string>
-      <string>si.tano.Vremenar-spki</string>
+      <string>si.tano.${VREMENAR_NAME}-spks</string>
+      <string>si.tano.${VREMENAR_NAME}-spki</string>
     </array>")
+    if(${CMAKE_BUILD_TYPE} MATCHES "Debug")
+    set(APPLE_ENTITLEMENTS_EXTRA_CONTENT "${APPLE_ENTITLEMENTS_EXTRA_CONTENT}
+    <key>com.apple.security.get-task-allow</key>
+    <true/>")
+    endif()
 endif()
 
 # Helper scripts
