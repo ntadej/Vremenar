@@ -1,6 +1,6 @@
 #
 # Vremenar
-# Copyright (C) 2022 Tadej Novak <tadej@tano.si>
+# Copyright (C) 2023 Tadej Novak <tadej@tano.si>
 #
 # This application is bi-licensed under the GNU General Public License
 # Version 3 or later as well as Mozilla Public License Version 2.
@@ -192,6 +192,11 @@ qt_add_executable(Vremenar WIN32 MACOSX_BUNDLE
     weather/models/WeatherMapProxyModel.cpp
     weather/models/WeatherMapProxyModel.h
 
+    $<$<PLATFORM_ID:Darwin>:${APPLE_MACOS_ASSET_CATALOGS}>
+    $<$<PLATFORM_ID:Darwin>:${APPLE_MACOS_CONTAINERMIGRATION}>
+    $<$<PLATFORM_ID:Darwin>:${APPLE_MACOS_GOOGLESERVICE}>
+    $<$<PLATFORM_ID:Darwin>:${APPLE_MACOS_TRANSLATIONS}>
+
     $<$<PLATFORM_ID:iOS>:${APPLE_IOS_ASSET_CATALOGS}>
     $<$<PLATFORM_ID:iOS>:${APPLE_IOS_GOOGLESERVICE}>
     $<$<PLATFORM_ID:iOS>:${APPLE_IOS_STORYBOARD}>
@@ -223,7 +228,29 @@ set_target_properties(Vremenar
     QT_ANDROID_TARGET_SDK_VERSION 31
 )
 
-if(IOS)
+if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -dead_strip")
+    set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -dead_strip")
+    set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} -dead_strip")
+
+    if(CMAKE_GENERATOR STREQUAL "Xcode")
+        set_target_properties(Vremenar
+            PROPERTIES
+            XCODE_ATTRIBUTE_CODE_SIGN_ENTITLEMENTS "${CMAKE_BINARY_DIR}/Vremenar.entitlements"
+            XCODE_ATTRIBUTE_INSTALL_PATH "$(inherited)"
+            XCODE_ATTRIBUTE_PRODUCT_BUNDLE_IDENTIFIER "si.tano.${VREMENAR_NAME}"
+            XCODE_EMBED_FRAMEWORKS "${APPLE_MACOS_EMBED_FRAMEWORKS}"
+        )
+        set_source_files_properties(
+            ${APPLE_MACOS_ASSET_CATALOGS}
+            ${APPLE_MACOS_CONTAINERMIGRATION}
+            ${APPLE_MACOS_GOOGLESERVICE}
+            ${APPLE_MACOS_TRANSLATIONS}
+            PROPERTIES
+            MACOSX_PACKAGE_LOCATION "Resources"
+        )
+    endif()
+elseif(IOS)
     set_target_properties(Vremenar
         PROPERTIES
         XCODE_ATTRIBUTE_ASSETCATALOG_COMPILER_APPICON_NAME "AppIcon"
