@@ -2,7 +2,7 @@
 
 LOCATION=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 
-FIREBASE_VERSION="9.6.0"
+FIREBASE_VERSION="10.3.0"
 
 echo "Downloading Firebase"
 
