@@ -47,7 +47,7 @@
 
 namespace
 {
-constexpr int RESTART_TIMEOUT{1000};
+constexpr int RESTART_TIMEOUT{500};
 }
 
 namespace Vremenar

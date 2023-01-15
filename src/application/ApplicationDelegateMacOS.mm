@@ -68,7 +68,14 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
                                         }
                                       }];
 
-    [[NSApplication sharedApplication] registerForRemoteNotifications];
+    if (![NSApplication sharedApplication].registeredForRemoteNotifications) {
+        qDebug() << "Notifications:"
+                 << "Registering application";
+        [[NSApplication sharedApplication] registerForRemoteNotifications];
+    } else {
+        qDebug() << "Notifications:"
+                 << "Application already registered";
+    }
 
     _notificationsRequested = true;
 

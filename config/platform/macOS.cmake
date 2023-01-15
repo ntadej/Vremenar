@@ -41,7 +41,7 @@ set(APPLE_SWIFT_TOOLCHAIN_PATH "${APPLE_XCODE_PATH}/Contents/Developer/Toolchain
 
 if(VREMENAR_STORE)
     set(APPLE_ENTITLEMENTS_EXTRA_CONTENT "<key>com.apple.application-identifier</key>
-    <string>${APPLE_DEVELOPER_TEAM}.si.tano.Vremenar</string>
+    <string>${APPLE_DEVELOPER_TEAM}.si.tano.${VREMENAR_NAME}</string>
     <key>com.apple.developer.team-identifier</key>
     <string>${APPLE_DEVELOPER_TEAM}</string>")
 else()
@@ -50,11 +50,11 @@ else()
       <string>si.tano.${VREMENAR_NAME}-spks</string>
       <string>si.tano.${VREMENAR_NAME}-spki</string>
     </array>")
-    if(${CMAKE_BUILD_TYPE} MATCHES "Debug")
+endif()
+if(${CMAKE_BUILD_TYPE} MATCHES "Debug")
     set(APPLE_ENTITLEMENTS_EXTRA_CONTENT "${APPLE_ENTITLEMENTS_EXTRA_CONTENT}
     <key>com.apple.security.get-task-allow</key>
     <true/>")
-    endif()
 endif()
 
 # Helper scripts
