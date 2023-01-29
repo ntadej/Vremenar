@@ -2,7 +2,7 @@
 
 LOCATION=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 
-SPARKLE_VERSION="2.2.2"
+SPARKLE_VERSION="2.3.1"
 
 echo "Downloading Sparkle"
 
