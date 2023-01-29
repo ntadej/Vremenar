@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -69,7 +69,7 @@ void NotificationsManager::localeChanged(const QString &locale)
 void NotificationsManager::currentStationChanged(StationInfo *station)
 {
     QStringList alertsAreas;
-    if (station != nullptr) {
+    if (station != nullptr && !station->alertsArea().isEmpty()) {
         alertsAreas.append(station->alertsArea());
     }
 

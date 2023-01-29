@@ -103,9 +103,8 @@ void WeatherProvider::requestCurrentWeatherInfo(const QGeoCoordinate &coordinate
     } else if (current()->hasStation()) {
         QString id = current()->station()->forecastOnly() ? current()->station()->currentWeatherSource()->id() : current()->station()->id();
         QStringList alertsAreas;
-        alertsAreas.append(current()->station()->alertsArea());
-        if (current()->station()->forecastOnly()) {
-            alertsAreas.append(current()->station()->currentWeatherSource()->alertsArea());
+        if (!current()->station()->alertsArea().isEmpty()) {
+            alertsAreas.append(current()->station()->alertsArea());
         }
 
         qDebug() << "Requesting current weather details:" << id;
@@ -113,8 +112,13 @@ void WeatherProvider::requestCurrentWeatherInfo(const QGeoCoordinate &coordinate
         APILoader::request(std::move(requestCurrentWeather));
 
         qDebug() << "Requesting current alerts:" << alertsAreas;
-        APIRequest requestAlerts = API::alerts(alertsAreas);
-        APILoader::request(std::move(requestAlerts));
+        if (!alertsAreas.isEmpty()) {
+            APIRequest requestAlerts = API::alerts(alertsAreas);
+            APILoader::request(std::move(requestAlerts));
+        } else {
+            std::vector<std::unique_ptr<WeatherAlert>> alerts;
+            current()->alerts()->update(alerts);
+        }
     }
 }
 
