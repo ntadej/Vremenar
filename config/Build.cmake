@@ -48,6 +48,11 @@ message(STATUS "Store deployment: ${VREMENAR_STORE}")
 # compiler
 set(CMAKE_CXX_STANDARD 17)
 set(QT_QML_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/qml")
+if(CMAKE_GENERATOR STREQUAL "Xcode")
+    set(CMAKE_IS_XCODE 1)
+else()
+    set(CMAKE_IS_XCODE 0)
+endif()
 
 add_library(
     Vremenar-compiler-options INTERFACE
@@ -60,7 +65,7 @@ target_compile_options(
         $<$<AND:$<COMPILE_LANGUAGE:CXX>,$<NOT:$<PLATFORM_ID:Windows>>>:-Wconversion>
         $<$<AND:$<COMPILE_LANGUAGE:CXX>,$<NOT:$<PLATFORM_ID:Windows>>>:-Wextra>
         $<$<AND:$<COMPILE_LANGUAGE:CXX>,$<NOT:$<PLATFORM_ID:Windows>>,$<NOT:$<PLATFORM_ID:Linux>>>:-Wshadow>
-        $<$<AND:$<COMPILE_LANGUAGE:CXX>,$<NOT:$<PLATFORM_ID:Windows>>>:-Werror>
+        $<$<AND:$<COMPILE_LANGUAGE:CXX>,$<NOT:$<PLATFORM_ID:Windows>>,$<NOT:$<BOOL:${CMAKE_IS_XCODE}>>>:-Werror>
         $<$<AND:$<COMPILE_LANGUAGE:CXX>,$<NOT:$<PLATFORM_ID:Windows>>>:-Wno-unknown-pragmas>
         $<$<AND:$<COMPILE_LANGUAGE:CXX>,$<NOT:$<PLATFORM_ID:Windows>>,$<NOT:$<PLATFORM_ID:Linux>>>:-Wno-gnu-zero-variadic-macro-arguments>
         $<$<AND:$<COMPILE_LANGUAGE:CXX>,$<NOT:$<PLATFORM_ID:Windows>>>:-pedantic>

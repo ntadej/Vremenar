@@ -73,13 +73,11 @@ if(NOT CMAKE_GENERATOR STREQUAL "Xcode")
 endif()
 
 # Assets
-execute_process(
-    COMMAND xcrun actool --compile "${RESOURCES_OUTPUT_PATH}" --platform macosx --minimum-deployment-target ${CMAKE_OSX_DEPLOYMENT_TARGET} "${CMAKE_SOURCE_DIR}/resources/macOS/Assets.xcassets" > /dev/null 2>&1
-    OUTPUT_VARIABLE VREMENAR_ASSETS_LOG
-)
-
 if(CMAKE_GENERATOR STREQUAL "Xcode")
-    set(APPLE_MACOS_ASSET_CATALOGS "${CMAKE_SOURCE_DIR}/resources/macOS/Vremenar.icns")
+    set(APPLE_MACOS_ASSET_CATALOGS
+        "${CMAKE_SOURCE_DIR}/resources/macOS/Assets.xcassets"
+        "${CMAKE_SOURCE_DIR}/resources/macOS/Vremenar.icns"
+    )
 
     configure_file("${CMAKE_SOURCE_DIR}/resources/macOS/container-migration.plist" "${CMAKE_BINARY_DIR}/container-migration.plist" COPYONLY)
     set(APPLE_MACOS_CONTAINERMIGRATION "${CMAKE_BINARY_DIR}/container-migration.plist")
@@ -90,6 +88,11 @@ if(CMAKE_GENERATOR STREQUAL "Xcode")
         ${CMAKE_SOURCE_DIR}/resources/iOS/sl.lproj
     )
 else()
+    execute_process(
+        COMMAND xcrun actool --compile "${RESOURCES_OUTPUT_PATH}" --platform macosx --minimum-deployment-target ${CMAKE_OSX_DEPLOYMENT_TARGET} "${CMAKE_SOURCE_DIR}/resources/macOS/Assets.xcassets" > /dev/null 2>&1
+        OUTPUT_VARIABLE VREMENAR_ASSETS_LOG
+    )
+
     file(COPY "${CMAKE_SOURCE_DIR}/resources/macOS/Vremenar.icns" DESTINATION "${RESOURCES_OUTPUT_PATH}")
 
     configure_file("${CMAKE_SOURCE_DIR}/resources/macOS/container-migration.plist" "${RESOURCES_OUTPUT_PATH}/container-migration.plist" COPYONLY)
