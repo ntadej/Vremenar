@@ -57,10 +57,6 @@ public slots:
                         qreal devicePixelRatio = 1.0);
     void weatherSourceChanged(int source);
     void locationSettingChanged(int setting);
-    void restartApp();
-
-signals:
-    void requestRestart();
 
 #ifndef VREMENAR_MOBILE
 public slots:

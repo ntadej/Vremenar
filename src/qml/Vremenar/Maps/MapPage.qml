@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -56,10 +56,7 @@ MapPageBase {
         maximumZoomLevel: VWeather.maxZoomLevel
         maximumTilt: 0
 
-        Component.onCompleted: {
-            center = VLocation.initial
-            centerBehavior.enabled = true
-        }
+        Component.onCompleted: reinitPosition()
 
         property bool loading: false
 
@@ -131,6 +128,11 @@ MapPageBase {
                 centerBehavior.enabled = true
                 bearing = 0
             }
+        }
+
+        function reinitPosition() {
+            center = VLocation.initial
+            centerBehavior.enabled = true
         }
     }
 }

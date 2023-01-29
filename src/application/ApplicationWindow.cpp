@@ -45,11 +45,6 @@
 
 #include "ApplicationWindow.h"
 
-namespace
-{
-constexpr int RESTART_TIMEOUT{500};
-}
-
 namespace Vremenar
 {
 
@@ -117,7 +112,6 @@ ApplicationWindow::ApplicationWindow(QObject *parent)
         _qmlFileSelector->setExtraSelectors(extraSelectors);
     }
 
-    connect(this, &ApplicationWindow::requestRestart, this, &ApplicationWindow::restartApp);
 #ifndef VREMENAR_MOBILE
     auto *application = qobject_cast<DesktopApplication *>(QCoreApplication::instance());
     connect(application, &QCoreApplication::aboutToQuit, this, &ApplicationWindow::writeSettingsStartup);
@@ -424,9 +418,13 @@ void ApplicationWindow::weatherSourceChanged(int source)
         settings.resetStartupMapCoordinates();
         settings.writeSettings();
 
-        // Do not override startup map coordinates
-        _ready = false;
-        QTimer::singleShot(RESTART_TIMEOUT, this, &ApplicationWindow::restartApp);
+        _weatherProvider->resetSource();
+        _location->resetPosition();
+
+        auto *mapObject = _qmlMainWindow->findChild<QObject *>(QStringLiteral("mapObject"));
+        if (mapObject != nullptr) {
+            QMetaObject::invokeMethod(mapObject, "reinitPosition");
+        }
     } else {
         settings.setWeatherSourceInitialChoice(true);
         settings.writeSettings();
@@ -445,11 +443,6 @@ void ApplicationWindow::locationSettingChanged(int setting)
     settings.writeSettings();
 
     _location->locationSettingsChanged();
-}
-
-void ApplicationWindow::restartApp()
-{
-    QCoreApplication::exit(Application::RESTART_CODE);
 }
 
 } // namespace Vremenar

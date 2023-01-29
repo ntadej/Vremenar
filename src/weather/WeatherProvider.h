@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -42,7 +42,7 @@ public:
 
     Q_PROPERTY(qreal minZoomLevel READ minZoomLevel CONSTANT)
     Q_PROPERTY(qreal maxZoomLevel READ maxZoomLevel CONSTANT)
-    Q_PROPERTY(QJsonObject copyrightLink READ copyrightLinkJson CONSTANT)
+    Q_PROPERTY(QJsonObject copyrightLink READ copyrightLinkJson NOTIFY copyrightChanged)
     Q_PROPERTY(QDateTime lastUpdateTime READ lastUpdateTime NOTIFY lastUpdateTimeChanged)
     Q_PROPERTY(bool loading READ loading NOTIFY loadingChanged)
     Q_PROPERTY(int currentMapStyle READ currentMapStyle WRITE currentMapStyleChanged NOTIFY currentMapStyleChangedSignal)
@@ -62,6 +62,7 @@ public:
     Q_INVOKABLE void requestCurrentWeatherInfo(const QGeoCoordinate &coordinate);
     Q_INVOKABLE void requestWeatherMapDetails(const QString &url);
     Q_INVOKABLE void requestMapLayers(Weather::MapType type);
+    Q_INVOKABLE void resetSource(bool load = true);
 
     [[nodiscard]] bool currentMapLayerHasLegend() const;
     [[nodiscard]] inline qreal minZoomLevel() const { return 7.5; } // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
@@ -98,6 +99,7 @@ signals:
     void currentMapLayerHasLegendChangedSignal(bool);
     void stationsUpdated();
     void storeState();
+    void copyrightChanged();
 
 private slots:
     void response(QNetworkReply *reply) final;

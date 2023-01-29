@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -49,16 +49,7 @@ WeatherProvider::WeatherProvider(NetworkManager *network,
       _timer(std::make_unique<QTimer>(this)),
       _timerCurrent(std::make_unique<QTimer>(this))
 {
-    Settings settings(this);
-    if (settings.weatherSource() == Sources::Germany) {
-        _copyrightLink = std::make_unique<Hyperlink>(
-            QStringLiteral("© Deutscher Wetterdienst"),
-            QStringLiteral("https://dwd.de"));
-    } else {
-        _copyrightLink = std::make_unique<Hyperlink>(
-            QStringLiteral("© ") + tr("Slovenian Environment Agency"),
-            QStringLiteral("https://www.arso.gov.si"));
-    }
+    resetSource(false);
 
     weatherMap()->setSourceModel(_weatherMapModel.get());
     mapLayers()->setSourceModel(_mapLayersModel.get());
@@ -72,10 +63,32 @@ WeatherProvider::WeatherProvider(NetworkManager *network,
     connect(_timer.get(), &QTimer::timeout, this, &WeatherProvider::timerCallback);
     connect(_timerCurrent.get(), &QTimer::timeout, this, &WeatherProvider::timerCallbackCurrent);
 
+    Settings settings(this);
     if (settings.startupMapEnabled()) {
         changeMapStyle(settings.startupMapStyle());
     } else {
         changeMapStyle(Weather::MapStyle::SatelliteMapStyle);
+    }
+}
+
+void WeatherProvider::resetSource(bool load)
+{
+    Settings settings(this);
+    if (settings.weatherSource() == Sources::Germany) {
+        _copyrightLink = std::make_unique<Hyperlink>(
+            QStringLiteral("© Deutscher Wetterdienst"),
+            QStringLiteral("https://dwd.de"));
+    } else {
+        _copyrightLink = std::make_unique<Hyperlink>(
+            QStringLiteral("© ") + tr("Slovenian Environment Agency"),
+            QStringLiteral("https://www.arso.gov.si"));
+    }
+    emit copyrightChanged();
+
+    _currentType = Weather::UnknownMapType;
+    _currentWeather->clear();
+    if (load) {
+        requestStations();
     }
 }
 

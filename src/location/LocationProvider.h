@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -33,7 +33,7 @@ class LocationProvider : public QObject
     Q_OBJECT
     Q_PROPERTY(bool supported READ supported CONSTANT)
     Q_PROPERTY(bool enabled READ enabled NOTIFY enabledChanged)
-    Q_PROPERTY(QGeoCoordinate initial READ initialPosition CONSTANT)
+    Q_PROPERTY(QGeoCoordinate initial READ initialPosition NOTIFY initialPositionChanged)
     Q_PROPERTY(QGeoCoordinate position READ currentPosition NOTIFY positionChanged)
     Q_PROPERTY(QString location READ currentLocation NOTIFY locationChanged)
 public:
@@ -46,6 +46,7 @@ public:
     [[nodiscard]] QGeoCoordinate currentPosition() const;
     [[nodiscard]] QString currentLocation() const;
 
+    Q_INVOKABLE void resetPosition();
     Q_INVOKABLE void requestPositionUpdate();
     Q_INVOKABLE [[nodiscard]] bool validate(const QGeoCoordinate &coordinate) const;
     Q_INVOKABLE [[nodiscard]] QGeoCoordinate validateAndCorrect(const QGeoCoordinate &coordinate) const;
@@ -53,6 +54,7 @@ public:
 signals:
     void enabledChanged(bool);
     void positionChanged(QGeoCoordinate);
+    void initialPositionChanged(QGeoCoordinate);
     void locationChanged();
 
 public slots:

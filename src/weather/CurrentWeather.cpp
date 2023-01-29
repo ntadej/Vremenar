@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -18,6 +18,16 @@ CurrentWeather::CurrentWeather(QObject *parent)
     : QObject(parent),
       _alerts(std::make_unique<WeatherAlertModel>(this))
 {
+}
+
+void CurrentWeather::clear()
+{
+    _station.reset();
+    _condition.reset();
+    _alerts->clear();
+
+    emit stationChanged(nullptr);
+    emit conditionChanged(nullptr);
 }
 
 void CurrentWeather::setStation(std::unique_ptr<StationInfo> station)

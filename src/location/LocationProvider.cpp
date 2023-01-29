@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -42,6 +42,7 @@ LocationProvider::LocationProvider(StationListModel *stations, QObject *parent)
 {
     Settings settings(this);
     _initialPosition = QGeoPositionInfo(QGeoCoordinate(settings.startupMapLatitude(), settings.startupMapLongitude()), QDateTime::currentDateTime());
+    emit initialPositionChanged(_initialPosition.coordinate());
 
 #if defined(VREMENAR_POSITIONING) && defined(Q_OS_ANDROID)
     if (!initAndroid()) {
@@ -144,6 +145,14 @@ bool LocationProvider::enabled()
 
     return (settings.locationSource() == Location::Coordinate && !(settings.locationLatitude() == 0 && settings.locationLongitude() == 0))
            || (settings.locationSource() == Location::Station && !settings.locationStation().isEmpty());
+}
+
+void LocationProvider::resetPosition()
+{
+    Settings settings(this);
+    _initialPosition = QGeoPositionInfo(QGeoCoordinate(settings.startupMapLatitude(), settings.startupMapLongitude()), QDateTime::currentDateTime());
+
+    emit initialPositionChanged(_initialPosition.coordinate());
 }
 
 void LocationProvider::requestPositionUpdate()
