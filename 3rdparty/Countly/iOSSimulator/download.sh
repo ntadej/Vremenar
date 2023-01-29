@@ -2,7 +2,7 @@
 
 LOCATION=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 
-COUNTLY_VERSION="22.06.1.0"
+COUNTLY_VERSION="22.09.0.0"
 
 echo "Downloading Countly"
 
