@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -18,6 +18,7 @@ import android.app.NotificationManager;
 import android.app.UiModeManager;
 import android.content.Context;
 import android.content.res.Configuration;
+import android.graphics.Insets;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -27,7 +28,7 @@ import android.view.WindowInsets;
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;
@@ -63,25 +64,27 @@ public class VremenarActivity extends QtActivity
     }
 
     public boolean checkPlayServices() {
-        int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
+        int resultCode = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(this);
         return resultCode == ConnectionResult.SUCCESS;
     }
 
     public int[] getSafeAreMargins() {
         int[] margins = new int[4];
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            View decorView = getWindow().getDecorView();
+            Insets insets = decorView.getRootWindowInsets().getInsetsIgnoringVisibility(WindowInsets.Type.systemBars());
+            margins[0] = insets.top;
+            margins[1] = insets.bottom;
+            margins[2] = insets.left;
+            margins[3] = insets.right;
+        } else {
             View decorView = getWindow().getDecorView();
             WindowInsets insets = decorView.getRootWindowInsets();
             margins[0] = insets.getStableInsetTop();
             margins[1] = insets.getStableInsetBottom();
             margins[2] = insets.getStableInsetLeft();
             margins[3] = insets.getStableInsetRight();
-        } else {
-            margins[0] = 0;
-            margins[1] = 0;
-            margins[2] = 0;
-            margins[3] = 0;
         }
 
         return margins;
@@ -116,20 +119,16 @@ public class VremenarActivity extends QtActivity
         }
 
         NotificationManager manager = getSystemService(NotificationManager.class);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            if (!manager.areNotificationsEnabled()) {
+        if (!manager.areNotificationsEnabled()) {
+            return false;
+        }
+        List<NotificationChannel> channels = manager.getNotificationChannels();
+        for (NotificationChannel channel : channels) {
+            if (channel.getImportance() == NotificationManager.IMPORTANCE_NONE) {
                 return false;
             }
-            List<NotificationChannel> channels = manager.getNotificationChannels();
-            for (NotificationChannel channel : channels) {
-                if (channel.getImportance() == NotificationManager.IMPORTANCE_NONE) {
-                    return false;
-                }
-            }
-            return true;
-        } else {
-            return manager.areNotificationsEnabled();
         }
+        return true;
     }
 
     public void notificationsSubscribe(String topic) {
@@ -170,22 +169,18 @@ public class VremenarActivity extends QtActivity
 
         super.onCreateHook(savedInstanceState);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            View decorView = getWindow().getDecorView();
-            // Hide the status bar.
-            int uiOptions = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
-            decorView.setSystemUiVisibility(uiOptions);
-        }
+        View decorView = getWindow().getDecorView();
+        // Hide the status bar.
+        int uiOptions = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+        decorView.setSystemUiVisibility(uiOptions);
 
         // Initialise notifications
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationManager notificationManager =
-                    getSystemService(NotificationManager.class);
-            notificationManager.createNotificationChannel(
-                new NotificationChannel("vremenar_forecast", "Forecast", NotificationManager.IMPORTANCE_LOW));
-            notificationManager.createNotificationChannel(
-                new NotificationChannel("vremenar_alerts", "Weather Alerts", NotificationManager.IMPORTANCE_HIGH));
-        }
+        NotificationManager notificationManager =
+                getSystemService(NotificationManager.class);
+        notificationManager.createNotificationChannel(
+            new NotificationChannel("vremenar_forecast", "Forecast", NotificationManager.IMPORTANCE_LOW));
+        notificationManager.createNotificationChannel(
+            new NotificationChannel("vremenar_alerts", "Weather Alerts", NotificationManager.IMPORTANCE_HIGH));
 
         // Initialise Countly
         CountlyConfig config = new CountlyConfig(this, VremenarCountlyNativeInterface.appKey(), VremenarCountlyNativeInterface.endpoint());
@@ -223,11 +218,9 @@ public class VremenarActivity extends QtActivity
     {
         super.onWindowFocusChanged(hasFocus);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            View decorView = getWindow().getDecorView();
-            // Hide the status bar.
-            int uiOptions = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
-            decorView.setSystemUiVisibility(uiOptions);
-        }
+        View decorView = getWindow().getDecorView();
+        // Hide the status bar.
+        int uiOptions = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+        decorView.setSystemUiVisibility(uiOptions);
     }
 } 
