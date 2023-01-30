@@ -27,6 +27,11 @@ QMAKE_CXXFLAGS += -Wno-shorten-64-to-32 -Wno-unused-command-line-argument
     LIBS += -Wl,-e,_qt_main_wrapper
 }
 
+# Disable bitcode
+Q_ENABLE_BITCODE.name = ENABLE_BITCODE
+Q_ENABLE_BITCODE.value = NO
+QMAKE_MAC_XCODE_SETTINGS += Q_ENABLE_BITCODE
+
 # Define substitution files
 iOSPlist.input = $$top_srcdir/resources/iOS/Info.plist.qmake.in
 iOSPlist.output = $$OUT_PWD/Info.plist
