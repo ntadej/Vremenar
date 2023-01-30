@@ -1,7 +1,7 @@
 #define VremenarAppName \"Vremenar\"
 #define VremenarAppVersion \"$${VERSION}\"
 #define VremenarAppPublisher \"Tadej Novak\"
-#define VremenarAppURL \"https://vremenar.tano.si\"
+#define VremenarAppURL \"https://vremenar.app\"
 #define VremenarAppExeName \"Vremenar.exe\"
 #define VremenarAppId \"si.tano.Vremenar\"
 #define VremenarAppInstallFolder \"..\"

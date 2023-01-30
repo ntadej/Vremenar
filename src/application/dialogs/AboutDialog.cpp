@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -63,8 +63,8 @@ AboutDialog::AboutDialog(WeatherProvider *weatherProvider,
     }
 
     auto homepage = std::make_unique<Hyperlink>(
-        QStringLiteral("https://vremenar.tano.si"),
-        QStringLiteral("https://vremenar.tano.si"));
+        QStringLiteral("https://vremenar.app"),
+        QStringLiteral("https://vremenar.app"));
 
     ui->labelVremenar->setText(tr("Vremenar Weather"));
     ui->labelVersion->setText(tr("Version %1 (%2)").arg(Vremenar::version, QString::number(Vremenar::build)));

@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -94,13 +94,13 @@ void Updates::compareVersion(const QString &stable,
         if (!stableVersion.isNull() && currentVersion < stableVersion) {
             qDebug() << "Update available:" << stableVersion;
             _message = tr("An update is available. Do you want to download it now?");
-            _url = QStringLiteral("https://vremenar.tano.si");
+            _url = QStringLiteral("https://vremenar.app");
             emit messageChanged();
             emit updateAvailable();
         } else if (!betaVersion.isNull() && currentVersion < betaVersion) {
             qDebug() << "Testing update available:" << betaVersion;
             _message = tr("A new testing update is available. Do you want to download it now?");
-            _url = QStringLiteral("https://vremenar.tano.si");
+            _url = QStringLiteral("https://vremenar.app");
             emit messageChanged();
             emit updateAvailable();
         } else {
