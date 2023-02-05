@@ -1,0 +1,90 @@
+name: Windows CI
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - "**"
+    tags:
+      - "**"
+    paths-ignore:
+      - ".gitignore"
+      - "README.md"
+      # ignore CI for other platforms
+      - ".github/actions/**"
+      - ".github/workflows/CI-Android.yml"
+      - ".github/workflows/CI-iOS-Qt5.yml"
+      - ".github/workflows/CI-iOS.yml"
+      - ".github/workflows/CI-Linux.yml"
+      - ".github/workflows/CI-macOS.yml"
+      - ".github/workflows/CI-Windows-Qt5.yml"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
+env:
+  QT_VERSION: 6.4.2
+  MAPLIBRE_VERSION: 2.1.0
+
+jobs:
+  build-plugin:
+    name: Build Vremenar (Windows x64)
+    runs-on: windows-2022
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          path: source
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Download Qt
+        uses: jurplel/install-qt-action@v3
+        with:
+          aqtversion: ==3.0.*
+          version: ${{ env.QT_VERSION }}
+          target: desktop
+          arch: win64_msvc2019_64
+          modules: qtpositioning qtshadertools
+
+      - name: Download MapLibre
+        shell: bash
+        run: |
+          choco upgrade wget
+          wget.exe https://github.com/ntadej/qt-geoservices-maplibre-gl/releases/download/v${MAPLIBRE_VERSION}/qt-geoservices-maplibre-gl_v${MAPLIBRE_VERSION}_Qt${QT_VERSION}_win64_msvc2019.tar.bz2
+          tar xvf qt-geoservices-maplibre-gl_v${MAPLIBRE_VERSION}_Qt${QT_VERSION}_win64_msvc2019.tar.bz2 -C ..
+
+      - name: Setup ninja
+        uses: seanmiddleditch/gha-setup-ninja@v3
+
+      - name: Setup MSVC
+        uses: ilammy/msvc-dev-cmd@v1
+        with:
+          arch: x64
+          toolset: 14.29
+
+      - name: Configure & prepare
+        shell: bash
+        working-directory: source
+        env:
+          CONFIG_CMAKE: ${{ secrets.CONFIG_CMAKE }}
+        run: |
+          echo $CONFIG_CMAKE | base64 --decode > Config.cmake
+
+          pushd ../.. > /dev/null || exit
+          if [[ -f "Qt/$QT_VERSION/msvc2019_64/lib/cmake/Qt6Qml/Qt6QmlMacros.cmake" ]]; then
+            patch Qt/$QT_VERSION/msvc2019_64/lib/cmake/Qt6Qml/Qt6QmlMacros.cmake Vremenar/source/3rdparty/qml.patch
+          fi
+          popd > /dev/null || exit
+
+      - name: Build
+        shell: bash
+        run: |
+          mkdir build && cd build
+          qt-cmake.bat ../source/ \
+            -G Ninja \
+            -DCMAKE_BUILD_TYPE="Release" \
+            -DVREMENAR_STORE=ON
+          ninja.exe
+          DESTDIR=../install ninja.exe install
