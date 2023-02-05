@@ -8,5 +8,7 @@ echo "Downloading Countly"
 
 set -x
 
-wget -nv -O "${LOCATION}/Countly-iOSSimulator.tar.bz2" "https://github.com/ntadej/countly-sdk-ios/releases/download/${COUNTLY_VERSION}/Countly_${COUNTLY_VERSION}_iOSSimulator.tar.bz2"
+if [[ ! -f "${LOCATION}/Countly-iOSSimulator.tar.bz2" ]]; then
+  wget -nv -O "${LOCATION}/Countly-iOSSimulator.tar.bz2" "https://github.com/ntadej/countly-sdk-ios/releases/download/${COUNTLY_VERSION}/Countly_${COUNTLY_VERSION}_iOSSimulator.tar.bz2"
+fi
 tar -C "${LOCATION}" -xf "${LOCATION}/Countly-iOSSimulator.tar.bz2"
