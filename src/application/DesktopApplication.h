@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -31,7 +31,7 @@ public:
     bool eventFilter(QObject *object,
                      QEvent *event) override;
 
-#if defined(Q_OS_MACOS) || defined(Q_OS_WINDOWS)
+#if defined(Q_OS_MACOS) || (QT_VERSION < QT_VERSION_CHECK(6, 0, 0) && defined(Q_OS_WINDOWS))
     void setupTitleBarLessWindow(quintptr winId,
                                  qreal devicePixelRatio = 1.0);
 #endif
@@ -45,7 +45,7 @@ public:
 public slots:
     void dockClickedCallback();
     void dockSetVisibility(bool visible);
-#elif defined(Q_OS_WINDOWS)
+#elif QT_VERSION < QT_VERSION_CHECK(6, 0, 0) && defined(Q_OS_WINDOWS)
     void setPrimaryWindowDevicePixelRatio(qreal ratio);
 #endif
 
@@ -65,7 +65,7 @@ private:
                                 char **argv,
                                 QObject *parent = nullptr);
 
-#if defined(Q_OS_WINDOWS)
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0) && defined(Q_OS_WINDOWS)
 private:
     std::unique_ptr<NativeEventFilterWin32> _nativeEventFilter{};
 #endif

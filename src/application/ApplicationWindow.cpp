@@ -307,7 +307,7 @@ void ApplicationWindow::updateTrayIcon()
 
 void ApplicationWindow::setPrimaryWindowDevicePixelRatio(qreal ratio)
 {
-#ifdef Q_OS_WINDOWS
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0) && defined(Q_OS_WINDOWS)
     auto *application = qobject_cast<DesktopApplication *>(QCoreApplication::instance());
     application->setPrimaryWindowDevicePixelRatio(ratio);
 #else
@@ -388,7 +388,7 @@ void ApplicationWindow::startCompleted(QQuickWindow *window,
 
     _qmlMainWindow = gsl::owner<QQuickWindow *>(window);
     connect(_qmlMainWindow, &QQuickWindow::visibleChanged, this, &ApplicationWindow::visibilityChanged);
-#if defined(Q_OS_MACOS) || defined(Q_OS_WINDOWS)
+#if defined(Q_OS_MACOS) || (QT_VERSION < QT_VERSION_CHECK(6, 0, 0) && defined(Q_OS_WINDOWS))
     auto *application = qobject_cast<DesktopApplication *>(QCoreApplication::instance());
     application->setupTitleBarLessWindow(window->winId(), devicePixelRatio);
 #else

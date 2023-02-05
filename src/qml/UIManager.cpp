@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -82,7 +82,7 @@ void Qml::UIManager::setTheme(Common::Theme theme)
 
 bool Qml::UIManager::customWindowButtons() const
 {
-#if defined(Q_OS_WINDOWS)
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0) && defined(Q_OS_WINDOWS)
     return true;
 #else
     return false;

@@ -31,14 +31,11 @@ qt_add_executable(Vremenar WIN32 MACOSX_BUNDLE
     $<$<NOT:$<BOOL:${MOBILE}>>:application/DesktopApplication.cpp>
     $<$<NOT:$<BOOL:${MOBILE}>>:application/DesktopApplication.h>
     $<$<PLATFORM_ID:Darwin>:application/DesktopApplicationMacOS.mm>
-    $<$<PLATFORM_ID:Windows>:application/DesktopApplicationWin32.cpp>
     $<$<OR:$<PLATFORM_ID:Darwin>,$<PLATFORM_ID:iOS>>:application/ImageProviderMacOSiOS.h>
     $<$<OR:$<PLATFORM_ID:Darwin>,$<PLATFORM_ID:iOS>>:application/ImageProviderMacOSiOS.mm>
     $<$<BOOL:${MOBILE}>:application/MobileApplication.cpp>
     $<$<BOOL:${MOBILE}>:application/MobileApplication.h>
     $<$<PLATFORM_ID:iOS>:application/MobileApplicationIOS.mm>
-    $<$<PLATFORM_ID:Windows>:application/NativeEventFilterWin32.cpp>
-    $<$<PLATFORM_ID:Windows>:application/NativeEventFilterWin32.h>
     application/NotificationsManager.cpp
     application/NotificationsManager.h
     $<$<PLATFORM_ID:Android>:application/NotificationsManagerAndroid.cpp>
@@ -329,5 +326,18 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
         ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
         INCLUDES DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
         PUBLIC_HEADER DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
+    )
+endif()
+
+if(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
+    target_link_libraries(Vremenar PRIVATE
+        dwmapi.lib
+        user32.lib
+        $<$<NOT:$<BOOL:${VREMENAR_STORE}>>:${WinSparkle}>
+    )
+
+    install(TARGETS Vremenar
+        BUNDLE DESTINATION .
+        RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}"
     )
 endif()

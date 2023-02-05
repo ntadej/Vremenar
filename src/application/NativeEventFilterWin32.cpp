@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -29,10 +29,14 @@ NativeEventFilterWin32::NativeEventFilterWin32(quintptr winId,
 // NOLINTNEXTLINE(readability-function-cognitive-complexity)
 bool NativeEventFilterWin32::nativeEventFilter(const QByteArray &eventType,
                                                void *message,
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+                                               qintptr *result) // NOLINT(google-runtime-int)
+#else
                                                long *result) // NOLINT(google-runtime-int)
+#endif
 {
     if (eventType.compare("windows_generic_MSG") == 0) {
-        MSG* msg = static_cast<MSG *>(message);
+        MSG *msg = static_cast<MSG *>(message);
         if (msg == Q_NULLPTR) {
             return false;
         }
@@ -42,13 +46,13 @@ bool NativeEventFilterWin32::nativeEventFilter(const QByteArray &eventType,
             return false;
         }
 
-        switch(msg->message) {
+        switch (msg->message) {
         case WM_COMMAND: {
-          SendMessage(msg->hwnd, WM_SYSCOMMAND, msg->wParam, msg->lParam);
-          *result = DefWindowProc(msg->hwnd, msg->message, msg->wParam, msg->lParam);
-          return true;
+            SendMessage(msg->hwnd, WM_SYSCOMMAND, msg->wParam, msg->lParam);
+            *result = DefWindowProc(msg->hwnd, msg->message, msg->wParam, msg->lParam);
+            return true;
         }
-        case WM_NCCALCSIZE:{
+        case WM_NCCALCSIZE: {
             // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast, performance-no-int-to-ptr)
             auto *params = reinterpret_cast<NCCALCSIZE_PARAMS *>(msg->lParam);
             if (params->rgrc[0].top != 0) {
@@ -69,32 +73,27 @@ bool NativeEventFilterWin32::nativeEventFilter(const QByteArray &eventType,
             // caption, a.k.a. title bar
             auto titleBarHeight = static_cast<int>(28. * _devicePixelRatio);     // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
             auto titleBarBtnsWidth = static_cast<int>(135. * _devicePixelRatio); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
-            if (x >= winrect.left && x < winrect.right - titleBarBtnsWidth &&
-                    y > winrect.top + borderWidth && y < winrect.top + titleBarHeight) {
+            if (x >= winrect.left && x < winrect.right - titleBarBtnsWidth && y > winrect.top + borderWidth && y < winrect.top + titleBarHeight) {
                 *result = HTCAPTION;
                 return true;
             }
             // bottom left corner
-            if (x >= winrect.left && x < winrect.left + borderWidth &&
-                y < winrect.bottom && y >= winrect.bottom - borderWidth) {
+            if (x >= winrect.left && x < winrect.left + borderWidth && y < winrect.bottom && y >= winrect.bottom - borderWidth) {
                 *result = HTBOTTOMLEFT;
                 return true;
             }
             // bottom right corner
-            if (x < winrect.right && x >= winrect.right - borderWidth &&
-                y < winrect.bottom && y >= winrect.bottom - borderWidth) {
+            if (x < winrect.right && x >= winrect.right - borderWidth && y < winrect.bottom && y >= winrect.bottom - borderWidth) {
                 *result = HTBOTTOMRIGHT;
                 return true;
             }
             // top left corner
-            if (x >= winrect.left && x < winrect.left + borderWidth &&
-                y >= winrect.top && y < winrect.top + borderWidth) {
+            if (x >= winrect.left && x < winrect.left + borderWidth && y >= winrect.top && y < winrect.top + borderWidth) {
                 *result = HTTOPLEFT;
                 return true;
             }
             // top right corner
-            if (x < winrect.right && x >= winrect.right - borderWidth &&
-                y >= winrect.top && y < winrect.top + borderWidth) {
+            if (x < winrect.right && x >= winrect.right - borderWidth && y >= winrect.top && y < winrect.top + borderWidth) {
                 *result = HTTOPRIGHT;
                 return true;
             }
