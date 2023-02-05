@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -260,6 +260,30 @@ DialogBlurFullWindow {
             bottom: view.bottom
             bottomMargin: UI.safetyMarginBottom + UI.mapElementOffset
             horizontalCenter: parent.horizontalCenter
+        }
+    }
+
+    Image {
+        enabled: UI.customWindowButtons
+        visible: UI.customWindowButtons
+
+        anchors {
+            top: parent.top
+            left: parent.left
+            topMargin: (UI.windowButtonHeight - 24) / 2
+            leftMargin: (UI.windowButtonHeight - 24) / 2
+        }
+
+        source: "qrc:/Vremenar/Logo/24x24/vremenar.png"
+    }
+
+    WindowControlButtons {
+        enabled: UI.customWindowButtons
+        visible: UI.customWindowButtons
+
+        anchors {
+            top: parent.top
+            right: parent.right
         }
     }
 }

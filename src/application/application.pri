@@ -1,6 +1,6 @@
 #
 # Vremenar
-# Copyright (C) 2022 Tadej Novak <tadej@tano.si>
+# Copyright (C) 2023 Tadej Novak <tadej@tano.si>
 #
 # This application is bi-licensed under the GNU General Public License
 # Version 3 or later as well as Mozilla Public License Version 2.
@@ -130,10 +130,16 @@ win32 {
     SOURCES += \
         src/application/DesktopApplicationWin32.cpp \
         src/application/NativeEventFilterWin32.cpp \
-        src/application/NotificationsManagerDummy.cpp \
-        src/application/SparkleHelperWin32.cpp
+        src/application/NotificationsManagerDummy.cpp
 
     HEADERS += \
-        src/application/NativeEventFilterWin32.h \
-        src/application/SparkleHelper.h
+        src/application/NativeEventFilterWin32.h
+
+    !store {
+        SOURCES += \
+            src/application/SparkleHelperWin32.cpp
+
+        HEADERS += \
+            src/application/SparkleHelper.h
+    }
 }
