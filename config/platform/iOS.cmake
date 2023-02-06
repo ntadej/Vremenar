@@ -14,7 +14,7 @@ else()
     set(APPLE_IOS_VARIANT "iOS")
 endif()
 
-set(CMAKE_OSX_DEPLOYMENT_TARGET "13.0")
+set(CMAKE_OSX_DEPLOYMENT_TARGET "13.0" CACHE STRING "iOS deployment target")
 
 # Deployment target and rpath
 set(CMAKE_CXX_VISIBILITY_PRESET hidden)
