@@ -22,7 +22,7 @@ QString Weather::dateDisplay(const QDateTime &time)
 {
     auto current = QDateTime::currentDateTime();
 
-    qint64 diff = current.daysTo(time);
+    const qint64 diff = current.daysTo(time);
     if (diff == 0) {
         return QObject::tr("today");
     }

@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -22,18 +22,18 @@ MapLegendModel::MapLegendModel(QObject *parent)
 
 void MapLegendModel::addMapLegends(const QJsonArray &data)
 {
-    for (const QJsonValue &legendRef : data) {
-        QJsonObject legend = legendRef.toObject();
-        auto type = Weather::mapTypeFromString(legend[QStringLiteral("map_type")].toString());
-        QJsonArray list = legend[QStringLiteral("items")].toArray();
-        for (QJsonValueRef itemRef : list) {
-            QJsonObject item = itemRef.toObject();
+    for (const auto &legendRef : data) {
+        const QJsonObject legend = legendRef.toObject();
+        const auto type = Weather::mapTypeFromString(legend[QStringLiteral("map_type")].toString());
+        const QJsonArray list = legend[QStringLiteral("items")].toArray();
+        for (const auto &itemRef : list) {
+            const QJsonObject item = itemRef.toObject();
 
             QString value = item[QStringLiteral("value")].toString();
             if (item.contains(QStringLiteral("translatable")) && item[QStringLiteral("translatable")].toBool()) {
                 value = translate(value);
             }
-            QString color = item[QStringLiteral("color")].toString();
+            const QString color = item[QStringLiteral("color")].toString();
             bool placeholder{};
             if (item.contains(QStringLiteral("placeholder"))) {
                 placeholder = item[QStringLiteral("placeholder")].toBool();

@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -24,7 +24,7 @@ WeatherMapModel::WeatherMapModel(QObject *parent)
 void WeatherMapModel::addEntries(StationListModel *stations,
                                  const QJsonArray &data)
 {
-    for (const QJsonValue &obj : data) {
+    for (const auto &obj : data) {
         const QJsonObject object = obj.toObject();
         const StationInfo *station = stations->find<StationInfo>(object[QStringLiteral("station")].toObject()[QStringLiteral("id")].toString());
         appendRow(std::make_unique<WeatherInfo>(

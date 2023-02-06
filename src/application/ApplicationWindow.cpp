@@ -142,7 +142,7 @@ ApplicationWindow::ApplicationWindow(QObject *parent)
     appIcon.addFile(QStringLiteral(":/Vremenar/Logo/256x256/vremenar.png"), QSize(256, 256)); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
     QGuiApplication::setWindowIcon(appIcon);
 
-    Settings settings;
+    const Settings settings;
     QApplication::setQuitOnLastWindowClosed(!settings.showInTray());
 #endif
 }
@@ -272,7 +272,7 @@ void ApplicationWindow::createModels()
 #ifndef VREMENAR_MOBILE
 void ApplicationWindow::createWidgets()
 {
-    Settings settings(this);
+    const Settings settings(this);
 
     _trayIcon = std::make_unique<TrayIcon>(this);
     _trayIcon->setVisible(settings.showInTray());
@@ -295,7 +295,7 @@ void ApplicationWindow::createWidgets()
 
 void ApplicationWindow::updateTrayIcon()
 {
-    Settings settings;
+    const Settings settings;
     QApplication::setQuitOnLastWindowClosed(!settings.showInTray());
 
     _trayIcon->setVisible(settings.showInTray());
@@ -377,7 +377,7 @@ void ApplicationWindow::processUrl(const QString &url)
 void ApplicationWindow::startCompleted(QQuickWindow *window,
                                        qreal devicePixelRatio)
 {
-    Settings settings(this);
+    const Settings settings(this);
 #ifdef Q_OS_MACOS
     emit dockVisibilityChanged(settings.showInDock());
 #endif
@@ -386,6 +386,7 @@ void ApplicationWindow::startCompleted(QQuickWindow *window,
     QNativeInterface::QAndroidApplication::hideSplashScreen();
 #endif
 
+    // NOLINTNEXTLINE(google-readability-casting)
     _qmlMainWindow = gsl::owner<QQuickWindow *>(window);
     connect(_qmlMainWindow, &QQuickWindow::visibleChanged, this, &ApplicationWindow::visibilityChanged);
 #if defined(Q_OS_MACOS) || (QT_VERSION < QT_VERSION_CHECK(6, 0, 0) && defined(Q_OS_WINDOWS))
@@ -409,7 +410,7 @@ void ApplicationWindow::weatherSourceChanged(int source)
 {
     auto index = static_cast<size_t>(source);
     std::vector<Sources::Country> sources = {Sources::Slovenia, Sources::Germany};
-    Sources::Country weatherSource = sources[index];
+    const Sources::Country weatherSource = sources[index];
 
     Settings settings(this);
     if (weatherSource != settings.weatherSource()) {

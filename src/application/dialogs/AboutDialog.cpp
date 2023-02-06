@@ -34,7 +34,7 @@ AboutDialog::AboutDialog(WeatherProvider *weatherProvider,
                    | Qt::WindowCloseButtonHint
                    | Qt::CustomizeWindowHint);
 
-    QString additionalStyle;
+    const QString additionalStyle;
 
     QString copyrightMaps;
     for (const std::unique_ptr<Hyperlink> &link : Maps::copyright()) {

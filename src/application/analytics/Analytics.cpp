@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -122,7 +122,7 @@ void Analytics::recordEvent(EventType type,
         return;
     }
 
-    QString event = eventString(type, payload);
+    const QString event = eventString(type, payload);
     _engine->recordEvent(event);
 }
 

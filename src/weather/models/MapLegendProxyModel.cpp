@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -45,7 +45,7 @@ bool MapLegendProxyModel::wide() const
             continue;
         }
 
-        float value = index(i, 0).data(MapLegendItem::DisplayRole).toString().toFloat();
+        const float value = index(i, 0).data(MapLegendItem::DisplayRole).toString().toFloat();
         if (std::fmod(value, 1.F) != 0.F) {
             return true;
         }
@@ -62,10 +62,10 @@ bool MapLegendProxyModel::textBased() const
 bool MapLegendProxyModel::filterAcceptsRow(int sourceRow,
                                            const QModelIndex &sourceParent) const
 {
-    QModelIndex index = sourceModel()->index(sourceRow, 0, sourceParent);
+    const QModelIndex index = sourceModel()->index(sourceRow, 0, sourceParent);
 
-    // bool name = index.data(MapLegendItem::DisplayRole).toString().contains(filterRegExp());
-    bool type = Weather::MapType(index.data(MapLegendItem::TypeRole).toInt()) == _type;
+    // const bool name = index.data(MapLegendItem::DisplayRole).toString().contains(filterRegExp());
+    const bool type = static_cast<Weather::MapType>(index.data(MapLegendItem::TypeRole).toInt()) == _type;
 
     return type;
 }

@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -29,8 +29,10 @@ DesktopApplication DesktopApplication::init(int &argc,
                                             char **argv)
 {
     if (VremenarDelegate::getInstance().ptr() == nullptr) {
+        // NOLINTNEXTLINE(misc-const-correctness)
         VremenarApplicationDelegate *delegate = [[VremenarApplicationDelegate alloc] init];
 
+        // NOLINTNEXTLINE(misc-const-correctness)
         NSApplication *application = [NSApplication sharedApplication];
         [application setDelegate:delegate];
 
@@ -55,7 +57,7 @@ bool dockClickHandler(id self,
 bool DesktopApplication::isDark()
 {
     if (@available(macOS 10.14, *)) {
-        NSAppearanceName basicAppearance = [[NSAppearance currentAppearance] bestMatchFromAppearancesWithNames:@[
+        const NSAppearanceName basicAppearance = [[NSAppearance currentAppearance] bestMatchFromAppearancesWithNames:@[
             NSAppearanceNameAqua,
             NSAppearanceNameDarkAqua
         ]];
@@ -68,18 +70,19 @@ bool DesktopApplication::isDark()
 bool DesktopApplication::supportsSFSymbols()
 {
     if (@available(macOS 11.0, *)) {
-        return true;
-    } else {
+        return true; // NOLINT(readability-simplify-boolean-expr)
+    } else {         // NOLINT(readability-else-after-return)
         return false;
     }
 }
 
 void DesktopApplication::setupDockHandler()
 {
+    // NOLINTNEXTLINE(misc-const-correctness)
     NSApplication *appInst = [NSApplication sharedApplication];
 
     if (appInst != nullptr) {
-        Class delClass = [[appInst delegate] class];
+        const Class delClass = [[appInst delegate] class];
         SEL shouldHandle = sel_registerName("applicationShouldHandleReopen:hasVisibleWindows:");
         if (class_getInstanceMethod(delClass, shouldHandle) != nullptr) {
             // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
@@ -110,22 +113,24 @@ void DesktopApplication::dockSetVisibility(bool visible)
 
 void DesktopApplication::dockShow()
 {
-    BOOL active = [[NSRunningApplication currentApplication] isActive];
+    const BOOL active = [[NSRunningApplication currentApplication] isActive];
     ProcessSerialNumber psn = {0, kCurrentProcess};
     if (active != 0) {
         // Workaround buggy behavior of TransformProcessType.
         // http://stackoverflow.com/questions/7596643/
+        // NOLINTNEXTLINE(misc-const-correctness)
         NSArray *runningApps = [NSRunningApplication
             runningApplicationsWithBundleIdentifier:@"com.apple.dock"];
+        // NOLINTNEXTLINE(misc-const-correctness)
         NSRunningApplication *app = nullptr;
         for (app in runningApps) {
             [app activateWithOptions:NSApplicationActivateIgnoringOtherApps];
             break;
         }
-        dispatch_time_t one_ms_1 = dispatch_time(DISPATCH_TIME_NOW, USEC_PER_SEC);
+        const dispatch_time_t one_ms_1 = dispatch_time(DISPATCH_TIME_NOW, USEC_PER_SEC);
         dispatch_after(one_ms_1, dispatch_get_main_queue(), ^{
           TransformProcessType(&psn, kProcessTransformToForegroundApplication);
-          dispatch_time_t one_ms_2 = dispatch_time(DISPATCH_TIME_NOW, USEC_PER_SEC);
+          const dispatch_time_t one_ms_2 = dispatch_time(DISPATCH_TIME_NOW, USEC_PER_SEC);
           dispatch_after(one_ms_2, dispatch_get_main_queue(), ^{
             [[NSRunningApplication currentApplication]
                 activateWithOptions:NSApplicationActivateIgnoringOtherApps];
@@ -138,15 +143,17 @@ void DesktopApplication::dockShow()
 
 void DesktopApplication::dockHide()
 {
-    QWindowList windows = QGuiApplication::allWindows();
+    const QWindowList windows = QGuiApplication::allWindows();
 
     for (QWindow *window : windows) {
         // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast, performance-no-int-to-ptr)
         auto nativeView = reinterpret_cast<NSView *>(window->winId());
+        // NOLINTNEXTLINE(misc-const-correctness)
         NSWindow *nativeWindow = [nativeView window];
         [nativeWindow setCanHide:NO];
     }
 
+    // NOLINTNEXTLINE(misc-const-correctness)
     ProcessSerialNumber psn = {0, kCurrentProcess};
     TransformProcessType(&psn, kProcessTransformToUIElementApplication);
 
@@ -162,6 +169,7 @@ void DesktopApplication::setupTitleBarLessWindow(quintptr winId,
 
     // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast, performance-no-int-to-ptr)
     auto nativeView = reinterpret_cast<NSView *>(winId);
+    // NOLINTNEXTLINE(misc-const-correctness)
     NSWindow *nativeWindow = [nativeView window];
 
     [nativeWindow setStyleMask:[nativeWindow styleMask] | NSWindowStyleMaskFullSizeContentView | NSWindowTitleHidden];

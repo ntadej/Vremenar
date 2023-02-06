@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -41,7 +41,7 @@ QVariant ListModel::data(const QModelIndex &index,
 void ListModel::handleItemChange()
 {
     auto *item = qobject_cast<ListItem *>(sender());
-    QModelIndex index = indexFromItem(item);
+    const QModelIndex index = indexFromItem(item);
     if (index.isValid()) {
         emit dataChanged(index, index);
     }
@@ -70,7 +70,7 @@ bool ListModel::removeRow(int row, const QModelIndex &parent)
 bool ListModel::removeRows(int row, int count, const QModelIndex &parent)
 {
     Q_UNUSED(parent)
-    int toRemove = row + count;
+    const int toRemove = row + count;
     if (row < 0 || static_cast<size_t>(toRemove) > _list.size()) {
         return false;
     }

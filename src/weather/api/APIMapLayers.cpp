@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -26,8 +26,8 @@ APIRequest API::mapLayers(Weather::MapType type)
         throw std::runtime_error("unknown map");
     }
 
-    QString id = Weather::mapTypeToString(type);
-    QUrlQuery query = Sources::sourceQuery();
+    const QString id = Weather::mapTypeToString(type);
+    const QUrlQuery query = Sources::sourceQuery();
 
     APIRequest request;
     request.setCall(QStringLiteral("/maps/list"));
@@ -39,7 +39,7 @@ APIRequest API::mapLayers(Weather::MapType type)
 
 APIRequest API::mapLegends()
 {
-    QUrlQuery query = Sources::sourceQuery();
+    const QUrlQuery query = Sources::sourceQuery();
 
     APIRequest request;
     request.setCall(QStringLiteral("/maps/legend"));
@@ -50,7 +50,7 @@ APIRequest API::mapLegends()
 
 APIRequest API::mapTypes()
 {
-    QUrlQuery query = Sources::sourceQuery();
+    const QUrlQuery query = Sources::sourceQuery();
 
     APIRequest request;
     request.setCall(QStringLiteral("/maps/types"));

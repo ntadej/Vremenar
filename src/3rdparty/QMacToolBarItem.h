@@ -50,11 +50,11 @@ class QMacToolBarItemPrivate;
 class QMacToolBarItem : public QObject
 {
     Q_OBJECT
-    Q_PROPERTY(bool selectable READ selectable WRITE setSelectable)
-    Q_PROPERTY(StandardItem standardItem READ standardItem WRITE setStandardItem)
-    Q_PROPERTY(QString text READ text WRITE setText)
-    Q_PROPERTY(QIcon icon READ icon WRITE setIcon)
-    Q_ENUMS(StandardItem)
+    Q_PROPERTY(bool selectable READ selectable WRITE setSelectable)               // clazy:exclude=qproperty-without-notify
+    Q_PROPERTY(StandardItem standardItem READ standardItem WRITE setStandardItem) // clazy:exclude=qproperty-without-notify
+    Q_PROPERTY(QString text READ text WRITE setText)                              // clazy:exclude=qproperty-without-notify
+    Q_PROPERTY(QIcon icon READ icon WRITE setIcon)                                // clazy:exclude=qproperty-without-notify
+    Q_ENUMS(StandardItem)                                                         // clazy:exclude=qenums
 
 public:
     enum StandardItem

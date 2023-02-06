@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -33,12 +33,12 @@ namespace Vremenar
 
 namespace Log
 {
-static std::unique_ptr<QTextStream> out;
-static std::unique_ptr<QFile> outFile;
-static std::unique_ptr<QMutex> outMutex;
+static std::unique_ptr<QTextStream> out; // clazy:exclude=non-pod-global-static NOLINT(cppcoreguidelines-avoid-non-const-global-variables)
+static std::unique_ptr<QFile> outFile;   // clazy:exclude=non-pod-global-static NOLINT(cppcoreguidelines-avoid-non-const-global-variables)
+static std::unique_ptr<QMutex> outMutex; // clazy:exclude=non-pod-global-static NOLINT(cppcoreguidelines-avoid-non-const-global-variables)
 
 #ifdef Q_OS_ANDROID
-const static std::string androidName = QString(Vremenar::name).toStdString();
+const static std::string androidName = QString(Vremenar::name).toStdString(); // clazy:exclude=non-pod-global-static
 #endif
 } // namespace Log
 
@@ -48,7 +48,7 @@ void Log::output(QtMsgType type,
 {
     Q_UNUSED(context)
 
-    QMutexLocker locker(outMutex.get());
+    const QMutexLocker locker(outMutex.get());
 
 #ifdef Q_OS_ANDROID
     android_LogPriority priority = ANDROID_LOG_DEFAULT;
@@ -105,7 +105,7 @@ void Log::output(QtMsgType type,
 void Log::setup()
 {
     if (Vremenar::loggingEnabled) {
-        QString fileName = Resources::logLocation() + "/" + Vremenar::name + ".log";
+        const QString fileName = Resources::logLocation() + "/" + Vremenar::name + ".log";
         outFile = std::make_unique<QFile>(fileName);
         if (outFile->open(QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text)) {
             out = std::make_unique<QTextStream>(outFile.get());

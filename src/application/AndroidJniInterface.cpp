@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -81,7 +81,7 @@ namespace Vremenar::Android
 QJniObject activity()
 {
     // NOLINTNEXTLINE(cppcoreguidelines-pro-type-vararg)
-    QJniObject activity = QJniObject::callStaticObjectMethod("org/qtproject/qt/android/QtNative", "activity", "()Landroid/app/Activity;");
+    const QJniObject activity = QJniObject::callStaticObjectMethod("org/qtproject/qt/android/QtNative", "activity", "()Landroid/app/Activity;");
     if (!activity.isValid()) {
         qFatal("Android activity could not be loaded!"); // NOLINT(cppcoreguidelines-pro-type-vararg)
     }

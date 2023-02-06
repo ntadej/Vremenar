@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -42,7 +42,7 @@ public:
 
     explicit StationInfo(const QString &id,
                          QString name,
-                         const QGeoCoordinate &coordinate,
+                         QGeoCoordinate coordinate,
                          qreal zoomLevel,
                          bool forecastOnly,
                          QString alertsArea,

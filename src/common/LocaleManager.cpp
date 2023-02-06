@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -32,7 +32,7 @@ LocaleManager::LocaleManager(QObject *parent)
 
 QStringList LocaleManager::loadLocales()
 {
-    QDir dir(QStringLiteral(":/i18n/"));
+    const QDir dir(QStringLiteral(":/i18n/"));
     QStringList list;
     const QStringList entryList = dir.entryList(QDir::AllEntries);
     for (const QString &fileName : entryList) {
@@ -46,7 +46,7 @@ QStringList LocaleManager::loadLocales()
 
 QString LocaleManager::localeName(const QString &file)
 {
-    QLocale locale = QLocale(file);
+    const QLocale locale = QLocale(file);
     QString name = locale.name();
     QString f = file;
     f = f.remove(QStringLiteral(".qm"));
@@ -61,14 +61,14 @@ QString LocaleManager::localeName(const QString &file)
 void LocaleManager::setLocale()
 {
     // Try settings first
-    Settings settings(this);
+    const Settings settings(this);
     if (!settings.locale().isEmpty()) {
         setLanguageByString(settings.locale(), QStringLiteral("settings"));
         return;
     }
 
     // Try system UI languages
-    QStringList languages = QLocale::system().uiLanguages();
+    const QStringList languages = QLocale::system().uiLanguages();
     for (const QString &lang : languages) {
         if (setLanguageByString(lang, QStringLiteral("UI"))) {
             return;
@@ -82,7 +82,7 @@ void LocaleManager::setLocale()
 bool LocaleManager::setLanguageByString(const QString &lang,
                                         const QString &source)
 {
-    QLocale locale = QLocale(lang);
+    const QLocale locale = QLocale(lang);
     qDebug() << "Trying language" << lang << "from source" << source;
     if (_translator->load(locale, QStringLiteral(":/i18n/"))) {
         _locale = locale.name();

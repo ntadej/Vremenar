@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -16,14 +16,14 @@ namespace Vremenar
 
 StationInfo::StationInfo(const QString &id,
                          QString name,
-                         const QGeoCoordinate &coordinate,
+                         QGeoCoordinate coordinate,
                          qreal zoomLevel,
                          bool forecastOnly,
                          QString alertsArea,
                          QObject *parent)
     : ListItem(parent),
       _name(std::move(name)),
-      _coordinate(coordinate),
+      _coordinate(std::move(coordinate)),
       _zoomLevel(zoomLevel),
       _forecastOnly(forecastOnly),
       _alertsArea(std::move(alertsArea))
@@ -33,16 +33,16 @@ StationInfo::StationInfo(const QString &id,
 
 std::unique_ptr<StationInfo> StationInfo::fromJson(const QJsonObject &json)
 {
-    QString id = json[QStringLiteral("id")].toString();
-    QString name = json[QStringLiteral("name")].toString();
+    const QString id = json[QStringLiteral("id")].toString();
+    const QString name = json[QStringLiteral("name")].toString();
 
-    QJsonObject coordinateObj = json[QStringLiteral("coordinate")].toObject();
-    QGeoCoordinate coordinate{
+    const QJsonObject coordinateObj = json[QStringLiteral("coordinate")].toObject();
+    const QGeoCoordinate coordinate{
         coordinateObj[QStringLiteral("latitude")].toDouble(),
         coordinateObj[QStringLiteral("longitude")].toDouble(),
         coordinateObj[QStringLiteral("altitude")].toDouble()};
 
-    qreal zoomLevel = json[QStringLiteral("zoom_level")].toDouble();
+    const qreal zoomLevel = json[QStringLiteral("zoom_level")].toDouble();
 
     bool forecastOnly{};
     if (json.contains(QStringLiteral("forecast_only"))) {

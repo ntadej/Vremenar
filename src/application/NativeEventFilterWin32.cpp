@@ -67,8 +67,8 @@ bool NativeEventFilterWin32::nativeEventFilter(const QByteArray &eventType,
             const LONG borderWidth = 8; //in pixels
             RECT winrect;
             GetWindowRect(msg->hwnd, &winrect);
-            int32_t x = GET_X_LPARAM(msg->lParam);
-            int32_t y = GET_Y_LPARAM(msg->lParam);
+            const int32_t x = GET_X_LPARAM(msg->lParam);
+            const int32_t y = GET_Y_LPARAM(msg->lParam);
 
             // caption, a.k.a. title bar
             auto titleBarHeight = static_cast<int>(28. * _devicePixelRatio);     // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)

@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -36,19 +36,19 @@ AnalyticsEngineCpp::AnalyticsEngineCpp(NetworkManager *network)
     }
 
 #ifdef Q_OS_WINDOWS
-    QString platform = QStringLiteral("Windows");
+    const QString platform = QStringLiteral("Windows");
 #else
-    QString platform = QStringLiteral("Linux");
+    const QString platform = QStringLiteral("Linux");
 #endif
 
-    QScreen *screen = QGuiApplication::primaryScreen();
-    QRect screenGeometry = screen->geometry();
-    int height = screenGeometry.height();
-    int width = screenGeometry.width();
-    QString screenSize = QString::number(width) + "x" + QString::number(height);
+    const QScreen *screen = QGuiApplication::primaryScreen();
+    const QRect screenGeometry = screen->geometry();
+    const int height = screenGeometry.height();
+    const int width = screenGeometry.width();
+    const QString screenSize = QString::number(width) + "x" + QString::number(height);
 
-    QString productName = QSysInfo::prettyProductName();
-    QString kernelVersion = QSysInfo::kernelVersion().split(QStringLiteral("-")).first();
+    const QString productName = QSysInfo::prettyProductName();
+    const QString kernelVersion = QSysInfo::kernelVersion().split(QStringLiteral("-")).first();
 
     qDebug() << "Initializing Countly" << productName << kernelVersion << screenSize;
 

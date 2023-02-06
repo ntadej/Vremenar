@@ -55,7 +55,7 @@ void Updates::request()
     request.setUrl(QStringLiteral("/version"));
     request.setAttribute(QNetworkRequest::CacheLoadControlAttribute, QNetworkRequest::AlwaysNetwork);
 
-    APILoader::request(std::move(request));
+    APILoader::request(request);
 }
 
 void Updates::response(QNetworkReply *reply)
@@ -64,14 +64,14 @@ void Updates::response(QNetworkReply *reply)
         return;
     }
 
-    QJsonDocument document = QJsonDocument::fromJson(reply->readAll());
+    const QJsonDocument document = QJsonDocument::fromJson(reply->readAll());
     if (requestFromResponse(reply).call() == QStringLiteral("/version")) {
         _server = document[QStringLiteral("server")].toString();
         emit serverChanged();
 
 #if !defined(VREMENAR_STORE) && !defined(Q_OS_MACOS) && !defined(Q_OS_WINDOWS)
-        QString stable = document[QStringLiteral("stable")].toString();
-        QString beta = document[QStringLiteral("beta")].toString();
+        const QString stable = document[QStringLiteral("stable")].toString();
+        const QString beta = document[QStringLiteral("beta")].toString();
         compareVersion(stable, beta);
 #endif
     }
@@ -82,9 +82,9 @@ void Updates::response(QNetworkReply *reply)
 void Updates::compareVersion(const QString &stable,
                              const QString &beta)
 {
-    QVersionNumber currentVersion = QVersionNumber::fromString(Vremenar::version).normalized();
-    QVersionNumber stableVersion = QVersionNumber::fromString(stable).normalized();
-    QVersionNumber betaVersion = QVersionNumber::fromString(beta).normalized();
+    const QVersionNumber currentVersion = QVersionNumber::fromString(Vremenar::version).normalized();
+    const QVersionNumber stableVersion = QVersionNumber::fromString(stable).normalized();
+    const QVersionNumber betaVersion = QVersionNumber::fromString(beta).normalized();
 
     if (!stableVersion.isNull() && currentVersion == stableVersion) {
         qDebug() << "Running current stable version:" << currentVersion;

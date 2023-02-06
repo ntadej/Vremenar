@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -57,7 +57,7 @@ QString Sources::countryToLocalizedString(Country country)
 
 QUrlQuery Sources::sourceQuery()
 {
-    Settings settings;
+    const Settings settings;
 
     QUrlQuery query;
     query.addQueryItem(QStringLiteral("country"), countryToString(settings.weatherSource()));
@@ -67,7 +67,7 @@ QUrlQuery Sources::sourceQuery()
 
 QUrlQuery Sources::sourceAndLocaleQuery()
 {
-    Settings settings;
+    const Settings settings;
 
     QUrlQuery query;
     query.addQueryItem(QStringLiteral("country"), countryToString(settings.weatherSource()));

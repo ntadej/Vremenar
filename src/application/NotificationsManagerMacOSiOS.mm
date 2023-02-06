@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -40,6 +40,7 @@ bool NotificationsManager::nativeSupported() const
 
 void NotificationsManager::nativeEnabledCheck()
 {
+    // NOLINTNEXTLINE(misc-const-correctness)
     UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
     [center getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings *settings) {
       switch (settings.authorizationStatus) {
@@ -83,9 +84,11 @@ void NotificationsManager::nativeUnsubscribe(const QString &id) const
 bool NotificationsManager::nativeSetup()
 {
 #ifndef VREMENAR_MOBILE
+    // NOLINTNEXTLINE(misc-const-correctness)
     auto *applicationDelegate = VremenarDelegate::getInstance().ptr();
     return [applicationDelegate requestNotifications];
 #else
+    // NOLINTNEXTLINE(misc-const-correctness)
     auto *applicationDelegate = (QIOSApplicationDelegate *)([[UIApplication sharedApplication] delegate]);
     return [applicationDelegate requestNotifications];
 #endif

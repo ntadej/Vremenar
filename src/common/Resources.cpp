@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -76,7 +76,7 @@ QString Resources::resource(const QString &file)
 
 QString Resources::appData()
 {
-    QDir dir(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation));
+    const QDir dir(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation));
     if (!dir.exists()) {
         dir.mkpath(QStringLiteral("."));
     }
@@ -87,9 +87,9 @@ QString Resources::appData()
 QString Resources::logLocation()
 {
 #if VREMENAR_MOBILE
-    QDir dir(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation));
+    const QDir dir(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation));
 #else
-    QDir dir(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation));
+    const QDir dir(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation));
 #endif
     if (!dir.exists()) {
         dir.mkpath(QStringLiteral("."));

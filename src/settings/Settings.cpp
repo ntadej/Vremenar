@@ -123,18 +123,18 @@ void Settings::writeSettings()
 
 void Settings::readSettings()
 {
-    setWeatherSource(Sources::Country(value(KEY_WEATHER_SOURCE, defaultValue(KEY_WEATHER_SOURCE)).toInt()));
+    setWeatherSource(static_cast<Sources::Country>(value(KEY_WEATHER_SOURCE, defaultValue(KEY_WEATHER_SOURCE)).toInt()));
     setWeatherSourceInitialChoice(value(KEY_WEATHER_SOURCE_INITIAL_CHOICE, defaultValue(KEY_WEATHER_SOURCE_INITIAL_CHOICE)).toBool());
 
-    setLocationSource(Location::Source(value(KEY_LOCATION_SOURCE, defaultValue(KEY_LOCATION_SOURCE)).toInt()));
+    setLocationSource(static_cast<Location::Source>(value(KEY_LOCATION_SOURCE, defaultValue(KEY_LOCATION_SOURCE)).toInt()));
     setLocationInitialChoice(value(KEY_LOCATION_INITIAL_CHOICE, defaultValue(KEY_LOCATION_INITIAL_CHOICE)).toBool());
     setLocationStation(value(KEY_LOCATION_STATION, defaultValue(KEY_LOCATION_STATION)).toString());
     setLocationLatitude(value(KEY_LOCATION_LATITUDE, defaultValue(KEY_LOCATION_LATITUDE)).toDouble());
     setLocationLongitude(value(KEY_LOCATION_LONGITUDE, defaultValue(KEY_LOCATION_LONGITUDE)).toDouble());
 
     setStartupMapEnabled(value(KEY_STARTUP_MAP_ENABLED, defaultValue(KEY_STARTUP_MAP_ENABLED)).toBool());
-    setStartupMapStyle(Weather::MapStyle(value(KEY_STARTUP_MAP_STYLE, defaultValue(KEY_STARTUP_MAP_STYLE)).toInt()));
-    setStartupMapType(Weather::MapType(value(KEY_STARTUP_MAP_TYPE, defaultValue(KEY_STARTUP_MAP_TYPE)).toInt()));
+    setStartupMapStyle(static_cast<Weather::MapStyle>(value(KEY_STARTUP_MAP_STYLE, defaultValue(KEY_STARTUP_MAP_STYLE)).toInt()));
+    setStartupMapType(static_cast<Weather::MapType>(value(KEY_STARTUP_MAP_TYPE, defaultValue(KEY_STARTUP_MAP_TYPE)).toInt()));
     setStartupMapZoomLevel(value(KEY_STARTUP_MAP_ZOOM_LEVEL, defaultValue(KEY_STARTUP_MAP_ZOOM_LEVEL)).toReal());
     setStartupMapLatitude(value(KEY_STARTUP_MAP_LATITUDE, defaultValue(KEY_STARTUP_MAP_LATITUDE)).toDouble());
     setStartupMapLongitude(value(KEY_STARTUP_MAP_LONGITUDE, defaultValue(KEY_STARTUP_MAP_LONGITUDE)).toDouble());
@@ -143,7 +143,7 @@ void Settings::readSettings()
 
     setNotificationsEnabled(value(KEY_NOTIFICATIONS_ENABLED, defaultValue(KEY_NOTIFICATIONS_ENABLED)).toBool());
     setNotificationsInitialChoice(value(KEY_NOTIFICATIONS_INITIAL_CHOICE, defaultValue(KEY_NOTIFICATIONS_INITIAL_CHOICE)).toBool());
-    setNotificationsAlertSeverity(Weather::AlertSeverity(value(KEY_NOTIFICATIONS_ALERT_SEVERITY, defaultValue(KEY_NOTIFICATIONS_ALERT_SEVERITY)).toInt()));
+    setNotificationsAlertSeverity(static_cast<Weather::AlertSeverity>(value(KEY_NOTIFICATIONS_ALERT_SEVERITY, defaultValue(KEY_NOTIFICATIONS_ALERT_SEVERITY)).toInt()));
     setNotificationsAlertKeys(value(KEY_NOTIFICATIONS_ALERT_KEYS, defaultValue(KEY_NOTIFICATIONS_ALERT_KEYS)).toStringList());
 
     setShowInTray(value(KEY_SHOW_IN_TRAY, defaultValue(KEY_SHOW_IN_TRAY)).toBool());

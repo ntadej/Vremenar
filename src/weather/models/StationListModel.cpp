@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -28,8 +28,8 @@ void StationListModel::addEmpty()
 
 void StationListModel::addStations(const QJsonArray &data)
 {
-    for (const QJsonValue &stationRef : data) {
-        QJsonObject station = stationRef.toObject();
+    for (const auto &stationRef : data) {
+        const QJsonObject station = stationRef.toObject();
         appendRow(StationInfo::fromJson(station));
     }
 }

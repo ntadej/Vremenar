@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -25,7 +25,7 @@ APILoader::APILoader(NetworkManager *network,
     connect(_network, &NetworkManager::result, this, &APILoader::response);
 }
 
-void APILoader::request(APIRequestBase request)
+void APILoader::request(const APIRequestBase &request)
 {
     _currentReplies.insert(network()->request(request), request);
 
@@ -33,7 +33,7 @@ void APILoader::request(APIRequestBase request)
     emit requestingChanged();
 }
 
-const APIRequestBase APILoader::requestFromResponse(QNetworkReply *reply)
+APIRequestBase APILoader::requestFromResponse(QNetworkReply *reply)
 {
     return _currentReplies.value(reply);
 }

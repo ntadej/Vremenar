@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -30,9 +30,9 @@ public:
 
     Q_PROPERTY(bool requesting READ requesting NOTIFY requestingChanged)
 
-    void request(APIRequestBase request);
+    void request(const APIRequestBase &request);
     [[nodiscard]] bool validResponse(QNetworkReply *reply);
-    [[nodiscard]] const APIRequestBase requestFromResponse(QNetworkReply *reply);
+    [[nodiscard]] APIRequestBase requestFromResponse(QNetworkReply *reply);
     void removeResponse(QNetworkReply *reply);
 
 signals:

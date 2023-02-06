@@ -40,9 +40,8 @@ LocationProvider::LocationProvider(StationListModel *stations, QObject *parent)
 #endif
       _stations(stations)
 {
-    Settings settings(this);
+    const Settings settings(this);
     _initialPosition = QGeoPositionInfo(QGeoCoordinate(settings.startupMapLatitude(), settings.startupMapLongitude()), QDateTime::currentDateTime());
-    emit initialPositionChanged(_initialPosition.coordinate());
 
 #if defined(VREMENAR_POSITIONING) && defined(Q_OS_ANDROID)
     if (!initAndroid()) {
@@ -117,7 +116,7 @@ bool LocationProvider::supported()
 
 bool LocationProvider::enabled()
 {
-    Settings settings(this);
+    const Settings settings(this);
     if (!settings.locationInitialChoice() || settings.locationSource() == Location::Disabled) {
         return false;
     }
@@ -129,8 +128,8 @@ bool LocationProvider::enabled()
         return _platform != nullptr && _platform->servicesEnabled() && _platform->servicesAllowed();
 #else
         if (!_hasFatalError && _position != nullptr) {
-            QGeoPositionInfoSource::PositioningMethods methods = _position->supportedPositioningMethods();
-            bool status = !(methods == 0 || methods.testFlag(QGeoPositionInfoSource::NoPositioningMethods));
+            const QGeoPositionInfoSource::PositioningMethods methods = _position->supportedPositioningMethods();
+            const bool status = methods != 0 && !methods.testFlag(QGeoPositionInfoSource::NoPositioningMethods);
             if (_currentSupportedMethods != methods) {
                 qDebug() << "Supported positioning methods:" << methods;
                 emit enabledChanged(status);
@@ -143,13 +142,13 @@ bool LocationProvider::enabled()
 #endif
     }
 
-    return (settings.locationSource() == Location::Coordinate && !(settings.locationLatitude() == 0 && settings.locationLongitude() == 0))
+    return (settings.locationSource() == Location::Coordinate && (settings.locationLatitude() != 0 || settings.locationLongitude() != 0))
            || (settings.locationSource() == Location::Station && !settings.locationStation().isEmpty());
 }
 
 void LocationProvider::resetPosition()
 {
-    Settings settings(this);
+    const Settings settings(this);
     _initialPosition = QGeoPositionInfo(QGeoCoordinate(settings.startupMapLatitude(), settings.startupMapLongitude()), QDateTime::currentDateTime());
 
     emit initialPositionChanged(_initialPosition.coordinate());
@@ -158,7 +157,7 @@ void LocationProvider::resetPosition()
 void LocationProvider::requestPositionUpdate()
 {
 #ifdef VREMENAR_POSITIONING
-    Settings settings(this);
+    const Settings settings(this);
     if (settings.locationSource() != Location::Automatic) {
         emit positionChanged(_currentPosition.coordinate());
         return;
@@ -178,8 +177,8 @@ void LocationProvider::requestPositionUpdate()
 
 bool LocationProvider::validate(const QGeoCoordinate &coordinate) const
 {
-    Settings settings;
-    Sources::Country country = settings.weatherSource();
+    const Settings settings;
+    const Sources::Country country = settings.weatherSource();
     if (country == Sources::Slovenia) {
         if (Settings::DEFAULT_MIN_MAP_LATITUDE_SI > coordinate.latitude()
             || Settings::DEFAULT_MAX_MAP_LATITUDE_SI < coordinate.latitude()
@@ -201,14 +200,14 @@ bool LocationProvider::validate(const QGeoCoordinate &coordinate) const
 
 QGeoCoordinate LocationProvider::validateAndCorrect(const QGeoCoordinate &coordinate) const
 {
-    bool valid = validate(coordinate);
+    const bool valid = validate(coordinate);
     if (valid) {
         return coordinate;
     }
 
     QGeoCoordinate newCoordinate = coordinate;
-    Settings settings;
-    Sources::Country country = settings.weatherSource();
+    const Settings settings;
+    const Sources::Country country = settings.weatherSource();
     if (country == Sources::Slovenia) {
         if (Settings::DEFAULT_MIN_MAP_LATITUDE_SI > coordinate.latitude()) {
             newCoordinate.setLatitude(Settings::DEFAULT_MIN_MAP_LATITUDE_SI);
@@ -312,7 +311,7 @@ void LocationProvider::positionTimeout()
 
 void LocationProvider::locationSettingsChanged()
 {
-    Settings settings(this);
+    const Settings settings(this);
     if (settings.locationSource() == Location::Automatic) {
         initPosition();
     } else if (settings.locationSource() == Location::Station) {
@@ -321,14 +320,14 @@ void LocationProvider::locationSettingsChanged()
             emit enabledChanged(enabled());
             return;
         }
-        QGeoPositionInfo info(station->coordinate(), QDateTime::currentDateTime());
+        const QGeoPositionInfo info(station->coordinate(), QDateTime::currentDateTime());
         positionUpdated(info);
     } else if (settings.locationSource() == Location::Coordinate) {
         if (settings.locationLatitude() == 0 && settings.locationLongitude() == 0) {
             emit enabledChanged(enabled());
             return;
         }
-        QGeoPositionInfo info(QGeoCoordinate(settings.locationLatitude(), settings.locationLongitude()), QDateTime::currentDateTime());
+        const QGeoPositionInfo info(QGeoCoordinate(settings.locationLatitude(), settings.locationLongitude()), QDateTime::currentDateTime());
         positionUpdated(info);
     }
 

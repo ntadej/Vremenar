@@ -25,7 +25,7 @@ NotificationsManager::NotificationsManager(QString locale,
 {
     connect(this, &NotificationsManager::nativeEnabledStatus, &NotificationsManager::processCoveredAreas);
 
-    Settings settings;
+    const Settings settings;
     qDebug() << "Notifications:"
              << "Currently subscribed to" << settings.notificationsAlertKeys();
 }
@@ -45,7 +45,7 @@ void NotificationsManager::setNotificationsLevel(int level)
         settings.setNotificationsEnabled(false);
     } else {
         settings.setNotificationsEnabled(true);
-        settings.setNotificationsAlertSeverity(Weather::AlertSeverity(level));
+        settings.setNotificationsAlertSeverity(static_cast<Weather::AlertSeverity>(level));
     }
     settings.setNotificationsInitialChoice(true);
     settings.writeSettings();
@@ -73,7 +73,7 @@ void NotificationsManager::currentStationChanged(StationInfo *station)
         alertsAreas.append(station->alertsArea());
     }
 
-    Settings settings;
+    const Settings settings;
     if (nativeSupported() && settings.notificationsInitialChoice() && settings.notificationsEnabled() && alertsAreas != _coveredAreas) {
         qDebug() << "Notifications:"
                  << "Covered areas changed to:" << alertsAreas;
@@ -85,7 +85,7 @@ void NotificationsManager::currentStationChanged(StationInfo *station)
 
 void NotificationsManager::processCoveredAreas(bool enabled)
 {
-    Settings settings;
+    const Settings settings;
 
     // build ids
     const QString locale = _currentLocale.split(QStringLiteral("_")).first();

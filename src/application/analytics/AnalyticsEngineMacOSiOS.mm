@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -23,6 +23,7 @@ namespace Vremenar
 
 AnalyticsEngineMacOSiOS::AnalyticsEngineMacOSiOS()
 {
+    // NOLINTNEXTLINE(misc-const-correctness)
     CountlyConfig *config = [[CountlyConfig alloc] init];
     // NOLINTNEXTLINE(clang-analyzer-nullability.NullPassedToNonnull,clang-analyzer-nullability.NullablePassedToNonnull,clang-analyzer-nullability.NullabilityBase)
     config.appKey = [NSString stringWithUTF8String:Vremenar::CountlyAppKey.data()];

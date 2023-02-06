@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -174,9 +174,9 @@ void TrayIcon::setCurrentCondition(const WeatherCondition *condition)
         i.setIsMask(true);
 #else
         QIcon i;
-        i.addFile(":/Vremenar/Logo/16x16/vremenar.png", QSize(16, 16)); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
-        i.addFile(":/Vremenar/Logo/24x24/vremenar.png", QSize(24, 24)); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
-        i.addFile(":/Vremenar/Logo/32x32/vremenar.png", QSize(32, 32)); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+        i.addFile(QStringLiteral(":/Vremenar/Logo/16x16/vremenar.png"), QSize(16, 16)); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+        i.addFile(QStringLiteral(":/Vremenar/Logo/24x24/vremenar.png"), QSize(24, 24)); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+        i.addFile(QStringLiteral(":/Vremenar/Logo/32x32/vremenar.png"), QSize(32, 32)); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
 #endif
         setIcon(i);
     }

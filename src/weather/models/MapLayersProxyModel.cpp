@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -106,7 +106,7 @@ QString MapLayersProxyModel::day() const
     auto current = QDateTime::currentDateTime();
     auto selected = QDateTime::fromMSecsSinceEpoch(_time);
 
-    qint64 diff = current.daysTo(selected);
+    const qint64 diff = current.daysTo(selected);
     if (diff == 0) {
         if (_time > _timeDefault) {
             return tr("forecast");
@@ -145,8 +145,8 @@ void MapLayersProxyModel::setCurrentIndex(int newIndex)
 
         const QModelIndex in = index(_row, 0);
         _time = data(in, MapLayer::TimeRole).toDateTime().toMSecsSinceEpoch();
-        _type = Weather::MapType(data(in, MapLayer::TypeRole).toInt());
-        _renderingType = Weather::MapRenderingType(data(in, MapLayer::RenderingRole).toInt());
+        _type = static_cast<Weather::MapType>(data(in, MapLayer::TypeRole).toInt());
+        _renderingType = static_cast<Weather::MapRenderingType>(data(in, MapLayer::RenderingRole).toInt());
         _coordinates = data(in, MapLayer::CoordinatesRole);
 
         if (!_updating) {
@@ -163,8 +163,8 @@ void MapLayersProxyModel::setTimestamp(qint64 time)
         for (int i = 0; i < rowCount(); i++) {
             const QModelIndex in = index(i, 0);
             if (data(in, MapLayer::TimeRole).toDateTime().toMSecsSinceEpoch() == _time) {
-                _type = Weather::MapType(data(in, MapLayer::TypeRole).toInt());
-                _renderingType = Weather::MapRenderingType(data(in, MapLayer::RenderingRole).toInt());
+                _type = static_cast<Weather::MapType>(data(in, MapLayer::TypeRole).toInt());
+                _renderingType = static_cast<Weather::MapRenderingType>(data(in, MapLayer::RenderingRole).toInt());
                 _coordinates = data(in, MapLayer::CoordinatesRole);
                 _row = i;
                 break;
@@ -312,10 +312,10 @@ void MapLayersProxyModel::playResume()
 bool MapLayersProxyModel::filterAcceptsRow(int sourceRow,
                                            const QModelIndex &sourceParent) const
 {
-    QModelIndex index = sourceModel()->index(sourceRow, 0, sourceParent);
+    const QModelIndex index = sourceModel()->index(sourceRow, 0, sourceParent);
 
-    bool name = index.data(MapLayer::DisplayRole).toString().contains(filterRegularExpression());
-    // bool time = !_time || index.data(MapLayer::TimeRole).toDateTime().toMSecsSinceEpoch() == _time;
+    const bool name = index.data(MapLayer::DisplayRole).toString().contains(filterRegularExpression());
+    // const bool time = !_time || index.data(MapLayer::TimeRole).toDateTime().toMSecsSinceEpoch() == _time;
 
     return name;
 }

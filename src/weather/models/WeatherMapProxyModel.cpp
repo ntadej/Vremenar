@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -76,16 +76,16 @@ bool WeatherMapProxyModel::filterAcceptsRow(int sourceRow,
 {
     _timer->stop();
 
-    QModelIndex index = sourceModel()->index(sourceRow, 0, sourceParent);
+    const QModelIndex index = sourceModel()->index(sourceRow, 0, sourceParent);
 
-    bool name = index.data(WeatherInfo::DisplayRole).toString().contains(filterRegularExpression());
+    const bool name = index.data(WeatherInfo::DisplayRole).toString().contains(filterRegularExpression());
 
     const StationInfo *station = index.data(WeatherInfo::StationRole).value<StationInfo *>();
     const WeatherCondition *condition = index.data(WeatherInfo::ConditionRole).value<WeatherCondition *>();
 
-    bool zoomLevel = station->zoomLevel() <= _zoomLevel;
-    bool visibleRegion = _visibleRegion.contains(station->coordinate());
-    bool time = _time == 0 || condition->time() == _time;
+    const bool zoomLevel = station->zoomLevel() <= _zoomLevel;
+    const bool visibleRegion = _visibleRegion.contains(station->coordinate());
+    const bool time = _time == 0 || condition->time() == _time;
 
     return name && zoomLevel && visibleRegion && time;
 }

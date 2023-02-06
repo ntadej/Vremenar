@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -37,10 +37,10 @@ namespace Vremenar
 
 bool NotificationsManager::nativeSupported() const
 {
-    QJniObject activity = Vremenar::Android::activity();
+    const QJniObject activity = Vremenar::Android::activity();
 
-    auto isFireTV = static_cast<bool>(activity.callMethod<jboolean>("isFireTV"));
-    auto isAndroidTV = static_cast<bool>(activity.callMethod<jboolean>("isAndroidTV"));
+    const auto isFireTV = static_cast<bool>(activity.callMethod<jboolean>("isFireTV"));
+    const auto isAndroidTV = static_cast<bool>(activity.callMethod<jboolean>("isAndroidTV"));
     if (isFireTV || isAndroidTV) {
         return false;
     }
@@ -50,33 +50,33 @@ bool NotificationsManager::nativeSupported() const
 
 void NotificationsManager::nativeEnabledCheck()
 {
-    QJniObject activity = Vremenar::Android::activity();
+    const QJniObject activity = Vremenar::Android::activity();
 
-    auto result = static_cast<bool>(activity.callMethod<jboolean>("areNotificationsEnabled"));
+    const auto result = static_cast<bool>(activity.callMethod<jboolean>("areNotificationsEnabled"));
     emit nativeEnabledStatus(result);
 }
 
 void NotificationsManager::nativeSubscribe(const QString &id) const
 {
-    QJniObject activity = Vremenar::Android::activity();
+    const QJniObject activity = Vremenar::Android::activity();
 
-    QJniEnvironment env;
+    const QJniEnvironment env;
     jstring arg = env->NewStringUTF(id.toLatin1().data());
     activity.callMethod<void>("notificationsSubscribe", "(Ljava/lang/String;)V", arg); // NOLINT(cppcoreguidelines-pro-type-vararg)
 }
 
 void NotificationsManager::nativeUnsubscribe(const QString &id) const
 {
-    QJniObject activity = Vremenar::Android::activity();
+    const QJniObject activity = Vremenar::Android::activity();
 
-    QJniEnvironment env;
+    const QJniEnvironment env;
     jstring arg = env->NewStringUTF(id.toLatin1().data());
     activity.callMethod<void>("notificationsUnsubscribe", "(Ljava/lang/String;)V", arg); // NOLINT(cppcoreguidelines-pro-type-vararg)
 }
 
 bool NotificationsManager::nativeSetup()
 {
-    QJniObject activity = Vremenar::Android::activity();
+    const QJniObject activity = Vremenar::Android::activity();
 
     return static_cast<bool>(activity.callMethod<jboolean>("requestNotifications"));
 }

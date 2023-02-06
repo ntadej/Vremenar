@@ -11,7 +11,6 @@
 
 #include <QtWidgets/QMessageBox>
 
-#include "application/BaseApplication.h"
 #include "common/LocaleManager.h"
 #include "settings/Settings.h"
 #include "weather/containers/StationInfo.h"
@@ -93,11 +92,11 @@ SettingsDialog::SettingsDialog(StationListModel *stationsModel,
 #ifndef Q_OS_MACOS
     // Set application icon
     QIcon icon;
-    icon.addFile(":/Vremenar/Icons/16x16/preferences-system.png", QSize(16, 16)); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
-    icon.addFile(":/Vremenar/Icons/24x24/preferences-system.png", QSize(24, 24)); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
-    icon.addFile(":/Vremenar/Icons/32x32/preferences-system.png", QSize(32, 32)); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
-    icon.addFile(":/Vremenar/Icons/48x48/preferences-system.png", QSize(48, 48)); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
-    icon.addFile(":/Vremenar/Icons/64x64/preferences-system.png", QSize(64, 64)); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+    icon.addFile(QStringLiteral(":/Vremenar/Icons/16x16/preferences-system.png"), QSize(16, 16)); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+    icon.addFile(QStringLiteral(":/Vremenar/Icons/24x24/preferences-system.png"), QSize(24, 24)); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+    icon.addFile(QStringLiteral(":/Vremenar/Icons/32x32/preferences-system.png"), QSize(32, 32)); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+    icon.addFile(QStringLiteral(":/Vremenar/Icons/48x48/preferences-system.png"), QSize(48, 48)); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+    icon.addFile(QStringLiteral(":/Vremenar/Icons/64x64/preferences-system.png"), QSize(64, 64)); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
     setWindowIcon(icon);
 #endif
 
@@ -152,7 +151,7 @@ void SettingsDialog::actionToggled()
 #if defined(Q_OS_MACOS)
     actionToggledMacOS();
 #else
-    QAction *action = qobject_cast<QAction *>(sender());
+    auto *action = qobject_cast<QAction *>(sender());
 
     setWindowTitle(action->text());
     if (action == ui->actionGeneral) {
@@ -167,7 +166,7 @@ void SettingsDialog::actionToggled()
 
 void SettingsDialog::readSettings()
 {
-    Settings settings(this);
+    const Settings settings(this);
 
     ui->checkShowInTray->setChecked(settings.showInTray());
 #ifdef Q_OS_MACOS
@@ -197,7 +196,7 @@ void SettingsDialog::readSettings()
     }
 
     if (settings.locationLatitude() != 0 || settings.locationLongitude() != 0) {
-        QLocale locale;
+        const QLocale locale;
         ui->lineEditLatitude->setText(locale.toString(settings.locationLatitude()));
         ui->lineEditLongitude->setText(locale.toString(settings.locationLongitude()));
     }
@@ -284,7 +283,7 @@ void SettingsDialog::locationChangedSlot()
 void SettingsDialog::locationCoordinateChanged()
 {
     Settings settings(this);
-    QLocale locale;
+    const QLocale locale;
     if (ui->lineEditLatitude->hasAcceptableInput()) {
         settings.setLocationLatitude(locale.toDouble(ui->lineEditLatitude->text()));
     }
@@ -341,7 +340,7 @@ void SettingsDialog::sourceChangedSlot()
 
 void SettingsDialog::loadLocales()
 {
-    Settings settings(this);
+    const Settings settings(this);
 
     disconnect(ui->comboLocale, &QComboBox::currentTextChanged, this, &SettingsDialog::localeChangedSlot);
 
@@ -361,12 +360,12 @@ void SettingsDialog::loadLocales()
 
 void SettingsDialog::loadSources()
 {
-    Settings settings(this);
+    const Settings settings(this);
 
     disconnect(ui->comboSource, &QComboBox::currentTextChanged, this, &SettingsDialog::sourceChangedSlot);
 
     ui->comboSource->clear();
-    for (Sources::Country country : {Sources::Slovenia, Sources::Germany}) {
+    for (const Sources::Country country : {Sources::Slovenia, Sources::Germany}) {
         ui->comboSource->addItem(Sources::countryToLocalizedString(country));
         if (settings.weatherSource() == country) {
             ui->comboSource->setCurrentIndex(ui->comboSource->count() - 1);

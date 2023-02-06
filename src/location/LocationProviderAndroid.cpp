@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -19,12 +19,12 @@ namespace Vremenar
 
 bool LocationProvider::initAndroid()
 {
-    QJniObject activity = QJniObject::callStaticObjectMethod("org/qtproject/qt/android/QtNative", "activity", "()Landroid/app/Activity;");
+    const QJniObject activity = QJniObject::callStaticObjectMethod("org/qtproject/qt/android/QtNative", "activity", "()Landroid/app/Activity;"); // NOLINT(cppcoreguidelines-pro-type-vararg)
     if (!activity.isValid()) {
-        qFatal("Android activity could not be loaded!");
+        qFatal("Android activity could not be loaded!"); // NOLINT(cppcoreguidelines-pro-type-vararg)
     }
 
-    auto isFireTV = activity.callMethod<jboolean>("isFireTV");
+    const auto isFireTV = static_cast<bool>(activity.callMethod<jboolean>("isFireTV")); // NOLINT(cppcoreguidelines-pro-type-vararg)
     if (isFireTV) {
         qDebug() << "Disabling positioning services on Fire TV.";
         return false;

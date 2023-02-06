@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -28,12 +28,13 @@ UIImage *imageWithColor(UIColor *color,
                         UIImage *image)
 {
     // Begin drawing
-    CGRect rect = CGRectMake(0.f, 0.f, image.size.width, image.size.height);
+    const CGRect rect = CGRectMake(0.F, 0.F, image.size.width, image.size.height);
     UIGraphicsBeginImageContextWithOptions(image.size, NO, image.scale);
 
     [color set];
     [[image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] drawInRect:rect];
 
+    // NOLINTNEXTLINE(misc-const-correctness)
     UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
 
@@ -51,7 +52,7 @@ SFSymbolsImageProvider::SFSymbolsImageProvider()
 {
 #if defined(Q_OS_MACOS)
     // NOLINTNEXTLINE(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
-    QImage testImage = requestImage(QStringLiteral("play.fill/#ffffff/UltraLight/1"), nullptr, QSize(14, 14));
+    const QImage testImage = requestImage(QStringLiteral("play.fill/#ffffff/UltraLight/1"), nullptr, QSize(14, 14));
     if (testImage.width() < 24) {         // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
         _scale = 24. / testImage.width(); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
     }
@@ -67,27 +68,27 @@ QImage SFSymbolsImageProvider::requestImage(const QString &id,
     CGImageRef cgImage{};
 #if defined(Q_OS_MACOS)
     if (@available(macOS 11.0, *)) {
-        QColor color(idSplit[1]);
-        NSFontWeight nsFontWeight = idSplit[2] == QStringLiteral("UltraLight") ? NSFontWeightUltraLight : NSFontWeightRegular;
+        const QColor color(idSplit[1]);
+        const NSFontWeight nsFontWeight = idSplit[2] == QStringLiteral("UltraLight") ? NSFontWeightUltraLight : NSFontWeightRegular;
         auto nsColor = [NSColor colorWithRed:color.redF() green:color.greenF() blue:color.blueF() alpha:1.];
         auto nsConfig = [NSImageSymbolConfiguration configurationWithPointSize:(requestedSize.width() * _scale) weight:nsFontWeight];
         auto nsImage = [NSImage imageWithSystemSymbolName:idSplit[0].toNSString() accessibilityDescription:nil];
         nsImage = [nsImage imageWithSymbolConfiguration:nsConfig];
         [nsImage lockFocus];
         [nsColor set];
-        NSRect imageRect = {NSZeroPoint, [nsImage size]};
+        const NSRect imageRect = {NSZeroPoint, [nsImage size]};
         NSRectFillUsingOperation(imageRect, NSCompositingOperationSourceIn);
         [nsImage unlockFocus];
         cgImage = [nsImage CGImageForProposedRect:nil context:nil hints:nil];
     }
 #elif defined(Q_OS_IOS)
     if (@available(iOS 13.0, *)) {
-        QColor color(idSplit[1]);
-        UIImageSymbolWeight uiWeight = idSplit[2] == QStringLiteral("UltraLight") ? UIImageSymbolWeightUltraLight : UIImageSymbolWeightRegular;
-        double devicePixelRatio = idSplit[3].toDouble();
-        int width = devicePixelRatio >= 3 ? requestedSize.width() / 7 * 5 : requestedSize.width();
-        auto uiColor = [UIColor colorWithRed:color.redF() green:color.greenF() blue:color.blueF() alpha:1.];
-        auto uiConfig = [UIImageSymbolConfiguration configurationWithPointSize:width weight:uiWeight];
+        const QColor color(idSplit[1]);
+        const UIImageSymbolWeight uiWeight = idSplit[2] == QStringLiteral("UltraLight") ? UIImageSymbolWeightUltraLight : UIImageSymbolWeightRegular;
+        const double devicePixelRatio = idSplit[3].toDouble();
+        const int width = devicePixelRatio >= 3 ? requestedSize.width() / 7 * 5 : requestedSize.width(); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+        const auto uiColor = [UIColor colorWithRed:color.redF() green:color.greenF() blue:color.blueF() alpha:1.];
+        const auto uiConfig = [UIImageSymbolConfiguration configurationWithPointSize:width weight:uiWeight];
         auto uiImage = [UIImage systemImageNamed:idSplit[0].toNSString() withConfiguration:uiConfig];
         uiImage = imageWithColor(uiColor, uiImage);
         cgImage = [uiImage CGImage];

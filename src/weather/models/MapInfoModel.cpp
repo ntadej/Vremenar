@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -22,16 +22,16 @@ MapInfoModel::MapInfoModel(QObject *parent)
 
 void MapInfoModel::generateModel(const std::vector<Weather::MapType> &supported)
 {
-    for (Weather::MapType type : supported) {
+    for (const Weather::MapType type : supported) {
         appendRow(std::make_unique<MapInfo>(type));
     }
 }
 
 void MapInfoModel::generateModel(const QJsonArray &supported)
 {
-    for (const QJsonValue &typeInfoRef : supported) {
-        QJsonObject typeInfo = typeInfoRef.toObject();
-        Weather::MapType type = Weather::mapTypeFromString(typeInfo[QStringLiteral("map_type")].toString());
+    for (const auto &typeInfoRef : supported) {
+        const QJsonObject typeInfo = typeInfoRef.toObject();
+        const Weather::MapType type = Weather::mapTypeFromString(typeInfo[QStringLiteral("map_type")].toString());
         appendRow(std::make_unique<MapInfo>(type));
     }
 }

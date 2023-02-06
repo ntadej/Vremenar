@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -57,7 +57,7 @@ APIRequest API::stations(const QString &string)
 
 APIRequest API::stationWeatherCondition(const QString &id)
 {
-    QUrlQuery query = Sources::sourceQuery();
+    const QUrlQuery query = Sources::sourceQuery();
 
     APIRequest request;
     request.setCall(QStringLiteral("/stations/condition"));
@@ -69,7 +69,7 @@ APIRequest API::stationWeatherCondition(const QString &id)
 
 APIRequest API::stationsList()
 {
-    QUrlQuery query = Sources::sourceQuery();
+    const QUrlQuery query = Sources::sourceQuery();
 
     APIRequest request;
     request.setCall(QStringLiteral("/stations/list"));

@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -167,7 +167,7 @@ void Countly::updateSession()
     }
 
     QJsonArray events;
-    bool no_events = _eventQueue.empty();
+    const bool no_events = _eventQueue.empty();
     if (!no_events) {
         for (const QJsonObject &event : _eventQueue) {
             events.append(event);
@@ -232,12 +232,12 @@ void Countly::request(const QString &path,
                       QUrlQuery query)
 {
     QString data = query.toString(QUrl::FullyEncoded);
-    bool usePost = _alwaysUsePost || (data.size() > COUNTLY_POST_THRESHOLD);
+    const bool usePost = _alwaysUsePost || (data.size() > COUNTLY_POST_THRESHOLD);
 
     if (!_salt.isEmpty()) {
-        QString saltedData = data + _salt;
-        QByteArray hashBA = QCryptographicHash::hash(saltedData.toUtf8(), QCryptographicHash::Sha256);
-        QString hash = QLatin1String(hashBA.toHex());
+        const QString saltedData = data + _salt;
+        const QByteArray hashBA = QCryptographicHash::hash(saltedData.toUtf8(), QCryptographicHash::Sha256);
+        const QString hash = QLatin1String(hashBA.toHex());
 
         if (!data.isEmpty()) {
             data += '&';
@@ -261,7 +261,7 @@ void Countly::request(const QString &path,
         request.setUrl(path, query);
     }
 
-    APILoader::request(std::move(request));
+    APILoader::request(request);
 }
 
 void Countly::response(QNetworkReply *reply)
@@ -282,7 +282,7 @@ std::chrono::system_clock::time_point Countly::getTimestamp()
 
 std::chrono::system_clock::duration Countly::getSessionDuration(std::chrono::system_clock::time_point now)
 {
-    std::chrono::system_clock::duration duration = _lastSent - now;
+    const std::chrono::system_clock::duration duration = _lastSent - now;
     return duration;
 }
 
@@ -295,7 +295,7 @@ QString Countly::encodeURL(const QString &data)
 {
     std::ostringstream encoded;
 
-    for (char character : data.toStdString()) {
+    for (const char character : data.toStdString()) {
         if (std::isalnum(character) != 0 || character == '.' || character == '_' || character == '~') {
             encoded << character;
         } else {

@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -22,10 +22,14 @@ MapLegendItem::MapLegendItem(Weather::MapType type,
     : ListItem(parent),
       _type(type),
       _value(std::move(value)),
+#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+      _color(color),
+#else
       _color(std::move(color)),
+#endif
       _placeholder(placeholder)
 {
-    setId(Weather::mapTypeToString(type) + "_" + value);
+    setId(Weather::mapTypeToString(type) + "_" + _value);
 }
 
 QString MapLegendItem::display() const

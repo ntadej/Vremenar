@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -18,11 +18,13 @@
 
 - (instancetype)initWith:(Vremenar::LocationProvider *)locationProvider
 {
-    if ((self = [self init]) != nullptr) {
+    self = [self init];
+    if (self != nullptr) {
         _locationProvider = locationProvider;
     }
     return self;
 }
+
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
 {
     Q_UNUSED(manager)
@@ -53,7 +55,7 @@ LocationProviderMacOSiOS::~LocationProviderMacOSiOS()
 
 bool LocationProviderMacOSiOS::servicesEnabled() const
 {
-    return [CLLocationManager locationServicesEnabled] != 0;
+    return [CLLocationManager locationServicesEnabled];
 }
 
 bool LocationProviderMacOSiOS::servicesAllowed() const

@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -47,19 +47,23 @@ void SettingsDialog::initializeMacOS(bool notificationsSupported)
     window()->winId(); // create window->windowhandle()
     _macToolbar->attachToWindow(this->window()->windowHandle());
 
+    // NOLINTNEXTLINE(misc-const-correctness)
     NSToolbar *toolbar = _macToolbar->nativeToolbar();
+    // NOLINTNEXTLINE(misc-const-correctness)
     NSToolbarItem *toolbarItem = _macItemGeneral->nativeToolBarItem();
+    // NOLINTNEXTLINE(misc-const-correctness)
     NSString *toolbarItemId = [toolbarItem itemIdentifier];
     [toolbar setSelectedItemIdentifier:toolbarItemId];
 
-    // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast, performance-no-int-to-ptr)
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast, performance-no-int-to-ptr, misc-const-correctness)
     auto *view = reinterpret_cast<NSView *>(window()->winId());
+    // NOLINTNEXTLINE(misc-const-correctness)
     NSWindow *window = [view window];
     if (@available(macOS 11.0, *)) {
         window.toolbarStyle = NSWindowToolbarStylePreference;
     }
     NSRect frame = [window frame];
-    double extraHeight = frame.size.height - NSHeight([[window contentView] frame]);
+    const double extraHeight = frame.size.height - NSHeight([[window contentView] frame]);
     frame.origin.y += frame.size.height;
     frame.origin.y -= ui->pageGeneral->sizeHint().height() + offset + extraHeight;
     frame.size.height = ui->pageGeneral->sizeHint().height() + offset + extraHeight;
@@ -74,12 +78,13 @@ void SettingsDialog::retranslateMacOS()
 
 void SettingsDialog::actionToggledMacOS()
 {
-    // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast, performance-no-int-to-ptr)
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast, performance-no-int-to-ptr, misc-const-correctness)
     auto *view = reinterpret_cast<NSView *>(window()->winId());
+    // NOLINTNEXTLINE(misc-const-correctness)
     NSWindow *window = [view window];
     NSRect frame = [window frame];
 
-    double extraHeight = frame.size.height - NSHeight([[window contentView] frame]);
+    const double extraHeight = frame.size.height - NSHeight([[window contentView] frame]);
     int stackHeight = 0;
     auto *item = qobject_cast<QMacToolBarItem *>(sender());
     ui->stackedWidget->hide();

@@ -63,7 +63,7 @@ WeatherProvider::WeatherProvider(NetworkManager *network,
     connect(_timer.get(), &QTimer::timeout, this, &WeatherProvider::timerCallback);
     connect(_timerCurrent.get(), &QTimer::timeout, this, &WeatherProvider::timerCallbackCurrent);
 
-    Settings settings(this);
+    const Settings settings(this);
     if (settings.startupMapEnabled()) {
         changeMapStyle(settings.startupMapStyle());
     } else {
@@ -73,7 +73,7 @@ WeatherProvider::WeatherProvider(NetworkManager *network,
 
 void WeatherProvider::resetSource(bool load)
 {
-    Settings settings(this);
+    const Settings settings(this);
     if (settings.weatherSource() == Sources::Germany) {
         _copyrightLink = std::make_unique<Hyperlink>(
             QStringLiteral("© Deutscher Wetterdienst"),
@@ -98,23 +98,23 @@ void WeatherProvider::requestCurrentWeatherInfo(const QGeoCoordinate &coordinate
 
     if (coordinate.isValid()) {
         qDebug() << "Requesting current weather details:" << coordinate;
-        APIRequest request = API::stations(coordinate);
-        APILoader::request(std::move(request));
+        const APIRequest request = API::stations(coordinate);
+        APILoader::request(request);
     } else if (current()->hasStation()) {
-        QString id = current()->station()->forecastOnly() ? current()->station()->currentWeatherSource()->id() : current()->station()->id();
+        const QString id = current()->station()->forecastOnly() ? current()->station()->currentWeatherSource()->id() : current()->station()->id();
         QStringList alertsAreas;
         if (!current()->station()->alertsArea().isEmpty()) {
             alertsAreas.append(current()->station()->alertsArea());
         }
 
         qDebug() << "Requesting current weather details:" << id;
-        APIRequest requestCurrentWeather = API::stationWeatherCondition(id);
-        APILoader::request(std::move(requestCurrentWeather));
+        const APIRequest requestCurrentWeather = API::stationWeatherCondition(id);
+        APILoader::request(requestCurrentWeather);
 
         qDebug() << "Requesting current alerts:" << alertsAreas;
         if (!alertsAreas.isEmpty()) {
-            APIRequest requestAlerts = API::alerts(alertsAreas);
-            APILoader::request(std::move(requestAlerts));
+            const APIRequest requestAlerts = API::alerts(alertsAreas);
+            APILoader::request(requestAlerts);
         } else {
             std::vector<std::unique_ptr<WeatherAlert>> alerts;
             current()->alerts()->update(alerts);
@@ -126,19 +126,19 @@ void WeatherProvider::requestStations()
 {
     qDebug() << "Requesting stations list";
 
-    APIRequest requestStations = API::stationsList();
-    APILoader::request(std::move(requestStations));
+    const APIRequest requestStations = API::stationsList();
+    APILoader::request(requestStations);
 }
 
 void WeatherProvider::requestBaseInfo()
 {
     qDebug() << "Requesting base weather info";
 
-    APIRequest requestTypes = API::mapTypes();
-    APILoader::request(std::move(requestTypes));
+    const APIRequest requestTypes = API::mapTypes();
+    APILoader::request(requestTypes);
 
-    APIRequest requestLegends = API::mapLegends();
-    APILoader::request(std::move(requestLegends));
+    const APIRequest requestLegends = API::mapLegends();
+    APILoader::request(requestLegends);
 }
 
 void WeatherProvider::requestWeatherMapDetails(const QString &url)
@@ -147,8 +147,8 @@ void WeatherProvider::requestWeatherMapDetails(const QString &url)
 
     setLoading(true);
 
-    APIRequest request = API::stationsMap(url);
-    APILoader::request(std::move(request));
+    const APIRequest request = API::stationsMap(url);
+    APILoader::request(request);
 }
 
 void WeatherProvider::requestMapLayers(Weather::MapType type)
@@ -164,10 +164,11 @@ void WeatherProvider::requestMapLayers(Weather::MapType type)
         _mapLayersModel->clear();
     }
 
-    APIRequest request = API::mapLayers(type);
-    APILoader::request(std::move(request));
+    const APIRequest request = API::mapLayers(type);
+    APILoader::request(request);
 }
 
+// NOLINTNEXTLINE(readability-function-cognitive-complexity)
 void WeatherProvider::response(QNetworkReply *reply)
 {
     if (!validResponse(reply)) {
@@ -179,7 +180,7 @@ void WeatherProvider::response(QNetworkReply *reply)
     bool valid{};
 
     // JSON
-    QJsonDocument document = QJsonDocument::fromJson(reply->readAll());
+    const QJsonDocument document = QJsonDocument::fromJson(reply->readAll());
     if (requestFromResponse(reply).call() == QStringLiteral("/maps/types")) {
         const QJsonArray data = document.array();
         _mapInfoModel->clear();
@@ -187,7 +188,7 @@ void WeatherProvider::response(QNetworkReply *reply)
 
         std::vector<Weather::MapType> types = _mapInfoModel->types();
 
-        Settings settings(this);
+        const Settings settings(this);
         if (settings.startupMapEnabled()
             && std::find(types.begin(), types.end(), settings.startupMapType()) != types.end()) {
             changeMapType(settings.startupMapType());
@@ -248,7 +249,7 @@ void WeatherProvider::response(QNetworkReply *reply)
         const QJsonArray alertsList = document.array();
         std::vector<std::unique_ptr<WeatherAlert>> alerts;
         alerts.reserve(static_cast<size_t>(alertsList.size()));
-        for (const QJsonValue &obj : alertsList) {
+        for (const auto &obj : alertsList) {
             alerts.push_back(WeatherAlert::fromJson(obj.toObject()));
         }
         current()->alerts()->update(alerts);
@@ -286,7 +287,7 @@ void WeatherProvider::response(QNetworkReply *reply)
     } else if (requestFromResponse(reply).call() == QStringLiteral("/maps/list")) {
         emit loadingSuccess();
 
-        auto type = Weather::MapType(requestFromResponse(reply).extra().toInt());
+        auto type = static_cast<Weather::MapType>(requestFromResponse(reply).extra().toInt());
 
         removeResponse(reply);
 
@@ -383,7 +384,7 @@ void WeatherProvider::currentTimeChanged()
 
 bool WeatherProvider::currentMapLayerHasLegend() const
 {
-    return !(currentType() == Weather::WeatherConditionMap || currentType() == Weather::CloudCoverageMap || currentType() == Weather::UnknownMapType);
+    return currentType() != Weather::WeatherConditionMap && currentType() != Weather::CloudCoverageMap && currentType() != Weather::UnknownMapType;
 }
 
 void WeatherProvider::changeMapStyle(Weather::MapStyle style,
@@ -440,7 +441,7 @@ void WeatherProvider::currentLocationStatusChanged(bool enabled)
 
 void WeatherProvider::currentMapStyleChanged(int index)
 {
-    changeMapStyle(Weather::MapStyle(index + 1), true);
+    changeMapStyle(static_cast<Weather::MapStyle>(index + 1), true);
 }
 
 void WeatherProvider::currentMapLayerChanged(int index)

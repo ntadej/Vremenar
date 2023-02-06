@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -48,9 +48,9 @@ AnalyticsEngineAndroid::AnalyticsEngineAndroid() = default;
 
 void AnalyticsEngineAndroid::recordEvent(const QString &event) const
 {
-    QJniObject activity = Vremenar::Android::activity();
+    const QJniObject activity = Vremenar::Android::activity();
 
-    QJniEnvironment env;
+    const QJniEnvironment env;
     jstring arg = env->NewStringUTF(event.toLatin1().data());
     activity.callMethod<void>("recordEvent", "(Ljava/lang/String;)V", arg); // NOLINT(cppcoreguidelines-pro-type-vararg)
 }

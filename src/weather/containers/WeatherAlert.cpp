@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -37,14 +37,14 @@ WeatherAlert::WeatherAlert(const QString &id,
 
 std::unique_ptr<WeatherAlert> WeatherAlert::fromJson(const QJsonObject &json)
 {
-    QString id = json[QStringLiteral("id")].toString();
-    QString event = json[QStringLiteral("event")].toString();
-    QString headline = json[QStringLiteral("headline")].toString();
-    QString description = json[QStringLiteral("description")].toString();
-    Weather::AlertType type = Weather::alertTypeFromString(json[QStringLiteral("type")].toString());
-    Weather::AlertSeverity severity = Weather::alertSeverityFromString(json[QStringLiteral("severity")].toString());
-    qint64 onset = json[QStringLiteral("onset")].toString().toLongLong();
-    qint64 ending = json[QStringLiteral("ending")].toString().toLongLong();
+    const QString id = json[QStringLiteral("id")].toString();
+    const QString event = json[QStringLiteral("event")].toString();
+    const QString headline = json[QStringLiteral("headline")].toString();
+    const QString description = json[QStringLiteral("description")].toString();
+    const Weather::AlertType type = Weather::alertTypeFromString(json[QStringLiteral("type")].toString());
+    const Weather::AlertSeverity severity = Weather::alertSeverityFromString(json[QStringLiteral("severity")].toString());
+    const qint64 onset = json[QStringLiteral("onset")].toString().toLongLong();
+    const qint64 ending = json[QStringLiteral("ending")].toString().toLongLong();
 
     return std::make_unique<WeatherAlert>(id, event, headline, description, type, severity, onset, ending);
 }
