@@ -39,9 +39,6 @@ ListRadioView {
     function action() {
         if (applicationWindow.ready) {
             Vremenar.weatherSourceChanged(selectedIndex)
-            if (Settings.weatherSource !== selectedIndex) {
-                return
-            }
 
             if (shouldCloseDialog) {
                 dialog.accept()
