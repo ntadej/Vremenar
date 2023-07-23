@@ -28,8 +28,8 @@ env:
 
 jobs:
   build:
-    name: Build Vremenar (iOS / macOS 12 x64)
-    runs-on: macos-12
+    name: Build Vremenar (iOS, Qt5)
+    runs-on: macos-13
 
     steps:
       - name: Checkout
