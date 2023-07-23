@@ -52,7 +52,7 @@ jobs:
         shell: bash
         run: |
           choco upgrade wget
-          wget.exe https://github.com/ntadej/qt-geoservices-maplibre-gl/releases/download/v${MAPLIBRE_VERSION}/qt-geoservices-maplibre-gl_v${MAPLIBRE_VERSION}_Qt${QT_VERSION}_win64_msvc2019.tar.bz2
+          wget.exe https://github.com/maplibre/maplibre-native-qt/releases/download/v${MAPLIBRE_VERSION}/qt-geoservices-maplibre-gl_v${MAPLIBRE_VERSION}_Qt${QT_VERSION}_win64_msvc2019.tar.bz2
           tar xvf qt-geoservices-maplibre-gl_v${MAPLIBRE_VERSION}_Qt${QT_VERSION}_win64_msvc2019.tar.bz2 -C ..
 
       - name: Setup ninja

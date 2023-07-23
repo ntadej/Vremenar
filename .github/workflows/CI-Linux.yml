@@ -50,7 +50,7 @@ jobs:
 
       - name: Download MapLibre
         run: |
-          wget https://github.com/ntadej/qt-geoservices-maplibre-gl/releases/download/v${MAPLIBRE_VERSION}/qt-geoservices-maplibre-gl_v${MAPLIBRE_VERSION}_Qt${QT_VERSION}_Linux.tar.bz2
+          wget https://github.com/maplibre/maplibre-native-qt/releases/download/v${MAPLIBRE_VERSION}/qt-geoservices-maplibre-gl_v${MAPLIBRE_VERSION}_Qt${QT_VERSION}_Linux.tar.bz2
           tar xvf qt-geoservices-maplibre-gl_v${MAPLIBRE_VERSION}_Qt${QT_VERSION}_Linux.tar.bz2
 
       - name: Configure & prepare
