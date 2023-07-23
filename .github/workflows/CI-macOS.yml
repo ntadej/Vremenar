@@ -23,7 +23,8 @@ concurrency:
   cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
 env:
-  QT_VERSION: 6.4.2
+  QT_VERSION: 6.4.3
+  QT_VERSION_STATIC: 6.4.2
   MAPLIBRE_VERSION: 2.1.0
 
 jobs:
@@ -51,10 +52,10 @@ jobs:
         if: matrix.type == 'app_store'
         run: |
           cd ..
-          wget https://github.com/ntadej/qt-build/releases/download/v${QT_VERSION}.0/Qt_macOS_static.tar.bz2
+          wget https://github.com/ntadej/qt-build/releases/download/v${QT_VERSION_STATIC}.0/Qt_macOS_static.tar.bz2
           tar xvf Qt_macOS_static.tar.bz2
-          echo "Qt6_DIR=$PWD/Qt/$QT_VERSION/macos_static" >> $GITHUB_ENV
-          echo "$PWD/Qt/$QT_VERSION/macos_static/bin" >> $GITHUB_PATH
+          echo "Qt6_DIR=$PWD/Qt/$QT_VERSION_STATIC/macos_static" >> $GITHUB_ENV
+          echo "$PWD/Qt/$QT_VERSION_STATIC/macos_static/bin" >> $GITHUB_PATH
           cd $GITHUB_WORKSPACE
 
       - name: Download Qt
