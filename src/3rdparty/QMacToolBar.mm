@@ -45,9 +45,9 @@
 #include "QNSToolbar_p.h"
 
 #include <QtCore/QDebug>
+#include <QtCore/QString>
 #include <QtCore/QTimer>
 #include <QtCore/QUuid>
-#include <QtCore/QString>
 #include <QtCore/qdebug.h>
 
 #include <QtGui/QGuiApplication>
@@ -261,7 +261,7 @@ void QMacToolBar::showInWindow_impl()
         return;
     }
 
-    NSWindow *macWindow = static_cast<NSWindow*>(
+    NSWindow *macWindow = static_cast<NSWindow *>(
         QGuiApplication::platformNativeInterface()->nativeResourceForWindow("nswindow", d->targetWindow));
 
     if (!macWindow) {
@@ -269,7 +269,7 @@ void QMacToolBar::showInWindow_impl()
         return;
     }
 
-    [macWindow setToolbar: d->toolbar];
+    [macWindow setToolbar:d->toolbar];
     [macWindow setShowsToolbarButton:YES];
 }
 
@@ -282,7 +282,7 @@ void QMacToolBar::detachFromWindow()
     if (!d->targetWindow)
         return;
 
-    NSWindow *macWindow = static_cast<NSWindow*>(
+    NSWindow *macWindow = static_cast<NSWindow *>(
         QGuiApplication::platformNativeInterface()->nativeResourceForWindow("nswindow", d->targetWindow));
     [macWindow setToolbar:nil];
 }
@@ -312,17 +312,17 @@ QMacToolBarPrivate::QMacToolBarPrivate(const QString &identifier)
 
 QMacToolBarPrivate::~QMacToolBarPrivate()
 {
-    [[toolbar delegate]release];
+    [[toolbar delegate] release];
     [toolbar release];
 }
 
 NSMutableArray *QMacToolBarPrivate::getItemIdentifiers(const QList<QMacToolBarItem *> &items, bool cullUnselectable)
 {
     NSMutableArray *array = [[NSMutableArray alloc] init];
-    for (const QMacToolBarItem * item : items) {
+    for (const QMacToolBarItem *item : items) {
         if (cullUnselectable && item->selectable() == false)
             continue;
-        [array addObject : item->d_func()->itemIdentifier()];
+        [array addObject:item->d_func()->itemIdentifier()];
     }
     return array;
 }

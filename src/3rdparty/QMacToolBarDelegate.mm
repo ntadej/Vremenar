@@ -59,34 +59,34 @@ NSArray *toNSArray(const QList<QString> &stringList)
 // from QMacToolButton.cpp
 QString qt_strippedText(QString s)
 {
-    s.remove( QString::fromLatin1("...") );
+    s.remove(QString::fromLatin1("..."));
     int i = 0;
     while (i < s.size()) {
         ++i;
-        if (s.at(i-1) != QLatin1Char('&'))
+        if (s.at(i - 1) != QLatin1Char('&'))
             continue;
         if (i < s.size() && s.at(i) == QLatin1Char('&'))
             ++i;
-        s.remove(i-1,1);
+        s.remove(i - 1, 1);
     }
     return s.trimmed();
 }
 
 @implementation QMacToolbarDelegate
 
-- (NSArray *)toolbarDefaultItemIdentifiers:(NSToolbar*)toolbar
+- (NSArray *)toolbarDefaultItemIdentifiers:(NSToolbar *)toolbar
 {
     Q_UNUSED(toolbar);
     return toolbarPrivate->getItemIdentifiers(toolbarPrivate->items, false);
 }
 
-- (NSArray *)toolbarAllowedItemIdentifiers:(NSToolbar*)toolbar
+- (NSArray *)toolbarAllowedItemIdentifiers:(NSToolbar *)toolbar
 {
     Q_UNUSED(toolbar);
     return toolbarPrivate->getItemIdentifiers(toolbarPrivate->allowedItems, false);
 }
 
-- (NSArray *)toolbarSelectableItemIdentifiers: (NSToolbar *)toolbar
+- (NSArray *)toolbarSelectableItemIdentifiers:(NSToolbar *)toolbar
 {
     Q_UNUSED(toolbar);
     NSMutableArray *array = toolbarPrivate->getItemIdentifiers(toolbarPrivate->items, true);
@@ -100,7 +100,7 @@ QString qt_strippedText(QString s)
     toolbarPrivate->itemClicked(item);
 }
 
-- (NSToolbarItem *) toolbar: (NSToolbar *)toolbar itemForItemIdentifier: (NSString *) itemIdentifier willBeInsertedIntoToolbar:(BOOL) willBeInserted
+- (NSToolbarItem *)toolbar:(NSToolbar *)toolbar itemForItemIdentifier:(NSString *)itemIdentifier willBeInsertedIntoToolbar:(BOOL)willBeInserted
 {
     Q_UNUSED(toolbar);
     Q_UNUSED(willBeInserted);

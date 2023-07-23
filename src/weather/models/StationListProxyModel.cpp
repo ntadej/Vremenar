@@ -30,7 +30,7 @@ void StationListProxyModel::setIgnoreForecastOnly(bool ignoreForecastOnly)
 }
 
 bool StationListProxyModel::filterAcceptsRow(int sourceRow,
-                                            const QModelIndex &sourceParent) const
+                                             const QModelIndex &sourceParent) const
 {
     const QModelIndex index = sourceModel()->index(sourceRow, 0, sourceParent);
 

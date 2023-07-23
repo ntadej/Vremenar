@@ -171,7 +171,10 @@ public:
     static const bool DEFAULT_SHOW_IN_TRAY;
 
 #if defined(Q_OS_MACOS)
-    [[nodiscard]] inline bool showInDock() const { return _showInDock; }
+    [[nodiscard]] inline bool showInDock() const
+    {
+        return _showInDock;
+    }
     inline void setShowInDock(bool b) { _showInDock = b; }
     static const QString KEY_SHOW_IN_DOCK;
     static const bool DEFAULT_SHOW_IN_DOCK;

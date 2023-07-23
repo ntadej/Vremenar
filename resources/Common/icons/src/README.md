@@ -13,7 +13,7 @@ Download
 
 Icons are available to download directly from this repository. Simply clone it and move the resulting folder to the appropriate path.
 
-* In a Terminal execute the following command: 
+* In a Terminal execute the following command:
   * `git clone https://github.com/NitruxSA/plasma-next-icons.git`
 
 Alternatively, click the **Download ZIP** button on the right area of this site. Or install the icon theme via your distribution repositories (there's the possibility that it isn't up-to-date).

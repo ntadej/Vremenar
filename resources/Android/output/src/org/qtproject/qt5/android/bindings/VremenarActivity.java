@@ -11,8 +11,6 @@
 
 package si.tano.vremenar;
 
-import java.util.List;
-
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.UiModeManager;
@@ -24,18 +22,15 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowInsets;
-
 import androidx.annotation.NonNull;
-
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;
-
+import java.util.List;
 import ly.count.android.sdk.Countly;
 import ly.count.android.sdk.CountlyConfig;
-
 import org.qtproject.qt.android.bindings.QtActivity;
 
 class VremenarCountlyNativeInterface
@@ -50,25 +45,29 @@ public class VremenarActivity extends QtActivity
     private static final String TAG = "VremenarActivity";
     private boolean notificationsRequested = false;
 
-    public boolean isAndroidTV() {
-        UiModeManager uiModeManager = (UiModeManager) getSystemService(UI_MODE_SERVICE);
+    public boolean isAndroidTV()
+    {
+        UiModeManager uiModeManager = (UiModeManager)getSystemService(UI_MODE_SERVICE);
         if (uiModeManager.getCurrentModeType() == Configuration.UI_MODE_TYPE_TELEVISION) {
             return true;
         }
         return false;
     }
 
-    public boolean isFireTV() {
+    public boolean isFireTV()
+    {
         final String AMAZON_FEATURE_FIRE_TV = "amazon.hardware.fire_tv";
         return getPackageManager().hasSystemFeature(AMAZON_FEATURE_FIRE_TV);
     }
 
-    public boolean checkPlayServices() {
+    public boolean checkPlayServices()
+    {
         int resultCode = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(this);
         return resultCode == ConnectionResult.SUCCESS;
     }
 
-    public int[] getSafeAreMargins() {
+    public int[] getSafeAreMargins()
+    {
         int[] margins = new int[4];
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
@@ -90,15 +89,18 @@ public class VremenarActivity extends QtActivity
         return margins;
     }
 
-    public void recordEvent(String event) {
+    public void recordEvent(String event)
+    {
         Countly.sharedInstance().events().recordEvent(event);
     }
 
-    public boolean notificationsSupported() {
+    public boolean notificationsSupported()
+    {
         return checkPlayServices();
     }
 
-    public boolean requestNotifications() {
+    public boolean requestNotifications()
+    {
         if (!checkPlayServices() || notificationsRequested) {
             return true;
         }
@@ -109,11 +111,13 @@ public class VremenarActivity extends QtActivity
         return false;
     }
 
-    public boolean areNotificationsSupported() {
+    public boolean areNotificationsSupported()
+    {
         return checkPlayServices();
     }
 
-    public boolean areNotificationsEnabled() {
+    public boolean areNotificationsEnabled()
+    {
         if (!checkPlayServices()) {
             return false;
         }
@@ -131,40 +135,43 @@ public class VremenarActivity extends QtActivity
         return true;
     }
 
-    public void notificationsSubscribe(String topic) {
+    public void notificationsSubscribe(String topic)
+    {
         if (!checkPlayServices()) {
             return;
         }
 
-        FirebaseMessaging.getInstance().subscribeToTopic(topic)
-            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    if (!task.isSuccessful()) {
-                        Log.d(TAG, "Topic subscribe failed.");
-                    }
+        FirebaseMessaging.getInstance().subscribeToTopic(topic).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task)
+            {
+                if (!task.isSuccessful()) {
+                    Log.d(TAG, "Topic subscribe failed.");
                 }
-            });
+            }
+        });
     }
 
-    public void notificationsUnsubscribe(String topic) {
+    public void notificationsUnsubscribe(String topic)
+    {
         if (!checkPlayServices()) {
             return;
         }
 
-        FirebaseMessaging.getInstance().unsubscribeFromTopic(topic)
-            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    if (!task.isSuccessful()) {
-                        Log.d(TAG, "Topic unsubscribe failed.");
-                    }
+        FirebaseMessaging.getInstance().unsubscribeFromTopic(topic).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task)
+            {
+                if (!task.isSuccessful()) {
+                    Log.d(TAG, "Topic unsubscribe failed.");
                 }
-            });
+            }
+        });
     }
 
     @Override
-    protected void onCreateHook(Bundle savedInstanceState) {
+    protected void onCreateHook(Bundle savedInstanceState)
+    {
         this.QT_ANDROID_DEFAULT_THEME = "VremenarTheme";
 
         super.onCreateHook(savedInstanceState);
@@ -175,8 +182,7 @@ public class VremenarActivity extends QtActivity
         decorView.setSystemUiVisibility(uiOptions);
 
         // Initialise notifications
-        NotificationManager notificationManager =
-                getSystemService(NotificationManager.class);
+        NotificationManager notificationManager = getSystemService(NotificationManager.class);
         notificationManager.createNotificationChannel(
             new NotificationChannel("vremenar_forecast", "Forecast", NotificationManager.IMPORTANCE_LOW));
         notificationManager.createNotificationChannel(
@@ -208,7 +214,8 @@ public class VremenarActivity extends QtActivity
     }
 
     @Override
-    public void onConfigurationChanged (Configuration newConfig){
+    public void onConfigurationChanged(Configuration newConfig)
+    {
         super.onConfigurationChanged(newConfig);
         Countly.sharedInstance().onConfigurationChanged(newConfig);
     }
@@ -223,4 +230,4 @@ public class VremenarActivity extends QtActivity
         int uiOptions = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
         decorView.setSystemUiVisibility(uiOptions);
     }
-} 
+}

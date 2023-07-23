@@ -12,7 +12,6 @@
 package si.tano.vremenar;
 
 import android.util.Log;
-
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -21,7 +20,8 @@ class VremenarNotificationsNativeInterface
     public static native void notificationsSetupCompleted();
 }
 
-public class VremenarMessagingService extends FirebaseMessagingService {
+public class VremenarMessagingService extends FirebaseMessagingService
+{
 
     private static final String TAG = "VremenarMsgService";
 
@@ -32,7 +32,8 @@ public class VremenarMessagingService extends FirebaseMessagingService {
      */
     // [START receive_message]
     @Override
-    public void onMessageReceived(RemoteMessage remoteMessage) {
+    public void onMessageReceived(RemoteMessage remoteMessage)
+    {
         // [START_EXCLUDE]
         // There are two types of messages data messages and notification messages. Data messages
         // are handled
@@ -60,7 +61,6 @@ public class VremenarMessagingService extends FirebaseMessagingService {
     }
     // [END receive_message]
 
-
     // [START on_new_token]
     /**
      * There are two scenarios when onNewToken is called:
@@ -72,11 +72,11 @@ public class VremenarMessagingService extends FirebaseMessagingService {
      * C) User clears app data
      */
     @Override
-    public void onNewToken(String token) {
+    public void onNewToken(String token)
+    {
         Log.d(TAG, "Refreshed token: " + token);
 
         VremenarNotificationsNativeInterface.notificationsSetupCompleted();
     }
     // [END on_new_token]
-            
 }

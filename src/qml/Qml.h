@@ -17,6 +17,6 @@ namespace Vremenar::Qml
 
 void registerTypes();
 
-} // namespace Vremenar
+} // namespace Vremenar::Qml
 
 #endif // VREMENAR_QML_H_

@@ -31,7 +31,7 @@ int Qml::UIManager::iconSizeCommon() const
     return 32; // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
 #endif
 }
-int Qml::UIManager::iconSizeLarge() const { return 48; }  // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+int Qml::UIManager::iconSizeLarge() const { return 48; } // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
 int Qml::UIManager::iconSizePrevNext() const
 {
 #if defined(Q_OS_WINDOWS)
@@ -74,7 +74,7 @@ int Qml::UIManager::paddingSmall() const { return 8; }        // NOLINT(cppcoreg
 int Qml::UIManager::paddingHeader() const { return 5; }       // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
 int Qml::UIManager::radiusCommon() const { return 10; }       // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
 
-int Qml::UIManager::rowHeight() const { return 44; }    // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+int Qml::UIManager::rowHeight() const { return 44; } // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
 int Qml::UIManager::navBarHeight() const
 {
 #if !defined(Q_OS_ANDROID) && defined(Q_OS_LINUX)
@@ -88,9 +88,9 @@ int Qml::UIManager::bottomSheetBaseHeight() const { return 44; } // NOLINT(cppco
 int Qml::UIManager::bottomSheetMaxWidth() const { return 680; }  // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
 int Qml::UIManager::smallWidthThreshold() const { return 320; }  // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
 
-int Qml::UIManager::mapIconSize() const { return 48; }       // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
-int Qml::UIManager::mapIconSizeHeight() const { return 38; } // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
-int Qml::UIManager::mapLegendSize() const { return 20; }     // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+int Qml::UIManager::mapIconSize() const { return 48; }            // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+int Qml::UIManager::mapIconSizeHeight() const { return 38; }      // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+int Qml::UIManager::mapLegendSize() const { return 20; }          // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
 int Qml::UIManager::mapLegendSizeTextBased() const { return 50; } // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
 
 int Qml::UIManager::windowButtonWidth() const { return 45; }    // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)

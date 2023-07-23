@@ -16,7 +16,7 @@ add_subdirectory(Common/ui)
 add_subdirectory(Weather/Map)
 
 # Desktop common resources
-if(NOT MOBILE) 
+if(NOT MOBILE)
     add_subdirectory(Common/icons)
 endif()
 

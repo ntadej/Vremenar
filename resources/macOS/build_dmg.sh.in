@@ -96,7 +96,7 @@ else
     result=$?
   else
     create-dmg "$BUNDLE_NAME" --overwrite
-    result=$? 
+    result=$?
   fi
 fi
 

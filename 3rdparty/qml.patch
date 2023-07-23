@@ -2,7 +2,7 @@
 +++ lib/cmake/Qt6Qml/Qt6QmlMacros.cmake
 @@ -1987,17 +1987,19 @@
      endif()
- 
+
      if(copied_files OR generated_sources_other_scope)
 +        _qt_internal_get_escaped_uri("${uri}" escaped_uri)
 +

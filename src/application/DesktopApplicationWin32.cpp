@@ -38,7 +38,7 @@ void DesktopApplication::setupTitleBarLessWindow(quintptr winId,
     SetWindowLongPtr(wnd, GWL_STYLE, static_cast<LONG>(Style::aero_borderless));
 
     // enable shadow
-    const MARGINS shadow_on = { 1, 1, 1, 1 };
+    const MARGINS shadow_on = {1, 1, 1, 1};
     /*const MARGINS shadow_off = { 0, 0, 0, 0 };*/
     DwmExtendFrameIntoClientArea(wnd, &shadow_on);
 
