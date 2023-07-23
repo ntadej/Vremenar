@@ -8,7 +8,7 @@
   "ruby.intellisense": "rubyLocate",
   "ruby.lint": {
     "rubocop": {
-      "useBundler": true // enable rubocop via bundler
+      "useBundler": true
     }
   },
   "ruby.useBundler": true,

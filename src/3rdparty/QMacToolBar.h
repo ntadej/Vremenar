@@ -42,8 +42,8 @@
 
 #include "QMacToolBarItem.h"
 
-#include <QtCore/QString>
 #include <QtCore/QObject>
+#include <QtCore/QString>
 #include <QtCore/QVariant>
 #include <QtGui/QIcon>
 
@@ -74,14 +74,14 @@ public:
     void attachToWindow(QWindow *window);
     void detachFromWindow();
 
-    NSToolbar* nativeToolbar() const;
+    NSToolbar *nativeToolbar() const;
 private Q_SLOTS:
     void showInWindow_impl();
+
 private:
     Q_DECLARE_PRIVATE(QMacToolBar)
 };
 
-Q_DECLARE_METATYPE(QMacToolBar*)
+Q_DECLARE_METATYPE(QMacToolBar *)
 
 #endif
-

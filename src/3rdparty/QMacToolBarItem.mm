@@ -60,12 +60,11 @@
     \value FlexibleSpace A spacing item which grows to fill available space
 */
 
-
 /*!
     Constructs a QMacToolBarItem with \a parent.
 */
 QMacToolBarItem::QMacToolBarItem(QObject *parent)
-    :QObject(*new QMacToolBarItemPrivate, parent)
+    : QObject(*new QMacToolBarItemPrivate, parent)
 {
     Q_D(QMacToolBarItem);
     d->initNativeToolbarItem();
@@ -76,7 +75,6 @@ QMacToolBarItem::QMacToolBarItem(QObject *parent)
 */
 QMacToolBarItem::~QMacToolBarItem()
 {
-
 }
 
 /*!
@@ -229,6 +227,6 @@ NSString *QMacToolBarItemPrivate::itemIdentifier() const
 // Initializes the NSToolBarItem based on QMacToolBarItem properties.
 void QMacToolBarItemPrivate::initNativeToolbarItem()
 {
-    NSString  *identifier = itemIdentifier();
+    NSString *identifier = itemIdentifier();
     toolbarItem = [[NSToolbarItem alloc] initWithItemIdentifier:identifier];
 }

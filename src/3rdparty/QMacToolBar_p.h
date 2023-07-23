@@ -56,8 +56,8 @@
 #include "QMacToolBar.h"
 #include "QMacToolBarItem.h"
 
-#include <QtCore/QString>
 #include <QtCore/QObject>
+#include <QtCore/QString>
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wgnu-anonymous-struct"
@@ -86,4 +86,3 @@ public:
 };
 
 #endif
-

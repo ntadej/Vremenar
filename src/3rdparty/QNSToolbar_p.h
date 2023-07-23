@@ -53,8 +53,8 @@
 
 #include <AppKit/NSToolbar.h>
 
-#include <qglobal.h>
 #include <private/qcore_mac_p.h>
+#include <qglobal.h>
 
 extern NSString *QtNSToolbarDisplayModeChangedNotification;
 extern NSString *QtNSToolbarShowsBaselineSeparatorChangedNotification;
@@ -62,7 +62,7 @@ extern NSString *QtNSToolbarAllowsUserCustomizationChangedNotification;
 extern NSString *QtNSToolbarSizeModeChangedNotification;
 extern NSString *QtNSToolbarVisibilityChangedNotification;
 
-@interface QT_MANGLE_NAMESPACE(QtNSToolbar) : NSToolbar
+@interface QT_MANGLE_NAMESPACE (QtNSToolbar) : NSToolbar
 
 @end
 

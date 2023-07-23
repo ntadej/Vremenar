@@ -46,9 +46,18 @@ public:
         return true;
     }
 #endif
-    inline const QString &server() { return _server; }
-    inline const QString &message() { return _message; }
-    inline const QString &url() { return _url; }
+    inline const QString &server()
+    {
+        return _server;
+    }
+    inline const QString &message()
+    {
+        return _message;
+    }
+    inline const QString &url()
+    {
+        return _url;
+    }
 
 signals:
     void messageChanged();

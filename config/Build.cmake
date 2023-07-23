@@ -103,4 +103,3 @@ elseif(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
 else()
     message(FATAL_ERROR "Unknown platform")
 endif()
-

@@ -32,7 +32,7 @@ constexpr CString AppCastEndpoint = \"$${APPCAST_ENDPOINT}\";
 
 constexpr CString CountlyAppKey = \"$${COUNTLY_APPKEY}\";
 constexpr CString CountlyEndpoint = \"$${COUNTLY_ENDPOINT}\";
-constexpr CString CountlySalt = \"$${COUNTLY_SALT}\";       
+constexpr CString CountlySalt = \"$${COUNTLY_SALT}\";
 
 } // namespace Vremenar
 

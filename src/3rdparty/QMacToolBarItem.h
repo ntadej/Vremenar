@@ -57,8 +57,7 @@ class QMacToolBarItem : public QObject
     Q_ENUMS(StandardItem)                                                         // clazy:exclude=qenums
 
 public:
-    enum StandardItem
-    {
+    enum StandardItem {
         NoStandardItem,
         Space,
         FlexibleSpace
@@ -83,6 +82,7 @@ public:
 
 Q_SIGNALS:
     void activated();
+
 private:
     friend class QMacToolBarPrivate;
     Q_DECLARE_PRIVATE(QMacToolBarItem)

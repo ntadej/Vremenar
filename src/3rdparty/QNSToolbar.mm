@@ -51,8 +51,7 @@ QT_USE_NAMESPACE
 
 - (void)setDisplayMode:(NSToolbarDisplayMode)displayMode
 {
-    if ([self displayMode] != displayMode)
-    {
+    if ([self displayMode] != displayMode) {
         [super setDisplayMode:displayMode];
         [[NSNotificationCenter defaultCenter] postNotificationName:QtNSToolbarDisplayModeChangedNotification object:self];
     }
@@ -60,8 +59,7 @@ QT_USE_NAMESPACE
 
 - (void)setShowsBaselineSeparator:(BOOL)flag
 {
-    if ([self showsBaselineSeparator] != flag)
-    {
+    if ([self showsBaselineSeparator] != flag) {
         [super setShowsBaselineSeparator:flag];
         [[NSNotificationCenter defaultCenter] postNotificationName:QtNSToolbarShowsBaselineSeparatorChangedNotification object:self];
     }
@@ -69,8 +67,7 @@ QT_USE_NAMESPACE
 
 - (void)setAllowsUserCustomization:(BOOL)allowsCustomization
 {
-    if ([self allowsUserCustomization] != allowsCustomization)
-    {
+    if ([self allowsUserCustomization] != allowsCustomization) {
         [super setAllowsUserCustomization:allowsCustomization];
         [[NSNotificationCenter defaultCenter] postNotificationName:QtNSToolbarAllowsUserCustomizationChangedNotification object:self];
     }
@@ -78,8 +75,7 @@ QT_USE_NAMESPACE
 
 - (void)setSizeMode:(NSToolbarSizeMode)sizeMode
 {
-    if ([self sizeMode] != sizeMode)
-    {
+    if ([self sizeMode] != sizeMode) {
         [super setSizeMode:sizeMode];
         [[NSNotificationCenter defaultCenter] postNotificationName:QtNSToolbarSizeModeChangedNotification object:self];
     }

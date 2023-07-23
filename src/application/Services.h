@@ -24,7 +24,7 @@ public:
     static Services &getInstance()
     {
         static Services instance; // Guaranteed to be destroyed.
-                                         // Instantiated on first use.
+                                  // Instantiated on first use.
         return instance;
     }
 

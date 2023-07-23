@@ -38,9 +38,9 @@ void Application::preInit()
 
 #if defined(Q_OS_WINDOWS)
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-        QCoreApplication::setAttribute(Qt::AA_UseOpenGLES);
+    QCoreApplication::setAttribute(Qt::AA_UseOpenGLES);
 #else
-        qputenv("QT_QPA_PLATFORM", "windows:darkmode=1");
+    qputenv("QT_QPA_PLATFORM", "windows:darkmode=1");
 #endif
 #elif defined(Q_OS_LINUX) && !defined(Q_OS_ANDROID)
     qputenv("QT_QUICK_CONTROLS_MATERIAL_VARIANT", "Dense");

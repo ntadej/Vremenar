@@ -1414,28 +1414,28 @@
    y1="1.5"
    x2="1.5"
    y2="1.5" />
-    
 
 
 
 
-  
-      
 
 
 
 
-      
 
 
 
 
-      
 
 
 
 
-      
+
+
+
+
+
+
 
 
 
@@ -1771,7 +1771,7 @@
    id="g2113">
             <g
    id="g2111">
-              
+
             </g>
 
 
@@ -1887,7 +1887,7 @@
    id="g2337">
             <g
    id="g2335">
-              
+
             </g>
 
 
@@ -1973,7 +1973,7 @@
    id="g2321">
             <g
    id="g2319">
-              
+
             </g>
 
 
@@ -2040,32 +2040,32 @@
    inkscape:groupmode="layer"
    transform="translate(2.610934e-6,-1.1412894e-5)"
    sodipodi:insensitive="true">
-  
 
 
 
 
-  
 
 
 
 
-  
 
 
 
 
-  
 
 
 
 
-  
 
 
 
 
-  
+
+
+
+
+
+
 
 
 
@@ -2124,22 +2124,22 @@
    style="display:inline"
    transform="translate(2.610934e-6,-1.1412894e-5)"
    sodipodi:insensitive="true">
-  
 
 
 
 
-  
 
 
 
 
-  
 
 
 
 
-  
+
+
+
+
 
 
 
@@ -2184,12 +2184,12 @@
    inkscape:groupmode="layer"
    transform="translate(2.610934e-6,-1.1412894e-5)"
    sodipodi:insensitive="true">
-  
 
 
 
 
-  
+
+
 
 
 
@@ -2220,22 +2220,22 @@
    inkscape:groupmode="layer"
    transform="translate(2.610934e-6,-1.1412894e-5)"
    sodipodi:insensitive="true">
-  
 
 
 
 
-  
 
 
 
 
-  
 
 
 
 
-  
+
+
+
+
 
 
 
@@ -2280,22 +2280,22 @@
    style="display:inline"
    transform="translate(2.610934e-6,-1.1412894e-5)"
    sodipodi:insensitive="true">
-  
 
 
 
 
-  
 
 
 
 
-  
 
 
 
 
-  
+
+
+
+
 
 
 
@@ -2340,12 +2340,12 @@
    inkscape:groupmode="layer"
    transform="translate(2.610934e-6,-1.1412894e-5)"
    sodipodi:insensitive="true">
-  
 
 
 
 
-  
+
+
 
 
 
@@ -2376,7 +2376,7 @@
    inkscape:groupmode="layer"
    transform="translate(2.610934e-6,-1.1412894e-5)"
    sodipodi:insensitive="true">
-  
+
 
 
 
@@ -2502,7 +2502,7 @@
    inkscape:label="snow_mod"
    transform="matrix(1.3333333,0,0,-1.3333333,-1171.104,676.9253)"
    sodipodi:insensitive="true">
-    
+
 
 
 
@@ -2553,7 +2553,7 @@
    height="1.0402629"
    x="976.34308"
    y="273.22498" />
-    
+
 
 
 
@@ -2582,7 +2582,7 @@
    inkscape:label="snow_light"
    transform="matrix(1.3333333,0,0,-1.3333333,-1171.104,676.9253)"
    sodipodi:insensitive="true">
-    
+
 
 
 
@@ -2617,7 +2617,7 @@
    width="1.0606602"
    id="rect9347-13-1"
    style="display:inline;fill:url(#linearGradient4327);fill-opacity:1;stroke-width:0.101617;filter:url(#filter514)" />
-    
+
 
 
 
@@ -2720,7 +2720,7 @@
    inkscape:label="fog_mod"
    transform="translate(0,-1.1412894e-5)"
    sodipodi:insensitive="true">
-  
+
 
 
 
@@ -2777,7 +2777,7 @@
    inkscape:label="fog_heavy"
    transform="translate(0,-1.1412894e-5)"
    sodipodi:insensitive="true">
-  
+
 
 
 
