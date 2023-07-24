@@ -25,6 +25,10 @@ void MapLegendModel::addMapLegends(const QJsonArray &data)
     for (const auto &legendRef : data) {
         const QJsonObject legend = legendRef.toObject();
         const auto type = Weather::mapTypeFromString(legend[QStringLiteral("map_type")].toString());
+        if (type == Weather::MapType::UnknownMapType) {
+            continue;
+        }
+
         const QJsonArray list = legend[QStringLiteral("items")].toArray();
         for (const auto &itemRef : list) {
             const QJsonObject item = itemRef.toObject();

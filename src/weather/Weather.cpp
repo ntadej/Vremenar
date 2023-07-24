@@ -194,7 +194,7 @@ Weather::MapRenderingType Weather::mapRenderingTypeFromString(const QString &typ
         return Weather::IconsRendering;
     }
 
-    return Weather::ImageRendering;
+    return Weather::UnknownRendering;
 }
 
 Weather::AlertType Weather::alertTypeFromString(const QString &type)

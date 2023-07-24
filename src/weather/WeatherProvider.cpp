@@ -301,6 +301,12 @@ void WeatherProvider::response(QNetworkReply *reply)
             return;
         }
 
+        auto reportedRenderingType = Weather::mapRenderingTypeFromString(data[QStringLiteral("rendering")].toString());
+        if (reportedRenderingType == Weather::UnknownRendering) {
+            qDebug() << "Invalid map rendering type " << reportedRenderingType;
+            return;
+        }
+
         _weatherMapModelBase->clear();
         _weatherMapModel->clear();
         _mapLayersModel->clear();

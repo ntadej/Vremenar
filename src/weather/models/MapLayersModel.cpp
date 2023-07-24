@@ -38,6 +38,9 @@ void MapLayersModel::addMapLayers(Weather::MapType type,
                                   const QJsonObject &data)
 {
     auto rendering = Weather::mapRenderingTypeFromString(data[QStringLiteral("rendering")].toString());
+    if (rendering == Weather::MapRenderingType::UnknownRendering) {
+        return;
+    }
 
     // bbox
     QGeoRectangle bbox;

@@ -50,7 +50,8 @@ enum MapType {
 enum MapRenderingType {
     ImageRendering,
     TilesRendering,
-    IconsRendering
+    IconsRendering,
+    UnknownRendering,
 };
 
 enum AlertType {

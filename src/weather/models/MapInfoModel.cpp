@@ -23,6 +23,9 @@ MapInfoModel::MapInfoModel(QObject *parent)
 void MapInfoModel::generateModel(const std::vector<Weather::MapType> &supported)
 {
     for (const Weather::MapType type : supported) {
+        if (type == Weather::MapType::UnknownMapType) {
+            continue;
+        }
         appendRow(std::make_unique<MapInfo>(type));
     }
 }
@@ -31,8 +34,12 @@ void MapInfoModel::generateModel(const QJsonArray &supported)
 {
     for (const auto &typeInfoRef : supported) {
         const QJsonObject typeInfo = typeInfoRef.toObject();
-        const Weather::MapType type = Weather::mapTypeFromString(typeInfo[QStringLiteral("map_type")].toString());
-        appendRow(std::make_unique<MapInfo>(type));
+        const auto mapType = Weather::mapTypeFromString(typeInfo[QStringLiteral("map_type")].toString());
+        const auto renderingType = Weather::mapRenderingTypeFromString(typeInfo[QStringLiteral("rendering")].toString());
+        if (mapType == Weather::MapType::UnknownMapType || renderingType == Weather::MapRenderingType::UnknownRendering) {
+            continue;
+        }
+        appendRow(std::make_unique<MapInfo>(mapType));
     }
 }
 
