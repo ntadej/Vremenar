@@ -51,20 +51,20 @@ void MapLayersProxyModel::setUpdating(bool updating,
 void MapLayersProxyModel::emitUpdate()
 {
     QString urlPrevious;
-    QString urlCurrent = data(index(_row, 0), MapLayer::UrlRole).toUrl().toString();
+    QString urlCurrent = data(index(_row, 0), MapLayer::UrlRole).toString();
     QString urlNext;
     if (urlCurrent.contains(QStringLiteral("json"))) {
         urlCurrent = QString();
     } else {
         if (_row > 0) {
-            urlPrevious = data(index(_row - 1, 0), MapLayer::UrlRole).toUrl().toString();
+            urlPrevious = data(index(_row - 1, 0), MapLayer::UrlRole).toString();
         } else {
-            urlPrevious = data(index(rowCount() - 1, 0), MapLayer::UrlRole).toUrl().toString();
+            urlPrevious = data(index(rowCount() - 1, 0), MapLayer::UrlRole).toString();
         }
         if (_row + 1 < rowCount()) {
-            urlNext = data(index(_row + 1, 0), MapLayer::UrlRole).toUrl().toString();
+            urlNext = data(index(_row + 1, 0), MapLayer::UrlRole).toString();
         } else {
-            urlNext = data(index(0, 0), MapLayer::UrlRole).toUrl().toString();
+            urlNext = data(index(0, 0), MapLayer::UrlRole).toString();
         }
     }
 

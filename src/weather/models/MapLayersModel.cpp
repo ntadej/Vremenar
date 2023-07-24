@@ -28,7 +28,7 @@ MapLayer *MapLayersModel::createMapLayer(Weather::MapType type,
                                          const QGeoRectangle &bbox)
 {
     const QDateTime time = QDateTime::fromMSecsSinceEpoch(data[QStringLiteral("timestamp")].toString().toLongLong());
-    const QUrl url(data[QStringLiteral("url")].toString());
+    const QString url = data[QStringLiteral("url")].toString();
     const auto observation = Weather::observationTypeFromString(data[QStringLiteral("observation")].toString());
 
     return appendRow(std::make_unique<MapLayer>(type, rendering, observation, time, url, bbox));

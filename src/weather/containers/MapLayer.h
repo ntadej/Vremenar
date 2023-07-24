@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -30,7 +30,7 @@ class MapLayer : public ListItem
     Q_PROPERTY(Weather::MapType type READ type CONSTANT)
     Q_PROPERTY(Weather::MapRenderingType rendering READ rendering CONSTANT)
     Q_PROPERTY(QDateTime time READ time CONSTANT)
-    Q_PROPERTY(QUrl url READ url CONSTANT)
+    Q_PROPERTY(QString url READ url CONSTANT)
     Q_PROPERTY(QGeoRectangle bbox READ bbox NOTIFY bboxChanged)
     Q_PROPERTY(bool loaded READ loaded NOTIFY loadedChanged)
 
@@ -56,7 +56,7 @@ public:
                       Weather::MapRenderingType rendering,
                       Weather::ObservationType observation,
                       const QDateTime &time,
-                      QUrl url,
+                      QString url,
                       const QGeoRectangle &bbox = QGeoRectangle(),
                       QObject *parent = nullptr);
 
@@ -68,7 +68,7 @@ public:
     [[nodiscard]] inline Weather::MapType type() const { return _type; }
     [[nodiscard]] inline Weather::MapRenderingType rendering() const { return _rendering; }
     [[nodiscard]] inline const QDateTime &time() const { return _time; }
-    [[nodiscard]] inline const QUrl &url() const { return _url; }
+    [[nodiscard]] inline const QString &url() const { return _url; }
     [[nodiscard]] inline const QGeoRectangle &bbox() const { return _bbox; }
     void setBbox(const QGeoRectangle &bbox);
     [[nodiscard]] inline const QVariant &coordinates() const { return _coordinates; }
@@ -105,7 +105,7 @@ private:
     Weather::MapType _type{Weather::UnknownMapType};
     Weather::MapRenderingType _rendering{Weather::ImageRendering};
     QDateTime _time;
-    QUrl _url;
+    QString _url;
     QGeoRectangle _bbox;
     QVariant _coordinates;
     bool _loaded{false};

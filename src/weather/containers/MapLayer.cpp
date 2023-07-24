@@ -20,7 +20,7 @@ MapLayer::MapLayer(Weather::MapType type,
                    Weather::MapRenderingType rendering,
                    Weather::ObservationType observation,
                    const QDateTime &time,
-                   QUrl url,
+                   QString url,
                    const QGeoRectangle &bbox,
                    QObject *parent)
     : ListItem(parent),

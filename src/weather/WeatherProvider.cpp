@@ -380,7 +380,7 @@ void WeatherProvider::currentTimeChanged()
     }
 
     if (!layer->loaded()) {
-        requestWeatherMapDetails(layer->url().toString());
+        requestWeatherMapDetails(layer->url());
         layer->setLoaded();
     } else {
         _weatherMapModel->update(_weatherMapModelBase.get(), mapLayers()->timestamp());
