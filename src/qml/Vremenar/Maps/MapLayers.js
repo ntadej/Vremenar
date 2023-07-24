@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -68,7 +68,9 @@ function reset()
 function createSource(map, renderingType, url, source)
 {
     if (renderingType === Common.Weather.TilesRendering) {
-        url += '&bbox={bbox-epsg-3857}'
+        if (url.indexOf('{z}') === -1) {
+            url += '&bbox={bbox-epsg-3857}'
+        }
         return Qt.createQmlObject(`import QtLocation 5.15; DynamicParameter {type: "source"; objectName: "weatherSourceObj${source}"; property var name: "weatherSource${source}"; property var sourceType: "raster"; property var tiles: ["${url}"]; property var tileSize: 512;}`,
                                   map,
                                   "sourceParam")

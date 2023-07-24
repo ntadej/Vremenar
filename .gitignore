@@ -9,6 +9,7 @@ Config.cmake
 /*.keystore
 /*.plist
 
+/.cache
 /build
 
 /3rdparty/qt-geoservices-maplibre*
