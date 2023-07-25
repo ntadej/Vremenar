@@ -111,8 +111,14 @@ Weather::MapType Weather::mapTypeFromString(const QString &type)
     if (type == QStringLiteral("precipitation")) {
         return Weather::PrecipitationMap;
     }
+    if (type == QStringLiteral("precipitation_global")) {
+        return Weather::PrecipitationGlobalMap;
+    }
     if (type == QStringLiteral("cloud")) {
         return Weather::CloudCoverageMap;
+    }
+    if (type == QStringLiteral("cloud_infrared_global")) {
+        return Weather::CloudCoverageInfraredGlobalMap;
     }
     if (type == QStringLiteral("wind")) {
         return Weather::WindSpeedMap;
@@ -140,8 +146,12 @@ QString Weather::mapTypeToString(MapType type)
         return QStringLiteral("condition");
     case PrecipitationMap:
         return QStringLiteral("precipitation");
+    case PrecipitationGlobalMap:
+        return QStringLiteral("precipitation_global");
     case CloudCoverageMap:
         return QStringLiteral("cloud");
+    case CloudCoverageInfraredGlobalMap:
+        return QStringLiteral("cloud_infrared_global");
     case WindSpeedMap:
         return QStringLiteral("wind");
     case TemperatureMap:
@@ -166,8 +176,12 @@ QString Weather::mapTypeToLocalizedString(MapType type)
         return QObject::tr("Weather condition");
     case PrecipitationMap:
         return QObject::tr("Precipitation");
+    case PrecipitationGlobalMap:
+        return QObject::tr("Precipitation (global)");
     case CloudCoverageMap:
         return QObject::tr("Cloud coverage");
+    case CloudCoverageInfraredGlobalMap:
+        return QObject::tr("Cloud coverage (global)");
     case WindSpeedMap:
         return QObject::tr("Wind");
     case TemperatureMap:
