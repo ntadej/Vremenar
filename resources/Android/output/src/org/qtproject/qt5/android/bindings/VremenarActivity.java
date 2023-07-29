@@ -196,7 +196,6 @@ public class VremenarActivity extends QtActivity
         config.setParameterTamperingProtectionSalt(VremenarCountlyNativeInterface.salt());
 
         Countly.sharedInstance().init(config);
-        Countly.sharedInstance().onCreate(this);
     }
 
     @Override

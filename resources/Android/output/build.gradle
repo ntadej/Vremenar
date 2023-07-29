@@ -19,8 +19,8 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
 
 dependencies {
-    implementation 'ly.count.android:sdk:22.06.2'
-    implementation platform('com.google.firebase:firebase-bom:31.2.0')
+    implementation 'ly.count.android:sdk:23.6.0'
+    implementation platform('com.google.firebase:firebase-bom:31.5.0')
     implementation 'com.google.firebase:firebase-messaging'
     implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
 }
