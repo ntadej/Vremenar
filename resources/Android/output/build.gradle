@@ -5,7 +5,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.4.2'
+        classpath 'com.android.tools.build:gradle:8.1.0'
         classpath 'com.google.gms:google-services:4.3.15'
     }
 }
@@ -43,7 +43,7 @@ android {
 
     // compileSdkVersion androidCompileSdkVersion.toInteger()
     compileSdkVersion 33
-    compileSdkExtension 4
+    compileSdkExtension 5
     buildToolsVersion androidBuildToolsVersion
     ndkVersion androidNdkVersion
 
