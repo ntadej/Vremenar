@@ -2,6 +2,24 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="de_DE">
 <context>
+    <name>LocationSettings</name>
+    <message>
+        <location filename="../../../src/qml/Vremenar/Navigation/elements/LocationSettings.qml" line="19"/>
+        <source>Weather for current location</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../src/qml/Vremenar/Navigation/elements/LocationSettings.qml" line="25"/>
+        <source>Enable location</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../src/qml/Vremenar/Navigation/elements/LocationSettings.qml" line="29"/>
+        <source>Disable location</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>MainMenu</name>
     <message>
         <location filename="../../../src/qml/Vremenar/Desktop/+custommenu/MainMenu.qml" line="21"/>
@@ -12,7 +30,7 @@
     <message>
         <location filename="../../../src/qml/Vremenar/Desktop/+custommenu/MainMenu.qml" line="24"/>
         <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="44"/>
-        <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="164"/>
+        <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="196"/>
         <source>Settings</source>
         <translation>Einstellungen</translation>
     </message>
@@ -47,41 +65,41 @@
         <translation>Kartenstil</translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Desktop/+custommenu/MainMenu.qml" line="68"/>
-        <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="80"/>
+        <location filename="../../../src/qml/Vremenar/Desktop/+custommenu/MainMenu.qml" line="72"/>
+        <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="90"/>
         <source>Map Type</source>
         <translation>Kartentyp</translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Desktop/+custommenu/MainMenu.qml" line="85"/>
-        <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="191"/>
+        <location filename="../../../src/qml/Vremenar/Desktop/+custommenu/MainMenu.qml" line="93"/>
+        <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="223"/>
         <source>&amp;Help</source>
         <translation>&amp;Hilfe</translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Desktop/+custommenu/MainMenu.qml" line="88"/>
-        <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="176"/>
-        <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="194"/>
+        <location filename="../../../src/qml/Vremenar/Desktop/+custommenu/MainMenu.qml" line="96"/>
+        <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="208"/>
+        <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="226"/>
         <source>About Vremenar</source>
         <translation>Über Vremenar</translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="164"/>
+        <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="196"/>
         <source>Preferences</source>
         <translation>Einstellungen</translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="170"/>
+        <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="202"/>
         <source>Check for updates</source>
         <translation>Nach Updates suchen</translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="182"/>
+        <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="214"/>
         <source>Quit Vremenar</source>
         <translation>Vremenar beenden</translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="200"/>
+        <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="232"/>
         <source>&amp;Check for updates</source>
         <translation>Nach &amp;Updates suchen</translation>
     </message>
@@ -109,42 +127,112 @@
         <translation>Die Kartensteuerungstasten sind nun verfügbar</translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Maps/MapControls.qml" line="349"/>
+        <location filename="../../../src/qml/Vremenar/Maps/MapControls.qml" line="354"/>
         <source>Last updated:</source>
         <translation>Letztes Update:</translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Maps/MapControls.qml" line="357"/>
+        <location filename="../../../src/qml/Vremenar/Maps/MapControls.qml" line="362"/>
         <source>Weather data</source>
         <translation>Wetterdaten</translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Maps/MapControls.qml" line="358"/>
+        <location filename="../../../src/qml/Vremenar/Maps/MapControls.qml" line="363"/>
         <source>Maps</source>
         <translation>Karten</translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Maps/MapControls.qml" line="360"/>
+        <location filename="../../../src/qml/Vremenar/Maps/MapControls.qml" line="365"/>
         <source>backend</source>
         <translation>backend</translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Maps/MapControls.qml" line="382"/>
         <source>Change country</source>
-        <translation>Land wechseln</translation>
+        <translation type="vanished">Land wechseln</translation>
     </message>
 </context>
 <context>
     <name>MapSettingsDialog</name>
     <message>
-        <location filename="../../../src/qml/Vremenar/Maps/elements/MapSettingsDialog.qml" line="25"/>
+        <location filename="../../../src/qml/Vremenar/Maps/elements/MapSettingsDialog.qml" line="43"/>
         <source>Map type</source>
         <translation>Kartentyp</translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Maps/elements/MapSettingsDialog.qml" line="48"/>
+        <location filename="../../../src/qml/Vremenar/Maps/elements/MapSettingsDialog.qml" line="63"/>
         <source>Map style</source>
         <translation>Kartenstil</translation>
+    </message>
+</context>
+<context>
+    <name>MobileSettingsDialog</name>
+    <message>
+        <location filename="../../../src/qml/Vremenar/Navigation/elements/MobileSettingsDialog.qml" line="63"/>
+        <source>Weather Alert Notifications</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../src/qml/Vremenar/Navigation/elements/MobileSettingsDialog.qml" line="76"/>
+        <source>Notifications are currently disabled by the operating system.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>NotificationsSettings</name>
+    <message>
+        <location filename="../../../src/qml/Vremenar/Navigation/elements/NotificationsSettings.qml" line="19"/>
+        <source>Weather Alert Notifications</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../src/qml/Vremenar/Navigation/elements/NotificationsSettings.qml" line="25"/>
+        <source>Minor (yellow) alerts and higher</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../src/qml/Vremenar/Navigation/elements/NotificationsSettings.qml" line="26"/>
+        <source>Levels 1-4</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../src/qml/Vremenar/Navigation/elements/NotificationsSettings.qml" line="30"/>
+        <source>Moderate (orange) alerts and higher</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../src/qml/Vremenar/Navigation/elements/NotificationsSettings.qml" line="31"/>
+        <source>Levels 2-4</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../src/qml/Vremenar/Navigation/elements/NotificationsSettings.qml" line="35"/>
+        <source>Severe (red) alerts and higher</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../src/qml/Vremenar/Navigation/elements/NotificationsSettings.qml" line="36"/>
+        <source>Levels 3-4</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../src/qml/Vremenar/Navigation/elements/NotificationsSettings.qml" line="40"/>
+        <source>Extreme (purple) alerts only</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../src/qml/Vremenar/Navigation/elements/NotificationsSettings.qml" line="41"/>
+        <source>Level 4</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../src/qml/Vremenar/Navigation/elements/NotificationsSettings.qml" line="45"/>
+        <source>No weather alerts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../src/qml/Vremenar/Navigation/elements/NotificationsSettings.qml" line="46"/>
+        <source>Disabled</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -170,67 +258,86 @@
         <translation>Fehler melden</translation>
     </message>
     <message>
-        <location filename="../../../src/weather/Sources.cpp" line="49"/>
+        <location filename="../../../src/weather/Sources.cpp" line="50"/>
         <source>Slovenia</source>
         <translation>Slowenien</translation>
     </message>
     <message>
-        <location filename="../../../src/weather/Sources.cpp" line="51"/>
+        <location filename="../../../src/weather/Sources.cpp" line="52"/>
         <source>Germany</source>
         <translation>Deutschland</translation>
     </message>
     <message>
-        <location filename="../../../src/weather/Weather.cpp" line="64"/>
+        <location filename="../../../src/weather/Weather.cpp" line="27"/>
+        <source>today</source>
+        <translation>heute</translation>
+    </message>
+    <message>
+        <location filename="../../../src/weather/Weather.cpp" line="30"/>
+        <source>tomorrow</source>
+        <translation>morgen</translation>
+    </message>
+    <message>
+        <location filename="../../../src/weather/Weather.cpp" line="33"/>
+        <source>yesterday</source>
+        <translation>gestern</translation>
+    </message>
+    <message>
+        <location filename="../../../src/weather/Weather.cpp" line="91"/>
         <source>Satellite</source>
         <translation>Satellit</translation>
     </message>
     <message>
-        <location filename="../../../src/weather/Weather.cpp" line="66"/>
+        <location filename="../../../src/weather/Weather.cpp" line="93"/>
         <source>Streets (Light)</source>
         <translation>Straßen (hell)</translation>
     </message>
     <message>
-        <location filename="../../../src/weather/Weather.cpp" line="68"/>
+        <location filename="../../../src/weather/Weather.cpp" line="95"/>
         <source>Streets (Dark)</source>
         <translation>Straßen (dunkel)</translation>
     </message>
     <message>
-        <location filename="../../../src/weather/Weather.cpp" line="136"/>
+        <location filename="../../../src/weather/Weather.cpp" line="163"/>
         <source>Weather condition</source>
         <translation>Wetterlage</translation>
     </message>
     <message>
-        <location filename="../../../src/weather/Weather.cpp" line="138"/>
+        <location filename="../../../src/weather/Weather.cpp" line="165"/>
         <source>Precipitation</source>
         <translation>Niederschlag</translation>
     </message>
     <message>
-        <location filename="../../../src/weather/Weather.cpp" line="140"/>
+        <location filename="../../../src/weather/Weather.cpp" line="167"/>
         <source>Cloud coverage</source>
         <translation>Bewölkung</translation>
     </message>
     <message>
-        <location filename="../../../src/weather/Weather.cpp" line="142"/>
-        <source>Wind speed</source>
-        <translation>Windgeschwindigkeit</translation>
+        <location filename="../../../src/weather/Weather.cpp" line="169"/>
+        <source>Wind</source>
+        <translation>Wind</translation>
     </message>
     <message>
-        <location filename="../../../src/weather/Weather.cpp" line="144"/>
+        <source>Wind speed</source>
+        <translation type="vanished">Windgeschwindigkeit</translation>
+    </message>
+    <message>
+        <location filename="../../../src/weather/Weather.cpp" line="171"/>
         <source>Temperature</source>
         <translation>Temperatur</translation>
     </message>
     <message>
-        <location filename="../../../src/weather/Weather.cpp" line="146"/>
+        <location filename="../../../src/weather/Weather.cpp" line="173"/>
         <source>Hail probability</source>
         <translation>Hagelwahrscheinlichkeit</translation>
     </message>
     <message>
-        <location filename="../../../src/weather/Weather.cpp" line="148"/>
+        <location filename="../../../src/weather/Weather.cpp" line="175"/>
         <source>Maximum daily UV index</source>
         <translation>UV-Index Höchstwert (pro Tag)</translation>
     </message>
     <message>
-        <location filename="../../../src/weather/Weather.cpp" line="150"/>
+        <location filename="../../../src/weather/Weather.cpp" line="177"/>
         <source>Total daily UV dose</source>
         <translation>Gesamte UV-Dosis (pro Tag)</translation>
     </message>
@@ -289,33 +396,68 @@
     </message>
     <message>
         <location filename="../../../src/settings/SettingsDialog.ui" line="208"/>
+        <source>Enable notifications</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../src/settings/SettingsDialog.ui" line="218"/>
+        <source>Weather alerts:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../src/settings/SettingsDialog.ui" line="225"/>
+        <source>Minor (yellow) alerts and higher (levels 1-4)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../src/settings/SettingsDialog.ui" line="232"/>
+        <source>Moderate (orange) alerts and higher (levels 2-4)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../src/settings/SettingsDialog.ui" line="239"/>
+        <source>Severe (red) alerts and higher (levels 3-4)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../src/settings/SettingsDialog.ui" line="246"/>
+        <source>Extreme (purple) alerts only (level 4)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../src/settings/SettingsDialog.ui" line="286"/>
         <source>Show in tray</source>
         <translation>Im Tray anzeigen</translation>
     </message>
     <message>
-        <location filename="../../../src/settings/SettingsDialog.ui" line="218"/>
+        <location filename="../../../src/settings/SettingsDialog.ui" line="296"/>
         <source>Show in dock</source>
         <translation>Im Dock anzeigen</translation>
     </message>
     <message>
-        <location filename="../../../src/settings/SettingsDialog.ui" line="235"/>
+        <location filename="../../../src/settings/SettingsDialog.ui" line="313"/>
         <source>Remember size on exit</source>
         <translation>Anwendungsgröße beim Beenden beibehalten</translation>
     </message>
     <message>
-        <location filename="../../../src/settings/SettingsDialog.ui" line="242"/>
+        <location filename="../../../src/settings/SettingsDialog.ui" line="320"/>
         <source>Remember position on exit</source>
         <translation>Position beim Beenden beibehalten</translation>
     </message>
     <message>
-        <location filename="../../../src/settings/SettingsDialog.ui" line="294"/>
+        <location filename="../../../src/settings/SettingsDialog.ui" line="373"/>
         <source>General</source>
         <translation>Allgemein</translation>
     </message>
     <message>
-        <location filename="../../../src/settings/SettingsDialog.ui" line="306"/>
+        <location filename="../../../src/settings/SettingsDialog.ui" line="385"/>
         <source>Interface</source>
         <translation>Benutzeroberfläche</translation>
+    </message>
+    <message>
+        <location filename="../../../src/settings/SettingsDialog.ui" line="397"/>
+        <source>Notifications</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -372,17 +514,17 @@
 <context>
     <name>Vremenar::ApplicationWindow</name>
     <message>
-        <location filename="../../../src/application/ApplicationWindow.cpp" line="279"/>
+        <location filename="../../../src/application/ApplicationWindow.cpp" line="303"/>
         <source>Satellite</source>
         <translation>Satellit</translation>
     </message>
     <message>
-        <location filename="../../../src/application/ApplicationWindow.cpp" line="279"/>
+        <location filename="../../../src/application/ApplicationWindow.cpp" line="303"/>
         <source>Streets (Light)</source>
         <translation>Straßen (hell)</translation>
     </message>
     <message>
-        <location filename="../../../src/application/ApplicationWindow.cpp" line="279"/>
+        <location filename="../../../src/application/ApplicationWindow.cpp" line="303"/>
         <source>Streets (Dark)</source>
         <translation>Straßen (dunkel)</translation>
     </message>
@@ -423,22 +565,22 @@
 <context>
     <name>Vremenar::MapLegendModel</name>
     <message>
-        <location filename="../../../src/weather/models/MapLegendModel.cpp" line="59"/>
+        <location filename="../../../src/weather/models/MapLegendModel.cpp" line="63"/>
         <source>low</source>
         <translation>niedrig</translation>
     </message>
     <message>
-        <location filename="../../../src/weather/models/MapLegendModel.cpp" line="60"/>
+        <location filename="../../../src/weather/models/MapLegendModel.cpp" line="64"/>
         <source>moderate</source>
         <translation>mäßig</translation>
     </message>
     <message>
-        <location filename="../../../src/weather/models/MapLegendModel.cpp" line="61"/>
+        <location filename="../../../src/weather/models/MapLegendModel.cpp" line="65"/>
         <source>large</source>
         <translation>hoch</translation>
     </message>
     <message>
-        <location filename="../../../src/weather/models/MapLegendModel.cpp" line="62"/>
+        <location filename="../../../src/weather/models/MapLegendModel.cpp" line="66"/>
         <source>probability</source>
         <translation>Wahrscheinlichkeit</translation>
     </message>
@@ -446,31 +588,39 @@
 <context>
     <name>Vremenar::SettingsDialog</name>
     <message>
-        <location filename="../../../src/settings/SettingsDialog.cpp" line="275"/>
         <source>Weather source changed</source>
-        <translation>Wetterdatenquelle geändert</translation>
+        <translation type="vanished">Wetterdatenquelle geändert</translation>
     </message>
     <message>
-        <location filename="../../../src/settings/SettingsDialog.cpp" line="276"/>
         <source>The weather source has been changed.
 The application will now restart.</source>
-        <translation>Die Wetterdatenquelle wurde geändert.
+        <translation type="vanished">Die Wetterdatenquelle wurde geändert.
 Die Anwendung wird nun neu gestartet.</translation>
     </message>
     <message>
-        <location filename="../../../src/settings/SettingsDialog.cpp" line="292"/>
+        <location filename="../../../src/settings/SettingsDialog.cpp" line="136"/>
+        <source>Notifications are currently disabled by the operating system.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../src/settings/SettingsDialog.cpp" line="350"/>
         <source>System default</source>
         <translation>Systemeinstellungen</translation>
     </message>
     <message>
         <location filename="../../../src/settings/SettingsDialogMacOS.mm" line="33"/>
-        <location filename="../../../src/settings/SettingsDialogMacOS.mm" line="65"/>
+        <location filename="../../../src/settings/SettingsDialogMacOS.mm" line="75"/>
         <source>General</source>
         <translation>Allgemein</translation>
     </message>
     <message>
-        <location filename="../../../src/settings/SettingsDialogMacOS.mm" line="37"/>
-        <location filename="../../../src/settings/SettingsDialogMacOS.mm" line="66"/>
+        <location filename="../../../src/settings/SettingsDialogMacOS.mm" line="38"/>
+        <source>Notifications</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../src/settings/SettingsDialogMacOS.mm" line="43"/>
+        <location filename="../../../src/settings/SettingsDialogMacOS.mm" line="76"/>
         <source>Interface</source>
         <translation>Benutzeroberfläche</translation>
     </message>
@@ -536,12 +686,12 @@ Die Anwendung wird nun neu gestartet.</translation>
 <context>
     <name>Vremenar::Updates</name>
     <message>
-        <location filename="../../../src/application/Updates.cpp" line="95"/>
+        <location filename="../../../src/application/Updates.cpp" line="96"/>
         <source>An update is available. Do you want to download it now?</source>
         <translation>Ein Update ist verfügbar. Soll es jetzt geladen werden?</translation>
     </message>
     <message>
-        <location filename="../../../src/application/Updates.cpp" line="101"/>
+        <location filename="../../../src/application/Updates.cpp" line="102"/>
         <source>A new testing update is available. Do you want to download it now?</source>
         <translation>Ein Beta-Update ist verfügbar. Soll es jetzt geladen werden?</translation>
     </message>
@@ -549,9 +699,32 @@ Die Anwendung wird nun neu gestartet.</translation>
 <context>
     <name>Vremenar::WeatherProvider</name>
     <message>
-        <location filename="../../../src/weather/WeatherProvider.cpp" line="58"/>
+        <location filename="../../../src/weather/WeatherProvider.cpp" line="83"/>
         <source>Slovenian Environment Agency</source>
         <translation>Sovenian Environment Agency</translation>
+    </message>
+</context>
+<context>
+    <name>WelcomeDialog</name>
+    <message>
+        <location filename="../../../src/qml/Vremenar/Navigation/WelcomeDialog.qml" line="57"/>
+        <source>Vremenar Setup</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../src/qml/Vremenar/Navigation/WelcomeDialog.qml" line="66"/>
+        <source>Personalise your experience when using this app.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../src/qml/Vremenar/Navigation/WelcomeDialog.qml" line="79"/>
+        <source>Confirm to continue...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../../../src/qml/Vremenar/Navigation/WelcomeDialog.qml" line="88"/>
+        <source>Continue</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

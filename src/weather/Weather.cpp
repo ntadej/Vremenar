@@ -166,7 +166,7 @@ QString Weather::mapTypeToLocalizedString(MapType type)
     case CloudCoverageMap:
         return QObject::tr("Cloud coverage");
     case WindSpeedMap:
-        return QObject::tr("Wind speed");
+        return QObject::tr("Wind");
     case TemperatureMap:
         return QObject::tr("Temperature");
     case HailProbabilityMap:
