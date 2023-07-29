@@ -226,6 +226,10 @@ set_target_properties(Vremenar
     QT_ANDROID_TARGET_SDK_VERSION 31
 )
 
+if(ANDROID)
+    add_android_openssl_libraries(Vremenar)
+endif()
+
 if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -dead_strip")
     set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -dead_strip")

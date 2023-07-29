@@ -27,4 +27,4 @@ endif()
 configure_file("${CMAKE_SOURCE_DIR}/resources/Android/AndroidManifest.xml.in" "${CMAKE_SOURCE_DIR}/resources/Android/output/AndroidManifest.xml" @ONLY)
 
 # OpenSSL
-add_subdirectory(${CMAKE_SOURCE_DIR}/3rdparty/android_openssl)
+include(${CMAKE_SOURCE_DIR}/3rdparty/android_openssl/android_openssl.cmake)
