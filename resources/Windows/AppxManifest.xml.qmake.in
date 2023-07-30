@@ -1,0 +1,53 @@
+﻿<?xml version=\"1.0\" encoding=\"utf-8\"?>
+<Package xmlns=\"http://schemas.microsoft.com/appx/manifest/foundation/windows10\"
+  xmlns:uap=\"http://schemas.microsoft.com/appx/manifest/uap/windows10\"
+  xmlns:uap10=\"http://schemas.microsoft.com/appx/manifest/uap/windows10/10\"
+  xmlns:rescap=\"http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities\"
+  IgnorableNamespaces=\"uap uap10 rescap\">
+
+  <Identity Name=\"$${WINDOWS_NAME}\"
+    Publisher=\"$${WINDOWS_PUBLISHER}\"
+    Version=\"0.5.$${VERSION_BUILD}.0\"
+    ProcessorArchitecture=\"x64\" />
+
+  <Properties>
+    <DisplayName>Vremenar</DisplayName>
+    <PublisherDisplayName>Tadej Novak</PublisherDisplayName>
+    <Description>Weather radar and more</Description>
+    <Logo>Assets\StoreLogo.png</Logo>
+    <uap10:PackageIntegrity>
+      <uap10:Content Enforcement=\"on\" />
+    </uap10:PackageIntegrity>
+  </Properties>
+
+  <Resources>
+    <Resource Language=\"en-us\" />
+    <Resource Language=\"sl-si\" />
+    <Resource Language=\"de-de\" />
+  </Resources>
+
+  <Dependencies>
+    <TargetDeviceFamily Name=\"Windows.Desktop\"
+      MinVersion=\"10.0.17763.0\"
+      MaxVersionTested=\"10.0.22000.1\" />
+  </Dependencies>
+
+  <Applications>
+    <Application Id=\"VREMENAR\"
+      Executable=\"VFS\ProgramFilesX64\Vremenar\Vremenar.exe\"
+      EntryPoint=\"Windows.FullTrustApplication\">
+      <uap:VisualElements DisplayName=\"Vremenar\" Description=\"Vremenar\"
+        BackgroundColor=\"transparent\"
+        Square150x150Logo=\"Assets\VREMENAR-Square150x150Logo.png\"
+        Square44x44Logo=\"Assets\VREMENAR-Square44x44Logo.png\">
+        <uap:DefaultTile Wide310x150Logo=\"Assets\VREMENAR-Wide310x150Logo.png\"
+          Square310x310Logo=\"Assets\VREMENAR-Square310x310Logo.png\"
+          Square71x71Logo=\"Assets\VREMENAR-Square71x71Logo.png\" />
+      </uap:VisualElements>
+    </Application>
+  </Applications>
+
+  <Capabilities>
+    <rescap:Capability Name=\"runFullTrust\" />
+  </Capabilities>
+</Package>

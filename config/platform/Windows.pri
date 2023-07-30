@@ -21,9 +21,20 @@ QMAKE_TARGET_COMPANY = "Tadej Novak"
 QMAKE_TARGET_DESCRIPTION = "Vremenar Weather"
 QMAKE_TARGET_COPYRIGHT = "Copyright (C) 2023 Tadej Novak"
 
+isEmpty(WINDOWS_NAME) {
+    WINDOWS_NAME = "Vremenar"
+}
+isEmpty(WINDOWS_PUBLISHER) {
+    WINDOWS_PUBLISHER = ""
+}
+
 RC_ICONS = $$top_srcdir/resources/Windows/vremenar.ico
 
 # Define substitution files
+AppxManifest.input = $$top_srcdir/resources/Windows/AppxManifest.xml.qmake.in
+AppxManifest.output = $$OUT_PWD/AppxManifest.xml
+QMAKE_SUBSTITUTES += AppxManifest
+
 SetupFile.input = $$top_srcdir/resources/Windows/setup.iss.in
 SetupFile.output = $$OUT_PWD/setup.iss
 QMAKE_SUBSTITUTES += SetupFile

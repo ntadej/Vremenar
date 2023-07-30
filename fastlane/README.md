@@ -147,6 +147,19 @@ Make Amazon Fire 64-bit build
 
 ----
 
+
+## windows
+
+### windows microsoft_store
+
+```sh
+[bundle exec] fastlane windows microsoft_store
+```
+
+Make a Microsoft Store build
+
+----
+
 This README.md is auto-generated and will be re-generated every time [_fastlane_](https://fastlane.tools) is run.
 
 More information about _fastlane_ can be found on [fastlane.tools](https://fastlane.tools).

@@ -46,6 +46,7 @@ jobs:
           version: ${{ env.QT_VERSION }}
           target: desktop
           arch: win64_msvc2019_64
+          tools: tools_openssl_x64
 
       - name: Download MapLibre
         shell: bash
@@ -58,6 +59,12 @@ jobs:
         shell: bash
         run: |
           rm $(which link)
+
+      - name: Setup Fastlane
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+          working-directory: source
 
       - name: Setup MSVC
         uses: ilammy/msvc-dev-cmd@v1
@@ -80,9 +87,19 @@ jobs:
 
       - name: Build
         shell: bash
+        working-directory: source
+        env:
+          FL_RUN_QMAKE_WINDOWS_NAME: ${{ secrets.WINDOWS_NAME }}
+          FL_RUN_QMAKE_WINDOWS_PUBLISHER: ${{ secrets.WINDOWS_PUBLISHER }}
         run: |
           export PATH=$(echo "$PATH" | sed -e 's/:C\:\\Program Files\\Git\\usr\\bin//')
-          echo $PATH
-          mkdir build && cd build
-          qmake.exe ../source/Vremenar.pro -spec win32-msvc CONFIG+=release CONFIG+=qtquickcompiler CONFIG+=store
-          nmake.exe
+          unset MAKE
+          rm /usr/bin/link
+
+          bundle exec fastlane windows microsoft_store
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: Windows-package
+          path: source/fastlane/build/windows*/Vremenar.*

@@ -4,6 +4,8 @@
 
 default_platform :mac
 
+add_extra_platforms platforms: [:windows]
+
 platform :mac do
   desc 'Make a developer ID build'
   lane :developer_id do
@@ -107,7 +109,10 @@ platform :ios do
     match type: 'appstore'
     dependencies
     build_number
-    run_qmake
+    run_qmake platform: 'ios',
+              build_type: 'store',
+              build_path: 'fastlane/build/ios_store/qmake',
+              output_path: 'fastlane/build/ios_store'
     update_project_team path: lane_context[SharedValues::RUN_QMAKE_PROJECT_PATH]
     update_code_signing_settings use_automatic_signing: false,
                                  path: lane_context[SharedValues::RUN_QMAKE_PROJECT_PATH],
@@ -199,5 +204,18 @@ platform :android do
               output_path: 'fastlane/build/android_amazon_fire64'
     ninja
     create_android_package
+  end
+end
+
+platform :windows do
+  desc 'Make a Microsoft Store build'
+  lane :microsoft_store do
+    build_number
+    run_qmake platform: 'windows',
+              build_type: 'store',
+              build_path: 'fastlane/build/windows_store/qmake',
+              output_path: 'fastlane/build/windows_store'
+    nmake
+    create_windows_package
   end
 end
