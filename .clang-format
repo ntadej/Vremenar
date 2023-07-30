@@ -2,8 +2,12 @@ BasedOnStyle: LLVM
 
 AccessModifierOffset: -4
 AlignAfterOpenBracket: Align
+BinPackArguments: false
+BinPackParameters: false
 BreakBeforeBraces: Linux
 BreakBeforeBinaryOperators: All
 ColumnLimit: 0
 IndentWidth: 4
 ReflowComments: false
+
+ExperimentalAutoDetectBinPacking: true

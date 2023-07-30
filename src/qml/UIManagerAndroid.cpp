@@ -64,7 +64,8 @@ void Qml::UIManager::toastAndroid(const QString &message)
     QNativeInterface::QAndroidApplication::runOnAndroidMainThread([message] {
         const QJniObject javaString = QJniObject::fromString(message);
         // NOLINTNEXTLINE(cppcoreguidelines-pro-type-vararg)
-        const QJniObject toast = QJniObject::callStaticObjectMethod("android/widget/Toast", "makeText",
+        const QJniObject toast = QJniObject::callStaticObjectMethod("android/widget/Toast",
+                                                                    "makeText",
                                                                     "(Landroid/content/Context;Ljava/lang/CharSequence;I)Landroid/widget/Toast;",
                                                                     QNativeInterface::QAndroidApplication::context(),
                                                                     javaString.object(),

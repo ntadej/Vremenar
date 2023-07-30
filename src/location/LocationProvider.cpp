@@ -59,10 +59,8 @@ LocationProvider::LocationProvider(StationListModel *stations, QObject *parent)
 
     _provider = std::make_unique<QGeoServiceProvider>("osm", params);
     if (_provider->geocodingManager() != nullptr) {
-        connect(_provider->geocodingManager(), &QGeoCodingManager::finished,
-                this, &LocationProvider::reverseGeocodingFinished);
-        connect(_provider->geocodingManager(), &QGeoCodingManager::error,
-                this, &LocationProvider::reverseGeocodingError);
+        connect(_provider->geocodingManager(), &QGeoCodingManager::finished, this, &LocationProvider::reverseGeocodingFinished);
+        connect(_provider->geocodingManager(), &QGeoCodingManager::error, this, &LocationProvider::reverseGeocodingError);
     }
 }
 
@@ -82,18 +80,13 @@ void LocationProvider::initPosition()
     if (_position != nullptr) {
         connect(_timer.get(), &QTimer::timeout, this, &LocationProvider::requestPositionUpdate);
 
-        connect(_position.get(), &QGeoPositionInfoSource::supportedPositioningMethodsChanged,
-                this, &LocationProvider::supportedMethodsChanged);
-        connect(_position.get(), &QGeoPositionInfoSource::positionUpdated,
-                this, &LocationProvider::positionUpdated);
+        connect(_position.get(), &QGeoPositionInfoSource::supportedPositioningMethodsChanged, this, &LocationProvider::supportedMethodsChanged);
+        connect(_position.get(), &QGeoPositionInfoSource::positionUpdated, this, &LocationProvider::positionUpdated);
 #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
-        connect(_position.get(), &QGeoPositionInfoSource::errorOccurred,
-                this, &LocationProvider::positionError);
+        connect(_position.get(), &QGeoPositionInfoSource::errorOccurred, this, &LocationProvider::positionError);
 #else
-        connect(_position.get(), QOverload<QGeoPositionInfoSource::Error>::of(&QGeoPositionInfoSource::error),
-                this, &LocationProvider::positionError);
-        connect(_position.get(), &QGeoPositionInfoSource::updateTimeout,
-                this, &LocationProvider::positionTimeout);
+        connect(_position.get(), QOverload<QGeoPositionInfoSource::Error>::of(&QGeoPositionInfoSource::error), this, &LocationProvider::positionError);
+        connect(_position.get(), &QGeoPositionInfoSource::updateTimeout, this, &LocationProvider::positionTimeout);
 #endif
 
         positionUpdated(_position->lastKnownPosition());
