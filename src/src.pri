@@ -1,6 +1,6 @@
 #
 # Vremenar
-# Copyright (C) 2022 Tadej Novak <tadej@tano.si>
+# Copyright (C) 2023 Tadej Novak <tadej@tano.si>
 #
 # This application is bi-licensed under the GNU General Public License
 # Version 3 or later as well as Mozilla Public License Version 2.
@@ -37,6 +37,7 @@ include(application/application.pri)
 
 # Common resources
 RESOURCES += \
+    resources/Common/certificates.qrc \
     resources/Common/graphics.qrc \
     resources/Common/ui/ui.qrc \
     resources/Weather/Map/map_clear.qrc \

@@ -10,6 +10,7 @@
 */
 
 #include <QtCore/QCoreApplication>
+#include <QtNetwork/QSslConfiguration>
 
 #include "application/BaseApplication.h"
 #include "common/Log.h"
@@ -19,6 +20,8 @@
 #if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
 #include <QtQuick/QQuickWindow>
 #endif
+
+#include <stdexcept>
 
 namespace Vremenar
 {
@@ -46,6 +49,14 @@ void Application::preInit()
     qputenv("QT_QUICK_CONTROLS_MATERIAL_VARIANT", "Dense");
     qputenv("QT_GEOCLUE_APP_DESKTOP_ID", QString(Vremenar::appID).toUtf8());
 #endif
+
+    // Certificates
+    auto cfg = QSslConfiguration::defaultConfiguration();
+    if (!cfg.addCaCertificates(":/certificates/isrgrootx1.pem") || !cfg.addCaCertificates(":/certificates/isrg-root-x2.pem")) {
+        throw std::runtime_error("Failed to add certificates");
+    }
+
+    QSslConfiguration::setDefaultConfiguration(cfg);
 
     Log::setup();
 }

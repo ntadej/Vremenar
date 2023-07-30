@@ -18,3 +18,30 @@ qt_add_resources(Vremenar graphics
         logo_tray@2x.png
         logo_tray@3x.png
 )
+
+# LetsEncrypt
+include(FetchContent)
+
+FetchContent_Declare(LetsEncrypt_X1
+    URL https://letsencrypt.org/certs/isrgrootx1.pem
+    URL_HASH MD5=118ecd744d864b32ffdb48b2e29f1d7f
+    DOWNLOAD_NO_EXTRACT TRUE
+    SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/certificates"
+)
+FetchContent_MakeAvailable(LetsEncrypt_X1)
+
+FetchContent_Declare(LetsEncrypt_X2
+    URL https://letsencrypt.org/certs/isrg-root-x2.pem
+    URL_HASH MD5=dccffc02a69e6dc186f6779e6bf0916e
+    DOWNLOAD_NO_EXTRACT TRUE
+    SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/certificates"
+)
+FetchContent_MakeAvailable(LetsEncrypt_X2)
+
+qt_add_resources(Vremenar certificates
+    PREFIX
+        /
+    FILES
+        certificates/isrgrootx1.pem
+        certificates/isrg-root-x2.pem
+)

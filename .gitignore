@@ -1,6 +1,7 @@
 *.pro.user*
 *.provisionprofile
 *.so
+*.pem
 CMakeLists.txt.user*
 config.pri
 Config.cmake

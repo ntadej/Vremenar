@@ -80,6 +80,11 @@ jobs:
           echo $CONFIG_QMAKE | base64 --decode > config.pri
           echo $GOOGLE_SERVICES_APPLE | base64 --decode > GoogleService-Info.plist
 
+          pushd "resources/Common/certificates" || exit
+          wget https://letsencrypt.org/certs/isrgrootx1.pem
+          wget https://letsencrypt.org/certs/isrg-root-x2.pem
+          popd || exit
+
       - name: Build
         working-directory: source
         env:

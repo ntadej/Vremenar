@@ -73,6 +73,11 @@ jobs:
         run: |
           echo $CONFIG_QMAKE | base64 --decode > config.pri
 
+          pushd "resources/Common/certificates" || exit
+          wget.exe https://letsencrypt.org/certs/isrgrootx1.pem
+          wget.exe https://letsencrypt.org/certs/isrg-root-x2.pem
+          popd || exit
+
       - name: Build
         shell: bash
         run: |
