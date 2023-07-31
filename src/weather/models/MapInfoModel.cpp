@@ -35,7 +35,12 @@ void MapInfoModel::generateModel(const QJsonArray &supported)
     for (const auto &typeInfoRef : supported) {
         const QJsonObject typeInfo = typeInfoRef.toObject();
         const auto mapType = Weather::mapTypeFromString(typeInfo[QStringLiteral("map_type")].toString());
-        const auto renderingType = Weather::mapRenderingTypeFromString(typeInfo[QStringLiteral("rendering")].toString());
+        // backward compatibility
+        const QString renderingTypeString
+            = typeInfo.contains(QStringLiteral("rendering_type"))
+                  ? typeInfo[QStringLiteral("rendering_type")].toString()
+                  : typeInfo[QStringLiteral("rendering")].toString();
+        const auto renderingType = Weather::mapRenderingTypeFromString(renderingTypeString);
         if (mapType == Weather::MapType::UnknownMapType || renderingType == Weather::MapRenderingType::UnknownRendering) {
             continue;
         }
