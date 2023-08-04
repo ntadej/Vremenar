@@ -6,17 +6,17 @@
     <message>
         <location filename="../../../src/qml/Vremenar/Navigation/elements/LocationSettings.qml" line="19"/>
         <source>Weather for current location</source>
-        <translation type="unfinished"></translation>
+        <translation>Wetter am aktuellen Standort</translation>
     </message>
     <message>
         <location filename="../../../src/qml/Vremenar/Navigation/elements/LocationSettings.qml" line="25"/>
         <source>Enable location</source>
-        <translation type="unfinished"></translation>
+        <translation>Standort aktivieren</translation>
     </message>
     <message>
         <location filename="../../../src/qml/Vremenar/Navigation/elements/LocationSettings.qml" line="29"/>
         <source>Disable location</source>
-        <translation type="unfinished"></translation>
+        <translation>Standort deaktivieren</translation>
     </message>
 </context>
 <context>
@@ -109,7 +109,7 @@
     <message>
         <location filename="../../../src/qml/Vremenar/Maps/MapControls.qml" line="120"/>
         <source>Map type can now be switched using up and down keys</source>
-        <translation>Der Kartentyp kann nun mit hoch und runter Tasten geändert werden</translation>
+        <translation>Der Kartentyp kann nun mit den hoch und runter Tasten geändert werden</translation>
     </message>
     <message>
         <location filename="../../../src/qml/Vremenar/Maps/MapControls.qml" line="123"/>
@@ -144,7 +144,7 @@
     <message>
         <location filename="../../../src/qml/Vremenar/Maps/MapControls.qml" line="365"/>
         <source>backend</source>
-        <translation>backend</translation>
+        <translation>Backend</translation>
     </message>
     <message>
         <source>Change country</source>
@@ -169,12 +169,12 @@
     <message>
         <location filename="../../../src/qml/Vremenar/Navigation/elements/MobileSettingsDialog.qml" line="63"/>
         <source>Weather Alert Notifications</source>
-        <translation type="unfinished"></translation>
+        <translation>Wetterwarnungen</translation>
     </message>
     <message>
         <location filename="../../../src/qml/Vremenar/Navigation/elements/MobileSettingsDialog.qml" line="76"/>
         <source>Notifications are currently disabled by the operating system.</source>
-        <translation type="unfinished"></translation>
+        <translation>Benachrichtigungen sind momentan vom Betriebssystem ausgeschaltet.</translation>
     </message>
 </context>
 <context>
@@ -182,57 +182,57 @@
     <message>
         <location filename="../../../src/qml/Vremenar/Navigation/elements/NotificationsSettings.qml" line="19"/>
         <source>Weather Alert Notifications</source>
-        <translation type="unfinished"></translation>
+        <translation>Wetterwarnungen</translation>
     </message>
     <message>
         <location filename="../../../src/qml/Vremenar/Navigation/elements/NotificationsSettings.qml" line="25"/>
         <source>Minor (yellow) alerts and higher</source>
-        <translation type="unfinished"></translation>
+        <translation>Wetterwarnungen (gelb) und höher</translation>
     </message>
     <message>
         <location filename="../../../src/qml/Vremenar/Navigation/elements/NotificationsSettings.qml" line="26"/>
         <source>Levels 1-4</source>
-        <translation type="unfinished"></translation>
+        <translation>Stufen 1-4</translation>
     </message>
     <message>
         <location filename="../../../src/qml/Vremenar/Navigation/elements/NotificationsSettings.qml" line="30"/>
         <source>Moderate (orange) alerts and higher</source>
-        <translation type="unfinished"></translation>
+        <translation>Warnungen vor markantem Wetter (orange) und höher</translation>
     </message>
     <message>
         <location filename="../../../src/qml/Vremenar/Navigation/elements/NotificationsSettings.qml" line="31"/>
         <source>Levels 2-4</source>
-        <translation type="unfinished"></translation>
+        <translation>Stufen 2-4</translation>
     </message>
     <message>
         <location filename="../../../src/qml/Vremenar/Navigation/elements/NotificationsSettings.qml" line="35"/>
         <source>Severe (red) alerts and higher</source>
-        <translation type="unfinished"></translation>
+        <translation>Unwetterwarnungen (rot) und höher</translation>
     </message>
     <message>
         <location filename="../../../src/qml/Vremenar/Navigation/elements/NotificationsSettings.qml" line="36"/>
         <source>Levels 3-4</source>
-        <translation type="unfinished"></translation>
+        <translation>Stufen 3-4</translation>
     </message>
     <message>
         <location filename="../../../src/qml/Vremenar/Navigation/elements/NotificationsSettings.qml" line="40"/>
         <source>Extreme (purple) alerts only</source>
-        <translation type="unfinished"></translation>
+        <translation>Ausschließlich Warnungen vor extremem Unwetter (lila)</translation>
     </message>
     <message>
         <location filename="../../../src/qml/Vremenar/Navigation/elements/NotificationsSettings.qml" line="41"/>
         <source>Level 4</source>
-        <translation type="unfinished"></translation>
+        <translation>Stufe 4</translation>
     </message>
     <message>
         <location filename="../../../src/qml/Vremenar/Navigation/elements/NotificationsSettings.qml" line="45"/>
         <source>No weather alerts</source>
-        <translation type="unfinished"></translation>
+        <translation>Keine Wetterwarnungen</translation>
     </message>
     <message>
         <location filename="../../../src/qml/Vremenar/Navigation/elements/NotificationsSettings.qml" line="46"/>
         <source>Disabled</source>
-        <translation type="unfinished"></translation>
+        <translation>Ausgeschaltet</translation>
     </message>
 </context>
 <context>
@@ -397,32 +397,32 @@
     <message>
         <location filename="../../../src/settings/SettingsDialog.ui" line="208"/>
         <source>Enable notifications</source>
-        <translation type="unfinished"></translation>
+        <translation>Benachrichtigungen aktivieren</translation>
     </message>
     <message>
         <location filename="../../../src/settings/SettingsDialog.ui" line="218"/>
         <source>Weather alerts:</source>
-        <translation type="unfinished"></translation>
+        <translation>BWetterwarnungen:</translation>
     </message>
     <message>
         <location filename="../../../src/settings/SettingsDialog.ui" line="225"/>
         <source>Minor (yellow) alerts and higher (levels 1-4)</source>
-        <translation type="unfinished"></translation>
+        <translation>Wetterwarnungen (gelb) und höher (Stufen 1-4)</translation>
     </message>
     <message>
         <location filename="../../../src/settings/SettingsDialog.ui" line="232"/>
         <source>Moderate (orange) alerts and higher (levels 2-4)</source>
-        <translation type="unfinished"></translation>
+        <translation>Warnungen vor markantem Wetter (orange) und höher (Stufen 2-4)</translation>
     </message>
     <message>
         <location filename="../../../src/settings/SettingsDialog.ui" line="239"/>
         <source>Severe (red) alerts and higher (levels 3-4)</source>
-        <translation type="unfinished"></translation>
+        <translation>Unwetterwarnungen (rot) und höher (Stufen 3-4)</translation>
     </message>
     <message>
         <location filename="../../../src/settings/SettingsDialog.ui" line="246"/>
         <source>Extreme (purple) alerts only (level 4)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ausschließlich Warnungen vor extremem Unwetter (lila, Stufe 4)</translation>
     </message>
     <message>
         <location filename="../../../src/settings/SettingsDialog.ui" line="286"/>
@@ -457,7 +457,7 @@
     <message>
         <location filename="../../../src/settings/SettingsDialog.ui" line="397"/>
         <source>Notifications</source>
-        <translation type="unfinished"></translation>
+        <translation>Benachrichtigungen</translation>
     </message>
 </context>
 <context>
@@ -600,7 +600,7 @@ Die Anwendung wird nun neu gestartet.</translation>
     <message>
         <location filename="../../../src/settings/SettingsDialog.cpp" line="136"/>
         <source>Notifications are currently disabled by the operating system.</source>
-        <translation type="unfinished"></translation>
+        <translation>Benachrichtigungen sind momentan vom Betriebssystem ausgeschaltet.</translation>
     </message>
     <message>
         <location filename="../../../src/settings/SettingsDialog.cpp" line="350"/>
@@ -616,7 +616,7 @@ Die Anwendung wird nun neu gestartet.</translation>
     <message>
         <location filename="../../../src/settings/SettingsDialogMacOS.mm" line="38"/>
         <source>Notifications</source>
-        <translation type="unfinished"></translation>
+        <translation>Benachrichtigungen</translation>
     </message>
     <message>
         <location filename="../../../src/settings/SettingsDialogMacOS.mm" line="43"/>
@@ -709,22 +709,22 @@ Die Anwendung wird nun neu gestartet.</translation>
     <message>
         <location filename="../../../src/qml/Vremenar/Navigation/WelcomeDialog.qml" line="57"/>
         <source>Vremenar Setup</source>
-        <translation type="unfinished"></translation>
+        <translation>Vremenar Setup</translation>
     </message>
     <message>
         <location filename="../../../src/qml/Vremenar/Navigation/WelcomeDialog.qml" line="66"/>
         <source>Personalise your experience when using this app.</source>
-        <translation type="unfinished"></translation>
+        <translation>Personalisieren Sie Ihre Erfahrung wenn Sie diese App benutzen.</translation>
     </message>
     <message>
         <location filename="../../../src/qml/Vremenar/Navigation/WelcomeDialog.qml" line="79"/>
         <source>Confirm to continue...</source>
-        <translation type="unfinished"></translation>
+        <translation>Bestätigen zum Fortfahren...</translation>
     </message>
     <message>
         <location filename="../../../src/qml/Vremenar/Navigation/WelcomeDialog.qml" line="88"/>
         <source>Continue</source>
-        <translation type="unfinished"></translation>
+        <translation>Weiter</translation>
     </message>
 </context>
 <context>
