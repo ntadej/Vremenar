@@ -51,6 +51,11 @@ jobs:
           version: ${{ env.QT_VERSION }}
           target: ios
 
+      - name: Download Qt patches
+        run: |
+          wget https://github.com/ntadej/qios/releases/download/v${QT_VERSION}.3/qios_v${QT_VERSION}.3.tar.bz2
+          tar xvf qios_v${QT_VERSION}.3.tar.bz2 -C ..
+
       - name: Download MapLibre
         run: |
           wget https://github.com/maplibre/maplibre-native-qt/releases/download/v${MAPLIBRE_VERSION}/qt-geoservices-maplibre-gl_v${MAPLIBRE_VERSION}_Qt${QT_VERSION}_iOS.tar.bz2
