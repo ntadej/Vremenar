@@ -219,9 +219,17 @@ void WeatherProvider::response(QNetworkReply *reply)
         }
         std::unique_ptr<StationInfo> station = StationInfo::fromJson(stations.first().toObject());
         if (station->forecastOnly()) {
-            if (stations.size() > 1) {
-                station->setCurrentWeatherSource(StationInfo::fromJson(stations[1].toObject()));
-            } else {
+            bool validStationCurrent{};
+            for (qsizetype i{1}; i < stations.size(); i++) {
+                std::unique_ptr<StationInfo> stationCurrent = StationInfo::fromJson(stations[i].toObject());
+                if (!stationCurrent->forecastOnly()) {
+                    station->setCurrentWeatherSource(std::move(stationCurrent));
+                    validStationCurrent = true;
+                    break;
+                }
+            }
+
+            if (!validStationCurrent) {
                 // not valid
                 current()->setStation(nullptr);
                 removeResponse(reply);
