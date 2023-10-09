@@ -56,7 +56,7 @@ jobs:
           tar xvf qt-geoservices-maplibre-gl_v${MAPLIBRE_VERSION}_Qt${QT_VERSION}_win64_msvc2019.tar.bz2 -C ..
 
       - name: Setup ninja
-        uses: seanmiddleditch/gha-setup-ninja@v3
+        uses: seanmiddleditch/gha-setup-ninja@v4
 
       - name: Setup MSVC
         uses: ilammy/msvc-dev-cmd@v1
