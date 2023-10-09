@@ -70,8 +70,8 @@ module Fastlane
         Dir.chdir build_path do
           FileUtils.cp 'release/Vremenar.exe', "#{relative_path}/Vremenar.exe"
 
-          FileUtils.cp "#{qt_path}/../../Tools/OpenSSL/Win_x64/bin/libcrypto-1_1-x64.dll", "#{relative_path}/libcrypto-1_1-x64.dll"
-          FileUtils.cp "#{qt_path}/../../Tools/OpenSSL/Win_x64/bin/libssl-1_1-x64.dll", "#{relative_path}/libssl-1_1-x64.dll"
+          FileUtils.cp "#{qt_path}/../../Tools/OpenSSLv3/Win_x64/bin/libcrypto-3-x64.dll", "#{relative_path}/libcrypto-3-x64.dll"
+          FileUtils.cp "#{qt_path}/../../Tools/OpenSSLv3/Win_x64/bin/libssl-3-x64.dll", "#{relative_path}/libssl-3-x64.dll"
         end
 
         Dir.chdir deployment_path do
