@@ -12,8 +12,9 @@ platform :mac do
     setup_ci if ENV['CI']
     match type: 'developer_id'
     xcode_metadata
-    setup_dependencies platform: 'macos',
-                       certificate_name: ENV['sigh_si.tano.Vremenar_developer_id_macos_certificate-name']
+    carthage use_xcframeworks: true,
+             cache_builds: true
+    sign_dependencies certificate_name: ENV['sigh_si.tano.Vremenar_developer_id_macos_certificate-name']
     build_number
     run_cmake platform: 'macos',
               build_type: 'developer_id',
@@ -35,8 +36,9 @@ platform :mac do
     setup_ci if ENV['CI']
     match type: 'appstore', additional_cert_types: 'mac_installer_distribution'
     xcode_metadata
-    setup_dependencies platform: 'macos',
-                       certificate_name: ENV['sigh_si.tano.Vremenar_appstore_macos_certificate-name']
+    carthage use_xcframeworks: true,
+             cache_builds: true
+    sign_dependencies certificate_name: ENV['sigh_si.tano.Vremenar_appstore_macos_certificate-name']
     build_number
     run_cmake platform: 'macos',
               build_type: 'store',
@@ -77,16 +79,12 @@ platform :ios do
     setup_qt platform: 'ios_qt6'
   end
 
-  desc 'Prepare dependencies'
-  lane :dependencies do
-    setup_dependencies platform: 'ios'
-  end
-
   desc 'Make a development build (Qt6)'
   lane :testbuild do
     setup_ci if ENV['CI']
     match type: 'development'
-    dependencies
+    carthage use_xcframeworks: true,
+             cache_builds: true
     build_number
     run_cmake platform: 'ios',
               build_type: 'development',
@@ -107,7 +105,8 @@ platform :ios do
   lane :app_store do
     setup_ci if ENV['CI']
     match type: 'appstore'
-    dependencies
+    carthage use_xcframeworks: true,
+             cache_builds: true
     build_number
     run_qmake platform: 'ios',
               build_type: 'store',

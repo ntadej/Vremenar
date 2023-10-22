@@ -60,14 +60,6 @@ Prepare Qt5
 
 Prepare Qt6
 
-### ios dependencies
-
-```sh
-[bundle exec] fastlane ios dependencies
-```
-
-Prepare dependencies
-
 ### ios testbuild
 
 ```sh

@@ -1,6 +1,6 @@
 #
 # Vremenar
-# Copyright (C) 2022 Tadej Novak <tadej@tano.si>
+# Copyright (C) 2023 Tadej Novak <tadej@tano.si>
 #
 # This application is bi-licensed under the GNU General Public License
 # Version 3 or later as well as Mozilla Public License Version 2.
@@ -9,11 +9,7 @@
 # SPDX-License-Identifier: (GPL-3.0-or-later AND MPL-2.0)
 #
 
-forsimulator {
-    ACTIVE_MAC_SDK=iphonesimulator
-} else {
-    ACTIVE_MAC_SDK=iphoneos
-}
+ACTIVE_MAC_SDK=iphoneos
 
 message("Building for $$ACTIVE_MAC_SDK")
 
@@ -78,13 +74,25 @@ QMAKE_BUNDLE_DATA += TRANSLATE_sl
     QMAKE_BUNDLE_DATA += firebase_config
 }
 
-forsimulator {
-    QMAKE_CXXFLAGS += -F$$top_srcdir/3rdparty/Firebase/iOSSimulator
-    LIBS += -F$$top_srcdir/3rdparty/Firebase/iOSSimulator
-} else {
-    QMAKE_CXXFLAGS += -F$$top_srcdir/3rdparty/Firebase/iOS
-    LIBS += -F$$top_srcdir/3rdparty/Firebase/iOS
-}
+QMAKE_CXXFLAGS += \
+    -F$$top_srcdir/Carthage/Build/nanopb.xcframework/ios-arm64/ \
+    -F$$top_srcdir/Carthage/Build/FBLPromises.xcframework/ios-arm64/ \
+    -F$$top_srcdir/Carthage/Build/GoogleDataTransport.xcframework/ios-arm64/ \
+    -F$$top_srcdir/Carthage/Build/GoogleUtilities.xcframework/ios-arm64/ \
+    -F$$top_srcdir/Carthage/Build/FirebaseCoreInternal.xcframework/ios-arm64/ \
+    -F$$top_srcdir/Carthage/Build/FirebaseCore.xcframework/ios-arm64/ \
+    -F$$top_srcdir/Carthage/Build/FirebaseInstallations.xcframework/ios-arm64/ \
+    -F$$top_srcdir/Carthage/Build/FirebaseMessaging.xcframework/ios-arm64/
+LIBS += \
+    -F$$top_srcdir/Carthage/Build/nanopb.xcframework/ios-arm64/ \
+    -F$$top_srcdir/Carthage/Build/FBLPromises.xcframework/ios-arm64/ \
+    -F$$top_srcdir/Carthage/Build/GoogleDataTransport.xcframework/ios-arm64/ \
+    -F$$top_srcdir/Carthage/Build/GoogleUtilities.xcframework/ios-arm64/ \
+    -F$$top_srcdir/Carthage/Build/FirebaseCoreInternal.xcframework/ios-arm64/ \
+    -F$$top_srcdir/Carthage/Build/FirebaseCore.xcframework/ios-arm64/ \
+    -F$$top_srcdir/Carthage/Build/FirebaseInstallations.xcframework/ios-arm64/ \
+    -F$$top_srcdir/Carthage/Build/FirebaseMessaging.xcframework/ios-arm64/
+
 # these are static frameworks
 LIBS += -ObjC \
     -framework nanopb \
@@ -101,18 +109,9 @@ LIBS += \
 QMAKE_RPATHDIR += /usr/lib/swift
 
 # Countly
-forsimulator {
-    QMAKE_CXXFLAGS += -F$$top_srcdir/3rdparty/Countly/iOSSimulator
-    LIBS += -F$$top_srcdir/3rdparty/Countly/iOSSimulator -framework Countly
+QMAKE_CXXFLAGS += -F$$top_srcdir/Carthage/Build/Countly.xcframework/ios-arm64/
+LIBS += -F$$top_srcdir/Carthage/Build/Countly.xcframework/ios-arm64/ -framework Countly
 
-    countly.files = $$top_srcdir/3rdparty/Countly/iOSSimulator/Countly.framework
-    countly.path = Frameworks
-    QMAKE_BUNDLE_DATA += countly
-} else {
-    QMAKE_CXXFLAGS += -F$$top_srcdir/3rdparty/Countly/iOS
-    LIBS += -F$$top_srcdir/3rdparty/Countly/iOS -framework Countly
-
-    countly.files = $$top_srcdir/3rdparty/Countly/iOS/Countly.framework
-    countly.path = Frameworks
-    QMAKE_BUNDLE_DATA += countly
-}
+countly.files = $$top_srcdir/Carthage/Build/Countly.xcframework/ios-arm64/Countly.framework
+countly.path = Frameworks
+QMAKE_BUNDLE_DATA += countly

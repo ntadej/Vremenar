@@ -39,6 +39,11 @@ jobs:
           submodules: recursive
           fetch-depth: 0
 
+      - name: Setup cmake
+        uses: jwlawson/actions-setup-cmake@v1.14.1
+        with:
+          cmake-version: "latest"
+
       - name: Setup Xcode
         uses: maxim-lobanov/setup-xcode@v1
         with:

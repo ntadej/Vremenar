@@ -18,6 +18,8 @@ Config.cmake
 /3rdparty/Firebase
 /3rdparty/Sparkle
 
+/Carthage
+
 /fastlane/build
 /fastlane/report.xml
 

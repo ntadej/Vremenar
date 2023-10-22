@@ -80,6 +80,12 @@ plutil -convert binary1 "$BUNDLE_NAME/Contents/Resources/GoogleService-Info.plis
 if [[ "$CODE_SIGN_IDENTITY" != "" ]]; then
   echo codesign -s "\"$CODE_SIGN_IDENTITY\"" -f --timestamp -o runtime --entitlements "$ENTITLEMENTS" "$BUNDLE_NAME"
   codesign -s "$CODE_SIGN_IDENTITY" -f --timestamp -o runtime --entitlements "$ENTITLEMENTS" "$BUNDLE_NAME"
+  result=$?
+  echo "result: $result"
+
+  if [[ ! $result -eq 0 && ! $result -eq 2 ]]; then
+    exit $result
+  fi
 fi
 
 if [[ "$PKG_SIGN_IDENTITY" != "" ]]; then
@@ -89,6 +95,8 @@ if [[ "$PKG_SIGN_IDENTITY" != "" ]]; then
     /Applications \
     Vremenar.pkg \
     --sign "$PKG_SIGN_IDENTITY"
+  result=$?
+  echo "result: $result"
 else
   # build dmg
   if [[ "$CODE_SIGN_IDENTITY" != "" ]]; then
@@ -98,6 +106,7 @@ else
     create-dmg "$BUNDLE_NAME" --overwrite
     result=$?
   fi
+  echo "result: $result"
 fi
 
 if [[ $result -eq 0 || $result -eq 2 ]]; then

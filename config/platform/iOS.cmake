@@ -46,21 +46,21 @@ set(APPLE_IOS_TRANSLATIONS
     ${CMAKE_SOURCE_DIR}/resources/iOS/sl.lproj
 )
 
-# Countly
-set(COUNTLY_PATH "${CMAKE_SOURCE_DIR}/3rdparty/Countly/${APPLE_IOS_VARIANT}")
-find_library(Countly Countly HINTS ${COUNTLY_PATH} REQUIRED NO_CMAKE_FIND_ROOT_PATH)
+# Dependencies
+set(CARTHAGE_PATH "${CMAKE_SOURCE_DIR}/Carthage/Build")
+
+find_library(Countly Countly HINTS ${CARTHAGE_PATH} REQUIRED NO_CMAKE_FIND_ROOT_PATH)
 set(APPLE_IOS_EMBED_FRAMEWORKS ${Countly})
 
 # Firebase
 configure_file("${CMAKE_SOURCE_DIR}/GoogleService-Info.plist" "${CMAKE_BINARY_DIR}/GoogleService-Info.plist" COPYONLY)
 set(APPLE_IOS_GOOGLESERVICE "${CMAKE_BINARY_DIR}/GoogleService-Info.plist")
 
-set(FIREBASE_PATH "${CMAKE_SOURCE_DIR}/3rdparty/Firebase/${APPLE_IOS_VARIANT}")
-find_library(nanopb nanopb HINTS ${FIREBASE_PATH} REQUIRED NO_CMAKE_FIND_ROOT_PATH)
-find_library(FBLPromises FBLPromises HINTS ${FIREBASE_PATH} REQUIRED NO_CMAKE_FIND_ROOT_PATH)
-find_library(GoogleDataTransport GoogleDataTransport HINTS ${FIREBASE_PATH} REQUIRED NO_CMAKE_FIND_ROOT_PATH)
-find_library(GoogleUtilities GoogleUtilities HINTS ${FIREBASE_PATH} REQUIRED NO_CMAKE_FIND_ROOT_PATH)
-find_library(FirebaseCore FirebaseCore HINTS ${FIREBASE_PATH} REQUIRED NO_CMAKE_FIND_ROOT_PATH)
-find_library(FirebaseCoreInternal FirebaseCoreInternal HINTS ${FIREBASE_PATH} REQUIRED NO_CMAKE_FIND_ROOT_PATH)
-find_library(FirebaseInstallations FirebaseInstallations HINTS ${FIREBASE_PATH} REQUIRED NO_CMAKE_FIND_ROOT_PATH)
-find_library(FirebaseMessaging FirebaseMessaging HINTS ${FIREBASE_PATH} REQUIRED NO_CMAKE_FIND_ROOT_PATH)
+find_library(nanopb nanopb HINTS ${CARTHAGE_PATH} REQUIRED NO_CMAKE_FIND_ROOT_PATH)
+find_library(FBLPromises FBLPromises HINTS ${CARTHAGE_PATH} REQUIRED NO_CMAKE_FIND_ROOT_PATH)
+find_library(GoogleDataTransport GoogleDataTransport HINTS ${CARTHAGE_PATH} REQUIRED NO_CMAKE_FIND_ROOT_PATH)
+find_library(GoogleUtilities GoogleUtilities HINTS ${CARTHAGE_PATH} REQUIRED NO_CMAKE_FIND_ROOT_PATH)
+find_library(FirebaseCore FirebaseCore HINTS ${CARTHAGE_PATH} REQUIRED NO_CMAKE_FIND_ROOT_PATH)
+find_library(FirebaseCoreInternal FirebaseCoreInternal HINTS ${CARTHAGE_PATH} REQUIRED NO_CMAKE_FIND_ROOT_PATH)
+find_library(FirebaseInstallations FirebaseInstallations HINTS ${CARTHAGE_PATH} REQUIRED NO_CMAKE_FIND_ROOT_PATH)
+find_library(FirebaseMessaging FirebaseMessaging HINTS ${CARTHAGE_PATH} REQUIRED NO_CMAKE_FIND_ROOT_PATH)

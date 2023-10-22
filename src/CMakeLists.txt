@@ -313,7 +313,7 @@ if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin" OR IOS)
     )
 endif()
 
-if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin" AND NOT CMAKE_GENERATOR STREQUAL "Xcode")
     add_custom_command(TARGET Vremenar POST_BUILD
         COMMAND ${CMAKE_BINARY_DIR}/resign.sh
         WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
