@@ -95,6 +95,11 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.MATCH_GIT_PRIVATE_KEY }}
 
+      - name: Setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
       - name: Setup dependencies
         run: |
           npm install --global create-dmg
