@@ -158,7 +158,7 @@ platform :android do
   lane :play_deploy do
     supply aab: 'fastlane/build/android_play/Vremenar-signed.aab',
            release_status: 'draft',
-           track: 'alpha'
+           track: 'internal'
   end
 
   desc 'Make Amazon Build'
