@@ -54,25 +54,18 @@ jobs:
           tar xvf qt-geoservices-maplibre-gl_v${MAPLIBRE_VERSION}_Qt${QT_VERSION}_Linux.tar.bz2
 
       - name: Configure & prepare
+        working-directory: source
         env:
-          MAPS_ENDPOINT: ${{ secrets.MAPS_ENDPOINT }}
-          API_ENDPOINT: ${{ secrets.API_ENDPOINT }}
-          APPCAST_ENDPOINT: ${{ secrets.APPCAST_ENDPOINT }}
-          COUNTLY_APPKEY: ${{ secrets.COUNTLY_APPKEY }}
-          COUNTLY_APPKEY_DEV: ${{ secrets.COUNTLY_APPKEY_DEV }}
-          COUNTLY_ENDPOINT: ${{ secrets.COUNTLY_ENDPOINT }}
-          COUNTLY_SALT: ${{ secrets.COUNTLY_SALT }}
-          COUNTLY_SALT_DEV: ${{ secrets.COUNTLY_SALT_DEV }}
+          CONFIG_CMAKE: ${{ secrets.CONFIG_CMAKE }}
         run: |
-          cat <<EOT > source/Config.cmake
-          set(MAPS_ENDPOINT "${MAPS_ENDPOINT}")
-          set(API_ENDPOINT "${API_ENDPOINT}")
-          set(APPCAST_ENDPOINT "${APPCAST_ENDPOINT}")
-          set(COUNTLY_APPKEY "${COUNTLY_APPKEY}")
-          set(COUNTLY_ENDPOINT "${COUNTLY_ENDPOINT}")
-          set(COUNTLY_SALT "${COUNTLY_SALT}")
-          EOT
-          patch Qt/$QT_VERSION/gcc_64/lib/cmake/Qt6Qml/Qt6QmlMacros.cmake source/3rdparty/qml.patch
+          echo $CONFIG_CMAKE | base64 --decode > Config.cmake
+
+          pushd .. > /dev/null || exit
+          if [[ -f "Qt/$QT_VERSION/gcc_64/lib/cmake/Qt6Qml/Qt6QmlMacros.cmake" ]]; then
+            patch Qt/$QT_VERSION/gcc_64/lib/cmake/Qt6Qml/Qt6QmlMacros.cmake source/3rdparty/qml.patch
+          fi
+          popd > /dev/null || exit
+
           mkdir build
 
       - name: Build

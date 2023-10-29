@@ -104,6 +104,10 @@ module Fastlane
           else
             command += " -DQT_ANDROID_ABIS='armeabi-v7a;arm64-v8a;x86_64;x86'"
           end
+        when 'linux'
+          command += " -G Ninja -DCMAKE_BUILD_TYPE='Release'"
+          command += " -DCMAKE_C_COMPILER_LAUNCHER='ccache' -DCMAKE_CXX_COMPILER_LAUNCHER='ccache'"
+          command += " -DCMAKE_INSTALL_PREFIX='/usr'"
         end
         command += " -DAPPLE_XCODE_PATH='#{params[:xcode_path]}'" unless params[:xcode_path].empty?
         command += " -DVREMENAR_BUILD='#{build_number}'"

@@ -4,7 +4,7 @@
 
 default_platform :mac
 
-add_extra_platforms platforms: [:windows]
+add_extra_platforms platforms: %i[windows linux]
 
 platform :mac do
   desc 'Make a developer ID build'
@@ -216,5 +216,18 @@ platform :windows do
               output_path: 'fastlane/build/windows_store'
     nmake
     create_windows_package
+  end
+end
+
+platform :linux do
+  desc 'Make a Linux build'
+  lane :appimage do
+    build_number
+    run_cmake platform: 'linux',
+              build_type: 'appimage',
+              build_path: 'fastlane/build/linux/cmake',
+              output_path: 'fastlane/build/linux'
+    ninja
+    create_linux_package
   end
 end

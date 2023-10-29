@@ -8,7 +8,7 @@ export PATH="$Qt6_DIR/bin:$IQTA_TOOLS/CMake/bin:$PATH"
 qmake --version
 cmake --version
 
-cd build
+mkdir build && cd build
 
 qt-cmake ../source/ \
   -G Ninja \
