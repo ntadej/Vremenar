@@ -17,12 +17,30 @@ install(FILES
 )
 
 install(DIRECTORY
-    "${CMAKE_SOURCE_DIR}/resources/Linux/logo/16x16"
-    "${CMAKE_SOURCE_DIR}/resources/Linux/logo/24x24"
-    "${CMAKE_SOURCE_DIR}/resources/Linux/logo/32x32"
-    "${CMAKE_SOURCE_DIR}/resources/Linux/logo/48x48"
-    "${CMAKE_SOURCE_DIR}/resources/Linux/logo/64x64"
-    "${CMAKE_SOURCE_DIR}/resources/Linux/logo/128x128"
-    "${CMAKE_SOURCE_DIR}/resources/Linux/logo/256x256"
-    DESTINATION "${CMAKE_INSTALL_DATADIR}/icons/hicolor"
+    "${CMAKE_SOURCE_DIR}/resources/Linux/logo/16x16/"
+    DESTINATION "${CMAKE_INSTALL_DATADIR}/icons/hicolor/16x16/apps"
+)
+install(DIRECTORY
+    "${CMAKE_SOURCE_DIR}/resources/Linux/logo/24x24/"
+    DESTINATION "${CMAKE_INSTALL_DATADIR}/icons/hicolor/24x24/apps"
+)
+install(DIRECTORY
+    "${CMAKE_SOURCE_DIR}/resources/Linux/logo/32x32/"
+    DESTINATION "${CMAKE_INSTALL_DATADIR}/icons/hicolor/32x32/apps"
+)
+install(DIRECTORY
+    "${CMAKE_SOURCE_DIR}/resources/Linux/logo/48x48/"
+    DESTINATION "${CMAKE_INSTALL_DATADIR}/icons/hicolor/48x48/apps"
+)
+install(DIRECTORY
+    "${CMAKE_SOURCE_DIR}/resources/Linux/logo/64x64/"
+    DESTINATION "${CMAKE_INSTALL_DATADIR}/icons/hicolor/64x64/apps"
+)
+install(DIRECTORY
+    "${CMAKE_SOURCE_DIR}/resources/Linux/logo/128x128/"
+    DESTINATION "${CMAKE_INSTALL_DATADIR}/icons/hicolor/128x128/apps"
+)
+install(DIRECTORY
+    "${CMAKE_SOURCE_DIR}/resources/Linux/logo/256x256/"
+    DESTINATION "${CMAKE_INSTALL_DATADIR}/icons/hicolor/256x256/apps"
 )
