@@ -1,6 +1,0 @@
-<RCC>
-    <qresource prefix="/Vremenar/Fonts">
-        <file>data/MaterialIcons-Regular.ttf</file>
-        <file>data/MaterialIconsOutlined-Regular.otf</file>
-    </qresource>
-</RCC>

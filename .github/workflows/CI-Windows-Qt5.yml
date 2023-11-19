@@ -1,22 +1,6 @@
 name: Windows CI (Qt5)
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - "**"
-    tags:
-      - "**"
-    paths-ignore:
-      - ".gitignore"
-      - "README.md"
-      # ignore CI for other platforms
-      - ".github/actions/**"
-      - ".github/workflows/CI-Android.yml"
-      - ".github/workflows/CI-iOS-Qt5.yml"
-      - ".github/workflows/CI-iOS.yml"
-      - ".github/workflows/CI-Linux.yml"
-      - ".github/workflows/CI-macOS.yml"
-      - ".github/workflows/CI-Windows.yml"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}

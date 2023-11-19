@@ -7,7 +7,7 @@
 
   <Identity Name="@WINDOWS_NAME@"
     Publisher="@WINDOWS_PUBLISHER@"
-    Version="@VREMENAR_VERSION@.@VREMENAR_BUILD_NUMBER@"
+    Version="1.0.@VREMENAR_BUILD_NUMBER@.0"
     ProcessorArchitecture="x64" />
 
   <Properties>

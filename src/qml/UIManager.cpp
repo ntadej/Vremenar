@@ -82,7 +82,7 @@ void Qml::UIManager::setTheme(Common::Theme theme)
 
 bool Qml::UIManager::customWindowButtons() const
 {
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0) && defined(Q_OS_WINDOWS)
+#if defined(Q_OS_WINDOWS)
     return true;
 #else
     return false;
@@ -144,13 +144,6 @@ void Qml::UIManager::primaryScreenChanged(QScreen *screen)
     }
 
     _currentPrimaryScreen = screen;
-
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-    _currentPrimaryScreen->setOrientationUpdateMask(Qt::PortraitOrientation
-                                                    | Qt::LandscapeOrientation
-                                                    | Qt::InvertedPortraitOrientation
-                                                    | Qt::InvertedLandscapeOrientation);
-#endif
 
     orientationChanged(screen->orientation());
 
