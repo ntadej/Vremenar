@@ -31,7 +31,7 @@ public:
     bool eventFilter(QObject *object,
                      QEvent *event) override;
 
-#if defined(Q_OS_MACOS) || (QT_VERSION < QT_VERSION_CHECK(6, 0, 0) && defined(Q_OS_WINDOWS))
+#if defined(Q_OS_MACOS)
     void setupTitleBarLessWindow(quintptr winId,
                                  qreal devicePixelRatio = 1.0);
 #endif
@@ -45,8 +45,6 @@ public:
 public slots:
     void dockClickedCallback();
     void dockSetVisibility(bool visible);
-#elif QT_VERSION < QT_VERSION_CHECK(6, 0, 0) && defined(Q_OS_WINDOWS)
-    void setPrimaryWindowDevicePixelRatio(qreal ratio);
 #endif
 
 signals:
@@ -65,7 +63,7 @@ private:
                                 char **argv,
                                 QObject *parent = nullptr);
 
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0) && defined(Q_OS_WINDOWS)
+#if defined(Q_OS_WINDOWS)
 private:
     std::unique_ptr<NativeEventFilterWin32> _nativeEventFilter{};
 #endif

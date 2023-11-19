@@ -22,11 +22,7 @@ MapLegendItem::MapLegendItem(Weather::MapType type,
     : ListItem(parent),
       _type(type),
       _value(std::move(value)),
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
       _color(color),
-#else
-      _color(std::move(color)),
-#endif
       _placeholder(placeholder)
 {
     setId(Weather::mapTypeToString(type) + "_" + _value);

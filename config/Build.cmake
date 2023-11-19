@@ -47,12 +47,13 @@ message(STATUS "Store deployment: ${VREMENAR_STORE}")
 
 # compiler
 set(CMAKE_CXX_STANDARD 17)
-set(QT_QML_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/qml")
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 if(CMAKE_GENERATOR STREQUAL "Xcode")
     set(CMAKE_IS_XCODE 1)
 else()
     set(CMAKE_IS_XCODE 0)
 endif()
+set(QT_QML_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/qml")
 
 add_library(
     Vremenar-compiler-options INTERFACE

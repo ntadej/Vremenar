@@ -82,12 +82,7 @@ void LocationProvider::initPosition()
 
         connect(_position.get(), &QGeoPositionInfoSource::supportedPositioningMethodsChanged, this, &LocationProvider::supportedMethodsChanged);
         connect(_position.get(), &QGeoPositionInfoSource::positionUpdated, this, &LocationProvider::positionUpdated);
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
         connect(_position.get(), &QGeoPositionInfoSource::errorOccurred, this, &LocationProvider::positionError);
-#else
-        connect(_position.get(), QOverload<QGeoPositionInfoSource::Error>::of(&QGeoPositionInfoSource::error), this, &LocationProvider::positionError);
-        connect(_position.get(), &QGeoPositionInfoSource::updateTimeout, this, &LocationProvider::positionTimeout);
-#endif
 
         positionUpdated(_position->lastKnownPosition());
         requestPositionUpdate();

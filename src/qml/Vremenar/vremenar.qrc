@@ -1,6 +1,0 @@
-<RCC>
-    <qresource prefix="/Vremenar">
-        <file>qmldir</file>
-        <file>main.qml</file>
-    </qresource>
-</RCC>

@@ -17,9 +17,7 @@
 
 #include "Config.h"
 
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
 #include <QtQuick/QQuickWindow>
-#endif
 
 #include <stdexcept>
 
@@ -32,19 +30,10 @@ void Application::preInit()
     QCoreApplication::setApplicationName(Vremenar::name);
     QCoreApplication::setApplicationVersion(Vremenar::version);
 
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
     QQuickWindow::setGraphicsApi(QSGRendererInterface::OpenGLRhi);
-#else
-    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
-    QCoreApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
-#endif
 
 #if defined(Q_OS_WINDOWS)
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-    QCoreApplication::setAttribute(Qt::AA_UseOpenGLES);
-#else
-    qputenv("QT_QPA_PLATFORM", "windows:darkmode=1");
-#endif
+    // qputenv("QT_QPA_PLATFORM", "windows:darkmode=1");
 #elif defined(Q_OS_LINUX) && !defined(Q_OS_ANDROID)
     qputenv("QT_QUICK_CONTROLS_MATERIAL_VARIANT", "Dense");
     qputenv("QT_GEOCLUE_APP_DESKTOP_ID", QString(Vremenar::appID).toUtf8());

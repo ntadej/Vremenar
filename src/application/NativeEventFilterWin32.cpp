@@ -29,11 +29,7 @@ NativeEventFilterWin32::NativeEventFilterWin32(quintptr winId,
 // NOLINTNEXTLINE(readability-function-cognitive-complexity)
 bool NativeEventFilterWin32::nativeEventFilter(const QByteArray &eventType,
                                                void *message,
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
                                                qintptr *result) // NOLINT(google-runtime-int)
-#else
-                                               long *result) // NOLINT(google-runtime-int)
-#endif
 {
     if (eventType.compare("windows_generic_MSG") == 0) {
         MSG *msg = static_cast<MSG *>(message);
