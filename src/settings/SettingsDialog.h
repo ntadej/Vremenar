@@ -14,12 +14,8 @@
 
 #include <memory>
 
-#include <QtGui/QDoubleValidator>
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
 #include <QtGui/QActionGroup>
-#else
-#include <QtWidgets/QActionGroup>
-#endif
+#include <QtGui/QDoubleValidator>
 #include <QtWidgets/QCompleter>
 #include <QtWidgets/QMainWindow>
 

@@ -67,7 +67,7 @@ ApplicationWindow::ApplicationWindow(QObject *parent)
     QQuickStyle::setStyle(QStringLiteral("Material"));
 #elif defined(Q_OS_LINUX) || defined(Q_OS_WINDOWS)
     QQuickStyle::setStyle(QStringLiteral("Universal"));
-#elif QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
+#else
     QQuickStyle::setStyle(QStringLiteral("Basic"));
 #endif
 
@@ -86,9 +86,6 @@ ApplicationWindow::ApplicationWindow(QObject *parent)
 
     // Custom file selector
     QStringList extraSelectors;
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
-    extraSelectors.append(QStringLiteral("legacy"));
-#endif
 #if defined(Q_OS_MACOS)
     extraSelectors.append(QStringLiteral("nativemenu"));
     if (DesktopApplication::supportsSFSymbols()) {
@@ -305,16 +302,6 @@ void ApplicationWindow::updateTrayIcon()
     _trayIcon->setCurrentMap(_weatherProvider->currentMapLayer());
 }
 
-void ApplicationWindow::setPrimaryWindowDevicePixelRatio(qreal ratio)
-{
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0) && defined(Q_OS_WINDOWS)
-    auto *application = qobject_cast<DesktopApplication *>(QCoreApplication::instance());
-    application->setPrimaryWindowDevicePixelRatio(ratio);
-#else
-    Q_UNUSED(ratio)
-#endif
-}
-
 void ApplicationWindow::showAboutDialog()
 {
     AboutDialog dialog(_weatherProvider.get());
@@ -389,7 +376,7 @@ void ApplicationWindow::startCompleted(QQuickWindow *window,
     // NOLINTNEXTLINE(google-readability-casting)
     _qmlMainWindow = gsl::owner<QQuickWindow *>(window);
     connect(_qmlMainWindow, &QQuickWindow::visibleChanged, this, &ApplicationWindow::visibilityChanged);
-#if defined(Q_OS_MACOS) || (QT_VERSION < QT_VERSION_CHECK(6, 0, 0) && defined(Q_OS_WINDOWS))
+#if defined(Q_OS_MACOS)
     auto *application = qobject_cast<DesktopApplication *>(QCoreApplication::instance());
     application->setupTitleBarLessWindow(window->winId(), devicePixelRatio);
 #else

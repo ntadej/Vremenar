@@ -25,11 +25,7 @@ public:
 
     bool nativeEventFilter(const QByteArray &eventType,
                            void *message,
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
                            qintptr *result) override;
-#else
-                           long *result) override; // NOLINT(google-runtime-int)
-#endif
     void setPrimaryWindowDevicePixelRatio(qreal ratio);
 
 private:

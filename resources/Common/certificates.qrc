@@ -1,6 +1,0 @@
-<RCC>
-    <qresource prefix="/">
-        <file>certificates/isrgrootx1.pem</file>
-        <file>certificates/isrg-root-x2.pem</file>
-    </qresource>
-</RCC>

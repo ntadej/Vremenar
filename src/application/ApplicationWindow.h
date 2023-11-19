@@ -60,7 +60,6 @@ public slots:
 
 #ifndef VREMENAR_MOBILE
 public slots:
-    void setPrimaryWindowDevicePixelRatio(qreal ratio);
     void showAboutDialog();
     void showSettingsDialog();
     void showMapsMenu();

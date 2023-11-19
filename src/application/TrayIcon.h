@@ -12,17 +12,12 @@
 #ifndef VREMENAR_TRAYICON_H_
 #define VREMENAR_TRAYICON_H_
 
-#include <QtWidgets/QMenu>
-#include <QtWidgets/QSystemTrayIcon>
-
-#if QT_VERSION >= QT_VERSION_CHECK(6, 0, 0)
-#include <QtGui/QActionGroup>
-#else
-#include <QtWidgets/QActionGroup>
-#endif
-
 #include "weather/containers/StationInfo.h"
 #include "weather/containers/WeatherCondition.h"
+
+#include <QtGui/QActionGroup>
+#include <QtWidgets/QMenu>
+#include <QtWidgets/QSystemTrayIcon>
 
 class QMenu;
 
