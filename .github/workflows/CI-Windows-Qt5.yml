@@ -99,7 +99,7 @@ jobs:
           bundle exec fastlane windows microsoft_store
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: Windows-package
           path: source/fastlane/build/windows*/Vremenar.*
