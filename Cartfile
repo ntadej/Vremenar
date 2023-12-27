@@ -1,5 +1,4 @@
-# github "Countly/countly-sdk-ios" "23.8.3"
-github "ntadej/countly-sdk-ios" "xcframework"
+github "Countly/countly-sdk-ios" "23.12.0"
 
 binary "https://sparkle-project.org/Carthage/Sparkle.json"
 

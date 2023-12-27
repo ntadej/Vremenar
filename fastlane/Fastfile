@@ -13,7 +13,8 @@ platform :mac do
     match type: 'developer_id'
     xcode_metadata
     carthage use_xcframeworks: true,
-             cache_builds: true
+             cache_builds: true,
+             platform: 'Mac'
     sign_dependencies certificate_name: ENV['sigh_si.tano.Vremenar_developer_id_macos_certificate-name']
     build_number
     run_cmake platform: 'macos',
@@ -37,7 +38,8 @@ platform :mac do
     match type: 'appstore', additional_cert_types: 'mac_installer_distribution'
     xcode_metadata
     carthage use_xcframeworks: true,
-             cache_builds: true
+             cache_builds: true,
+             platform: 'Mac'
     sign_dependencies certificate_name: ENV['sigh_si.tano.Vremenar_appstore_macos_certificate-name']
     build_number
     run_cmake platform: 'macos',
@@ -84,7 +86,8 @@ platform :ios do
     setup_ci if ENV['CI']
     match type: 'development'
     carthage use_xcframeworks: true,
-             cache_builds: true
+             cache_builds: true,
+             platform: 'iOS'
     build_number
     run_cmake platform: 'ios',
               build_type: 'development',
@@ -106,7 +109,8 @@ platform :ios do
     setup_ci if ENV['CI']
     match type: 'appstore'
     carthage use_xcframeworks: true,
-             cache_builds: true
+             cache_builds: true,
+             platform: 'iOS'
     build_number
     run_qmake platform: 'ios',
               build_type: 'store',
