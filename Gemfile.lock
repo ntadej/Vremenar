@@ -161,7 +161,7 @@ GEM
     optparse (0.1.1)
     os (1.1.4)
     parallel (1.24.0)
-    parser (3.2.2.4)
+    parser (3.3.0.5)
       ast (~> 2.4.1)
       racc
     plist (3.7.0)
@@ -169,7 +169,7 @@ GEM
     racc (1.7.3)
     rainbow (3.1.1)
     rake (13.1.0)
-    regexp_parser (2.8.3)
+    regexp_parser (2.9.0)
     representable (3.2.0)
       declarative (< 0.1.0)
       trailblazer-option (>= 0.1.1, < 0.2.0)
@@ -177,11 +177,11 @@ GEM
     retriable (3.1.2)
     rexml (3.2.6)
     rouge (2.0.7)
-    rubocop (1.59.0)
+    rubocop (1.60.2)
       json (~> 2.3)
       language_server-protocol (>= 3.17.0)
       parallel (~> 1.10)
-      parser (>= 3.2.2.4)
+      parser (>= 3.3.0.2)
       rainbow (>= 2.2.2, < 4.0)
       regexp_parser (>= 1.8, < 3.0)
       rexml (>= 3.2.5, < 4.0)
@@ -236,7 +236,7 @@ PLATFORMS
 
 DEPENDENCIES
   fastlane (= 2.217.0)
-  rubocop (= 1.59.0)
+  rubocop (= 1.60.2)
 
 BUNDLED WITH
    2.4.10
