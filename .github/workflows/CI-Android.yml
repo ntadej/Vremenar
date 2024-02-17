@@ -46,54 +46,59 @@ jobs:
         id: qt-desktop
         uses: jurplel/install-qt-action@v3
         with:
-          aqtversion: ==3.0.*
+          aqtversion: ==3.1.*
           version: ${{ env.QT_VERSION }}
           modules: qtpositioning qtshadertools qt5compat
           set-env: false
+          extra: --base https://mirrors.ocf.berkeley.edu/qt/
 
       - name: Download Qt (Android, armv7)
         id: qt-android-armv7
         if: matrix.type != 'amazon_fire64'
         uses: jurplel/install-qt-action@v3
         with:
-          aqtversion: ==3.0.*
+          aqtversion: ==3.1.*
           version: ${{ env.QT_VERSION }}
           target: android
           arch: android_armv7
           modules: qtpositioning qtshadertools qt5compat
+          extra: --base https://mirrors.ocf.berkeley.edu/qt/
 
       - name: Download Qt (Android, arm64_v8a)
         id: qt-android-arm64_v8a
         if: matrix.type != 'amazon_fire32' && matrix.type != 'amazon_firetv'
         uses: jurplel/install-qt-action@v3
         with:
-          aqtversion: ==3.0.*
+          aqtversion: ==3.1.*
           version: ${{ env.QT_VERSION }}
           target: android
           arch: android_arm64_v8a
           modules: qtpositioning qtshadertools qt5compat
+          extra: --base https://mirrors.ocf.berkeley.edu/qt/
 
       - name: Download Qt (Android, x86)
         id: qt-android-x86
         if: matrix.type != 'amazon_fire32' && matrix.type != 'amazon_fire64' && matrix.type != 'amazon_firetv'
         uses: jurplel/install-qt-action@v3
         with:
-          aqtversion: ==3.0.*
+          aqtversion: ==3.1.*
           version: ${{ env.QT_VERSION }}
           target: android
           arch: android_x86
           modules: qtpositioning qtshadertools qt5compat
+          extra: --base https://mirrors.ocf.berkeley.edu/qt/
 
       - name: Download Qt (Android, x86_64)
         id: qt-android-x86_64
         if: matrix.type != 'amazon_fire32' && matrix.type != 'amazon_fire64' && matrix.type != 'amazon_firetv'
         uses: jurplel/install-qt-action@v3
         with:
-          aqtversion: ==3.0.*
+          aqtversion: ==3.1.*
           version: ${{ env.QT_VERSION }}
           target: android
           arch: android_x86_64
           modules: qtpositioning qtshadertools qt5compat
+          extra: --base https://mirrors.ocf.berkeley.edu/qt/
 
       - name: Fix Qt release
         run: |

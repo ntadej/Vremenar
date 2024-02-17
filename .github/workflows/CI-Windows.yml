@@ -42,11 +42,12 @@ jobs:
       - name: Download Qt
         uses: jurplel/install-qt-action@v3
         with:
-          aqtversion: ==3.0.*
+          aqtversion: ==3.1.*
           version: ${{ env.QT_VERSION }}
           target: desktop
           arch: win64_msvc2019_64
           modules: qtpositioning qtshadertools
+          extra: --base https://mirrors.ocf.berkeley.edu/qt/
 
       - name: Download MapLibre
         shell: bash

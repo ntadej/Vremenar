@@ -29,7 +29,7 @@ env:
 jobs:
   build:
     name: Build Vremenar (iOS)
-    runs-on: macos-13
+    runs-on: macos-14
 
     steps:
       - name: Checkout
@@ -52,19 +52,21 @@ jobs:
       - name: Download Qt (desktop)
         uses: jurplel/install-qt-action@v3
         with:
-          aqtversion: ==3.0.*
+          aqtversion: ==3.1.*
           version: ${{ env.QT_VERSION }}
           target: desktop
           modules: qtpositioning qtshadertools qt5compat
           set-env: false
+          extra: --base https://mirrors.ocf.berkeley.edu/qt/
 
       - name: Download Qt (iOS)
         uses: jurplel/install-qt-action@v3
         with:
-          aqtversion: ==3.0.*
+          aqtversion: ==3.1.*
           version: ${{ env.QT_VERSION }}
           target: ios
           modules: qtpositioning qtshadertools qt5compat
+          extra: --base https://mirrors.ocf.berkeley.edu/qt/
 
       - name: Download Qt patches
         run: |

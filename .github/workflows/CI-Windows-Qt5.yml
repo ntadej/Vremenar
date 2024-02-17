@@ -47,6 +47,7 @@ jobs:
           target: desktop
           arch: win64_msvc2019_64
           tools: tools_opensslv3_x64
+          extra: --base https://mirrors.ocf.berkeley.edu/qt/
 
       - name: Download MapLibre
         shell: bash
