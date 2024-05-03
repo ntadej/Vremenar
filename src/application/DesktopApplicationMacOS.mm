@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -56,24 +56,11 @@ bool dockClickHandler(id self,
 
 bool DesktopApplication::isDark()
 {
-    if (@available(macOS 10.14, *)) {
-        const NSAppearanceName basicAppearance = [[NSAppearance currentAppearance] bestMatchFromAppearancesWithNames:@[
-            NSAppearanceNameAqua,
-            NSAppearanceNameDarkAqua
-        ]];
-        return [basicAppearance isEqualToString:NSAppearanceNameDarkAqua] != 0;
-    }
-
-    return false;
-}
-
-bool DesktopApplication::supportsSFSymbols()
-{
-    if (@available(macOS 11.0, *)) {
-        return true; // NOLINT(readability-simplify-boolean-expr)
-    } else {         // NOLINT(readability-else-after-return)
-        return false;
-    }
+    const NSAppearanceName basicAppearance = [[NSAppearance currentDrawingAppearance] bestMatchFromAppearancesWithNames:@[
+        NSAppearanceNameAqua,
+        NSAppearanceNameDarkAqua
+    ]];
+    return [basicAppearance isEqualToString:NSAppearanceNameDarkAqua];
 }
 
 void DesktopApplication::setupDockHandler()
@@ -93,7 +80,7 @@ void DesktopApplication::setupDockHandler()
             }
         } else {
             // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
-            if (class_addMethod(delClass, shouldHandle, reinterpret_cast<IMP>(dockClickHandler), "B@:") != 0) {
+            if (class_addMethod(delClass, shouldHandle, reinterpret_cast<IMP>(dockClickHandler), "B@:")) {
                 qDebug() << "Registered dock click handler";
             } else {
                 qWarning() << "Failed to register dock click handler";
@@ -113,9 +100,9 @@ void DesktopApplication::dockSetVisibility(bool visible)
 
 void DesktopApplication::dockShow()
 {
-    const BOOL active = [[NSRunningApplication currentApplication] isActive];
+    const bool active = [[NSRunningApplication currentApplication] isActive];
     ProcessSerialNumber psn = {0, kCurrentProcess};
-    if (active != 0) {
+    if (active) {
         // Workaround buggy behavior of TransformProcessType.
         // http://stackoverflow.com/questions/7596643/
         // NOLINTNEXTLINE(misc-const-correctness)
@@ -124,7 +111,12 @@ void DesktopApplication::dockShow()
         // NOLINTNEXTLINE(misc-const-correctness)
         NSRunningApplication *app = nullptr;
         for (app in runningApps) {
-            [app activateWithOptions:NSApplicationActivateIgnoringOtherApps];
+            if (@available(macOS 14.0, *)) {
+                [NSApp yieldActivationToApplication:app];
+                [app activateWithOptions:0];
+            } else {
+                [app activateWithOptions:NSApplicationActivateIgnoringOtherApps];
+            }
             break;
         }
         const dispatch_time_t one_ms_1 = dispatch_time(DISPATCH_TIME_NOW, USEC_PER_SEC);
@@ -132,8 +124,13 @@ void DesktopApplication::dockShow()
           TransformProcessType(&psn, kProcessTransformToForegroundApplication);
           const dispatch_time_t one_ms_2 = dispatch_time(DISPATCH_TIME_NOW, USEC_PER_SEC);
           dispatch_after(one_ms_2, dispatch_get_main_queue(), ^{
-            [[NSRunningApplication currentApplication]
-                activateWithOptions:NSApplicationActivateIgnoringOtherApps];
+            if (@available(macOS 14.0, *)) {
+                [NSApp yieldActivationToApplication:app];
+                [[NSRunningApplication currentApplication] activateWithOptions:0];
+            } else {
+                [[NSRunningApplication currentApplication]
+                    activateWithOptions:NSApplicationActivateIgnoringOtherApps];
+            }
           });
         });
     } else {

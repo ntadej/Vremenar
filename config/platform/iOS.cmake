@@ -1,6 +1,6 @@
 #
 # Vremenar
-# Copyright (C) 2023 Tadej Novak <tadej@tano.si>
+# Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 #
 # This application is bi-licensed under the GNU General Public License
 # Version 3 or later as well as Mozilla Public License Version 2.
@@ -14,7 +14,7 @@ else()
     set(APPLE_IOS_VARIANT "iOS")
 endif()
 
-set(CMAKE_OSX_DEPLOYMENT_TARGET "13.0" CACHE STRING "iOS deployment target")
+set(CMAKE_OSX_DEPLOYMENT_TARGET "14.0" CACHE STRING "iOS deployment target")
 
 # Deployment target and rpath
 set(CMAKE_CXX_VISIBILITY_PRESET hidden)

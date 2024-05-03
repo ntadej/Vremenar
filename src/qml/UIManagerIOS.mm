@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -42,15 +42,6 @@ QMargins Qml::UIManager::safeAreaMargins()
     }
 
     return {};
-}
-
-bool Qml::UIManager::supportsSFSymbols()
-{
-    if (@available(iOS 13.0, *)) {
-        return true; // NOLINT(readability-simplify-boolean-expr)
-    } else {         // NOLINT(readability-else-after-return
-        return false;
-    }
 }
 
 } // namespace Vremenar

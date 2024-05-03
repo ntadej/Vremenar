@@ -88,14 +88,10 @@ ApplicationWindow::ApplicationWindow(QObject *parent)
     QStringList extraSelectors;
 #if defined(Q_OS_MACOS)
     extraSelectors.append(QStringLiteral("nativemenu"));
-    if (DesktopApplication::supportsSFSymbols()) {
-        extraSelectors.append(QStringLiteral("nativeicons"));
-    }
+    extraSelectors.append(QStringLiteral("nativeicons"));
 #elif defined(Q_OS_IOS)
     extraSelectors.append(QStringLiteral("mobile"));
-    if (MobileApplication::supportsSFSymbols()) {
-        extraSelectors.append(QStringLiteral("nativeicons"));
-    }
+    extraSelectors.append(QStringLiteral("nativeicons"));
 #elif defined(Q_OS_ANDROID)
     extraSelectors.append(QStringLiteral("mobile"));
     extraSelectors.append(QStringLiteral("materialstyle"));

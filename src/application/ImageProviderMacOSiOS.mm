@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -67,32 +67,28 @@ QImage SFSymbolsImageProvider::requestImage(const QString &id,
 
     CGImageRef cgImage{};
 #if defined(Q_OS_MACOS)
-    if (@available(macOS 11.0, *)) {
-        const QColor color(idSplit[1]);
-        const NSFontWeight nsFontWeight = idSplit[2] == QStringLiteral("UltraLight") ? NSFontWeightUltraLight : NSFontWeightRegular;
-        auto nsColor = [NSColor colorWithRed:color.redF() green:color.greenF() blue:color.blueF() alpha:1.];
-        auto nsConfig = [NSImageSymbolConfiguration configurationWithPointSize:(requestedSize.width() * _scale) weight:nsFontWeight];
-        auto nsImage = [NSImage imageWithSystemSymbolName:idSplit[0].toNSString() accessibilityDescription:nil];
-        nsImage = [nsImage imageWithSymbolConfiguration:nsConfig];
-        [nsImage lockFocus];
-        [nsColor set];
-        const NSRect imageRect = {NSZeroPoint, [nsImage size]};
-        NSRectFillUsingOperation(imageRect, NSCompositingOperationSourceIn);
-        [nsImage unlockFocus];
-        cgImage = [nsImage CGImageForProposedRect:nil context:nil hints:nil];
-    }
+    const QColor color(idSplit[1]);
+    const NSFontWeight nsFontWeight = idSplit[2] == QStringLiteral("UltraLight") ? NSFontWeightUltraLight : NSFontWeightRegular;
+    auto nsColor = [NSColor colorWithRed:color.redF() green:color.greenF() blue:color.blueF() alpha:1.];
+    auto nsConfig = [NSImageSymbolConfiguration configurationWithPointSize:(requestedSize.width() * _scale) weight:nsFontWeight];
+    auto nsImage = [NSImage imageWithSystemSymbolName:idSplit[0].toNSString() accessibilityDescription:nil];
+    nsImage = [nsImage imageWithSymbolConfiguration:nsConfig];
+    [nsImage lockFocus];
+    [nsColor set];
+    const NSRect imageRect = {NSZeroPoint, [nsImage size]};
+    NSRectFillUsingOperation(imageRect, NSCompositingOperationSourceIn);
+    [nsImage unlockFocus];
+    cgImage = [nsImage CGImageForProposedRect:nil context:nil hints:nil];
 #elif defined(Q_OS_IOS)
-    if (@available(iOS 13.0, *)) {
-        const QColor color(idSplit[1]);
-        const UIImageSymbolWeight uiWeight = idSplit[2] == QStringLiteral("UltraLight") ? UIImageSymbolWeightUltraLight : UIImageSymbolWeightRegular;
-        const double devicePixelRatio = idSplit[3].toDouble();
-        const int width = devicePixelRatio >= 3 ? requestedSize.width() / 7 * 5 : requestedSize.width(); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
-        const auto uiColor = [UIColor colorWithRed:color.redF() green:color.greenF() blue:color.blueF() alpha:1.];
-        const auto uiConfig = [UIImageSymbolConfiguration configurationWithPointSize:width weight:uiWeight];
-        auto uiImage = [UIImage systemImageNamed:idSplit[0].toNSString() withConfiguration:uiConfig];
-        uiImage = imageWithColor(uiColor, uiImage);
-        cgImage = [uiImage CGImage];
-    }
+    const QColor color(idSplit[1]);
+    const UIImageSymbolWeight uiWeight = idSplit[2] == QStringLiteral("UltraLight") ? UIImageSymbolWeightUltraLight : UIImageSymbolWeightRegular;
+    const double devicePixelRatio = idSplit[3].toDouble();
+    const int width = devicePixelRatio >= 3 ? requestedSize.width() / 7 * 5 : requestedSize.width(); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+    const auto uiColor = [UIColor colorWithRed:color.redF() green:color.greenF() blue:color.blueF() alpha:1.];
+    const auto uiConfig = [UIImageSymbolConfiguration configurationWithPointSize:width weight:uiWeight];
+    auto uiImage = [UIImage systemImageNamed:idSplit[0].toNSString() withConfiguration:uiConfig];
+    uiImage = imageWithColor(uiColor, uiImage);
+    cgImage = [uiImage CGImage];
 #endif
 
     QImage image = qt_mac_toQImage(cgImage);

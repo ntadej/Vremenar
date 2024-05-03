@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -64,7 +64,7 @@ bool LocationProviderMacOSiOS::servicesAllowed() const
         return false;
     }
 
-    switch ([CLLocationManager authorizationStatus]) {
+    switch ([_locationManager authorizationStatus]) {
     case kCLAuthorizationStatusNotDetermined:
         // User has not yet made a choice with regards to this application
         break;

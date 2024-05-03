@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -23,10 +23,7 @@ int Qml::UIManager::iconSizeCommon() const
 #if defined(Q_OS_WINDOWS)
     return 28; // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
 #elif defined(Q_OS_MACOS) || defined(Q_OS_IOS)
-    if (supportsSFSymbols()) {
-        return 14; // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
-    }
-    return 32; // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+    return 14; // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
 #else
     return 32; // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
 #endif
@@ -42,13 +39,8 @@ int Qml::UIManager::iconSizePrevNext() const
 }
 int Qml::UIManager::iconSizeFirstLast() const
 {
-#if defined(Q_OS_ANDROID)
+#if defined(Q_OS_ANDROID) || defined(Q_OS_MACOS) || defined(Q_OS_IOS)
     return iconSizeCommon();
-#elif defined(Q_OS_MACOS) || defined(Q_OS_IOS)
-    if (supportsSFSymbols()) {
-        return iconSizeCommon();
-    }
-    return 26; // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
 #elif defined(Q_OS_WINDOWS)
     return 24; // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
 #else
@@ -58,10 +50,7 @@ int Qml::UIManager::iconSizeFirstLast() const
 int Qml::UIManager::iconSizeCheckMark() const
 {
 #if defined(Q_OS_MACOS) || defined(Q_OS_IOS)
-    if (supportsSFSymbols()) {
-        return 8; // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
-    }
-    return iconSizeCommon();
+    return 8; // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
 #else
     return iconSizeCommon();
 #endif
