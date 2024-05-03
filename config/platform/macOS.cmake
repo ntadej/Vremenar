@@ -1,6 +1,6 @@
 #
 # Vremenar
-# Copyright (C) 2023 Tadej Novak <tadej@tano.si>
+# Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 #
 # This application is bi-licensed under the GNU General Public License
 # Version 3 or later as well as Mozilla Public License Version 2.
@@ -10,7 +10,7 @@
 #
 
 set(CMAKE_OSX_ARCHITECTURES "x86_64;arm64" CACHE STRING "macOS architectures")
-set(CMAKE_OSX_DEPLOYMENT_TARGET "10.14" CACHE STRING "macOS deployment target")
+set(CMAKE_OSX_DEPLOYMENT_TARGET "11.0" CACHE STRING "macOS deployment target")
 
 set(BUNDLE_CONTENTS_PATH "${CMAKE_BINARY_DIR}/${VREMENAR_NAME}.app/Contents")
 set(FRAMEWORKS_OUTPUT_PATH "${BUNDLE_CONTENTS_PATH}/Frameworks")

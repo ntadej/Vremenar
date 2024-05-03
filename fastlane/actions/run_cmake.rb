@@ -46,7 +46,7 @@ module Fastlane
             command += " -DAPPLE_PROVISIONING_PROFILE='#{params[:profile_name]}'" unless params[:profile_name].empty?
           end
           command += " -DCMAKE_C_COMPILER_LAUNCHER='ccache' -DCMAKE_CXX_COMPILER_LAUNCHER='ccache'"
-          command += " -DCMAKE_OSX_DEPLOYMENT_TARGET='10.14' -DCMAKE_OSX_ARCHITECTURES='x86_64;arm64'"
+          command += " -DCMAKE_OSX_DEPLOYMENT_TARGET='11.0' -DCMAKE_OSX_ARCHITECTURES='x86_64;arm64'"
           command += " -DAPPLE_DEVELOPER_TEAM='#{params[:developer_team]}'" unless params[:developer_team].empty?
           unless params[:certificate_name].empty?
             command += " -DAPPLE_CODE_SIGN_IDENTITY='#{params[:certificate_name]}'"
@@ -75,7 +75,7 @@ module Fastlane
           end
         when 'ios'
           command += ' -G Xcode'
-          command += " -DCMAKE_OSX_DEPLOYMENT_TARGET='13.0' -DCMAKE_OSX_ARCHITECTURES='arm64'"
+          command += " -DCMAKE_OSX_DEPLOYMENT_TARGET='14.0' -DCMAKE_OSX_ARCHITECTURES='arm64'"
           unless params[:certificate_name].empty?
             command += " -DCMAKE_XCODE_ATTRIBUTE_CODE_SIGN_IDENTITY='#{params[:certificate_name]}'"
           end

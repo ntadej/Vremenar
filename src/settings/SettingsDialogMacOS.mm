@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -59,9 +59,7 @@ void SettingsDialog::initializeMacOS(bool notificationsSupported)
     auto *view = reinterpret_cast<NSView *>(window()->winId());
     // NOLINTNEXTLINE(misc-const-correctness)
     NSWindow *window = [view window];
-    if (@available(macOS 11.0, *)) {
-        window.toolbarStyle = NSWindowToolbarStylePreference;
-    }
+    window.toolbarStyle = NSWindowToolbarStylePreference;
     NSRect frame = [window frame];
     const double extraHeight = frame.size.height - NSHeight([[window contentView] frame]);
     frame.origin.y += frame.size.height;

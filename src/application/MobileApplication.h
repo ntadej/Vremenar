@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -23,10 +23,6 @@ class MobileApplication : public QGuiApplication
 public:
     static MobileApplication init(int &argc, // NOLINT(google-runtime-references)
                                   char **argv);
-
-#ifdef Q_OS_IOS
-    static bool supportsSFSymbols();
-#endif
 
 private:
     explicit MobileApplication(int &argc,

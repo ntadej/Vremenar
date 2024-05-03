@@ -117,11 +117,7 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
 
     [[FIRMessaging messaging] appDidReceiveMessage:userInfo];
 
-    if (@available(iOS 14.0, *)) {
-        completionHandler(UNNotificationPresentationOptionBadge | UNNotificationPresentationOptionBanner);
-    } else {
-        completionHandler(UNNotificationPresentationOptionBadge | UNNotificationPresentationOptionAlert);
-    }
+    completionHandler(UNNotificationPresentationOptionBadge | UNNotificationPresentationOptionBanner);
 }
 
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center

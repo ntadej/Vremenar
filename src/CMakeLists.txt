@@ -1,6 +1,6 @@
 #
 # Vremenar
-# Copyright (C) 2023 Tadej Novak <tadej@tano.si>
+# Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 #
 # This application is bi-licensed under the GNU General Public License
 # Version 3 or later as well as Mozilla Public License Version 2.
@@ -35,7 +35,6 @@ qt_add_executable(Vremenar WIN32 MACOSX_BUNDLE
     $<$<OR:$<PLATFORM_ID:Darwin>,$<PLATFORM_ID:iOS>>:application/ImageProviderMacOSiOS.mm>
     $<$<BOOL:${MOBILE}>:application/MobileApplication.cpp>
     $<$<BOOL:${MOBILE}>:application/MobileApplication.h>
-    $<$<PLATFORM_ID:iOS>:application/MobileApplicationIOS.mm>
     application/NotificationsManager.cpp
     application/NotificationsManager.h
     $<$<PLATFORM_ID:Android>:application/NotificationsManagerAndroid.cpp>
@@ -126,7 +125,6 @@ qt_add_executable(Vremenar WIN32 MACOSX_BUNDLE
     qml/UIManager.h
     $<$<PLATFORM_ID:Android>:qml/UIManagerAndroid.cpp>
     $<$<PLATFORM_ID:iOS>:qml/UIManagerIOS.mm>
-    $<$<PLATFORM_ID:Darwin>:qml/UIManagerMacOS.mm>
     qml/UITexts.cpp
 
     settings/Settings.cpp

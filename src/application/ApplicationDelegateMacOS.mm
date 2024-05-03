@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -59,7 +59,7 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
                                                      << "Error" << error.code
                                                      << QString::fromNSString(error.localizedDescription);
                                         }
-                                        if (granted != 0) {
+                                        if (granted) {
                                             qDebug() << "Notifications:"
                                                      << "allowed";
                                         } else {
@@ -68,7 +68,7 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
                                         }
                                       }];
 
-    if ([NSApplication sharedApplication].registeredForRemoteNotifications == 0) {
+    if (![NSApplication sharedApplication].registeredForRemoteNotifications) {
         qDebug() << "Notifications:"
                  << "Registering application";
         [[NSApplication sharedApplication] registerForRemoteNotifications];
@@ -125,11 +125,7 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
 
     [[FIRMessaging messaging] appDidReceiveMessage:userInfo];
 
-    if (@available(macOS 11.0, *)) {
-        completionHandler(UNNotificationPresentationOptionBadge | UNNotificationPresentationOptionBanner);
-    } else {
-        completionHandler(UNNotificationPresentationOptionBadge | UNNotificationPresentationOptionAlert);
-    }
+    completionHandler(UNNotificationPresentationOptionBadge | UNNotificationPresentationOptionBanner);
 }
 
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center
