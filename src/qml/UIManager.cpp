@@ -9,13 +9,18 @@
 * SPDX-License-Identifier: (GPL-3.0-or-later AND MPL-2.0)
 */
 
+#include "qml/UIManager.h"
+
+#include "common/Enums.h"
+#include "settings/Settings.h"
+
 #include <QtCore/QDebug>
+#include <QtCore/QMargins>
+#include <QtCore/QObject>
+#include <QtCore/QStringLiteral>
 #include <QtGui/QGuiApplication>
 #include <QtGui/QScreen>
 #include <QtGui/QWindow>
-
-#include "qml/UIManager.h"
-#include "settings/Settings.h"
 
 namespace Vremenar
 {
@@ -244,9 +249,11 @@ QObject *Qml::UIManager::provider(QQmlEngine *engine,
     Q_UNUSED(engine)
     Q_UNUSED(scriptEngine)
 
-    return new UIManager;
+    return new UIManager; // NOLINT(cppcoreguidelines-owning-memory)
 }
 
 } // namespace Vremenar
 
+// NOLINTBEGIN
 #include "moc_UIManager.cpp"
+// NOLINTEND

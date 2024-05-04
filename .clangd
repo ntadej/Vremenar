@@ -1,0 +1,4 @@
+Diagnostics:
+  MissingIncludes: Strict
+  Includes:
+    IgnoreHeader: (stdlib.h|ui_.*.h|qassert.h|qcontainerfwd.h|qlogging.h|qnamespace.h|qtclasshelpermacros.h|qtmetamacros.h|qtypes.h|qtpreprocessorsupport.h|qttranslation.h)

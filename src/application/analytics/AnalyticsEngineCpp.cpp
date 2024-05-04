@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -9,16 +9,22 @@
 * SPDX-License-Identifier: (GPL-3.0-or-later AND MPL-2.0)
 */
 
+#include "application/analytics/AnalyticsEngineCpp.h"
+
+#include "application/analytics/Countly.h"
+#include "settings/Settings.h"
+
+#include "Config.h"
+
 #include <QtCore/QDebug>
+#include <QtCore/QString>
+#include <QtCore/QStringLiteral>
 #include <QtCore/QSysInfo>
 #include <QtCore/QUuid>
 #include <QtGui/QGuiApplication>
 #include <QtGui/QScreen>
 
-#include "application/analytics/AnalyticsEngineCpp.h"
-#include "settings/Settings.h"
-
-#include "Config.h"
+#include <memory>
 
 namespace Vremenar
 {
@@ -59,6 +65,8 @@ AnalyticsEngineCpp::AnalyticsEngineCpp(NetworkManager *network)
     _countly->setSalt(Vremenar::CountlySalt.data());
     _countly->start(Vremenar::CountlyAppKey.data(), Vremenar::CountlyEndpoint.data());
 }
+
+AnalyticsEngineCpp::~AnalyticsEngineCpp() = default;
 
 void AnalyticsEngineCpp::beginSession() const
 {

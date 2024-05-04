@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -13,7 +13,9 @@
 #define VREMENAR_APIREQUESTBASE_H_
 
 #include <QtCore/QJsonObject>
+#include <QtCore/QString>
 #include <QtCore/QUrlQuery>
+#include <QtCore/QVariant>
 #include <QtNetwork/QNetworkAccessManager>
 #include <QtNetwork/QNetworkRequest>
 
@@ -25,11 +27,11 @@ class APIRequestBase : public QNetworkRequest
 public:
     APIRequestBase();
 
-    [[nodiscard]] inline const QString &call() const { return _call; }
-    [[nodiscard]] inline QNetworkAccessManager::Operation operation() const { return _operation; }
-    [[nodiscard]] inline const QVariant &extra() const { return _extra; }
+    [[nodiscard]] const QString &call() const { return _call; }
+    [[nodiscard]] QNetworkAccessManager::Operation operation() const { return _operation; }
+    [[nodiscard]] const QVariant &extra() const { return _extra; }
     [[nodiscard]] QByteArray data() const;
-    [[nodiscard]] inline bool silent() const { return _silent; }
+    [[nodiscard]] bool silent() const { return _silent; }
 
     void setBaseUrl(const QString &url);
     void setCall(const QString &call);

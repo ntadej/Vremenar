@@ -12,6 +12,7 @@
 #ifndef VREMENAR_MOBILEAPPLICATION_H_
 #define VREMENAR_MOBILEAPPLICATION_H_
 
+#include <QtCore/QObject>
 #include <QtGui/QGuiApplication>
 
 namespace Vremenar

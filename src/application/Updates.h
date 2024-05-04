@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -14,21 +14,31 @@
 
 #include "common/api/APILoader.h"
 
+#include <QtCore/QObject>
+#include <QtCore/QString>
+
 #if !defined(VREMENAR_STORE) && (defined(Q_OS_MACOS) || defined(Q_OS_WINDOWS))
-#include "application/SparkleHelper.h"
+#include <memory>
 #endif
+
+class QNetworkReply;
 
 namespace Vremenar
 {
 
 class NetworkManager;
+#if !defined(VREMENAR_STORE) && (defined(Q_OS_MACOS) || defined(Q_OS_WINDOWS))
+class SparkleHelper;
+#endif
 
 class Updates : public APILoader
 {
     Q_OBJECT
+    Q_DISABLE_COPY_MOVE(Updates)
 public:
     explicit Updates(NetworkManager *network,
                      QObject *parent = nullptr);
+    ~Updates() override;
 
     Q_PROPERTY(bool enabled READ enabled CONSTANT)
     Q_PROPERTY(QString server READ server NOTIFY serverChanged)
@@ -36,25 +46,25 @@ public:
     Q_PROPERTY(QString url READ url NOTIFY messageChanged)
 
 #ifdef VREMENAR_STORE
-    inline bool enabled()
+    bool enabled()
     {
         return false;
     }
 #else
-    inline bool enabled()
+    bool enabled()
     {
         return true;
     }
 #endif
-    inline const QString &server()
+    const QString &server()
     {
         return _server;
     }
-    inline const QString &message()
+    const QString &message()
     {
         return _message;
     }
-    inline const QString &url()
+    const QString &url()
     {
         return _url;
     }
@@ -81,7 +91,7 @@ private:
     QString _url;
 
 #if !defined(VREMENAR_STORE) && (defined(Q_OS_MACOS) || defined(Q_OS_WINDOWS))
-    std::unique_ptr<SparkleHelper> _sparkle{};
+    std::unique_ptr<SparkleHelper> _sparkle;
 #endif
 };
 

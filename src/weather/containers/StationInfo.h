@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -12,12 +12,17 @@
 #ifndef VREMENAR_STATIONINFO_H_
 #define VREMENAR_STATIONINFO_H_
 
-#include <memory>
+#include "common/ListItem.h"
 
+#include <QtCore/QHash>
 #include <QtCore/QJsonObject>
+#include <QtCore/QObject>
+#include <QtCore/QString>
+#include <QtCore/QVariant>
 #include <QtPositioning/QGeoCoordinate>
 
-#include "common/ListItem.h"
+#include <cstdint>
+#include <memory>
 
 namespace Vremenar
 {
@@ -30,7 +35,7 @@ class StationInfo : public ListItem
     Q_PROPERTY(QGeoCoordinate coordinate READ coordinate CONSTANT)
     Q_PROPERTY(qreal zoomLevel READ zoomLevel CONSTANT)
 public:
-    enum Roles {
+    enum Roles : std::uint16_t {
         DisplayRole = Qt::DisplayRole,
         EditRole = Qt::EditRole,
         IdRole = Qt::UserRole + 1,
@@ -55,14 +60,14 @@ public:
 
     [[nodiscard]] static std::unique_ptr<StationInfo> fromJson(const QJsonObject &json);
 
-    [[nodiscard]] inline const QGeoCoordinate &coordinate() const { return _coordinate; }
-    [[nodiscard]] inline qreal zoomLevel() const { return _zoomLevel; }
-    [[nodiscard]] inline bool forecastOnly() const { return _forecastOnly; }
-    [[nodiscard]] inline const QString &alertsArea() const { return _alertsArea; }
-    [[nodiscard]] inline const StationInfo *currentWeatherSource() const { return _currentWeatherSource.get(); }
+    [[nodiscard]] const QGeoCoordinate &coordinate() const { return _coordinate; }
+    [[nodiscard]] qreal zoomLevel() const { return _zoomLevel; }
+    [[nodiscard]] bool forecastOnly() const { return _forecastOnly; }
+    [[nodiscard]] const QString &alertsArea() const { return _alertsArea; }
+    [[nodiscard]] const StationInfo *currentWeatherSource() const { return _currentWeatherSource.get(); }
     void setCurrentWeatherSource(std::unique_ptr<StationInfo> source);
 
-    static inline QHash<int, QByteArray> roleNames()
+    static QHash<int, QByteArray> roleNames()
     {
         return {
             {IdRole, "id"},
@@ -80,7 +85,7 @@ private:
     qreal _zoomLevel{};
     bool _forecastOnly{};
     QString _alertsArea;
-    std::unique_ptr<StationInfo> _currentWeatherSource{};
+    std::unique_ptr<StationInfo> _currentWeatherSource;
 };
 
 } // namespace Vremenar

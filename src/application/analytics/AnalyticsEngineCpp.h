@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -12,20 +12,22 @@
 #ifndef VREMENAR_ANALYTICSENGINECPP_H_
 #define VREMENAR_ANALYTICSENGINECPP_H_
 
-#include <memory>
-
 #include "application/analytics/AnalyticsEngine.h"
-#include "application/analytics/Countly.h"
+
+#include <memory>
 
 namespace Vremenar
 {
 
+class Countly;
 class NetworkManager;
 
 class AnalyticsEngineCpp : public AnalyticsEngine
 {
+    Q_DISABLE_COPY_MOVE(AnalyticsEngineCpp)
 public:
     explicit AnalyticsEngineCpp(NetworkManager *network);
+    ~AnalyticsEngineCpp() override;
 
     [[nodiscard]] bool manualSessionHandling() const override { return true; }
 

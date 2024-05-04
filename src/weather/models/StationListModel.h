@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -13,6 +13,9 @@
 #define VREMENAR_STATIONLISTMODEL_H_
 
 #include "common/ListModel.h"
+
+#include <QtCore/QJsonArray>
+#include <QtCore/QObject>
 
 namespace Vremenar
 {

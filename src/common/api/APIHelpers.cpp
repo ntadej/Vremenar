@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -10,6 +10,10 @@
 */
 
 #include "common/api/APIHelpers.h"
+
+#include <QtCore/QString>
+#include <QtCore/QStringLiteral>
+#include <QtCore/QVariantMap>
 
 namespace Vremenar
 {

@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -12,40 +12,40 @@
 #ifndef VREMENAR_APPLICATIONWINDOW_H_
 #define VREMENAR_APPLICATIONWINDOW_H_
 
-#include <memory>
+#include <QtCore/QObject>
+#include <QtCore/QString>
 
 #include <gsl/pointers>
 
-#include <QtGui/QWindow>
-#include <QtQml/QQmlApplicationEngine>
+#include <memory>
 
-#include "application/NotificationsManager.h"
-#include "application/Updates.h"
-#include "application/analytics/Analytics.h"
-#include "common/LocaleManager.h"
-#include "common/NetworkManagerFactory.h"
-#include "location/LocationProvider.h"
-#include "maps/MapsManager.h"
-#include "weather/WeatherProvider.h"
-
-#ifndef VREMENAR_MOBILE
-#include "application/TrayIcon.h"
-#endif
-
+class QQmlApplicationEngine;
 class QQmlFileSelector;
 class QQuickWindow;
 
 namespace Vremenar
 {
+
+class Analytics;
+class LocaleManager;
+class LocationProvider;
+class MapsManager;
 class NetworkManager;
+class NetworkManagerFactory;
+class NotificationsManager;
+class Updates;
+class WeatherProvider;
+
+#ifndef VREMENAR_MOBILE
+class TrayIcon;
+#endif
 
 class ApplicationWindow final : public QObject
 {
     Q_OBJECT
+    Q_DISABLE_COPY_MOVE(ApplicationWindow)
 public:
     explicit ApplicationWindow(QObject *parent = nullptr);
-    ApplicationWindow(const ApplicationWindow &) = delete;
-    ApplicationWindow &operator=(ApplicationWindow) = delete;
     ~ApplicationWindow() final;
 
 public slots:
@@ -72,7 +72,7 @@ public slots:
     void dockClicked();
 
 signals:
-    void dockVisibilityChanged(bool);
+    void dockVisibilityChanged(bool); // NOLINT(readability-named-parameter)
 #endif
 
 private slots:
@@ -90,21 +90,21 @@ private:
 #endif
 
     // Application
-    std::unique_ptr<QQmlApplicationEngine> _engine{};
+    std::unique_ptr<QQmlApplicationEngine> _engine;
     bool _ready{};
 
     gsl::owner<NetworkManager *> _network{}; // owned by Qt internally
 
-    std::unique_ptr<Analytics> _analytics{};
-    std::unique_ptr<LocaleManager> _localeManager{};
-    std::unique_ptr<LocationProvider> _location{};
-    std::unique_ptr<MapsManager> _mapsManager{};
-    std::unique_ptr<NetworkManagerFactory> _networkFactory{};
-    std::unique_ptr<NotificationsManager> _notificationsManager{};
-    std::unique_ptr<Updates> _updates{};
+    std::unique_ptr<Analytics> _analytics;
+    std::unique_ptr<LocaleManager> _localeManager;
+    std::unique_ptr<LocationProvider> _location;
+    std::unique_ptr<MapsManager> _mapsManager;
+    std::unique_ptr<NetworkManagerFactory> _networkFactory;
+    std::unique_ptr<NotificationsManager> _notificationsManager;
+    std::unique_ptr<Updates> _updates;
 
     // API
-    std::unique_ptr<WeatherProvider> _weatherProvider{};
+    std::unique_ptr<WeatherProvider> _weatherProvider;
 
     // QML
     gsl::owner<QQmlFileSelector *> _qmlFileSelector{}; // owned by Qt internally
@@ -112,7 +112,7 @@ private:
 
 // Widgets
 #ifndef VREMENAR_MOBILE
-    std::unique_ptr<TrayIcon> _trayIcon{};
+    std::unique_ptr<TrayIcon> _trayIcon;
 #endif
 };
 

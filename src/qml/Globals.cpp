@@ -9,15 +9,23 @@
 * SPDX-License-Identifier: (GPL-3.0-or-later AND MPL-2.0)
 */
 
-#include <QtCore/QJsonObject>
+#include "qml/Globals.h"
 
 #include "common/About.h"
+#include "common/containers/Hyperlink.h"
 #include "maps/MapsCommon.h"
 #include "settings/Settings.h"
 
-#include "qml/Globals.h"
-
 #include "Config.h"
+
+#include <QtCore/QJsonArray>
+#include <QtCore/QJsonObject>
+#include <QtCore/QObject>
+#include <QtCore/QString>
+#include <QtQml/QJSEngine>
+#include <QtQml/QQmlEngine>
+
+#include <memory>
 
 namespace Vremenar
 {
@@ -57,7 +65,7 @@ QObject *Qml::Globals::provider(QQmlEngine *engine,
     Q_UNUSED(engine)
     Q_UNUSED(scriptEngine)
 
-    return new Globals;
+    return new Globals; // NOLINT(cppcoreguidelines-owning-memory)
 }
 
 QObject *Qml::Globals::providerSettings(QQmlEngine *engine,
@@ -66,9 +74,11 @@ QObject *Qml::Globals::providerSettings(QQmlEngine *engine,
     Q_UNUSED(engine)
     Q_UNUSED(scriptEngine)
 
-    return new Settings;
+    return new Settings; // NOLINT(cppcoreguidelines-owning-memory)
 }
 
 } // namespace Vremenar
 
+// NOLINTBEGIN
 #include "moc_Globals.cpp"
+// NOLINTEND

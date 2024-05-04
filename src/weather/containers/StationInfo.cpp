@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -10,6 +10,17 @@
 */
 
 #include "weather/containers/StationInfo.h"
+
+#include "common/ListItem.h"
+
+#include <QtCore/QObject>
+#include <QtCore/QString>
+#include <QtCore/QStringLiteral>
+#include <QtCore/QVariant>
+#include <QtPositioning/QGeoCoordinate>
+
+#include <memory>
+#include <utility>
 
 namespace Vremenar
 {
@@ -88,6 +99,8 @@ QVariant StationInfo::data(int role) const
         return forecastOnly();
     case AlertsAreaRole:
         return alertsArea();
+    default:
+        return {};
     }
 
     return {};
@@ -104,4 +117,6 @@ void StationInfo::setCurrentWeatherSource(std::unique_ptr<StationInfo> source)
 
 } // namespace Vremenar
 
+// NOLINTBEGIN
 #include "moc_StationInfo.cpp"
+// NOLINTEND

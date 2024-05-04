@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -10,6 +10,15 @@
 */
 
 #include "weather/CurrentWeather.h"
+
+#include "weather/containers/StationInfo.h"
+#include "weather/containers/WeatherCondition.h"
+#include "weather/models/WeatherAlertModel.h"
+
+#include <QtCore/QObject>
+
+#include <memory>
+#include <utility>
 
 namespace Vremenar
 {
@@ -59,4 +68,6 @@ void CurrentWeather::updateCurrentWeather(std::unique_ptr<WeatherCondition> cond
 
 } // namespace Vremenar
 
+// NOLINTBEGIN
 #include "moc_CurrentWeather.cpp"
+// NOLINTEND

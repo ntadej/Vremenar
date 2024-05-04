@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -11,10 +11,14 @@
 
 #include "application/SingleApplication.h"
 
+#include <QtCore/QObject>
+
 #ifndef Q_OS_MACOS
-#include <QtNetwork/QLocalSocket>
+#include "common/LocalServer.h"
 
 #include "Config.h"
+
+#include <QtNetwork/QLocalSocket>
 #endif
 
 namespace Vremenar
@@ -32,6 +36,8 @@ SingleApplication::SingleApplication(int &argc,
     connect(_server.get(), &LocalServer::connected, this, &SingleApplication::activate);
 #endif
 }
+
+SingleApplication::~SingleApplication() = default;
 
 bool SingleApplication::shouldContinue()
 {
@@ -51,4 +57,6 @@ bool SingleApplication::shouldContinue()
 
 } // namespace Vremenar
 
+// NOLINTBEGIN
 #include "moc_SingleApplication.cpp"
+// NOLINTEND

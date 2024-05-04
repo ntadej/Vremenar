@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -9,9 +9,8 @@
 * SPDX-License-Identifier: (GPL-3.0-or-later AND MPL-2.0)
 */
 
-#include <QtCore/QDebug>
-
 #include "application/analytics/Analytics.h"
+#include "application/analytics/AnalyticsEngine.h"
 
 #if defined(Q_OS_MACOS) || defined(Q_OS_IOS)
 #include "application/analytics/AnalyticsEngineMacOSiOS.h"
@@ -20,6 +19,14 @@
 #elif defined(Q_OS_LINUX) || defined(Q_OS_WINDOWS)
 #include "application/analytics/AnalyticsEngineCpp.h"
 #endif
+
+#include <QtCore/QDebug>
+#include <QtCore/QObject>
+#include <QtCore/QString>
+#include <QtCore/QStringLiteral>
+#include <QtCore/QTimer>
+
+#include <memory>
 
 namespace
 {
@@ -51,6 +58,8 @@ Analytics::Analytics(NetworkManager *network,
         connect(_timer.get(), &QTimer::timeout, this, &Analytics::updateSession);
     }
 }
+
+Analytics::~Analytics() = default;
 
 void Analytics::beginSession()
 {
@@ -128,4 +137,6 @@ void Analytics::recordEvent(EventType type,
 
 } // namespace Vremenar
 
+// NOLINTBEGIN
 #include "moc_Analytics.cpp"
+// NOLINTEND

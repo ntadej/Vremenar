@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -11,19 +11,32 @@
 * SPDX-License-Identifier: (GPL-3.0-or-later AND MPL-2.0)
 */
 
-#include <cctype>
-#include <iomanip>
-#include <sstream>
+#include "Countly.h"
+
+#include "common/NetworkManager.h"
+#include "common/api/APILoader.h"
+#include "common/api/APIRequestBase.h"
 
 #include <QtCore/QCryptographicHash>
 #include <QtCore/QDebug>
 #include <QtCore/QJsonArray>
 #include <QtCore/QJsonDocument>
+#include <QtCore/QJsonObject>
+#include <QtCore/QLatin1String>
+#include <QtCore/QMap>
+#include <QtCore/QObject>
+#include <QtCore/QString>
+#include <QtCore/QStringLiteral>
+#include <QtCore/QUrlQuery>
+#include <QtNetwork/QNetworkAccessManager>
+#include <QtNetwork/QNetworkReply>
 
-#include "common/NetworkManager.h"
-#include "common/api/APIRequestBase.h"
-
-#include "Countly.h"
+#include <cctype>
+#include <chrono>
+#include <cstddef>
+#include <iomanip>
+#include <ios>
+#include <sstream>
 
 namespace
 {
@@ -64,7 +77,7 @@ void Countly::setDeviceID(const QString &value)
     _sessionParameters[QStringLiteral("device_id")] = value;
 }
 
-void Countly::setMaxEvents(size_t value)
+void Countly::setMaxEvents(std::size_t value)
 {
     _maxEvents = value;
     if (_eventQueue.size() > value) {

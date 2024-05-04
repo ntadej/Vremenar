@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -15,6 +15,13 @@
 #include "common/ListItem.h"
 #include "weather/Weather.h"
 
+#include <QtCore/QHash>
+#include <QtCore/QObject>
+#include <QtCore/QString>
+#include <QtCore/QVariant>
+
+#include <cstdint>
+
 namespace Vremenar
 {
 
@@ -24,7 +31,7 @@ class MapInfo : public ListItem
     Q_PROPERTY(QString display READ display CONSTANT)
     Q_PROPERTY(Weather::MapType type READ type CONSTANT)
 public:
-    enum Roles {
+    enum Roles : std::uint16_t {
         DisplayRole = Qt::DisplayRole,
         IdRole = Qt::UserRole + 1,
         TypeRole
@@ -37,7 +44,7 @@ public:
     [[nodiscard]] QVariant data(int role) const final;
     [[nodiscard]] QString display() const final;
 
-    [[nodiscard]] inline Weather::MapType type() const { return _type; }
+    [[nodiscard]] Weather::MapType type() const { return _type; }
 
     static QHash<int, QByteArray> roleNames()
     {

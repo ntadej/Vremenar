@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -12,10 +12,10 @@
 #ifndef VREMENAR_APPLICATIONDELEGATEMACOS_H_
 #define VREMENAR_APPLICATIONDELEGATEMACOS_H_
 
+#include <FirebaseMessaging/FirebaseMessaging.h>
+
 #include <AppKit/AppKit.h>
 #include <UserNotifications/UserNotifications.h>
-
-#include <FirebaseMessaging/FirebaseMessaging.h>
 
 @interface VremenarApplicationDelegate : NSObject <NSApplicationDelegate, UNUserNotificationCenterDelegate, FIRMessagingDelegate>
 - (bool)requestNotifications;

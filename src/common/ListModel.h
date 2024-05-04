@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -12,13 +12,18 @@
 #ifndef VREMENAR_LISTMODEL_H_
 #define VREMENAR_LISTMODEL_H_
 
-#include <memory>
+#include "common/ListItem.h"
 
 #include <QtCore/QAbstractListModel>
+#include <QtCore/QHash>
 #include <QtCore/QList>
+#include <QtCore/QObject>
+#include <QtCore/QString>
 #include <QtCore/QVariant>
 
-#include "common/ListItem.h"
+#include <cstddef>
+#include <memory>
+#include <vector>
 
 namespace Vremenar
 {
@@ -57,7 +62,7 @@ public:
     {
         beginRemoveRows(QModelIndex(), row, row);
         std::unique_ptr<T> item = nullptr;
-        item.swap(_list.at(static_cast<size_t>(row)));
+        item.swap(_list.at(static_cast<std::size_t>(row)));
         _list.erase(_list.begin() + row);
         endRemoveRows();
         return item;
@@ -66,13 +71,13 @@ public:
     template <class T>
     T *row(int row)
     {
-        return qobject_cast<T *>(_list[static_cast<size_t>(row)].get());
+        return qobject_cast<T *>(_list[static_cast<std::size_t>(row)].get());
     }
 
     template <class T>
-    const T *row(int row) const
+    [[nodiscard]] const T *row(int row) const
     {
-        return qobject_cast<T *>(_list[static_cast<size_t>(row)].get());
+        return qobject_cast<T *>(_list[static_cast<std::size_t>(row)].get());
     }
 
     template <class T>

@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -12,9 +12,11 @@
 #ifndef VREMENAR_APILOADER_H_
 #define VREMENAR_APILOADER_H_
 
-#include <QtNetwork/QNetworkReply>
-
 #include "common/api/APIRequestBase.h"
+
+#include <QtCore/QMap>
+#include <QtCore/QObject>
+#include <QtNetwork/QNetworkReply>
 
 namespace Vremenar
 {
@@ -47,7 +49,7 @@ protected:
     NetworkManager *network() { return _network; }
 
 private:
-    [[nodiscard]] inline bool requesting() const { return _requesting; }
+    [[nodiscard]] bool requesting() const { return _requesting; }
 
     NetworkManager *_network; // not owned
     bool _requesting{false};

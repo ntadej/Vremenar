@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -9,12 +9,18 @@
 * SPDX-License-Identifier: (GPL-3.0-or-later AND MPL-2.0)
 */
 
+#include "maps/MapsManager.h"
+
+#include "weather/Weather.h"
+
 #include <QtCore/QDebug>
 #include <QtCore/QMetaObject>
+#include <QtCore/QObject>
+#include <QtCore/QString>
+#include <QtCore/QStringLiteral>
+#include <QtQml/QQmlApplicationEngine>
 #include <QtQuick/QQuickItem>
 #include <QtQuick/QQuickWindow>
-
-#include "maps/MapsManager.h"
 
 namespace Vremenar
 {
@@ -71,4 +77,6 @@ bool MapsManager::getMapObject()
 
 } // namespace Vremenar
 
+// NOLINTBEGIN
 #include "moc_MapsManager.cpp"
+// NOLINTEND

@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -12,12 +12,17 @@
 #ifndef VREMENAR_WEATHERALERT_H_
 #define VREMENAR_WEATHERALERT_H_
 
-#include <memory>
-
-#include <QtCore/QJsonObject>
-
 #include "common/ListItem.h"
 #include "weather/Weather.h"
+
+#include <QtCore/QHash>
+#include <QtCore/QJsonObject>
+#include <QtCore/QObject>
+#include <QtCore/QString>
+#include <QtCore/QVariant>
+
+#include <cstdint>
+#include <memory>
 
 namespace Vremenar
 {
@@ -34,7 +39,7 @@ class WeatherAlert : public ListItem
     Q_PROPERTY(qint64 onset READ onset CONSTANT)
     Q_PROPERTY(qint64 ending READ ending CONSTANT)
 public:
-    enum Roles {
+    enum Roles : std::uint16_t {
         DisplayRole = Qt::DisplayRole,
         IdRole = Qt::UserRole + 1,
         TypeRole,
@@ -63,15 +68,15 @@ public:
 
     [[nodiscard]] static std::unique_ptr<WeatherAlert> fromJson(const QJsonObject &json);
 
-    [[nodiscard]] inline Weather::AlertType type() const { return _type; }
-    [[nodiscard]] inline Weather::AlertSeverity severity() const { return _severity; }
-    [[nodiscard]] inline const QString &headline() const { return _headline; }
-    [[nodiscard]] inline const QString &description() const { return _description; }
+    [[nodiscard]] Weather::AlertType type() const { return _type; }
+    [[nodiscard]] Weather::AlertSeverity severity() const { return _severity; }
+    [[nodiscard]] const QString &headline() const { return _headline; }
+    [[nodiscard]] const QString &description() const { return _description; }
     [[nodiscard]] QString duration() const;
-    [[nodiscard]] inline qint64 onset() const { return _onset; }
-    [[nodiscard]] inline qint64 ending() const { return _ending; }
+    [[nodiscard]] qint64 onset() const { return _onset; }
+    [[nodiscard]] qint64 ending() const { return _ending; }
 
-    static inline QHash<int, QByteArray> roleNames()
+    static QHash<int, QByteArray> roleNames()
     {
         return {
             {IdRole, "id"},

@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -12,6 +12,8 @@
 #ifndef VREMENAR_STATIONLISTPROXYMODEL_H_
 #define VREMENAR_STATIONLISTPROXYMODEL_H_
 
+#include <QtCore/QAbstractItemModel>
+#include <QtCore/QObject>
 #include <QtCore/QSortFilterProxyModel>
 
 namespace Vremenar
@@ -26,7 +28,7 @@ class StationListProxyModel : public QSortFilterProxyModel
 public:
     explicit StationListProxyModel(QObject *parent = nullptr);
 
-    [[nodiscard]] inline bool ignoreForecastOnly() const { return _ignoreForecastOnly; }
+    [[nodiscard]] bool ignoreForecastOnly() const { return _ignoreForecastOnly; }
     void setIgnoreForecastOnly(bool ignoreForecastOnly);
 
 signals:

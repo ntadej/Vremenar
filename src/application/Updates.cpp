@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -9,15 +9,27 @@
 * SPDX-License-Identifier: (GPL-3.0-or-later AND MPL-2.0)
 */
 
-#include <QtCore/QDebug>
-#include <QtCore/QJsonDocument>
-#include <QtCore/QVersionNumber>
-
 #include "application/Updates.h"
+
 #include "common/NetworkManager.h"
+#include "common/api/APILoader.h"
 #include "common/api/APIRequestBase.h"
 
+#if !defined(VREMENAR_STORE) && (defined(Q_OS_MACOS) || defined(Q_OS_WINDOWS))
+#include "application/SparkleHelper.h"
+#include <memory>
+#endif
+
 #include "Config.h"
+
+#include <QtCore/QDebug>
+#include <QtCore/QJsonDocument>
+#include <QtCore/QObject>
+#include <QtCore/QString>
+#include <QtCore/QStringLiteral>
+#include <QtCore/QVersionNumber>
+#include <QtNetwork/QNetworkReply>
+#include <QtNetwork/QNetworkRequest>
 
 namespace Vremenar
 {
@@ -30,6 +42,8 @@ Updates::Updates(NetworkManager *network,
     _sparkle = std::make_unique<SparkleHelper>();
 #endif
 }
+
+Updates::~Updates() = default;
 
 void Updates::checkVersion()
 {
@@ -111,4 +125,6 @@ void Updates::compareVersion(const QString &stable,
 
 } // namespace Vremenar
 
+// NOLINTBEGIN
 #include "moc_Updates.cpp"
+// NOLINTEND

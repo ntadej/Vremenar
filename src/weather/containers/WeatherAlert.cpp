@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -10,6 +10,17 @@
 */
 
 #include "weather/containers/WeatherAlert.h"
+
+#include "common/ListItem.h"
+#include "weather/Weather.h"
+
+#include <QtCore/QObject>
+#include <QtCore/QString>
+#include <QtCore/QStringLiteral>
+#include <QtCore/QVariant>
+
+#include <memory>
+#include <utility>
 
 namespace Vremenar
 {
@@ -76,6 +87,8 @@ QVariant WeatherAlert::data(int role) const
         return onset();
     case EndingRole:
         return ending();
+    default:
+        return {};
     }
 
     return {};
@@ -94,4 +107,6 @@ QString WeatherAlert::duration() const
 
 } // namespace Vremenar
 
+// NOLINTBEGIN
 #include "moc_WeatherAlert.cpp"
+// NOLINTEND

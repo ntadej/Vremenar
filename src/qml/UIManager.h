@@ -12,11 +12,12 @@
 #ifndef VREMENAR_QML_UIMANAGER_H_
 #define VREMENAR_QML_UIMANAGER_H_
 
+#include "common/Enums.h"
+
 #include <QtCore/QMargins>
 #include <QtCore/QObject>
+#include <QtCore/QString>
 #include <QtGui/QColor>
-
-#include "common/Enums.h"
 
 class QScreen;
 class QJSEngine;
@@ -221,10 +222,10 @@ public:
     [[nodiscard]] int loadingDelay() const;
     [[nodiscard]] int loadingTransitionDuration() const;
 
-    [[nodiscard]] inline int safetyMarginTop() const { return _currentSafeAreaMargins.top(); }
-    [[nodiscard]] inline int safetyMarginBottom() const { return _currentSafeAreaMargins.bottom(); }
-    [[nodiscard]] inline int safetyMarginLeft() const { return _currentSafeAreaMargins.left(); }
-    [[nodiscard]] inline int safetyMarginRight() const { return _currentSafeAreaMargins.right(); }
+    [[nodiscard]] int safetyMarginTop() const { return _currentSafeAreaMargins.top(); }
+    [[nodiscard]] int safetyMarginBottom() const { return _currentSafeAreaMargins.bottom(); }
+    [[nodiscard]] int safetyMarginLeft() const { return _currentSafeAreaMargins.left(); }
+    [[nodiscard]] int safetyMarginRight() const { return _currentSafeAreaMargins.right(); }
 
     Q_INVOKABLE void toast(const QString &message);
 

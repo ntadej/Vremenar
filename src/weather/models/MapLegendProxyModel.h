@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -12,9 +12,11 @@
 #ifndef VREMENAR_MAPLEGENDPROXYMODEL_H_
 #define VREMENAR_MAPLEGENDPROXYMODEL_H_
 
-#include <QtCore/QSortFilterProxyModel>
-
 #include "weather/Weather.h"
+
+#include <QtCore/QAbstractItemModel>
+#include <QtCore/QObject>
+#include <QtCore/QSortFilterProxyModel>
 
 namespace Vremenar
 {
@@ -29,7 +31,7 @@ class MapLegendProxyModel : public QSortFilterProxyModel
 public:
     explicit MapLegendProxyModel(QObject *parent = nullptr);
 
-    [[nodiscard]] inline Weather::MapType type() const { return _type; }
+    [[nodiscard]] Weather::MapType type() const { return _type; }
     void setType(Weather::MapType type);
     [[nodiscard]] bool wide() const;
     [[nodiscard]] bool textBased() const;

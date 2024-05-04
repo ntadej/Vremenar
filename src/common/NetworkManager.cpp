@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -9,15 +9,23 @@
 * SPDX-License-Identifier: (GPL-3.0-or-later AND MPL-2.0)
 */
 
-#include <QtCore/QStandardPaths>
-
-#include "settings/Settings.h"
-
 #include "common/NetworkManager.h"
+
+#include "common/api/APIRequestBase.h"
+
+#include <QtCore/QObject>
+#include <QtCore/QStandardPaths>
+#include <QtNetwork/QNetworkAccessManager>
+#include <QtNetwork/QNetworkDiskCache>
+#include <QtNetwork/QNetworkReply>
+#include <QtNetwork/QNetworkRequest>
+
+#include <cstdint>
+#include <memory>
 
 namespace
 {
-constexpr uint64_t GB{1073741824};
+constexpr std::uint64_t GB{1073741824};
 } // namespace
 
 namespace Vremenar
@@ -79,4 +87,6 @@ void NetworkManager::httpRequestFinished()
 
 } // namespace Vremenar
 
+// NOLINTBEGIN
 #include "moc_NetworkManager.cpp"
+// NOLINTEND

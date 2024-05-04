@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -10,7 +10,12 @@
 */
 
 #include "weather/models/StationListProxyModel.h"
+
 #include "weather/containers/StationInfo.h"
+
+#include <QtCore/QAbstractItemModel>
+#include <QtCore/QObject>
+#include <QtCore/QSortFilterProxyModel>
 
 namespace Vremenar
 {
@@ -45,4 +50,6 @@ bool StationListProxyModel::filterAcceptsRow(int sourceRow,
 
 } // namespace Vremenar
 
+// NOLINTBEGIN
 #include "moc_StationListProxyModel.cpp"
+// NOLINTEND

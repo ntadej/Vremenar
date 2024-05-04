@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -12,9 +12,14 @@
 #ifndef VREMENAR_HYPERLINK_H_
 #define VREMENAR_HYPERLINK_H_
 
+#include "common/ListItem.h"
+
+#include <QtCore/QHash>
+#include <QtCore/QObject>
+#include <QtCore/QString>
 #include <QtCore/QUrl>
 
-#include "common/ListItem.h"
+#include <cstdint>
 
 namespace Vremenar
 {
@@ -26,7 +31,7 @@ class Hyperlink : public ListItem
     Q_PROPERTY(QUrl url READ url CONSTANT)
     Q_PROPERTY(bool mobileOnly READ mobileOnly CONSTANT)
 public:
-    enum Roles {
+    enum Roles : std::uint16_t {
         DisplayRole = Qt::DisplayRole,
         IdRole = Qt::UserRole + 1,
         UrlRole,
@@ -46,8 +51,8 @@ public:
     [[nodiscard]] QVariant data(int role) const final;
     [[nodiscard]] QString display() const final;
 
-    [[nodiscard]] inline const QUrl &url() const { return _url; }
-    [[nodiscard]] inline bool mobileOnly() const { return _mobileOnly; }
+    [[nodiscard]] const QUrl &url() const { return _url; }
+    [[nodiscard]] bool mobileOnly() const { return _mobileOnly; }
 
     [[nodiscard]] QJsonObject asJson() const;
     [[nodiscard]] QString asHtml(const QString &style = QString()) const;

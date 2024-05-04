@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -22,7 +22,7 @@ constexpr CString domain = "tano.si";
 constexpr CString appID = "si.tano.@VREMENAR_NAME@";
 
 constexpr CString version = "@VREMENAR_VERSION@";
-constexpr uint32_t build = @VREMENAR_BUILD_NUMBER@;
+constexpr std::uint32_t build = @VREMENAR_BUILD_NUMBER@;
 
 constexpr bool loggingEnabled = @LOGGING_ENABLED@;
 

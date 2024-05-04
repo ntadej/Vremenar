@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -9,11 +9,17 @@
 * SPDX-License-Identifier: (GPL-3.0-or-later AND MPL-2.0)
 */
 
-#include <QtCore/QJsonDocument>
+#include "weather/api/APIStations.h"
 
 #include "weather/Sources.h"
+#include "weather/api/APIRequest.h"
 
-#include "weather/api/APIStations.h"
+#include <QtCore/QJsonObject>
+#include <QtCore/QString>
+#include <QtCore/QStringLiteral>
+#include <QtCore/QUrlQuery>
+#include <QtNetwork/QNetworkAccessManager>
+#include <QtPositioning/QGeoCoordinate>
 
 namespace Vremenar
 {
@@ -80,7 +86,7 @@ APIRequest API::stationsList()
 
 APIRequest API::stationsMap(const QString &url)
 {
-    QUrlQuery query = Sources::sourceQuery();
+    const QUrlQuery query = Sources::sourceQuery();
 
     APIRequest request;
     request.setCall(QStringLiteral("/stations/map"));

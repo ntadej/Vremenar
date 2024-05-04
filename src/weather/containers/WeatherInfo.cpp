@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -10,6 +10,17 @@
 */
 
 #include "weather/containers/WeatherInfo.h"
+
+#include "common/ListItem.h"
+#include "weather/containers/StationInfo.h"
+#include "weather/containers/WeatherCondition.h"
+
+#include <QtCore/QObject>
+#include <QtCore/QString>
+#include <QtCore/QVariant>
+
+#include <memory>
+#include <utility>
 
 namespace Vremenar
 {
@@ -40,6 +51,8 @@ QVariant WeatherInfo::data(int role) const
         return QVariant::fromValue(station());
     case ConditionRole:
         return QVariant::fromValue(condition());
+    default:
+        return {};
     }
 
     return {};
@@ -67,4 +80,6 @@ void WeatherInfo::update(const WeatherInfo *source)
 
 } // namespace Vremenar
 
+// NOLINTBEGIN
 #include "moc_WeatherInfo.cpp"
+// NOLINTEND

@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -12,12 +12,14 @@
 #ifndef VREMENAR_WEATHERMAPPROXYMODEL_H_
 #define VREMENAR_WEATHERMAPPROXYMODEL_H_
 
-#include <memory>
-
+#include <QtCore/QAbstractItemModel>
 #include <QtCore/QDateTime>
+#include <QtCore/QObject>
 #include <QtCore/QSortFilterProxyModel>
 #include <QtCore/QTimer>
 #include <QtPositioning/QGeoShape>
+
+#include <memory>
 
 namespace Vremenar
 {
@@ -33,11 +35,11 @@ class WeatherMapProxyModel : public QSortFilterProxyModel
 public:
     explicit WeatherMapProxyModel(QObject *parent = nullptr);
 
-    [[nodiscard]] inline qreal zoomLevel() const { return _zoomLevel; }
+    [[nodiscard]] qreal zoomLevel() const { return _zoomLevel; }
     void setZoomLevel(qreal level);
-    [[nodiscard]] inline const QGeoShape &visibleRegion() const { return _visibleRegion; }
+    [[nodiscard]] const QGeoShape &visibleRegion() const { return _visibleRegion; }
     void setVisibleRegion(const QGeoShape &shape);
-    [[nodiscard]] inline qint64 time() const { return _time; }
+    [[nodiscard]] qint64 time() const { return _time; }
     void setTime(qint64 time);
 
 signals:
@@ -51,10 +53,10 @@ private:
                                         const QModelIndex &sourceParent) const override;
 
     qreal _zoomLevel{};
-    QGeoShape _visibleRegion{};
+    QGeoShape _visibleRegion;
     qint64 _time{};
 
-    std::unique_ptr<QTimer> _timer{};
+    std::unique_ptr<QTimer> _timer;
 };
 
 } // namespace Vremenar

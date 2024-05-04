@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -12,12 +12,18 @@
 #ifndef VREMENAR_MAPLAYER_H_
 #define VREMENAR_MAPLAYER_H_
 
-#include <QtCore/QDateTime>
-#include <QtCore/QUrl>
-#include <QtPositioning/QGeoRectangle>
-
 #include "common/ListItem.h"
 #include "weather/Weather.h"
+
+#include <QtCore/QDateTime>
+#include <QtCore/QHash>
+#include <QtCore/QObject>
+#include <QtCore/QString>
+#include <QtCore/QUrl>
+#include <QtCore/QVariant>
+#include <QtPositioning/QGeoRectangle>
+
+#include <cstdint>
 
 namespace Vremenar
 {
@@ -35,7 +41,7 @@ class MapLayer : public ListItem
     Q_PROPERTY(bool loaded READ loaded NOTIFY loadedChanged)
 
 public:
-    enum Roles {
+    enum Roles : std::uint16_t {
         DisplayRole = Qt::DisplayRole,
         IdRole = Qt::UserRole + 1,
         ObservationRole,
@@ -64,18 +70,18 @@ public:
     [[nodiscard]] QVariant data(int role) const final;
     [[nodiscard]] QString display() const final;
 
-    [[nodiscard]] inline Weather::ObservationType observation() const { return _observation; }
-    [[nodiscard]] inline Weather::MapType type() const { return _type; }
-    [[nodiscard]] inline Weather::MapRenderingType rendering() const { return _rendering; }
-    [[nodiscard]] inline const QDateTime &time() const { return _time; }
-    [[nodiscard]] inline const QString &url() const { return _url; }
-    [[nodiscard]] inline const QGeoRectangle &bbox() const { return _bbox; }
+    [[nodiscard]] Weather::ObservationType observation() const { return _observation; }
+    [[nodiscard]] Weather::MapType type() const { return _type; }
+    [[nodiscard]] Weather::MapRenderingType rendering() const { return _rendering; }
+    [[nodiscard]] const QDateTime &time() const { return _time; }
+    [[nodiscard]] const QString &url() const { return _url; }
+    [[nodiscard]] const QGeoRectangle &bbox() const { return _bbox; }
     void setBbox(const QGeoRectangle &bbox);
-    [[nodiscard]] inline const QVariant &coordinates() const { return _coordinates; }
-    [[nodiscard]] inline bool loaded() const { return _loaded; }
+    [[nodiscard]] const QVariant &coordinates() const { return _coordinates; }
+    [[nodiscard]] bool loaded() const { return _loaded; }
     void setLoaded();
 
-    static inline QHash<int, QByteArray> roleNames()
+    static QHash<int, QByteArray> roleNames()
     {
         return {
             {IdRole, "id"},

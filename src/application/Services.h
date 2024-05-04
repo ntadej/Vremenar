@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -12,6 +12,8 @@
 #ifndef VREMENAR_SERVICES_H_
 #define VREMENAR_SERVICES_H_
 
+#include <QtCore/QObject>
+
 namespace Vremenar
 {
 
@@ -20,6 +22,7 @@ class NotificationsManager;
 
 class Services
 {
+    Q_DISABLE_COPY_MOVE(Services)
 public:
     static Services &getInstance()
     {
@@ -28,19 +31,15 @@ public:
         return instance;
     }
 
-    [[nodiscard]] inline LocaleManager *localeManager() const { return _localeManager; }
+    [[nodiscard]] LocaleManager *localeManager() const { return _localeManager; }
     void setLocaleManager(LocaleManager *manager) { _localeManager = manager; }
 
-    [[nodiscard]] inline NotificationsManager *notificationsManager() const { return _notificationsManager; }
+    [[nodiscard]] NotificationsManager *notificationsManager() const { return _notificationsManager; }
     void setNotificationsManager(NotificationsManager *manager) { _notificationsManager = manager; }
 
 private:
     Services() = default;
     ~Services() = default;
-
-public:
-    Services(Services const &) = delete;
-    void operator=(Services const &) = delete;
 
 private:
     LocaleManager *_localeManager{};
