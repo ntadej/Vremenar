@@ -9,14 +9,15 @@
 * SPDX-License-Identifier: (GPL-3.0-or-later AND MPL-2.0)
 */
 
-#include <QtCore/QDebug>
-
-#include <FirebaseCore/FirebaseCore.h>
-
 #include "application/ApplicationDelegateMacOS.h"
+
 #include "application/NotificationsManager.h"
 #include "application/Services.h"
 #include "settings/Settings.h"
+
+#include <FirebaseCore/FirebaseCore.h>
+
+#include <QtCore/QDebug>
 
 @implementation VremenarApplicationDelegate {
     bool _notificationsRequested;
@@ -151,6 +152,10 @@ NSString *const kGCMMessageIDKey = @"gcm.message_id";
     qDebug() << "Notifications:"
              << "FCM registration token:"
              << QString::fromNSString(fcmToken);
+
+    if (fcmToken == nullptr) {
+        return;
+    }
 
     NSDictionary *dataDict = [NSDictionary dictionaryWithObject:fcmToken forKey:@"token"];
     [[NSNotificationCenter defaultCenter] postNotificationName:

@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -9,9 +9,12 @@
 * SPDX-License-Identifier: (GPL-3.0-or-later AND MPL-2.0)
 */
 
+#include "common/NetworkManagerFactory.h"
+
 #include "common/NetworkManager.h"
 
-#include "common/NetworkManagerFactory.h"
+#include <QtCore/QObject>
+#include <QtNetwork/QNetworkAccessManager>
 
 namespace Vremenar
 {
@@ -21,9 +24,11 @@ NetworkManagerFactory::NetworkManagerFactory(QObject *parent)
 
 QNetworkAccessManager *NetworkManagerFactory::create(QObject *parent)
 {
-    return new NetworkManager(parent);
+    return new NetworkManager(parent); // NOLINT(cppcoreguidelines-owning-memory)
 }
 
 } // namespace Vremenar
 
+// NOLINTBEGIN
 #include "moc_NetworkManagerFactory.cpp"
+// NOLINTEND

@@ -18,6 +18,10 @@
 #include "application/NativeEventFilterWin32.h"
 #endif
 
+#include <QtCore/QEvent>
+#include <QtCore/QObject>
+#include <QtCore/QString>
+
 namespace Vremenar
 {
 
@@ -47,7 +51,7 @@ public slots:
 #endif
 
 signals:
-    void urlOpened(const QString &);
+    void urlOpened(const QString &); // NOLINT(readability-named-parameter)
 
 #if defined(Q_OS_MACOS)
     void dockClicked();

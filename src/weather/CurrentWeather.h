@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -12,17 +12,18 @@
 #ifndef VREMENAR_CURRENTWEATHER_H_
 #define VREMENAR_CURRENTWEATHER_H_
 
-#include <memory>
+#include "weather/containers/StationInfo.h"
+#include "weather/containers/WeatherCondition.h"
 
 #include <QtCore/QDateTime>
 #include <QtCore/QObject>
 
-#include "weather/containers/StationInfo.h"
-#include "weather/containers/WeatherCondition.h"
-#include "weather/models/WeatherAlertModel.h"
+#include <memory>
 
 namespace Vremenar
 {
+
+class WeatherAlertModel;
 
 class CurrentWeather : public QObject
 {
@@ -35,24 +36,24 @@ public:
 
     void clear();
 
-    [[nodiscard]] inline bool hasStation() const { return _station != nullptr; }
+    [[nodiscard]] bool hasStation() const { return _station != nullptr; }
 
     void setStation(std::unique_ptr<StationInfo> station);
-    [[nodiscard]] inline StationInfo *station() const { return _station.get(); }
+    [[nodiscard]] StationInfo *station() const { return _station.get(); }
 
     void updateCurrentWeather(std::unique_ptr<WeatherCondition> condition);
-    [[nodiscard]] inline WeatherCondition *condition() const { return _condition.get(); }
+    [[nodiscard]] WeatherCondition *condition() const { return _condition.get(); }
 
-    [[nodiscard]] inline WeatherAlertModel *alerts() const { return _alerts.get(); };
+    [[nodiscard]] WeatherAlertModel *alerts() const { return _alerts.get(); };
 
 signals:
-    void stationChanged(Vremenar::StationInfo *station);
-    void conditionChanged(Vremenar::WeatherCondition *condition);
+    void stationChanged(Vremenar::StationInfo *station);          // NOLINT(readability-inconsistent-declaration-parameter-name)
+    void conditionChanged(Vremenar::WeatherCondition *condition); // NOLINT(readability-inconsistent-declaration-parameter-name)
 
 private:
-    std::unique_ptr<StationInfo> _station{};
-    std::unique_ptr<WeatherCondition> _condition{};
-    std::unique_ptr<WeatherAlertModel> _alerts{};
+    std::unique_ptr<StationInfo> _station;
+    std::unique_ptr<WeatherCondition> _condition;
+    std::unique_ptr<WeatherAlertModel> _alerts;
 };
 
 } // namespace Vremenar

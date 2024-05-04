@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -9,24 +9,62 @@
 * SPDX-License-Identifier: (GPL-3.0-or-later AND MPL-2.0)
 */
 
+#include "weather/WeatherProvider.h"
+
+#include "application/analytics/Analytics.h"
+#include "common/NetworkManager.h"
+#include "common/api/APILoader.h"
+#include "common/containers/Hyperlink.h"
+#include "settings/Settings.h"
+#include "weather/CurrentWeather.h"
+#include "weather/Sources.h"
+#include "weather/Weather.h"
+#include "weather/api/APIAlerts.h"
+#include "weather/api/APIMapLayers.h"
+#include "weather/api/APIRequest.h"
+#include "weather/api/APIStations.h"
+#include "weather/containers/MapInfo.h"
+#include "weather/containers/MapLayer.h"
+#include "weather/containers/StationInfo.h"
+#include "weather/containers/WeatherAlert.h"
+#include "weather/containers/WeatherCondition.h"
+#include "weather/models/MapInfoModel.h"
+#include "weather/models/MapLayersModel.h"
+#include "weather/models/MapLayersProxyModel.h"
+#include "weather/models/MapLegendModel.h"
+#include "weather/models/MapLegendProxyModel.h"
+#include "weather/models/StationListModel.h"
+#include "weather/models/WeatherAlertModel.h"
+#include "weather/models/WeatherMapModel.h"
+#include "weather/models/WeatherMapProxyModel.h"
+
 #include <QtCore/QBuffer>
+#include <QtCore/QDateTime>
 #include <QtCore/QDebug>
 #include <QtCore/QJsonArray>
 #include <QtCore/QJsonDocument>
+#include <QtCore/QJsonObject>
+#include <QtCore/QString>
+#include <QtCore/QStringList>
+#include <QtCore/QStringLiteral>
+#include <QtCore/QTimer>
 #include <QtGui/QImage>
+#include <QtNetwork/QNetworkReply>
+#include <QtNetwork/QNetworkRequest>
+#include <QtPositioning/QGeoCoordinate>
 
-#include "common/NetworkManager.h"
-#include "settings/Settings.h"
-#include "weather/WeatherProvider.h"
-#include "weather/api/APIAlerts.h"
-#include "weather/api/APIMapLayers.h"
-#include "weather/api/APIStations.h"
-#include "weather/containers/MapInfo.h"
+#include <algorithm>
+#include <cstddef>
+#include <cstdint>
+#include <iterator>
+#include <memory>
+#include <utility>
+#include <vector>
 
 namespace
 {
-constexpr uint32_t INTERVAL = 300000;
-constexpr uint32_t PROTECTION = 60000;
+constexpr std::uint32_t INTERVAL = 300000;
+constexpr std::uint32_t PROTECTION = 60000;
 } // namespace
 
 namespace Vremenar
@@ -70,6 +108,8 @@ WeatherProvider::WeatherProvider(NetworkManager *network,
         changeMapStyle(Weather::MapStyle::SatelliteMapStyle);
     }
 }
+
+WeatherProvider::~WeatherProvider() = default;
 
 void WeatherProvider::resetSource(bool load)
 {
@@ -256,7 +296,7 @@ void WeatherProvider::response(QNetworkReply *reply)
     if (requestFromResponse(reply).call() == QStringLiteral("/alerts/list")) {
         const QJsonArray alertsList = document.array();
         std::vector<std::unique_ptr<WeatherAlert>> alerts;
-        alerts.reserve(static_cast<size_t>(alertsList.size()));
+        alerts.reserve(static_cast<std::size_t>(alertsList.size()));
         for (const auto &obj : alertsList) {
             alerts.push_back(WeatherAlert::fromJson(obj.toObject()));
         }
@@ -568,4 +608,6 @@ void WeatherProvider::setLoading(bool loading)
 
 } // namespace Vremenar
 
+// NOLINTBEGIN
 #include "moc_WeatherProvider.cpp"
+// NOLINTEND

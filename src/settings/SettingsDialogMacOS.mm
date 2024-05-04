@@ -9,12 +9,14 @@
 * SPDX-License-Identifier: (GPL-3.0-or-later AND MPL-2.0)
 */
 
-#include <Cocoa/Cocoa.h>
+#include "SettingsDialog.h"
 
 #include "settings/Settings.h"
 
-#include "SettingsDialog.h"
-#include "ui_SettingsDialog.h"
+#include "QMacToolBar.h"
+#include "QMacToolBarItem.h"
+
+#include <Cocoa/Cocoa.h>
 
 namespace
 {
@@ -103,7 +105,9 @@ void SettingsDialog::actionToggledMacOS()
 
     [window setFrame:frame display:YES animate:YES];
 
-    setWindowTitle(item->text());
+    if (item != nullptr) {
+        setWindowTitle(item->text());
+    }
     ui->stackedWidget->show();
 }
 

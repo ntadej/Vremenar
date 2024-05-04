@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -12,10 +12,13 @@
 #ifndef VREMENAR_APPLICATIONDELEGATEMACOSWRAPPER_H_
 #define VREMENAR_APPLICATIONDELEGATEMACOSWRAPPER_H_
 
+#include <QtCore/QObject>
+
 @class VremenarApplicationDelegate;
 
 class VremenarDelegate
 {
+    Q_DISABLE_COPY_MOVE(VremenarDelegate)
 public:
     static VremenarDelegate &getInstance()
     {
@@ -24,16 +27,12 @@ public:
         return instance;
     }
 
-    [[nodiscard]] inline VremenarApplicationDelegate *ptr() const { return _applicationDelegate; }
+    [[nodiscard]] VremenarApplicationDelegate *ptr() const { return _applicationDelegate; }
     void setPtr(VremenarApplicationDelegate *delegate) { _applicationDelegate = delegate; }
 
 private:
     VremenarDelegate() = default;
     ~VremenarDelegate() = default;
-
-public:
-    VremenarDelegate(VremenarDelegate const &) = delete;
-    void operator=(VremenarDelegate const &) = delete;
 
 private:
     VremenarApplicationDelegate *_applicationDelegate{};

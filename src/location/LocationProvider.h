@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -12,16 +12,18 @@
 #ifndef VREMENAR_LOCATIONPROVIDER_H_
 #define VREMENAR_LOCATIONPROVIDER_H_
 
-#include <memory>
+#include "location/LocationProviderPlatform.h"
 
 #include <QtCore/QObject>
+#include <QtCore/QString>
 #include <QtCore/QTimer>
 #include <QtLocation/QGeoCodeReply>
 #include <QtLocation/QGeoServiceProvider>
 #include <QtPositioning/QGeoLocation>
+#include <QtPositioning/QGeoPositionInfo>
 #include <QtPositioning/QGeoPositionInfoSource>
 
-#include "location/LocationProviderPlatform.h"
+#include <memory>
 
 namespace Vremenar
 {
@@ -52,9 +54,9 @@ public:
     Q_INVOKABLE [[nodiscard]] QGeoCoordinate validateAndCorrect(const QGeoCoordinate &coordinate) const;
 
 signals:
-    void enabledChanged(bool);
-    void positionChanged(QGeoCoordinate);
-    void initialPositionChanged(QGeoCoordinate);
+    void enabledChanged(bool);                   // NOLINT(readability-named-parameter)
+    void positionChanged(QGeoCoordinate);        // NOLINT(readability-named-parameter)
+    void initialPositionChanged(QGeoCoordinate); // NOLINT(readability-named-parameter)
     void locationChanged();
 
 public slots:
@@ -79,12 +81,12 @@ private:
     bool initAndroid();
 #endif
 
-    std::unique_ptr<LocationProviderPlatform> _platform{};
+    std::unique_ptr<LocationProviderPlatform> _platform;
 
-    std::unique_ptr<QTimer> _timer{};
+    std::unique_ptr<QTimer> _timer;
 
-    std::unique_ptr<QGeoPositionInfoSource> _position{};
-    std::unique_ptr<QGeoServiceProvider> _provider{};
+    std::unique_ptr<QGeoPositionInfoSource> _position;
+    std::unique_ptr<QGeoServiceProvider> _provider;
 
     StationListModel *_stations{}; // not owned here
 

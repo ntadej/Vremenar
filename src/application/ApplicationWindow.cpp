@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -9,30 +9,32 @@
 * SPDX-License-Identifier: (GPL-3.0-or-later AND MPL-2.0)
 */
 
-#include <chrono>
+#include "ApplicationWindow.h"
 
-#include <QtCore/QCoreApplication>
-#include <QtCore/QDebug>
-#include <QtCore/QString>
-#include <QtQml/QQmlContext>
-#include <QtQml/QQmlFileSelector>
-#include <QtQml/QQmlProperty>
-#include <QtQuick/QQuickWindow>
-#include <QtQuickControls2/QQuickStyle>
-
-#include "application/BaseApplication.h"
+#include "application/NotificationsManager.h"
 #include "application/Services.h"
+#include "application/Updates.h"
+#include "application/analytics/Analytics.h"
+#include "common/LocaleManager.h"
 #include "common/NetworkManager.h"
+#include "common/NetworkManagerFactory.h"
+#include "location/Location.h"
+#include "location/LocationProvider.h"
+#include "maps/MapsManager.h"
 #include "qml/Qml.h"
 #include "settings/Settings.h"
 #include "weather/CurrentWeather.h"
+#include "weather/Sources.h"
+#include "weather/WeatherProvider.h"
 #include "weather/models/MapInfoModel.h"
 #include "weather/models/MapLayersProxyModel.h"
-#include "weather/models/MapLegendProxyModel.h"
-#include "weather/models/WeatherMapProxyModel.h"
+#include "weather/models/MapLegendProxyModel.h"  // IWYU pragma: keep
+#include "weather/models/WeatherAlertModel.h"    // IWYU pragma: keep
+#include "weather/models/WeatherMapProxyModel.h" // IWYU pragma: keep
 
 #ifndef VREMENAR_MOBILE
 #include "application/DesktopApplication.h"
+#include "application/TrayIcon.h"
 #include "application/dialogs/AboutDialog.h"
 #include "settings/SettingsDialog.h"
 #else
@@ -43,7 +45,26 @@
 #include "application/ImageProviderMacOSiOS.h"
 #endif
 
-#include "ApplicationWindow.h"
+#include <QtCore/QCoreApplication>
+#include <QtCore/QDebug>
+#include <QtCore/QObject>
+#include <QtCore/QString>
+#include <QtCore/QStringList>
+#include <QtCore/QStringLiteral>
+#include <QtGui/QWindow>
+#include <QtPositioning/QGeoCoordinate>
+#include <QtQml/QQmlApplicationEngine>
+#include <QtQml/QQmlContext>
+#include <QtQml/QQmlFileSelector>
+#include <QtQml/QQmlProperty>
+#include <QtQuick/QQuickWindow>
+#include <QtQuickControls2/QQuickStyle>
+
+#include <gsl/pointers>
+
+#include <cstddef>
+#include <memory>
+#include <vector>
 
 namespace Vremenar
 {
@@ -391,7 +412,7 @@ void ApplicationWindow::startCompleted(QQuickWindow *window,
 
 void ApplicationWindow::weatherSourceChanged(int source)
 {
-    auto index = static_cast<size_t>(source);
+    auto index = static_cast<std::size_t>(source);
     std::vector<Sources::Country> sources = {Sources::Slovenia, Sources::Germany};
     const Sources::Country weatherSource = sources[index];
 
@@ -431,4 +452,6 @@ void ApplicationWindow::locationSettingChanged(int setting)
 
 } // namespace Vremenar
 
+// NOLINTBEGIN
 #include "moc_ApplicationWindow.cpp"
+// NOLINTEND

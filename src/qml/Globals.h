@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -14,8 +14,10 @@
 
 #include <QtCore/QJsonArray>
 #include <QtCore/QObject>
-#include <QtQml/QJSEngine>
-#include <QtQml/QQmlEngine>
+#include <QtCore/QString>
+
+class QQmlEngine;
+class QJSEngine;
 
 namespace Vremenar::Qml
 {

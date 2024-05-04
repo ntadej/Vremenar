@@ -225,6 +225,15 @@ set_target_properties(Vremenar
     QT_ANDROID_TARGET_SDK_VERSION 31
 )
 
+if(CLANG_TIDY_EXE)
+    set_target_properties(
+        Vremenar
+        PROPERTIES
+            CXX_CLANG_TIDY "${CLANG_TIDY_COMMAND}"
+    )
+endif()
+
+
 if(ANDROID)
     add_android_openssl_libraries(Vremenar)
 endif()
@@ -280,10 +289,13 @@ target_include_directories(Vremenar PRIVATE
 )
 
 if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
-    add_subdirectory(3rdparty)
+    add_subdirectory(${CMAKE_SOURCE_DIR}/3rdparty/QMacToolBar QMacToolBar)
     target_link_libraries(Vremenar PRIVATE
         QMacToolBar
         $<$<NOT:$<BOOL:${VREMENAR_STORE}>>:${Sparkle}>
+    )
+    target_include_directories(Vremenar SYSTEM PRIVATE
+        ${CMAKE_SOURCE_DIR}/3rdparty/QMacToolBar
     )
 endif()
 

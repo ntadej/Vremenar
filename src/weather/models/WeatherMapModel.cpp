@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -9,11 +9,19 @@
 * SPDX-License-Identifier: (GPL-3.0-or-later AND MPL-2.0)
 */
 
-#include <QtCore/QJsonArray>
-
-#include "weather/containers/StationInfo.h"
-#include "weather/models/StationListModel.h"
 #include "weather/models/WeatherMapModel.h"
+
+#include "common/ListModel.h"
+#include "weather/containers/StationInfo.h"
+#include "weather/containers/WeatherCondition.h"
+#include "weather/containers/WeatherInfo.h"
+#include "weather/models/StationListModel.h"
+
+#include <QtCore/QJsonArray>
+#include <QtCore/QObject>
+#include <QtCore/QStringLiteral>
+
+#include <memory>
 
 namespace Vremenar
 {
@@ -55,4 +63,6 @@ void WeatherMapModel::update(WeatherMapModel *model,
 
 } // namespace Vremenar
 
+// NOLINTBEGIN
 #include "moc_WeatherMapModel.cpp"
+// NOLINTEND

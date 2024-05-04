@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -9,11 +9,14 @@
 * SPDX-License-Identifier: (GPL-3.0-or-later AND MPL-2.0)
 */
 
-#include <QtGui/QFileOpenEvent>
+#include "application/DesktopApplication.h"
 
+#include "application/SingleApplication.h"
 #include "common/Output.h"
 
-#include "application/DesktopApplication.h"
+#include <QtCore/QEvent>
+#include <QtCore/QObject>
+#include <QtGui/QFileOpenEvent>
 
 #if defined(Q_OS_WINDOWS)
 #include <Windows.h>
@@ -64,4 +67,6 @@ bool DesktopApplication::eventFilter(QObject *object,
 
 } // namespace Vremenar
 
+// NOLINTBEGIN
 #include "moc_DesktopApplication.cpp"
+// NOLINTEND

@@ -12,10 +12,10 @@
 #include <QtCore/QDebug>
 #include <QtGui/QWindow>
 
-#include <objc/message.h>
-
 #include <ApplicationServices/ApplicationServices.h>
 #include <Cocoa/Cocoa.h>
+
+#include <objc/message.h>
 
 #define VREMENAR_OBJC
 #include "application/ApplicationDelegateMacOS.h"

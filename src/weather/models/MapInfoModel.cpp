@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -9,10 +9,20 @@
 * SPDX-License-Identifier: (GPL-3.0-or-later AND MPL-2.0)
 */
 
+#include "weather/models/MapInfoModel.h"
+
+#include "common/ListModel.h"
+#include "weather/Weather.h"
+#include "weather/containers/MapInfo.h"
+
 #include <QtCore/QJsonArray>
 #include <QtCore/QJsonObject>
+#include <QtCore/QObject>
+#include <QtCore/QStringLiteral>
 
-#include "weather/models/MapInfoModel.h"
+#include <cstddef>
+#include <memory>
+#include <vector>
 
 namespace Vremenar
 {
@@ -61,7 +71,7 @@ QStringList MapInfoModel::list() const
 std::vector<Weather::MapType> MapInfoModel::types() const
 {
     std::vector<Weather::MapType> l;
-    l.reserve(static_cast<size_t>(rowCount()));
+    l.reserve(static_cast<std::size_t>(rowCount()));
     for (int i = 0; i < rowCount(); i++) {
         l.push_back(row<MapInfo>(i)->type());
     }
@@ -70,4 +80,6 @@ std::vector<Weather::MapType> MapInfoModel::types() const
 
 } // namespace Vremenar
 
+// NOLINTBEGIN
 #include "moc_MapInfoModel.cpp"
+// NOLINTEND

@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -9,14 +9,37 @@
 * SPDX-License-Identifier: (GPL-3.0-or-later AND MPL-2.0)
 */
 
-#include <QtWidgets/QMessageBox>
+#include "SettingsDialog.h"
 
 #include "common/LocaleManager.h"
+#include "location/Location.h"
 #include "settings/Settings.h"
+#include "weather/Sources.h"
+#include "weather/Weather.h"
 #include "weather/containers/StationInfo.h"
 #include "weather/models/StationListModel.h"
 
-#include "SettingsDialog.h"
+#include <QtCore/QEvent>
+#include <QtCore/QObject>
+// #include <QtCore/QOverload>
+#include <QtCore/QString>
+#include <QtCore/QStringLiteral>
+#include <QtGui/QActionGroup>
+#include <QtGui/QDoubleValidator>
+#include <QtWidgets/QComboBox>
+#include <QtWidgets/QCompleter>
+#include <QtWidgets/QMainWindow>
+#include <QtWidgets/QMessageBox>
+#include <QtWidgets/QRadioButton>
+#include <QtWidgets/QWidget>
+
+#ifdef Q_OS_MACOS
+#include "QMacToolBar.h"     // IWYU pragma: keep
+#include "QMacToolBarItem.h" // IWYU pragma: keep
+#endif
+
+#include <memory>
+#include <utility>
 
 namespace Vremenar
 {
@@ -112,6 +135,8 @@ SettingsDialog::SettingsDialog(StationListModel *stationsModel,
         ui->toolBar->removeAction(ui->actionNotifications);
     }
 }
+
+SettingsDialog::~SettingsDialog() = default;
 
 void SettingsDialog::changeEvent(QEvent *e)
 {
@@ -348,7 +373,7 @@ void SettingsDialog::loadLocales()
 
     ui->comboLocale->clear();
     ui->comboLocale->addItem(tr("System default"));
-    for (const QString &locale : qAsConst(_locales)) {
+    for (const QString &locale : std::as_const(_locales)) {
         ui->comboLocale->addItem(QLocale(locale).nativeLanguageName());
         if (settings.locale() == locale) {
             ui->comboLocale->setCurrentIndex(ui->comboLocale->count() - 1);
@@ -448,4 +473,6 @@ void SettingsDialog::rememberSizeChangedSlot(bool checked)
 
 } // namespace Vremenar
 
+// NOLINTBEGIN
 #include "moc_SettingsDialog.cpp"
+// NOLINTEND

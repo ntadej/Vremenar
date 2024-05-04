@@ -1,8 +1,11 @@
 ---
-Checks: 'bugprone-*,clang-*,cppcoreguidelines-*,google-*,misc-*,modernize-*,objc-*,performance-*,readability-*,-bugprone-easily-swappable-parameters,-bugprone-suspicious-include,-google-objc-function-naming,-google-objc-global-variable-declaration,-modernize-use-trailing-return-type,-readability-convert-member-functions-to-static,-readability-identifier-length,-readability-redundant-access-specifiers'
+Checks: "bugprone-*,clang-*,cppcoreguidelines-*,google-*,misc-*,modernize-*,objc-*,performance-*,readability-*,-bugprone-easily-swappable-parameters,-cppcoreguidelines-avoid-const-or-ref-data-members,-google-objc-function-naming,-google-objc-global-variable-declaration,-modernize-use-trailing-return-type,-readability-convert-member-functions-to-static,-readability-identifier-length,-readability-redundant-access-specifiers"
+WarningsAsErrors: "bugprone-*,clang-*,cppcoreguidelines-*,google-*,misc-*,modernize-*,objc-*,performance-*,readability-*"
 CheckOptions:
- - key: cppcoreguidelines-special-member-functions.AllowMissingMoveFunctions
-   value: 1
- - key: misc-non-private-member-variables-in-classes.IgnoreClassesWithAllMemberVariablesBeingPublic
-   value: 1
+  - key: misc-non-private-member-variables-in-classes.IgnoreClassesWithAllMemberVariablesBeingPublic
+    value: 1
+  - key: misc-include-cleaner.IgnoreHeaders
+    value: "(stdlib.h|ui_.*.h|qassert.h|qcontainerfwd.h|qlogging.h|qnamespace.h|qtclasshelpermacros.h|qtmetamacros.h|qtypes.h|qtpreprocessorsupport.h|qttranslation.h)"
 ...
+# problems:
+# -cppcoreguidelines-avoid-const-or-ref-data-members

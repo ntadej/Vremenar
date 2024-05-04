@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -9,16 +9,31 @@
 * SPDX-License-Identifier: (GPL-3.0-or-later AND MPL-2.0)
 */
 
-#include <QtCore/QDebug>
-#include <QtLocation/QGeoCodingManager>
-#include <QtPositioning/QGeoAddress>
-
 #include "location/LocationProvider.h"
+
+#include "location/Location.h"
 #include "settings/Settings.h"
+#include "weather/Sources.h"
 #include "weather/containers/StationInfo.h"
 #include "weather/models/StationListModel.h"
 
 #include "Config.h"
+
+#include <QtCore/QDebug>
+#include <QtCore/QMap>
+#include <QtCore/QObject>
+#include <QtCore/QString>
+#include <QtCore/QStringLiteral>
+#include <QtCore/QTimer>
+#include <QtLocation/QGeoCodeReply>
+#include <QtLocation/QGeoCodingManager>
+#include <QtLocation/QGeoServiceProvider>
+#include <QtPositioning/QGeoAddress>
+#include <QtPositioning/QGeoCoordinate>
+#include <QtPositioning/QGeoPositionInfo>
+#include <QtPositioning/QGeoPositionInfoSource>
+
+#include <memory>
 
 #ifdef VREMENAR_POSITIONING
 namespace
@@ -367,4 +382,6 @@ void LocationProvider::reverseGeocodingError(QGeoCodeReply *reply,
 
 } // namespace Vremenar
 
+// NOLINTBEGIN
 #include "moc_LocationProvider.cpp"
+// NOLINTEND

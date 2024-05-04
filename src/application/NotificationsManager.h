@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -13,8 +13,8 @@
 #define VREMENAR_NOTIFICATIONSMANAGER_H_
 
 #include <QtCore/QObject>
-
-#include "weather/Weather.h"
+#include <QtCore/QString>
+#include <QtCore/QStringList>
 
 namespace Vremenar
 {
@@ -34,7 +34,7 @@ public:
     Q_INVOKABLE void setNotificationsLevel(int level);
 
 signals:
-    void nativeEnabledStatus(bool);
+    void nativeEnabledStatus(bool); // NOLINT(readability-named-parameter)
 
 public slots:
     void settingsChanged();

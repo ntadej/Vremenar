@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -12,7 +12,7 @@
 #ifndef VREMENAR_LOCATIONPROVIDERPLATFORM_H_
 #define VREMENAR_LOCATIONPROVIDERPLATFORM_H_
 
-#include <QtCore/QString>
+#include <QtCore/QObject>
 
 namespace Vremenar
 {
@@ -21,7 +21,7 @@ class LocationProvider;
 
 class LocationProviderPlatform
 {
-    Q_DISABLE_COPY(LocationProviderPlatform)
+    Q_DISABLE_COPY_MOVE(LocationProviderPlatform)
 
 public:
     LocationProviderPlatform() = default;

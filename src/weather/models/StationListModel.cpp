@@ -9,11 +9,17 @@
 * SPDX-License-Identifier: (GPL-3.0-or-later AND MPL-2.0)
 */
 
+#include "weather/models/StationListModel.h"
+
+#include "common/ListModel.h"
+#include "weather/containers/StationInfo.h"
+
 #include <QtCore/QJsonArray>
 #include <QtCore/QJsonObject>
+#include <QtCore/QObject>
+#include <QtPositioning/QGeoCoordinate>
 
-#include "weather/containers/StationInfo.h"
-#include "weather/models/StationListModel.h"
+#include <memory>
 
 namespace Vremenar
 {
@@ -53,4 +59,6 @@ void StationListModel::addStationsWithCurrentCondition(StationListModel *model)
 
 } // namespace Vremenar
 
+// NOLINTBEGIN
 #include "moc_StationListModel.cpp"
+// NOLINTEND

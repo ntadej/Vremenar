@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -12,26 +12,29 @@
 #ifndef VREMENAR_ANALYTICS_H_
 #define VREMENAR_ANALYTICS_H_
 
-#include <memory>
-
 #include <QtCore/QObject>
+#include <QtCore/QString>
 #include <QtCore/QTimer>
 
-#include "application/analytics/AnalyticsEngine.h"
+#include <cstdint>
+#include <memory>
 
 namespace Vremenar
 {
 
+class AnalyticsEngine;
 class NetworkManager;
 
 class Analytics : public QObject
 {
     Q_OBJECT
+    Q_DISABLE_COPY_MOVE(Analytics)
 public:
     explicit Analytics(NetworkManager *network,
                        QObject *parent = nullptr);
+    ~Analytics() override;
 
-    enum EventType {
+    enum EventType : std::uint8_t {
         MapStyleChanged,
         MapTypeChanged
     };
@@ -50,8 +53,8 @@ public slots:
                      const QString &payload) const;
 
 private:
-    std::unique_ptr<AnalyticsEngine> _engine{};
-    std::unique_ptr<QTimer> _timer{};
+    std::unique_ptr<AnalyticsEngine> _engine;
+    std::unique_ptr<QTimer> _timer;
 };
 
 } // namespace Vremenar

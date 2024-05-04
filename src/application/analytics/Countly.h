@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -14,12 +14,19 @@
 #ifndef COUNTLY_H_
 #define COUNTLY_H_
 
-#include <chrono>
-#include <deque>
+#include "common/api/APILoader.h"
 
 #include <QtCore/QJsonObject>
+#include <QtCore/QMap>
+#include <QtCore/QObject>
+#include <QtCore/QString>
+#include <QtCore/QUrlQuery>
 
-#include "common/api/APILoader.h"
+#include <chrono>
+#include <cstddef>
+#include <deque>
+
+class QNetworkReply;
 
 namespace Vremenar
 {
@@ -27,16 +34,15 @@ namespace Vremenar
 class Countly final : public APILoader
 {
     Q_OBJECT
+    Q_DISABLE_COPY_MOVE(Countly)
 public:
     explicit Countly(NetworkManager *network,
                      QObject *parent = nullptr);
-    Countly(const Countly &reader) = delete;
-    Countly &operator=(const Countly &q) = delete;
     ~Countly() final;
 
     void setAlwaysUsePost(bool value);
     void setDeviceID(const QString &value);
-    void setMaxEvents(size_t value);
+    void setMaxEvents(std::size_t value);
     void setSalt(const QString &value);
 
     void setMetrics(const QString &os,
@@ -96,13 +102,13 @@ private:
 
     QString _host;
     bool _alwaysUsePost{};
-    std::chrono::system_clock::time_point _lastSent{};
+    std::chrono::system_clock::time_point _lastSent;
     bool _activeSession{};
 
     QMap<QString, QString> _sessionParameters;
     QString _salt;
 
-    size_t _maxEvents{200}; // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+    std::size_t _maxEvents{200}; // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
     std::deque<QJsonObject> _eventQueue;
 };
 

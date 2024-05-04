@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -12,13 +12,15 @@
 #ifndef VREMENAR_NETWORKMANAGER_H_
 #define VREMENAR_NETWORKMANAGER_H_
 
-#include <memory>
+#include "common/api/APIRequestBase.h"
 
+#include <QtCore/QObject>
 #include <QtNetwork/QNetworkAccessManager>
-#include <QtNetwork/QNetworkDiskCache>
 #include <QtNetwork/QNetworkReply>
 
-#include "common/api/APIRequestBase.h"
+#include <memory>
+
+class QNetworkDiskCache;
 
 namespace Vremenar
 {
@@ -32,9 +34,9 @@ public:
     QNetworkReply *request(const APIRequestBase &request);
 
 signals:
-    void error(QNetworkReply *,
-               QNetworkReply::NetworkError);
-    void result(QNetworkReply *);
+    void error(QNetworkReply *,              // NOLINT(readability-named-parameter)
+               QNetworkReply::NetworkError); // NOLINT(readability-named-parameter)
+    void result(QNetworkReply *);            // NOLINT(readability-named-parameter)
 
 private slots:
     void httpError(QNetworkReply::NetworkError err);

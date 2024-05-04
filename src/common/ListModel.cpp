@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -9,9 +9,19 @@
 * SPDX-License-Identifier: (GPL-3.0-or-later AND MPL-2.0)
 */
 
+#include "ListModel.h"
+
 #include "ListItem.h"
 
-#include "ListModel.h"
+#include <QtCore/QAbstractListModel>
+#include <QtCore/QHash>
+#include <QtCore/QList>
+#include <QtCore/QObject>
+#include <QtCore/QVariant>
+
+#include <cstddef>
+#include <utility>
+#include <vector>
 
 namespace Vremenar
 {
@@ -31,7 +41,7 @@ int ListModel::rowCount(const QModelIndex &parent) const
 QVariant ListModel::data(const QModelIndex &index,
                          int role) const
 {
-    auto i = static_cast<size_t>(index.row());
+    auto i = static_cast<std::size_t>(index.row());
     if (index.row() < 0 || i >= _list.size()) {
         return {};
     }
@@ -57,7 +67,7 @@ void ListModel::clear()
 bool ListModel::removeRow(int row, const QModelIndex &parent)
 {
     Q_UNUSED(parent)
-    if (row < 0 || static_cast<size_t>(row) >= _list.size()) {
+    if (row < 0 || static_cast<std::size_t>(row) >= _list.size()) {
         return false;
     }
     beginRemoveRows(QModelIndex(), row, row);
@@ -71,7 +81,7 @@ bool ListModel::removeRows(int row, int count, const QModelIndex &parent)
 {
     Q_UNUSED(parent)
     const int toRemove = row + count;
-    if (row < 0 || static_cast<size_t>(toRemove) > _list.size()) {
+    if (row < 0 || static_cast<std::size_t>(toRemove) > _list.size()) {
         return false;
     }
     beginRemoveRows(QModelIndex(), row, toRemove - 1);
@@ -85,7 +95,7 @@ bool ListModel::removeRows(int row, int count, const QModelIndex &parent)
 QModelIndex ListModel::indexFromItem(const ListItem *item) const
 {
     Q_ASSERT(item);
-    for (size_t row = 0; row < _list.size(); ++row) {
+    for (std::size_t row = 0; row < _list.size(); ++row) {
         if (_list[row].get() == item) {
             return index(static_cast<int>(row));
         }
@@ -95,4 +105,6 @@ QModelIndex ListModel::indexFromItem(const ListItem *item) const
 
 } // namespace Vremenar
 
+// NOLINTBEGIN
 #include "moc_ListModel.cpp"
+// NOLINTEND

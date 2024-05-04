@@ -1,6 +1,6 @@
 #
 # Vremenar
-# Copyright (C) 2023 Tadej Novak <tadej@tano.si>
+# Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 #
 # This application is bi-licensed under the GNU General Public License
 # Version 3 or later as well as Mozilla Public License Version 2.
@@ -46,7 +46,8 @@ option(VREMENAR_STORE "Enable store deployment" OFF)
 message(STATUS "Store deployment: ${VREMENAR_STORE}")
 
 # compiler
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_AUTOGEN_USE_SYSTEM_INCLUDE ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 if(CMAKE_GENERATOR STREQUAL "Xcode")
     set(CMAKE_IS_XCODE 1)
@@ -55,6 +56,23 @@ else()
 endif()
 set(QT_QML_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/qml")
 
+# clang-tidy
+set(CLANG_TIDY OFF CACHE BOOL "Enable clang tidy")
+if (CLANG_TIDY)
+    find_program(
+        CLANG_TIDY_EXE
+        NAMES "clang-tidy"
+        DOC "Path to clang-tidy executable"
+    )
+endif()
+if(NOT CLANG_TIDY_EXE)
+    message(STATUS "clang-tidy disabled or not found")
+else()
+    message(STATUS "clang-tidy found: ${CLANG_TIDY_EXE}")
+    set(CLANG_TIDY_COMMAND "${CLANG_TIDY_EXE}" "--header-filter=src/.*\.h")
+endif()
+
+# compiler options
 add_library(
     Vremenar-compiler-options INTERFACE
 )

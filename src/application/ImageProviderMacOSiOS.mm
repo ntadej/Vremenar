@@ -11,8 +11,13 @@
 
 #include "application/ImageProviderMacOSiOS.h"
 
+#include <QtCore/QSize>
+#include <QtCore/QString>
+#include <QtCore/QStringLiteral>
 #include <QtGui/QColor>
+#include <QtGui/QImage>
 #include <QtGui/private/qcoregraphics_p.h>
+#include <QtQuick/QQuickImageProvider>
 
 #if defined(Q_OS_MACOS)
 #import <AppKit/AppKit.h>

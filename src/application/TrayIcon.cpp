@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -10,6 +10,21 @@
 */
 
 #include "application/TrayIcon.h"
+
+#include "weather/containers/StationInfo.h"
+#include "weather/containers/WeatherCondition.h"
+
+#include <QtCore/QObject>
+#include <QtCore/QString>
+#include <QtCore/QStringList>
+#include <QtCore/QStringLiteral>
+#include <QtGui/QAction>
+#include <QtGui/QActionGroup>
+#include <QtGui/QIcon>
+#include <QtWidgets/QMenu>
+#include <QtWidgets/QSystemTrayIcon>
+
+#include <memory>
 
 namespace Vremenar
 {
@@ -54,6 +69,8 @@ TrayIcon::TrayIcon(QObject *parent)
     connect(_actionAbout.get(), &QAction::triggered, this, &TrayIcon::about);
     connect(_actionQuit.get(), &QAction::triggered, this, &TrayIcon::quit);
 }
+
+TrayIcon::~TrayIcon() = default;
 
 void TrayIcon::activatedCallback(QSystemTrayIcon::ActivationReason reason)
 {
@@ -194,4 +211,6 @@ void TrayIcon::showSettingsMenu(QPoint point)
 
 } // namespace Vremenar
 
+// NOLINTBEGIN
 #include "moc_TrayIcon.cpp"
+// NOLINTEND

@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2019 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -12,6 +12,7 @@
 #ifndef VREMENAR_NETWORKMANAGERFACTORY_H_
 #define VREMENAR_NETWORKMANAGERFACTORY_H_
 
+#include <QtCore/QObject>
 #include <QtNetwork/QNetworkAccessManager>
 #include <QtQml/QQmlNetworkAccessManagerFactory>
 

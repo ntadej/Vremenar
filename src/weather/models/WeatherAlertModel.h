@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -12,13 +12,17 @@
 #ifndef VREMENAR_WEATHERALERTMODEL_H_
 #define VREMENAR_WEATHERALERTMODEL_H_
 
-#include <memory>
-
 #include "common/ListModel.h"
-#include "weather/containers/WeatherAlert.h"
+
+#include <QtCore/QObject>
+
+#include <memory>
+#include <vector>
 
 namespace Vremenar
 {
+
+class WeatherAlert;
 
 class WeatherAlertModel : public ListModel
 {

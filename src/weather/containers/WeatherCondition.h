@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -12,12 +12,17 @@
 #ifndef VREMENAR_WEATHERCONDITION_H_
 #define VREMENAR_WEATHERCONDITION_H_
 
-#include <memory>
-
-#include <QtCore/QJsonObject>
-
 #include "common/ListItem.h"
 #include "weather/Weather.h"
+
+#include <QtCore/QHash>
+#include <QtCore/QJsonObject>
+#include <QtCore/QObject>
+#include <QtCore/QString>
+#include <QtCore/QVariant>
+
+#include <cstdint>
+#include <memory>
 
 namespace Vremenar
 {
@@ -34,7 +39,7 @@ class WeatherCondition : public ListItem
     Q_PROPERTY(qreal temperature READ temperature NOTIFY updated)
     Q_PROPERTY(qreal temperatureLow READ temperatureLow NOTIFY updated)
 public:
-    enum Roles {
+    enum Roles : std::uint16_t {
         DisplayRole = Qt::DisplayRole,
         IdRole = Qt::UserRole + 1,
         ObservationRole,
@@ -62,15 +67,15 @@ public:
     [[nodiscard]] QString displayTemperature() const;
     [[nodiscard]] QString displayTemperatureShort() const;
 
-    [[nodiscard]] inline Weather::ObservationType observation() const { return _observation; }
-    [[nodiscard]] inline qint64 time() const { return _time; }
-    [[nodiscard]] inline const QString &icon() const { return _icon; }
-    [[nodiscard]] inline qreal temperature() const { return _temperature; }
-    [[nodiscard]] inline qreal temperatureLow() const { return _temperatureLow; }
+    [[nodiscard]] Weather::ObservationType observation() const { return _observation; }
+    [[nodiscard]] qint64 time() const { return _time; }
+    [[nodiscard]] const QString &icon() const { return _icon; }
+    [[nodiscard]] qreal temperature() const { return _temperature; }
+    [[nodiscard]] qreal temperatureLow() const { return _temperatureLow; }
 
     void update(const WeatherCondition *source);
 
-    static inline QHash<int, QByteArray> roleNames()
+    static QHash<int, QByteArray> roleNames()
     {
         return {
             {IdRole, "id"},

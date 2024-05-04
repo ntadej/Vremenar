@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -12,10 +12,16 @@
 #ifndef VREMENAR_MAPLEGENDITEM_H_
 #define VREMENAR_MAPLEGENDITEM_H_
 
-#include <QtGui/QColor>
-
 #include "common/ListItem.h"
 #include "weather/Weather.h"
+
+#include <QtCore/QHash>
+#include <QtCore/QObject>
+#include <QtCore/QString>
+#include <QtCore/QVariant>
+#include <QtGui/QColor>
+
+#include <cstdint>
 
 namespace Vremenar
 {
@@ -29,7 +35,7 @@ class MapLegendItem : public ListItem
     Q_PROPERTY(bool placeholder READ placeholder CONSTANT)
 
 public:
-    enum Roles {
+    enum Roles : std::uint16_t {
         DisplayRole = Qt::DisplayRole,
         IdRole = Qt::UserRole + 1,
         TypeRole,
@@ -47,9 +53,9 @@ public:
     [[nodiscard]] QVariant data(int role) const final;
     [[nodiscard]] QString display() const final;
 
-    [[nodiscard]] inline Weather::MapType type() const { return _type; }
-    [[nodiscard]] inline const QColor &color() const { return _color; }
-    [[nodiscard]] inline bool placeholder() const { return _placeholder; }
+    [[nodiscard]] Weather::MapType type() const { return _type; }
+    [[nodiscard]] const QColor &color() const { return _color; }
+    [[nodiscard]] bool placeholder() const { return _placeholder; }
 
     static QHash<int, QByteArray> roleNames()
     {

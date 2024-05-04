@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2020 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -13,10 +13,17 @@
 #define VREMENAR_MAPLEGENDMODEL_H_
 
 #include "common/ListModel.h"
-#include "weather/containers/MapLegendItem.h"
+#include "weather/Weather.h"
+
+#include <QtCore/QJsonArray>
+#include <QtCore/QObject>
+#include <QtCore/QString>
+#include <QtGui/QColor>
 
 namespace Vremenar
 {
+
+class MapLegendItem;
 
 class MapLegendModel : public ListModel
 {

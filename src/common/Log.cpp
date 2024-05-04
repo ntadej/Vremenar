@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -9,33 +9,36 @@
 * SPDX-License-Identifier: (GPL-3.0-or-later AND MPL-2.0)
 */
 
-#include <memory>
+#include "common/Log.h"
+
+#include "common/Output.h"
+#include "common/Resources.h"
+
+#include "Config.h"
 
 #include <QtCore/QDateTime>
 #include <QtCore/QDebug>
 #include <QtCore/QFile>
 #include <QtCore/QMutex>
+#include <QtCore/QString>
+#include <QtCore/QStringLiteral>
 #include <QtCore/QTextStream>
 
 #ifdef Q_OS_ANDROID
 #include <android/log.h>
 #endif
 
-#include "common/Output.h"
-#include "common/Resources.h"
-
-#include "common/Log.h"
-
-#include "Config.h"
+#include <cstdlib>
+#include <memory>
 
 namespace Vremenar
 {
 
 namespace Log
 {
-static std::unique_ptr<QTextStream> out; // clazy:exclude=non-pod-global-static NOLINT(cppcoreguidelines-avoid-non-const-global-variables)
-static std::unique_ptr<QFile> outFile;   // clazy:exclude=non-pod-global-static NOLINT(cppcoreguidelines-avoid-non-const-global-variables)
-static std::unique_ptr<QMutex> outMutex; // clazy:exclude=non-pod-global-static NOLINT(cppcoreguidelines-avoid-non-const-global-variables)
+static std::unique_ptr<QTextStream> out; // clazy:exclude=non-pod-global-static NOLINT(cppcoreguidelines-avoid-non-const-global-variables,misc-use-anonymous-namespace)
+static std::unique_ptr<QFile> outFile;   // clazy:exclude=non-pod-global-static NOLINT(cppcoreguidelines-avoid-non-const-global-variables,misc-use-anonymous-namespace)
+static std::unique_ptr<QMutex> outMutex; // clazy:exclude=non-pod-global-static NOLINT(cppcoreguidelines-avoid-non-const-global-variables,misc-use-anonymous-namespace)
 
 #ifdef Q_OS_ANDROID
 const static std::string androidName = QString(Vremenar::name).toStdString(); // clazy:exclude=non-pod-global-static

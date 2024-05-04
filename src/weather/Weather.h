@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -14,28 +14,29 @@
 
 #include <QtCore/QDateTime>
 #include <QtCore/QObject>
+#include <QtCore/QString>
 
-#include "common/Helpers.h"
+#include <cstdint>
 
 namespace Vremenar::Weather
 {
 
 Q_NAMESPACE
 
-enum ObservationType {
+enum ObservationType : std::uint8_t {
     Historical,
     Recent,
     Forecast
 };
 
-enum MapStyle {
+enum MapStyle : std::uint8_t {
     UnknownMapStyle,
     SatelliteMapStyle,
     StreetsLightMapStyle,
     StreetsDarkMapStyle
 };
 
-enum MapType {
+enum MapType : std::uint8_t {
     UnknownMapType,
     WeatherConditionMap,
     PrecipitationMap,
@@ -47,14 +48,14 @@ enum MapType {
     UVDoseMap,
 };
 
-enum MapRenderingType {
+enum MapRenderingType : std::uint8_t {
     ImageRendering,
     TilesRendering,
     IconsRendering,
     UnknownRendering,
 };
 
-enum AlertType {
+enum AlertType : std::uint8_t {
     GenericAlert,
     WindAlert,
     SnowIceAlert,
@@ -70,7 +71,7 @@ enum AlertType {
     RainFloodAlert,
 };
 
-enum AlertSeverity {
+enum AlertSeverity : std::uint8_t {
     MinorSeverity,
     ModerateSeverity,
     SevereSeverity,

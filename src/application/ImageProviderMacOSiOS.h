@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -12,6 +12,9 @@
 #ifndef VREMENAR_IMAGEPROVIDERMACOSIOS_H_
 #define VREMENAR_IMAGEPROVIDERMACOSIOS_H_
 
+#include <QtCore/QSize>
+#include <QtCore/QString>
+#include <QtGui/QImage>
 #include <QtQuick/QQuickImageProvider>
 
 namespace Vremenar
@@ -19,10 +22,9 @@ namespace Vremenar
 
 class SFSymbolsImageProvider final : public QQuickImageProvider // clazy:exclude=ctor-missing-parent-argument,missing-qobject-macro
 {
+    Q_DISABLE_COPY_MOVE(SFSymbolsImageProvider)
 public:
     explicit SFSymbolsImageProvider();
-    SFSymbolsImageProvider(const SFSymbolsImageProvider &) = delete;
-    SFSymbolsImageProvider &operator=(SFSymbolsImageProvider) = delete;
     ~SFSymbolsImageProvider() final = default;
 
     QImage requestImage(const QString &id,
