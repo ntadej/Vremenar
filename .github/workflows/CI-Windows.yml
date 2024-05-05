@@ -73,12 +73,6 @@ jobs:
         run: |
           echo $CONFIG_CMAKE | base64 --decode > Config.cmake
 
-          pushd ../.. > /dev/null || exit
-          if [[ -f "Qt/$QT_VERSION/msvc2019_64/lib/cmake/Qt6Qml/Qt6QmlMacros.cmake" ]]; then
-            patch Qt/$QT_VERSION/msvc2019_64/lib/cmake/Qt6Qml/Qt6QmlMacros.cmake Vremenar/source/3rdparty/qml.patch
-          fi
-          popd > /dev/null || exit
-
       - name: Build
         shell: bash
         run: |

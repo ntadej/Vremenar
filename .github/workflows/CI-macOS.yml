@@ -125,12 +125,6 @@ jobs:
           echo $CONFIG_CMAKE | base64 --decode > Config.cmake
           echo $GOOGLE_SERVICES_APPLE | base64 --decode > GoogleService-Info.plist
 
-          pushd ../.. > /dev/null || exit
-          if [[ -f "Qt/$QT_VERSION/macos/lib/cmake/Qt6Qml/Qt6QmlMacros.cmake" ]]; then
-            patch Qt/$QT_VERSION/macos/lib/cmake/Qt6Qml/Qt6QmlMacros.cmake Vremenar/source/3rdparty/qml.patch
-          fi
-          popd > /dev/null || exit
-
       - name: Build
         working-directory: source
         env:

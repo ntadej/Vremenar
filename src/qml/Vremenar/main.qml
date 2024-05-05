@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -13,9 +13,6 @@ import QtQuick 2.12
 import Qt.labs.platform 1.0
 
 import Vremenar 1.0
-import Vremenar.Common 1.0
-import Vremenar.Fonts 1.0
-import Vremenar.Navigation 1.0
 
 MainWindow {
     id: app

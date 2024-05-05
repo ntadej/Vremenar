@@ -147,21 +147,6 @@ jobs:
           echo $GOOGLE_DEPLOYMENT_KEY | base64 --decode > google-play_api.json
           echo $GOOGLE_SERVICES_ANDROID | base64 --decode > resources/Android/output/google-services.json
 
-          pushd ../.. > /dev/null || exit
-          if [ -f "Qt/$QT_VERSION/android_armv7/lib/cmake/Qt6Qml/Qt6QmlMacros.cmake" ]; then
-            patch Qt/$QT_VERSION/android_armv7/lib/cmake/Qt6Qml/Qt6QmlMacros.cmake Vremenar/source/3rdparty/qml.patch
-          fi
-          if [ -f "Qt/$QT_VERSION/android_arm64_v8a/lib/cmake/Qt6Qml/Qt6QmlMacros.cmake" ]; then
-            patch Qt/$QT_VERSION/android_arm64_v8a/lib/cmake/Qt6Qml/Qt6QmlMacros.cmake Vremenar/source/3rdparty/qml.patch
-          fi
-          if [ -f "Qt/$QT_VERSION/android_x86_64/lib/cmake/Qt6Qml/Qt6QmlMacros.cmake" ]; then
-            patch Qt/$QT_VERSION/android_x86_64/lib/cmake/Qt6Qml/Qt6QmlMacros.cmake Vremenar/source/3rdparty/qml.patch
-          fi
-          if [ -f "Qt/$QT_VERSION/android_x86/lib/cmake/Qt6Qml/Qt6QmlMacros.cmake" ]; then
-            patch Qt/$QT_VERSION/android_x86/lib/cmake/Qt6Qml/Qt6QmlMacros.cmake Vremenar/source/3rdparty/qml.patch
-          fi
-          popd > /dev/null || exit
-
       - name: Build
         working-directory: source
         env:

@@ -100,10 +100,6 @@ jobs:
           echo $CONFIG_CMAKE | base64 --decode > Config.cmake
           echo $GOOGLE_SERVICES_APPLE | base64 --decode > GoogleService-Info.plist
 
-          pushd ../.. > /dev/null || exit
-          patch Qt/$QT_VERSION/ios/lib/cmake/Qt6Qml/Qt6QmlMacros.cmake Vremenar/source/3rdparty/qml.patch
-          popd > /dev/null || exit
-
       - name: Build
         working-directory: source
         env:
