@@ -104,10 +104,6 @@ qt_add_executable(Vremenar WIN32 MACOSX_BUNDLE
     location/Location.h
     location/LocationProvider.cpp
     location/LocationProvider.h
-    location/LocationProviderPlatform.h
-    $<$<AND:$<PLATFORM_ID:Android>,$<BOOL:${VREMENAR_POSITIONING}>>:location/LocationProviderAndroid.cpp>
-    $<$<AND:$<OR:$<PLATFORM_ID:Darwin>,$<PLATFORM_ID:iOS>>,$<BOOL:${VREMENAR_POSITIONING}>>:location/LocationProviderMacOSiOS.h>
-    $<$<AND:$<OR:$<PLATFORM_ID:Darwin>,$<PLATFORM_ID:iOS>>,$<BOOL:${VREMENAR_POSITIONING}>>:location/LocationProviderMacOSiOS.mm>
 
     maps/MapsCommon.cpp
     maps/MapsCommon.h

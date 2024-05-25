@@ -19,7 +19,9 @@
 
 #include "Config.h"
 
+#include <QtCore/QCoreApplication>
 #include <QtCore/QDebug>
+#include <QtCore/QLocationPermission>
 #include <QtCore/QMap>
 #include <QtCore/QObject>
 #include <QtCore/QString>
@@ -58,12 +60,6 @@ LocationProvider::LocationProvider(StationListModel *stations, QObject *parent)
     const Settings settings(this);
     _initialPosition = QGeoPositionInfo(QGeoCoordinate(settings.startupMapLatitude(), settings.startupMapLongitude()), QDateTime::currentDateTime());
 
-#if defined(VREMENAR_POSITIONING) && defined(Q_OS_ANDROID)
-    if (!initAndroid()) {
-        return;
-    }
-#endif
-
 #ifdef VREMENAR_POSITIONING
     _timer->setInterval(updateInterval);
     _timer->setSingleShot(true);
@@ -87,9 +83,20 @@ void LocationProvider::initPosition()
         return;
     }
 
-#if defined(Q_OS_MACOS) || defined(Q_OS_IOS)
-    initMacOSiOS();
-#endif
+    QLocationPermission locationPermission;
+    locationPermission.setAccuracy(QLocationPermission::Approximate);
+    locationPermission.setAvailability(QLocationPermission::WhenInUse);
+    switch (qApp->checkPermission(locationPermission)) {
+    case Qt::PermissionStatus::Undetermined:
+        qDebug() << "Requesting positioning";
+        qApp->requestPermission(locationPermission, this, &LocationProvider::initPosition);
+        return;
+    case Qt::PermissionStatus::Denied:
+        qDebug() << "Positioning not allowed";
+        return;
+    case Qt::PermissionStatus::Granted:
+        qDebug() << "Positioning allowed";
+    }
 
     _position.reset(QGeoPositionInfoSource::createDefaultSource(this));
     if (_position != nullptr) {
@@ -127,9 +134,18 @@ bool LocationProvider::enabled()
     if (settings.locationSource() == Location::Automatic) {
 #ifndef VREMENAR_POSITIONING
         return false;
-#elif defined(Q_OS_MACOS) || defined(Q_OS_IOS)
-        return _platform != nullptr && _platform->servicesEnabled() && _platform->servicesAllowed();
 #else
+        QLocationPermission locationPermission;
+        locationPermission.setAccuracy(QLocationPermission::Approximate);
+        locationPermission.setAvailability(QLocationPermission::WhenInUse);
+        switch (qApp->checkPermission(locationPermission)) {
+        case Qt::PermissionStatus::Undetermined:
+        case Qt::PermissionStatus::Denied:
+            return false;
+        case Qt::PermissionStatus::Granted:
+            break;
+        }
+
         if (!_hasFatalError && _position != nullptr) {
             const QGeoPositionInfoSource::PositioningMethods methods = _position->supportedPositioningMethods();
             const bool status = methods != 0 && !methods.testFlag(QGeoPositionInfoSource::NoPositioningMethods);

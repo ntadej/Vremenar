@@ -12,8 +12,6 @@
 #ifndef VREMENAR_LOCATIONPROVIDER_H_
 #define VREMENAR_LOCATIONPROVIDER_H_
 
-#include "location/LocationProviderPlatform.h"
-
 #include <QtCore/QObject>
 #include <QtCore/QString>
 #include <QtCore/QTimer>
@@ -75,13 +73,6 @@ private slots:
 
 private:
     void initPosition();
-#if defined(Q_OS_MACOS) || defined(Q_OS_IOS)
-    void initMacOSiOS();
-#elif defined(Q_OS_ANDROID)
-    bool initAndroid();
-#endif
-
-    std::unique_ptr<LocationProviderPlatform> _platform;
 
     std::unique_ptr<QTimer> _timer;
 
