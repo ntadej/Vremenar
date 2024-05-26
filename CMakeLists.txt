@@ -1,6 +1,6 @@
 #
 # Vremenar
-# Copyright (C) 2022 Tadej Novak <tadej@tano.si>
+# Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 #
 # This application is bi-licensed under the GNU General Public License
 # Version 3 or later as well as Mozilla Public License Version 2.
@@ -16,11 +16,33 @@ include(config/Version.cmake)
 
 project(Vremenar VERSION ${VREMENAR_VERSION} LANGUAGES CXX)
 
-find_package(Qt6 6.4 COMPONENTS Gui Location Positioning Qml Quick QuickControls2 Sql REQUIRED)
-qt_standard_project_setup()
+# Define common platforms
+if(ANDROID OR IOS)
+    set(MOBILE ON)
+else()
+    set(MOBILE OFF)
+endif()
+
+find_package(Qt6 6.7 COMPONENTS Gui Location Positioning Qml Quick QuickControls2 Sql REQUIRED)
+if(NOT MOBILE)
+    find_package(Qt6 6.7 COMPONENTS Widgets REQUIRED)
+endif()
+find_package(Qt6 6.7 OPTIONAL_COMPONENTS LinguistTools)
+qt_standard_project_setup(I18N_TRANSLATED_LANGUAGES de sl)
+
+find_package(QMapLibre COMPONENTS Location REQUIRED)
 
 include(Config.cmake)
 include(config/Build.cmake)
 
 add_subdirectory(src)
 add_subdirectory(resources)
+
+if(COMMAND qt_add_translations)
+    message(STATUS "Translations: ON")
+    qt_add_translations(
+      TARGETS Vremenar
+      TS_FILE_BASE vremenar
+      TS_FILE_DIR resources/Common/i18n
+    )
+endif()

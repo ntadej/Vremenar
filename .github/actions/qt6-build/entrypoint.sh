@@ -4,7 +4,7 @@ set -e
 set -x
 
 export CCACHE_DIR="$GITHUB_WORKSPACE/.ccache"
-export PATH="$Qt6_DIR/bin:$IQTA_TOOLS/CMake/bin:$PATH"
+export PATH="$QT_ROOT_DIR/bin:$IQTA_TOOLS/CMake/bin:$PATH"
 qmake --version
 cmake --version
 

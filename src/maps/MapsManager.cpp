@@ -46,14 +46,14 @@ void MapsManager::mapChanged(Weather::MapType type,
         qDebug() << "Map rendering type changed to" << type;
     }
 
-    if (_mapObject == nullptr && !getMapObject()) {
+    if (_mapStyleObject == nullptr && !getMapStyleObject()) {
         return;
     }
 
     _type = type;
     _renderingType = renderingType;
 
-    QMetaObject::invokeMethod(_mapObject,
+    QMetaObject::invokeMethod(_mapStyleObject,
                               "addParameters",
                               Q_ARG(QVariant, type),
                               Q_ARG(QVariant, renderingType),
@@ -62,16 +62,16 @@ void MapsManager::mapChanged(Weather::MapType type,
                               Q_ARG(QString, urlNext));
 }
 
-bool MapsManager::getMapObject()
+bool MapsManager::getMapStyleObject()
 {
     auto *window = qobject_cast<QQuickWindow *>(_engine->rootObjects().constFirst());
-    _mapObject = window->findChild<QObject *>(QStringLiteral("mapObject"));
-    if (_mapObject != nullptr) {
-        qDebug() << "Map object found";
+    _mapStyleObject = window->findChild<QObject *>(QStringLiteral("mapStyleObject"));
+    if (_mapStyleObject != nullptr) {
+        qDebug() << "Map style object found";
         return true;
     }
 
-    qDebug() << "Map object not found";
+    qDebug() << "Map style object not found";
     return false;
 }
 

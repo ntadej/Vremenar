@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -11,9 +11,6 @@
 
 .import Vremenar 1.0 as Common
 
-const beforeLayer = "place_label"
-
-var paramPaints = {}
 var paramLayers = {}
 var paramSources = {}
 
@@ -42,93 +39,104 @@ function hashString(string)
 function reset()
 {
     var key
-    for (key in paramPaints) {
-        let object = paramPaints[key]
-        map.removeMapParameter(object)
-        object.destroy()
-    }
-    paramPaints = {}
-
     for (key in paramLayers) {
         let source = paramLayers[key]
-        map.removeMapParameter(source)
+        mapStyle.removeParameter(source)
         source.destroy()
     }
     paramLayers = {}
 
     for (key in paramSources) {
         let object = paramSources[key]
-        map.removeMapParameter(object)
+        mapStyle.removeParameter(object)
         object.destroy()
     }
     paramSources = {}
 }
 
 
-function createSource(map, renderingType, url, source)
+function createSource(mapStyle, renderingType, url, source)
 {
     if (renderingType === Common.Weather.TilesRendering) {
         if (url.indexOf('{z}') === -1) {
             url += '&bbox={bbox-epsg-3857}'
         }
-        return Qt.createQmlObject(`import QtLocation 5.15; DynamicParameter {type: "source"; objectName: "weatherSourceObj${source}"; property var name: "weatherSource${source}"; property var sourceType: "raster"; property var tiles: ["${url}"]; property var tileSize: 512;}`,
-                                  map,
-                                  "sourceParam")
+        return Qt.createQmlObject(`
+            import MapLibre 3.0
+
+            SourceParameter {
+                styleId: "weatherSource${source}"
+                type: "raster"
+                property var tiles: ["${url}"]
+                property int tileSize: 512
+            }
+            `,
+            mapStyle,
+            "sourceParam")
     } else {
-        return Qt.createQmlObject(`import QtLocation 5.15; DynamicParameter {type: "source"; objectName: "weatherSourceObj${source}"; property var name: "weatherSource${source}"; property var sourceType: "image"; property var url: "${url}"; property var coordinates: VMapLayersModel.coordinates;}`,
-                                  map,
-                                  "sourceParam")
+        return Qt.createQmlObject(`
+            import MapLibre 3.0
+
+            SourceParameter {
+                styleId: "weatherSource${source}"
+                type: "image"
+                property string url: "${url}"
+                property var coordinates: VMapLayersModel.coordinates
+            }
+            `,
+            mapStyle,
+            "sourceParam")
     }
 }
 
 
-function createLayer(map, source)
-{
-    return Qt.createQmlObject(`import QtLocation 5.15; DynamicParameter {type: "layer"; objectName: "weatherLayerObj${source}"; property var name: "weatherLayer${source}"; property var layerType: "raster"; property var source: "weatherSource${source}"; property var before: "${beforeLayer}"; property var rasterFadeDuration: 0;}`,
-                              map,
-                              "layerParam")
-}
-
-
-function createPaint(map, visible, source)
+function createLayer(mapStyle, source, visible)
 {
     let opacity = visible ? 0.75 : 0;
-    return Qt.createQmlObject(`import QtLocation 5.15; DynamicParameter {type: "paint";  objectName: "weatherPaintObj${source}"; property var layer: "weatherLayer${source}"; property var rasterOpacity: ${opacity}; property var rasterFadeDuration: 0;}`,
-                              map,
-                              "paintParam")
+    return Qt.createQmlObject(`
+        import MapLibre 3.0
+
+        LayerParameter {
+            styleId: "weatherLayer${source}"
+            type: "raster"
+            property string source: "weatherSource${source}"
+
+            paint: {
+                "raster-fade-duration": 0,
+                "raster-opacity": ${opacity}
+            }
+        }
+        `,
+        mapStyle,
+        "layerParam")
 }
 
-
-function createSourceGroup(map, renderingType, url, source)
+function createSourceGroup(mapStyle, renderingType, url, source)
 {
     if (paramSources.hasOwnProperty(source)) {
         return
     }
 
-    let sourceObj = createSource(map, renderingType, url, source)
+    let sourceObj = createSource(mapStyle, renderingType, url, source)
     paramSources[source] = sourceObj
 
-    let layerObj = createLayer(map, source)
+    let layerObj = createLayer(mapStyle, source)
     paramLayers[source] = layerObj
 
-    let paintObj = createPaint(map, false, source)
-    paramPaints[source] = paintObj
-
-    map.addMapParameter(sourceObj)
-    map.addMapParameter(layerObj)
-    map.addMapParameter(paintObj)
+    mapStyle.addParameter(sourceObj)
+    mapStyle.addParameter(layerObj)
 }
 
 
 function hideAllLayers()
 {
-    for (let param in paramPaints) {
-        paramPaints[param].rasterOpacity = 0
+    for (let param in paramLayers) {
+        paramLayers[param].setPaintProperty("raster-opacity", 0)
     }
 }
 
 
-function addParameters(map, type, renderingType, urlPrevious, urlCurrent, urlNext)
+function addParameters(mapStyle, type, renderingType, urlPrevious, urlCurrent, urlNext)
 {
     if (currentType !== type || currentRenderingType !== renderingType) {
         reset()
@@ -145,10 +153,10 @@ function addParameters(map, type, renderingType, urlPrevious, urlCurrent, urlNex
     let labelCurrent = hashString(urlCurrent)
     let labelNext = hashString(urlNext)
 
-    createSourceGroup(map, renderingType, urlPrevious, labelPrevious)
-    createSourceGroup(map, renderingType, urlCurrent, labelCurrent)
-    createSourceGroup(map, renderingType, urlNext, labelNext)
+    createSourceGroup(mapStyle, renderingType, urlPrevious, labelPrevious)
+    createSourceGroup(mapStyle, renderingType, urlCurrent, labelCurrent)
+    createSourceGroup(mapStyle, renderingType, urlNext, labelNext)
 
     hideAllLayers()
-    paramPaints[labelCurrent].rasterOpacity = 0.75
+    paramLayers[labelCurrent].setPaintProperty("raster-opacity", 0.75)
 }

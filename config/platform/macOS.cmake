@@ -106,6 +106,31 @@ endif()
 set(CARTHAGE_PATH "${CMAKE_SOURCE_DIR}/Carthage/Build")
 set(CARTHAGE_PATH_MAC "${CMAKE_SOURCE_DIR}/Carthage/Build/Mac")
 
+function(copy_target_framework target)
+    string(TOUPPER "${CMAKE_BUILD_TYPE}" _BuildConfiguration)
+    get_target_property(_ImportedConfigurations ${target} IMPORTED_CONFIGURATIONS)
+    if(NOT _BuildConfiguration)
+        list(GET _ImportedConfigurations 0 _Configuration)
+    elseif(_BuildConfiguration IN_LIST _ImportedConfigurations)
+        set(_Configuration ${_BuildConfiguration})
+    else()
+        list(GET _ImportedConfigurations 0 _Configuration)
+    endif()
+
+    get_target_property(_ImportedLocation ${target} IMPORTED_LOCATION_${_Configuration})
+    get_filename_component(_ImportedLocation ${_ImportedLocation} DIRECTORY)
+    get_filename_component(_ImportedLocation ${_ImportedLocation} DIRECTORY)
+    get_filename_component(_ImportedLocation ${_ImportedLocation} DIRECTORY)
+
+    file(COPY "${_ImportedLocation}" DESTINATION "${FRAMEWORKS_OUTPUT_PATH}")
+endfunction()
+
+# MapLibre
+if(NOT CMAKE_GENERATOR STREQUAL "Xcode")
+    copy_target_framework(QMapLibre::Core)
+    copy_target_framework(QMapLibre::Location)
+endif()
+
 # Countly
 find_library(Countly Countly HINTS ${CARTHAGE_PATH} REQUIRED)
 if(CMAKE_GENERATOR STREQUAL "Xcode")

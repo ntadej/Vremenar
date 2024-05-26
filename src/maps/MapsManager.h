@@ -37,13 +37,13 @@ public slots:
                     const QString &urlNext);
 
 private:
-    bool getMapObject();
+    bool getMapStyleObject();
 
     Weather::MapType _type{Weather::UnknownMapType};
     Weather::MapRenderingType _renderingType{Weather::IconsRendering};
 
     QQmlApplicationEngine *_engine{}; // not owned here
-    QObject *_mapObject{};            // not owned here
+    QObject *_mapStyleObject{};       // not owned here
 };
 
 } // namespace Vremenar
