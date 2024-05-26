@@ -33,7 +33,7 @@ jobs:
     runs-on: macos-14
     strategy:
       matrix:
-        type: [developer_id] #, app_store]
+        type: [developer_id, app_store]
 
     steps:
       - name: Checkout
@@ -59,7 +59,7 @@ jobs:
           cd ..
           wget https://github.com/ntadej/qt-build/releases/download/v${QT_VERSION_STATIC}.0/Qt_macOS_static.tar.bz2
           tar xvf Qt_macOS_static.tar.bz2
-          echo "Qt6_DIR=$PWD/Qt/$QT_VERSION_STATIC/macos_static" >> $GITHUB_ENV
+          echo "QT_ROOT_DIR=$PWD/Qt/$QT_VERSION_STATIC/macos_static" >> $GITHUB_ENV
           echo "$PWD/Qt/$QT_VERSION_STATIC/macos_static/bin" >> $GITHUB_PATH
           cd $GITHUB_WORKSPACE
 
@@ -72,18 +72,29 @@ jobs:
           target: desktop
           modules: qtlocation qtpositioning qt5compat
 
-      # - name: Download Qt patches
-      #   if: matrix.type == 'developer_id'
-      #   run: |
-      #     wget https://github.com/ntadej/qcocoa/releases/download/v${QT_VERSION}.0/qcocoa_v${QT_VERSION}.0.tar.bz2
-      #     tar xvf qcocoa_v${QT_VERSION}.0.tar.bz2 -C ..
-
-      - name: Download MapLibre
+      - name: Download Qt patches
         if: matrix.type == 'developer_id'
         run: |
+          wget https://github.com/ntadej/qcocoa/releases/download/v${QT_VERSION}.0/qcocoa_v${QT_VERSION}.0.tar.bz2
+          tar xvf qcocoa_v${QT_VERSION}.0.tar.bz2 -C ..
+
+      - name: Download Qt patches
+        if: matrix.type == 'app_store'
+        run: |
+          wget https://github.com/ntadej/qcocoa/releases/download/v${QT_VERSION}.0/qcocoa_static_v${QT_VERSION}.0.tar.bz2
+          tar xvf qcocoa_static_v${QT_VERSION}.0.tar.bz2 -C ..
+
+      - name: Download MapLibre
+        env:
+          BUILD_TYPE: ${{ matrix.type }}
+        run: |
+          if [[ $BUILD_TYPE == "app_store" ]]; then
+            export MAPLIBRE_SUFFIX="_static"
+          fi
+
           cd ..
-          wget https://github.com/ntadej/maplibre-native-qt/releases/download/v${MAPLIBRE_VERSION}/maplibre-native-qt_v${MAPLIBRE_VERSION}_Qt${QT_VERSION}_macOS.tar.bz2
-          tar xvf maplibre-native-qt_v${MAPLIBRE_VERSION}_Qt${QT_VERSION}_macOS.tar.bz2
+          wget https://github.com/ntadej/maplibre-native-qt/releases/download/v${MAPLIBRE_VERSION}/maplibre-native-qt_v${MAPLIBRE_VERSION}_Qt${QT_VERSION}_macOS${MAPLIBRE_SUFFIX}.tar.bz2
+          tar xvf maplibre-native-qt_v${MAPLIBRE_VERSION}_Qt${QT_VERSION}_macOS${MAPLIBRE_SUFFIX}.tar.bz2
 
           echo "QMapLibre_DIR=$PWD/maplibre-native-qt_v${MAPLIBRE_VERSION}_Qt${QT_VERSION}_macOS" >> $GITHUB_ENV
 

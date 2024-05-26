@@ -37,12 +37,3 @@ include(config/Build.cmake)
 
 add_subdirectory(src)
 add_subdirectory(resources)
-
-if(COMMAND qt_add_translations)
-    message(STATUS "Translations: ON")
-    qt_add_translations(
-      TARGETS Vremenar
-      TS_FILE_BASE vremenar
-      TS_FILE_DIR resources/Common/i18n
-    )
-endif()

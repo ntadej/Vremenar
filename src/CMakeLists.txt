@@ -348,3 +348,13 @@ if(${CMAKE_SYSTEM_NAME} MATCHES "Windows")
         RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}"
     )
 endif()
+
+if(COMMAND qt_add_translations)
+    message(STATUS "Translations: ON")
+    qt_add_translations(
+      Vremenar
+      SOURCE_TARGETS Vremenar
+      TS_FILE_BASE vremenar
+      TS_FILE_DIR ../resources/Common/i18n
+    )
+endif()

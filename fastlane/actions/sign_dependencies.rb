@@ -13,6 +13,9 @@ module Fastlane
                   " runtime '#{ENV['QMapLibre_DIR']}/lib/QMapLibre.framework'"
         Actions.sh "codesign -f -s '#{params[:certificate_name]}' -o" \
                   " runtime '#{ENV['QMapLibre_DIR']}/lib/QMapLibreLocation.framework'"
+
+        return unless Pathname.new("#{ENV['QMapLibre_DIR']}/plugins/geoservices/libqtgeoservices_maplibre.dylib").exist?
+
         Actions.sh "codesign -f -s '#{params[:certificate_name]}' -o" \
                   " runtime '#{ENV['QMapLibre_DIR']}/plugins/geoservices/libqtgeoservices_maplibre.dylib'"
         Actions.sh "codesign -f -s '#{params[:certificate_name]}' -o" \
