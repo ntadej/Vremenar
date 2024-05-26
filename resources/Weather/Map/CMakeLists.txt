@@ -1,6 +1,6 @@
 #
 # Vremenar
-# Copyright (C) 2022 Tadej Novak <tadej@tano.si>
+# Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 #
 # This application is bi-licensed under the GNU General Public License
 # Version 3 or later as well as Mozilla Public License Version 2.
@@ -11,7 +11,7 @@
 
 qt_add_resources(Vremenar map_clear
     PREFIX
-        /Vremenar/Maps/icons
+        /Vremenar/Weather/Map
     FILES
         clear.png
         clear@2x.png
@@ -32,7 +32,7 @@ qt_add_resources(Vremenar map_clear
 
 qt_add_resources(Vremenar map_overcast
     PREFIX
-        /Vremenar/Maps/icons
+        /Vremenar/Weather/Map
     FILES
         overcast.png
         overcast@2x.png
@@ -431,7 +431,7 @@ qt_add_resources(Vremenar map_overcast
 
 qt_add_resources(Vremenar map_partCloudy
     PREFIX
-        /Vremenar/Maps/icons
+        /Vremenar/Weather/Map
     FILES
         partCloudy.png
         partCloudy@2x.png
@@ -830,7 +830,7 @@ qt_add_resources(Vremenar map_partCloudy
 
 qt_add_resources(Vremenar map_prevCloudy
     PREFIX
-        /Vremenar/Maps/icons
+        /Vremenar/Weather/Map
     FILES
         prevCloudy.png
         prevCloudy@2x.png
@@ -1229,7 +1229,7 @@ qt_add_resources(Vremenar map_prevCloudy
 
 qt_add_resources(Vremenar map_FG
     PREFIX
-        /Vremenar/Maps/icons
+        /Vremenar/Weather/Map
     FILES
         FG.png
         FG@2x.png
@@ -1628,7 +1628,7 @@ qt_add_resources(Vremenar map_FG
 
 qt_add_resources(Vremenar map_other
     PREFIX
-        /Vremenar/Maps/icons
+        /Vremenar/Weather/Map
     FILES
         blank.png
 )

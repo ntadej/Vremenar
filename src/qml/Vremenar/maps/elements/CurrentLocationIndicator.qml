@@ -10,7 +10,7 @@
 */
 
 import QtQuick 2.12
-import QtLocation 5.12
+import QtLocation 6.5
 
 import Vremenar 1.0
 

@@ -17,17 +17,6 @@ if(${CMAKE_BUILD_TYPE} MATCHES "Debug")
     endif()
 endif()
 
-# Define common platforms
-if(ANDROID OR IOS)
-    set(MOBILE ON)
-else()
-    set(MOBILE OFF)
-endif()
-
-if(NOT MOBILE)
-    find_package(Qt6 6.4 COMPONENTS Widgets REQUIRED)
-endif()
-
 # Positioning
 option(VREMENAR_POSITIONING "Enable positioning" ON)
 message(STATUS "Positioning: ${VREMENAR_POSITIONING}")

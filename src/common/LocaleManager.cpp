@@ -33,6 +33,9 @@ LocaleManager::LocaleManager(QObject *parent)
       _translator(std::make_unique<QTranslator>())
 {
     QCoreApplication::installTranslator(_translator.get());
+
+    qDebug() << "Available locales:" << loadLocales();
+
     setLocale();
 }
 
@@ -55,7 +58,7 @@ QString LocaleManager::localeName(const QString &file)
     const QLocale locale = QLocale(file);
     QString name = locale.name();
     QString f = file;
-    f = f.remove(QStringLiteral(".qm"));
+    f = f.remove(QStringLiteral(".qm")).remove(QStringLiteral("vremenar_"));
 
     if (name != f) {
         name = f;
@@ -90,7 +93,7 @@ bool LocaleManager::setLanguageByString(const QString &lang,
 {
     const QLocale locale = QLocale(lang);
     qDebug() << "Trying language" << lang << "from source" << source;
-    if (_translator->load(locale, QStringLiteral(":/i18n/"))) {
+    if (_translator->load(locale, QStringLiteral(":/i18n/"), QStringLiteral("vremenar_"))) {
         _locale = locale.name();
 
         qDebug() << "Using locale" << locale;

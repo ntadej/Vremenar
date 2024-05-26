@@ -21,7 +21,7 @@
 
 #include <QtCore/QEvent>
 #include <QtCore/QObject>
-// #include <QtCore/QOverload>
+#include <QtCore/QOverload>
 #include <QtCore/QString>
 #include <QtCore/QStringLiteral>
 #include <QtGui/QActionGroup>

@@ -75,7 +75,7 @@ LocationProvider::LocationProvider(StationListModel *stations, QObject *parent)
     _provider = std::make_unique<QGeoServiceProvider>("osm", params);
     if (_provider->geocodingManager() != nullptr) {
         connect(_provider->geocodingManager(), &QGeoCodingManager::finished, this, &LocationProvider::reverseGeocodingFinished);
-        connect(_provider->geocodingManager(), &QGeoCodingManager::error, this, &LocationProvider::reverseGeocodingError);
+        connect(_provider->geocodingManager(), &QGeoCodingManager::errorOccurred, this, &LocationProvider::reverseGeocodingError);
     }
 }
 

@@ -63,7 +63,7 @@ Item {
 
     Image {
         id: icon
-        source: VCurrent.condition ? "icons/" + VCurrent.condition.icon + ".png" : ""
+        source: VCurrent.condition ? "/Vremenar/Weather/Map/" + VCurrent.condition.icon + ".png" : ""
         width: UI.mapIconSize
         height: UI.mapIconSize
         anchors {

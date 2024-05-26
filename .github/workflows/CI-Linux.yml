@@ -22,13 +22,13 @@ concurrency:
   cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
 env:
-  QT_VERSION: 6.4.3
-  MAPLIBRE_VERSION: 2.1.0
+  QT_VERSION: 6.7.2
+  MAPLIBRE_VERSION: 3.0.0
 
 jobs:
   build:
     name: Build Vremenar (Linux x64)
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
 
     steps:
       - name: Checkout
@@ -39,20 +39,21 @@ jobs:
           fetch-depth: 0
 
       - name: Download Qt
-        uses: jurplel/install-qt-action@v3
+        uses: jurplel/install-qt-action@v4
         with:
           aqtversion: ==3.1.*
           version: ${{ env.QT_VERSION }}
           dir: ${{ github.workspace }}
           target: desktop
-          modules: qtpositioning qtshadertools qt5compat
+          modules: qtlocation qtpositioning qt5compat
           tools: tools_cmake
-          extra: --base https://mirrors.ocf.berkeley.edu/qt/
 
       - name: Download MapLibre
         run: |
-          wget https://github.com/maplibre/maplibre-native-qt/releases/download/v${MAPLIBRE_VERSION}/qt-geoservices-maplibre-gl_v${MAPLIBRE_VERSION}_Qt${QT_VERSION}_Linux.tar.bz2
-          tar xvf qt-geoservices-maplibre-gl_v${MAPLIBRE_VERSION}_Qt${QT_VERSION}_Linux.tar.bz2
+          wget https://github.com/ntadej/maplibre-native-qt/releases/download/v${MAPLIBRE_VERSION}/maplibre-native-qt_v${MAPLIBRE_VERSION}_Qt${QT_VERSION}_Linux.tar.bz2
+          tar xvf maplibre-native-qt_v${MAPLIBRE_VERSION}_Qt${QT_VERSION}_Linux.tar.bz2
+
+          echo "QMapLibre_DIR=$PWD/maplibre-native-qt_v${MAPLIBRE_VERSION}_Qt${QT_VERSION}_Linux" >> $GITHUB_ENV
 
       - name: Configure & prepare
         working-directory: source

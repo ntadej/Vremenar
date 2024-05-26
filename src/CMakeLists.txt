@@ -211,6 +211,7 @@ target_link_libraries(Vremenar PRIVATE
     Qt::QuickControls2
     Qt::Sql
     $<$<NOT:$<BOOL:${MOBILE}>>:Qt::Widgets>
+    QMapLibre::Location
 )
 
 set_target_properties(Vremenar
@@ -225,7 +226,7 @@ set_target_properties(Vremenar
     QT_ANDROID_TARGET_SDK_VERSION 31
 )
 
-if(CLANG_TIDY_EXE)
+if(CLANG_TIDY)
     set_target_properties(
         Vremenar
         PROPERTIES
@@ -233,6 +234,7 @@ if(CLANG_TIDY_EXE)
     )
 endif()
 
+qmaplibre_location_setup_plugins(Vremenar)
 
 if(ANDROID)
     add_android_openssl_libraries(Vremenar)

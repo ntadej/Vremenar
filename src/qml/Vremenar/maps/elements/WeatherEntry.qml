@@ -10,7 +10,7 @@
 */
 
 import QtQuick 2.12
-import QtLocation 5.12
+import QtLocation 6.5
 
 import Vremenar 1.0
 
@@ -40,7 +40,7 @@ MapQuickItem {
             id: imageTmp
             anchors.centerIn: parent
             anchors.alignWhenCentered: true
-            source: iconTmp ? "../icons/" + iconTmp + ".png" : ""
+            source: iconTmp ? "/Vremenar/Weather/Map/" + iconTmp + ".png" : ""
 
             NumberAnimation on opacity {
                 id: fadeOutAnimation
@@ -53,7 +53,7 @@ MapQuickItem {
             id: image
             anchors.centerIn: parent
             anchors.alignWhenCentered: true
-            source: icon ? "../icons/" + icon + ".png" : ""
+            source: icon ? "/Vremenar/Weather/Map/" + icon + ".png" : ""
 
             NumberAnimation on opacity {
                 id: fadeInAnimation
