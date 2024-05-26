@@ -25,11 +25,6 @@ class QCompleter;
 class QDoubleValidator;
 class QWidget;
 
-#if defined(Q_OS_MACOS)
-class QMacToolBar;
-class QMacToolBarItem;
-#endif
-
 namespace Vremenar
 {
 
@@ -93,17 +88,6 @@ private:
     void loadLocales();
     void loadSources();
     QStringList _locales;
-
-#if defined(Q_OS_MACOS)
-    void initializeMacOS(bool notificationsSupported);
-    void retranslateMacOS();
-    void actionToggledMacOS();
-
-    std::unique_ptr<QMacToolBar> _macToolbar;
-    std::unique_ptr<QMacToolBarItem> _macItemGeneral;
-    std::unique_ptr<QMacToolBarItem> _macItemNotifications;
-    std::unique_ptr<QMacToolBarItem> _macItemInterface;
-#endif
 };
 
 } // namespace Vremenar

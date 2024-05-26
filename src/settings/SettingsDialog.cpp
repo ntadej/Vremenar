@@ -33,11 +33,6 @@
 #include <QtWidgets/QRadioButton>
 #include <QtWidgets/QWidget>
 
-#ifdef Q_OS_MACOS
-#include "QMacToolBar.h"     // IWYU pragma: keep
-#include "QMacToolBarItem.h" // IWYU pragma: keep
-#endif
-
 #include <memory>
 #include <utility>
 
@@ -73,13 +68,9 @@ SettingsDialog::SettingsDialog(StationListModel *stationsModel,
                    | Qt::WindowCloseButtonHint
                    | Qt::CustomizeWindowHint);
 
-#if defined(Q_OS_MACOS)
-    initializeMacOS(notificationsSupported);
-#else
     connect(ui->actionGeneral, &QAction::toggled, this, &SettingsDialog::actionToggled);
     connect(ui->actionNotifications, &QAction::toggled, this, &SettingsDialog::actionToggled);
     connect(ui->actionInterface, &QAction::toggled, this, &SettingsDialog::actionToggled);
-#endif
 
     connect(ui->checkNotifications, &QCheckBox::toggled, this, &SettingsDialog::notificationsEnabledChangedSlot);
     connect(ui->radioAlertsExtreme, &QRadioButton::clicked, this, &SettingsDialog::notificationsSeverityChangedSlot);
@@ -144,9 +135,6 @@ void SettingsDialog::changeEvent(QEvent *e)
     switch (e->type()) {
     case QEvent::LanguageChange:
         ui->retranslateUi(this);
-#if defined(Q_OS_MACOS)
-        retranslateMacOS();
-#endif
         loadLocales();
         loadSources();
         break;
@@ -173,9 +161,6 @@ void SettingsDialog::notificationsStatus(bool enabled)
 
 void SettingsDialog::actionToggled()
 {
-#if defined(Q_OS_MACOS)
-    actionToggledMacOS();
-#else
     auto *action = qobject_cast<QAction *>(sender());
 
     setWindowTitle(action->text());
@@ -186,7 +171,6 @@ void SettingsDialog::actionToggled()
     } else if (action == ui->actionInterface) {
         ui->stackedWidget->setCurrentWidget(ui->pageInterface);
     }
-#endif
 }
 
 void SettingsDialog::readSettings()

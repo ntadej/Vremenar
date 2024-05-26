@@ -130,7 +130,6 @@ qt_add_executable(Vremenar WIN32 MACOSX_BUNDLE
     $<$<NOT:$<BOOL:${MOBILE}>>:settings/SettingsDialog.cpp>
     $<$<NOT:$<BOOL:${MOBILE}>>:settings/SettingsDialog.h>
     $<$<NOT:$<BOOL:${MOBILE}>>:settings/SettingsDialog.ui>
-    $<$<PLATFORM_ID:Darwin>:settings/SettingsDialogMacOS.mm>
 
     weather/CurrentWeather.cpp
     weather/CurrentWeather.h
@@ -287,13 +286,8 @@ target_include_directories(Vremenar PRIVATE
 )
 
 if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
-    add_subdirectory(${CMAKE_SOURCE_DIR}/3rdparty/QMacToolBar QMacToolBar)
     target_link_libraries(Vremenar PRIVATE
-        QMacToolBar
         $<$<NOT:$<BOOL:${VREMENAR_STORE}>>:${Sparkle}>
-    )
-    target_include_directories(Vremenar SYSTEM PRIVATE
-        ${CMAKE_SOURCE_DIR}/3rdparty/QMacToolBar
     )
 endif()
 
