@@ -107,7 +107,7 @@ jobs:
           brew install graphicsmagick imagemagick
 
       - name: Setup ninja
-        uses: seanmiddleditch/gha-setup-ninja@v4
+        uses: seanmiddleditch/gha-setup-ninja@v5
 
       - name: Set up ccache
         uses: hendrikmuhs/ccache-action@v1
