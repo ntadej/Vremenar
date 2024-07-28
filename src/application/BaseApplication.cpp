@@ -40,6 +40,7 @@ void Application::preInit()
     qputenv("QT_GEOCLUE_APP_DESKTOP_ID", QString(Vremenar::appID).toUtf8());
 #endif
 
+#if !defined(Q_OS_IOS)
     // Certificates
     auto cfg = QSslConfiguration::defaultConfiguration();
     if (!cfg.addCaCertificates(":/certificates/isrgrootx1.pem") || !cfg.addCaCertificates(":/certificates/isrg-root-x2.pem")) {
@@ -47,6 +48,7 @@ void Application::preInit()
     }
 
     QSslConfiguration::setDefaultConfiguration(cfg);
+#endif
 
     Log::setup();
 }
