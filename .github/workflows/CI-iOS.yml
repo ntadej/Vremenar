@@ -1,22 +1,20 @@
-name: iOS CI (Qt6)
+name: iOS CI
 on:
   workflow_dispatch:
-  # push:
-  #   branches:
-  #     - "**"
-  #   tags:
-  #     - "**"
-  #   paths-ignore:
-  #     - ".gitignore"
-  #     - "README.md"
-  #     # ignore CI for other platforms
-  #     - ".github/actions/**"
-  #     - ".github/workflows/CI-Android.yml"
-  #     - ".github/workflows/CI-iOS-Qt5.yml"
-  #     - ".github/workflows/CI-Linux.yml"
-  #     - ".github/workflows/CI-macOS.yml"
-  #     - ".github/workflows/CI-Windows-Qt5.yml"
-  #     - ".github/workflows/CI-Windows.yml"
+  push:
+    branches:
+      - "**"
+    tags:
+      - "**"
+    paths-ignore:
+      - ".gitignore"
+      - "README.md"
+      # ignore CI for other platforms
+      - ".github/actions/**"
+      - ".github/workflows/CI-Android.yml"
+      - ".github/workflows/CI-Linux.yml"
+      - ".github/workflows/CI-macOS.yml"
+      - ".github/workflows/CI-Windows.yml"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -49,13 +47,21 @@ jobs:
         with:
           xcode-version: latest-stable
 
-      - name: Download Qt
+      - name: Download Qt (Desktop)
+        uses: jurplel/install-qt-action@v4
+        with:
+          aqtversion: ==3.1.*
+          version: ${{ env.QT_VERSION }}
+          target: desktop
+          modules: qtlocation qtpositioning qtshadertools qt5compat
+
+      - name: Download Qt (iOS)
         uses: jurplel/install-qt-action@v4
         with:
           aqtversion: ==3.1.*
           version: ${{ env.QT_VERSION }}
           target: ios
-          modules: qtlocation qtpositioning qt5compat
+          modules: qtlocation qtpositioning qtshadertools qt5compat
 
       - name: Download Qt patches
         run: |
@@ -64,8 +70,10 @@ jobs:
 
       - name: Download MapLibre
         run: |
-          wget https://github.com/maplibre/maplibre-native-qt/releases/download/v${MAPLIBRE_VERSION}/qt-geoservices-maplibre-gl_v${MAPLIBRE_VERSION}_Qt${QT_VERSION}_iOS.tar.bz2
-          tar xvf qt-geoservices-maplibre-gl_v${MAPLIBRE_VERSION}_Qt${QT_VERSION}_iOS.tar.bz2 -C ..
+          wget https://github.com/ntadej/maplibre-native-qt/releases/download/v${MAPLIBRE_VERSION}/maplibre-native-qt_v${MAPLIBRE_VERSION}_Qt${QT_VERSION}_iOS.tar.bz2
+          tar xvf maplibre-native-qt_v${MAPLIBRE_VERSION}_Qt${QT_VERSION}_iOS.tar.bz2
+
+          echo "QMapLibre_DIR=$PWD/maplibre-native-qt_v${MAPLIBRE_VERSION}_Qt${QT_VERSION}_iOS" >> $GITHUB_ENV
 
       - name: Setup Fastlane
         uses: ruby/setup-ruby@v1
@@ -81,11 +89,13 @@ jobs:
       - name: Configure & prepare
         working-directory: source
         env:
+          APPLE_DEPLOYMENT_KEY: ${{ secrets.APPLE_DEPLOYMENT_KEY }}
           CONFIG_CMAKE: ${{ secrets.CONFIG_CMAKE }}
           GOOGLE_SERVICES_APPLE: ${{ secrets.GOOGLE_SERVICES_APPLE }}
         run: |
           bundle exec fastlane ios prepare_qt6
 
+          echo $APPLE_DEPLOYMENT_KEY | base64 --decode > appstore_api.json
           echo $CONFIG_CMAKE | base64 --decode > Config.cmake
           echo $GOOGLE_SERVICES_APPLE | base64 --decode > GoogleService-Info.plist
 
@@ -95,6 +105,10 @@ jobs:
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
         run: |
           export FL_RUN_CMAKE_XCODE_PATH="${MD_APPLE_SDK_ROOT}"
-          export QT_HOST_PATH="$(readlink -f "$Qt6_DIR/../macos")"
+          export QT_HOST_PATH="$(readlink -f "$QT_ROOT_DIR/../macos")"
 
-          bundle exec fastlane ios testbuild
+          if [ "$GITHUB_REF_NAME" = "deploy" ]; then
+            export DEPLOY=true
+          fi
+
+          bundle exec fastlane ios app_store || bundle exec fastlane ios app_store

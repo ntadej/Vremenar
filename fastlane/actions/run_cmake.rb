@@ -76,6 +76,7 @@ module Fastlane
         when 'ios'
           command += ' -G Xcode'
           command += " -DCMAKE_OSX_DEPLOYMENT_TARGET='14.0' -DCMAKE_OSX_ARCHITECTURES='arm64'"
+          command += " -DQMapLibre_DIR=\"#{ENV['QMapLibre_DIR']}/lib/cmake/QMapLibre\""
           unless params[:certificate_name].empty?
             command += " -DCMAKE_XCODE_ATTRIBUTE_CODE_SIGN_IDENTITY='#{params[:certificate_name]}'"
           end

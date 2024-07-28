@@ -25,7 +25,7 @@ module Fastlane
         FileUtils.mkdir_p deployment_path
         FileUtils.mkdir_p package_path
 
-        prepare_deployment project_path, build_path, deployment_path, 'qt5'
+        prepare_deployment project_path, build_path, deployment_path
         cleanup_deployment build_type, deployment_path
 
         output_file_name = ''
@@ -33,15 +33,15 @@ module Fastlane
         Dir.chdir package_path do
           case build_type
           when 'store'
-            program_files = "VFS/ProgramFilesX64/Vremenar"
+            program_files = 'VFS/ProgramFilesX64/Vremenar'
             FileUtils.mkdir_p program_files
             FileUtils.cp_r "#{relative_output_path}/deployment/.", program_files
-            FileUtils.cp_r "#{project_path}/resources/Windows/Assets", "."
+            FileUtils.cp_r "#{project_path}/resources/Windows/Assets", '.'
 
-            FileUtils.cp_r "#{relative_build_path}/AppxManifest.xml", "."
+            FileUtils.cp_r "#{relative_build_path}/AppxManifest.xml", '.'
 
-            Actions.sh "makepri.exe createconfig /cf priconfig.xml /dq en-US /o"
-            Actions.sh "makepri.exe new /pr . /cf priconfig.xml /o"
+            Actions.sh 'makepri.exe createconfig /cf priconfig.xml /dq en-US /o'
+            Actions.sh 'makepri.exe new /pr . /cf priconfig.xml /o'
             Actions.sh "makeappx.exe pack /d . /p #{relative_output_path}/Vremenar.msix /o"
 
             output_file_name = 'Vremenar.msix'
@@ -54,14 +54,10 @@ module Fastlane
         Actions.lane_context[SharedValues::CREATE_WINDOWS_PACKAGE_OUTPUT_FILE] = output_file
       end
 
-      def self.prepare_deployment(project_path, build_path, deployment_path, platform)
+      def self.prepare_deployment(project_path, build_path, deployment_path)
         UI.message 'Preparing deployment'
 
-        qt_path = if platform.include? 'qt5'
-                    ENV['Qt5_Dir']
-                  else
-                    ENV['Qt6_Dir']
-                  end
+        qt_path = ENV['Qt6_Dir']
 
         UI.message "Qt path: #{qt_path}"
 
@@ -70,8 +66,10 @@ module Fastlane
         Dir.chdir build_path do
           FileUtils.cp 'release/Vremenar.exe', "#{relative_path}/Vremenar.exe"
 
-          FileUtils.cp "#{qt_path}/../../Tools/OpenSSLv3/Win_x64/bin/libcrypto-3-x64.dll", "#{relative_path}/libcrypto-3-x64.dll"
-          FileUtils.cp "#{qt_path}/../../Tools/OpenSSLv3/Win_x64/bin/libssl-3-x64.dll", "#{relative_path}/libssl-3-x64.dll"
+          FileUtils.cp "#{qt_path}/../../Tools/OpenSSLv3/Win_x64/bin/libcrypto-3-x64.dll",
+                       "#{relative_path}/libcrypto-3-x64.dll"
+          FileUtils.cp "#{qt_path}/../../Tools/OpenSSLv3/Win_x64/bin/libssl-3-x64.dll",
+                       "#{relative_path}/libssl-3-x64.dll"
         end
 
         Dir.chdir deployment_path do
@@ -119,7 +117,7 @@ module Fastlane
           end
 
           to_remove.each do |path_string|
-            path = Pathname.new('.').expand_path() / path_string
+            path = Pathname.new('.').expand_path / path_string
             path.rmtree if path.exist?
           end
         end

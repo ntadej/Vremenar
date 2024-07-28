@@ -44,14 +44,6 @@ Make a store build
 
 Prepare Qt
 
-### ios prepare_qt5
-
-```sh
-[bundle exec] fastlane ios prepare_qt5
-```
-
-Prepare Qt5
-
 ### ios prepare_qt6
 
 ```sh
@@ -66,7 +58,7 @@ Prepare Qt6
 [bundle exec] fastlane ios testbuild
 ```
 
-Make a development build (Qt6)
+Make a development build
 
 ### ios app_store
 
@@ -74,7 +66,7 @@ Make a development build (Qt6)
 [bundle exec] fastlane ios app_store
 ```
 
-Make a store build (Qt5)
+Make a store build
 
 ----
 

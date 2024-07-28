@@ -11,10 +11,8 @@ on:
       - "README.md"
       # ignore CI for other platforms
       - ".github/workflows/CI-Android.yml"
-      - ".github/workflows/CI-iOS-Qt5.yml"
       - ".github/workflows/CI-iOS.yml"
       - ".github/workflows/CI-macOS.yml"
-      - ".github/workflows/CI-Windows-Qt5.yml"
       - ".github/workflows/CI-Windows.yml"
 
 concurrency:
