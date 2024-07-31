@@ -30,6 +30,13 @@ endif()
 find_package(Qt6 6.7 OPTIONAL_COMPONENTS LinguistTools)
 qt_standard_project_setup(I18N_TRANSLATED_LANGUAGES de sl)
 
+qt_policy(SET QTP0002 NEW)
+
+if(ANDROID AND DEFINED ENV{QMapLibre_Android_DIR})
+    message(STATUS "Setting QMapLibre_DIR to $ENV{QMapLibre_Android_DIR}/${ANDROID_ABI}/lib/cmake/QMapLibre")
+    set(QMapLibre_DIR "$ENV{QMapLibre_Android_DIR}/${ANDROID_ABI}/lib/cmake/QMapLibre")
+endif()
+
 find_package(QMapLibre COMPONENTS Location REQUIRED)
 
 include(Config.cmake)

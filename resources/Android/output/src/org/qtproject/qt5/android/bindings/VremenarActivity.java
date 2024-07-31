@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -11,10 +11,12 @@
 
 package si.tano.vremenar;
 
+import android.Manifest;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.UiModeManager;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Insets;
 import android.os.Build;
@@ -23,8 +25,9 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowInsets;
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.common.GoogleApiAvailabilityLight;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;
@@ -62,7 +65,7 @@ public class VremenarActivity extends QtActivity
 
     public boolean checkPlayServices()
     {
-        int resultCode = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(this);
+        int resultCode = GoogleApiAvailabilityLight.getInstance().isGooglePlayServicesAvailable(this);
         return resultCode == ConnectionResult.SUCCESS;
     }
 
@@ -94,6 +97,43 @@ public class VremenarActivity extends QtActivity
         Countly.sharedInstance().events().recordEvent(event);
     }
 
+    private void askNotificationPermission()
+    {
+        // This is only necessary for API Level > 33 (TIRAMISU)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            Log.d(TAG, "Asking for notifications permission");
+
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED) {
+                // FCM SDK (and your app) can post notifications.
+            } else {
+                // Directly ask for the permission
+                requestPermissions(new String[] {Manifest.permission.POST_NOTIFICATIONS}, 123);
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults)
+    {
+        switch (requestCode) {
+        case 123:
+            // If request is cancelled, the result arrays are empty.
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permission is granted. Continue the action or workflow
+                // in your app.
+                Log.d(TAG, "Notifications permission granted.");
+            } else {
+                // Explain to the user that the feature is unavailable because
+                // the feature requires a permission that the user has denied.
+                // At the same time, respect the user's decision. Don't link to
+                // system settings in an effort to convince the user to change
+                // their decision.
+                Log.d(TAG, "Notifications permission not granted.");
+            }
+            return;
+        }
+    }
+
     public boolean notificationsSupported()
     {
         return checkPlayServices();
@@ -104,6 +144,8 @@ public class VremenarActivity extends QtActivity
         if (!checkPlayServices() || notificationsRequested) {
             return true;
         }
+
+        askNotificationPermission();
 
         FirebaseMessaging.getInstance().getToken();
         notificationsRequested = true;
@@ -170,11 +212,11 @@ public class VremenarActivity extends QtActivity
     }
 
     @Override
-    protected void onCreateHook(Bundle savedInstanceState)
+    public void onCreate(Bundle savedInstanceState)
     {
-        this.QT_ANDROID_DEFAULT_THEME = "VremenarTheme";
+        // this.QT_ANDROID_DEFAULT_THEME = "VremenarTheme";
 
-        super.onCreateHook(savedInstanceState);
+        super.onCreate(savedInstanceState);
 
         View decorView = getWindow().getDecorView();
         // Hide the status bar.

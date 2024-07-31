@@ -86,7 +86,9 @@ private:
     QGeoLocation _currentLocation;
 
     QGeoPositionInfoSource::PositioningMethods _currentSupportedMethods;
+#ifdef VREMENAR_POSITIONING
     bool _hasFatalError{};
+#endif
 };
 
 } // namespace Vremenar

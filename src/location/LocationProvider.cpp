@@ -311,7 +311,9 @@ void LocationProvider::positionError(QGeoPositionInfoSource::Error error)
     case QGeoPositionInfoSource::AccessError:
         qWarning() << "This application is not allowed to do positioning.";
 #if defined(Q_OS_LINUX) && !defined(Q_OS_ANDROID)
+#ifdef VREMENAR_POSITIONING
         _hasFatalError = true;
+#endif
         emit enabledChanged(false);
 #endif
         break;

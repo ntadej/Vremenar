@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2023 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -63,11 +63,12 @@ void Qml::UIManager::toastAndroid(const QString &message)
     // all the magic must happen on Android UI thread
     QNativeInterface::QAndroidApplication::runOnAndroidMainThread([message] {
         const QJniObject javaString = QJniObject::fromString(message);
+        QtJniTypes::Context androidContext = QNativeInterface::QAndroidApplication::context();
         // NOLINTNEXTLINE(cppcoreguidelines-pro-type-vararg)
         const QJniObject toast = QJniObject::callStaticObjectMethod("android/widget/Toast",
                                                                     "makeText",
                                                                     "(Landroid/content/Context;Ljava/lang/CharSequence;I)Landroid/widget/Toast;",
-                                                                    QNativeInterface::QAndroidApplication::context(),
+                                                                    androidContext.object(),
                                                                     javaString.object(),
                                                                     static_cast<jint>(0));
         toast.callMethod<void>("show");
