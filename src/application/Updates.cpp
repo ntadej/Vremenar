@@ -24,12 +24,15 @@
 
 #include <QtCore/QDebug>
 #include <QtCore/QJsonDocument>
+#include <QtCore/QLatin1StringView>
 #include <QtCore/QObject>
 #include <QtCore/QString>
-#include <QtCore/QStringLiteral>
 #include <QtCore/QVersionNumber>
 #include <QtNetwork/QNetworkReply>
 #include <QtNetwork/QNetworkRequest>
+
+using Qt::Literals::StringLiterals::operator""_L1;
+using Qt::Literals::StringLiterals::operator""_s;
 
 namespace Vremenar
 {
@@ -65,8 +68,8 @@ void Updates::request()
 {
     APIRequestBase request;
     request.setBaseUrl(Vremenar::APIEndpoint);
-    request.setCall(QStringLiteral("/version"));
-    request.setUrl(QStringLiteral("/version"));
+    request.setCall(u"/version"_s);
+    request.setUrl(u"/version"_s);
     request.setAttribute(QNetworkRequest::CacheLoadControlAttribute, QNetworkRequest::AlwaysNetwork);
 
     APILoader::request(request);
@@ -79,13 +82,13 @@ void Updates::response(QNetworkReply *reply)
     }
 
     const QJsonDocument document = QJsonDocument::fromJson(reply->readAll());
-    if (requestFromResponse(reply).call() == QStringLiteral("/version")) {
-        _server = document[QStringLiteral("server")].toString();
+    if (requestFromResponse(reply).call() == "/version"_L1) {
+        _server = document["server"_L1].toString();
         emit serverChanged();
 
 #if !defined(VREMENAR_STORE) && !defined(Q_OS_MACOS) && !defined(Q_OS_WINDOWS)
-        const QString stable = document[QStringLiteral("stable")].toString();
-        const QString beta = document[QStringLiteral("beta")].toString();
+        const QString stable = document["stable"_L1].toString();
+        const QString beta = document["beta"_L1].toString();
         compareVersion(stable, beta);
 #endif
     }
@@ -108,13 +111,13 @@ void Updates::compareVersion(const QString &stable,
         if (!stableVersion.isNull() && currentVersion < stableVersion) {
             qDebug() << "Update available:" << stableVersion;
             _message = tr("An update is available. Do you want to download it now?");
-            _url = QStringLiteral("https://vremenar.app");
+            _url = u"https://vremenar.app"_s;
             emit messageChanged();
             emit updateAvailable();
         } else if (!betaVersion.isNull() && currentVersion < betaVersion) {
             qDebug() << "Testing update available:" << betaVersion;
             _message = tr("A new testing update is available. Do you want to download it now?");
-            _url = QStringLiteral("https://vremenar.app");
+            _url = u"https://vremenar.app"_s;
             emit messageChanged();
             emit updateAvailable();
         } else {

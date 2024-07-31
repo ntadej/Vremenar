@@ -16,10 +16,11 @@
 
 #include <QtCore/QJsonObject>
 #include <QtCore/QString>
-#include <QtCore/QStringLiteral>
 #include <QtCore/QUrlQuery>
 #include <QtNetwork/QNetworkAccessManager>
 #include <QtPositioning/QGeoCoordinate>
+
+using Qt::Literals::StringLiterals::operator""_s;
 
 namespace Vremenar
 {
@@ -27,16 +28,16 @@ namespace Vremenar
 APIRequest API::stations(const QGeoCoordinate &coordinate)
 {
     QUrlQuery query = Sources::sourceQuery();
-    query.addQueryItem(QStringLiteral("include_forecast_only"), QStringLiteral("true"));
+    query.addQueryItem(u"include_forecast_only"_s, u"true"_s);
 
     QJsonObject data;
-    data[QStringLiteral("latitude")] = coordinate.latitude();
-    data[QStringLiteral("longitude")] = coordinate.longitude();
+    data[u"latitude"_s] = coordinate.latitude();
+    data[u"longitude"_s] = coordinate.longitude();
 
     APIRequest request;
     request.setOperation(QNetworkAccessManager::PostOperation);
-    request.setCall(QStringLiteral("/stations/coordinate"));
-    request.setUrl(QStringLiteral("/stations/find"), query);
+    request.setCall(u"/stations/coordinate"_s);
+    request.setUrl(u"/stations/find"_s, query);
     request.setData(data);
     request.setExtra(coordinate.toString());
 
@@ -46,15 +47,15 @@ APIRequest API::stations(const QGeoCoordinate &coordinate)
 APIRequest API::stations(const QString &string)
 {
     QUrlQuery query = Sources::sourceQuery();
-    query.addQueryItem(QStringLiteral("include_forecast_only"), QStringLiteral("true"));
+    query.addQueryItem(u"include_forecast_only"_s, u"true"_s);
 
     QJsonObject data;
-    data[QStringLiteral("string")] = string;
+    data[u"string"_s] = string;
 
     APIRequest request;
     request.setOperation(QNetworkAccessManager::PostOperation);
-    request.setCall(QStringLiteral("/stations/string"));
-    request.setUrl(QStringLiteral("/stations/find"), query);
+    request.setCall(u"/stations/string"_s);
+    request.setUrl(u"/stations/find"_s, query);
     request.setData(data);
     request.setExtra(string);
 
@@ -66,7 +67,7 @@ APIRequest API::stationWeatherCondition(const QString &id)
     const QUrlQuery query = Sources::sourceQuery();
 
     APIRequest request;
-    request.setCall(QStringLiteral("/stations/condition"));
+    request.setCall(u"/stations/condition"_s);
     request.setUrl("/stations/condition/" + id, query);
     request.setExtra(id);
 
@@ -78,8 +79,8 @@ APIRequest API::stationsList()
     const QUrlQuery query = Sources::sourceQuery();
 
     APIRequest request;
-    request.setCall(QStringLiteral("/stations/list"));
-    request.setUrl(QStringLiteral("/stations/list"), query);
+    request.setCall(u"/stations/list"_s);
+    request.setUrl(u"/stations/list"_s, query);
 
     return request;
 }
@@ -89,7 +90,7 @@ APIRequest API::stationsMap(const QString &url)
     const QUrlQuery query = Sources::sourceQuery();
 
     APIRequest request;
-    request.setCall(QStringLiteral("/stations/map"));
+    request.setCall(u"/stations/map"_s);
     request.setUrl(url, query);
 
     return request;

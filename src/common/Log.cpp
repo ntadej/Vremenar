@@ -19,9 +19,9 @@
 #include <QtCore/QDateTime>
 #include <QtCore/QDebug>
 #include <QtCore/QFile>
+#include <QtCore/QLatin1StringView>
 #include <QtCore/QMutex>
 #include <QtCore/QString>
-#include <QtCore/QStringLiteral>
 #include <QtCore/QTextStream>
 
 #ifdef Q_OS_ANDROID
@@ -30,6 +30,9 @@
 
 #include <cstdlib>
 #include <memory>
+
+using Qt::Literals::StringLiterals::operator""_L1;
+using Qt::Literals::StringLiterals::operator""_s;
 
 namespace Vremenar
 {
@@ -57,47 +60,47 @@ void Log::output(QtMsgType type,
     android_LogPriority priority = ANDROID_LOG_DEFAULT;
 #endif
 
-    QString debugdate = QDateTime::currentDateTime().toString(QStringLiteral("yyyy-MM-dd hh:mm:ss"));
+    QString debugdate = QDateTime::currentDateTime().toString(u"yyyy-MM-dd hh:mm:ss"_s);
     switch (type) {
     case QtInfoMsg:
-        debugdate += QStringLiteral(" [I]");
+        debugdate += " [I]"_L1;
 #ifdef Q_OS_ANDROID
         priority = ANDROID_LOG_INFO;
 #endif
         break;
     case QtDebugMsg:
-        debugdate += QStringLiteral(" [D]");
+        debugdate += " [D]"_L1;
 #ifdef Q_OS_ANDROID
         priority = ANDROID_LOG_DEBUG;
 #endif
         break;
     case QtWarningMsg:
-        debugdate += QStringLiteral(" [W]");
+        debugdate += " [W]"_L1;
 #ifdef Q_OS_ANDROID
         priority = ANDROID_LOG_WARN;
 #endif
         break;
     case QtCriticalMsg:
-        debugdate += QStringLiteral(" [C]");
+        debugdate += " [C]"_L1;
 #ifdef Q_OS_ANDROID
         priority = ANDROID_LOG_ERROR;
 #endif
         break;
     case QtFatalMsg:
-        debugdate += QStringLiteral(" [F]");
+        debugdate += " [F]"_L1;
 #ifdef Q_OS_ANDROID
         priority = ANDROID_LOG_FATAL;
 #endif
         break;
     }
-    (*out) << debugdate << QStringLiteral(" ") << msg << Qt::endl;
+    (*out) << debugdate << " "_L1 << msg << Qt::endl;
 
     //#ifdef QT_DEBUG
-    Output(true) << debugdate << QStringLiteral(" ") << msg << Qt::endl;
+    Output(true) << debugdate << " "_L1 << msg << Qt::endl;
     //#endif
 
 #ifdef Q_OS_ANDROID
-    __android_log_write(priority, androidName.c_str(), (debugdate + QStringLiteral(" ") + msg).toStdString().c_str());
+    __android_log_write(priority, androidName.c_str(), (debugdate + " "_L1 + msg).toStdString().c_str());
 #endif
 
     if (QtFatalMsg == type) {

@@ -18,10 +18,12 @@
 #include "weather/models/StationListModel.h"
 
 #include <QtCore/QJsonArray>
+#include <QtCore/QLatin1StringView>
 #include <QtCore/QObject>
-#include <QtCore/QStringLiteral>
 
 #include <memory>
+
+using Qt::Literals::StringLiterals::operator""_L1;
 
 namespace Vremenar
 {
@@ -34,10 +36,10 @@ void WeatherMapModel::addEntries(StationListModel *stations,
 {
     for (const auto &obj : data) {
         const QJsonObject object = obj.toObject();
-        const StationInfo *station = stations->find<StationInfo>(object[QStringLiteral("station")].toObject()[QStringLiteral("id")].toString());
+        const StationInfo *station = stations->find<StationInfo>(object["station"_L1].toObject()["id"_L1].toString());
         appendRow(std::make_unique<WeatherInfo>(
             std::make_unique<StationInfo>(station->id(), station->display(), station->coordinate(), station->zoomLevel(), station->forecastOnly(), station->alertsArea()),
-            WeatherCondition::fromJson(object[QStringLiteral("condition")].toObject())));
+            WeatherCondition::fromJson(object["condition"_L1].toObject())));
     }
 }
 

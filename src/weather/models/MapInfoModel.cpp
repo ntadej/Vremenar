@@ -17,12 +17,14 @@
 
 #include <QtCore/QJsonArray>
 #include <QtCore/QJsonObject>
+#include <QtCore/QLatin1StringView>
 #include <QtCore/QObject>
-#include <QtCore/QStringLiteral>
 
 #include <cstddef>
 #include <memory>
 #include <vector>
+
+using Qt::Literals::StringLiterals::operator""_L1;
 
 namespace Vremenar
 {
@@ -44,12 +46,12 @@ void MapInfoModel::generateModel(const QJsonArray &supported)
 {
     for (const auto &typeInfoRef : supported) {
         const QJsonObject typeInfo = typeInfoRef.toObject();
-        const auto mapType = Weather::mapTypeFromString(typeInfo[QStringLiteral("map_type")].toString());
+        const auto mapType = Weather::mapTypeFromString(typeInfo["map_type"_L1].toString());
         // backward compatibility
         const QString renderingTypeString
-            = typeInfo.contains(QStringLiteral("rendering_type"))
-                  ? typeInfo[QStringLiteral("rendering_type")].toString()
-                  : typeInfo[QStringLiteral("rendering")].toString();
+            = typeInfo.contains("rendering_type"_L1)
+                  ? typeInfo["rendering_type"_L1].toString()
+                  : typeInfo["rendering"_L1].toString();
         const auto renderingType = Weather::mapRenderingTypeFromString(renderingTypeString);
         if (mapType == Weather::MapType::UnknownMapType || renderingType == Weather::MapRenderingType::UnknownRendering) {
             continue;

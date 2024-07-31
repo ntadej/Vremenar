@@ -25,7 +25,6 @@
 #include <QtCore/QMap>
 #include <QtCore/QObject>
 #include <QtCore/QString>
-#include <QtCore/QStringLiteral>
 #include <QtCore/QTimer>
 #include <QtLocation/QGeoCodeReply>
 #include <QtLocation/QGeoCodingManager>
@@ -36,6 +35,8 @@
 #include <QtPositioning/QGeoPositionInfoSource>
 
 #include <memory>
+
+using Qt::Literals::StringLiterals::operator""_s;
 
 #ifdef VREMENAR_POSITIONING
 namespace
@@ -66,7 +67,7 @@ LocationProvider::LocationProvider(StationListModel *stations, QObject *parent)
 #endif
 
     QMap<QString, QVariant> params;
-    params.insert(QStringLiteral("osm.useragent"), QString(Vremenar::name) + " " + Vremenar::version);
+    params.insert(u"osm.useragent"_s, QString(Vremenar::name) + " " + Vremenar::version);
 
     _provider = std::make_unique<QGeoServiceProvider>("osm", params);
     if (_provider->geocodingManager() != nullptr) {

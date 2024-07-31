@@ -13,10 +13,12 @@
 
 #include "common/containers/Hyperlink.h"
 
-#include <QtCore/QStringLiteral>
+#include <QtCore/QString>
 
 #include <memory>
 #include <vector>
+
+using Qt::Literals::StringLiterals::operator""_s;
 
 namespace Vremenar::Maps
 {
@@ -25,14 +27,14 @@ std::vector<std::unique_ptr<Hyperlink>> copyright()
 {
     std::vector<std::unique_ptr<Hyperlink>> list;
     list.emplace_back(std::make_unique<Hyperlink>(
-        QStringLiteral("© OpenMapTiles"),
-        QStringLiteral("https://openmaptiles.org")));
+        u"© OpenMapTiles"_s,
+        u"https://openmaptiles.org"_s));
     list.emplace_back(std::make_unique<Hyperlink>(
-        QStringLiteral("© OpenStreetMap contributors"),
-        QStringLiteral("https://www.openstreetmap.org/copyright")));
+        u"© OpenStreetMap contributors"_s,
+        u"https://www.openstreetmap.org/copyright"_s));
     list.emplace_back(std::make_unique<Hyperlink>(
-        QStringLiteral("© Sentinel-2 cloudless by EOX IT Services GmbH (Contains modified Copernicus Sentinel data 2021)"),
-        QStringLiteral("https://s2maps.eu")));
+        u"© Sentinel-2 cloudless by EOX IT Services GmbH (Contains modified Copernicus Sentinel data 2021)"_s,
+        u"https://s2maps.eu"_s));
     return list;
 }
 

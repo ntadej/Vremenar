@@ -23,7 +23,6 @@
 #include <QtCore/QObject>
 #include <QtCore/QOverload>
 #include <QtCore/QString>
-#include <QtCore/QStringLiteral>
 #include <QtGui/QActionGroup>
 #include <QtGui/QDoubleValidator>
 #include <QtWidgets/QComboBox>
@@ -35,6 +34,8 @@
 
 #include <memory>
 #include <utility>
+
+using Qt::Literals::StringLiterals::operator""_s;
 
 namespace Vremenar
 {
@@ -106,11 +107,11 @@ SettingsDialog::SettingsDialog(StationListModel *stationsModel,
 #ifndef Q_OS_MACOS
     // Set application icon
     QIcon icon;
-    icon.addFile(QStringLiteral(":/Vremenar/Icons/16x16/preferences-system.png"), QSize(16, 16)); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
-    icon.addFile(QStringLiteral(":/Vremenar/Icons/24x24/preferences-system.png"), QSize(24, 24)); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
-    icon.addFile(QStringLiteral(":/Vremenar/Icons/32x32/preferences-system.png"), QSize(32, 32)); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
-    icon.addFile(QStringLiteral(":/Vremenar/Icons/48x48/preferences-system.png"), QSize(48, 48)); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
-    icon.addFile(QStringLiteral(":/Vremenar/Icons/64x64/preferences-system.png"), QSize(64, 64)); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+    icon.addFile(u":/Vremenar/Icons/16x16/preferences-system.png"_s, QSize(16, 16)); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+    icon.addFile(u":/Vremenar/Icons/24x24/preferences-system.png"_s, QSize(24, 24)); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+    icon.addFile(u":/Vremenar/Icons/32x32/preferences-system.png"_s, QSize(32, 32)); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+    icon.addFile(u":/Vremenar/Icons/48x48/preferences-system.png"_s, QSize(48, 48)); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+    icon.addFile(u":/Vremenar/Icons/64x64/preferences-system.png"_s, QSize(64, 64)); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
     setWindowIcon(icon);
 #endif
 
@@ -306,7 +307,7 @@ void SettingsDialog::locationCoordinateChanged()
 void SettingsDialog::locationLatitudeValidationChanged()
 {
     if (!ui->lineEditLatitude->text().isEmpty() && !ui->lineEditLatitude->hasAcceptableInput()) {
-        ui->lineEditLatitude->setStyleSheet(QStringLiteral("color: red;"));
+        ui->lineEditLatitude->setStyleSheet(u"color: red;"_s);
     } else {
         ui->lineEditLatitude->setStyleSheet(QString());
     }
@@ -315,7 +316,7 @@ void SettingsDialog::locationLatitudeValidationChanged()
 void SettingsDialog::locationLongitudeValidationChanged()
 {
     if (!ui->lineEditLongitude->text().isEmpty() && !ui->lineEditLongitude->hasAcceptableInput()) {
-        ui->lineEditLongitude->setStyleSheet(QStringLiteral("color: red;"));
+        ui->lineEditLongitude->setStyleSheet(u"color: red;"_s);
     } else {
         ui->lineEditLongitude->setStyleSheet(QString());
     }
@@ -329,14 +330,14 @@ void SettingsDialog::locationStationChanged()
     emit locationChanged();
 
     if (settings.locationSource() == Location::Station) {
-        ui->comboLocation->lineEdit()->setStyleSheet(QStringLiteral("color: green;"));
+        ui->comboLocation->lineEdit()->setStyleSheet(u"color: green;"_s);
     }
 }
 
 void SettingsDialog::locationStationTextChanged()
 {
     if (!ui->comboLocation->lineEdit()->text().isEmpty() && _stationsCompleter->currentCompletion().isEmpty()) {
-        ui->comboLocation->lineEdit()->setStyleSheet(QStringLiteral("color: red;"));
+        ui->comboLocation->lineEdit()->setStyleSheet(u"color: red;"_s);
     } else {
         ui->comboLocation->lineEdit()->setStyleSheet(QString());
     }

@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2022 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2024 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -10,6 +10,7 @@
 */
 
 #include <QtCore/QDebug>
+#include <QtCore/QLatin1StringView>
 
 #include "application/SparkleHelper.h"
 
@@ -17,13 +18,15 @@
 
 #include <winsparkle.h>
 
+using Qt::Literals::StringLiterals::operator""_L1;
+
 namespace Vremenar
 {
 
 SparkleHelper::SparkleHelper()
 {
     QString url(Vremenar::AppCastEndpoint);
-    url.append(QStringLiteral("/appcast.xml"));
+    url.append("/appcast.xml"_L1);
 
     win_sparkle_set_appcast_url(url.toStdString().c_str());
     win_sparkle_set_eddsa_pub_base64("U2gUlDA3cZYnWfAWTj0qxF30XqWVl0hGbOFDP3sNZIw=");

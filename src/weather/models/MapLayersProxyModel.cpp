@@ -15,14 +15,16 @@
 #include "weather/containers/MapLayer.h"
 
 #include <QtCore/QAbstractItemModel>
+#include <QtCore/QLatin1StringView>
 #include <QtCore/QLocale>
 #include <QtCore/QObject>
 #include <QtCore/QSortFilterProxyModel>
 #include <QtCore/QString>
-#include <QtCore/QStringLiteral>
 #include <QtCore/QTimer>
 
 #include <memory>
+
+using Qt::Literals::StringLiterals::operator""_L1;
 
 namespace
 {
@@ -62,7 +64,7 @@ void MapLayersProxyModel::emitUpdate()
     QString urlPrevious;
     QString urlCurrent = data(index(_row, 0), MapLayer::UrlRole).toString();
     QString urlNext;
-    if (urlCurrent.contains(QStringLiteral("json"))) {
+    if (urlCurrent.contains("json"_L1)) {
         urlCurrent = QString();
     } else {
         if (_row > 0) {

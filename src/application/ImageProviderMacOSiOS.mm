@@ -11,13 +11,16 @@
 
 #include "application/ImageProviderMacOSiOS.h"
 
+#include <QtCore/QLatin1StringView>
 #include <QtCore/QSize>
 #include <QtCore/QString>
-#include <QtCore/QStringLiteral>
 #include <QtGui/QColor>
 #include <QtGui/QImage>
 #include <QtGui/private/qcoregraphics_p.h>
 #include <QtQuick/QQuickImageProvider>
+
+using Qt::Literals::StringLiterals::operator""_L1;
+using Qt::Literals::StringLiterals::operator""_s;
 
 #if defined(Q_OS_MACOS)
 #import <AppKit/AppKit.h>
@@ -57,7 +60,7 @@ SFSymbolsImageProvider::SFSymbolsImageProvider()
 {
 #if defined(Q_OS_MACOS)
     // NOLINTNEXTLINE(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
-    const QImage testImage = requestImage(QStringLiteral("play.fill/#ffffff/UltraLight/1"), nullptr, QSize(14, 14));
+    const QImage testImage = requestImage(u"play.fill/#ffffff/UltraLight/1"_s, nullptr, QSize(14, 14));
     if (testImage.width() < 24) {         // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
         _scale = 24. / testImage.width(); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
     }
@@ -68,12 +71,12 @@ QImage SFSymbolsImageProvider::requestImage(const QString &id,
                                             QSize *size,
                                             const QSize &requestedSize)
 {
-    QStringList idSplit = id.split(QStringLiteral("/"));
+    QStringList idSplit = id.split('/');
 
     CGImageRef cgImage{};
 #if defined(Q_OS_MACOS)
     const QColor color(idSplit[1]);
-    const NSFontWeight nsFontWeight = idSplit[2] == QStringLiteral("UltraLight") ? NSFontWeightUltraLight : NSFontWeightRegular;
+    const NSFontWeight nsFontWeight = idSplit[2] == "UltraLight"_L1 ? NSFontWeightUltraLight : NSFontWeightRegular;
     auto nsColor = [NSColor colorWithRed:color.redF() green:color.greenF() blue:color.blueF() alpha:1.];
     auto nsConfig = [NSImageSymbolConfiguration configurationWithPointSize:(requestedSize.width() * _scale) weight:nsFontWeight];
     auto nsImage = [NSImage imageWithSystemSymbolName:idSplit[0].toNSString() accessibilityDescription:nil];
@@ -86,7 +89,7 @@ QImage SFSymbolsImageProvider::requestImage(const QString &id,
     cgImage = [nsImage CGImageForProposedRect:nil context:nil hints:nil];
 #elif defined(Q_OS_IOS)
     const QColor color(idSplit[1]);
-    const UIImageSymbolWeight uiWeight = idSplit[2] == QStringLiteral("UltraLight") ? UIImageSymbolWeightUltraLight : UIImageSymbolWeightRegular;
+    const UIImageSymbolWeight uiWeight = idSplit[2] == "UltraLight"_L1 ? UIImageSymbolWeightUltraLight : UIImageSymbolWeightRegular;
     const double devicePixelRatio = idSplit[3].toDouble();
     const int width = devicePixelRatio >= 3 ? requestedSize.width() / 7 * 5 : requestedSize.width(); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
     const auto uiColor = [UIColor colorWithRed:color.redF() green:color.greenF() blue:color.blueF() alpha:1.];

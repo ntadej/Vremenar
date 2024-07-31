@@ -17,7 +17,6 @@
 #include <QtCore/QObject>
 #include <QtCore/QString>
 #include <QtCore/QStringList>
-#include <QtCore/QStringLiteral>
 #include <QtGui/QAction>
 #include <QtGui/QActionGroup>
 #include <QtGui/QIcon>
@@ -25,6 +24,8 @@
 #include <QtWidgets/QSystemTrayIcon>
 
 #include <memory>
+
+using Qt::Literals::StringLiterals::operator""_s;
 
 namespace Vremenar
 {
@@ -175,25 +176,25 @@ void TrayIcon::setCurrentCondition(const WeatherCondition *condition)
     if (condition != nullptr) {
         setToolTip(condition->displayTemperatureShort());
 #ifdef Q_OS_MACOS
-        QIcon i(QStringLiteral(":/Vremenar/Weather/TrayMask/%1.png").arg(condition->icon()));
+        QIcon i(u":/Vremenar/Weather/TrayMask/%1.png"_s.arg(condition->icon()));
         i.setIsMask(true);
 #else
         QIcon i;
-        i.addFile(QStringLiteral(":/Vremenar/Weather/Tray/16/%1.png").arg(condition->icon()), QSize(16, 16)); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
-        i.addFile(QStringLiteral(":/Vremenar/Weather/Tray/24/%1.png").arg(condition->icon()), QSize(24, 24)); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
-        i.addFile(QStringLiteral(":/Vremenar/Weather/Tray/32/%1.png").arg(condition->icon()), QSize(32, 32)); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+        i.addFile(u":/Vremenar/Weather/Tray/16/%1.png"_s.arg(condition->icon()), QSize(16, 16)); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+        i.addFile(u":/Vremenar/Weather/Tray/24/%1.png"_s.arg(condition->icon()), QSize(24, 24)); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+        i.addFile(u":/Vremenar/Weather/Tray/32/%1.png"_s.arg(condition->icon()), QSize(32, 32)); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
 #endif
         setIcon(i);
     } else {
         setToolTip(QString());
 #ifdef Q_OS_MACOS
-        QIcon i(QStringLiteral(":/Vremenar/Logo/logo_tray.png"));
+        QIcon i(u":/Vremenar/Logo/logo_tray.png"_s);
         i.setIsMask(true);
 #else
         QIcon i;
-        i.addFile(QStringLiteral(":/Vremenar/Logo/16x16/vremenar.png"), QSize(16, 16)); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
-        i.addFile(QStringLiteral(":/Vremenar/Logo/24x24/vremenar.png"), QSize(24, 24)); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
-        i.addFile(QStringLiteral(":/Vremenar/Logo/32x32/vremenar.png"), QSize(32, 32)); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+        i.addFile(u":/Vremenar/Logo/16x16/vremenar.png"_s, QSize(16, 16)); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+        i.addFile(u":/Vremenar/Logo/24x24/vremenar.png"_s, QSize(24, 24)); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+        i.addFile(u":/Vremenar/Logo/32x32/vremenar.png"_s, QSize(32, 32)); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
 #endif
         setIcon(i);
     }

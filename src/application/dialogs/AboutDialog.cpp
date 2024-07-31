@@ -20,11 +20,12 @@
 
 #include <QtCore/QDate>
 #include <QtCore/QString>
-#include <QtCore/QStringLiteral>
 #include <QtWidgets/QDialog>
 
 #include <memory>
 #include <vector>
+
+using Qt::Literals::StringLiterals::operator""_s;
 
 namespace Vremenar
 {
@@ -51,11 +52,11 @@ AboutDialog::AboutDialog(WeatherProvider *weatherProvider,
 
     std::vector<std::unique_ptr<Hyperlink>> icons;
     icons.emplace_back(std::make_unique<Hyperlink>(
-        QStringLiteral("© Ionicons"),
-        QStringLiteral("https://ionicons.com")));
+        u"© Ionicons"_s,
+        u"https://ionicons.com"_s));
     icons.emplace_back(std::make_unique<Hyperlink>(
-        QStringLiteral("© Breeze Icons"),
-        QStringLiteral("https://github.com/KDE/breeze-icons")));
+        u"© Breeze Icons"_s,
+        u"https://github.com/KDE/breeze-icons"_s));
 
     QString copyrightIcons;
     for (const std::unique_ptr<Hyperlink> &link : icons) {
@@ -71,12 +72,12 @@ AboutDialog::AboutDialog(WeatherProvider *weatherProvider,
     }
 
     auto homepage = std::make_unique<Hyperlink>(
-        QStringLiteral("https://vremenar.app"),
-        QStringLiteral("https://vremenar.app"));
+        u"https://vremenar.app"_s,
+        u"https://vremenar.app"_s);
 
     ui->labelVremenar->setText(tr("Vremenar Weather"));
     ui->labelVersion->setText(tr("Version %1 (%2)").arg(Vremenar::version, QString::number(Vremenar::build)));
-    ui->labelCopyright->setText(QStringLiteral("© %1 Tadej Novak").arg(QDate::currentDate().toString(QStringLiteral("yyyy"))));
+    ui->labelCopyright->setText(u"© %1 Tadej Novak"_s.arg(QDate::currentDate().toString(u"yyyy"_s)));
     ui->labelHomepage->setText(homepage->asHtml(additionalStyle));
 
     ui->labelWeather->setText(tr("Weather data") + " " + weatherProvider->copyrightLink()->asHtml(additionalStyle));

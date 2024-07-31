@@ -14,10 +14,12 @@
 #include "common/containers/Hyperlink.h"
 
 #include <QtCore/QObject>
-#include <QtCore/QStringLiteral>
+#include <QtCore/QString>
 
 #include <memory>
 #include <vector>
+
+using Qt::Literals::StringLiterals::operator""_s;
 
 namespace Vremenar
 {
@@ -27,17 +29,17 @@ std::vector<std::unique_ptr<Hyperlink>> aboutLinks()
     std::vector<std::unique_ptr<Hyperlink>> list;
     list.emplace_back(std::make_unique<Hyperlink>(
         QObject::tr("About Vremenar"),
-        QStringLiteral("https://vremenar.app"),
+        u"https://vremenar.app"_s,
         true));
     list.emplace_back(std::make_unique<Hyperlink>(
         QObject::tr("Terms of Service"),
-        QStringLiteral("https://vremenar.app/terms")));
+        u"https://vremenar.app/terms"_s));
     list.emplace_back(std::make_unique<Hyperlink>(
         QObject::tr("Privacy Policy"),
-        QStringLiteral("https://vremenar.app/privacy")));
+        u"https://vremenar.app/privacy"_s));
     list.emplace_back(std::make_unique<Hyperlink>(
         QObject::tr("Report an issue"),
-        QStringLiteral("https://github.com/ntadej/Vremenar/issues")));
+        u"https://github.com/ntadej/Vremenar/issues"_s));
     return list;
 }
 

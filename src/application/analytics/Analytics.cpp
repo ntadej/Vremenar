@@ -21,12 +21,14 @@
 #endif
 
 #include <QtCore/QDebug>
+#include <QtCore/QLatin1StringView>
 #include <QtCore/QObject>
 #include <QtCore/QString>
-#include <QtCore/QStringLiteral>
 #include <QtCore/QTimer>
 
 #include <memory>
+
+using Qt::Literals::StringLiterals::operator""_L1;
 
 namespace
 {
@@ -110,15 +112,15 @@ QString Analytics::eventString(EventType type,
     QString string;
     switch (type) {
     case MapStyleChanged:
-        string = QStringLiteral("map_style_changed");
+        string.append("map_style_changed"_L1);
         break;
     case MapTypeChanged:
-        string = QStringLiteral("map_changed");
+        string.append("map_changed"_L1);
         break;
     }
 
     if (!payload.isEmpty()) {
-        string.append(QStringLiteral("_")).append(payload);
+        string.append("_"_L1).append(payload);
     }
 
     return string;

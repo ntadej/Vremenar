@@ -13,8 +13,10 @@
 
 #include "Countly.h"
 
+#include <QtCore/QLatin1StringView>
 #include <QtCore/QString>
-#include <QtCore/QStringLiteral>
+
+using Qt::Literals::StringLiterals::operator""_L1;
 
 namespace Vremenar
 {
@@ -22,17 +24,17 @@ namespace Vremenar
 Countly::Event::Event(const QString &key,
                       int count)
 {
-    _object[QStringLiteral("key")] = key;
-    _object[QStringLiteral("count")] = count;
+    _object["key"_L1] = key;
+    _object["count"_L1] = count;
 }
 
 Countly::Event::Event(const QString &key,
                       int count,
                       double sum)
 {
-    _object[QStringLiteral("key")] = key;
-    _object[QStringLiteral("count")] = count;
-    _object[QStringLiteral("sum")] = sum;
+    _object["key"_L1] = key;
+    _object["count"_L1] = count;
+    _object["sum"_L1] = sum;
 }
 
 } // namespace Vremenar

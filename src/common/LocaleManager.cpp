@@ -16,14 +16,17 @@
 #include <QtCore/QCoreApplication>
 #include <QtCore/QDebug>
 #include <QtCore/QDir>
+#include <QtCore/QLatin1StringView>
 #include <QtCore/QLocale>
 #include <QtCore/QObject>
 #include <QtCore/QString>
 #include <QtCore/QStringList>
-#include <QtCore/QStringLiteral>
 #include <QtCore/QTranslator>
 
 #include <memory>
+
+using Qt::Literals::StringLiterals::operator""_L1;
+using Qt::Literals::StringLiterals::operator""_s;
 
 namespace Vremenar
 {
@@ -41,11 +44,11 @@ LocaleManager::LocaleManager(QObject *parent)
 
 QStringList LocaleManager::loadLocales()
 {
-    const QDir dir(QStringLiteral(":/i18n/"));
+    const QDir dir(u":/i18n/"_s);
     QStringList list;
     const QStringList entryList = dir.entryList(QDir::AllEntries);
     for (const QString &fileName : entryList) {
-        if (fileName.contains(QStringLiteral(".qm"))) {
+        if (fileName.contains(".qm"_L1)) {
             list << localeName(fileName);
         }
     }
@@ -58,7 +61,7 @@ QString LocaleManager::localeName(const QString &file)
     const QLocale locale = QLocale(file);
     QString name = locale.name();
     QString f = file;
-    f = f.remove(QStringLiteral(".qm")).remove(QStringLiteral("vremenar_"));
+    f = f.remove(".qm"_L1).remove("vremenar_"_L1);
 
     if (name != f) {
         name = f;
@@ -72,20 +75,20 @@ void LocaleManager::setLocale()
     // Try settings first
     const Settings settings(this);
     if (!settings.locale().isEmpty()) {
-        setLanguageByString(settings.locale(), QStringLiteral("settings"));
+        setLanguageByString(settings.locale(), u"settings"_s);
         return;
     }
 
     // Try system UI languages
     const QStringList languages = QLocale::system().uiLanguages();
     for (const QString &lang : languages) {
-        if (setLanguageByString(lang, QStringLiteral("UI"))) {
+        if (setLanguageByString(lang, u"UI"_s)) {
             return;
         }
     }
 
     // Use default language
-    setLanguageByString(QStringLiteral("C"), QStringLiteral("default"));
+    setLanguageByString(u"C"_s, u"default"_s);
 }
 
 bool LocaleManager::setLanguageByString(const QString &lang,
@@ -93,7 +96,7 @@ bool LocaleManager::setLanguageByString(const QString &lang,
 {
     const QLocale locale = QLocale(lang);
     qDebug() << "Trying language" << lang << "from source" << source;
-    if (_translator->load(locale, QStringLiteral(":/i18n/"), QStringLiteral("vremenar_"))) {
+    if (_translator->load(locale, u":/i18n/"_s, u"vremenar_"_s)) {
         _locale = locale.name();
 
         qDebug() << "Using locale" << locale;

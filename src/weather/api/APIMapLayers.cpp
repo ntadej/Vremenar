@@ -16,10 +16,11 @@
 #include "weather/api/APIRequest.h"
 
 #include <QtCore/QString>
-#include <QtCore/QStringLiteral>
 #include <QtCore/QUrlQuery>
 
 #include <stdexcept>
+
+using Qt::Literals::StringLiterals::operator""_s;
 
 namespace Vremenar
 {
@@ -34,7 +35,7 @@ APIRequest API::mapLayers(Weather::MapType type)
     const QUrlQuery query = Sources::sourceQuery();
 
     APIRequest request;
-    request.setCall(QStringLiteral("/maps/list"));
+    request.setCall(u"/maps/list"_s);
     request.setUrl("/maps/list/" + id, query);
     request.setExtra(static_cast<int>(type));
 
@@ -46,8 +47,8 @@ APIRequest API::mapLegends()
     const QUrlQuery query = Sources::sourceQuery();
 
     APIRequest request;
-    request.setCall(QStringLiteral("/maps/legend"));
-    request.setUrl(QStringLiteral("/maps/legend"), query);
+    request.setCall(u"/maps/legend"_s);
+    request.setUrl(u"/maps/legend"_s, query);
 
     return request;
 }
@@ -57,8 +58,8 @@ APIRequest API::mapTypes()
     const QUrlQuery query = Sources::sourceQuery();
 
     APIRequest request;
-    request.setCall(QStringLiteral("/maps/types"));
-    request.setUrl(QStringLiteral("/maps/types"), query);
+    request.setCall(u"/maps/types"_s);
+    request.setUrl(u"/maps/types"_s, query);
 
     return request;
 }

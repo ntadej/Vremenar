@@ -15,20 +15,22 @@
 
 #include <QtCore/QJsonDocument>
 #include <QtCore/QJsonObject>
+#include <QtCore/QLatin1StringView>
 #include <QtCore/QString>
-#include <QtCore/QStringLiteral>
 #include <QtCore/QSysInfo>
 #include <QtCore/QUrlQuery>
 #include <QtCore/QVariant>
 #include <QtNetwork/QNetworkAccessManager>
 #include <QtNetwork/QNetworkRequest>
 
+using Qt::Literals::StringLiterals::operator""_L1;
+
 namespace Vremenar
 {
 
 APIRequestBase::APIRequestBase()
 {
-    static const QByteArray agent = QStringLiteral("%1/%2 (%3)").arg(Vremenar::name).arg(Vremenar::version).arg(QSysInfo::prettyProductName()).toLatin1();
+    static const QByteArray agent = "%1/%2 (%3)"_L1.arg(Vremenar::name).arg(Vremenar::version).arg(QSysInfo::prettyProductName()).toLatin1();
 
     setRawHeader("Content-type", "application/json");
     setRawHeader("User-Agent", agent);

@@ -18,13 +18,14 @@
 
 #include <QtCore/QDebug>
 #include <QtCore/QString>
-#include <QtCore/QStringLiteral>
 #include <QtCore/QSysInfo>
 #include <QtCore/QUuid>
 #include <QtGui/QGuiApplication>
 #include <QtGui/QScreen>
 
 #include <memory>
+
+using Qt::Literals::StringLiterals::operator""_s;
 
 namespace Vremenar
 {
@@ -42,9 +43,9 @@ AnalyticsEngineCpp::AnalyticsEngineCpp(NetworkManager *network)
     }
 
 #ifdef Q_OS_WINDOWS
-    const QString platform = QStringLiteral("Windows");
+    const QString platform = u"Windows"_s;
 #else
-    const QString platform = QStringLiteral("Linux");
+    const QString platform = u"Linux"_s;
 #endif
 
     const QScreen *screen = QGuiApplication::primaryScreen();
@@ -54,7 +55,7 @@ AnalyticsEngineCpp::AnalyticsEngineCpp(NetworkManager *network)
     const QString screenSize = QString::number(width) + "x" + QString::number(height);
 
     const QString productName = QSysInfo::prettyProductName();
-    const QString kernelVersion = QSysInfo::kernelVersion().split(QStringLiteral("-")).first();
+    const QString kernelVersion = QSysInfo::kernelVersion().split('-').first();
 
     qDebug() << "Initializing Countly" << productName << kernelVersion << screenSize;
 

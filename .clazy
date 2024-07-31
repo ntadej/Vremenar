@@ -1,0 +1,9 @@
+export CLAZY_IGNORE_DIRS="($(pwd)/src/.rcc/qmlcache/)"
+
+export CLAZY_CHECKS="level0,level1,level2,no-qcolor-from-literal,no-qproperty-without-notify,no-returning-void-expression,no-rule-of-three,assert-with-side-effects,container-inside-loop,detaching-member,heap-allocated-small-trivial-type,isempty-vs-count,qhash-with-char-pointer-key,qrequiredresult-candidates,qstring-varargs,qt6-deprecated-api-fixes,qt6-fwd-fixes,qt6-header-fixes,qt6-qhash-signature,qt6-qlatin1stringchar-to-u,qvariant-template-instantiation,raw-environment-function,reserve-candidates,sanitize-inline-keyword,signal-with-return-value,tr-non-literal,unneeded-cast,use-arrow-operator-instead-of-data,use-chrono-in-qtimer"
+
+# jni-signatures
+# qproperty-type-mismatch
+# thread-with-slots
+# unexpected-flag-enumerator-value
+# unused-result-check

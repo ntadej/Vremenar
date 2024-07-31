@@ -14,13 +14,15 @@
 #include "common/ListItem.h"
 #include "weather/Weather.h"
 
+#include <QtCore/QLatin1StringView>
 #include <QtCore/QObject>
 #include <QtCore/QString>
-#include <QtCore/QStringLiteral>
 #include <QtCore/QVariant>
 
 #include <memory>
 #include <utility>
+
+using Qt::Literals::StringLiterals::operator""_L1;
 
 namespace Vremenar
 {
@@ -48,14 +50,14 @@ WeatherAlert::WeatherAlert(const QString &id,
 
 std::unique_ptr<WeatherAlert> WeatherAlert::fromJson(const QJsonObject &json)
 {
-    const QString id = json[QStringLiteral("id")].toString();
-    const QString event = json[QStringLiteral("event")].toString();
-    const QString headline = json[QStringLiteral("headline")].toString();
-    const QString description = json[QStringLiteral("description")].toString();
-    const Weather::AlertType type = Weather::alertTypeFromString(json[QStringLiteral("type")].toString());
-    const Weather::AlertSeverity severity = Weather::alertSeverityFromString(json[QStringLiteral("severity")].toString());
-    const qint64 onset = json[QStringLiteral("onset")].toString().toLongLong();
-    const qint64 ending = json[QStringLiteral("ending")].toString().toLongLong();
+    const QString id = json["id"_L1].toString();
+    const QString event = json["event"_L1].toString();
+    const QString headline = json["headline"_L1].toString();
+    const QString description = json["description"_L1].toString();
+    const Weather::AlertType type = Weather::alertTypeFromString(json["type"_L1].toString());
+    const Weather::AlertSeverity severity = Weather::alertSeverityFromString(json["severity"_L1].toString());
+    const qint64 onset = json["onset"_L1].toString().toLongLong();
+    const qint64 ending = json["ending"_L1].toString().toLongLong();
 
     return std::make_unique<WeatherAlert>(id, event, headline, description, type, severity, onset, ending);
 }
@@ -100,9 +102,9 @@ QString WeatherAlert::duration() const
     auto ending = QDateTime::fromMSecsSinceEpoch(_ending);
 
     if (onset.daysTo(ending) != 0) {
-        return QStringLiteral("%1, %2 – %3, %4").arg(Weather::dateDisplay(onset), Weather::timeDisplay(onset), Weather::dateDisplay(ending), Weather::timeDisplay(ending));
+        return "%1, %2 – %3, %4"_L1.arg(Weather::dateDisplay(onset), Weather::timeDisplay(onset), Weather::dateDisplay(ending), Weather::timeDisplay(ending));
     }
-    return QStringLiteral("%1, %2–%3").arg(Weather::dateDisplay(onset), Weather::timeDisplay(onset), Weather::timeDisplay(ending));
+    return "%1, %2–%3"_L1.arg(Weather::dateDisplay(onset), Weather::timeDisplay(onset), Weather::timeDisplay(ending));
 }
 
 } // namespace Vremenar

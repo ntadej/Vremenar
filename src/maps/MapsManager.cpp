@@ -14,13 +14,15 @@
 #include "weather/Weather.h"
 
 #include <QtCore/QDebug>
+#include <QtCore/QLatin1StringView>
 #include <QtCore/QMetaObject>
 #include <QtCore/QObject>
 #include <QtCore/QString>
-#include <QtCore/QStringLiteral>
 #include <QtQml/QQmlApplicationEngine>
 #include <QtQuick/QQuickItem>
 #include <QtQuick/QQuickWindow>
+
+using Qt::Literals::StringLiterals::operator""_L1;
 
 namespace Vremenar
 {
@@ -65,7 +67,7 @@ void MapsManager::mapChanged(Weather::MapType type,
 bool MapsManager::getMapStyleObject()
 {
     auto *window = qobject_cast<QQuickWindow *>(_engine->rootObjects().constFirst());
-    _mapStyleObject = window->findChild<QObject *>(QStringLiteral("mapStyleObject"));
+    _mapStyleObject = window->findChild<QObject *>("mapStyleObject"_L1);
     if (_mapStyleObject != nullptr) {
         qDebug() << "Map style object found";
         return true;

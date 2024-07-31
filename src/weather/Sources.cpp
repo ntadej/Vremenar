@@ -14,22 +14,25 @@
 #include "common/LocaleManager.h"
 #include "settings/Settings.h"
 
+#include <QtCore/QLatin1StringView>
 #include <QtCore/QObject>
 #include <QtCore/QString>
-#include <QtCore/QStringLiteral>
 #include <QtCore/QUrlQuery>
 
 #include <stdexcept>
+
+using Qt::Literals::StringLiterals::operator""_L1;
+using Qt::Literals::StringLiterals::operator""_s;
 
 namespace Vremenar
 {
 
 Sources::Country Sources::countryFromString(const QString &country)
 {
-    if (country == QStringLiteral("si")) {
+    if (country == "si"_L1) {
         return Sources::Slovenia;
     }
-    if (country == QStringLiteral("de")) {
+    if (country == "de"_L1) {
         return Sources::Germany;
     }
 
@@ -40,9 +43,9 @@ QString Sources::countryToString(Country country)
 {
     switch (country) {
     case Slovenia:
-        return QStringLiteral("si");
+        return u"si"_s;
     case Germany:
-        return QStringLiteral("de");
+        return u"de"_s;
     }
 
     throw std::runtime_error("unknown country");
@@ -52,9 +55,9 @@ QString Sources::countryToLocalizedString(Country country)
 {
     switch (country) {
     case Slovenia:
-        return QStringLiteral("ARSO (%1)").arg(QObject::tr("Slovenia"));
+        return "ARSO (%1)"_L1.arg(QObject::tr("Slovenia"));
     case Germany:
-        return QStringLiteral("DWD (%1)").arg(QObject::tr("Germany"));
+        return "DWD (%1)"_L1.arg(QObject::tr("Germany"));
     }
 
     return {};
@@ -65,7 +68,7 @@ QUrlQuery Sources::sourceQuery()
     const Settings settings;
 
     QUrlQuery query;
-    query.addQueryItem(QStringLiteral("country"), countryToString(settings.weatherSource()));
+    query.addQueryItem(u"country"_s, countryToString(settings.weatherSource()));
 
     return query;
 }
@@ -75,14 +78,14 @@ QUrlQuery Sources::sourceAndLocaleQuery()
     const Settings settings;
 
     QUrlQuery query;
-    query.addQueryItem(QStringLiteral("country"), countryToString(settings.weatherSource()));
+    query.addQueryItem(u"country"_s, countryToString(settings.weatherSource()));
     QString locale;
     auto *manager = Services::getInstance().localeManager();
     if (manager != nullptr) {
-        locale = manager->locale().split(QStringLiteral("_")).first();
+        locale = manager->locale().split('_').first();
     }
     if (!locale.isEmpty()) {
-        query.addQueryItem(QStringLiteral("language"), locale);
+        query.addQueryItem(u"language"_s, locale);
     }
 
     return query;

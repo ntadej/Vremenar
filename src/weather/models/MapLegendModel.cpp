@@ -17,13 +17,15 @@
 
 #include <QtCore/QJsonArray>
 #include <QtCore/QJsonObject>
+#include <QtCore/QLatin1StringView>
 #include <QtCore/QMap>
 #include <QtCore/QObject>
 #include <QtCore/QString>
-#include <QtCore/QStringLiteral>
 
 #include <memory>
 #include <utility>
+
+using Qt::Literals::StringLiterals::operator""_L1;
 
 namespace Vremenar
 {
@@ -35,23 +37,23 @@ void MapLegendModel::addMapLegends(const QJsonArray &data)
 {
     for (const auto &legendRef : data) {
         const QJsonObject legend = legendRef.toObject();
-        const auto type = Weather::mapTypeFromString(legend[QStringLiteral("map_type")].toString());
+        const auto type = Weather::mapTypeFromString(legend["map_type"_L1].toString());
         if (type == Weather::MapType::UnknownMapType) {
             continue;
         }
 
-        const QJsonArray list = legend[QStringLiteral("items")].toArray();
+        const QJsonArray list = legend["items"_L1].toArray();
         for (const auto &itemRef : list) {
             const QJsonObject item = itemRef.toObject();
 
-            QString value = item[QStringLiteral("value")].toString();
-            if (item.contains(QStringLiteral("translatable")) && item[QStringLiteral("translatable")].toBool()) {
+            QString value = item["value"_L1].toString();
+            if (item.contains("translatable"_L1) && item["translatable"_L1].toBool()) {
                 value = translate(value);
             }
-            const QString color = item[QStringLiteral("color")].toString();
+            const QString color = item["color"_L1].toString();
             bool placeholder{};
-            if (item.contains(QStringLiteral("placeholder"))) {
-                placeholder = item[QStringLiteral("placeholder")].toBool();
+            if (item.contains("placeholder"_L1)) {
+                placeholder = item["placeholder"_L1].toBool();
             }
 
             emplace(type, value, color, placeholder);

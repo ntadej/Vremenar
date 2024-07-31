@@ -11,9 +11,11 @@
 
 #include "common/api/APIHelpers.h"
 
+#include <QtCore/QLatin1StringView>
 #include <QtCore/QString>
-#include <QtCore/QStringLiteral>
 #include <QtCore/QVariantMap>
+
+using Qt::Literals::StringLiterals::operator""_L1;
 
 namespace Vremenar
 {
@@ -24,10 +26,10 @@ QString API::generateParameters(const QVariantMap &map)
     QVariantMap::const_iterator i = map.constBegin();
     while (i != map.constEnd()) {
         if (!out.isEmpty()) {
-            out.append(QStringLiteral("&"));
+            out.append("&"_L1);
         }
 
-        out.append(QStringLiteral("%1=%2").arg(i.key(), i.value().toString()));
+        out.append("%1=%2"_L1.arg(i.key(), i.value().toString()));
 
         ++i;
     }

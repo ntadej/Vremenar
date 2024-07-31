@@ -44,9 +44,9 @@
 #include <QtCore/QJsonArray>
 #include <QtCore/QJsonDocument>
 #include <QtCore/QJsonObject>
+#include <QtCore/QLatin1StringView>
 #include <QtCore/QString>
 #include <QtCore/QStringList>
-#include <QtCore/QStringLiteral>
 #include <QtCore/QTimer>
 #include <QtGui/QImage>
 #include <QtNetwork/QNetworkReply>
@@ -60,6 +60,9 @@
 #include <memory>
 #include <utility>
 #include <vector>
+
+using Qt::Literals::StringLiterals::operator""_L1;
+using Qt::Literals::StringLiterals::operator""_s;
 
 namespace
 {
@@ -116,12 +119,12 @@ void WeatherProvider::resetSource(bool load)
     const Settings settings(this);
     if (settings.weatherSource() == Sources::Germany) {
         _copyrightLink = std::make_unique<Hyperlink>(
-            QStringLiteral("© Deutscher Wetterdienst"),
-            QStringLiteral("https://dwd.de"));
+            u"© Deutscher Wetterdienst"_s,
+            u"https://dwd.de"_s);
     } else {
         _copyrightLink = std::make_unique<Hyperlink>(
-            QStringLiteral("© ") + tr("Slovenian Environment Agency"),
-            QStringLiteral("https://www.arso.gov.si"));
+            u"© "_s + tr("Slovenian Environment Agency"),
+            u"https://www.arso.gov.si"_s);
     }
     emit copyrightChanged();
 
@@ -221,7 +224,7 @@ void WeatherProvider::response(QNetworkReply *reply)
 
     // JSON
     const QJsonDocument document = QJsonDocument::fromJson(reply->readAll());
-    if (requestFromResponse(reply).call() == QStringLiteral("/maps/types")) {
+    if (requestFromResponse(reply).call() == "/maps/types"_L1) {
         const QJsonArray data = document.array();
         _mapInfoModel->clear();
         _mapInfoModel->generateModel(data);
@@ -241,7 +244,7 @@ void WeatherProvider::response(QNetworkReply *reply)
         removeResponse(reply);
         return;
     }
-    if (requestFromResponse(reply).call() == QStringLiteral("/maps/legend")) {
+    if (requestFromResponse(reply).call() == "/maps/legend"_L1) {
         const QJsonArray data = document.array();
 
         _mapLegendModel->clear();
@@ -250,7 +253,7 @@ void WeatherProvider::response(QNetworkReply *reply)
         removeResponse(reply);
         return;
     }
-    if (requestFromResponse(reply).call() == QStringLiteral("/stations/coordinate")) {
+    if (requestFromResponse(reply).call() == "/stations/coordinate"_L1) {
         const QJsonArray stations = document.array();
         if (stations.empty()) {
             current()->setStation(nullptr);
@@ -281,9 +284,9 @@ void WeatherProvider::response(QNetworkReply *reply)
         removeResponse(reply);
         return;
     }
-    if (requestFromResponse(reply).call() == QStringLiteral("/stations/condition")) {
+    if (requestFromResponse(reply).call() == "/stations/condition"_L1) {
         const QJsonObject weatherInfo = document.object();
-        current()->updateCurrentWeather(WeatherCondition::fromJson(weatherInfo[QStringLiteral("condition")].toObject()));
+        current()->updateCurrentWeather(WeatherCondition::fromJson(weatherInfo["condition"_L1].toObject()));
 
         _lastUpdateResponseTimeCurrent = QDateTime::currentDateTime();
         startTimerCurrent();
@@ -293,7 +296,7 @@ void WeatherProvider::response(QNetworkReply *reply)
         removeResponse(reply);
         return;
     }
-    if (requestFromResponse(reply).call() == QStringLiteral("/alerts/list")) {
+    if (requestFromResponse(reply).call() == "/alerts/list"_L1) {
         const QJsonArray alertsList = document.array();
         std::vector<std::unique_ptr<WeatherAlert>> alerts;
         alerts.reserve(static_cast<std::size_t>(alertsList.size()));
@@ -305,7 +308,7 @@ void WeatherProvider::response(QNetworkReply *reply)
         removeResponse(reply);
         return;
     }
-    if (requestFromResponse(reply).call() == QStringLiteral("/stations/list")) {
+    if (requestFromResponse(reply).call() == "/stations/list"_L1) {
         const QJsonArray data = document.array();
 
         _stationsModel->clear();
@@ -322,9 +325,9 @@ void WeatherProvider::response(QNetworkReply *reply)
         return;
     }
 
-    if (requestFromResponse(reply).call() == QStringLiteral("/stations/map")) {
+    if (requestFromResponse(reply).call() == "/stations/map"_L1) {
         _weatherMapModelBase->addEntries(_stationsModel.get(), document.array());
-        if (requestFromResponse(reply).url().toString().contains(QStringLiteral("current"))) {
+        if (requestFromResponse(reply).url().toString().contains("current"_L1)) {
             _weatherMapModel->addEntries(_stationsModel.get(), document.array());
         } else {
             _weatherMapModel->update(_weatherMapModelBase.get(), mapLayers()->timestamp());
@@ -332,7 +335,7 @@ void WeatherProvider::response(QNetworkReply *reply)
         mapLayers()->playResume();
         removeResponse(reply);
         valid = true;
-    } else if (requestFromResponse(reply).call() == QStringLiteral("/maps/list")) {
+    } else if (requestFromResponse(reply).call() == "/maps/list"_L1) {
         emit loadingSuccess();
 
         auto type = static_cast<Weather::MapType>(requestFromResponse(reply).extra().toInt());
@@ -343,13 +346,13 @@ void WeatherProvider::response(QNetworkReply *reply)
 
         const QJsonObject data = document.object();
 
-        auto reportedType = Weather::mapTypeFromString(data[QStringLiteral("map_type")].toString());
+        auto reportedType = Weather::mapTypeFromString(data["map_type"_L1].toString());
         if (reportedType == Weather::UnknownMapType || reportedType != type) {
             qDebug() << "Invalid map type " << reportedType << ", expected " << type;
             return;
         }
 
-        auto reportedRenderingType = Weather::mapRenderingTypeFromString(data[QStringLiteral("rendering")].toString());
+        auto reportedRenderingType = Weather::mapRenderingTypeFromString(data["rendering"_L1].toString());
         if (reportedRenderingType == Weather::UnknownRendering) {
             qDebug() << "Invalid map rendering type " << reportedRenderingType;
             return;
@@ -393,20 +396,20 @@ void WeatherProvider::error(QNetworkReply *reply,
     setLoading(false);
 
     if (err == QNetworkReply::ContentNotFoundError) {
-        if (requestFromResponse(reply).call() == QStringLiteral("/stations/coordinate")
-            || requestFromResponse(reply).call() == QStringLiteral("/stations/condition")) {
+        if (requestFromResponse(reply).call() == "/stations/coordinate"_L1
+            || requestFromResponse(reply).call() == "/stations/condition"_L1) {
             current()->setStation(nullptr);
             removeResponse(reply);
             return;
         }
     }
 
-    if (requestFromResponse(reply).call() == QStringLiteral("/stations/condition")) {
+    if (requestFromResponse(reply).call() == "/stations/condition"_L1) {
         startTimerCurrent();
-    } else if (requestFromResponse(reply).call() != QStringLiteral("/maps/types")
-               && requestFromResponse(reply).call() != QStringLiteral("/maps/legend")
-               && requestFromResponse(reply).call() != QStringLiteral("/stations/coordinate")
-               && requestFromResponse(reply).call() != QStringLiteral("/stations/list")) {
+    } else if (requestFromResponse(reply).call() != "/maps/types"_L1
+               && requestFromResponse(reply).call() != "/maps/legend"_L1
+               && requestFromResponse(reply).call() != "/stations/coordinate"_L1
+               && requestFromResponse(reply).call() != "/stations/list"_L1) {
         startTimer();
     }
 

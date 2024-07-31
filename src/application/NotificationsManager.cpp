@@ -18,9 +18,10 @@
 #include <QtCore/QDebug>
 #include <QtCore/QObject>
 #include <QtCore/QString>
-#include <QtCore/QStringLiteral>
 
 #include <utility>
+
+using Qt::Literals::StringLiterals::operator""_s;
 
 namespace Vremenar
 {
@@ -95,7 +96,7 @@ void NotificationsManager::processCoveredAreas(bool enabled)
     const Settings settings;
 
     // build ids
-    const QString locale = _currentLocale.split(QStringLiteral("_")).first();
+    const QString locale = _currentLocale.split('_').first();
     QStringList existingKeys = settings.notificationsAlertKeys();
     if (enabled && nativeSupported() && settings.notificationsInitialChoice() && settings.notificationsEnabled()) {
         if (!nativeSetup()) {
@@ -105,8 +106,8 @@ void NotificationsManager::processCoveredAreas(bool enabled)
             return;
         }
 
-        for (const QString &area : _coveredAreas) {
-            auto id = QStringLiteral("%1_%2_%3").arg(locale, Weather::alertSeverityToString(settings.notificationsAlertSeverity()), area);
+        for (const QString &area : std::as_const(_coveredAreas)) {
+            auto id = u"%1_%2_%3"_s.arg(locale, Weather::alertSeverityToString(settings.notificationsAlertSeverity()), area);
             if (existingKeys.contains(id)) {
                 existingKeys.removeAll(id);
             } else {

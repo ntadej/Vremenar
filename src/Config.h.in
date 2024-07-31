@@ -12,27 +12,27 @@
 #ifndef VREMENAR_CONFIG_H_
 #define VREMENAR_CONFIG_H_
 
-#include "common/Helpers.h"
+#include <QtCore/QLatin1StringView>
 
 namespace Vremenar
 {
 
-constexpr CString name = "@VREMENAR_NAME@";
-constexpr CString domain = "tano.si";
-constexpr CString appID = "si.tano.@VREMENAR_NAME@";
+constexpr QLatin1StringView name("@VREMENAR_NAME@");
+constexpr QLatin1StringView domain("tano.si");
+constexpr QLatin1StringView appID("si.tano.@VREMENAR_NAME@");
 
-constexpr CString version = "@VREMENAR_VERSION@";
-constexpr std::uint32_t build = @VREMENAR_BUILD_NUMBER@;
+constexpr QLatin1StringView version("@VREMENAR_VERSION@");
+constexpr std::uint32_t build(@VREMENAR_BUILD_NUMBER@);
 
-constexpr bool loggingEnabled = @LOGGING_ENABLED@;
+constexpr bool loggingEnabled(@LOGGING_ENABLED@);
 
-constexpr CString mapsEndpoint = "@MAPS_ENDPOINT@";
-constexpr CString APIEndpoint = "@API_ENDPOINT@";
-constexpr CString AppCastEndpoint = "@APPCAST_ENDPOINT@";
+constexpr QLatin1StringView mapsEndpoint("@MAPS_ENDPOINT@");
+constexpr QLatin1StringView APIEndpoint("@API_ENDPOINT@");
+constexpr QLatin1StringView AppCastEndpoint("@APPCAST_ENDPOINT@");
 
-constexpr CString CountlyAppKey = "@COUNTLY_APPKEY@";
-constexpr CString CountlyEndpoint = "@COUNTLY_ENDPOINT@";
-constexpr CString CountlySalt = "@COUNTLY_SALT@";
+constexpr QLatin1StringView CountlyAppKey("@COUNTLY_APPKEY@");
+constexpr QLatin1StringView CountlyEndpoint("@COUNTLY_ENDPOINT@");
+constexpr QLatin1StringView CountlySalt("@COUNTLY_SALT@");
 
 } // namespace Vremenar
 

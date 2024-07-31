@@ -14,13 +14,16 @@
 #include "common/ListItem.h"
 #include "weather/Weather.h"
 
+#include <QtCore/QLatin1StringView>
 #include <QtCore/QObject>
 #include <QtCore/QString>
-#include <QtCore/QStringLiteral>
 #include <QtCore/QVariant>
 
 #include <memory>
 #include <utility>
+
+using Qt::Literals::StringLiterals::operator""_L1;
+using Qt::Literals::StringLiterals::operator""_s;
 
 namespace Vremenar
 {
@@ -43,17 +46,17 @@ WeatherCondition::WeatherCondition(Weather::ObservationType observation,
 
 std::unique_ptr<WeatherCondition> WeatherCondition::fromJson(const QJsonObject &json)
 {
-    const Weather::ObservationType observation = Weather::observationTypeFromString(json[QStringLiteral("observation")].toString());
-    const QDateTime time = QDateTime::fromMSecsSinceEpoch(json[QStringLiteral("timestamp")].toString().toLongLong());
-    const QString icon = json[QStringLiteral("icon")].toString();
+    const Weather::ObservationType observation = Weather::observationTypeFromString(json["observation"_L1].toString());
+    const QDateTime time = QDateTime::fromMSecsSinceEpoch(json["timestamp"_L1].toString().toLongLong());
+    const QString icon = json["icon"_L1].toString();
 
     double temperature{};
     double temperatureLow{-1000}; // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
-    if (json.contains(QStringLiteral("temperature_low")) && !json[QStringLiteral("temperature_low")].isNull()) {
-        temperature = json[QStringLiteral("temperature")].toDouble();
-        temperatureLow = json[QStringLiteral("temperature_low")].toDouble();
+    if (json.contains("temperature_low"_L1) && !json["temperature_low"_L1].isNull()) {
+        temperature = json["temperature"_L1].toDouble();
+        temperatureLow = json["temperature_low"_L1].toDouble();
     } else {
-        temperature = json[QStringLiteral("temperature")].toDouble();
+        temperature = json["temperature"_L1].toDouble();
     }
 
     return std::make_unique<WeatherCondition>(observation, time.toMSecsSinceEpoch(), icon, temperature, temperatureLow);
@@ -66,12 +69,12 @@ QString WeatherCondition::display() const
 
 QString WeatherCondition::displayTemperature() const
 {
-    return QStringLiteral("%1 °C").arg(_temperature);
+    return u"%1 °C"_s.arg(_temperature);
 }
 
 QString WeatherCondition::displayTemperatureShort() const
 {
-    return QStringLiteral("%1°").arg(_temperature);
+    return u"%1°"_s.arg(_temperature);
 }
 
 QVariant WeatherCondition::data(int role) const

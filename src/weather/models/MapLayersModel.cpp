@@ -17,13 +17,15 @@
 
 #include <QtCore/QJsonArray>
 #include <QtCore/QJsonObject>
+#include <QtCore/QLatin1StringView>
 #include <QtCore/QObject>
-#include <QtCore/QStringLiteral>
 #include <QtCore/QTimeZone>
 #include <QtPositioning/QGeoCoordinate>
 #include <QtPositioning/QGeoRectangle>
 
 #include <memory>
+
+using Qt::Literals::StringLiterals::operator""_L1;
 
 namespace Vremenar
 {
@@ -36,9 +38,9 @@ MapLayer *MapLayersModel::createMapLayer(Weather::MapType type,
                                          const QJsonObject &data,
                                          const QGeoRectangle &bbox)
 {
-    const QDateTime time = QDateTime::fromMSecsSinceEpoch(data[QStringLiteral("timestamp")].toString().toLongLong());
-    const QString url = data[QStringLiteral("url")].toString();
-    const auto observation = Weather::observationTypeFromString(data[QStringLiteral("observation")].toString());
+    const QDateTime time = QDateTime::fromMSecsSinceEpoch(data["timestamp"_L1].toString().toLongLong());
+    const QString url = data["url"_L1].toString();
+    const auto observation = Weather::observationTypeFromString(data["observation"_L1].toString());
 
     return appendRow(std::make_unique<MapLayer>(type, rendering, observation, time, url, bbox));
 }
@@ -46,15 +48,15 @@ MapLayer *MapLayersModel::createMapLayer(Weather::MapType type,
 void MapLayersModel::addMapLayers(Weather::MapType type,
                                   const QJsonObject &data)
 {
-    auto rendering = Weather::mapRenderingTypeFromString(data[QStringLiteral("rendering")].toString());
+    auto rendering = Weather::mapRenderingTypeFromString(data["rendering"_L1].toString());
     if (rendering == Weather::MapRenderingType::UnknownRendering) {
         return;
     }
 
     // bbox
     QGeoRectangle bbox;
-    if (data.contains(QStringLiteral("bbox"))) {
-        QJsonArray c = data[QStringLiteral("bbox")].toArray();
+    if (data.contains("bbox"_L1)) {
+        QJsonArray c = data["bbox"_L1].toArray();
         if (!c.empty()) {
             const QGeoCoordinate topLeft(c[2].toDouble(), c[1].toDouble());
             const QGeoCoordinate bottomRight(c[0].toDouble(), c[3].toDouble());
@@ -62,7 +64,7 @@ void MapLayersModel::addMapLayers(Weather::MapType type,
         }
     }
 
-    const QJsonArray layers = data[QStringLiteral("layers")].toArray();
+    const QJsonArray layers = data["layers"_L1].toArray();
     for (const auto &obj : layers) {
         createMapLayer(type, rendering, obj.toObject(), bbox);
     }

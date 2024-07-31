@@ -22,11 +22,10 @@
 #include <QtCore/QJsonArray>
 #include <QtCore/QJsonDocument>
 #include <QtCore/QJsonObject>
-#include <QtCore/QLatin1String>
+#include <QtCore/QLatin1StringView>
 #include <QtCore/QMap>
 #include <QtCore/QObject>
 #include <QtCore/QString>
-#include <QtCore/QStringLiteral>
 #include <QtCore/QUrlQuery>
 #include <QtNetwork/QNetworkAccessManager>
 #include <QtNetwork/QNetworkReply>
@@ -37,6 +36,9 @@
 #include <iomanip>
 #include <ios>
 #include <sstream>
+
+using Qt::Literals::StringLiterals::operator""_L1;
+using Qt::Literals::StringLiterals::operator""_s;
 
 namespace
 {
@@ -65,8 +67,8 @@ void Countly::setAlwaysUsePost(bool value)
 
 void Countly::setDeviceID(const QString &value)
 {
-    if (_sessionParameters.find(QStringLiteral("device_id")) == _sessionParameters.end() || (!_sessionParameters[QStringLiteral("device_id")].isEmpty() && _sessionParameters[QStringLiteral("device_id")] == value)) {
-        _sessionParameters[QStringLiteral("device_id")] = value;
+    if (_sessionParameters.find(u"device_id"_s) == _sessionParameters.end() || (!_sessionParameters[u"device_id"_s].isEmpty() && _sessionParameters[u"device_id"_s] == value)) {
+        _sessionParameters[u"device_id"_s] = value;
         return;
     }
 
@@ -74,7 +76,7 @@ void Countly::setDeviceID(const QString &value)
         endSession();
         beginSession();
     }
-    _sessionParameters[QStringLiteral("device_id")] = value;
+    _sessionParameters[u"device_id"_s] = value;
 }
 
 void Countly::setMaxEvents(std::size_t value)
@@ -100,42 +102,42 @@ void Countly::setMetrics(const QString &os,
     QJsonObject metrics;
 
     if (!os.isEmpty()) {
-        metrics[QStringLiteral("_os")] = os;
+        metrics["_os"_L1] = os;
     }
 
     if (!os_version.isEmpty()) {
-        metrics[QStringLiteral("_os_version")] = os_version;
+        metrics["_os_version"_L1] = os_version;
     }
 
     if (!device.isEmpty()) {
-        metrics[QStringLiteral("_device")] = device;
+        metrics["_device"_L1] = device;
     }
 
     if (!resolution.isEmpty()) {
-        metrics[QStringLiteral("_resolution")] = resolution;
+        metrics["_resolution"_L1] = resolution;
     }
 
     // if (!carrier.isEmpty()) {
-    //     metrics[QStringLiteral("_carrier")] = carrier;
+    //     metrics["_carrier"_L1] = carrier;
     // }
 
     if (!app_version.isEmpty()) {
-        metrics[QStringLiteral("_app_version")] = app_version;
+        metrics["_app_version"_L1] = app_version;
     }
 
-    _sessionParameters[QStringLiteral("metrics")] = Countly::encodeURL(QJsonDocument(metrics).toJson(QJsonDocument::Compact));
+    _sessionParameters[u"metrics"_s] = Countly::encodeURL(QJsonDocument(metrics).toJson(QJsonDocument::Compact));
 }
 
 void Countly::start(const QString &app_key,
                     const QString &host)
 {
-    if (!host.contains(QStringLiteral("http://")) && !host.contains(QStringLiteral("https://"))) {
+    if (!host.contains("http://"_L1) && !host.contains("https://"_L1)) {
         _host = "http://" + host;
     } else {
         _host = host;
     }
 
-    _sessionParameters[QStringLiteral("app_key")] = app_key;
+    _sessionParameters[u"app_key"_s] = app_key;
 
     beginSession();
 }
@@ -157,17 +159,17 @@ void Countly::beginSession()
     const auto timestamp = std::chrono::duration_cast<std::chrono::seconds>(now.time_since_epoch());
 
     QUrlQuery query;
-    query.addQueryItem(QStringLiteral("sdk_name"), QStringLiteral("qt-native"));
-    query.addQueryItem(QStringLiteral("sdk_version"), QStringLiteral("1.0"));
-    query.addQueryItem(QStringLiteral("timestamp"), QString::number(timestamp.count()));
-    query.addQueryItem(QStringLiteral("begin_session"), QStringLiteral("1"));
+    query.addQueryItem(u"sdk_name"_s, u"qt-native"_s);
+    query.addQueryItem(u"sdk_version"_s, u"1.0"_s);
+    query.addQueryItem(u"timestamp"_s, QString::number(timestamp.count()));
+    query.addQueryItem(u"begin_session"_s, u"1"_s);
     QMapIterator<QString, QString> it(_sessionParameters);
     while (it.hasNext()) {
         it.next();
         query.addQueryItem(it.key(), it.value());
     }
 
-    request(QStringLiteral("/i"), query);
+    request(u"/i"_s, query);
 
     _lastSent = Countly::getTimestamp();
     _activeSession = true;
@@ -192,10 +194,10 @@ void Countly::updateSession()
     if (no_events) {
         if (duration.count() > COUNTLY_KEEPALIVE_INTERVAL) {
             QUrlQuery query;
-            query.addQueryItem(QStringLiteral("app_key"), _sessionParameters[QStringLiteral("app_key")]);
-            query.addQueryItem(QStringLiteral("device_id"), _sessionParameters[QStringLiteral("device_id")]);
-            query.addQueryItem(QStringLiteral("session_duration"), QString::number(duration.count()));
-            request(QStringLiteral("/i"), query);
+            query.addQueryItem(u"app_key"_s, _sessionParameters[u"app_key"_s]);
+            query.addQueryItem(u"device_id"_s, _sessionParameters[u"device_id"_s]);
+            query.addQueryItem(u"session_duration"_s, QString::number(duration.count()));
+            request(u"/i"_s, query);
 
             _lastSent += duration;
         }
@@ -204,11 +206,11 @@ void Countly::updateSession()
     }
 
     QUrlQuery query;
-    query.addQueryItem(QStringLiteral("app_key"), _sessionParameters[QStringLiteral("app_key")]);
-    query.addQueryItem(QStringLiteral("device_id"), _sessionParameters[QStringLiteral("device_id")]);
-    query.addQueryItem(QStringLiteral("session_duration"), QString::number(duration.count()));
-    query.addQueryItem(QStringLiteral("events"), QJsonDocument(events).toJson());
-    request(QStringLiteral("/i"), query);
+    query.addQueryItem(u"app_key"_s, _sessionParameters[u"app_key"_s]);
+    query.addQueryItem(u"device_id"_s, _sessionParameters[u"device_id"_s]);
+    query.addQueryItem(u"session_duration"_s, QString::number(duration.count()));
+    query.addQueryItem(u"events"_s, QJsonDocument(events).toJson());
+    request(u"/i"_s, query);
 
     _lastSent = Countly::getTimestamp();
     _eventQueue.clear();
@@ -221,12 +223,12 @@ void Countly::endSession()
     const auto duration = std::chrono::duration_cast<std::chrono::seconds>(getSessionDuration(now));
 
     QUrlQuery query;
-    query.addQueryItem(QStringLiteral("app_key"), _sessionParameters[QStringLiteral("app_key")]);
-    query.addQueryItem(QStringLiteral("device_id"), _sessionParameters[QStringLiteral("device_id")]);
-    query.addQueryItem(QStringLiteral("session_duration"), QString::number(duration.count()));
-    query.addQueryItem(QStringLiteral("timestamp"), QString::number(timestamp.count()));
-    query.addQueryItem(QStringLiteral("end_session"), QStringLiteral("1"));
-    request(QStringLiteral("/i"), query);
+    query.addQueryItem(u"app_key"_s, _sessionParameters[u"app_key"_s]);
+    query.addQueryItem(u"device_id"_s, _sessionParameters[u"device_id"_s]);
+    query.addQueryItem(u"session_duration"_s, QString::number(duration.count()));
+    query.addQueryItem(u"timestamp"_s, QString::number(timestamp.count()));
+    query.addQueryItem(u"end_session"_s, u"1"_s);
+    request(u"/i"_s, query);
 
     _lastSent = now;
     _activeSession = false;
@@ -250,22 +252,22 @@ void Countly::request(const QString &path,
     if (!_salt.isEmpty()) {
         const QString saltedData = data + _salt;
         const QByteArray hashBA = QCryptographicHash::hash(saltedData.toUtf8(), QCryptographicHash::Sha256);
-        const QString hash = QLatin1String(hashBA.toHex());
+        const auto hash = QString::fromLatin1(hashBA.toHex());
 
         if (!data.isEmpty()) {
             data += '&';
         }
 
-        data += QStringLiteral("checksum256=");
+        data += "checksum256="_L1;
         data += hash;
 
-        query.addQueryItem(QStringLiteral("checksum256"), hash);
+        query.addQueryItem(u"checksum256"_s, hash);
     }
 
     APIRequestBase request;
     request.setSilent(true);
     request.setBaseUrl(_host);
-    request.setCall(QStringLiteral("/countly"));
+    request.setCall(u"/countly"_s);
     if (usePost) {
         request.setOperation(QNetworkAccessManager::PostOperation);
         request.setUrl(path);

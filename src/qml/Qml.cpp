@@ -19,9 +19,11 @@
 #include "weather/containers/StationInfo.h"
 #include "weather/containers/WeatherCondition.h"
 
-#include <QtCore/QStringLiteral>
+#include <QtCore/QString>
 #include <QtQml/qqml.h>
 #include <QtQuick/QQuickItem>
+
+using Qt::Literals::StringLiterals::operator""_s;
 
 namespace Vremenar
 {
@@ -34,11 +36,11 @@ void Qml::registerTypes()
     qmlRegisterSingletonType<UIManager>(uri, 1, 0, "UI", UIManager::provider);
     qmlRegisterSingletonType<Settings>(uri, 1, 0, "Settings", Globals::providerSettings);
 
-    qmlRegisterUncreatableType<StationInfo>(uri, 1, 0, "StationInfo", QStringLiteral("Error: only creatable in C++"));
-    qmlRegisterUncreatableType<WeatherCondition>(uri, 1, 0, "WeatherCondition", QStringLiteral("Error: only creatable in C++"));
+    qmlRegisterUncreatableType<StationInfo>(uri, 1, 0, "StationInfo", u"Error: only creatable in C++"_s);
+    qmlRegisterUncreatableType<WeatherCondition>(uri, 1, 0, "WeatherCondition", u"Error: only creatable in C++"_s);
 
-    qmlRegisterUncreatableMetaObject(Common::staticMetaObject, uri, 1, 0, "Common", QStringLiteral("Error: only enums"));
-    qmlRegisterUncreatableMetaObject(Weather::staticMetaObject, uri, 1, 0, "Weather", QStringLiteral("Error: only enums"));
+    qmlRegisterUncreatableMetaObject(Common::staticMetaObject, uri, 1, 0, "Common", u"Error: only enums"_s);
+    qmlRegisterUncreatableMetaObject(Weather::staticMetaObject, uri, 1, 0, "Weather", u"Error: only enums"_s);
 }
 
 } // namespace Vremenar

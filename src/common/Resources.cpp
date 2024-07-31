@@ -14,9 +14,12 @@
 #include <QtCore/QCoreApplication>
 #include <QtCore/QDir>
 #include <QtCore/QFileInfo>
+#include <QtCore/QLatin1StringView>
 #include <QtCore/QStandardPaths>
 #include <QtCore/QString>
-#include <QtCore/QStringLiteral>
+
+using Qt::Literals::StringLiterals::operator""_L1;
+using Qt::Literals::StringLiterals::operator""_s;
 
 namespace Vremenar
 {
@@ -57,8 +60,8 @@ QString Resources::resource(const QString &file)
     }
 
     // Try application exe directory without src for development
-    else if (QFileInfo::exists(QCoreApplication::applicationDirPath().remove(QStringLiteral("/src")) + "/" + file)) {
-        path = QFileInfo(QCoreApplication::applicationDirPath().remove(QStringLiteral("/src")) + "/" + file).absoluteFilePath();
+    else if (QFileInfo::exists(QCoreApplication::applicationDirPath().remove("/src"_L1) + "/" + file)) {
+        path = QFileInfo(QCoreApplication::applicationDirPath().remove("/src"_L1) + "/" + file).absoluteFilePath();
     }
 
 #if defined(Q_OS_UNIX)
@@ -68,8 +71,8 @@ QString Resources::resource(const QString &file)
 #endif
 
 #if defined(Q_OS_MACOS)
-    else if (QFileInfo::exists(QCoreApplication::applicationDirPath().replace(QStringLiteral("MacOS"), QStringLiteral("Resources")) + "/" + file)) {
-        path = QFileInfo(QCoreApplication::applicationDirPath().replace(QStringLiteral("MacOS"), QStringLiteral("Resources")) + "/" + file).absoluteFilePath();
+    else if (QFileInfo::exists(QCoreApplication::applicationDirPath().replace("MacOS"_L1, "Resources"_L1) + "/" + file)) {
+        path = QFileInfo(QCoreApplication::applicationDirPath().replace("MacOS"_L1, "Resources"_L1) + "/" + file).absoluteFilePath();
     }
 #endif
 
@@ -80,7 +83,7 @@ QString Resources::appData()
 {
     const QDir dir(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation));
     if (!dir.exists()) {
-        dir.mkpath(QStringLiteral("."));
+        dir.mkpath(u"."_s);
     }
 
     return dir.path();
@@ -94,7 +97,7 @@ QString Resources::logLocation()
     const QDir dir(QStandardPaths::writableLocation(QStandardPaths::AppDataLocation));
 #endif
     if (!dir.exists()) {
-        dir.mkpath(QStringLiteral("."));
+        dir.mkpath(u"."_s);
     }
 
     return dir.path();

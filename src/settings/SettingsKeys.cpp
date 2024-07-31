@@ -12,55 +12,56 @@
 #include "settings/Settings.h"
 
 #include <QtCore/QString>
-#include <QtCore/QStringLiteral>
+
+using Qt::Literals::StringLiterals::operator""_s;
 
 namespace Vremenar
 {
 
 // Country selection
-const QString Settings::KEY_WEATHER_SOURCE = QStringLiteral("weather/source");
-const QString Settings::KEY_WEATHER_SOURCE_INITIAL_CHOICE = QStringLiteral("weather/initial-source-chosen");
+const QString Settings::KEY_WEATHER_SOURCE = u"weather/source"_s;
+const QString Settings::KEY_WEATHER_SOURCE_INITIAL_CHOICE = u"weather/initial-source-chosen"_s;
 
 // Location
-const QString Settings::KEY_LOCATION_SOURCE = QStringLiteral("location/source");
-const QString Settings::KEY_LOCATION_INITIAL_CHOICE = QStringLiteral("location/initial-choice");
-const QString Settings::KEY_LOCATION_STATION = QStringLiteral("location/station");
-const QString Settings::KEY_LOCATION_LATITUDE = QStringLiteral("location/latitude");
-const QString Settings::KEY_LOCATION_LONGITUDE = QStringLiteral("location/longitude");
+const QString Settings::KEY_LOCATION_SOURCE = u"location/source"_s;
+const QString Settings::KEY_LOCATION_INITIAL_CHOICE = u"location/initial-choice"_s;
+const QString Settings::KEY_LOCATION_STATION = u"location/station"_s;
+const QString Settings::KEY_LOCATION_LATITUDE = u"location/latitude"_s;
+const QString Settings::KEY_LOCATION_LONGITUDE = u"location/longitude"_s;
 
 // Map startup settings
-const QString Settings::KEY_STARTUP_MAP_ENABLED = QStringLiteral("map/startup");
-const QString Settings::KEY_STARTUP_MAP_STYLE = QStringLiteral("map/style");
-const QString Settings::KEY_STARTUP_MAP_TYPE = QStringLiteral("map/type");
-const QString Settings::KEY_STARTUP_MAP_ZOOM_LEVEL = QStringLiteral("map/zoom-level");
-const QString Settings::KEY_STARTUP_MAP_LATITUDE = QStringLiteral("map/latitude");
-const QString Settings::KEY_STARTUP_MAP_LONGITUDE = QStringLiteral("map/longitude");
+const QString Settings::KEY_STARTUP_MAP_ENABLED = u"map/startup"_s;
+const QString Settings::KEY_STARTUP_MAP_STYLE = u"map/style"_s;
+const QString Settings::KEY_STARTUP_MAP_TYPE = u"map/type"_s;
+const QString Settings::KEY_STARTUP_MAP_ZOOM_LEVEL = u"map/zoom-level"_s;
+const QString Settings::KEY_STARTUP_MAP_LATITUDE = u"map/latitude"_s;
+const QString Settings::KEY_STARTUP_MAP_LONGITUDE = u"map/longitude"_s;
 
 // Locale
-const QString Settings::KEY_LOCALE = QStringLiteral("locale");
+const QString Settings::KEY_LOCALE = u"locale"_s;
 
 // Notifications
-const QString Settings::KEY_NOTIFICATIONS_ENABLED = QStringLiteral("notifications/enabled");
-const QString Settings::KEY_NOTIFICATIONS_INITIAL_CHOICE = QStringLiteral("notifications/initial-choice");
-const QString Settings::KEY_NOTIFICATIONS_ALERT_SEVERITY = QStringLiteral("notifications/alert-severity");
-const QString Settings::KEY_NOTIFICATIONS_ALERT_KEYS = QStringLiteral("notifications/alert-keys");
+const QString Settings::KEY_NOTIFICATIONS_ENABLED = u"notifications/enabled"_s;
+const QString Settings::KEY_NOTIFICATIONS_INITIAL_CHOICE = u"notifications/initial-choice"_s;
+const QString Settings::KEY_NOTIFICATIONS_ALERT_SEVERITY = u"notifications/alert-severity"_s;
+const QString Settings::KEY_NOTIFICATIONS_ALERT_KEYS = u"notifications/alert-keys"_s;
 
 // GUI
-const QString Settings::KEY_SHOW_IN_TRAY = QStringLiteral("gui/tray");
+const QString Settings::KEY_SHOW_IN_TRAY = u"gui/tray"_s;
 #if defined(Q_OS_MACOS)
-const QString Settings::KEY_SHOW_IN_DOCK = QStringLiteral("gui/dock");
+const QString Settings::KEY_SHOW_IN_DOCK = u"gui/dock"_s;
 #endif
 
 // GUI - start
-const QString Settings::KEY_REMEMBER_POSITION = QStringLiteral("gui/remember-position");
-const QString Settings::KEY_REMEMBER_SIZE = QStringLiteral("gui/remember-size");
+const QString Settings::KEY_REMEMBER_POSITION = u"gui/remember-position"_s;
+const QString Settings::KEY_REMEMBER_SIZE = u"gui/remember-size"_s;
 
-const QString Settings::KEY_WIDTH = QStringLiteral("gui/width");
-const QString Settings::KEY_HEIGHT = QStringLiteral("gui/height");
-const QString Settings::KEY_POS_X = QStringLiteral("gui/posx");
-const QString Settings::KEY_POS_Y = QStringLiteral("gui/posy");
+const QString Settings::KEY_WIDTH = u"gui/width"_s;
+const QString Settings::KEY_HEIGHT = u"gui/height"_s;
+const QString Settings::KEY_POS_X = u"gui/posx"_s;
+const QString Settings::KEY_POS_Y = u"gui/posy"_s;
 
 // Special
-const QString Settings::KEY_UUID = QStringLiteral("uuid");
+const QString Settings::KEY_UUID = u"uuid"_s;
 
 } // namespace Vremenar

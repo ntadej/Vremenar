@@ -17,10 +17,12 @@
 #include <QtCore/QDebug>
 #include <QtCore/QMargins>
 #include <QtCore/QObject>
-#include <QtCore/QStringLiteral>
+#include <QtCore/QString>
 #include <QtGui/QGuiApplication>
 #include <QtGui/QScreen>
 #include <QtGui/QWindow>
+
+using Qt::Literals::StringLiterals::operator""_s;
 
 namespace Vremenar
 {
@@ -97,13 +99,13 @@ bool Qml::UIManager::customWindowButtons() const
 QString Qml::UIManager::iconTheme() const
 {
 #if defined(Q_OS_ANDROID)
-    return QStringLiteral("Material");
+    return u"Material"_s;
 #elif defined(Q_OS_WINDOWS)
-    return QStringLiteral("Segoe");
+    return u"Segoe"_s;
 #elif defined(Q_OS_MACOS) || defined(Q_OS_IOS)
-    return QStringLiteral("SFSymbols");
+    return u"SFSymbols"_s;
 #else
-    return QStringLiteral("Ionicons");
+    return u"Ionicons"_s;
 #endif
 }
 

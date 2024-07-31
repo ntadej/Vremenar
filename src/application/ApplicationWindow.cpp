@@ -47,10 +47,10 @@
 
 #include <QtCore/QCoreApplication>
 #include <QtCore/QDebug>
+#include <QtCore/QLatin1StringView>
 #include <QtCore/QObject>
 #include <QtCore/QString>
 #include <QtCore/QStringList>
-#include <QtCore/QStringLiteral>
 #include <QtGui/QWindow>
 #include <QtPositioning/QGeoCoordinate>
 #include <QtQml/QQmlApplicationEngine>
@@ -65,6 +65,9 @@
 #include <cstddef>
 #include <memory>
 #include <vector>
+
+using Qt::Literals::StringLiterals::operator""_L1;
+using Qt::Literals::StringLiterals::operator""_s;
 
 namespace Vremenar
 {
@@ -85,11 +88,11 @@ ApplicationWindow::ApplicationWindow(QObject *parent)
 
     // Set the style
 #if defined(Q_OS_ANDROID)
-    QQuickStyle::setStyle(QStringLiteral("Material"));
+    QQuickStyle::setStyle(u"Material"_s);
 #elif defined(Q_OS_LINUX) || defined(Q_OS_WINDOWS)
-    QQuickStyle::setStyle(QStringLiteral("Universal"));
+    QQuickStyle::setStyle(u"Universal"_s);
 #else
-    QQuickStyle::setStyle(QStringLiteral("Basic"));
+    QQuickStyle::setStyle(u"Basic"_s);
 #endif
 
     createModels();
@@ -97,10 +100,10 @@ ApplicationWindow::ApplicationWindow(QObject *parent)
     createWidgets();
 #endif
 
-    _engine->addImportPath(QStringLiteral("qrc:/"));
+    _engine->addImportPath(u"qrc:/"_s);
 #if defined(Q_OS_MACOS) || defined(Q_OS_IOS)
     // NOLINTNEXTLINE(cppcoreguidelines-owning-memory)
-    _engine->addImageProvider(QStringLiteral("SFSymbols"), new SFSymbolsImageProvider);
+    _engine->addImageProvider(u"SFSymbols"_s, new SFSymbolsImageProvider);
 #endif
 
     Qml::registerTypes();
@@ -108,19 +111,19 @@ ApplicationWindow::ApplicationWindow(QObject *parent)
     // Custom file selector
     QStringList extraSelectors;
 #if defined(Q_OS_MACOS)
-    extraSelectors.append(QStringLiteral("nativemenu"));
-    extraSelectors.append(QStringLiteral("nativeicons"));
+    extraSelectors.append(u"nativemenu"_s);
+    extraSelectors.append(u"nativeicons"_s);
 #elif defined(Q_OS_IOS)
-    extraSelectors.append(QStringLiteral("mobile"));
-    extraSelectors.append(QStringLiteral("nativeicons"));
+    extraSelectors.append(u"mobile"_s);
+    extraSelectors.append(u"nativeicons"_s);
 #elif defined(Q_OS_ANDROID)
-    extraSelectors.append(QStringLiteral("mobile"));
-    extraSelectors.append(QStringLiteral("materialstyle"));
+    extraSelectors.append(u"mobile"_s);
+    extraSelectors.append(u"materialstyle"_s);
 #elif defined(Q_OS_LINUX)
-    extraSelectors.append(QStringLiteral("custommenu"));
-    extraSelectors.append(QStringLiteral("universalstyle"));
+    extraSelectors.append(u"custommenu"_s);
+    extraSelectors.append(u"universalstyle"_s);
 #elif defined(Q_OS_WINDOWS)
-    extraSelectors.append(QStringLiteral("universalstyle"));
+    extraSelectors.append(u"universalstyle"_s);
 #endif
     if (!extraSelectors.isEmpty()) {
         _qmlFileSelector->setExtraSelectors(extraSelectors);
@@ -142,18 +145,18 @@ ApplicationWindow::ApplicationWindow(QObject *parent)
 
     // Setup and load main QML
     _engine->setNetworkAccessManagerFactory(_networkFactory.get());
-    _engine->load(QUrl(QStringLiteral("qrc:/Vremenar/main.qml")));
+    _engine->load(QUrl(u"qrc:/Vremenar/main.qml"_s));
 
 #ifndef VREMENAR_MOBILE
     // Set application icon
     QIcon appIcon;
-    appIcon.addFile(QStringLiteral(":/Vremenar/Logo/16x16/vremenar.png"), QSize(16, 16));     // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
-    appIcon.addFile(QStringLiteral(":/Vremenar/Logo/24x24/vremenar.png"), QSize(24, 24));     // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
-    appIcon.addFile(QStringLiteral(":/Vremenar/Logo/32x32/vremenar.png"), QSize(32, 32));     // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
-    appIcon.addFile(QStringLiteral(":/Vremenar/Logo/48x48/vremenar.png"), QSize(48, 48));     // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
-    appIcon.addFile(QStringLiteral(":/Vremenar/Logo/64x64/vremenar.png"), QSize(64, 64));     // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
-    appIcon.addFile(QStringLiteral(":/Vremenar/Logo/128x128/vremenar.png"), QSize(128, 128)); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
-    appIcon.addFile(QStringLiteral(":/Vremenar/Logo/256x256/vremenar.png"), QSize(256, 256)); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+    appIcon.addFile(u":/Vremenar/Logo/16x16/vremenar.png"_s, QSize(16, 16));     // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+    appIcon.addFile(u":/Vremenar/Logo/24x24/vremenar.png"_s, QSize(24, 24));     // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+    appIcon.addFile(u":/Vremenar/Logo/32x32/vremenar.png"_s, QSize(32, 32));     // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+    appIcon.addFile(u":/Vremenar/Logo/48x48/vremenar.png"_s, QSize(48, 48));     // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+    appIcon.addFile(u":/Vremenar/Logo/64x64/vremenar.png"_s, QSize(64, 64));     // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+    appIcon.addFile(u":/Vremenar/Logo/128x128/vremenar.png"_s, QSize(128, 128)); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+    appIcon.addFile(u":/Vremenar/Logo/256x256/vremenar.png"_s, QSize(256, 256)); // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
     QGuiApplication::setWindowIcon(appIcon);
 
     const Settings settings;
@@ -231,15 +234,15 @@ void ApplicationWindow::writeSettingsStartupMap()
 {
     Settings settings(this);
     if (_ready && settings.startupMapEnabled()) {
-        auto *mapObject = _qmlMainWindow->findChild<QObject *>(QStringLiteral("mapObject"));
+        auto *mapObject = _qmlMainWindow->findChild<QObject *>("mapObject"_L1);
 
         settings.setStartupMapStyle(_weatherProvider->currentStyle());
         settings.setStartupMapType(_weatherProvider->currentType());
 
         if (mapObject != nullptr) {
-            settings.setStartupMapZoomLevel(QQmlProperty::read(mapObject, QStringLiteral("zoomLevel")).toReal());
+            settings.setStartupMapZoomLevel(QQmlProperty::read(mapObject, u"zoomLevel"_s).toReal());
 
-            auto center = QQmlProperty::read(mapObject, QStringLiteral("center")).value<QGeoCoordinate>();
+            auto center = QQmlProperty::read(mapObject, u"center"_s).value<QGeoCoordinate>();
             settings.setStartupMapLatitude(center.latitude());
             settings.setStartupMapLongitude(center.longitude());
         }
@@ -255,21 +258,21 @@ void ApplicationWindow::createModels()
     connect(_weatherProvider.get(), &WeatherProvider::recordEvent, _analytics.get(), &Analytics::recordEvent);
     connect(_weatherProvider.get(), &WeatherProvider::storeState, this, &ApplicationWindow::writeSettingsStartupMap);
 
-    _engine->rootContext()->setContextProperty(QStringLiteral("Vremenar"), this);
-    _engine->rootContext()->setContextProperty(QStringLiteral("VL"), _localeManager.get());
-    _engine->rootContext()->setContextProperty(QStringLiteral("VNotifications"), _notificationsManager.get());
-    _engine->rootContext()->setContextProperty(QStringLiteral("VUpdates"), _updates.get());
+    _engine->rootContext()->setContextProperty(u"Vremenar"_s, this);
+    _engine->rootContext()->setContextProperty(u"VL"_s, _localeManager.get());
+    _engine->rootContext()->setContextProperty(u"VNotifications"_s, _notificationsManager.get());
+    _engine->rootContext()->setContextProperty(u"VUpdates"_s, _updates.get());
 
-    _engine->rootContext()->setContextProperty(QStringLiteral("VWeather"), _weatherProvider.get());
-    _engine->rootContext()->setContextProperty(QStringLiteral("VCurrent"), _weatherProvider->current());
-    _engine->rootContext()->setContextProperty(QStringLiteral("VCurrentAlerts"), _weatherProvider->current()->alerts());
-    _engine->rootContext()->setContextProperty(QStringLiteral("VWeatherMapModel"), _weatherProvider->weatherMap());
-    _engine->rootContext()->setContextProperty(QStringLiteral("VMapInfoModel"), _weatherProvider->mapInfo());
-    _engine->rootContext()->setContextProperty(QStringLiteral("VMapLayersModel"), _weatherProvider->mapLayers());
-    _engine->rootContext()->setContextProperty(QStringLiteral("VMapLegendModel"), _weatherProvider->mapLegend());
+    _engine->rootContext()->setContextProperty(u"VWeather"_s, _weatherProvider.get());
+    _engine->rootContext()->setContextProperty(u"VCurrent"_s, _weatherProvider->current());
+    _engine->rootContext()->setContextProperty(u"VCurrentAlerts"_s, _weatherProvider->current()->alerts());
+    _engine->rootContext()->setContextProperty(u"VWeatherMapModel"_s, _weatherProvider->weatherMap());
+    _engine->rootContext()->setContextProperty(u"VMapInfoModel"_s, _weatherProvider->mapInfo());
+    _engine->rootContext()->setContextProperty(u"VMapLayersModel"_s, _weatherProvider->mapLayers());
+    _engine->rootContext()->setContextProperty(u"VMapLegendModel"_s, _weatherProvider->mapLegend());
 
     _location = std::make_unique<LocationProvider>(_weatherProvider->stations(), this);
-    _engine->rootContext()->setContextProperty(QStringLiteral("VLocation"), _location.get());
+    _engine->rootContext()->setContextProperty(u"VLocation"_s, _location.get());
     connect(_location.get(), &LocationProvider::enabledChanged, _weatherProvider.get(), &WeatherProvider::currentLocationStatusChanged);
     connect(_location.get(), &LocationProvider::positionChanged, _weatherProvider.get(), &WeatherProvider::requestCurrentWeatherInfo);
     connect(_weatherProvider.get(), &WeatherProvider::stationsUpdated, _location.get(), &LocationProvider::locationSettingsChanged);
@@ -371,7 +374,7 @@ void ApplicationWindow::processUrl(const QString &url)
         return;
     }
 
-    if (!url.startsWith(QStringLiteral("vremenar://"))) {
+    if (!url.startsWith("vremenar://"_L1)) {
         return;
     }
 
@@ -426,7 +429,7 @@ void ApplicationWindow::weatherSourceChanged(int source)
         _weatherProvider->resetSource();
         _location->resetPosition();
 
-        auto *mapObject = _qmlMainWindow->findChild<QObject *>(QStringLiteral("mapObject"));
+        auto *mapObject = _qmlMainWindow->findChild<QObject *>("mapObject"_L1);
         if (mapObject != nullptr) {
             QMetaObject::invokeMethod(mapObject, "reinitPosition");
         }

@@ -16,9 +16,10 @@
 #include <QtCore/QDate>
 #include <QtCore/QIODevice>
 #include <QtCore/QString>
-#include <QtCore/QStringLiteral>
 
 #include <cstdio>
+
+using Qt::Literals::StringLiterals::operator""_s;
 
 namespace Vremenar
 {
@@ -37,8 +38,8 @@ Output &Output::operator<<(const QString &string)
 
 void Output::welcome()
 {
-    Output() << QStringLiteral("%1 %2").arg(Vremenar::name, Vremenar::version) << Qt::endl
-             << QStringLiteral("Copyright (C) %1 Tadej Novak").arg(QDate::currentDate().year()) << Qt::endl
+    Output() << u"%1 %2"_s.arg(Vremenar::name, Vremenar::version) << Qt::endl
+             << u"Copyright (C) %1 Tadej Novak"_s.arg(QDate::currentDate().year()) << Qt::endl
              << Qt::endl;
 }
 

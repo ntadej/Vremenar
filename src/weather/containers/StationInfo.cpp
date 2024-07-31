@@ -13,14 +13,16 @@
 
 #include "common/ListItem.h"
 
+#include <QtCore/QLatin1StringView>
 #include <QtCore/QObject>
 #include <QtCore/QString>
-#include <QtCore/QStringLiteral>
 #include <QtCore/QVariant>
 #include <QtPositioning/QGeoCoordinate>
 
 #include <memory>
 #include <utility>
+
+using Qt::Literals::StringLiterals::operator""_L1;
 
 namespace Vremenar
 {
@@ -44,24 +46,24 @@ StationInfo::StationInfo(const QString &id,
 
 std::unique_ptr<StationInfo> StationInfo::fromJson(const QJsonObject &json)
 {
-    const QString id = json[QStringLiteral("id")].toString();
-    const QString name = json[QStringLiteral("name")].toString();
+    const QString id = json["id"_L1].toString();
+    const QString name = json["name"_L1].toString();
 
-    const QJsonObject coordinateObj = json[QStringLiteral("coordinate")].toObject();
+    const QJsonObject coordinateObj = json["coordinate"_L1].toObject();
     const QGeoCoordinate coordinate{
-        coordinateObj[QStringLiteral("latitude")].toDouble(),
-        coordinateObj[QStringLiteral("longitude")].toDouble(),
-        coordinateObj[QStringLiteral("altitude")].toDouble()};
+        coordinateObj["latitude"_L1].toDouble(),
+        coordinateObj["longitude"_L1].toDouble(),
+        coordinateObj["altitude"_L1].toDouble()};
 
-    const qreal zoomLevel = json[QStringLiteral("zoom_level")].toDouble();
+    const qreal zoomLevel = json["zoom_level"_L1].toDouble();
 
     bool forecastOnly{};
-    if (json.contains(QStringLiteral("forecast_only"))) {
-        forecastOnly = json[QStringLiteral("forecast_only")].toBool();
+    if (json.contains("forecast_only"_L1)) {
+        forecastOnly = json["forecast_only"_L1].toBool();
     }
     QString alertsArea;
-    if (json.contains(QStringLiteral("alerts_area"))) {
-        alertsArea = json[QStringLiteral("alerts_area")].toString();
+    if (json.contains("alerts_area"_L1)) {
+        alertsArea = json["alerts_area"_L1].toString();
     }
 
     return std::make_unique<StationInfo>(id, name, coordinate, zoomLevel, forecastOnly, alertsArea);
@@ -76,7 +78,7 @@ QString StationInfo::displayCurrent() const
 {
     if (forecastOnly()) {
         QString name = _name;
-        name.append(QStringLiteral(" (")).append(currentWeatherSource()->display()).append(QStringLiteral(")"));
+        name.append(" ("_L1).append(currentWeatherSource()->display()).append("_L1");
         return name;
     }
 

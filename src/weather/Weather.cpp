@@ -11,12 +11,15 @@
 
 #include "weather/Weather.h"
 
+#include <QtCore/QLatin1StringView>
 #include <QtCore/QLocale>
 #include <QtCore/QObject>
 #include <QtCore/QString>
-#include <QtCore/QStringLiteral>
 
 #include <stdexcept>
+
+using Qt::Literals::StringLiterals::operator""_L1;
+using Qt::Literals::StringLiterals::operator""_s;
 
 namespace Vremenar
 {
@@ -46,10 +49,10 @@ QString Weather::timeDisplay(const QDateTime &time)
 
 Weather::ObservationType Weather::observationTypeFromString(const QString &type)
 {
-    if (type == QStringLiteral("historical")) {
+    if (type == "historical"_L1) {
         return Weather::Historical;
     }
-    if (type == QStringLiteral("forecast")) {
+    if (type == "forecast"_L1) {
         return Weather::Forecast;
     }
 
@@ -58,13 +61,13 @@ Weather::ObservationType Weather::observationTypeFromString(const QString &type)
 
 Weather::MapStyle Weather::mapStyleFromString(const QString &style)
 {
-    if (style == QStringLiteral("satellite")) {
+    if (style == "satellite"_L1) {
         return Weather::SatelliteMapStyle;
     }
-    if (style == QStringLiteral("streets-light")) {
+    if (style == "streets-light"_L1) {
         return Weather::StreetsLightMapStyle;
     }
-    if (style == QStringLiteral("streets-dark")) {
+    if (style == "streets-dark"_L1) {
         return Weather::StreetsDarkMapStyle;
     }
 
@@ -75,11 +78,11 @@ QString Weather::mapStyleToString(MapStyle style)
 {
     switch (style) {
     case SatelliteMapStyle:
-        return QStringLiteral("satellite");
+        return u"satellite"_s;
     case StreetsLightMapStyle:
-        return QStringLiteral("streets-light");
+        return u"streets-light"_s;
     case StreetsDarkMapStyle:
-        return QStringLiteral("streets-dark");
+        return u"streets-dark"_s;
     case UnknownMapStyle:
         return {};
     }
@@ -105,34 +108,34 @@ QString Weather::mapStyleToLocalizedString(MapStyle style)
 
 Weather::MapType Weather::mapTypeFromString(const QString &type)
 {
-    if (type == QStringLiteral("condition")) {
+    if (type == "condition"_L1) {
         return Weather::WeatherConditionMap;
     }
-    if (type == QStringLiteral("precipitation")) {
+    if (type == "precipitation"_L1) {
         return Weather::PrecipitationMap;
     }
-    if (type == QStringLiteral("precipitation_global")) {
+    if (type == "precipitation_global"_L1) {
         return Weather::PrecipitationGlobalMap;
     }
-    if (type == QStringLiteral("cloud")) {
+    if (type == "cloud"_L1) {
         return Weather::CloudCoverageMap;
     }
-    if (type == QStringLiteral("cloud_infrared_global")) {
+    if (type == "cloud_infrared_global"_L1) {
         return Weather::CloudCoverageInfraredGlobalMap;
     }
-    if (type == QStringLiteral("wind")) {
+    if (type == "wind"_L1) {
         return Weather::WindSpeedMap;
     }
-    if (type == QStringLiteral("temperature")) {
+    if (type == "temperature"_L1) {
         return Weather::TemperatureMap;
     }
-    if (type == QStringLiteral("hail")) {
+    if (type == "hail"_L1) {
         return Weather::HailProbabilityMap;
     }
-    if (type == QStringLiteral("uv_index_max")) {
+    if (type == "uv_index_max"_L1) {
         return Weather::UVIndexMaxMap;
     }
-    if (type == QStringLiteral("uv_dose")) {
+    if (type == "uv_dose"_L1) {
         return Weather::UVDoseMap;
     }
 
@@ -143,27 +146,27 @@ QString Weather::mapTypeToString(MapType type)
 {
     switch (type) {
     case WeatherConditionMap:
-        return QStringLiteral("condition");
+        return u"condition"_s;
     case PrecipitationMap:
-        return QStringLiteral("precipitation");
+        return u"precipitation"_s;
     case PrecipitationGlobalMap:
-        return QStringLiteral("precipitation_global");
+        return u"precipitation_global"_s;
     case CloudCoverageMap:
-        return QStringLiteral("cloud");
+        return u"cloud"_s;
     case CloudCoverageInfraredGlobalMap:
-        return QStringLiteral("cloud_infrared_global");
+        return u"cloud_infrared_global"_s;
     case WindSpeedMap:
-        return QStringLiteral("wind");
+        return u"wind"_s;
     case TemperatureMap:
-        return QStringLiteral("temperature");
+        return u"temperature"_s;
     case HailProbabilityMap:
-        return QStringLiteral("hail");
+        return u"hail"_s;
     case UVIndexMaxMap:
-        return QStringLiteral("uv_index_max");
+        return u"uv_index_max"_s;
     case UVDoseMap:
-        return QStringLiteral("uv_dose");
+        return u"uv_dose"_s;
     case UnknownMapType:
-        return {};
+        return u""_s;
     }
 
     return {};
@@ -201,13 +204,13 @@ QString Weather::mapTypeToLocalizedString(MapType type)
 
 Weather::MapRenderingType Weather::mapRenderingTypeFromString(const QString &type)
 {
-    if (type == QStringLiteral("image")) {
+    if (type == "image"_L1) {
         return Weather::ImageRendering;
     }
-    if (type == QStringLiteral("tiles")) {
+    if (type == "tiles"_L1) {
         return Weather::TilesRendering;
     }
-    if (type == QStringLiteral("icons")) {
+    if (type == "icons"_L1) {
         return Weather::IconsRendering;
     }
 
@@ -216,40 +219,40 @@ Weather::MapRenderingType Weather::mapRenderingTypeFromString(const QString &typ
 
 Weather::AlertType Weather::alertTypeFromString(const QString &type)
 {
-    if (type == QStringLiteral("wind")) {
+    if (type == "wind"_L1) {
         return Weather::WindAlert;
     }
-    if (type == QStringLiteral("snow-ice")) {
+    if (type == "snow-ice"_L1) {
         return Weather::SnowIceAlert;
     }
-    if (type == QStringLiteral("thunderstorm")) {
+    if (type == "thunderstorm"_L1) {
         return Weather::ThunderstormAlert;
     }
-    if (type == QStringLiteral("fog")) {
+    if (type == "fog"_L1) {
         return Weather::FogAlert;
     }
-    if (type == QStringLiteral("high-temperature")) {
+    if (type == "high-temperature"_L1) {
         return Weather::HighTemperatureAlert;
     }
-    if (type == QStringLiteral("low-temperature")) {
+    if (type == "low-temperature"_L1) {
         return Weather::LowTemperatureAlert;
     }
-    if (type == QStringLiteral("coastalevent")) {
+    if (type == "coastalevent"_L1) {
         return Weather::CoastalEventAlert;
     }
-    if (type == QStringLiteral("forest-fire")) {
+    if (type == "forest-fire"_L1) {
         return Weather::ForestFireAlert;
     }
-    if (type == QStringLiteral("avalanches")) {
+    if (type == "avalanches"_L1) {
         return Weather::AvalanchesAlert;
     }
-    if (type == QStringLiteral("rain")) {
+    if (type == "rain"_L1) {
         return Weather::RainAlert;
     }
-    if (type == QStringLiteral("flooding")) {
+    if (type == "flooding"_L1) {
         return Weather::FloodingAlert;
     }
-    if (type == QStringLiteral("rain-flood")) {
+    if (type == "rain-flood"_L1) {
         return Weather::RainFloodAlert;
     }
 
@@ -258,16 +261,16 @@ Weather::AlertType Weather::alertTypeFromString(const QString &type)
 
 Weather::AlertSeverity Weather::alertSeverityFromString(const QString &severity)
 {
-    if (severity == QStringLiteral("minor")) {
+    if (severity == "minor"_L1) {
         return Weather::MinorSeverity;
     }
-    if (severity == QStringLiteral("moderate")) {
+    if (severity == "moderate"_L1) {
         return Weather::ModerateSeverity;
     }
-    if (severity == QStringLiteral("severe")) {
+    if (severity == "severe"_L1) {
         return Weather::SevereSeverity;
     }
-    if (severity == QStringLiteral("extreme")) {
+    if (severity == "extreme"_L1) {
         return Weather::ExtremeSeverity;
     }
 
@@ -278,13 +281,13 @@ QString Weather::alertSeverityToString(AlertSeverity severity)
 {
     switch (severity) {
     case MinorSeverity:
-        return QStringLiteral("minor");
+        return u"minor"_s;
     case ModerateSeverity:
-        return QStringLiteral("moderate");
+        return u"moderate"_s;
     case SevereSeverity:
-        return QStringLiteral("severe");
+        return u"severe"_s;
     case ExtremeSeverity:
-        return QStringLiteral("extreme");
+        return u"extreme"_s;
     }
 
     return {};

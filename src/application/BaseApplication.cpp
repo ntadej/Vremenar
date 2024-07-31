@@ -22,6 +22,8 @@
 
 #include <stdexcept>
 
+using Qt::Literals::StringLiterals::operator""_s;
+
 namespace Vremenar
 {
 
@@ -43,7 +45,7 @@ void Application::preInit()
 #if !defined(Q_OS_IOS)
     // Certificates
     auto cfg = QSslConfiguration::defaultConfiguration();
-    if (!cfg.addCaCertificates(":/certificates/isrgrootx1.pem") || !cfg.addCaCertificates(":/certificates/isrg-root-x2.pem")) {
+    if (!cfg.addCaCertificates(u":/certificates/isrgrootx1.pem"_s) || !cfg.addCaCertificates(u":/certificates/isrg-root-x2.pem"_s)) {
         throw std::runtime_error("Failed to add certificates");
     }
 

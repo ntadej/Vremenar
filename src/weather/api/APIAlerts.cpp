@@ -16,8 +16,9 @@
 
 #include <QtCore/QString>
 #include <QtCore/QStringList>
-#include <QtCore/QStringLiteral>
 #include <QtCore/QUrlQuery>
+
+using Qt::Literals::StringLiterals::operator""_s;
 
 namespace Vremenar
 {
@@ -26,12 +27,12 @@ APIRequest API::alerts(const QStringList &alertsAreas)
 {
     QUrlQuery query = Sources::sourceAndLocaleQuery();
     for (const QString &area : alertsAreas) {
-        query.addQueryItem(QStringLiteral("area"), area);
+        query.addQueryItem(u"area"_s, area);
     }
 
     APIRequest request;
-    request.setCall(QStringLiteral("/alerts/list"));
-    request.setUrl(QStringLiteral("/alerts/list"), query);
+    request.setCall(u"/alerts/list"_s);
+    request.setUrl(u"/alerts/list"_s, query);
 
     return request;
 }
