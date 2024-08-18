@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# rubocop:disable List/MissingCopEnableDirective, Metrics/ClassLength, Metrics/BlockLength
+
 module Fastlane
   module Actions
     module SharedValues
