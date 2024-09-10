@@ -416,7 +416,7 @@ void ApplicationWindow::startCompleted(QQuickWindow *window,
 void ApplicationWindow::weatherSourceChanged(int source)
 {
     auto index = static_cast<std::size_t>(source);
-    std::vector<Sources::Country> sources = {Sources::Slovenia, Sources::Germany};
+    std::vector<Sources::Country> sources = {Sources::Slovenia, Sources::Germany, Sources::Global};
     const Sources::Country weatherSource = sources[index];
 
     Settings settings(this);

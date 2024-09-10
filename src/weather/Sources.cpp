@@ -35,6 +35,9 @@ Sources::Country Sources::countryFromString(const QString &country)
     if (country == "de"_L1) {
         return Sources::Germany;
     }
+    if (country == "global"_L1) {
+        return Sources::Global;
+    }
 
     throw std::runtime_error("unknown country");
 }
@@ -46,6 +49,8 @@ QString Sources::countryToString(Country country)
         return u"si"_s;
     case Germany:
         return u"de"_s;
+    case Global:
+        return u"global"_s;
     }
 
     throw std::runtime_error("unknown country");
@@ -58,6 +63,8 @@ QString Sources::countryToLocalizedString(Country country)
         return "ARSO (%1)"_L1.arg(QObject::tr("Slovenia"));
     case Germany:
         return "DWD (%1)"_L1.arg(QObject::tr("Germany"));
+    case Global:
+        return QObject::tr("Global");
     }
 
     return {};

@@ -28,6 +28,10 @@ ListRadioView {
             display: QT_TR_NOOP("Germany (DWD)")
             translatable: true
         }
+        ListElement {
+            display: QT_TR_NOOP("Global")
+            translatable: true
+        }
     }
 
     selectedIndex: Settings.weatherSource

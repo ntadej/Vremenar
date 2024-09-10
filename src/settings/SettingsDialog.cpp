@@ -375,7 +375,7 @@ void SettingsDialog::loadSources()
     disconnect(ui->comboSource, &QComboBox::currentTextChanged, this, &SettingsDialog::sourceChangedSlot);
 
     ui->comboSource->clear();
-    for (const Sources::Country country : {Sources::Slovenia, Sources::Germany}) {
+    for (const Sources::Country country : {Sources::Slovenia, Sources::Germany, Sources::Global}) {
         ui->comboSource->addItem(Sources::countryToLocalizedString(country));
         if (settings.weatherSource() == country) {
             ui->comboSource->setCurrentIndex(ui->comboSource->count() - 1);

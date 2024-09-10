@@ -24,7 +24,8 @@ Q_NAMESPACE
 
 enum Country : std::uint8_t {
     Slovenia,
-    Germany
+    Germany,
+    Global,
 };
 
 Q_ENUM_NS(Country)

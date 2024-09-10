@@ -139,6 +139,10 @@ void WeatherProvider::requestCurrentWeatherInfo(const QGeoCoordinate &coordinate
 {
     stopTimerCurrent();
 
+    if (_stationsModel->rowCount() == 0) {
+        return;
+    }
+
     if (coordinate.isValid()) {
         qDebug() << "Requesting current weather details:" << coordinate;
         const APIRequest request = API::stations(coordinate);
@@ -236,7 +240,7 @@ void WeatherProvider::response(QNetworkReply *reply)
             && std::find(types.begin(), types.end(), settings.startupMapType()) != types.end()) {
             changeMapType(settings.startupMapType());
         } else {
-            changeMapType(Weather::MapType::WeatherConditionMap);
+            changeMapType(types.front());
         }
 
         emit currentMapStyleChangedSignal(currentMapStyle());
