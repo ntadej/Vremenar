@@ -23,6 +23,7 @@
 #include <utility>
 
 using Qt::Literals::StringLiterals::operator""_L1;
+using Qt::Literals::StringLiterals::operator""_s;
 
 namespace Vremenar
 {
@@ -102,9 +103,9 @@ QString WeatherAlert::duration() const
     auto ending = QDateTime::fromMSecsSinceEpoch(_ending);
 
     if (onset.daysTo(ending) != 0) {
-        return "%1, %2 – %3, %4"_L1.arg(Weather::dateDisplay(onset), Weather::timeDisplay(onset), Weather::dateDisplay(ending), Weather::timeDisplay(ending));
+        return u"%1, %2 – %3, %4"_s.arg(Weather::dateDisplay(onset), Weather::timeDisplay(onset), Weather::dateDisplay(ending), Weather::timeDisplay(ending));
     }
-    return "%1, %2–%3"_L1.arg(Weather::dateDisplay(onset), Weather::timeDisplay(onset), Weather::timeDisplay(ending));
+    return u"%1, %2–%3"_s.arg(Weather::dateDisplay(onset), Weather::timeDisplay(onset), Weather::timeDisplay(ending));
 }
 
 } // namespace Vremenar
