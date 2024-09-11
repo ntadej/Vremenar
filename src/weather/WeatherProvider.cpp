@@ -14,10 +14,8 @@
 #include "application/analytics/Analytics.h"
 #include "common/NetworkManager.h"
 #include "common/api/APILoader.h"
-#include "common/containers/Hyperlink.h"
 #include "settings/Settings.h"
 #include "weather/CurrentWeather.h"
-#include "weather/Sources.h"
 #include "weather/Weather.h"
 #include "weather/api/APIAlerts.h"
 #include "weather/api/APIMapLayers.h"
@@ -62,7 +60,6 @@
 #include <vector>
 
 using Qt::Literals::StringLiterals::operator""_L1;
-using Qt::Literals::StringLiterals::operator""_s;
 
 namespace
 {
@@ -117,22 +114,37 @@ WeatherProvider::~WeatherProvider() = default;
 void WeatherProvider::resetSource(bool load)
 {
     const Settings settings(this);
-    if (settings.weatherSource() == Sources::Germany) {
-        _copyrightLink = std::make_unique<Hyperlink>(
-            u"© Deutscher Wetterdienst"_s,
-            u"https://dwd.de"_s);
-    } else {
-        _copyrightLink = std::make_unique<Hyperlink>(
-            u"© "_s + tr("Slovenian Environment Agency"),
-            u"https://www.arso.gov.si"_s);
-    }
-    emit copyrightChanged();
+    const Weather::Source source = settings.weatherSource();
+    _currentSource = source;
+
+    emit sourceChanged();
 
     _currentType = Weather::UnknownMapType;
     _currentWeather->clear();
     if (load) {
         requestStations();
     }
+}
+
+qreal WeatherProvider::minZoomLevel() const
+{
+    const Settings settings;
+    const Weather::Source source = settings.weatherSource();
+
+    switch (source) {
+    case Weather::Slovenia:
+    case Weather::Germany:
+        return 7.5; // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+    case Weather::Global:
+        return 5; // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+    }
+
+    return 7.5; // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+}
+
+qreal WeatherProvider::maxZoomLevel() const
+{
+    return 11; // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
 }
 
 void WeatherProvider::requestCurrentWeatherInfo(const QGeoCoordinate &coordinate)
@@ -231,7 +243,7 @@ void WeatherProvider::response(QNetworkReply *reply)
     if (requestFromResponse(reply).call() == "/maps/types"_L1) {
         const QJsonArray data = document.array();
         _mapInfoModel->clear();
-        _mapInfoModel->generateModel(data);
+        _mapInfoModel->generateModel(_currentSource, data);
 
         std::vector<Weather::MapType> types = _mapInfoModel->types();
 
@@ -365,7 +377,7 @@ void WeatherProvider::response(QNetworkReply *reply)
         _weatherMapModelBase->clear();
         _weatherMapModel->clear();
         _mapLayersModel->clear();
-        _mapLayersModel->addMapLayers(type, data);
+        _mapLayersModel->addMapLayers(_currentSource, type, data);
 
         if (type == Weather::WeatherConditionMap) {
             currentTimeChanged();

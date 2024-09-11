@@ -30,8 +30,10 @@ class MapInfoModel : public ListModel
 public:
     explicit MapInfoModel(QObject *parent = nullptr);
 
-    void generateModel(const std::vector<Weather::MapType> &supported);
-    void generateModel(const QJsonArray &supported);
+    void generateModel(Weather::Source source,
+                       const std::vector<Weather::MapType> &supported);
+    void generateModel(Weather::Source source,
+                       const QJsonArray &supported);
 
     [[nodiscard]] QStringList list() const;
     [[nodiscard]] std::vector<Weather::MapType> types() const;

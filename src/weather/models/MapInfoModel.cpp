@@ -32,17 +32,19 @@ namespace Vremenar
 MapInfoModel::MapInfoModel(QObject *parent)
     : ListModel(MapInfo::roleNames(), parent) {}
 
-void MapInfoModel::generateModel(const std::vector<Weather::MapType> &supported)
+void MapInfoModel::generateModel(Weather::Source source,
+                                 const std::vector<Weather::MapType> &supported)
 {
     for (const Weather::MapType type : supported) {
         if (type == Weather::MapType::UnknownMapType) {
             continue;
         }
-        appendRow(std::make_unique<MapInfo>(type));
+        appendRow(std::make_unique<MapInfo>(source, type));
     }
 }
 
-void MapInfoModel::generateModel(const QJsonArray &supported)
+void MapInfoModel::generateModel(Weather::Source source,
+                                 const QJsonArray &supported)
 {
     for (const auto &typeInfoRef : supported) {
         const QJsonObject typeInfo = typeInfoRef.toObject();
@@ -56,7 +58,7 @@ void MapInfoModel::generateModel(const QJsonArray &supported)
         if (mapType == Weather::MapType::UnknownMapType || renderingType == Weather::MapRenderingType::UnknownRendering) {
             continue;
         }
-        appendRow(std::make_unique<MapInfo>(mapType));
+        appendRow(std::make_unique<MapInfo>(source, mapType));
     }
 }
 

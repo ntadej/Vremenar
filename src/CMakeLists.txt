@@ -132,8 +132,6 @@ qt_add_executable(Vremenar WIN32 MACOSX_BUNDLE
 
     weather/CurrentWeather.cpp
     weather/CurrentWeather.h
-    weather/Sources.cpp
-    weather/Sources.h
     weather/Weather.cpp
     weather/Weather.h
     weather/WeatherProvider.cpp
@@ -144,6 +142,8 @@ qt_add_executable(Vremenar WIN32 MACOSX_BUNDLE
     weather/api/APIMapLayers.h
     weather/api/APIRequest.cpp
     weather/api/APIRequest.h
+    weather/api/APISources.cpp
+    weather/api/APISources.h
     weather/api/APIStations.cpp
     weather/api/APIStations.h
     weather/containers/MapInfo.cpp

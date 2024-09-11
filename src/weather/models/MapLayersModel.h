@@ -30,12 +30,14 @@ class MapLayersModel : public ListModel
 public:
     explicit MapLayersModel(QObject *parent = nullptr);
 
-    MapLayer *createMapLayer(Weather::MapType type,
+    MapLayer *createMapLayer(Weather::Source source,
+                             Weather::MapType type,
                              Weather::MapRenderingType rendering,
                              const QJsonObject &data,
                              const QGeoRectangle &bbox);
 
-    void addMapLayers(Weather::MapType type,
+    void addMapLayers(Weather::Source source,
+                      Weather::MapType type,
                       const QJsonObject &data);
 
     [[nodiscard]] MapLayer *findLayer(Weather::MapType type,

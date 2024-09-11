@@ -145,8 +145,9 @@ QString MapLayersProxyModel::title() const
         return tr("Vremenar Weather");
     }
 
+    auto source = data(index(0, 0), MapLayer::SourceRole).value<Weather::Source>();
     auto type = data(index(0, 0), MapLayer::TypeRole).value<Weather::MapType>();
-    return Weather::mapTypeToLocalizedString(type);
+    return Weather::mapTypeToLocalizedString(type, source);
 }
 
 void MapLayersProxyModel::setCurrentIndex(int newIndex)

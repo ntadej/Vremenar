@@ -45,6 +45,7 @@ public:
         DisplayRole = Qt::DisplayRole,
         IdRole = Qt::UserRole + 1,
         ObservationRole,
+        SourceRole,
         TypeRole,
         RenderingRole,
         TimeRole,
@@ -58,7 +59,8 @@ public:
         LoadedRole
     };
 
-    explicit MapLayer(Weather::MapType type,
+    explicit MapLayer(Weather::Source source,
+                      Weather::MapType type,
                       Weather::MapRenderingType rendering,
                       Weather::ObservationType observation,
                       const QDateTime &time,
@@ -70,6 +72,7 @@ public:
     [[nodiscard]] QVariant data(int role) const final;
     [[nodiscard]] QString display() const final;
 
+    [[nodiscard]] Weather::Source source() const { return _source; }
     [[nodiscard]] Weather::ObservationType observation() const { return _observation; }
     [[nodiscard]] Weather::MapType type() const { return _type; }
     [[nodiscard]] Weather::MapRenderingType rendering() const { return _rendering; }
@@ -87,6 +90,7 @@ public:
             {IdRole, "id"},
             {DisplayRole, "display"},
             {ObservationRole, "observation"},
+            {SourceRole, "source"},
             {TypeRole, "type"},
             {RenderingRole, "rendering"},
             {TimeRole, "time"},
@@ -107,6 +111,7 @@ signals:
     void bboxChanged();
 
 private:
+    Weather::Source _source{Weather::Global};
     Weather::ObservationType _observation{Weather::Recent};
     Weather::MapType _type{Weather::UnknownMapType};
     Weather::MapRenderingType _rendering{Weather::ImageRendering};

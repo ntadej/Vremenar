@@ -12,7 +12,6 @@
 #include "settings/Settings.h"
 
 #include "location/Location.h"
-#include "weather/Sources.h"
 #include "weather/Weather.h"
 
 #include <QtCore/QString>
@@ -22,7 +21,7 @@ namespace Vremenar
 {
 
 // Country selection
-const Sources::Country Settings::DEFAULT_WEATHER_SOURCE = Sources::Slovenia;
+const Weather::Source Settings::DEFAULT_WEATHER_SOURCE = Weather::Slovenia;
 const bool Settings::DEFAULT_WEATHER_SOURCE_INITIAL_CHOICE = false;
 
 // Location

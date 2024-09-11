@@ -34,16 +34,19 @@ public:
     enum Roles : std::uint16_t {
         DisplayRole = Qt::DisplayRole,
         IdRole = Qt::UserRole + 1,
+        SourceRole,
         TypeRole
     };
 
-    explicit MapInfo(Weather::MapType type,
+    explicit MapInfo(Weather::Source source,
+                     Weather::MapType type,
                      QObject *parent = nullptr);
 
     // Implemented virtual functions
     [[nodiscard]] QVariant data(int role) const final;
     [[nodiscard]] QString display() const final;
 
+    [[nodiscard]] Weather::Source source() const { return _source; }
     [[nodiscard]] Weather::MapType type() const { return _type; }
 
     static QHash<int, QByteArray> roleNames()
@@ -51,10 +54,12 @@ public:
         return {
             {IdRole, "id"},
             {DisplayRole, "display"},
+            {SourceRole, "source"},
             {TypeRole, "type"}};
     }
 
 private:
+    Weather::Source _source{Weather::Global};
     Weather::MapType _type{Weather::UnknownMapType};
     QString _description;
 };

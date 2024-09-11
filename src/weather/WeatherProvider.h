@@ -14,7 +14,6 @@
 
 #include "application/analytics/Analytics.h"
 #include "common/api/APILoader.h"
-#include "common/containers/Hyperlink.h"
 #include "weather/Weather.h"
 
 #include <QtCore/QDateTime>
@@ -51,13 +50,14 @@ public:
                              QObject *parent = nullptr);
     ~WeatherProvider() override;
 
-    Q_PROPERTY(qreal minZoomLevel READ minZoomLevel CONSTANT)
-    Q_PROPERTY(qreal maxZoomLevel READ maxZoomLevel CONSTANT)
-    Q_PROPERTY(QJsonObject copyrightLink READ copyrightLinkJson NOTIFY copyrightChanged)
+    Q_PROPERTY(qreal minZoomLevel READ minZoomLevel NOTIFY sourceChanged)
+    Q_PROPERTY(qreal maxZoomLevel READ maxZoomLevel NOTIFY sourceChanged)
     Q_PROPERTY(QDateTime lastUpdateTime READ lastUpdateTime NOTIFY lastUpdateTimeChanged)
     Q_PROPERTY(bool loading READ loading NOTIFY loadingChanged)
     Q_PROPERTY(int currentMapStyle READ currentMapStyle WRITE currentMapStyleChanged NOTIFY currentMapStyleChangedSignal)
     Q_PROPERTY(int currentMapLayer READ currentMapLayer WRITE currentMapLayerChanged NOTIFY currentMapLayerChangedSignal)
+    Q_PROPERTY(int currentSource READ currentSource NOTIFY sourceChanged)
+    Q_PROPERTY(int currentType READ currentType NOTIFY currentMapLayerChangedSignal)
     Q_PROPERTY(bool currentMapLayerHasLegend READ currentMapLayerHasLegend NOTIFY currentMapLayerHasLegendChangedSignal)
 
     CurrentWeather *current() { return _currentWeather.get(); }
@@ -76,13 +76,12 @@ public:
     Q_INVOKABLE void resetSource(bool load = true);
 
     [[nodiscard]] bool currentMapLayerHasLegend() const;
-    [[nodiscard]] qreal minZoomLevel() const { return 7.5; } // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
-    [[nodiscard]] qreal maxZoomLevel() const { return 11; }  // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
-    [[nodiscard]] Hyperlink *copyrightLink() const { return _copyrightLink.get(); }
-    [[nodiscard]] QJsonObject copyrightLinkJson() const { return _copyrightLink->asJson(); }
+    [[nodiscard]] qreal minZoomLevel() const;
+    [[nodiscard]] qreal maxZoomLevel() const;
 
     [[nodiscard]] Weather::MapStyle currentStyle() const { return _currentStyle; }
     [[nodiscard]] Weather::MapType currentType() const { return _currentType; }
+    [[nodiscard]] Weather::Source currentSource() const { return _currentSource; }
     [[nodiscard]] int currentMapStyle() const;
     [[nodiscard]] int currentMapLayer() const;
     [[nodiscard]] const QDateTime &lastUpdateTime() const { return _lastUpdateResponseTime; }
@@ -110,7 +109,7 @@ signals:
     void currentMapLayerHasLegendChangedSignal(bool); // NOLINT(readability-named-parameter)
     void stationsUpdated();
     void storeState();
-    void copyrightChanged();
+    void sourceChanged();
 
 private slots:
     void response(QNetworkReply *reply) final;
@@ -139,14 +138,13 @@ private:
     std::unique_ptr<StationListModel> _stationsModel;
     std::unique_ptr<StationListModel> _stationsWithCurrentConditionModel;
 
-    std::unique_ptr<Hyperlink> _copyrightLink;
-
     QDateTime _lastUpdateResponseTime;
     QDateTime _lastUpdateResponseTimeCurrent;
     bool _loading{false};
 
     Weather::MapStyle _currentStyle{Weather::UnknownMapStyle};
     Weather::MapType _currentType{Weather::UnknownMapType};
+    Weather::Source _currentSource{Weather::Global};
 
     std::unique_ptr<QTimer> _timer;
     std::unique_ptr<QTimer> _timerCurrent;

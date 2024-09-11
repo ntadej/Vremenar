@@ -12,7 +12,6 @@
 #include "settings/Settings.h"
 
 #include "location/Location.h"
-#include "weather/Sources.h"
 #include "weather/Weather.h"
 
 #include <QtCore/QObject>
@@ -134,7 +133,7 @@ void Settings::writeSettings()
 
 void Settings::readSettings()
 {
-    setWeatherSource(static_cast<Sources::Country>(value(KEY_WEATHER_SOURCE, defaultValue(KEY_WEATHER_SOURCE)).toInt()));
+    setWeatherSource(static_cast<Weather::Source>(value(KEY_WEATHER_SOURCE, defaultValue(KEY_WEATHER_SOURCE)).toInt()));
     setWeatherSourceInitialChoice(value(KEY_WEATHER_SOURCE_INITIAL_CHOICE, defaultValue(KEY_WEATHER_SOURCE_INITIAL_CHOICE)).toBool());
 
     setLocationSource(static_cast<Location::Source>(value(KEY_LOCATION_SOURCE, defaultValue(KEY_LOCATION_SOURCE)).toInt()));
@@ -183,7 +182,7 @@ void Settings::resetStartupMapCoordinates()
 {
     setStartupMapType(Weather::WeatherConditionMap);
 
-    if (weatherSource() == Sources::Germany) {
+    if (weatherSource() == Weather::Germany) {
         setStartupMapZoomLevel(DEFAULT_STARTUP_MAP_ZOOM_LEVEL_DE);
         setStartupMapLatitude(DEFAULT_STARTUP_MAP_LATITUDE_DE);
         setStartupMapLongitude(DEFAULT_STARTUP_MAP_LONGITUDE_DE);

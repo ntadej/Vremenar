@@ -12,6 +12,8 @@
 #ifndef VREMENAR_QML_GLOBALS_H_
 #define VREMENAR_QML_GLOBALS_H_
 
+#include "weather/Weather.h"
+
 #include <QtCore/QJsonArray>
 #include <QtCore/QObject>
 #include <QtCore/QString>
@@ -41,6 +43,8 @@ public:
     [[nodiscard]] int build() const;
 
     [[nodiscard]] QString mapsStyle() const;
+    Q_INVOKABLE [[nodiscard]] QJsonArray weatherCopyright(Weather::Source source,
+                                                          Weather::MapType mapType) const;
     [[nodiscard]] QJsonArray mapsCopyright() const;
     [[nodiscard]] QJsonArray aboutLinks() const;
 

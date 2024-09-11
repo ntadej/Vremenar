@@ -15,6 +15,7 @@
 #include "common/containers/Hyperlink.h"
 #include "maps/MapsCommon.h"
 #include "settings/Settings.h"
+#include "weather/Weather.h"
 
 #include "Config.h"
 
@@ -35,6 +36,16 @@ QString Qml::Globals::version() const { return Vremenar::version; }
 int Qml::Globals::build() const { return Vremenar::build; }
 
 QString Qml::Globals::mapsStyle() const { return Vremenar::mapsEndpoint; }
+
+QJsonArray Qml::Globals::weatherCopyright(Weather::Source source,
+                                          Weather::MapType mapType) const
+{
+    QJsonArray list;
+    for (const std::unique_ptr<Hyperlink> &link : Weather::copyright(source, mapType)) {
+        list.append(link->asJson());
+    }
+    return list;
+}
 
 QJsonArray Qml::Globals::mapsCopyright() const
 {

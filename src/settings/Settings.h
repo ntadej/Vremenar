@@ -13,7 +13,6 @@
 #define VREMENAR_SETTINGS_H_
 
 #include "location/Location.h"
-#include "weather/Sources.h"
 #include "weather/Weather.h"
 
 #include <QtCore/QObject>
@@ -29,7 +28,7 @@ namespace Vremenar
 class Settings : public QSettings
 {
     Q_OBJECT
-    Q_PROPERTY(Vremenar::Sources::Country weatherSource READ weatherSource CONSTANT)
+    Q_PROPERTY(Vremenar::Weather::Source weatherSource READ weatherSource CONSTANT)
     Q_PROPERTY(bool weatherSourceInitialChoice READ weatherSourceInitialChoice CONSTANT)
     Q_PROPERTY(bool locationInitialChoice READ locationInitialChoice CONSTANT)
     Q_PROPERTY(bool notificationsInitialChoice READ notificationsInitialChoice CONSTANT)
@@ -56,10 +55,10 @@ public:
     Q_INVOKABLE [[nodiscard]] QVariant defaultValue(const QString &key) const;
 
     // Country selection
-    [[nodiscard]] Sources::Country weatherSource() const { return _weatherSource; }
-    void setWeatherSource(Sources::Country s) { _weatherSource = s; }
+    [[nodiscard]] Weather::Source weatherSource() const { return _weatherSource; }
+    void setWeatherSource(Weather::Source s) { _weatherSource = s; }
     static const QString KEY_WEATHER_SOURCE;
-    static const Sources::Country DEFAULT_WEATHER_SOURCE;
+    static const Weather::Source DEFAULT_WEATHER_SOURCE;
 
     [[nodiscard]] bool weatherSourceInitialChoice() const { return _weatherSourceInitialChoice; }
     void setWeatherSourceInitialChoice(bool b) { _weatherSourceInitialChoice = b; }
@@ -229,7 +228,7 @@ private:
     QVariantMap _map;
 
     // Country selection
-    Sources::Country _weatherSource;
+    Weather::Source _weatherSource;
     bool _weatherSourceInitialChoice;
 
     // Location

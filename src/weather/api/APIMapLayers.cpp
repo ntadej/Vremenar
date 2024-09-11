@@ -11,9 +11,9 @@
 
 #include "weather/api/APIMapLayers.h"
 
-#include "weather/Sources.h"
 #include "weather/Weather.h"
 #include "weather/api/APIRequest.h"
+#include "weather/api/APISources.h"
 
 #include <QtCore/QString>
 #include <QtCore/QUrlQuery>
@@ -32,7 +32,7 @@ APIRequest API::mapLayers(Weather::MapType type)
     }
 
     const QString id = Weather::mapTypeToString(type);
-    const QUrlQuery query = Sources::sourceQuery();
+    const QUrlQuery query = sourceQuery();
 
     APIRequest request;
     request.setCall(u"/maps/list"_s);
@@ -44,7 +44,7 @@ APIRequest API::mapLayers(Weather::MapType type)
 
 APIRequest API::mapLegends()
 {
-    const QUrlQuery query = Sources::sourceQuery();
+    const QUrlQuery query = sourceQuery();
 
     APIRequest request;
     request.setCall(u"/maps/legend"_s);
@@ -55,7 +55,7 @@ APIRequest API::mapLegends()
 
 APIRequest API::mapTypes()
 {
-    const QUrlQuery query = Sources::sourceQuery();
+    const QUrlQuery query = sourceQuery();
 
     APIRequest request;
     request.setCall(u"/maps/types"_s);

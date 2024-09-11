@@ -14,7 +14,6 @@
 #include "common/LocaleManager.h"
 #include "location/Location.h"
 #include "settings/Settings.h"
-#include "weather/Sources.h"
 #include "weather/Weather.h"
 #include "weather/containers/StationInfo.h"
 #include "weather/models/StationListModel.h"
@@ -375,9 +374,9 @@ void SettingsDialog::loadSources()
     disconnect(ui->comboSource, &QComboBox::currentTextChanged, this, &SettingsDialog::sourceChangedSlot);
 
     ui->comboSource->clear();
-    for (const Sources::Country country : {Sources::Slovenia, Sources::Germany, Sources::Global}) {
-        ui->comboSource->addItem(Sources::countryToLocalizedString(country));
-        if (settings.weatherSource() == country) {
+    for (const Weather::Source source : {Weather::Slovenia, Weather::Germany, Weather::Global}) {
+        ui->comboSource->addItem(Weather::sourceToLocalizedString(source));
+        if (settings.weatherSource() == source) {
             ui->comboSource->setCurrentIndex(ui->comboSource->count() - 1);
         }
     }

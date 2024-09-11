@@ -13,7 +13,7 @@
 
 #include "location/Location.h"
 #include "settings/Settings.h"
-#include "weather/Sources.h"
+#include "weather/Weather.h"
 #include "weather/containers/StationInfo.h"
 #include "weather/models/StationListModel.h"
 
@@ -198,21 +198,27 @@ void LocationProvider::requestPositionUpdate()
 bool LocationProvider::validate(const QGeoCoordinate &coordinate) const
 {
     const Settings settings;
-    const Sources::Country country = settings.weatherSource();
-    if (country == Sources::Slovenia) {
+    const Weather::Source source = settings.weatherSource();
+
+    switch (source) {
+    case Weather::Slovenia:
         if (Settings::DEFAULT_MIN_MAP_LATITUDE_SI > coordinate.latitude()
             || Settings::DEFAULT_MAX_MAP_LATITUDE_SI < coordinate.latitude()
             || Settings::DEFAULT_MIN_MAP_LONGITUDE_SI > coordinate.longitude()
             || Settings::DEFAULT_MAX_MAP_LONGITUDE_SI < coordinate.longitude()) {
             return false;
         }
-    } else if (country == Sources::Germany) {
+        break;
+    case Weather::Germany:
         if (Settings::DEFAULT_MIN_MAP_LATITUDE_DE > coordinate.latitude()
             || Settings::DEFAULT_MAX_MAP_LATITUDE_DE < coordinate.latitude()
             || Settings::DEFAULT_MIN_MAP_LONGITUDE_DE > coordinate.longitude()
             || Settings::DEFAULT_MAX_MAP_LONGITUDE_DE < coordinate.longitude()) {
             return false;
         }
+        break;
+    case Weather::Global:
+        break;
     }
 
     return true;
@@ -227,8 +233,10 @@ QGeoCoordinate LocationProvider::validateAndCorrect(const QGeoCoordinate &coordi
 
     QGeoCoordinate newCoordinate = coordinate;
     const Settings settings;
-    const Sources::Country country = settings.weatherSource();
-    if (country == Sources::Slovenia) {
+    const Weather::Source source = settings.weatherSource();
+
+    switch (source) {
+    case Weather::Slovenia:
         if (Settings::DEFAULT_MIN_MAP_LATITUDE_SI > coordinate.latitude()) {
             newCoordinate.setLatitude(Settings::DEFAULT_MIN_MAP_LATITUDE_SI);
         }
@@ -241,7 +249,8 @@ QGeoCoordinate LocationProvider::validateAndCorrect(const QGeoCoordinate &coordi
         if (Settings::DEFAULT_MAX_MAP_LONGITUDE_SI < coordinate.longitude()) {
             newCoordinate.setLongitude(Settings::DEFAULT_MAX_MAP_LONGITUDE_SI);
         }
-    } else if (country == Sources::Germany) {
+        break;
+    case Weather::Germany:
         if (Settings::DEFAULT_MIN_MAP_LATITUDE_DE > coordinate.latitude()) {
             newCoordinate.setLatitude(Settings::DEFAULT_MIN_MAP_LATITUDE_DE);
         }
@@ -254,6 +263,9 @@ QGeoCoordinate LocationProvider::validateAndCorrect(const QGeoCoordinate &coordi
         if (Settings::DEFAULT_MAX_MAP_LONGITUDE_DE < coordinate.longitude()) {
             newCoordinate.setLongitude(Settings::DEFAULT_MAX_MAP_LONGITUDE_DE);
         }
+        break;
+    case Weather::Global:
+        break;
     }
 
     return newCoordinate;

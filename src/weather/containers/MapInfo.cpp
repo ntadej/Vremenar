@@ -21,11 +21,13 @@
 namespace Vremenar
 {
 
-MapInfo::MapInfo(Weather::MapType type,
+MapInfo::MapInfo(Weather::Source source,
+                 Weather::MapType type,
                  QObject *parent)
     : ListItem(parent),
+      _source(source),
       _type(type),
-      _description(Weather::mapTypeToLocalizedString(type))
+      _description(Weather::mapTypeToLocalizedString(type, source))
 {
     setId(Weather::mapTypeToString(type));
 }
@@ -42,6 +44,8 @@ QVariant MapInfo::data(int role) const
         return id();
     case DisplayRole:
         return display();
+    case SourceRole:
+        return source();
     case TypeRole:
         return type();
     default:

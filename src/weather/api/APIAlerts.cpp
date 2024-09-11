@@ -11,8 +11,8 @@
 
 #include "weather/api/APIAlerts.h"
 
-#include "weather/Sources.h"
 #include "weather/api/APIRequest.h"
+#include "weather/api/APISources.h"
 
 #include <QtCore/QString>
 #include <QtCore/QStringList>
@@ -25,7 +25,7 @@ namespace Vremenar
 
 APIRequest API::alerts(const QStringList &alertsAreas)
 {
-    QUrlQuery query = Sources::sourceAndLocaleQuery();
+    QUrlQuery query = sourceAndLocaleQuery();
     for (const QString &area : alertsAreas) {
         query.addQueryItem(u"area"_s, area);
     }

@@ -11,8 +11,8 @@
 
 #include "weather/api/APIStations.h"
 
-#include "weather/Sources.h"
 #include "weather/api/APIRequest.h"
+#include "weather/api/APISources.h"
 
 #include <QtCore/QJsonObject>
 #include <QtCore/QString>
@@ -27,7 +27,7 @@ namespace Vremenar
 
 APIRequest API::stations(const QGeoCoordinate &coordinate)
 {
-    QUrlQuery query = Sources::sourceQuery();
+    QUrlQuery query = sourceQuery();
     query.addQueryItem(u"include_forecast_only"_s, u"true"_s);
 
     QJsonObject data;
@@ -46,7 +46,7 @@ APIRequest API::stations(const QGeoCoordinate &coordinate)
 
 APIRequest API::stations(const QString &string)
 {
-    QUrlQuery query = Sources::sourceQuery();
+    QUrlQuery query = sourceQuery();
     query.addQueryItem(u"include_forecast_only"_s, u"true"_s);
 
     QJsonObject data;
@@ -64,7 +64,7 @@ APIRequest API::stations(const QString &string)
 
 APIRequest API::stationWeatherCondition(const QString &id)
 {
-    const QUrlQuery query = Sources::sourceQuery();
+    const QUrlQuery query = sourceQuery();
 
     APIRequest request;
     request.setCall(u"/stations/condition"_s);
@@ -76,7 +76,7 @@ APIRequest API::stationWeatherCondition(const QString &id)
 
 APIRequest API::stationsList()
 {
-    const QUrlQuery query = Sources::sourceQuery();
+    const QUrlQuery query = sourceQuery();
 
     APIRequest request;
     request.setCall(u"/stations/list"_s);
@@ -87,7 +87,7 @@ APIRequest API::stationsList()
 
 APIRequest API::stationsMap(const QString &url)
 {
-    const QUrlQuery query = Sources::sourceQuery();
+    const QUrlQuery query = sourceQuery();
 
     APIRequest request;
     request.setCall(u"/stations/map"_s);

@@ -33,7 +33,7 @@ std::vector<std::unique_ptr<Hyperlink>> copyright()
         u"© OpenStreetMap contributors"_s,
         u"https://www.openstreetmap.org/copyright"_s));
     list.emplace_back(std::make_unique<Hyperlink>(
-        u"© Sentinel-2 cloudless by EOX IT Services GmbH (Contains modified Copernicus Sentinel data 2021)"_s,
+        u"© Sentinel-2 cloudless by EOX IT Services GmbH (Contains modified Copernicus Sentinel data 2023)"_s,
         u"https://s2maps.eu"_s));
     return list;
 }

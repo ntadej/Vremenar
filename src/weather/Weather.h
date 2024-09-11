@@ -12,16 +12,26 @@
 #ifndef VREMENAR_WEATHER_H_
 #define VREMENAR_WEATHER_H_
 
+#include "common/containers/Hyperlink.h"
+
 #include <QtCore/QDateTime>
 #include <QtCore/QObject>
 #include <QtCore/QString>
 
 #include <cstdint>
+#include <memory>
+#include <vector>
 
 namespace Vremenar::Weather
 {
 
 Q_NAMESPACE
+
+enum Source : std::uint8_t {
+    Slovenia,
+    Germany,
+    Global,
+};
 
 enum ObservationType : std::uint8_t {
     Historical,
@@ -80,6 +90,7 @@ enum AlertSeverity : std::uint8_t {
     ExtremeSeverity
 };
 
+Q_ENUM_NS(Source)
 Q_ENUM_NS(ObservationType)
 Q_ENUM_NS(MapStyle)
 Q_ENUM_NS(MapType)
@@ -90,6 +101,10 @@ Q_ENUM_NS(AlertSeverity)
 QString dateDisplay(const QDateTime &time);
 QString timeDisplay(const QDateTime &time);
 
+Source sourceFromString(const QString &source);
+QString sourceToString(Vremenar::Weather::Source source);
+Q_INVOKABLE QString sourceToLocalizedString(Vremenar::Weather::Source source);
+
 ObservationType observationTypeFromString(const QString &type);
 
 MapStyle mapStyleFromString(const QString &style);
@@ -98,13 +113,17 @@ Q_INVOKABLE QString mapStyleToLocalizedString(Vremenar::Weather::MapStyle style)
 
 MapType mapTypeFromString(const QString &type);
 QString mapTypeToString(Vremenar::Weather::MapType type);
-Q_INVOKABLE QString mapTypeToLocalizedString(Vremenar::Weather::MapType type);
+Q_INVOKABLE QString mapTypeToLocalizedString(Vremenar::Weather::MapType type,
+                                             Vremenar::Weather::Source source);
 
 MapRenderingType mapRenderingTypeFromString(const QString &type);
 
 AlertType alertTypeFromString(const QString &type);
 AlertSeverity alertSeverityFromString(const QString &severity);
 Q_INVOKABLE QString alertSeverityToString(Vremenar::Weather::AlertSeverity severity);
+
+std::vector<std::unique_ptr<Hyperlink>> copyright(Vremenar::Weather::Source source,
+                                                  Vremenar::Weather::MapType mapType = Vremenar::Weather::UnknownMapType);
 
 } // namespace Vremenar::Weather
 

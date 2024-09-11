@@ -14,6 +14,7 @@
 #include "common/About.h"
 #include "common/containers/Hyperlink.h"
 #include "maps/MapsCommon.h"
+#include "weather/Weather.h"
 #include "weather/WeatherProvider.h"
 
 #include "Config.h"
@@ -44,6 +45,11 @@ AboutDialog::AboutDialog(WeatherProvider *weatherProvider,
                    | Qt::CustomizeWindowHint);
 
     const QString additionalStyle;
+
+    QString copyrightWeather;
+    for (const std::unique_ptr<Hyperlink> &link : Weather::copyright(weatherProvider->currentSource(), weatherProvider->currentType())) {
+        copyrightWeather.append(" " + link->asHtml(additionalStyle));
+    }
 
     QString copyrightMaps;
     for (const std::unique_ptr<Hyperlink> &link : Maps::copyright()) {
@@ -80,7 +86,7 @@ AboutDialog::AboutDialog(WeatherProvider *weatherProvider,
     ui->labelCopyright->setText(u"© %1 Tadej Novak"_s.arg(QDate::currentDate().toString(u"yyyy"_s)));
     ui->labelHomepage->setText(homepage->asHtml(additionalStyle));
 
-    ui->labelWeather->setText(tr("Weather data") + " " + weatherProvider->copyrightLink()->asHtml(additionalStyle));
+    ui->labelWeather->setText(tr("Weather data") + copyrightWeather);
     ui->labelMaps->setText(tr("Maps") + copyrightMaps);
     ui->labelIcons->setText(tr("Icons") + copyrightIcons);
     ui->labelAbout->setText(aboutLabels);

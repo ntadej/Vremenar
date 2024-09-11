@@ -27,7 +27,8 @@
 namespace Vremenar
 {
 
-MapLayer::MapLayer(Weather::MapType type,
+MapLayer::MapLayer(Weather::Source source,
+                   Weather::MapType type,
                    Weather::MapRenderingType rendering,
                    Weather::ObservationType observation,
                    const QDateTime &time,
@@ -35,6 +36,7 @@ MapLayer::MapLayer(Weather::MapType type,
                    const QGeoRectangle &bbox,
                    QObject *parent)
     : ListItem(parent),
+      _source(source),
       _observation(observation),
       _type(type),
       _rendering(rendering),
@@ -63,6 +65,8 @@ QVariant MapLayer::data(int role) const
         return display();
     case ObservationRole:
         return observation();
+    case SourceRole:
+        return source();
     case TypeRole:
         return type();
     case RenderingRole:

@@ -358,7 +358,7 @@ ColumnLayout {
 
     TextSmall {
         id: labelAbout
-        text: qsTr("Weather data") + " " + VWeather.copyrightLink.html + (UI.isTV ? " " : "<br>")
+        text: qsTr("Weather data") + generateWeather() + (UI.isTV ? " " : "<br>")
               + qsTr("Maps") + generateMaps() + (UI.isTV ? " " : "<br>")
               + (UI.isTV ? "" : Globals.name + " " + Globals.version + " (" + Globals.build + ")")
               + (UI.isTV || VUpdates.server === "" ? "" : ", " + qsTr("backend") + " " + VUpdates.server)
@@ -372,6 +372,12 @@ ColumnLayout {
 
         onLinkActivated: {
             Qt.openUrlExternally(link)
+        }
+
+        function generateWeather() {
+            let text = ""
+            Globals.weatherCopyright(VWeather.currentSource, VWeather.currentType).forEach(link => text += " " + link.html)
+            return text
         }
 
         function generateMaps() {

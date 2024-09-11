@@ -24,7 +24,7 @@
 #include "qml/Qml.h"
 #include "settings/Settings.h"
 #include "weather/CurrentWeather.h"
-#include "weather/Sources.h"
+#include "weather/Weather.h"
 #include "weather/WeatherProvider.h"
 #include "weather/models/MapInfoModel.h"
 #include "weather/models/MapLayersProxyModel.h"
@@ -416,8 +416,8 @@ void ApplicationWindow::startCompleted(QQuickWindow *window,
 void ApplicationWindow::weatherSourceChanged(int source)
 {
     auto index = static_cast<std::size_t>(source);
-    std::vector<Sources::Country> sources = {Sources::Slovenia, Sources::Germany, Sources::Global};
-    const Sources::Country weatherSource = sources[index];
+    std::vector<Weather::Source> sources = {Weather::Slovenia, Weather::Germany, Weather::Global};
+    const Weather::Source weatherSource = sources[index];
 
     Settings settings(this);
     if (weatherSource != settings.weatherSource()) {

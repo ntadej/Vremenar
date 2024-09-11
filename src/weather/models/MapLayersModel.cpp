@@ -33,7 +33,8 @@ namespace Vremenar
 MapLayersModel::MapLayersModel(QObject *parent)
     : ListModel(MapLayer::roleNames(), parent) {}
 
-MapLayer *MapLayersModel::createMapLayer(Weather::MapType type,
+MapLayer *MapLayersModel::createMapLayer(Weather::Source source,
+                                         Weather::MapType type,
                                          Weather::MapRenderingType rendering,
                                          const QJsonObject &data,
                                          const QGeoRectangle &bbox)
@@ -42,10 +43,11 @@ MapLayer *MapLayersModel::createMapLayer(Weather::MapType type,
     const QString url = data["url"_L1].toString();
     const auto observation = Weather::observationTypeFromString(data["observation"_L1].toString());
 
-    return appendRow(std::make_unique<MapLayer>(type, rendering, observation, time, url, bbox));
+    return appendRow(std::make_unique<MapLayer>(source, type, rendering, observation, time, url, bbox));
 }
 
-void MapLayersModel::addMapLayers(Weather::MapType type,
+void MapLayersModel::addMapLayers(Weather::Source source,
+                                  Weather::MapType type,
                                   const QJsonObject &data)
 {
     auto rendering = Weather::mapRenderingTypeFromString(data["rendering"_L1].toString());
@@ -66,7 +68,7 @@ void MapLayersModel::addMapLayers(Weather::MapType type,
 
     const QJsonArray layers = data["layers"_L1].toArray();
     for (const auto &obj : layers) {
-        createMapLayer(type, rendering, obj.toObject(), bbox);
+        createMapLayer(source, type, rendering, obj.toObject(), bbox);
     }
 }
 
