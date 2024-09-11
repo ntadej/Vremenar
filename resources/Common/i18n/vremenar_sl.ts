@@ -2,19 +2,52 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="sl_SI">
 <context>
+    <name>AboutDialog</name>
+    <message>
+        <location filename="../../../src/application/dialogs/AboutDialog.cpp" line="41"/>
+        <source>About Vremenar</source>
+        <translation>O programu Vremenar</translation>
+    </message>
+    <message>
+        <location filename="../../../src/application/dialogs/AboutDialog.cpp" line="84"/>
+        <source>Vremenar Weather</source>
+        <translation>Vremenar</translation>
+    </message>
+    <message>
+        <location filename="../../../src/application/dialogs/AboutDialog.cpp" line="85"/>
+        <source>Version %1 (%2)</source>
+        <translation>Različica %1 (%2)</translation>
+    </message>
+    <message>
+        <location filename="../../../src/application/dialogs/AboutDialog.cpp" line="89"/>
+        <source>Weather data</source>
+        <translation>Vremenski podatki</translation>
+    </message>
+    <message>
+        <location filename="../../../src/application/dialogs/AboutDialog.cpp" line="90"/>
+        <source>Maps</source>
+        <translation>Zemljevidi</translation>
+    </message>
+    <message>
+        <location filename="../../../src/application/dialogs/AboutDialog.cpp" line="91"/>
+        <source>Icons</source>
+        <translation>Ikone</translation>
+    </message>
+</context>
+<context>
     <name>LocationSettings</name>
     <message>
-        <location filename="../../../src/qml/Vremenar/Navigation/elements/LocationSettings.qml" line="19"/>
+        <location filename="../../../src/qml/Vremenar/views/LocationSettings.qml" line="18"/>
         <source>Weather for current location</source>
         <translation>Vreme na trenutni lokaciji</translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Navigation/elements/LocationSettings.qml" line="25"/>
+        <location filename="../../../src/qml/Vremenar/views/LocationSettings.qml" line="24"/>
         <source>Enable location</source>
         <translation>Vključi lokacijo</translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Navigation/elements/LocationSettings.qml" line="29"/>
+        <location filename="../../../src/qml/Vremenar/views/LocationSettings.qml" line="28"/>
         <source>Disable location</source>
         <translation>Izključi lokacijo</translation>
     </message>
@@ -22,84 +55,84 @@
 <context>
     <name>MainMenu</name>
     <message>
-        <location filename="../../../src/qml/Vremenar/Desktop/+custommenu/MainMenu.qml" line="21"/>
-        <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="34"/>
+        <location filename="../../../src/qml/Vremenar/application/+custommenu/MainMenu.qml" line="21"/>
+        <location filename="../../../src/qml/Vremenar/application/+nativemenu/MainMenu.qml" line="34"/>
         <source>&amp;File</source>
         <translation>&amp;Datoteka</translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Desktop/+custommenu/MainMenu.qml" line="24"/>
-        <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="44"/>
-        <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="196"/>
+        <location filename="../../../src/qml/Vremenar/application/+custommenu/MainMenu.qml" line="24"/>
+        <location filename="../../../src/qml/Vremenar/application/+nativemenu/MainMenu.qml" line="44"/>
+        <location filename="../../../src/qml/Vremenar/application/+nativemenu/MainMenu.qml" line="196"/>
         <source>Settings</source>
         <translation>Nastavitve</translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Desktop/+custommenu/MainMenu.qml" line="29"/>
-        <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="37"/>
+        <location filename="../../../src/qml/Vremenar/application/+custommenu/MainMenu.qml" line="29"/>
+        <location filename="../../../src/qml/Vremenar/application/+nativemenu/MainMenu.qml" line="37"/>
         <source>E&amp;xit</source>
         <translation>Izho&amp;d</translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Desktop/+custommenu/MainMenu.qml" line="40"/>
-        <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="26"/>
+        <location filename="../../../src/qml/Vremenar/application/+custommenu/MainMenu.qml" line="40"/>
+        <location filename="../../../src/qml/Vremenar/application/+nativemenu/MainMenu.qml" line="26"/>
         <source>Satellite</source>
         <translation>Satelit</translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Desktop/+custommenu/MainMenu.qml" line="41"/>
-        <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="27"/>
+        <location filename="../../../src/qml/Vremenar/application/+custommenu/MainMenu.qml" line="41"/>
+        <location filename="../../../src/qml/Vremenar/application/+nativemenu/MainMenu.qml" line="27"/>
         <source>Streets (Light)</source>
         <translation>Ulice (svetlo)</translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Desktop/+custommenu/MainMenu.qml" line="42"/>
-        <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="28"/>
+        <location filename="../../../src/qml/Vremenar/application/+custommenu/MainMenu.qml" line="42"/>
+        <location filename="../../../src/qml/Vremenar/application/+nativemenu/MainMenu.qml" line="28"/>
         <source>Streets (Dark)</source>
         <translation>Ulice (temno)</translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Desktop/+custommenu/MainMenu.qml" line="49"/>
-        <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="54"/>
+        <location filename="../../../src/qml/Vremenar/application/+custommenu/MainMenu.qml" line="49"/>
+        <location filename="../../../src/qml/Vremenar/application/+nativemenu/MainMenu.qml" line="54"/>
         <source>Map Style</source>
         <translation>Izgled zemljevida</translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Desktop/+custommenu/MainMenu.qml" line="72"/>
-        <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="90"/>
+        <location filename="../../../src/qml/Vremenar/application/+custommenu/MainMenu.qml" line="72"/>
+        <location filename="../../../src/qml/Vremenar/application/+nativemenu/MainMenu.qml" line="90"/>
         <source>Map Type</source>
         <translation>Tip zemljevida</translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Desktop/+custommenu/MainMenu.qml" line="93"/>
-        <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="223"/>
+        <location filename="../../../src/qml/Vremenar/application/+custommenu/MainMenu.qml" line="93"/>
+        <location filename="../../../src/qml/Vremenar/application/+nativemenu/MainMenu.qml" line="223"/>
         <source>&amp;Help</source>
         <translation>&amp;Pomoč</translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Desktop/+custommenu/MainMenu.qml" line="96"/>
-        <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="208"/>
-        <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="226"/>
+        <location filename="../../../src/qml/Vremenar/application/+custommenu/MainMenu.qml" line="96"/>
+        <location filename="../../../src/qml/Vremenar/application/+nativemenu/MainMenu.qml" line="208"/>
+        <location filename="../../../src/qml/Vremenar/application/+nativemenu/MainMenu.qml" line="226"/>
         <source>About Vremenar</source>
         <translation>O programu Vremenar</translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="196"/>
+        <location filename="../../../src/qml/Vremenar/application/+nativemenu/MainMenu.qml" line="196"/>
         <source>Preferences</source>
         <translation>Nastavitve</translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="202"/>
+        <location filename="../../../src/qml/Vremenar/application/+nativemenu/MainMenu.qml" line="202"/>
         <source>Check for updates</source>
         <translation>Preveri za posodobitve</translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="214"/>
+        <location filename="../../../src/qml/Vremenar/application/+nativemenu/MainMenu.qml" line="214"/>
         <source>Quit Vremenar</source>
         <translation>Zapri Vremenar</translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Desktop/+nativemenu/MainMenu.qml" line="232"/>
+        <location filename="../../../src/qml/Vremenar/application/+nativemenu/MainMenu.qml" line="232"/>
         <source>&amp;Check for updates</source>
         <translation>Preveri za &amp;posodobitve</translation>
     </message>
@@ -107,42 +140,42 @@
 <context>
     <name>MapControls</name>
     <message>
-        <location filename="../../../src/qml/Vremenar/Maps/MapControls.qml" line="123"/>
+        <location filename="../../../src/qml/Vremenar/maps/MapControls.qml" line="122"/>
         <source>Map can now be moved around with direction keys</source>
         <translation>Po zemljevidu se lahko premikaš s smernimi gumbi</translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Maps/MapControls.qml" line="126"/>
+        <location filename="../../../src/qml/Vremenar/maps/MapControls.qml" line="125"/>
         <source>Map can now be zoomed using up and down keys</source>
         <translation>Zemljevid lahko približaš z gumboma gor in dol</translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Maps/MapControls.qml" line="120"/>
+        <location filename="../../../src/qml/Vremenar/maps/MapControls.qml" line="119"/>
         <source>Map type can now be switched using up and down keys</source>
         <translation>Tip zemljevida lahko izbereš z gumboma gor in dol</translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Maps/MapControls.qml" line="129"/>
+        <location filename="../../../src/qml/Vremenar/maps/MapControls.qml" line="128"/>
         <source>Map control buttons are now accessible</source>
         <translation>Gumbi za upravljanje z zemljevidom so sedaj dostopni</translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Maps/MapControls.qml" line="354"/>
+        <location filename="../../../src/qml/Vremenar/maps/MapControls.qml" line="353"/>
         <source>Last updated:</source>
         <translation>Nazadnje osveženo:</translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Maps/MapControls.qml" line="362"/>
+        <location filename="../../../src/qml/Vremenar/maps/MapControls.qml" line="361"/>
         <source>Weather data</source>
         <translation>Vremenski podatki</translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Maps/MapControls.qml" line="363"/>
+        <location filename="../../../src/qml/Vremenar/maps/MapControls.qml" line="362"/>
         <source>Maps</source>
         <translation>Zemljevidi</translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Maps/MapControls.qml" line="365"/>
+        <location filename="../../../src/qml/Vremenar/maps/MapControls.qml" line="364"/>
         <source>backend</source>
         <translation>strežnik</translation>
     </message>
@@ -152,14 +185,70 @@
     </message>
 </context>
 <context>
+    <name>MapLayersProxyModel</name>
+    <message>
+        <location filename="../../../src/weather/models/MapLayersProxyModel.cpp" line="112"/>
+        <source>today</source>
+        <translation>danes</translation>
+    </message>
+    <message>
+        <location filename="../../../src/weather/models/MapLayersProxyModel.cpp" line="114"/>
+        <source>recent</source>
+        <translation>trenutno</translation>
+    </message>
+    <message>
+        <location filename="../../../src/weather/models/MapLayersProxyModel.cpp" line="123"/>
+        <source>forecast</source>
+        <translation>napoved</translation>
+    </message>
+    <message>
+        <location filename="../../../src/weather/models/MapLayersProxyModel.cpp" line="128"/>
+        <source>tomorrow</source>
+        <translation>jutri</translation>
+    </message>
+    <message>
+        <location filename="../../../src/weather/models/MapLayersProxyModel.cpp" line="131"/>
+        <source>yesterday</source>
+        <translation>včeraj</translation>
+    </message>
+    <message>
+        <location filename="../../../src/weather/models/MapLayersProxyModel.cpp" line="145"/>
+        <source>Vremenar Weather</source>
+        <translation>Vremenar</translation>
+    </message>
+</context>
+<context>
+    <name>MapLegendModel</name>
+    <message>
+        <location filename="../../../src/weather/models/MapLegendModel.cpp" line="76"/>
+        <source>low</source>
+        <translation>nizka</translation>
+    </message>
+    <message>
+        <location filename="../../../src/weather/models/MapLegendModel.cpp" line="77"/>
+        <source>moderate</source>
+        <translation>srednja</translation>
+    </message>
+    <message>
+        <location filename="../../../src/weather/models/MapLegendModel.cpp" line="78"/>
+        <source>large</source>
+        <translation>visoka</translation>
+    </message>
+    <message>
+        <location filename="../../../src/weather/models/MapLegendModel.cpp" line="79"/>
+        <source>probability</source>
+        <translation>verjetnost</translation>
+    </message>
+</context>
+<context>
     <name>MapSettingsDialog</name>
     <message>
-        <location filename="../../../src/qml/Vremenar/Maps/elements/MapSettingsDialog.qml" line="43"/>
+        <location filename="../../../src/qml/Vremenar/maps/elements/MapSettingsDialog.qml" line="41"/>
         <source>Map type</source>
         <translation>Tip zemljevida</translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Maps/elements/MapSettingsDialog.qml" line="63"/>
+        <location filename="../../../src/qml/Vremenar/maps/elements/MapSettingsDialog.qml" line="61"/>
         <source>Map style</source>
         <translation>Izgled zemljevida</translation>
     </message>
@@ -167,12 +256,12 @@
 <context>
     <name>MobileSettingsDialog</name>
     <message>
-        <location filename="../../../src/qml/Vremenar/Navigation/elements/MobileSettingsDialog.qml" line="63"/>
+        <location filename="../../../src/qml/Vremenar/views/MobileSettingsDialog.qml" line="62"/>
         <source>Weather Alert Notifications</source>
         <translation>Vremenska opozorila</translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Navigation/elements/MobileSettingsDialog.qml" line="76"/>
+        <location filename="../../../src/qml/Vremenar/views/MobileSettingsDialog.qml" line="75"/>
         <source>Notifications are currently disabled by the operating system.</source>
         <translation>Opozorila so trenutno onemogočena s strani operacijskega sistema.</translation>
     </message>
@@ -180,57 +269,57 @@
 <context>
     <name>NotificationsSettings</name>
     <message>
-        <location filename="../../../src/qml/Vremenar/Navigation/elements/NotificationsSettings.qml" line="19"/>
+        <location filename="../../../src/qml/Vremenar/views/NotificationsSettings.qml" line="18"/>
         <source>Weather Alert Notifications</source>
         <translation>Vremenska opozorila</translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Navigation/elements/NotificationsSettings.qml" line="25"/>
+        <location filename="../../../src/qml/Vremenar/views/NotificationsSettings.qml" line="24"/>
         <source>Minor (yellow) alerts and higher</source>
         <translation>Nizke (rumene) nevarnosti in višje</translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Navigation/elements/NotificationsSettings.qml" line="26"/>
+        <location filename="../../../src/qml/Vremenar/views/NotificationsSettings.qml" line="25"/>
         <source>Levels 1-4</source>
         <translation>Nivoji 1-4</translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Navigation/elements/NotificationsSettings.qml" line="30"/>
+        <location filename="../../../src/qml/Vremenar/views/NotificationsSettings.qml" line="29"/>
         <source>Moderate (orange) alerts and higher</source>
         <translation>Srednje (oranžne) nevarnosti in višje</translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Navigation/elements/NotificationsSettings.qml" line="31"/>
+        <location filename="../../../src/qml/Vremenar/views/NotificationsSettings.qml" line="30"/>
         <source>Levels 2-4</source>
         <translation>Nivoji 2-4</translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Navigation/elements/NotificationsSettings.qml" line="35"/>
+        <location filename="../../../src/qml/Vremenar/views/NotificationsSettings.qml" line="34"/>
         <source>Severe (red) alerts and higher</source>
         <translation>Visoke (rdeče) nevarnost in višje</translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Navigation/elements/NotificationsSettings.qml" line="36"/>
+        <location filename="../../../src/qml/Vremenar/views/NotificationsSettings.qml" line="35"/>
         <source>Levels 3-4</source>
         <translation>Nivoja 3-4</translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Navigation/elements/NotificationsSettings.qml" line="40"/>
+        <location filename="../../../src/qml/Vremenar/views/NotificationsSettings.qml" line="39"/>
         <source>Extreme (purple) alerts only</source>
         <translation>Najvišje (vijolične) nevarnosti</translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Navigation/elements/NotificationsSettings.qml" line="41"/>
+        <location filename="../../../src/qml/Vremenar/views/NotificationsSettings.qml" line="40"/>
         <source>Level 4</source>
         <translation>Nivo 4</translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Navigation/elements/NotificationsSettings.qml" line="45"/>
+        <location filename="../../../src/qml/Vremenar/views/NotificationsSettings.qml" line="44"/>
         <source>No weather alerts</source>
         <translation>Brez opozoril</translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Navigation/elements/NotificationsSettings.qml" line="46"/>
+        <location filename="../../../src/qml/Vremenar/views/NotificationsSettings.qml" line="45"/>
         <source>Disabled</source>
         <translation>Onemogočeno</translation>
     </message>
@@ -238,106 +327,139 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../../../src/weather/Weather.cpp" line="27"/>
+        <location filename="../../../src/weather/Weather.cpp" line="37"/>
         <source>today</source>
         <translation>danes</translation>
     </message>
     <message>
-        <location filename="../../../src/weather/Weather.cpp" line="30"/>
+        <location filename="../../../src/weather/Weather.cpp" line="40"/>
         <source>tomorrow</source>
         <translation>jutri</translation>
     </message>
     <message>
-        <location filename="../../../src/weather/Weather.cpp" line="33"/>
+        <location filename="../../../src/weather/Weather.cpp" line="43"/>
         <source>yesterday</source>
         <translation>včeraj</translation>
     </message>
     <message>
         <location filename="../../../src/weather/Weather.cpp" line="91"/>
+        <source>Global</source>
+        <translation>Globalno</translation>
+    </message>
+    <message>
+        <location filename="../../../src/weather/Weather.cpp" line="144"/>
         <source>Satellite</source>
         <translation>Satelit</translation>
     </message>
     <message>
-        <location filename="../../../src/weather/Weather.cpp" line="93"/>
+        <location filename="../../../src/weather/Weather.cpp" line="146"/>
         <source>Streets (Light)</source>
         <translation>Ulice (svetlo)</translation>
     </message>
     <message>
-        <location filename="../../../src/weather/Weather.cpp" line="95"/>
+        <location filename="../../../src/weather/Weather.cpp" line="148"/>
         <source>Streets (Dark)</source>
         <translation>Ulice (temno)</translation>
     </message>
     <message>
-        <location filename="../../../src/weather/Weather.cpp" line="163"/>
+        <location filename="../../../src/weather/Weather.cpp" line="227"/>
         <source>Weather condition</source>
         <translation>Vreme</translation>
     </message>
     <message>
-        <location filename="../../../src/weather/Weather.cpp" line="165"/>
+        <location filename="../../../src/weather/Weather.cpp" line="229"/>
+        <location filename="../../../src/weather/Weather.cpp" line="237"/>
         <source>Precipitation</source>
         <translation>Padavine</translation>
     </message>
     <message>
-        <location filename="../../../src/weather/Weather.cpp" line="167"/>
+        <location filename="../../../src/weather/Weather.cpp" line="232"/>
+        <source>Precipitation (global)</source>
+        <translation>Padavine (globalno)</translation>
+    </message>
+    <message>
+        <location filename="../../../src/weather/Weather.cpp" line="235"/>
+        <source>Precipitation with forecast</source>
+        <translation>Padavine z napovedjo</translation>
+    </message>
+    <message>
+        <location filename="../../../src/weather/Weather.cpp" line="239"/>
+        <location filename="../../../src/weather/Weather.cpp" line="244"/>
         <source>Cloud coverage</source>
         <translation>Oblačnost</translation>
     </message>
     <message>
-        <location filename="../../../src/weather/Weather.cpp" line="169"/>
+        <location filename="../../../src/weather/Weather.cpp" line="242"/>
+        <source>Cloud coverage (satellite)</source>
+        <translation>Oblačnost (satelit)</translation>
+    </message>
+    <message>
+        <location filename="../../../src/weather/Weather.cpp" line="246"/>
         <source>Wind</source>
         <translation>Veter</translation>
+    </message>
+    <message>
+        <location filename="../../../src/weather/Weather.cpp" line="361"/>
+        <source>Slovenian Environment Agency</source>
+        <translation>Agencija Republike Slovenije za okolje</translation>
+    </message>
+    <message>
+        <location filename="../../../src/weather/Weather.cpp" line="371"/>
+        <location filename="../../../src/weather/Weather.cpp" line="378"/>
+        <source>RainViewer</source>
+        <translation>RainViewer</translation>
     </message>
     <message>
         <source>Wind speed</source>
         <translation type="vanished">Hitrost vetra</translation>
     </message>
     <message>
-        <location filename="../../../src/weather/Weather.cpp" line="171"/>
+        <location filename="../../../src/weather/Weather.cpp" line="248"/>
         <source>Temperature</source>
         <translation>Temperatura</translation>
     </message>
     <message>
-        <location filename="../../../src/weather/Weather.cpp" line="173"/>
+        <location filename="../../../src/weather/Weather.cpp" line="250"/>
         <source>Hail probability</source>
         <translation>Toča</translation>
     </message>
     <message>
-        <location filename="../../../src/weather/Weather.cpp" line="175"/>
+        <location filename="../../../src/weather/Weather.cpp" line="252"/>
         <source>Maximum daily UV index</source>
         <translation>Najvišji dnevni UV index</translation>
     </message>
     <message>
-        <location filename="../../../src/weather/Weather.cpp" line="177"/>
+        <location filename="../../../src/weather/Weather.cpp" line="254"/>
         <source>Total daily UV dose</source>
         <translation>Celotno dnevno UV žarčenje</translation>
     </message>
     <message>
-        <location filename="../../../src/common/About.cpp" line="21"/>
+        <location filename="../../../src/common/About.cpp" line="31"/>
         <source>About Vremenar</source>
         <translation>O programu Vremenar</translation>
     </message>
     <message>
-        <location filename="../../../src/common/About.cpp" line="25"/>
+        <location filename="../../../src/common/About.cpp" line="35"/>
         <source>Terms of Service</source>
         <translation>Pogoji uporabe</translation>
     </message>
     <message>
-        <location filename="../../../src/common/About.cpp" line="28"/>
+        <location filename="../../../src/common/About.cpp" line="38"/>
         <source>Privacy Policy</source>
         <translation>Politika zasebnosti</translation>
     </message>
     <message>
-        <location filename="../../../src/common/About.cpp" line="31"/>
+        <location filename="../../../src/common/About.cpp" line="41"/>
         <source>Report an issue</source>
         <translation>Prijavi napako</translation>
     </message>
     <message>
-        <location filename="../../../src/weather/Sources.cpp" line="50"/>
+        <location filename="../../../src/weather/Weather.cpp" line="87"/>
         <source>Slovenia</source>
         <translation>Slovenija</translation>
     </message>
     <message>
-        <location filename="../../../src/weather/Sources.cpp" line="52"/>
+        <location filename="../../../src/weather/Weather.cpp" line="89"/>
         <source>Germany</source>
         <translation>Nemčija</translation>
     </message>
@@ -463,68 +585,138 @@
 <context>
     <name>SourceSelection</name>
     <message>
-        <location filename="../../../src/qml/Vremenar/Navigation/elements/SourceSelection.qml" line="19"/>
+        <location filename="../../../src/qml/Vremenar/views/SourceSelection.qml" line="18"/>
         <source>Weather source selection</source>
         <translation>Vir vremenskih podatkov</translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Navigation/elements/SourceSelection.qml" line="25"/>
+        <location filename="../../../src/qml/Vremenar/views/SourceSelection.qml" line="24"/>
         <source>Slovenia (ARSO)</source>
         <translation>Slovenija (ARSO)</translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Navigation/elements/SourceSelection.qml" line="29"/>
+        <location filename="../../../src/qml/Vremenar/views/SourceSelection.qml" line="28"/>
         <source>Germany (DWD)</source>
         <translation>Nemčija (DWD)</translation>
+    </message>
+    <message>
+        <location filename="../../../src/qml/Vremenar/views/SourceSelection.qml" line="32"/>
+        <source>Global</source>
+        <translation>Globalno</translation>
+    </message>
+</context>
+<context>
+    <name>StationListModel</name>
+    <message>
+        <location filename="../../../src/weather/models/StationListModel.cpp" line="32"/>
+        <source>None</source>
+        <translation>Brez</translation>
+    </message>
+</context>
+<context>
+    <name>TrayIcon</name>
+    <message>
+        <location filename="../../../src/application/TrayIcon.cpp" line="39"/>
+        <source>Show Vremenar</source>
+        <translation>Prikaži Vremenar</translation>
+    </message>
+    <message>
+        <location filename="../../../src/application/TrayIcon.cpp" line="41"/>
+        <source>Preferences</source>
+        <translation>Nastavitve</translation>
+    </message>
+    <message>
+        <location filename="../../../src/application/TrayIcon.cpp" line="43"/>
+        <source>Settings</source>
+        <translation>Nastavitve</translation>
+    </message>
+    <message>
+        <location filename="../../../src/application/TrayIcon.cpp" line="45"/>
+        <source>Check for updates</source>
+        <translation>Preveri za posodobitve</translation>
+    </message>
+    <message>
+        <location filename="../../../src/application/TrayIcon.cpp" line="46"/>
+        <source>About Vremenar</source>
+        <translation>O programu Vremenar</translation>
+    </message>
+    <message>
+        <location filename="../../../src/application/TrayIcon.cpp" line="48"/>
+        <source>Quit Vremenar</source>
+        <translation>Zapri Vremenar</translation>
+    </message>
+    <message>
+        <location filename="../../../src/application/TrayIcon.cpp" line="50"/>
+        <source>Exit Vremenar</source>
+        <translation>Zapri Vremenar</translation>
+    </message>
+    <message>
+        <location filename="../../../src/application/TrayIcon.cpp" line="121"/>
+        <location filename="../../../src/application/TrayIcon.cpp" line="122"/>
+        <source>Map Type</source>
+        <translation>Tip zemljevida</translation>
+    </message>
+    <message>
+        <location filename="../../../src/application/TrayIcon.cpp" line="132"/>
+        <location filename="../../../src/application/TrayIcon.cpp" line="133"/>
+        <source>Map Style</source>
+        <translation>Izgled zemljevida</translation>
+    </message>
+</context>
+<context>
+    <name>Updates</name>
+    <message>
+        <location filename="../../../src/application/Updates.cpp" line="113"/>
+        <source>An update is available. Do you want to download it now?</source>
+        <translation>Posodobitev je na voljo. Jo želite prenesti?</translation>
+    </message>
+    <message>
+        <location filename="../../../src/application/Updates.cpp" line="119"/>
+        <source>A new testing update is available. Do you want to download it now?</source>
+        <translation>Nova testna posodobitev je na voljo. Jo želite prenesti?</translation>
     </message>
 </context>
 <context>
     <name>Vremenar::AboutDialog</name>
     <message>
-        <location filename="../../../src/application/dialogs/AboutDialog.cpp" line="70"/>
         <source>Version %1 (%2)</source>
-        <translation>Različica %1 (%2)</translation>
+        <translation type="vanished">Različica %1 (%2)</translation>
     </message>
     <message>
-        <location filename="../../../src/application/dialogs/AboutDialog.cpp" line="31"/>
         <source>About Vremenar</source>
-        <translation>O programu Vremenar</translation>
+        <translation type="vanished">O programu Vremenar</translation>
     </message>
     <message>
-        <location filename="../../../src/application/dialogs/AboutDialog.cpp" line="69"/>
         <source>Vremenar Weather</source>
-        <translation>Vremenar</translation>
+        <translation type="vanished">Vremenar</translation>
     </message>
     <message>
-        <location filename="../../../src/application/dialogs/AboutDialog.cpp" line="74"/>
         <source>Weather data</source>
-        <translation>Vremenski podatki</translation>
+        <translation type="vanished">Vremenski podatki</translation>
     </message>
     <message>
-        <location filename="../../../src/application/dialogs/AboutDialog.cpp" line="75"/>
         <source>Maps</source>
-        <translation>Zemljevidi</translation>
+        <translation type="vanished">Zemljevidi</translation>
     </message>
     <message>
-        <location filename="../../../src/application/dialogs/AboutDialog.cpp" line="76"/>
         <source>Icons</source>
-        <translation>Ikone</translation>
+        <translation type="vanished">Ikone</translation>
     </message>
 </context>
 <context>
     <name>Vremenar::ApplicationWindow</name>
     <message>
-        <location filename="../../../src/application/ApplicationWindow.cpp" line="303"/>
+        <location filename="../../../src/application/ApplicationWindow.cpp" line="320"/>
         <source>Satellite</source>
         <translation>Satelit</translation>
     </message>
     <message>
-        <location filename="../../../src/application/ApplicationWindow.cpp" line="303"/>
+        <location filename="../../../src/application/ApplicationWindow.cpp" line="320"/>
         <source>Streets (Light)</source>
         <translation>Ulice (svetlo)</translation>
     </message>
     <message>
-        <location filename="../../../src/application/ApplicationWindow.cpp" line="303"/>
+        <location filename="../../../src/application/ApplicationWindow.cpp" line="320"/>
         <source>Streets (Dark)</source>
         <translation>Ulice (temno)</translation>
     </message>
@@ -532,57 +724,47 @@
 <context>
     <name>Vremenar::MapLayersProxyModel</name>
     <message>
-        <location filename="../../../src/weather/models/MapLayersProxyModel.cpp" line="101"/>
         <source>today</source>
-        <translation>danes</translation>
+        <translation type="vanished">danes</translation>
     </message>
     <message>
-        <location filename="../../../src/weather/models/MapLayersProxyModel.cpp" line="103"/>
         <source>recent</source>
-        <translation>trenutno</translation>
+        <translation type="vanished">trenutno</translation>
     </message>
     <message>
-        <location filename="../../../src/weather/models/MapLayersProxyModel.cpp" line="112"/>
         <source>forecast</source>
-        <translation>napoved</translation>
+        <translation type="vanished">napoved</translation>
     </message>
     <message>
-        <location filename="../../../src/weather/models/MapLayersProxyModel.cpp" line="117"/>
         <source>tomorrow</source>
-        <translation>jutri</translation>
+        <translation type="vanished">jutri</translation>
     </message>
     <message>
-        <location filename="../../../src/weather/models/MapLayersProxyModel.cpp" line="120"/>
         <source>yesterday</source>
-        <translation>včeraj</translation>
+        <translation type="vanished">včeraj</translation>
     </message>
     <message>
-        <location filename="../../../src/weather/models/MapLayersProxyModel.cpp" line="134"/>
         <source>Vremenar Weather</source>
-        <translation>Vremenar</translation>
+        <translation type="vanished">Vremenar</translation>
     </message>
 </context>
 <context>
     <name>Vremenar::MapLegendModel</name>
     <message>
-        <location filename="../../../src/weather/models/MapLegendModel.cpp" line="63"/>
         <source>low</source>
-        <translation>nizka</translation>
+        <translation type="vanished">nizka</translation>
     </message>
     <message>
-        <location filename="../../../src/weather/models/MapLegendModel.cpp" line="64"/>
         <source>moderate</source>
-        <translation>srednja</translation>
+        <translation type="vanished">srednja</translation>
     </message>
     <message>
-        <location filename="../../../src/weather/models/MapLegendModel.cpp" line="65"/>
         <source>large</source>
-        <translation>visoka</translation>
+        <translation type="vanished">visoka</translation>
     </message>
     <message>
-        <location filename="../../../src/weather/models/MapLegendModel.cpp" line="66"/>
         <source>probability</source>
-        <translation>verjetnost</translation>
+        <translation type="vanished">verjetnost</translation>
     </message>
 </context>
 <context>
@@ -598,131 +780,111 @@ The application will now restart.</source>
 Aplikacija se bo ponovno zagnala.</translation>
     </message>
     <message>
-        <location filename="../../../src/settings/SettingsDialog.cpp" line="136"/>
+        <location filename="../../../src/settings/SettingsDialog.cpp" line="149"/>
         <source>Notifications are currently disabled by the operating system.</source>
         <translation>Opozorila so trenutno onemogočena s strani operacijskega sistema.</translation>
     </message>
     <message>
-        <location filename="../../../src/settings/SettingsDialog.cpp" line="350"/>
+        <location filename="../../../src/settings/SettingsDialog.cpp" line="359"/>
         <source>System default</source>
         <translation>Sistemsko privzeto</translation>
     </message>
     <message>
-        <location filename="../../../src/settings/SettingsDialogMacOS.mm" line="33"/>
-        <location filename="../../../src/settings/SettingsDialogMacOS.mm" line="75"/>
         <source>General</source>
-        <translation>Splošno</translation>
+        <translation type="vanished">Splošno</translation>
     </message>
     <message>
-        <location filename="../../../src/settings/SettingsDialogMacOS.mm" line="38"/>
         <source>Notifications</source>
-        <translation>Opozorila</translation>
+        <translation type="vanished">Opozorila</translation>
     </message>
     <message>
-        <location filename="../../../src/settings/SettingsDialogMacOS.mm" line="43"/>
-        <location filename="../../../src/settings/SettingsDialogMacOS.mm" line="76"/>
         <source>Interface</source>
-        <translation>Vmesnik</translation>
+        <translation type="vanished">Vmesnik</translation>
     </message>
 </context>
 <context>
     <name>Vremenar::StationListModel</name>
     <message>
-        <location filename="../../../src/weather/models/StationListModel.cpp" line="26"/>
         <source>None</source>
-        <translation>Brez</translation>
+        <translation type="vanished">Brez</translation>
     </message>
 </context>
 <context>
     <name>Vremenar::TrayIcon</name>
     <message>
-        <location filename="../../../src/application/TrayIcon.cpp" line="23"/>
         <source>Show Vremenar</source>
-        <translation>Prikaži Vremenar</translation>
+        <translation type="vanished">Prikaži Vremenar</translation>
     </message>
     <message>
-        <location filename="../../../src/application/TrayIcon.cpp" line="25"/>
         <source>Preferences</source>
-        <translation>Nastavitve</translation>
+        <translation type="vanished">Nastavitve</translation>
     </message>
     <message>
-        <location filename="../../../src/application/TrayIcon.cpp" line="27"/>
         <source>Settings</source>
-        <translation>Nastavitve</translation>
+        <translation type="vanished">Nastavitve</translation>
     </message>
     <message>
-        <location filename="../../../src/application/TrayIcon.cpp" line="29"/>
         <source>Check for updates</source>
-        <translation>Preveri za posodobitve</translation>
+        <translation type="vanished">Preveri za posodobitve</translation>
     </message>
     <message>
-        <location filename="../../../src/application/TrayIcon.cpp" line="30"/>
         <source>About Vremenar</source>
-        <translation>O programu Vremenar</translation>
+        <translation type="vanished">O programu Vremenar</translation>
     </message>
     <message>
-        <location filename="../../../src/application/TrayIcon.cpp" line="32"/>
         <source>Quit Vremenar</source>
-        <translation>Zapri Vremenar</translation>
+        <translation type="vanished">Zapri Vremenar</translation>
     </message>
     <message>
-        <location filename="../../../src/application/TrayIcon.cpp" line="34"/>
         <source>Exit Vremenar</source>
-        <translation>Zapri Vremenar</translation>
+        <translation type="vanished">Zapri Vremenar</translation>
     </message>
     <message>
-        <location filename="../../../src/application/TrayIcon.cpp" line="114"/>
-        <location filename="../../../src/application/TrayIcon.cpp" line="115"/>
         <source>Map Style</source>
-        <translation>Izgled zemljevida</translation>
+        <translation type="vanished">Izgled zemljevida</translation>
     </message>
     <message>
-        <location filename="../../../src/application/TrayIcon.cpp" line="103"/>
-        <location filename="../../../src/application/TrayIcon.cpp" line="104"/>
         <source>Map Type</source>
-        <translation>Tip zemljevida</translation>
+        <translation type="vanished">Tip zemljevida</translation>
     </message>
 </context>
 <context>
     <name>Vremenar::Updates</name>
     <message>
-        <location filename="../../../src/application/Updates.cpp" line="96"/>
         <source>An update is available. Do you want to download it now?</source>
-        <translation>Posodobitev je na voljo. Jo želite prenesti?</translation>
+        <translation type="vanished">Posodobitev je na voljo. Jo želite prenesti?</translation>
     </message>
     <message>
-        <location filename="../../../src/application/Updates.cpp" line="102"/>
         <source>A new testing update is available. Do you want to download it now?</source>
-        <translation>Nova testna posodobitev je na voljo. Jo želite prenesti?</translation>
+        <translation type="vanished">Nova testna posodobitev je na voljo. Jo želite prenesti?</translation>
     </message>
 </context>
 <context>
     <name>Vremenar::WeatherProvider</name>
     <message>
-        <location filename="../../../src/weather/WeatherProvider.cpp" line="83"/>
         <source>Slovenian Environment Agency</source>
-        <translation>Agencija Republike Slovenije za okolje</translation>
+        <translation type="vanished">Agencija Republike Slovenije za okolje</translation>
     </message>
 </context>
 <context>
     <name>WelcomeDialog</name>
     <message>
-        <location filename="../../../src/qml/Vremenar/Navigation/WelcomeDialog.qml" line="57"/>
+        <location filename="../../../src/qml/Vremenar/views/WelcomeDialog.qml" line="54"/>
         <source>Vremenar Setup</source>
         <translation>Priprava aplikacije Vremenar</translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Navigation/WelcomeDialog.qml" line="66"/>
+        <location filename="../../../src/qml/Vremenar/views/WelcomeDialog.qml" line="63"/>
         <source>Personalise your experience when using this app.</source>
         <translation>Prilagodite si vašo izkušnjo uporabe te aplikacije.</translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Navigation/WelcomeDialog.qml" line="79"/>
+        <location filename="../../../src/qml/Vremenar/views/WelcomeDialog.qml" line="76"/>
         <source>Confirm to continue...</source>
         <translation>Potrdi in nadaljuj...</translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/Navigation/WelcomeDialog.qml" line="88"/>
+        <location filename="../../../src/qml/Vremenar/views/WelcomeDialog.qml" line="85"/>
         <source>Continue</source>
         <translation>Nadaljuj</translation>
     </message>
@@ -730,23 +892,23 @@ Aplikacija se bo ponovno zagnala.</translation>
 <context>
     <name>main</name>
     <message>
-        <location filename="../../../src/qml/Vremenar/main.qml" line="23"/>
-        <location filename="../../../src/qml/Vremenar/main.qml" line="24"/>
+        <location filename="../../../src/qml/Vremenar/main.qml" line="20"/>
+        <location filename="../../../src/qml/Vremenar/main.qml" line="21"/>
         <source>Vremenar Weather</source>
         <translation>Vremenar</translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/main.qml" line="57"/>
+        <location filename="../../../src/qml/Vremenar/main.qml" line="54"/>
         <source>Update available</source>
         <translation>Posodobitev</translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/main.qml" line="73"/>
+        <location filename="../../../src/qml/Vremenar/main.qml" line="70"/>
         <source>Oops!</source>
         <translation>Ups!</translation>
     </message>
     <message>
-        <location filename="../../../src/qml/Vremenar/main.qml" line="74"/>
+        <location filename="../../../src/qml/Vremenar/main.qml" line="71"/>
         <source>An error has happened while loading weather data.</source>
         <translation>Pri prenašanju vremenskih infromacij se je zgodila napaka.</translation>
     </message>
