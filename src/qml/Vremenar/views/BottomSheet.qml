@@ -20,6 +20,7 @@ MouseArea {
 
     height: UI.bottomSheetBaseHeight + UI.radiusCommon + UI.safetyMarginBottom
     visible: !UI.mapOnly
+    preventStealing: true
 
     Rectangle {
         id: maskSource

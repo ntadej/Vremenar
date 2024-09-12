@@ -28,6 +28,8 @@ MouseArea {
     enabled: !disabled
     hoverEnabled: !disabled
 
+    preventStealing: true
+
     Keys.onReturnPressed: confirmed()
     Keys.onEnterPressed: confirmed()
 
