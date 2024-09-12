@@ -281,6 +281,7 @@ target_link_libraries(Vremenar PRIVATE
 )
 
 target_include_directories(Vremenar PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_SOURCE_DIR}/3rdparty/GSL/include
 )
 
@@ -351,9 +352,10 @@ endif()
 if(COMMAND qt_add_translations)
     message(STATUS "Translations: ON")
     qt_add_translations(
-      Vremenar
-      SOURCE_TARGETS Vremenar
-      TS_FILE_BASE vremenar
-      TS_FILE_DIR ../resources/Common/i18n
+        Vremenar
+        SOURCE_TARGETS Vremenar
+        # LUPDATE_OPTIONS -no-obsolete
+        TS_FILE_BASE vremenar
+        TS_FILE_DIR ../resources/Common/i18n
     )
 endif()

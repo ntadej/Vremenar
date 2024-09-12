@@ -2,39 +2,6 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="de_DE">
 <context>
-    <name>AboutDialog</name>
-    <message>
-        <location filename="../../../src/application/dialogs/AboutDialog.cpp" line="41"/>
-        <source>About Vremenar</source>
-        <translation>Über Vremenar</translation>
-    </message>
-    <message>
-        <location filename="../../../src/application/dialogs/AboutDialog.cpp" line="84"/>
-        <source>Vremenar Weather</source>
-        <translation>Vremenar Wetter</translation>
-    </message>
-    <message>
-        <location filename="../../../src/application/dialogs/AboutDialog.cpp" line="85"/>
-        <source>Version %1 (%2)</source>
-        <translation>Version %1 (%2)</translation>
-    </message>
-    <message>
-        <location filename="../../../src/application/dialogs/AboutDialog.cpp" line="89"/>
-        <source>Weather data</source>
-        <translation>Wetterdaten</translation>
-    </message>
-    <message>
-        <location filename="../../../src/application/dialogs/AboutDialog.cpp" line="90"/>
-        <source>Maps</source>
-        <translation>Karten</translation>
-    </message>
-    <message>
-        <location filename="../../../src/application/dialogs/AboutDialog.cpp" line="91"/>
-        <source>Icons</source>
-        <translation>Icons</translation>
-    </message>
-</context>
-<context>
     <name>LocationSettings</name>
     <message>
         <location filename="../../../src/qml/Vremenar/views/LocationSettings.qml" line="18"/>
@@ -178,66 +145,6 @@
         <location filename="../../../src/qml/Vremenar/maps/MapControls.qml" line="364"/>
         <source>backend</source>
         <translation>Backend</translation>
-    </message>
-    <message>
-        <source>Change country</source>
-        <translation type="vanished">Land wechseln</translation>
-    </message>
-</context>
-<context>
-    <name>MapLayersProxyModel</name>
-    <message>
-        <location filename="../../../src/weather/models/MapLayersProxyModel.cpp" line="112"/>
-        <source>today</source>
-        <translation>heute</translation>
-    </message>
-    <message>
-        <location filename="../../../src/weather/models/MapLayersProxyModel.cpp" line="114"/>
-        <source>recent</source>
-        <translation>Rückblick</translation>
-    </message>
-    <message>
-        <location filename="../../../src/weather/models/MapLayersProxyModel.cpp" line="123"/>
-        <source>forecast</source>
-        <translation>Vorhersage</translation>
-    </message>
-    <message>
-        <location filename="../../../src/weather/models/MapLayersProxyModel.cpp" line="128"/>
-        <source>tomorrow</source>
-        <translation>morgen</translation>
-    </message>
-    <message>
-        <location filename="../../../src/weather/models/MapLayersProxyModel.cpp" line="131"/>
-        <source>yesterday</source>
-        <translation>gestern</translation>
-    </message>
-    <message>
-        <location filename="../../../src/weather/models/MapLayersProxyModel.cpp" line="145"/>
-        <source>Vremenar Weather</source>
-        <translation>Vremenar Wetter</translation>
-    </message>
-</context>
-<context>
-    <name>MapLegendModel</name>
-    <message>
-        <location filename="../../../src/weather/models/MapLegendModel.cpp" line="76"/>
-        <source>low</source>
-        <translation>niedrig</translation>
-    </message>
-    <message>
-        <location filename="../../../src/weather/models/MapLegendModel.cpp" line="77"/>
-        <source>moderate</source>
-        <translation>mäßig</translation>
-    </message>
-    <message>
-        <location filename="../../../src/weather/models/MapLegendModel.cpp" line="78"/>
-        <source>large</source>
-        <translation>hoch</translation>
-    </message>
-    <message>
-        <location filename="../../../src/weather/models/MapLegendModel.cpp" line="79"/>
-        <source>probability</source>
-        <translation>Wahrscheinlichkeit</translation>
     </message>
 </context>
 <context>
@@ -440,10 +347,6 @@
         <translation>RainViewer</translation>
     </message>
     <message>
-        <source>Wind speed</source>
-        <translation type="vanished">Windgeschwindigkeit</translation>
-    </message>
-    <message>
         <location filename="../../../src/weather/Weather.cpp" line="248"/>
         <source>Temperature</source>
         <translation>Temperatur</translation>
@@ -606,7 +509,127 @@
     </message>
 </context>
 <context>
-    <name>StationListModel</name>
+    <name>Vremenar::AboutDialog</name>
+    <message>
+        <location filename="../../../src/application/dialogs/AboutDialog.cpp" line="41"/>
+        <source>About Vremenar</source>
+        <translation>Über Vremenar</translation>
+    </message>
+    <message>
+        <location filename="../../../src/application/dialogs/AboutDialog.cpp" line="84"/>
+        <source>Vremenar Weather</source>
+        <translation>Vremenar Wetter</translation>
+    </message>
+    <message>
+        <location filename="../../../src/application/dialogs/AboutDialog.cpp" line="85"/>
+        <source>Version %1 (%2)</source>
+        <translation>Version %1 (%2)</translation>
+    </message>
+    <message>
+        <location filename="../../../src/application/dialogs/AboutDialog.cpp" line="89"/>
+        <source>Weather data</source>
+        <translation>Wetterdaten</translation>
+    </message>
+    <message>
+        <location filename="../../../src/application/dialogs/AboutDialog.cpp" line="90"/>
+        <source>Maps</source>
+        <translation>Karten</translation>
+    </message>
+    <message>
+        <location filename="../../../src/application/dialogs/AboutDialog.cpp" line="91"/>
+        <source>Icons</source>
+        <translation>Icons</translation>
+    </message>
+</context>
+<context>
+    <name>Vremenar::ApplicationWindow</name>
+    <message>
+        <location filename="../../../src/application/ApplicationWindow.cpp" line="320"/>
+        <source>Satellite</source>
+        <translation>Satellit</translation>
+    </message>
+    <message>
+        <location filename="../../../src/application/ApplicationWindow.cpp" line="320"/>
+        <source>Streets (Light)</source>
+        <translation>Straßen (hell)</translation>
+    </message>
+    <message>
+        <location filename="../../../src/application/ApplicationWindow.cpp" line="320"/>
+        <source>Streets (Dark)</source>
+        <translation>Straßen (dunkel)</translation>
+    </message>
+</context>
+<context>
+    <name>Vremenar::MapLayersProxyModel</name>
+    <message>
+        <location filename="../../../src/weather/models/MapLayersProxyModel.cpp" line="112"/>
+        <source>today</source>
+        <translation>heute</translation>
+    </message>
+    <message>
+        <location filename="../../../src/weather/models/MapLayersProxyModel.cpp" line="114"/>
+        <source>recent</source>
+        <translation>Rückblick</translation>
+    </message>
+    <message>
+        <location filename="../../../src/weather/models/MapLayersProxyModel.cpp" line="123"/>
+        <source>forecast</source>
+        <translation>Vorhersage</translation>
+    </message>
+    <message>
+        <location filename="../../../src/weather/models/MapLayersProxyModel.cpp" line="128"/>
+        <source>tomorrow</source>
+        <translation>morgen</translation>
+    </message>
+    <message>
+        <location filename="../../../src/weather/models/MapLayersProxyModel.cpp" line="131"/>
+        <source>yesterday</source>
+        <translation>gestern</translation>
+    </message>
+    <message>
+        <location filename="../../../src/weather/models/MapLayersProxyModel.cpp" line="145"/>
+        <source>Vremenar Weather</source>
+        <translation>Vremenar Wetter</translation>
+    </message>
+</context>
+<context>
+    <name>Vremenar::MapLegendModel</name>
+    <message>
+        <location filename="../../../src/weather/models/MapLegendModel.cpp" line="76"/>
+        <source>low</source>
+        <translation>niedrig</translation>
+    </message>
+    <message>
+        <location filename="../../../src/weather/models/MapLegendModel.cpp" line="77"/>
+        <source>moderate</source>
+        <translation>mäßig</translation>
+    </message>
+    <message>
+        <location filename="../../../src/weather/models/MapLegendModel.cpp" line="78"/>
+        <source>large</source>
+        <translation>hoch</translation>
+    </message>
+    <message>
+        <location filename="../../../src/weather/models/MapLegendModel.cpp" line="79"/>
+        <source>probability</source>
+        <translation>Wahrscheinlichkeit</translation>
+    </message>
+</context>
+<context>
+    <name>Vremenar::SettingsDialog</name>
+    <message>
+        <location filename="../../../src/settings/SettingsDialog.cpp" line="149"/>
+        <source>Notifications are currently disabled by the operating system.</source>
+        <translation>Benachrichtigungen sind momentan vom Betriebssystem ausgeschaltet.</translation>
+    </message>
+    <message>
+        <location filename="../../../src/settings/SettingsDialog.cpp" line="359"/>
+        <source>System default</source>
+        <translation>Systemeinstellungen</translation>
+    </message>
+</context>
+<context>
+    <name>Vremenar::StationListModel</name>
     <message>
         <location filename="../../../src/weather/models/StationListModel.cpp" line="32"/>
         <source>None</source>
@@ -614,7 +637,7 @@
     </message>
 </context>
 <context>
-    <name>TrayIcon</name>
+    <name>Vremenar::TrayIcon</name>
     <message>
         <location filename="../../../src/application/TrayIcon.cpp" line="39"/>
         <source>Show Vremenar</source>
@@ -664,7 +687,7 @@
     </message>
 </context>
 <context>
-    <name>Updates</name>
+    <name>Vremenar::Updates</name>
     <message>
         <location filename="../../../src/application/Updates.cpp" line="113"/>
         <source>An update is available. Do you want to download it now?</source>
@@ -674,196 +697,6 @@
         <location filename="../../../src/application/Updates.cpp" line="119"/>
         <source>A new testing update is available. Do you want to download it now?</source>
         <translation>Ein Beta-Update ist verfügbar. Soll es jetzt geladen werden?</translation>
-    </message>
-</context>
-<context>
-    <name>Vremenar::AboutDialog</name>
-    <message>
-        <source>About Vremenar</source>
-        <translation type="vanished">Über Vremenar</translation>
-    </message>
-    <message>
-        <source>Vremenar Weather</source>
-        <translation type="vanished">Vremenar Wetter</translation>
-    </message>
-    <message>
-        <source>Version %1 (%2)</source>
-        <translation type="vanished">Version %1 (%2)</translation>
-    </message>
-    <message>
-        <source>Weather data</source>
-        <translation type="vanished">Wetterdaten</translation>
-    </message>
-    <message>
-        <source>Maps</source>
-        <translation type="vanished">Karten</translation>
-    </message>
-    <message>
-        <source>Icons</source>
-        <translation type="vanished">Icons</translation>
-    </message>
-</context>
-<context>
-    <name>Vremenar::ApplicationWindow</name>
-    <message>
-        <location filename="../../../src/application/ApplicationWindow.cpp" line="320"/>
-        <source>Satellite</source>
-        <translation>Satellit</translation>
-    </message>
-    <message>
-        <location filename="../../../src/application/ApplicationWindow.cpp" line="320"/>
-        <source>Streets (Light)</source>
-        <translation>Straßen (hell)</translation>
-    </message>
-    <message>
-        <location filename="../../../src/application/ApplicationWindow.cpp" line="320"/>
-        <source>Streets (Dark)</source>
-        <translation>Straßen (dunkel)</translation>
-    </message>
-</context>
-<context>
-    <name>Vremenar::MapLayersProxyModel</name>
-    <message>
-        <source>today</source>
-        <translation type="vanished">heute</translation>
-    </message>
-    <message>
-        <source>recent</source>
-        <translation type="vanished">Rückblick</translation>
-    </message>
-    <message>
-        <source>forecast</source>
-        <translation type="vanished">Vorhersage</translation>
-    </message>
-    <message>
-        <source>tomorrow</source>
-        <translation type="vanished">morgen</translation>
-    </message>
-    <message>
-        <source>yesterday</source>
-        <translation type="vanished">gestern</translation>
-    </message>
-    <message>
-        <source>Vremenar Weather</source>
-        <translation type="vanished">Vremenar Wetter</translation>
-    </message>
-</context>
-<context>
-    <name>Vremenar::MapLegendModel</name>
-    <message>
-        <source>low</source>
-        <translation type="vanished">niedrig</translation>
-    </message>
-    <message>
-        <source>moderate</source>
-        <translation type="vanished">mäßig</translation>
-    </message>
-    <message>
-        <source>large</source>
-        <translation type="vanished">hoch</translation>
-    </message>
-    <message>
-        <source>probability</source>
-        <translation type="vanished">Wahrscheinlichkeit</translation>
-    </message>
-</context>
-<context>
-    <name>Vremenar::SettingsDialog</name>
-    <message>
-        <source>Weather source changed</source>
-        <translation type="vanished">Wetterdatenquelle geändert</translation>
-    </message>
-    <message>
-        <source>The weather source has been changed.
-The application will now restart.</source>
-        <translation type="vanished">Die Wetterdatenquelle wurde geändert.
-Die Anwendung wird nun neu gestartet.</translation>
-    </message>
-    <message>
-        <location filename="../../../src/settings/SettingsDialog.cpp" line="149"/>
-        <source>Notifications are currently disabled by the operating system.</source>
-        <translation>Benachrichtigungen sind momentan vom Betriebssystem ausgeschaltet.</translation>
-    </message>
-    <message>
-        <location filename="../../../src/settings/SettingsDialog.cpp" line="359"/>
-        <source>System default</source>
-        <translation>Systemeinstellungen</translation>
-    </message>
-    <message>
-        <source>General</source>
-        <translation type="vanished">Allgemein</translation>
-    </message>
-    <message>
-        <source>Notifications</source>
-        <translation type="vanished">Benachrichtigungen</translation>
-    </message>
-    <message>
-        <source>Interface</source>
-        <translation type="vanished">Benutzeroberfläche</translation>
-    </message>
-</context>
-<context>
-    <name>Vremenar::StationListModel</name>
-    <message>
-        <source>None</source>
-        <translation type="vanished">Keine</translation>
-    </message>
-</context>
-<context>
-    <name>Vremenar::TrayIcon</name>
-    <message>
-        <source>Show Vremenar</source>
-        <translation type="vanished">Anzeige Vremenar</translation>
-    </message>
-    <message>
-        <source>Preferences</source>
-        <translation type="vanished">Einstellungen</translation>
-    </message>
-    <message>
-        <source>Settings</source>
-        <translation type="vanished">Einstellungen</translation>
-    </message>
-    <message>
-        <source>Check for updates</source>
-        <translation type="vanished">Nach Updates suchen</translation>
-    </message>
-    <message>
-        <source>About Vremenar</source>
-        <translation type="vanished">Über Vremenar</translation>
-    </message>
-    <message>
-        <source>Quit Vremenar</source>
-        <translation type="vanished">Vremenar beenden</translation>
-    </message>
-    <message>
-        <source>Exit Vremenar</source>
-        <translation type="vanished">Vremenar beenden</translation>
-    </message>
-    <message>
-        <source>Map Type</source>
-        <translation type="vanished">Kartentyp</translation>
-    </message>
-    <message>
-        <source>Map Style</source>
-        <translation type="vanished">Kartenstil</translation>
-    </message>
-</context>
-<context>
-    <name>Vremenar::Updates</name>
-    <message>
-        <source>An update is available. Do you want to download it now?</source>
-        <translation type="vanished">Ein Update ist verfügbar. Soll es jetzt geladen werden?</translation>
-    </message>
-    <message>
-        <source>A new testing update is available. Do you want to download it now?</source>
-        <translation type="vanished">Ein Beta-Update ist verfügbar. Soll es jetzt geladen werden?</translation>
-    </message>
-</context>
-<context>
-    <name>Vremenar::WeatherProvider</name>
-    <message>
-        <source>Slovenian Environment Agency</source>
-        <translation type="vanished">Sovenian Environment Agency</translation>
     </message>
 </context>
 <context>
