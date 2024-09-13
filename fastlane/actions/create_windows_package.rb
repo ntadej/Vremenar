@@ -10,9 +10,9 @@ module Fastlane
 
     class CreateWindowsPackageAction < Action
       def self.run(params)
-        build_path = params[:path] || Actions.lane_context[SharedValues::RUN_QMAKE_PROJECT_PATH]
-        build_type = params[:build_type] || Actions.lane_context[SharedValues::RUN_QMAKE_BUILD_TYPE]
-        output_path = Actions.lane_context[SharedValues::RUN_QMAKE_OUTPUT_PATH] || build_path
+        build_path = params[:path] || Actions.lane_context[SharedValues::RUN_CMAKE_PROJECT_PATH]
+        build_type = params[:build_type] || Actions.lane_context[SharedValues::RUN_CMAKE_BUILD_TYPE]
+        output_path = Actions.lane_context[SharedValues::RUN_CMAKE_OUTPUT_PATH] || build_path
         relative_output_path = Pathname.new(output_path).relative_path_from(Pathname.new(build_path))
         deployment_path = Pathname.new(output_path) / 'deployment'
         relative_build_path = Pathname.new(build_path).relative_path_from(deployment_path)

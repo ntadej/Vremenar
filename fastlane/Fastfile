@@ -206,9 +206,9 @@ platform :windows do
   desc 'Make a Microsoft Store build'
   lane :microsoft_store do
     build_number
-    run_qmake platform: 'windows',
+    run_cmake platform: 'windows',
               build_type: 'store',
-              build_path: 'fastlane/build/windows_store/qmake',
+              build_path: 'fastlane/build/windows_store/cmake',
               output_path: 'fastlane/build/windows_store'
     nmake
     create_windows_package
