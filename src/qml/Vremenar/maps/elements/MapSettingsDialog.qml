@@ -80,7 +80,7 @@ DialogBlur {
 
                         ImageButton {
                             id: buttonSatellite
-                            width: UI.iconSizeLarge + 2 * UI.iconBorderThickness
+                            width: UI.iconSizeImage + 2 * UI.iconBorderThickness
                             active: VWeather.currentMapStyle === 0
                             image: "/Vremenar/satellite.png"
                             onClicked: select()
@@ -103,7 +103,7 @@ DialogBlur {
 
                         ImageButton {
                             id: buttonStreetsLight
-                            width: UI.iconSizeLarge + 2 * UI.iconBorderThickness
+                            width: UI.iconSizeImage + 2 * UI.iconBorderThickness
                             active: VWeather.currentMapStyle === 1
                             image: "/Vremenar/streets-light.png"
                             onClicked: select()
@@ -127,7 +127,7 @@ DialogBlur {
 
                         ImageButton {
                             id: buttonStreetsDark
-                            width: UI.iconSizeLarge + 2 * UI.iconBorderThickness
+                            width: UI.iconSizeImage + 2 * UI.iconBorderThickness
                             active: VWeather.currentMapStyle === 2
                             image: "/Vremenar/streets-dark.png"
                             onClicked: select()

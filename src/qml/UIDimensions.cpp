@@ -23,24 +23,36 @@ int Qml::UIManager::iconSizeCommon() const
 #if defined(Q_OS_WINDOWS)
     return 28; // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
 #elif defined(Q_OS_MACOS) || defined(Q_OS_IOS)
-    return 14; // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+    return 11; // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
 #else
     return 32; // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
 #endif
 }
-int Qml::UIManager::iconSizeLarge() const { return 48; } // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+int Qml::UIManager::iconSizeImage() const { return 48; } // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+int Qml::UIManager::iconSizePlay() const
+{
+#if defined(Q_OS_MACOS) || defined(Q_OS_IOS)
+    return 13; // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+#else
+    return iconSizeCommon();
+#endif
+}
 int Qml::UIManager::iconSizePrevNext() const
 {
 #if defined(Q_OS_WINDOWS)
     return 22; // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
+#elif defined(Q_OS_MACOS) || defined(Q_OS_IOS)
+    return 13; // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
 #else
     return iconSizeCommon();
 #endif
 }
 int Qml::UIManager::iconSizeFirstLast() const
 {
-#if defined(Q_OS_ANDROID) || defined(Q_OS_MACOS) || defined(Q_OS_IOS)
+#if defined(Q_OS_ANDROID)
     return iconSizeCommon();
+#elif defined(Q_OS_MACOS) || defined(Q_OS_IOS)
+    return 13; // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
 #elif defined(Q_OS_WINDOWS)
     return 24; // NOLINT(cppcoreguidelines-avoid-magic-numbers, readability-magic-numbers)
 #else

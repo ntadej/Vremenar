@@ -58,7 +58,8 @@ class UIManager : public QObject
     Q_PROPERTY(int mapSliderSize READ mapSliderSize CONSTANT)
 
     Q_PROPERTY(int iconSizeCommon READ iconSizeCommon CONSTANT)
-    Q_PROPERTY(int iconSizeLarge READ iconSizeLarge CONSTANT)
+    Q_PROPERTY(int iconSizeImage READ iconSizeImage CONSTANT)
+    Q_PROPERTY(int iconSizePlay READ iconSizePlay CONSTANT)
     Q_PROPERTY(int iconSizePrevNext READ iconSizePrevNext CONSTANT)
     Q_PROPERTY(int iconSizeFirstLast READ iconSizeFirstLast CONSTANT)
     Q_PROPERTY(int iconSizeCheckMark READ iconSizeCheckMark CONSTANT)
@@ -158,7 +159,8 @@ public:
     [[nodiscard]] int mapSliderSize() const;
 
     [[nodiscard]] int iconSizeCommon() const;
-    [[nodiscard]] int iconSizeLarge() const;
+    [[nodiscard]] int iconSizeImage() const;
+    [[nodiscard]] int iconSizePlay() const;
     [[nodiscard]] int iconSizePrevNext() const;
     [[nodiscard]] int iconSizeFirstLast() const;
     [[nodiscard]] int iconSizeCheckMark() const;

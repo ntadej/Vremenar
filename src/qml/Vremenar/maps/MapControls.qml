@@ -224,6 +224,7 @@ ColumnLayout {
             id: buttonPlay
             icon: VMapLayersModel.animated ? "pause" : "play"
             family: UI.iconTheme
+            size: UI.iconSizePlay
             width: UI.mapElementSize
 
             onClicked: action()
