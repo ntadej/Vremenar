@@ -1,4 +1,4 @@
-github "Countly/countly-sdk-ios" "24.7.2"
+github "Countly/countly-sdk-ios" "24.7.3"
 
 binary "https://sparkle-project.org/Carthage/Sparkle.json"
 

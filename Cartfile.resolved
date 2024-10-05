@@ -1,4 +1,4 @@
-binary "https://dl.google.com/dl/firebase/ios/carthage/FirebaseAnalyticsBinary.json" "11.2.0"
-binary "https://dl.google.com/dl/firebase/ios/carthage/FirebaseMessagingBinary.json" "11.2.0"
+binary "https://dl.google.com/dl/firebase/ios/carthage/FirebaseAnalyticsBinary.json" "11.3.0"
+binary "https://dl.google.com/dl/firebase/ios/carthage/FirebaseMessagingBinary.json" "11.3.0"
 binary "https://sparkle-project.org/Carthage/Sparkle.json" "2.6.4"
-github "Countly/countly-sdk-ios" "24.7.2"
+github "Countly/countly-sdk-ios" "24.7.3"
