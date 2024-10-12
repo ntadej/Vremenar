@@ -97,7 +97,7 @@ jobs:
 
       - name: Download MapLibre
         run: |
-          wget https://github.com/ntadej/maplibre-native-qt/releases/download/v${MAPLIBRE_VERSION}/maplibre-native-qt_v${MAPLIBRE_VERSION}_Qt${QT_VERSION}_Android.tar.bz2
+          wget https://github.com/maplibre/maplibre-native-qt/releases/download/v${MAPLIBRE_VERSION}/maplibre-native-qt_v${MAPLIBRE_VERSION}_Qt${QT_VERSION}_Android.tar.bz2
           tar xvf maplibre-native-qt_v${MAPLIBRE_VERSION}_Qt${QT_VERSION}_Android.tar.bz2
 
           echo "QMapLibre_Android_DIR=$PWD/maplibre-native-qt_v${MAPLIBRE_VERSION}_Qt${QT_VERSION}_Android" >> $GITHUB_ENV
