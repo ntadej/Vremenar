@@ -27,7 +27,7 @@ env:
 jobs:
   build-plugin:
     name: Build Vremenar (Windows x64)
-    runs-on: windows-2022
+    runs-on: windows-2025
 
     steps:
       - name: Checkout
