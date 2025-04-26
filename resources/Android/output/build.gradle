@@ -28,7 +28,7 @@ dependencies {
         }
     }
 
-    implementation 'ly.count.android:sdk:24.7.8'
+    implementation 'ly.count.android:sdk:25.4.0'
     implementation platform('com.google.firebase:firebase-bom:33.13.0')
     implementation 'com.google.firebase:firebase-messaging'
     implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
