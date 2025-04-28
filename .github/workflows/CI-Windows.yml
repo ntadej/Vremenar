@@ -21,8 +21,8 @@ concurrency:
   cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
 env:
-  QT_VERSION: 6.7.3
-  MAPLIBRE_VERSION: 3.0.0
+  QT_VERSION: 6.9.0
+  MAPLIBRE_VERSION: 3.1.0
 
 jobs:
   build-plugin:
@@ -50,7 +50,7 @@ jobs:
         shell: bash
         run: |
           choco upgrade wget
-          wget.exe https://github.com/maplibre/maplibre-native-qt/releases/download/v${MAPLIBRE_VERSION}/qt-geoservices-maplibre-gl_v${MAPLIBRE_VERSION}_Qt${QT_VERSION}_win64_msvc2019.tar.bz2
+          wget.exe https://github.com/ntadej/maplibre-native-qt/releases/download/v${MAPLIBRE_VERSION}/qt-geoservices-maplibre-gl_v${MAPLIBRE_VERSION}_Qt${QT_VERSION}_win64_msvc2019.tar.bz2
           tar xvf qt-geoservices-maplibre-gl_v${MAPLIBRE_VERSION}_Qt${QT_VERSION}_win64_msvc2019.tar.bz2 -C ..
 
       - name: Setup ninja

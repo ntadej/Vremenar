@@ -21,8 +21,8 @@ concurrency:
   cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
 env:
-  QT_VERSION: 6.7.3
-  MAPLIBRE_VERSION: 3.0.0
+  QT_VERSION: 6.9.0
+  MAPLIBRE_VERSION: 3.1.0
 
 jobs:
   build:
@@ -84,7 +84,7 @@ jobs:
 
       - name: Download MapLibre
         run: |
-          wget https://github.com/maplibre/maplibre-native-qt/releases/download/v${MAPLIBRE_VERSION}/maplibre-native-qt_v${MAPLIBRE_VERSION}_Qt${QT_VERSION}_iOS.tar.bz2
+          wget https://github.com/ntadej/maplibre-native-qt/releases/download/v${MAPLIBRE_VERSION}/maplibre-native-qt_v${MAPLIBRE_VERSION}_Qt${QT_VERSION}_iOS.tar.bz2
           tar xvf maplibre-native-qt_v${MAPLIBRE_VERSION}_Qt${QT_VERSION}_iOS.tar.bz2
 
           echo "QMapLibre_DIR=$PWD/maplibre-native-qt_v${MAPLIBRE_VERSION}_Qt${QT_VERSION}_iOS" >> $GITHUB_ENV
