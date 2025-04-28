@@ -1,6 +1,6 @@
 /*
 * Vremenar
-* Copyright (C) 2021 Tadej Novak <tadej@tano.si>
+* Copyright (C) 2025 Tadej Novak <tadej@tano.si>
 *
 * This application is bi-licensed under the GNU General Public License
 * Version 3 or later as well as Mozilla Public License Version 2.
@@ -20,4 +20,10 @@ ApplicationWindow {
 
     Universal.theme: UI.theme === Vremenar.Common.DarkTheme ? Universal.Dark : Universal.Light
     Universal.accent: UI.colorPrimary
+
+    // for now we handle padding manually
+    topPadding: 0
+    bottomPadding: 0
+    leftPadding: 0
+    rightPadding: 0
 }
