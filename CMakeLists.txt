@@ -1,6 +1,6 @@
 #
 # Vremenar
-# Copyright (C) 2024 Tadej Novak <tadej@tano.si>
+# Copyright (C) 2025 Tadej Novak <tadej@tano.si>
 #
 # This application is bi-licensed under the GNU General Public License
 # Version 3 or later as well as Mozilla Public License Version 2.
@@ -10,6 +10,7 @@
 #
 
 cmake_minimum_required(VERSION 3.23)
+set(CMAKE_AUTORCC ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 include(config/Version.cmake)
@@ -31,6 +32,7 @@ find_package(Qt6 6.7 OPTIONAL_COMPONENTS LinguistTools)
 qt_standard_project_setup(I18N_TRANSLATED_LANGUAGES de sl)
 
 qt_policy(SET QTP0002 NEW)
+qt_policy(SET QTP0004 NEW)
 
 if(ANDROID AND DEFINED ENV{QMapLibre_Android_DIR})
     message(STATUS "Setting QMapLibre_DIR to $ENV{QMapLibre_Android_DIR}/${ANDROID_ABI}/lib/cmake/QMapLibre")

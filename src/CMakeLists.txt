@@ -1,6 +1,6 @@
 #
 # Vremenar
-# Copyright (C) 2024 Tadej Novak <tadej@tano.si>
+# Copyright (C) 2025 Tadej Novak <tadej@tano.si>
 #
 # This application is bi-licensed under the GNU General Public License
 # Version 3 or later as well as Mozilla Public License Version 2.
@@ -190,6 +190,12 @@ qt_add_executable(Vremenar WIN32 MACOSX_BUNDLE
     $<$<PLATFORM_ID:iOS>:${APPLE_IOS_GOOGLESERVICE}>
     $<$<PLATFORM_ID:iOS>:${APPLE_IOS_STORYBOARD}>
     $<$<PLATFORM_ID:iOS>:${APPLE_IOS_TRANSLATIONS}>
+
+    ../resources/Weather/Map/map.qrc
+    $<$<PLATFORM_ID:Darwin>:../resources/Weather/TrayMask/tray_mask.qrc>
+    $<$<PLATFORM_ID:Linux>:../resources/Weather/Tray/tray_16.qrc>
+    $<$<PLATFORM_ID:Linux>:../resources/Weather/Tray/tray_24.qrc>
+    $<$<PLATFORM_ID:Linux>:../resources/Weather/Tray/tray_32.qrc>
 )
 
 add_subdirectory(qml/Vremenar)
@@ -356,6 +362,6 @@ if(COMMAND qt_add_translations)
         SOURCE_TARGETS Vremenar
         # LUPDATE_OPTIONS -no-obsolete
         TS_FILE_BASE vremenar
-        TS_FILE_DIR ../resources/Common/i18n
+        TS_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/resources/Common/i18n
     )
 endif()
