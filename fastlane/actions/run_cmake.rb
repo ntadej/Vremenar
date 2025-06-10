@@ -73,6 +73,7 @@ module Fastlane
             command += ' -DAPPLE_BUILD_MACHINE_OS_BUILD='
             command += "'#{Actions.lane_context[SharedValues::XCODE_METADATA_OS_BUILD]}'"
           end
+          command += ' -DQT_FORCE_CMP0156_TO_NEW=ON'
         when 'ios'
           command += ' -G Xcode'
           command += " -DCMAKE_OSX_DEPLOYMENT_TARGET='16.0' -DCMAKE_OSX_ARCHITECTURES='arm64'"
@@ -87,6 +88,7 @@ module Fastlane
           unless params[:profile_name].empty?
             command += " -DCMAKE_XCODE_ATTRIBUTE_PROVISIONING_PROFILE_SPECIFIER='#{params[:profile_name]}'"
           end
+          command += ' -DQT_FORCE_CMP0156_TO_NEW=ON'
         when 'android'
           command += " -G Ninja -DCMAKE_BUILD_TYPE='RelWithDebInfo'"
           command += " -DCMAKE_C_COMPILER_LAUNCHER='ccache' -DCMAKE_CXX_COMPILER_LAUNCHER='ccache'"

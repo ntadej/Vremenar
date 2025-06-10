@@ -309,7 +309,7 @@ if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin" OR IOS)
         ${APPLE_SWIFT_TOOLCHAIN_PATH}
     )
     target_link_libraries(Vremenar PRIVATE
-        # -ObjC
+        -ObjC
         ${nanopb}
         ${FBLPromises}
         ${GoogleDataTransport}
