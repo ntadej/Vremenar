@@ -5,7 +5,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.9.2'
+        classpath 'com.android.tools.build:gradle:8.10.1'
         classpath 'com.google.gms:google-services:4.4.2'
     }
 }
@@ -20,16 +20,16 @@ apply plugin: 'com.google.gms.google-services'
 
 dependencies {
     constraints {
-        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:2.1.20") {
+        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:2.1.21") {
             because("kotlin-stdlib-jdk7 is now a part of kotlin-stdlib")
         }
-        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.1.20") {
+        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.1.21") {
             because("kotlin-stdlib-jdk8 is now a part of kotlin-stdlib")
         }
     }
 
     implementation 'ly.count.android:sdk:25.4.0'
-    implementation platform('com.google.firebase:firebase-bom:33.13.0')
+    implementation platform('com.google.firebase:firebase-bom:33.15.0')
     implementation 'com.google.firebase:firebase-messaging'
     implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
 }
