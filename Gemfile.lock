@@ -192,7 +192,7 @@ GEM
     retriable (3.1.2)
     rexml (3.4.1)
     rouge (3.28.0)
-    rubocop (1.76.1)
+    rubocop (1.77.0)
       json (~> 2.3)
       language_server-protocol (~> 3.17.0.2)
       lint_roller (~> 1.1.0)
@@ -200,7 +200,7 @@ GEM
       parser (>= 3.3.0.2)
       rainbow (>= 2.2.2, < 4.0)
       regexp_parser (>= 2.9.3, < 3.0)
-      rubocop-ast (>= 1.45.0, < 2.0)
+      rubocop-ast (>= 1.45.1, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 2.4.0, < 4.0)
     rubocop-ast (1.45.1)
@@ -255,7 +255,7 @@ PLATFORMS
 
 DEPENDENCIES
   fastlane (= 2.228.0)
-  rubocop (= 1.76.1)
+  rubocop (= 1.77.0)
 
 BUNDLED WITH
    2.5.22
