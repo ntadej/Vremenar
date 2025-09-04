@@ -108,7 +108,7 @@ jobs:
           ssh-private-key: ${{ secrets.MATCH_GIT_PRIVATE_KEY }}
 
       - name: Setup python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.13"
 
