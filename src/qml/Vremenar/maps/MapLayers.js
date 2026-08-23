@@ -62,7 +62,7 @@ function createSource(mapStyle, renderingType, url, source)
             url += '&bbox={bbox-epsg-3857}'
         }
         return Qt.createQmlObject(`
-            import MapLibre 3.0
+            import MapLibre.Location 4.0
 
             SourceParameter {
                 styleId: "weatherSource${source}"
@@ -75,7 +75,7 @@ function createSource(mapStyle, renderingType, url, source)
             "sourceParam")
     } else {
         return Qt.createQmlObject(`
-            import MapLibre 3.0
+            import MapLibre.Location 4.0
 
             SourceParameter {
                 styleId: "weatherSource${source}"
@@ -94,7 +94,7 @@ function createLayer(mapStyle, source, visible)
 {
     let opacity = visible ? 0.75 : 0;
     return Qt.createQmlObject(`
-        import MapLibre 3.0
+        import MapLibre.Location 4.0
 
         LayerParameter {
             styleId: "weatherLayer${source}"

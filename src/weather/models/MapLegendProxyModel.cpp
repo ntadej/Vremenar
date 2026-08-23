@@ -33,8 +33,9 @@ MapLegendProxyModel::MapLegendProxyModel(QObject *parent)
 void MapLegendProxyModel::setType(Weather::MapType type)
 {
     if (type != _type) {
+        beginFilterChange();
         _type = type;
-        invalidateFilter();
+        endFilterChange();
         emit typeChanged();
     }
 }

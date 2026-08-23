@@ -129,6 +129,7 @@ endfunction()
 if(NOT CMAKE_GENERATOR STREQUAL "Xcode")
     copy_target_framework(QMapLibre::Core)
     copy_target_framework(QMapLibre::Location)
+    copy_target_framework(QMapLibre::QuickPrivate)
 endif()
 
 # Firebase

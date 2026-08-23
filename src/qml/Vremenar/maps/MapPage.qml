@@ -15,7 +15,7 @@ import QtQml
 import QtQuick
 import Qt.labs.animation
 
-import MapLibre 3.0
+import MapLibre.Location 4.0
 
 import Vremenar 1.0
 

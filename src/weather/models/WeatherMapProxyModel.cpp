@@ -41,7 +41,9 @@ WeatherMapProxyModel::WeatherMapProxyModel(QObject *parent)
     connect(this, &WeatherMapProxyModel::rowsInserted, this, &WeatherMapProxyModel::rowCountChanged);
     connect(this, &WeatherMapProxyModel::rowsRemoved, this, &WeatherMapProxyModel::rowCountChanged);
 
-    connect(_timer.get(), &QTimer::timeout, this, &WeatherMapProxyModel::invalidateFilter);
+    connect(_timer.get(), &QTimer::timeout, this, [this] {
+        endFilterChange();
+    });
 }
 
 void WeatherMapProxyModel::setZoomLevel(qreal level)
@@ -60,6 +62,7 @@ void WeatherMapProxyModel::setZoomLevel(qreal level)
 void WeatherMapProxyModel::setVisibleRegion(const QGeoShape &shape)
 {
     if (shape != _visibleRegion) {
+        beginFilterChange();
         _timer->stop();
 
         _visibleRegion = shape;
@@ -73,10 +76,11 @@ void WeatherMapProxyModel::setVisibleRegion(const QGeoShape &shape)
 void WeatherMapProxyModel::setTime(qint64 time)
 {
     if (time != _time) {
+        beginFilterChange();
         _timer->stop();
 
         _time = time;
-        invalidateFilter();
+        endFilterChange();
         emit timeChanged();
     }
 }

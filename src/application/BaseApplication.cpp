@@ -33,7 +33,11 @@ void Application::preInit()
     QCoreApplication::setApplicationName(Vremenar::name);
     QCoreApplication::setApplicationVersion(Vremenar::version);
 
+#if defined(Q_OS_MAC) || defined(Q_OS_IOS)
+    QQuickWindow::setGraphicsApi(QSGRendererInterface::MetalRhi);
+#else
     QQuickWindow::setGraphicsApi(QSGRendererInterface::OpenGLRhi);
+#endif
 
 #if defined(Q_OS_WINDOWS)
     // qputenv("QT_QPA_PLATFORM", "windows:darkmode=1");

@@ -9,6 +9,8 @@ module Fastlane
         Actions.sh "codesign -f -s '#{params[:certificate_name]}' -o" \
                   " runtime '#{ENV['QMapLibre_DIR']}/lib/QMapLibre.framework'"
         Actions.sh "codesign -f -s '#{params[:certificate_name]}' -o" \
+                  " runtime '#{ENV['QMapLibre_DIR']}/lib/QMapLibreQuickPrivate.framework'"
+        Actions.sh "codesign -f -s '#{params[:certificate_name]}' -o" \
                   " runtime '#{ENV['QMapLibre_DIR']}/lib/QMapLibreLocation.framework'"
 
         return unless Pathname.new("#{ENV['QMapLibre_DIR']}/plugins/geoservices/libqtgeoservices_maplibre.dylib").exist?
@@ -16,7 +18,7 @@ module Fastlane
         Actions.sh "codesign -f -s '#{params[:certificate_name]}' -o" \
                   " runtime '#{ENV['QMapLibre_DIR']}/plugins/geoservices/libqtgeoservices_maplibre.dylib'"
         Actions.sh "codesign -f -s '#{params[:certificate_name]}' -o" \
-                  " runtime '#{ENV['QMapLibre_DIR']}/qml/MapLibre/libdeclarative_locationplugin_maplibre.dylib'"
+                  " runtime '#{ENV['QMapLibre_DIR']}/qml/MapLibre/Location/libdeclarative_maplibre_locationplugin.dylib'"
       end
 
       #####################################################

@@ -28,8 +28,9 @@ StationListProxyModel::StationListProxyModel(QObject *parent)
 void StationListProxyModel::setIgnoreForecastOnly(bool ignoreForecastOnly)
 {
     if (ignoreForecastOnly != _ignoreForecastOnly) {
+        beginFilterChange();
         _ignoreForecastOnly = ignoreForecastOnly;
-        invalidateFilter();
+        endFilterChange();
         emit ignoreForecastOnlyChanged();
     }
 }
