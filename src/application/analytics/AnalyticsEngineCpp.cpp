@@ -11,10 +11,7 @@
 
 #include "application/analytics/AnalyticsEngineCpp.h"
 
-#include "application/analytics/Countly.h"
 #include "settings/Settings.h"
-
-#include "Config.h"
 
 #include <QtCore/QDebug>
 #include <QtCore/QString>
@@ -30,7 +27,7 @@ using Qt::Literals::StringLiterals::operator""_s;
 namespace Vremenar
 {
 
-AnalyticsEngineCpp::AnalyticsEngineCpp(NetworkManager *network)
+AnalyticsEngineCpp::AnalyticsEngineCpp(NetworkManager * /*network*/)
 {
     QString deviceId = QSysInfo::machineUniqueId();
     if (deviceId.isEmpty()) {
@@ -57,31 +54,24 @@ AnalyticsEngineCpp::AnalyticsEngineCpp(NetworkManager *network)
     const QString productName = QSysInfo::prettyProductName();
     const QString kernelVersion = QSysInfo::kernelVersion().split('-').first();
 
-    qDebug() << "Initializing Countly" << productName << kernelVersion << screenSize;
-
-    _countly = std::make_unique<Countly>(network);
-    // OS, OS_version, device, resolution, carrier, app_version);
-    _countly->setMetrics(platform, kernelVersion, productName, screenSize, Vremenar::version.data());
-    _countly->setDeviceID(deviceId);
-    _countly->setSalt(Vremenar::CountlySalt.data());
-    _countly->start(Vremenar::CountlyAppKey.data(), Vremenar::CountlyEndpoint.data());
+    // TODO(tadej): migrate
 }
 
 AnalyticsEngineCpp::~AnalyticsEngineCpp() = default;
 
 void AnalyticsEngineCpp::beginSession() const
 {
-    _countly->beginSession();
+    // TODO(tadej): migrate
 }
 
 void AnalyticsEngineCpp::updateSession() const
 {
-    _countly->updateSession();
+    // TODO(tadej): migrate
 }
 
 void AnalyticsEngineCpp::endSession() const
 {
-    _countly->endSession();
+    // TODO(tadej): migrate
 }
 
 void AnalyticsEngineCpp::recordEvent(const QString &event) const
@@ -89,7 +79,7 @@ void AnalyticsEngineCpp::recordEvent(const QString &event) const
     Q_UNUSED(event)
 
     // Events not supported at the moment
-    // _countly->recordEvent(event, 1);
+    // TODO(tadej): migrate
 }
 
 } // namespace Vremenar

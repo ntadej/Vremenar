@@ -14,12 +14,9 @@
 
 #include "application/analytics/AnalyticsEngine.h"
 
-#include <memory>
-
 namespace Vremenar
 {
 
-class Countly;
 class NetworkManager;
 
 class AnalyticsEngineCpp : public AnalyticsEngine
@@ -36,9 +33,6 @@ public:
     void endSession() const override;
 
     void recordEvent(const QString &event) const override;
-
-private:
-    std::unique_ptr<Countly> _countly;
 };
 
 } // namespace Vremenar

@@ -131,14 +131,6 @@ if(NOT CMAKE_GENERATOR STREQUAL "Xcode")
     copy_target_framework(QMapLibre::Location)
 endif()
 
-# Countly
-find_library(Countly Countly HINTS ${CARTHAGE_PATH} REQUIRED)
-if(CMAKE_GENERATOR STREQUAL "Xcode")
-    set(APPLE_MACOS_EMBED_FRAMEWORKS ${Countly})
-else()
-    file(COPY "${Countly}/macos-arm64_x86_64/Countly.framework" DESTINATION "${FRAMEWORKS_OUTPUT_PATH}")
-endif()
-
 # Firebase
 if(CMAKE_GENERATOR STREQUAL "Xcode")
     configure_file("${CMAKE_SOURCE_DIR}/GoogleService-Info.plist" "${CMAKE_BINARY_DIR}/GoogleService-Info.plist" COPYONLY)

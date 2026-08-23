@@ -30,10 +30,6 @@ constexpr QLatin1StringView mapsEndpoint("@MAPS_ENDPOINT@");
 constexpr QLatin1StringView APIEndpoint("@API_ENDPOINT@");
 constexpr QLatin1StringView AppCastEndpoint("@APPCAST_ENDPOINT@");
 
-constexpr QLatin1StringView CountlyAppKey("@COUNTLY_APPKEY@");
-constexpr QLatin1StringView CountlyEndpoint("@COUNTLY_ENDPOINT@");
-constexpr QLatin1StringView CountlySalt("@COUNTLY_SALT@");
-
 } // namespace Vremenar
 
 #endif // VREMENAR_CONFIG_H_

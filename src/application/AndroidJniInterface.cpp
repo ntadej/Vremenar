@@ -15,7 +15,6 @@
 
 #include "application/AndroidJniInterface.h"
 #include "application/NotificationsManagerAndroid.h"
-#include "application/analytics/AnalyticsEngineAndroid.h"
 
 JNIEXPORT jint JNI_OnLoad(JavaVM *vm,
                           void * /* reserved */)
@@ -42,30 +41,6 @@ JNIEXPORT jint JNI_OnLoad(JavaVM *vm,
     // register our native methods
     // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-array-to-pointer-decay)
     if (env->RegisterNatives(javaClassNotifications, methodsNotifications, sizeof(methodsNotifications) / sizeof(JNINativeMethod)) != JNI_OK) {
-        qWarning() << "Failure!";
-        return JNI_ERR;
-    }
-
-    // search for Java class which declares the native methods
-    jclass javaClassCountly = env->FindClass("si/tano/vremenar/VremenarCountlyNativeInterface");
-    if (javaClassCountly == nullptr) {
-        return JNI_ERR;
-    }
-
-    static JNINativeMethod methodsCountly[] = {
-        {"appKey",
-         "()Ljava/lang/String;",
-         reinterpret_cast<void *>(Vremenar::Android::countlyAppKey)}, // NOLINT(cppcoreguidelines-pro-type-reinterpret-cast)
-        {"endpoint",
-         "()Ljava/lang/String;",
-         reinterpret_cast<void *>(Vremenar::Android::countlyEndpoint)}, // NOLINT(cppcoreguidelines-pro-type-reinterpret-cast)
-        {"salt",
-         "()Ljava/lang/String;",
-         reinterpret_cast<void *>(Vremenar::Android::countlySalt)}}; // NOLINT(cppcoreguidelines-pro-type-reinterpret-cast)
-
-    // register our native methods
-    // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-array-to-pointer-decay)
-    if (env->RegisterNatives(javaClassCountly, methodsCountly, sizeof(methodsCountly) / sizeof(JNINativeMethod)) != JNI_OK) {
         qWarning() << "Failure!";
         return JNI_ERR;
     }

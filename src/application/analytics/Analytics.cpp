@@ -11,14 +11,7 @@
 
 #include "application/analytics/Analytics.h"
 #include "application/analytics/AnalyticsEngine.h"
-
-#if defined(Q_OS_MACOS) || defined(Q_OS_IOS)
-#include "application/analytics/AnalyticsEngineMacOSiOS.h"
-#elif defined(Q_OS_ANDROID)
-#include "application/analytics/AnalyticsEngineAndroid.h"
-#elif defined(Q_OS_LINUX) || defined(Q_OS_WINDOWS)
 #include "application/analytics/AnalyticsEngineCpp.h"
-#endif
 
 #include <QtCore/QDebug>
 #include <QtCore/QLatin1StringView>
@@ -43,15 +36,7 @@ Analytics::Analytics(NetworkManager *network,
     : QObject(parent),
       _timer(std::make_unique<QTimer>(this))
 {
-#if defined(Q_OS_MACOS) || defined(Q_OS_IOS)
-    Q_UNUSED(network)
-    _engine = std::make_unique<AnalyticsEngineMacOSiOS>();
-#elif defined(Q_OS_ANDROID)
-    Q_UNUSED(network)
-    _engine = std::make_unique<AnalyticsEngineAndroid>();
-#elif defined(Q_OS_LINUX) || defined(Q_OS_WINDOWS)
     _engine = std::make_unique<AnalyticsEngineCpp>(network);
-#endif
 
     _timer->setInterval(updateInterval);
     _timer->setSingleShot(true);

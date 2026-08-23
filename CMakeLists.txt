@@ -24,7 +24,7 @@ else()
     set(MOBILE OFF)
 endif()
 
-find_package(Qt6 6.7 COMPONENTS Gui Location Positioning Qml Quick QuickControls2 Sql REQUIRED)
+find_package(Qt6 6.7 COMPONENTS Gui GuiPrivate Location Positioning Qml Quick QuickControls2 Sql REQUIRED)
 if(NOT MOBILE)
     find_package(Qt6 6.7 COMPONENTS Widgets REQUIRED)
 endif()

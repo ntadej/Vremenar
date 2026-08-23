@@ -49,9 +49,6 @@ set(APPLE_IOS_TRANSLATIONS
 # Dependencies
 set(CARTHAGE_PATH "${CMAKE_SOURCE_DIR}/Carthage/Build")
 
-find_library(Countly Countly HINTS ${CARTHAGE_PATH} REQUIRED NO_CMAKE_FIND_ROOT_PATH)
-set(APPLE_IOS_EMBED_FRAMEWORKS ${Countly})
-
 # Firebase
 configure_file("${CMAKE_SOURCE_DIR}/GoogleService-Info.plist" "${CMAKE_BINARY_DIR}/GoogleService-Info.plist" COPYONLY)
 set(APPLE_IOS_GOOGLESERVICE "${CMAKE_BINARY_DIR}/GoogleService-Info.plist")

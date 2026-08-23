@@ -55,15 +55,8 @@ qt_add_executable(Vremenar WIN32 MACOSX_BUNDLE
     application/analytics/Analytics.h
     application/analytics/AnalyticsEngine.cpp
     application/analytics/AnalyticsEngine.h
-    $<$<PLATFORM_ID:Android>:application/analytics/AnalyticsEngineAndroid.cpp>
-    $<$<PLATFORM_ID:Android>:application/analytics/AnalyticsEngineAndroid.h>
-    $<$<OR:$<PLATFORM_ID:Linux>,$<PLATFORM_ID:Windows>>:application/analytics/AnalyticsEngineCpp.cpp>
-    $<$<OR:$<PLATFORM_ID:Linux>,$<PLATFORM_ID:Windows>>:application/analytics/AnalyticsEngineCpp.h>
-    $<$<OR:$<PLATFORM_ID:Darwin>,$<PLATFORM_ID:iOS>>:application/analytics/AnalyticsEngineMacOSiOS.h>
-    $<$<OR:$<PLATFORM_ID:Darwin>,$<PLATFORM_ID:iOS>>:application/analytics/AnalyticsEngineMacOSiOS.mm>
-    $<$<OR:$<PLATFORM_ID:Linux>,$<PLATFORM_ID:Windows>>:application/analytics/Countly.cpp>
-    $<$<OR:$<PLATFORM_ID:Linux>,$<PLATFORM_ID:Windows>>:application/analytics/Countly.h>
-    $<$<OR:$<PLATFORM_ID:Linux>,$<PLATFORM_ID:Windows>>:application/analytics/CountlyEvent.cpp>
+    application/analytics/AnalyticsEngineCpp.cpp
+    application/analytics/AnalyticsEngineCpp.h
     $<$<NOT:$<BOOL:${MOBILE}>>:application/dialogs/AboutDialog.cpp>
     $<$<NOT:$<BOOL:${MOBILE}>>:application/dialogs/AboutDialog.h>
     $<$<NOT:$<BOOL:${MOBILE}>>:application/dialogs/AboutDialog.ui>
@@ -294,12 +287,6 @@ target_include_directories(Vremenar PRIVATE
 if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
     target_link_libraries(Vremenar PRIVATE
         $<$<NOT:$<BOOL:${VREMENAR_STORE}>>:${Sparkle}>
-    )
-endif()
-
-if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin" OR IOS)
-    target_link_libraries(Vremenar PRIVATE
-        ${Countly}
     )
 endif()
 

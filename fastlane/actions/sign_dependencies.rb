@@ -4,9 +4,6 @@ module Fastlane
   module Actions
     class SignDependenciesAction < Action
       def self.run(params)
-        Actions.sh "codesign -f -s '#{params[:certificate_name]}' -o" \
-                    " runtime './Carthage/Build/Countly.xcframework/macos-arm64_x86_64/Countly.framework'"
-
         return unless Pathname.new(ENV['QMapLibre_DIR']).exist?
 
         Actions.sh "codesign -f -s '#{params[:certificate_name]}' -o" \

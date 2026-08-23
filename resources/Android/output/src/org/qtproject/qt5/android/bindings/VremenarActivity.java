@@ -32,16 +32,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;
 import java.util.List;
-import ly.count.android.sdk.Countly;
-import ly.count.android.sdk.CountlyConfig;
 import org.qtproject.qt.android.bindings.QtActivity;
-
-class VremenarCountlyNativeInterface
-{
-    public static native String appKey();
-    public static native String endpoint();
-    public static native String salt();
-}
 
 public class VremenarActivity extends QtActivity
 {
@@ -94,7 +85,7 @@ public class VremenarActivity extends QtActivity
 
     public void recordEvent(String event)
     {
-        Countly.sharedInstance().events().recordEvent(event);
+        // TODO: still needed?
     }
 
     private void askNotificationPermission()
@@ -229,28 +220,19 @@ public class VremenarActivity extends QtActivity
             new NotificationChannel("vremenar_forecast", "Forecast", NotificationManager.IMPORTANCE_LOW));
         notificationManager.createNotificationChannel(
             new NotificationChannel("vremenar_alerts", "Weather Alerts", NotificationManager.IMPORTANCE_HIGH));
-
-        // Initialise Countly
-        CountlyConfig config = new CountlyConfig(this, VremenarCountlyNativeInterface.appKey(), VremenarCountlyNativeInterface.endpoint());
-        config.setLoggingEnabled(true);
-        config.setViewTracking(false);
-        config.enableCrashReporting();
-        config.setParameterTamperingProtectionSalt(VremenarCountlyNativeInterface.salt());
-
-        Countly.sharedInstance().init(config);
     }
 
     @Override
     public void onStart()
     {
         super.onStart();
-        Countly.sharedInstance().onStart(this);
+        // TODO: still needed?
     }
 
     @Override
     public void onStop()
     {
-        Countly.sharedInstance().onStop();
+        // TODO: still needed?
         super.onStop();
     }
 
@@ -258,7 +240,7 @@ public class VremenarActivity extends QtActivity
     public void onConfigurationChanged(Configuration newConfig)
     {
         super.onConfigurationChanged(newConfig);
-        Countly.sharedInstance().onConfigurationChanged(newConfig);
+        // TODO: still needed?
     }
 
     @Override

@@ -1,5 +1,3 @@
-github "Countly/countly-sdk-ios" "25.4.6"
-
 binary "https://sparkle-project.org/Carthage/Sparkle.json"
 
 binary "https://dl.google.com/dl/firebase/ios/carthage/FirebaseAnalyticsBinary.json"
