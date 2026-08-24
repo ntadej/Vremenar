@@ -1,27 +1,27 @@
 name: Linux CI
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - "**"
-    tags:
-      - "**"
-    paths-ignore:
-      - ".gitignore"
-      - "README.md"
-      # ignore CI for other platforms
-      - ".github/workflows/CI-Android.yml"
-      - ".github/workflows/CI-iOS.yml"
-      - ".github/workflows/CI-macOS.yml"
-      - ".github/workflows/CI-Windows.yml"
+  # push:
+  #   branches:
+  #     - "**"
+  #   tags:
+  #     - "**"
+  #   paths-ignore:
+  #     - ".gitignore"
+  #     - "README.md"
+  #     # ignore CI for other platforms
+  #     - ".github/workflows/CI-Android.yml"
+  #     - ".github/workflows/CI-iOS.yml"
+  #     - ".github/workflows/CI-macOS.yml"
+  #     - ".github/workflows/CI-Windows.yml"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
 env:
-  QT_VERSION: 6.9.1
-  MAPLIBRE_VERSION: 3.1.0
+  QT_VERSION: 6.11.2
+  MAPLIBRE_VERSION: 4.0.0
 
 jobs:
   build:
@@ -39,7 +39,7 @@ jobs:
       - name: Download Qt
         uses: jurplel/install-qt-action@v4
         with:
-          aqtversion: ==3.1.*
+          aqtversion: ==3.3.*
           version: ${{ env.QT_VERSION }}
           dir: ${{ github.workspace }}
           target: desktop
@@ -48,10 +48,10 @@ jobs:
 
       - name: Download MapLibre
         run: |
-          wget https://github.com/ntadej/maplibre-native-qt/releases/download/v${MAPLIBRE_VERSION}/maplibre-native-qt_v${MAPLIBRE_VERSION}_Qt${QT_VERSION}_Linux.tar.bz2
-          tar xvf maplibre-native-qt_v${MAPLIBRE_VERSION}_Qt${QT_VERSION}_Linux.tar.bz2
+          wget https://github.com/ntadej/maplibre-native-qt/releases/download/v${MAPLIBRE_VERSION}/maplibre-native-qt_v${MAPLIBRE_VERSION}_Qt${QT_VERSION}_Linux_OpenGL.tar.bz2
+          tar xvf maplibre-native-qt_v${MAPLIBRE_VERSION}_Qt${QT_VERSION}_Linux_OpenGL.tar.bz2
 
-          echo "QMapLibre_DIR=$PWD/maplibre-native-qt_v${MAPLIBRE_VERSION}_Qt${QT_VERSION}_Linux" >> $GITHUB_ENV
+          echo "QMapLibre_DIR=$PWD/maplibre-native-qt_v${MAPLIBRE_VERSION}_Qt${QT_VERSION}_Linux_OpenGL" >> $GITHUB_ENV
 
       - name: Configure & prepare
         working-directory: source

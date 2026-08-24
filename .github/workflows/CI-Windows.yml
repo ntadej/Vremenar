@@ -21,8 +21,8 @@ concurrency:
   cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
 env:
-  QT_VERSION: 6.9.1
-  MAPLIBRE_VERSION: 3.1.0
+  QT_VERSION: 6.11.2
+  MAPLIBRE_VERSION: 4.0.0
 
 jobs:
   build-plugin:
@@ -40,7 +40,7 @@ jobs:
       - name: Download Qt
         uses: jurplel/install-qt-action@v4
         with:
-          aqtversion: ==3.1.*
+          aqtversion: ==3.3.*
           version: ${{ env.QT_VERSION }}
           target: desktop
           arch: win64_msvc2019_64
@@ -50,8 +50,8 @@ jobs:
         shell: bash
         run: |
           choco upgrade wget
-          wget.exe https://github.com/ntadej/maplibre-native-qt/releases/download/v${MAPLIBRE_VERSION}/qt-geoservices-maplibre-gl_v${MAPLIBRE_VERSION}_Qt${QT_VERSION}_win64_msvc2019.tar.bz2
-          tar xvf qt-geoservices-maplibre-gl_v${MAPLIBRE_VERSION}_Qt${QT_VERSION}_win64_msvc2019.tar.bz2 -C ..
+          wget.exe https://github.com/ntadej/maplibre-native-qt/releases/download/v${MAPLIBRE_VERSION}/maplibre-native-qt_v${MAPLIBRE_VERSION}_Qt${QT_VERSION}_Windows_OpenGL.tar.bz2
+          tar xvf maplibre-native-qt_v${MAPLIBRE_VERSION}_Qt${QT_VERSION}_Windows_OpenGL.tar.bz2 -C ..
 
       - name: Setup ninja
         uses: seanmiddleditch/gha-setup-ninja@v6

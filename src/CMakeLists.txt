@@ -205,6 +205,7 @@ target_link_libraries(Vremenar PRIVATE
     Qt::Sql
     $<$<NOT:$<BOOL:${MOBILE}>>:Qt::Widgets>
     QMapLibre::Location
+    $<$<PLATFORM_ID:Darwin>:$<LINK_LIBRARY:FRAMEWORK,AppKit>>
 )
 
 set_target_properties(Vremenar

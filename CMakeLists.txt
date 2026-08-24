@@ -25,6 +25,8 @@ else()
 endif()
 
 find_package(Qt6 6.7 COMPONENTS Gui GuiPrivate Location Positioning Qml Quick QuickControls2 Sql REQUIRED)
+# temporary
+find_package(Qt6 6.7 COMPONENTS LocationPrivate REQUIRED)
 if(NOT MOBILE)
     find_package(Qt6 6.7 COMPONENTS Widgets REQUIRED)
 endif()
