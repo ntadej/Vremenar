@@ -35,14 +35,14 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7
         with:
           path: source
           submodules: recursive
           fetch-depth: 0
 
       - name: Setup cmake
-        uses: jwlawson/actions-setup-cmake@v2.0.2
+        uses: jwlawson/actions-setup-cmake@v2.2.0
         with:
           cmake-version: "latest"
 
@@ -103,7 +103,7 @@ jobs:
           working-directory: source
 
       - name: Setup deploy key
-        uses: webfactory/ssh-agent@v0.9.1
+        uses: webfactory/ssh-agent@v0.10.0
         with:
           ssh-private-key: ${{ secrets.MATCH_GIT_PRIVATE_KEY }}
 
@@ -145,7 +145,7 @@ jobs:
           bundle exec fastlane mac ${BUILD_TYPE}
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v7
         with:
           name: macOS-package_${{ matrix.type }}
           path: source/fastlane/build/macos*/Vremenar.*

@@ -31,7 +31,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7
         with:
           path: source
           submodules: recursive
@@ -52,7 +52,7 @@ jobs:
           df -h
 
       - name: Setup cmake
-        uses: jwlawson/actions-setup-cmake@v2.0.2
+        uses: jwlawson/actions-setup-cmake@v2.2.0
         with:
           cmake-version: "latest"
 
@@ -96,7 +96,7 @@ jobs:
           working-directory: source
 
       - name: Setup deploy key
-        uses: webfactory/ssh-agent@v0.9.1
+        uses: webfactory/ssh-agent@v0.10.0
         with:
           ssh-private-key: ${{ secrets.MATCH_GIT_PRIVATE_KEY }}
 
