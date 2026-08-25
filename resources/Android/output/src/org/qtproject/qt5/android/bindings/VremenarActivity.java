@@ -76,7 +76,7 @@ public class VremenarActivity extends QtActivity
     public void setLightStatusBar(final boolean light)
     {
         WindowCompat.getInsetsController(getWindow(), getWindow().getDecorView())
-                    .setAppearanceLightStatusBars(light);
+            .setAppearanceLightStatusBars(light);
     }
 
     public void recordEvent(String event)
