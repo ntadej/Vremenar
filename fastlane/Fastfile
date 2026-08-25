@@ -27,7 +27,6 @@ platform :mac do
     create_dmg
     if ENV['DEPLOY']
       notarize package: lane_context[SharedValues::CREATE_DMG_OUTPUT_FILE],
-               bundle_id: CredentialsManager::AppfileConfig.try_fetch_value(:app_identifier),
                api_key_path: 'appstore_api.json'
     end
   end
