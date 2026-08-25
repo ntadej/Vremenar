@@ -97,38 +97,6 @@ Make Google Play Build
 
 Deploy Google Play Build
 
-### android amazon
-
-```sh
-[bundle exec] fastlane android amazon
-```
-
-Make Amazon Build
-
-### android amazon_firetv
-
-```sh
-[bundle exec] fastlane android amazon_firetv
-```
-
-Make Amazon Fire TV build
-
-### android amazon_fire32
-
-```sh
-[bundle exec] fastlane android amazon_fire32
-```
-
-Make Amazon Fire 32-bit build
-
-### android amazon_fire64
-
-```sh
-[bundle exec] fastlane android amazon_fire64
-```
-
-Make Amazon Fire 64-bit build
-
 ----
 
 

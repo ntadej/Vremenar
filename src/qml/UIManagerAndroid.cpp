@@ -25,11 +25,6 @@ Common::DeviceType Qml::UIManager::getDeviceTypeAndroid()
 {
     const QJniObject activity = Vremenar::Android::activity();
 
-    const auto isFireTV = static_cast<bool>(activity.callMethod<jboolean>("isFireTV")); // NOLINT(cppcoreguidelines-pro-type-vararg)
-    if (isFireTV) {
-        return Common::FireTV;
-    }
-
     const auto isAndroidTV = static_cast<bool>(activity.callMethod<jboolean>("isAndroidTV")); // NOLINT(cppcoreguidelines-pro-type-vararg)
     if (isAndroidTV) {
         return Common::AndroidTV;
@@ -56,6 +51,13 @@ QMargins Qml::UIManager::safeAreaMargins()
     env->ReleaseIntArrayElements(m.object<jintArray>(), mArray, JNI_ABORT);
 
     return margins;
+}
+
+void Qml::UIManager::setLightStatusBarAndroid(bool light)
+{
+    QNativeInterface::QAndroidApplication::runOnAndroidMainThread([light] {
+        Vremenar::Android::activity().callMethod<void>("setLightStatusBar", "(Z)V", static_cast<jboolean>(light));
+    });
 }
 
 void Qml::UIManager::toastAndroid(const QString &message)

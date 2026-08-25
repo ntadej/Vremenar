@@ -66,7 +66,7 @@ bool Qml::UIManager::isMobile() const
 
 bool Qml::UIManager::isTV() const
 {
-    return _device == Common::AndroidTV || _device == Common::FireTV;
+    return _device == Common::AndroidTV;
 }
 
 bool Qml::UIManager::mapOnly() const
@@ -83,6 +83,11 @@ void Qml::UIManager::setTheme(Common::Theme theme)
 {
     if (_theme != theme) {
         _theme = theme;
+
+#if defined(Q_OS_ANDROID)
+        setLightStatusBarAndroid(_theme == Common::LightTheme);
+#endif
+
         emit themeChanged();
     }
 }
@@ -135,6 +140,10 @@ void Qml::UIManager::orientationChanged(Qt::ScreenOrientation orientation)
     _currentOrientation = orientation;
 
     updateSafeAreaMargins();
+
+#if defined(Q_OS_ANDROID)
+    setLightStatusBarAndroid(_theme == Common::LightTheme);
+#endif
 
     emit geometryChanged();
 }
@@ -216,13 +225,13 @@ bool Qml::UIManager::showButtonMapType() const
 #if !defined(Q_OS_ANDROID) && defined(Q_OS_LINUX)
     return false;
 #else
-    return _device != Common::AndroidTV && _device != Common::FireTV;
+    return _device != Common::AndroidTV;
 #endif
 }
 
 bool Qml::UIManager::showButtonMapPosition() const
 {
-    return _device != Common::AndroidTV && _device != Common::FireTV;
+    return _device != Common::AndroidTV;
 }
 
 bool Qml::UIManager::showButtonMapSettings() const
@@ -230,7 +239,7 @@ bool Qml::UIManager::showButtonMapSettings() const
 #if defined(Q_OS_MACOS) || defined(Q_OS_IOS) || defined(Q_OS_WINDOWS)
     return true;
 #elif defined(Q_OS_ANDROID)
-    return _device != Common::AndroidTV && _device != Common::FireTV;
+    return _device != Common::AndroidTV;
 #else
     return false;
 #endif

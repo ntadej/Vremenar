@@ -27,7 +27,6 @@ enum DeviceType : std::uint8_t {
     iPad,
     Android,
     AndroidTV,
-    FireTV,
     DebuggingDevice,
     UnknownDevice
 };

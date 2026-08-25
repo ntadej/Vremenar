@@ -84,13 +84,18 @@ void LocationProvider::initPosition()
         return;
     }
 
+    const Settings settings(this);
+    if (!settings.locationInitialChoice()) {
+        return;
+    }
+
     QLocationPermission locationPermission;
     locationPermission.setAccuracy(QLocationPermission::Approximate);
     locationPermission.setAvailability(QLocationPermission::WhenInUse);
     switch (qApp->checkPermission(locationPermission)) {
     case Qt::PermissionStatus::Undetermined:
         qDebug() << "Requesting positioning";
-        qApp->requestPermission(locationPermission, this, &LocationProvider::initPosition);
+        qApp->requestPermission(locationPermission, this, &LocationProvider::positioningRequestFinished);
         return;
     case Qt::PermissionStatus::Denied:
         qDebug() << "Positioning not allowed";
@@ -113,6 +118,16 @@ void LocationProvider::initPosition()
     } else {
         qWarning() << "Positioning source could not be initialised.";
     }
+#endif
+}
+
+void LocationProvider::positioningRequestFinished()
+{
+#ifdef VREMENAR_POSITIONING
+    const bool positioningEnabled = enabled();
+    qDebug() << "Positioning request finished: " << positioningEnabled;
+    emit enabledChanged(positioningEnabled);
+    initPosition();
 #endif
 }
 

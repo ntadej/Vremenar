@@ -5,7 +5,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.13.2'
+        classpath 'com.android.tools.build:gradle:9.3.2'
         classpath 'com.google.gms:google-services:4.5.0'
     }
 }
@@ -14,6 +14,8 @@ repositories {
     google()
     mavenCentral()
 }
+
+apply plugin: qtGradlePluginType
 
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
@@ -28,9 +30,11 @@ dependencies {
         }
     }
 
+    implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
+    implementation 'androidx.core:core:1.17.0'
+
     implementation platform('com.google.firebase:firebase-bom:34.18.0')
     implementation 'com.google.firebase:firebase-messaging'
-    implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
 }
 
 android {
@@ -49,9 +53,7 @@ android {
      * Changing them manually might break the compilation!
      *******************************************************/
 
-    // compileSdkVersion androidCompileSdkVersion.toInteger()
-    compileSdkVersion 34
-    compileSdkExtension 12
+    compileSdkVersion androidCompileSdkVersion
     buildToolsVersion androidBuildToolsVersion
     ndkVersion androidNdkVersion
 
@@ -59,6 +61,7 @@ android {
         main {
             manifest.srcFile 'AndroidManifest.xml'
             java.srcDirs = [qtAndroidDir + '/src', 'src', 'java']
+            kotlin.srcDirs = [qtAndroidDir + '/src', 'src', 'kotlin']
             aidl.srcDirs = [qtAndroidDir + '/src', 'src', 'aidl']
             res.srcDirs = [qtAndroidDir + '/res', 'res']
             resources.srcDirs = ['resources']
@@ -70,39 +73,33 @@ android {
 
     tasks.withType(JavaCompile) {
         options.incremental = true
-        // options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+        options.compilerArgs += ['-Xlint:all']
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 
     lintOptions {
         abortOnError false
     }
 
-    // Do not compress Qt binary resources file
     aaptOptions {
+        // Do not compress Qt binary resources file
         noCompress 'rcc'
     }
 
     packagingOptions {
-        exclude 'META-INF/DEPENDENCIES'
-        exclude 'META-INF/NOTICE'
-        exclude 'META-INF/LICENSE'
-        exclude 'META-INF/LICENSE.txt'
-        exclude 'META-INF/NOTICE.txt'
-
         jniLibs {
-            useLegacyPackaging = true
+            useLegacyPackaging = legacyPackaging.toBoolean()
         }
     }
 
     defaultConfig {
         resConfig "en"
         minSdkVersion qtMinSdkVersion
-        targetSdkVersion 34
+        targetSdkVersion qtTargetSdkVersion
         ndk.abiFilters = qtTargetAbiList.split(",")
     }
 }

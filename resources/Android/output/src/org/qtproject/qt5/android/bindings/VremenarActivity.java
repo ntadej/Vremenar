@@ -18,14 +18,16 @@ import android.app.UiModeManager;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
-import android.graphics.Insets;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowInsets;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailabilityLight;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -48,12 +50,6 @@ public class VremenarActivity extends QtActivity
         return false;
     }
 
-    public boolean isFireTV()
-    {
-        final String AMAZON_FEATURE_FIRE_TV = "amazon.hardware.fire_tv";
-        return getPackageManager().hasSystemFeature(AMAZON_FEATURE_FIRE_TV);
-    }
-
     public boolean checkPlayServices()
     {
         int resultCode = GoogleApiAvailabilityLight.getInstance().isGooglePlayServicesAvailable(this);
@@ -64,23 +60,23 @@ public class VremenarActivity extends QtActivity
     {
         int[] margins = new int[4];
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            View decorView = getWindow().getDecorView();
-            Insets insets = decorView.getRootWindowInsets().getInsetsIgnoringVisibility(WindowInsets.Type.systemBars());
+        View decorView = getWindow().getDecorView();
+        WindowInsetsCompat windowInsets = ViewCompat.getRootWindowInsets(decorView);
+        if (windowInsets != null) {
+            Insets insets = windowInsets.getInsetsIgnoringVisibility(WindowInsetsCompat.Type.systemBars());
             margins[0] = insets.top;
             margins[1] = insets.bottom;
             margins[2] = insets.left;
             margins[3] = insets.right;
-        } else {
-            View decorView = getWindow().getDecorView();
-            WindowInsets insets = decorView.getRootWindowInsets();
-            margins[0] = insets.getStableInsetTop();
-            margins[1] = insets.getStableInsetBottom();
-            margins[2] = insets.getStableInsetLeft();
-            margins[3] = insets.getStableInsetRight();
         }
 
         return margins;
+    }
+
+    public void setLightStatusBar(final boolean light)
+    {
+        WindowCompat.getInsetsController(getWindow(), getWindow().getDecorView())
+                    .setAppearanceLightStatusBars(light);
     }
 
     public void recordEvent(String event)
@@ -122,6 +118,8 @@ public class VremenarActivity extends QtActivity
                 Log.d(TAG, "Notifications permission not granted.");
             }
             return;
+        default:
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
 
@@ -130,6 +128,10 @@ public class VremenarActivity extends QtActivity
         return checkPlayServices();
     }
 
+    // FCM's replacement, register()/onRegistered(), requires the
+    // firebase_messaging_installation_id_enabled manifest flag and switches
+    // registration to the FID-based path. Keep the current API until we migrate.
+    @SuppressWarnings("deprecation")
     public boolean requestNotifications()
     {
         if (!checkPlayServices() || notificationsRequested) {
@@ -209,10 +211,8 @@ public class VremenarActivity extends QtActivity
 
         super.onCreate(savedInstanceState);
 
-        View decorView = getWindow().getDecorView();
-        // Hide the status bar.
-        int uiOptions = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
-        decorView.setSystemUiVisibility(uiOptions);
+        // Lay out behind the system bars.
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
 
         // Initialise notifications
         NotificationManager notificationManager = getSystemService(NotificationManager.class);
@@ -248,9 +248,7 @@ public class VremenarActivity extends QtActivity
     {
         super.onWindowFocusChanged(hasFocus);
 
-        View decorView = getWindow().getDecorView();
-        // Hide the status bar.
-        int uiOptions = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
-        decorView.setSystemUiVisibility(uiOptions);
+        // Lay out behind the system bars.
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
     }
 }

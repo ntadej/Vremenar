@@ -71,6 +71,10 @@ public class VremenarMessagingService extends FirebaseMessagingService
      * B) User uninstalls/reinstalls the app
      * C) User clears app data
      */
+    // FCM's replacement, register()/onRegistered(), requires the
+    // firebase_messaging_installation_id_enabled manifest flag and switches
+    // registration to the FID-based path. Keep the current callback until we migrate.
+    @SuppressWarnings("deprecation")
     @Override
     public void onNewToken(String token)
     {

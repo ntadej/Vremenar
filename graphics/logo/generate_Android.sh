@@ -33,13 +33,11 @@ do
     rm "$OUT_gen/${android[$i]}/shape.png" "$OUT_gen/${android[$i]}/shape_adaptive.png" "$OUT_gen/${android[$i]}/shape_adaptive_large.png"
 done
 
-# For web & Amazon
+# For web
 $inkscape -o "$OUT/generated/shape.png" --export-area "$area" -w 512 "$DIR/shape.svg"
 $inkscape -o "$OUT/generated/background.png" -w 512 "$DIR/background_square.svg"
 magick composite -gravity center "$OUT/generated/shape.png" "$OUT/generated/ic_launcher-web.png" "$OUT/ic_launcher-web.png"
 magick composite -gravity center "$OUT/generated/shape.png" "$OUT/generated/background.png" "$OUT/icon_large.png"
-cp "$OUT/ic_launcher-web.png" "$OUT/amazon_large.png"
-convert "$OUT_res/mipmap-xxhdpi/ic_launcher.png" -gravity center -crop 114x114+0+0 +repage "$OUT/amazon_small.png"
 rm "$OUT/generated/shape.png" "$OUT/generated/background.png"
 
 # TV
@@ -53,9 +51,5 @@ $inkscape -o "$OUT_gen/name_large.png" -w 720 "$DIR/name.svg"
 echo magick composite "$OUT_gen/shape.png" "$OUT_gen/background.png" "$OUT_res/drawable/tv_banner.png"
 magick composite -gravity West "$OUT_gen/shape.png" "$OUT_gen/background.png" "$OUT_res/drawable-xhdpi/tv_banner.png"
 magick composite -gravity East "$OUT_gen/name.png" "$OUT_res/drawable-xhdpi/tv_banner.png" "$OUT_res/drawable-xhdpi/tv_banner.png"
-
-echo magick composite "$OUT_gen/shape_large.png" "$OUT_gen/background_large.png" "$OUT/amazon_tv.png"
-magick composite -gravity West "$OUT_gen/shape_large.png" "$OUT_gen/background_large.png" "$OUT/amazon_tv.png"
-magick composite -gravity East "$OUT_gen/name_large.png" "$OUT/amazon_tv.png" "$OUT/amazon_tv.png"
 
 rm "$OUT_gen/shape.png" "$OUT_gen/shape_large.png" "$OUT_gen/name.png" "$OUT_gen/name_large.png" "$OUT_gen/background.png" "$OUT_gen/background_large.png"

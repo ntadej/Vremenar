@@ -13,9 +13,9 @@ import QtQuick 2.12
 
 Item {
     FontLoader {
-        source: "data/MaterialIcons-Regular.ttf"
+        source: "qrc:/Vremenar/fonts/data/MaterialIcons-Regular.ttf"
     }
     FontLoader {
-        source: "data/MaterialIconsOutlined-Regular.otf"
+        source: "qrc:/Vremenar/fonts/data/MaterialIconsOutlined-Regular.otf"
     }
 }

@@ -156,50 +156,6 @@ platform :android do
            release_status: 'draft',
            track: 'internal'
   end
-
-  desc 'Make Amazon Build'
-  lane :amazon do
-    build_number offset: 0
-    run_cmake platform: 'android',
-              build_type: 'store/amazon',
-              build_path: 'fastlane/build/android_amazon/cmake',
-              output_path: 'fastlane/build/android_amazon'
-    ninja
-    create_android_package
-  end
-
-  desc 'Make Amazon Fire TV build'
-  lane :amazon_firetv do
-    build_number offset: -1
-    run_cmake platform: 'android',
-              build_type: 'store/firetv',
-              build_path: 'fastlane/build/android_amazon_firetv/cmake',
-              output_path: 'fastlane/build/android_amazon_firetv'
-    ninja
-    create_android_package
-  end
-
-  desc 'Make Amazon Fire 32-bit build'
-  lane :amazon_fire32 do
-    build_number offset: -2
-    run_cmake platform: 'android',
-              build_type: 'store/fire32',
-              build_path: 'fastlane/build/android_amazon_fire32/cmake',
-              output_path: 'fastlane/build/android_amazon_fire32'
-    ninja
-    create_android_package
-  end
-
-  desc 'Make Amazon Fire 64-bit build'
-  lane :amazon_fire64 do
-    build_number offset: -3
-    run_cmake platform: 'android',
-              build_type: 'store/fire64',
-              build_path: 'fastlane/build/android_amazon_fire64/cmake',
-              output_path: 'fastlane/build/android_amazon_fire64'
-    ninja
-    create_android_package
-  end
 end
 
 platform :windows do

@@ -30,7 +30,7 @@ jobs:
     runs-on: ubuntu-24.04
     strategy:
       matrix:
-        type: [play, amazon, amazon_firetv, amazon_fire32, amazon_fire64]
+        type: [play]
 
     steps:
       - name: Checkout
@@ -42,7 +42,6 @@ jobs:
 
       - name: Download Qt (armv7)
         id: qt-android-armv7
-        if: matrix.type != 'amazon_fire64'
         uses: jurplel/install-qt-action@v4
         with:
           aqtversion: ==3.3.*
@@ -53,7 +52,6 @@ jobs:
 
       - name: Download Qt (arm64_v8a)
         id: qt-android-arm64_v8a
-        if: matrix.type != 'amazon_fire32' && matrix.type != 'amazon_firetv'
         uses: jurplel/install-qt-action@v4
         with:
           aqtversion: ==3.3.*
@@ -64,7 +62,6 @@ jobs:
 
       - name: Download Qt (x86)
         id: qt-android-x86
-        if: matrix.type != 'amazon_fire32' && matrix.type != 'amazon_fire64' && matrix.type != 'amazon_firetv'
         uses: jurplel/install-qt-action@v4
         with:
           aqtversion: ==3.3.*
@@ -75,7 +72,6 @@ jobs:
 
       - name: Download Qt (x86_64)
         id: qt-android-x86_64
-        if: matrix.type != 'amazon_fire32' && matrix.type != 'amazon_fire64' && matrix.type != 'amazon_firetv'
         uses: jurplel/install-qt-action@v4
         with:
           aqtversion: ==3.3.*
@@ -150,7 +146,7 @@ jobs:
           signingKey: ${{ secrets.ANDROID_SIGNING_KEY }}
           keyAlias: ${{ secrets.ANDROID_KEY_ALIAS }}
           keyStorePassword: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
-          buildToolsVersion: 34.0.0
+          buildToolsVersion: 36.0.0
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v7

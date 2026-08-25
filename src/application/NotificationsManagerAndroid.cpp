@@ -39,9 +39,8 @@ bool NotificationsManager::nativeSupported() const
 {
     const QJniObject activity = Vremenar::Android::activity();
 
-    const auto isFireTV = static_cast<bool>(activity.callMethod<jboolean>("isFireTV"));
     const auto isAndroidTV = static_cast<bool>(activity.callMethod<jboolean>("isAndroidTV"));
-    if (isFireTV || isAndroidTV) {
+    if (isAndroidTV) {
         return false;
     }
 

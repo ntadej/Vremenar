@@ -257,6 +257,7 @@ private:
 #endif
 #ifdef Q_OS_ANDROID
     static Common::DeviceType getDeviceTypeAndroid();
+    static void setLightStatusBarAndroid(bool light);
     static void toastAndroid(const QString &message);
 #endif
 

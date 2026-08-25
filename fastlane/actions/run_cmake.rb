@@ -92,21 +92,7 @@ module Fastlane
         when 'android'
           command += " -G Ninja -DCMAKE_BUILD_TYPE='RelWithDebInfo'"
           command += " -DCMAKE_C_COMPILER_LAUNCHER='ccache' -DCMAKE_CXX_COMPILER_LAUNCHER='ccache'"
-          case params[:build_type]
-          when 'store/play'
-            command += " -DQT_ANDROID_ABIS='armeabi-v7a;arm64-v8a;x86_64;x86'"
-          when 'store/firetv'
-            command += " -DQT_ANDROID_ABIS='armeabi-v7a'"
-            command += ' -DVREMENAR_POSITIONING=OFF'
-          when 'store/fire32'
-            command += " -DQT_ANDROID_ABIS='armeabi-v7a'"
-          when 'store/fire64'
-            command += " -DQT_ANDROID_ABIS='arm64-v8a'"
-          when 'store/amazon'
-            command += " -DQT_ANDROID_ABIS='armeabi-v7a;arm64-v8a;x86_64;x86'"
-          else
-            command += " -DQT_ANDROID_ABIS='armeabi-v7a;arm64-v8a;x86_64;x86'"
-          end
+          command += " -DQT_ANDROID_ABIS='armeabi-v7a;arm64-v8a;x86_64;x86'"
         when 'linux'
           command += " -G Ninja -DCMAKE_BUILD_TYPE='Release'"
           command += " -DCMAKE_C_COMPILER_LAUNCHER='ccache' -DCMAKE_CXX_COMPILER_LAUNCHER='ccache'"

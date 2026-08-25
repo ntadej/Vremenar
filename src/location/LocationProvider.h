@@ -73,6 +73,7 @@ private slots:
 
 private:
     void initPosition();
+    void positioningRequestFinished();
 
     std::unique_ptr<QTimer> _timer;
 
