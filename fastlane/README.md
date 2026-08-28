@@ -73,10 +73,10 @@ Make a store build
 
 ## Android
 
-### android testbuild
+### android development
 
 ```sh
-[bundle exec] fastlane android testbuild
+[bundle exec] fastlane android development
 ```
 
 Make a development build

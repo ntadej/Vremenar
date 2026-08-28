@@ -129,13 +129,14 @@ end
 
 platform :android do
   desc 'Make a development build'
-  lane :testbuild do
+  lane :development do
     build_number
     run_cmake platform: 'android',
               build_type: 'development',
-              build_path: 'fastlane/build/android/cmake',
-              output_path: 'fastlane/build/android'
+              build_path: 'fastlane/build/android_development/cmake',
+              output_path: 'fastlane/build/android_development'
     ninja
+    create_android_package
   end
 
   desc 'Make Google Play Build'
