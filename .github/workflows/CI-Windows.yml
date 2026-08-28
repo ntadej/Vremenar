@@ -44,7 +44,7 @@ jobs:
           version: ${{ env.QT_VERSION }}
           target: desktop
           arch: win64_msvc2019_64
-          modules: qtlocation qtpositioning
+          modules: qtlocation qtpositioning qtshadertools qt5compat
 
       - name: Download MapLibre
         shell: bash

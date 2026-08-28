@@ -68,7 +68,7 @@ jobs:
           aqtversion: ==3.3.*
           version: ${{ env.QT_VERSION }}
           target: desktop
-          modules: qtlocation qtpositioning qt5compat
+          modules: qtlocation qtpositioning qtshadertools qt5compat
 
       - name: Download Qt patches
         if: matrix.type == 'developer_id'

@@ -43,7 +43,7 @@ jobs:
           version: ${{ env.QT_VERSION }}
           dir: ${{ github.workspace }}
           target: desktop
-          modules: qtlocation qtpositioning qt5compat
+          modules: qtlocation qtpositioning qtshadertools qt5compat
           tools: tools_cmake
 
       - name: Download MapLibre
